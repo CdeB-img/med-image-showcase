@@ -1,0 +1,73 @@
+{
+  "MISSION_ID": "PROTOCOL_DESIGNER_MULTI_SESSION_LIVE_CAMPAIGN_SAFETY_01",
+  "BASELINE_HEAD": "5c3a559deae3388555ec8aa08543c1242b3c80c8",
+  "CAMPAIGN_MULTI_SESSION_CONTRACT": "PASS",
+  "CAMPAIGN_LEVEL_BUDGET_LEDGER": "PASS",
+  "SESSION_LEVEL_PROVENANCE": "PASS",
+  "NO_BUDGET_RESET_BY_SESSION": "PASS",
+  "NO_BUDGET_RESET_BY_RESTART": "PASS",
+  "CROSS_SESSION_CONCURRENCY": "PASS",
+  "SINGLE_ATTEMPT_ALL_SESSIONS": "PASS",
+  "HISTORICAL_SINGLE_SESSION_COMPATIBILITY": "PASS",
+  "POLICY_SERVER_SIDE_IMMUTABLE": "PASS",
+  "DRY_RUN_5_SESSIONS": "PASS",
+  "DRY_RUN_POLICY": {
+    "maxSessions": 5,
+    "measuredSoftStopUsd": 3,
+    "absoluteHardBoundUsd": 10
+  },
+  "HISTORICAL_DEFAULTS_USD": {
+    "soft": 1,
+    "hard": 6
+  },
+  "PROVIDER_CALLS": 0,
+  "ACTUAL_NEW_COST_USD": 0,
+  "DRY_RUN_SIMULATED_MEASURED_COST_USD": 0.3198275,
+  "DRY_RUN_SIMULATED_COMMITTED_COST_USD": 0.319835,
+  "FULL_SUITE": {
+    "passed": 4253,
+    "failed": 0,
+    "unhandled": 0,
+    "pending": 12,
+    "todo": 1,
+    "testFiles": 275,
+    "receipt": "qualification/full-suite-sealed-receipt.json",
+    "unhandledEvidence": "exitCode 0, success true, no unhandled output; no ignoreUnhandledErrors setting or CLI flag"
+  },
+  "DEDICATED_TESTS": {
+    "passed": 94,
+    "failed": 0,
+    "receipt": "qualification/dedicated-sealed.json",
+    "additionalAffectedBridge": "14/14 PASS in full suite: pass3a-bridge-lifecycle.test.ts"
+  },
+  "TYPESCRIPT": "PASS",
+  "BUILD": "PASS",
+  "AFFECTED_LINT": "PASS",
+  "PRODUCT_SCIENTIFIC_FILES_CHANGED": 0,
+  "PRODUCT_SAFETY_CONFIG_FILES_CHANGED": 3,
+  "TEST_FILES_CHANGED": 2,
+  "CONTRADICTORY_REVIEW": "PASS; five demonstrated counterexamples repaired and requalified in the same task",
+  "DRY_RUN_SCOPE": "five existing first-turn synthetic browser requests through real local middleware and product bridge; no full scientific trajectories or real browser session qualification",
+  "P1_COMPLETE": "NO",
+  "P1_EXIT_GATE": "NOT_SATISFIED",
+  "WAVE_2_AUTHORIZED": "NO",
+  "NEXT_ACTION": "NEW_EXPLICITLY_AUTHORIZED_MULTI_SESSION_LIVE_EVIDENCE_ACQUISITION",
+  "commitStatus": "QUALIFIED_AWAITING_LOCAL_COMMIT",
+  "postCommitReceipt": "final-state.json",
+  "qualificationEvidenceHashes": {
+    "qualification/full-suite-sealed.json": "fcce51b32955c0be4204078a58f4b39207d30ac2453f2252ef70bf6e52ada9a1",
+    "qualification/full-suite-sealed.log": "800b569e3e4b21d30e74f5b999daafb0ee4e9d7efe5a5351523bc8d81326f472",
+    "qualification/full-suite-sealed-receipt.json": "fc5f9a7f333902ac66bb1a5d3bd376bbe16c64223f6ee89fef28e6f2ebe63d1f",
+    "qualification/build-sealed.log": "6fe75bccd99a6a9476bf4645aa28efae1fd2cd53919734cdb578c14d5642845b",
+    "qualification/lint-affected-sealed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification/lint-restart-script-sealed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification/dedicated-sealed.json": "a394a98a162942bad5de40c1e484331d2fefee3567692c203fa3a8802645feb0",
+    "dry-run-sealed/receipt.json": "a15f713d0356b675cb6e17bea05759c6ffd82966d60c95bcabda5b3a15590ce4",
+    "qualification/restart-and-history-sealed.json": "6e77072c2af4e53aeeae80840af35357817b85303a97843e2680dbce5c0d9acb"
+  },
+  "offlineGuard": {
+    "path": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "sha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae"
+  },
+  "at": "2026-09-15T06:41:30.622306+00:00"
+}

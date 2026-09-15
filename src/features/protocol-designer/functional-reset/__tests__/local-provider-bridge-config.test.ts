@@ -5,7 +5,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { ViteDevServer } from "vite";
 import { describe, expect, it, vi } from "vitest";
 import { languageProjectionIdentityDigest } from "../../conversation-language-gateway";
-import { SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../../api/protocol-designer-canary-policy";
+import { SINGLE_ATTEMPT_FAIL_CLOSED, createCanaryCampaignPolicy, QUALIFIED_CAMPAIGN_MODELS } from "../../../../../api/protocol-designer-canary-policy";
 
 vi.mock("vite", () => ({
   defineConfig: (configuration: unknown) => configuration,
@@ -16,6 +16,36 @@ vi.mock("@vitejs/plugin-react-swc", () => ({ default: () => ({ name: "react-test
 const loadLocalBridgeConfiguration = () => import("../../../../../vite.config");
 
 describe("P1-UX-RESTORE-01H-R — local provider bridge parity", () => {
+  it("MULTI_SESSION_14: browser body cannot replace the immutable server campaign policy", async () => {
+    const root = mkdtempSync(path.join(tmpdir(), "noxia-campaign-browser-policy-"));
+    try {
+      const { localProductBridge } = await loadLocalBridgeConfiguration();
+      const campaignPolicy = createCanaryCampaignPolicy({ campaignId: "server-owned", maxSessions: 5, measuredSoftStopUsd: 3,
+        absoluteHardBoundUsd: 10, singleAttemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, allowedProviderModels: QUALIFIED_CAMPAIGN_MODELS,
+        createdAt: "2026-09-15T00:00:00.000Z" });
+      const sourceText = "A study remains pending.";
+      const body = { apiVersion: "1.0.0", operation: "LANGUAGE_PROJECTION", projectionKind: "INPUT_TO_FRENCH",
+        sourceText, sourceLanguageHint: "en", targetLanguage: "fr", translationContractVersion: "1.4.0",
+        projectionIdentityDigest: languageProjectionIdentityDigest({ projectionKind: "INPUT_TO_FRENCH", sourceText,
+          sourceLanguage: "en", targetLanguage: "fr", provider: "OPENAI", model: "gpt-5.6-luna", protectedOpaqueLiterals: [] }),
+        observabilityContext: { sessionId: "s1", conversationId: "c1", turnId: "t1", clientRequestId: "r1", testSessionId: "offline" },
+        campaignPolicy: { ...campaignPolicy, maxSessions: 100, absoluteHardBoundUsd: 100 }, campaignId: "client-owned" };
+      const fetchMock = vi.fn(async () => new Response(JSON.stringify({ model: "gpt-5.6-luna", status: "completed", output_text: "{}",
+        usage: { input_tokens: 1000, output_tokens: 100 } })));
+      const plugin = localProductBridge({ apiKey: "synthetic", openAiApiKey: "synthetic", geminiModel: "gemini-3.5-flash-lite",
+        openAiExtractionModel: "gpt-5.6-terra" }, root, { attemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: campaignPolicy.campaignId, campaignPolicy }, fetchMock);
+      const use = vi.fn();
+      if (typeof plugin.configureServer !== "function") throw new Error("Expected middleware hook");
+      await plugin.configureServer({ middlewares: { use } } as unknown as ViteDevServer);
+      const request = { method: "POST", url: "/protocol-designer-bridge", async *[Symbol.asyncIterator]() { yield Buffer.from(JSON.stringify(body)); } };
+      const response = { statusCode: 200, setHeader: vi.fn(), end: vi.fn() };
+      await use.mock.calls[0][1](request, response, vi.fn());
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(JSON.parse(readFileSync(path.join(root, "canary-server-owned", "campaign-policy.json"), "utf8"))).toEqual(campaignPolicy);
+      const journal = readFileSync(path.join(root, "canary-server-owned", "protocol-designer-exchanges.jsonl"), "utf8");
+      expect(journal).toContain("COMPLETED");
+    } finally { rmSync(root, { recursive: true }); }
+  });
   it("dry-run: the real local middleware applies recording/budget/policy and cannot fall through to another API", async () => {
     const root = mkdtempSync(path.join(tmpdir(), "noxia-canary-local-dry-run-"));
     try {

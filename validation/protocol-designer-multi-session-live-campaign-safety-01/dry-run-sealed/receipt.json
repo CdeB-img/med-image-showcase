@@ -1,0 +1,86 @@
+{
+  "MULTI_SESSION_ACQUISITION_DRY_RUN": "PASS",
+  "DRY_RUN_5_SESSIONS": "PASS",
+  "policy": {
+    "campaignId": "synthetic-qualified-multisession",
+    "maxSessions": 5,
+    "measuredSoftStopUsd": 3,
+    "absoluteHardBoundUsd": 10,
+    "singleAttemptPolicy": "SINGLE_ATTEMPT_FAIL_CLOSED",
+    "allowedProviderModels": [
+      "gpt-5.6-luna",
+      "gpt-5.6-terra",
+      "gemini-3.5-flash-lite"
+    ],
+    "createdAt": "2026-09-15T00:00:00.000Z",
+    "policyDigest": "4cd8617097da7ecdd14ed0906fde32166fb3daf71f6471f6af9bcc580b15173f"
+  },
+  "scenarios": [
+    {
+      "scenario": "A01",
+      "sessionId": "protocol-designer-session:bff995cb-d0f3-42e3-83a6-c78906fd364a",
+      "conversationId": "scientific-conversation:9578f720-ec87-4343-84a6-558cedbd5181",
+      "calls": 1,
+      "committedUsd": 0.063967,
+      "measuredUsd": 0.0639655,
+      "strictReplay": "PASS",
+      "responseStatus": 200
+    },
+    {
+      "scenario": "A02",
+      "sessionId": "protocol-designer-session:bd81c13d-de4c-4591-97dd-839f6b891f67",
+      "conversationId": "scientific-conversation:f568bc51-2e70-4b89-8d8d-0d2f1b8b72e6",
+      "calls": 1,
+      "committedUsd": 0.127934,
+      "measuredUsd": 0.127931,
+      "strictReplay": "PASS",
+      "responseStatus": 200
+    },
+    {
+      "scenario": "A04",
+      "sessionId": "protocol-designer-session:c5793d70-e3d3-4189-be9f-950f99bedbbd",
+      "conversationId": "scientific-conversation:210eb251-c3d3-407e-a114-34ac70a2ae56",
+      "calls": 1,
+      "committedUsd": 0.191901,
+      "measuredUsd": 0.1918965,
+      "strictReplay": "PASS",
+      "responseStatus": 200
+    },
+    {
+      "scenario": "B01",
+      "sessionId": "protocol-designer-session:6732ac74-742e-43ef-98c9-75d43ca0821f",
+      "conversationId": "scientific-conversation:7b5ef47e-3c4a-4a11-8a4f-46b91ec07f76",
+      "calls": 1,
+      "committedUsd": 0.255868,
+      "measuredUsd": 0.255862,
+      "strictReplay": "PASS",
+      "responseStatus": 200
+    },
+    {
+      "scenario": "F01",
+      "sessionId": "protocol-designer-session:a15244ed-c87b-40e4-bd23-5ef38f8b5700",
+      "conversationId": "scientific-conversation:f985fb8e-b020-40ac-ad20-39e1dc35caa1",
+      "calls": 1,
+      "committedUsd": 0.319835,
+      "measuredUsd": 0.3198275,
+      "strictReplay": "PASS",
+      "responseStatus": 200
+    }
+  ],
+  "syntheticProviderTransports": 5,
+  "PROVIDER_CALLS": 0,
+  "measuredCostSimulationUsd": 0.3198275,
+  "committedCostSimulationUsd": 0.319835,
+  "beforeTransportPrepared": true,
+  "singleAttempt": true,
+  "sessionLimit": "PASS",
+  "hardBoundAdmissionProbe": "PASS",
+  "softStopAdmissionProbe": "PASS",
+  "STRICT_OFFLINE_REPLAY_ALL_SESSIONS": "PASS",
+  "journalUnchangedByReplay": true,
+  "journalSha256": "248033fba930351892cae2ccaf203427a8f3a4c97a38d803058950a37719c565",
+  "fixtureSourceSha256": "cbfcf589d2bc12fad932cf68c61e2159ca95ce04ab17ef90ea09e54cc803d6c2",
+  "evidenceRoot": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-multi-session-live-campaign-safety-01/dry-run-sealed/private/canary-synthetic-qualified-multisession",
+  "scope": "Real local middleware and bridge, five existing synthetic first-turn browser requests; no browser/scientific trajectory qualification claimed.",
+  "nonzeroUsageRole": "Existing recorded usage reused only for synthetic budget simulation; responses and scenario texts remain the existing frozen offline fixtures. No actual charge."
+}

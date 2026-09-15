@@ -1,0 +1,13 @@
+{
+  "baselineHead": "5c3a559deae3388555ec8aa08543c1242b3c80c8",
+  "branch": "protocol-designer-canonical-ingestion",
+  "files": {
+    "api/protocol-designer-canary-policy.ts": "0c12180fe56857f7d9aaa3b0a317e3eb085bdaa3245b01b52697dc0e1629d8b0",
+    "api/protocol-designer-provider-replay.ts": "849db262a12a4e565dace9c6892f4f28f57c6a1dc24a1763028a8da193ed4d8c",
+    "vite.config.ts": "d82bbc2d83bb6cabd3ca2116bc0b64e9cb16e0b9d57df1735c395fab2d3cf17e",
+    "src/features/protocol-designer/__tests__/multi-session-campaign-safety.test.ts": "e4eac7b010256153b500b81647c093ee663a42c360edea776346c9bcb7df94b2",
+    "src/features/protocol-designer/functional-reset/__tests__/local-provider-bridge-config.test.ts": "6c7a7edfe40a9e73136f49dfe5e0c6c44ba519e47eba78c3cedf2361ef8acc34"
+  },
+  "trackedDiffSha256": "be91cf43eb4a1055d48a84e89ff46d5a342b62515ab6114697a1aab48f4ecba2",
+  "qualificationFreeze": "qualification/source-freeze-sealed.json"
+}

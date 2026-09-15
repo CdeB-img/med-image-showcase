@@ -1,0 +1,658 @@
+# NOXIA — MULTI-SESSION LIVE CAMPAIGN SAFETY CONTRACT 01
+
+ASTRA_REASONING_RECOMMENDATION = ULTRA
+
+MISSION_ID =
+PROTOCOL_DESIGNER_MULTI_SESSION_LIVE_CAMPAIGN_SAFETY_01
+
+MODE =
+BOUNDED_SAFETY_CONTRACT_EXTENSION
+OFFLINE_ONLY
+
+EXECUTION_SAFETY =
+INTERRUPTION_SAFE_REQUIRED
+
+REPOSITORY =
+/Users/charles/Documents/Projets/NOXIA/noxia-dev
+
+EXPECTED_BRANCH =
+protocol-designer-canonical-ingestion
+
+EXPECTED_BASELINE =
+5c3a559deae3388555ec8aa08543c1242b3c80c8
+
+Vérifier HEAD, index, worktree et artefacts avant modification.
+
+===============================================================================
+0. CONTEXTE
+===============================================================================
+
+La campagne :
+
+PROTOCOL_DESIGNER_V1_MULTI_SESSION_LIVE_EVIDENCE_ACQUISITION_01
+
+s'est arrêtée au preflight avec :
+
+LIVE_ACQUISITION_PREFLIGHT = FAIL
+PROVIDER_CALLS = 0
+TOTAL_MEASURED_COST_USD = 0
+PRODUCT_FILES_MODIFIED = 0
+
+Deux limites ont été établies :
+
+A.
+le contrat de sécurité actuel lie une campagne à une seule session.
+
+Une deuxième session indépendante sous le même journal provoque :
+
+CANARY_SESSION_MISMATCH
+
+Ce comportement est actuellement intentionnel et qualifié.
+
+B.
+la politique canary actuelle est fixée à :
+
+MEASURED_COST_SOFT_STOP_USD = 1.00
+ABSOLUTE_HARD_CAMPAIGN_BOUND_USD = 6.00
+
+alors que la future campagne d'acquisition autorisée devra pouvoir utiliser un
+profil distinct, par exemple :
+
+MEASURED_COST_SOFT_STOP_USD = 3.00
+ABSOLUTE_HARD_CAMPAIGN_BOUND_USD = 10.00
+
+La mission actuelle ne lance AUCUN provider.
+
+Elle doit uniquement définir et qualifier le contrat de sécurité permettant :
+
+ONE CAMPAIGN
+→ MULTIPLE INDEPENDENT SESSIONS
+→ ONE SHARED CAMPAIGN BUDGET
+→ NO BUDGET RESET BY SESSION CHANGE.
+
+===============================================================================
+1. INVARIANTS ABSOLUS
+===============================================================================
+
+Le nouveau contrat doit préserver :
+
+SINGLE_ATTEMPT_FAIL_CLOSED
+
+MAX_PROVIDER_ATTEMPTS_PER_LOGICAL_CALL = 1
+
+REQUEST_PREPARED before provider transport
+
+COMPLETED after provider response
+
+strict record/replay
+
+fail closed on unknown cost
+
+fail closed on corrupt/missing evidence
+
+exclusive admission around budget reservation
+
+no silent live fallback
+
+no client-controlled budget
+
+no client-controlled campaign policy
+
+Aucune nouvelle session ne doit pouvoir recréer un budget.
+
+Invariant principal :
+
+SUM(all committed cost across every session in campaign)
++
+conservative_upper_bound(next_call)
+<=
+campaign_absolute_hard_bound
+
+===============================================================================
+2. CAMPAGNE ≠ SESSION
+===============================================================================
+
+Séparer explicitement :
+
+CAMPAIGN_ID
+SESSION_ID
+PROJECT_ID
+LOGICAL_CALL_ID
+
+CAMPAIGN_ID possède :
+
+- politique budgétaire ;
+- cumulative measured cost ;
+- cumulative committed upper bound ;
+- campaign lifecycle ;
+- campaign evidence root ;
+- allowed provider contract ;
+- immutable safety configuration.
+
+SESSION_ID possède :
+
+- identité conversationnelle ;
+- Project ;
+- turns ;
+- appels propres à cette session ;
+- provenance locale.
+
+Une campagne peut contenir plusieurs SESSION_ID distincts.
+
+Une SESSION_ID appartient à UNE seule campagne.
+
+Changer SESSION_ID :
+
+NE DOIT PAS
+- reset le budget ;
+- reset la preuve ;
+- recréer un hard bound ;
+- autoriser un retry ;
+- effacer les consommations précédentes.
+
+===============================================================================
+3. POLITIQUE DE CAMPAGNE SERVER-SIDE
+===============================================================================
+
+La politique doit être :
+
+- définie côté serveur ;
+- explicite ;
+- liée au CAMPAIGN_ID ;
+- figée avant le premier appel ;
+- persistée avec les preuves ;
+- non modifiable par le body navigateur ;
+- non modifiable après première dépense.
+
+Contrat minimal :
+
+CAMPAIGN_POLICY = {
+  campaignId,
+  maxSessions,
+  measuredSoftStopUsd,
+  absoluteHardBoundUsd,
+  singleAttemptPolicy,
+  allowedProviderModels,
+  createdAt,
+  policyDigest
+}
+
+Pour la future acquisition :
+
+maxSessions = 5
+
+measuredSoftStopUsd = 3.00
+
+absoluteHardBoundUsd = 10.00
+
+Ces valeurs sont une configuration de campagne explicitement autorisée,
+pas de nouveaux defaults globaux du produit.
+
+Le mode normal et les anciens canaries doivent conserver leurs contrats
+historiques.
+
+===============================================================================
+4. PAS DE RESET DE BUDGET
+===============================================================================
+
+Tester explicitement :
+
+SESSION_A
+→ coût engagé
+
+puis :
+
+SESSION_B
+→ le cumul avant premier appel B inclut intégralement SESSION_A.
+
+Même exigence pour C/D/E.
+
+Interdire notamment :
+
+- nouveau recorder = nouveau budget ;
+- nouveau browser = nouveau budget ;
+- nouveau Project = nouveau budget ;
+- nouveau sessionId = nouveau budget ;
+- restart process = nouveau budget ;
+- relecture partielle du journal = nouveau budget.
+
+Le budget appartient à CAMPAIGN_ID.
+
+===============================================================================
+5. PERSISTENCE ET REPRISE
+===============================================================================
+
+Le contrat doit survivre :
+
+- fermeture navigateur ;
+- nouvelle session ;
+- nouveau Project ;
+- redémarrage du serveur local ;
+- interruption Codex ;
+- reprise de mission.
+
+La reprise doit reconstruire depuis la preuve persistée :
+
+CAMPAIGN_ID
+POLICY_DIGEST
+SESSIONS_ALREADY_USED
+COMMITTED_COST
+MEASURED_COST
+PREPARED_CALLS
+COMPLETED_CALLS
+
+Un état ambigu :
+
+→ FAIL CLOSED.
+
+Aucune réparation automatique du journal.
+
+===============================================================================
+6. CONCURRENCE
+===============================================================================
+
+Deux sessions peuvent théoriquement tenter un appel en même temps.
+
+Le budget global doit donc être sérialisé au niveau campagne.
+
+Tester :
+
+SESSION_A call
+||
+SESSION_B call
+
+Résultat attendu :
+
+- une seule admission critique à la fois ;
+- la seconde voit la réservation de la première ;
+- impossible de dépasser le hard bound par race condition.
+
+Ne pas utiliser uniquement un verrou par session.
+
+===============================================================================
+7. PREUVES MULTI-SESSION
+===============================================================================
+
+Le stockage doit permettre de distinguer :
+
+campaign
+→ session
+→ turn
+→ logical call
+
+tout en conservant un ledger global.
+
+Exemple conceptuel :
+
+campaign-X/
+  campaign-policy
+  campaign-ledger
+  session-A/
+    exchanges
+  session-B/
+    exchanges
+  session-C/
+    exchanges
+  session-D/
+    exchanges
+  session-E/
+    exchanges
+
+Ne pas créer une seconde vérité budgétaire.
+
+Le ledger campagne est propriétaire du cumul.
+
+Les journaux session fournissent la provenance des appels.
+
+===============================================================================
+8. COMPATIBILITÉ HISTORIQUE
+===============================================================================
+
+Ne jamais réécrire les preuves des canaries précédents.
+
+Le contrat mono-session historique reste interprétable.
+
+Une ancienne campagne :
+
+- ne devient pas multi-session rétroactivement ;
+- ne reçoit pas les nouveaux plafonds ;
+- ne peut pas être reprise avec une policy différente.
+
+Les nouveaux comportements doivent être explicitement activés par une nouvelle
+CAMPAIGN_POLICY.
+
+===============================================================================
+9. BUDGET CONFIGURABLE MAIS BORNÉ
+===============================================================================
+
+Ne pas remplacer 1/6 par 3/10 comme constants globaux.
+
+Permettre une policy bornée par campagne.
+
+La configuration doit être validée avant première dépense.
+
+Interdire :
+
+- valeurs négatives ;
+- soft > hard ;
+- hard inconnu ;
+- changement après première préparation ;
+- changement après première réponse ;
+- configuration client ;
+- configuration partielle silencieuse.
+
+Les limites autorisées doivent être explicites.
+
+Ne pas construire une plateforme de billing générale.
+
+Le mécanisme reste un garde expérimental/local de campagne provider.
+
+===============================================================================
+10. TESTS OBLIGATOIRES
+===============================================================================
+
+Aucun provider réel.
+
+MULTI_SESSION_01
+Session A puis Session B sous même campaign :
+→ B admise
+→ cumul A conservé.
+
+MULTI_SESSION_02
+5 sessions indépendantes :
+→ toutes utilisent le même ledger.
+
+MULTI_SESSION_03
+6e session lorsque maxSessions=5 :
+→ refus avant provider.
+
+MULTI_SESSION_04
+nouveau sessionId :
+→ aucun reset du coût.
+
+MULTI_SESSION_05
+nouveau Project :
+→ aucun reset du coût.
+
+MULTI_SESSION_06
+nouvelle instance recorder :
+→ aucun reset du coût.
+
+MULTI_SESSION_07
+restart simulé :
+→ état restauré.
+
+MULTI_SESSION_08
+deux sessions concurrentes :
+→ réservation sérialisée.
+
+MULTI_SESSION_09
+hard bound commun :
+→ somme multi-session incapable de dépasser la borne.
+
+MULTI_SESSION_10
+soft stop atteint par combinaison A+B+C :
+→ D ne peut plus appeler.
+
+MULTI_SESSION_11
+journal session présent mais ledger campagne absent/corrompu :
+→ FAIL CLOSED.
+
+MULTI_SESSION_12
+ledger campagne présent mais session inconnue :
+→ comportement gouverné et explicitement testé.
+
+MULTI_SESSION_13
+policy digest modifié après première dépense :
+→ refus.
+
+MULTI_SESSION_14
+body navigateur tente de modifier budget :
+→ ignoré/refusé.
+
+MULTI_SESSION_15
+ancienne campagne mono-session :
+→ comportement historique conservé.
+
+MULTI_SESSION_16
+strict replay :
+→ chaque session retrouve uniquement ses propres appels.
+
+MULTI_SESSION_17
+replay ne modifie jamais le cumul live.
+
+MULTI_SESSION_18
+single-attempt reste vrai dans toutes les sessions.
+
+===============================================================================
+11. DRY-RUN DE LA FUTURE CAMPAGNE
+===============================================================================
+
+Après qualification :
+
+simuler hors ligne exactement :
+
+CAMPAIGN_ID = synthetic-qualified-multisession
+
+POLICY:
+maxSessions = 5
+soft = 3 USD
+hard = 10 USD
+
+Puis :
+
+A01
+A02
+A04
+B01
+F01
+
+dans cinq sessions indépendantes.
+
+Utiliser les usages synthétiques/replay existants.
+
+Vérifier :
+
+- changement de session accepté ;
+- même campagne ;
+- cumul conservé ;
+- chaque appel pré-admis ;
+- aucun reset ;
+- single-attempt ;
+- preuves correctement séparées ;
+- hard/soft stops fonctionnels.
+
+PROVIDER_CALLS = 0.
+
+Résultat attendu :
+
+MULTI_SESSION_ACQUISITION_DRY_RUN =
+PASS
+
+Si le dry-run n'est pas PASS :
+
+ne pas autoriser le live.
+
+===============================================================================
+12. NON-RÉGRESSION PRODUIT
+===============================================================================
+
+Cette mission ne doit modifier :
+
+- aucun prompt scientifique ;
+- aucun modèle ;
+- aucun reasoning effort ;
+- QRY ;
+- Project semantics ;
+- owner scientifique ;
+- Human Review ;
+- conversation scientifique ;
+- document generation.
+
+Seulement :
+
+sécurité / campagne provider / evidence accounting / configuration serveur
+strictement nécessaires.
+
+===============================================================================
+13. VALIDATION
+===============================================================================
+
+Après correction :
+
+- tests multi-session dédiés ;
+- tests historiques single-session ;
+- provider record/replay ;
+- budget ;
+- concurrence ;
+- bridge affecté ;
+- local config ;
+- TypeScript ;
+- lint affecté ;
+- build.
+
+Puis full suite car le runtime provider aura changé.
+
+Attendu :
+
+FULL_SUITE_FAIL = 0
+FULL_SUITE_UNHANDLED = 0
+
+Aucun provider réel.
+
+===============================================================================
+14. REVUE CONTRADICTOIRE ULTRA
+===============================================================================
+
+Avant commit final, rechercher spécifiquement :
+
+- budget reset par nouvelle session ;
+- reset par restart ;
+- race entre sessions ;
+- nouveau budget par nouveau recorder ;
+- changement de policy après dépense ;
+- client-controlled limits ;
+- perte de provenance ;
+- replay compté comme dépense ;
+- session croisée dans replay ;
+- campagne historique rendue incompatible ;
+- fallback live non protégé ;
+- verrou trop local ;
+- état impossible à reprendre après interruption.
+
+Corriger les défauts démontrés.
+
+Rejouer les tests affectés.
+
+===============================================================================
+15. INTERRUPTION-SAFE
+===============================================================================
+
+Maintenir :
+
+resume-state.json
+checkpoint-log.md
+
+Checkpoints :
+
+CP0 baseline
+CP1 architecture/owner attribution
+CP2 implementation
+CP3 tests dedicated
+CP4 dry-run 5 sessions
+CP5 full qualification
+CP6 review
+CP7 commit/final-state
+
+Si interruption :
+
+inspect and resume.
+
+Jamais reset/restart aveugle.
+
+===============================================================================
+16. GIT
+===============================================================================
+
+Préserver tous les artefacts historiques.
+
+Pas de mass-add.
+
+Commit local seulement après qualification.
+
+Pas de push.
+Pas de déploiement.
+
+Worktree suivi propre à la sortie.
+
+===============================================================================
+17. SORTIE
+===============================================================================
+
+Rapporter :
+
+BASELINE_HEAD =
+FINAL_HEAD =
+
+CAMPAIGN_MULTI_SESSION_CONTRACT =
+PASS / FAIL
+
+CAMPAIGN_LEVEL_BUDGET_LEDGER =
+PASS / FAIL
+
+SESSION_LEVEL_PROVENANCE =
+PASS / FAIL
+
+NO_BUDGET_RESET_BY_SESSION =
+PASS / FAIL
+
+NO_BUDGET_RESET_BY_RESTART =
+PASS / FAIL
+
+CROSS_SESSION_CONCURRENCY =
+PASS / FAIL
+
+SINGLE_ATTEMPT_ALL_SESSIONS =
+PASS / FAIL
+
+HISTORICAL_SINGLE_SESSION_COMPATIBILITY =
+PASS / FAIL
+
+POLICY_SERVER_SIDE_IMMUTABLE =
+PASS / FAIL
+
+DRY_RUN_5_SESSIONS =
+PASS / FAIL
+
+DRY_RUN_POLICY =
+maxSessions 5
+soft 3 USD
+hard 10 USD
+
+PROVIDER_CALLS =
+0
+
+FULL_SUITE =
+N PASS / N FAIL / N UNHANDLED
+
+PRODUCT_SCIENTIFIC_FILES_CHANGED =
+0
+
+TRACKED_WORKTREE =
+CLEAN
+
+P1_COMPLETE = NO
+P1_EXIT_GATE = NOT_SATISFIED
+WAVE_2_AUTHORIZED = NO
+
+Si tout est PASS :
+
+NEXT_ACTION =
+NEW_EXPLICITLY_AUTHORIZED_MULTI_SESSION_LIVE_EVIDENCE_ACQUISITION
+
+Sinon :
+
+NEXT_ACTION =
+REVIEW_UNRESOLVED_MULTI_SESSION_SAFETY_GAP
+
+Ne lancer aucun provider réel dans cette mission.

@@ -1,12 +1,14 @@
 import { createHash, randomUUID } from "node:crypto";
 import { appendFile, mkdir, open, readFile, readdir, unlink } from "node:fs/promises";
-import { join } from "node:path";
+import { basename, dirname, join } from "node:path";
+import { realpath } from "node:fs/promises";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { FileScientificInterpretationEvidenceStore } from "./scientific-interpretation-evidence-store.js";
 import type { ProviderObservedRequestInit } from "../src/features/protocol-designer/provider-call-observability.js";
 import {
   addCanaryCosts, boundCanaryProviderCall, canaryBudgetAdmission, CanaryAdmissionError,
-  settleCanaryProviderCall, SINGLE_ATTEMPT_FAIL_CLOSED, CANARY_BUDGET_POLICY, type CanaryCallBound,
+  settleCanaryProviderCall, SINGLE_ATTEMPT_FAIL_CLOSED, type CanaryCallBound,
+  campaignBudgetPolicy, validateCanaryCampaignPolicy, type CanaryCampaignPolicy,
 } from "./protocol-designer-canary-policy.js";
 
 // DEV transport evidence only. Scientific state and provider selection stay with
@@ -62,8 +64,119 @@ type CanaryAdmission = {
   logicalCallId: string;
   committedBeforeUsd: number;
   measuredBeforeUsd: number;
-  budgetPolicy: typeof CANARY_BUDGET_POLICY;
+  budgetPolicy: ReturnType<typeof campaignBudgetPolicy>;
   bound: CanaryCallBound;
+  campaignPolicy?: CanaryCampaignPolicy;
+  conversationId?: string;
+  projectId?: string | null;
+};
+
+const readJsonIfPresent = async (path: string): Promise<unknown | undefined> => {
+  try { return JSON.parse(await readFile(path, "utf8")); }
+  catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined;
+    throw new CanaryAdmissionError("CANARY_IDENTITY_OR_POLICY_CORRUPT");
+  }
+};
+const persistExclusive = async (path: string, value: unknown) => {
+  const handle = await open(path, "wx", 0o600);
+  try { await handle.writeFile(`${JSON.stringify(value)}\n`); await handle.sync(); }
+  finally { await handle.close(); }
+};
+const identityMatches = async (path: string, expected: unknown) => {
+  const actual = await readJsonIfPresent(path);
+  if (actual === undefined || digest(actual) !== digest(expected)) throw new CanaryAdmissionError("CANARY_IDENTITY_OR_POLICY_MISMATCH");
+};
+const campaignIdentity = (root: string, policy: CanaryCampaignPolicy) => ({
+  campaignId: policy.campaignId, policyDigest: policy.policyDigest, evidenceRoot: root,
+});
+const sessionIdentity = (root: string, policy: CanaryCampaignPolicy, sessionId: string, conversationId: string) => ({
+  ...campaignIdentity(root, policy), sessionId, conversationId,
+});
+const registryRoot = (root: string) => join(dirname(root), ".campaign-identities");
+const campaignIdentityPath = (root: string, id: string) => join(registryRoot(root), `campaign-${digest(id)}.json`);
+const sessionIdentityPath = (root: string, id: string) => join(registryRoot(root), `session-${digest(id)}.json`);
+
+/** Registry files contain immutable identity/provenance only, never money.
+ * The existing prepared/completed journal remains the sole budget ledger.
+ * A partial initialization is an ambiguous state: refuse, never repair it. */
+const ensureCampaignPolicy = async (root: string, policy: CanaryCampaignPolicy) => {
+  const canonicalRoot = await realpath(root);
+  if (basename(canonicalRoot) !== `canary-${policy.campaignId}`) throw new CanaryAdmissionError("CANARY_CAMPAIGN_ROOT_MISMATCH");
+  const policyPath = join(root, "campaign-policy.json");
+  const stored = await readJsonIfPresent(policyPath);
+  if (stored === undefined) {
+    const files = await readdir(root);
+    if (files.some((file) => file !== "canary-admission.lock")
+      || await readJsonIfPresent(campaignIdentityPath(canonicalRoot, policy.campaignId)) !== undefined) {
+      throw new CanaryAdmissionError("CANARY_POLICY_MISSING_OR_HISTORICAL_CAMPAIGN");
+    }
+    await mkdir(registryRoot(canonicalRoot), { recursive: true, mode: 0o700 });
+    await persistExclusive(campaignIdentityPath(canonicalRoot, policy.campaignId), campaignIdentity(canonicalRoot, policy));
+    await persistExclusive(policyPath, policy);
+    const ledger = await open(join(root, "protocol-designer-exchanges.jsonl"), "wx", 0o600);
+    try { await ledger.sync(); } finally { await ledger.close(); }
+  } else {
+    if (digest(validateCanaryCampaignPolicy(stored)) !== digest(policy)) throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_CHANGED");
+    await identityMatches(campaignIdentityPath(canonicalRoot, policy.campaignId), campaignIdentity(canonicalRoot, policy));
+  }
+  return canonicalRoot;
+};
+
+const verifySessionIdentities = async (root: string, policy: CanaryCampaignPolicy, sessions: ReadonlyMap<string, string>) => {
+  for (const [sessionId, conversationId] of sessions) {
+    await identityMatches(sessionIdentityPath(root, sessionId), sessionIdentity(root, policy, sessionId, conversationId));
+  }
+  for (const name of await readdir(registryRoot(root))) {
+    if (!name.startsWith("session-")) continue;
+    const stored = await readJsonIfPresent(join(registryRoot(root), name)) as { campaignId?: string; sessionId?: string } | undefined;
+    if (stored?.campaignId === policy.campaignId && !sessions.has(stored.sessionId ?? "")) {
+      throw new CanaryAdmissionError("CANARY_SESSION_EVIDENCE_WITHOUT_LEDGER");
+    }
+  }
+};
+
+// Historical evidence is read, never migrated. This avoids claiming a session
+// whose older campaign predates the immutable identity registry.
+const assertSessionNotInOtherCampaign = async (root: string, sessionId: string) => {
+  for (const name of await readdir(dirname(root), { withFileTypes: true })) {
+    if (!name.isDirectory() || !name.name.startsWith("canary-") || name.name === basename(root)) continue;
+    const otherRoot = join(dirname(root), name.name);
+    let journal: string;
+    try { journal = await readFile(join(otherRoot, "protocol-designer-exchanges.jsonl"), "utf8"); }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+        const files = await readdir(otherRoot);
+        if (files.length === 0) continue;
+      }
+      throw new CanaryAdmissionError("CANARY_SESSION_OWNERSHIP_EVIDENCE_MISSING");
+    }
+    const store = new FileScientificInterpretationEvidenceStore(otherRoot);
+    const referencedRawDigests = new Set<string>();
+    for (const line of journal.split("\n").filter(Boolean)) {
+      const entry = JSON.parse(line);
+      const record = await store.read(entry.rawOutputRef);
+      if (!record || digest(record.payload) !== record.rawOutputDigest) throw new CanaryAdmissionError("CANARY_SESSION_OWNERSHIP_EVIDENCE_CORRUPT");
+      const exchange = record.payload as Exchange;
+      if (entry.requestDigest !== exchange.requestDigest || digest(exchange.request) !== exchange.requestDigest) {
+        throw new CanaryAdmissionError("CANARY_SESSION_OWNERSHIP_EVIDENCE_CORRUPT");
+      }
+      referencedRawDigests.add(record.rawOutputDigest);
+      if (exchange.canaryAdmission?.sessionId === sessionId) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
+    }
+    let rawFiles: string[];
+    try { rawFiles = await readdir(join(otherRoot, "raw")); }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      rawFiles = [];
+    }
+    if (rawFiles.length !== referencedRawDigests.size || rawFiles.some((file) => {
+      const matched = /-([0-9a-f]{64})\.json$/.exec(file);
+      return !matched || !referencedRawDigests.has(matched[1]!);
+    })) {
+      throw new CanaryAdmissionError("CANARY_SESSION_OWNERSHIP_EVIDENCE_INCOMPLETE");
+    }
+  }
 };
 type Exchange = {
   kind: typeof recordKind;
@@ -86,7 +199,12 @@ type Exchange = {
 
 // The existing prepared/completed evidence is also the admission ledger. There
 // is no independent mutable cost counter that a new HTTP request could reset.
-const readCanaryState = async (root: string, campaignId: string) => {
+const readCanaryState = async (root: string, campaignId: string, campaignPolicy?: CanaryCampaignPolicy) => {
+  const budget = campaignBudgetPolicy(campaignPolicy);
+  const sessions = new Map<string, string>();
+  if (!campaignPolicy && await readJsonIfPresent(join(root, "campaign-policy.json")) !== undefined) {
+    throw new CanaryAdmissionError("CANARY_POLICY_REQUIRED_NO_HISTORICAL_FALLBACK");
+  }
   let rawFiles: string[];
   try { rawFiles = await readdir(join(root, "raw")); }
   catch (error) {
@@ -96,8 +214,8 @@ const readCanaryState = async (root: string, campaignId: string) => {
   let journal: string;
   try { journal = await readFile(join(root, "protocol-designer-exchanges.jsonl"), "utf8"); }
   catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT" && rawFiles.length === 0) {
-      return { committed: 0, measured: 0, sessionId: null, logicalIds: new Set<string>() };
+    if (!campaignPolicy && (error as NodeJS.ErrnoException).code === "ENOENT" && rawFiles.length === 0) {
+      return { committed: 0, measured: 0, sessionId: null, logicalIds: new Set<string>(), sessions };
     }
     throw new CanaryAdmissionError("CANARY_LEDGER_UNREADABLE");
   }
@@ -118,17 +236,30 @@ const readCanaryState = async (root: string, campaignId: string) => {
       const exchange = record.payload as Exchange;
       const admission = exchange.canaryAdmission;
       if (exchange.kind !== recordKind || !admission || admission.campaignId !== campaignId
-        || admission.policy !== SINGLE_ATTEMPT_FAIL_CLOSED || digest(admission.budgetPolicy) !== digest(CANARY_BUDGET_POLICY)
+        || admission.policy !== SINGLE_ATTEMPT_FAIL_CLOSED || digest(admission.budgetPolicy) !== digest(budget)
+        || digest(admission.campaignPolicy ?? null) !== digest(campaignPolicy ?? null)
         || entry.requestDigest !== exchange.requestDigest
         || digest(exchange.request) !== exchange.requestDigest) throw new Error("binding");
-      if (sessionId !== null && sessionId !== admission.sessionId) throw new Error("session");
+      if (!campaignPolicy && sessionId !== null && sessionId !== admission.sessionId) throw new Error("session");
+      if (campaignPolicy) {
+        const metadata = exchange.callMetadata as ProviderObservedRequestInit["noxiaProviderObservation"];
+        const context = metadata?.context;
+        if (!context || !admission.sessionId || !admission.conversationId
+          || context.sessionId !== admission.sessionId || context.conversationId !== admission.conversationId
+          || !context.turnId || !context.clientRequestId || metadata.retryIndex !== 0 || metadata.retryReason !== null
+          || admission.logicalCallId !== digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose])
+          || !campaignPolicy.allowedProviderModels.includes(exchange.modelRequested ?? "")) throw new Error("session provenance");
+        if (sessions.has(admission.sessionId) && sessions.get(admission.sessionId) !== admission.conversationId) throw new Error("conversation identity");
+        sessions.set(admission.sessionId, admission.conversationId);
+        if (sessions.size > campaignPolicy.maxSessions) throw new Error("session limit");
+      }
       sessionId = admission.sessionId;
       if (entry.disposition === "REQUEST_PREPARED") {
         if (prepared.has(entry.operationId) || logicalIds.has(admission.logicalCallId)) throw new Error("duplicate");
         const bound = boundCanaryProviderCall(exchange.request.endpoint, exchange.request.body);
         if (digest(bound) !== digest(admission.bound) || admission.committedBeforeUsd !== committed
           || admission.measuredBeforeUsd !== measured
-          || canaryBudgetAdmission(committed, bound, measured) !== "ADMITTED") throw new Error("reservation");
+          || canaryBudgetAdmission(committed, bound, measured, budget) !== "ADMITTED") throw new Error("reservation");
         prepared.set(entry.operationId, exchange);
         logicalIds.add(admission.logicalCallId);
       } else if (entry.disposition === "COMPLETED") {
@@ -159,7 +290,7 @@ const readCanaryState = async (root: string, campaignId: string) => {
     if (error instanceof CanaryAdmissionError) throw error;
     throw new CanaryAdmissionError("CANARY_LEDGER_INTEGRITY_FAILURE");
   }
-  return { committed, measured, sessionId, logicalIds };
+  return { committed, measured, sessionId, logicalIds, sessions };
 };
 
 export const createRecordedProtocolDesignerFetch = (options: {
@@ -171,14 +302,23 @@ export const createRecordedProtocolDesignerFetch = (options: {
   onPersistenceError?: (code: "PROVIDER_EVIDENCE_COMPLETION_NOT_PERSISTED") => void;
   /** Server configuration only. Use one dedicated root for the entire campaign. */
   canaryCampaignId?: string;
+  campaignPolicy?: CanaryCampaignPolicy;
+  /** Observed current Project identity only; never scientific authority. */
+  projectId?: string | null;
   onCanaryDenied?: (code: string) => void;
 }): typeof fetch => {
+  options = { ...options, ...(options.secrets ? { secrets: [...options.secrets] } : {}) };
+  const campaignPolicy = options.campaignPolicy === undefined ? undefined : validateCanaryCampaignPolicy(options.campaignPolicy);
+  if (campaignPolicy && campaignPolicy.campaignId !== options.canaryCampaignId) throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_ID_MISMATCH");
   if (options.canaryCampaignId !== undefined && !/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(options.canaryCampaignId)) {
     throw new CanaryAdmissionError("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK");
   }
   const store = new FileScientificInterpretationEvidenceStore(options.root);
   let attemptIndex = 0;
   const record = async (input: Parameters<typeof fetch>[0], init?: RequestInit, canaryAdmission?: CanaryAdmission) => {
+    if (!canaryAdmission && await readJsonIfPresent(join(options.root, "campaign-policy.json")) !== undefined) {
+      throw new CanaryAdmissionError("CANARY_POLICY_REQUIRED_NO_NORMAL_FALLBACK");
+    }
     const request = requestIdentity(input, init, options.secrets);
     const callMetadata = (init as ProviderObservedRequestInit | undefined)?.noxiaProviderObservation ?? null;
     const payload = JSON.parse(request.body) as { model?: string; reasoning?: { effort?: string } };
@@ -265,19 +405,66 @@ export const createRecordedProtocolDesignerFetch = (options: {
         || !context?.sessionId || !context.turnId || !context.clientRequestId) {
         throw new CanaryAdmissionError("CANARY_SINGLE_ATTEMPT_METADATA_REQUIRED");
       }
-      const state = await readCanaryState(options.root, options.canaryCampaignId!);
-      if (state.sessionId !== null && state.sessionId !== context.sessionId) throw new CanaryAdmissionError("CANARY_SESSION_MISMATCH");
+      const canonicalRoot = campaignPolicy ? await ensureCampaignPolicy(options.root, campaignPolicy) : options.root;
+      const state = await readCanaryState(options.root, options.canaryCampaignId!, campaignPolicy);
+      if (campaignPolicy) {
+        await verifySessionIdentities(canonicalRoot, campaignPolicy, state.sessions);
+        if (!context.conversationId || (state.sessions.has(context.sessionId) && state.sessions.get(context.sessionId) !== context.conversationId)) {
+          throw new CanaryAdmissionError("CANARY_SESSION_CONVERSATION_MISMATCH");
+        }
+        if (!state.sessions.has(context.sessionId) && state.sessions.size >= campaignPolicy.maxSessions) throw new CanaryAdmissionError("CANARY_MAX_SESSIONS_REACHED");
+      } else {
+        if (state.sessionId !== null && state.sessionId !== context.sessionId) throw new CanaryAdmissionError("CANARY_SESSION_MISMATCH");
+        // Preserve old evidence and limits while preventing a registered new
+        // campaign session from escaping into a historical recorder.
+        const legacyRoot = await realpath(options.root);
+        const existing = await readJsonIfPresent(sessionIdentityPath(legacyRoot, context.sessionId));
+        if (existing !== undefined) {
+          const expected = { campaignId: options.canaryCampaignId, policyDigest: null, evidenceRoot: legacyRoot,
+            sessionId: context.sessionId, conversationId: context.conversationId };
+          if (digest(existing) !== digest(expected)) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
+          if (state.sessionId === null) throw new CanaryAdmissionError("CANARY_SESSION_EVIDENCE_WITHOUT_LEDGER");
+        }
+      }
       const logicalCallId = digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose]);
       if (state.logicalIds.has(logicalCallId)) throw new CanaryAdmissionError("CANARY_LOGICAL_CALL_ALREADY_CONSUMED");
       const bound = boundCanaryProviderCall(request.endpoint, request.body);
-      const admission = canaryBudgetAdmission(state.committed, bound, state.measured);
+      const budget = campaignBudgetPolicy(campaignPolicy);
+      const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);
       if (admission !== "ADMITTED" || !bound) throw new CanaryAdmissionError(admission);
       const expectedModel = { LANGUAGE_PROJECTION: "gpt-5.6-luna", PERSISTENT_DELTA: "gpt-5.6-terra", CONVERSATION_REALIZATION: "gemini-3.5-flash-lite" }[metadata.purpose];
       if (bound.model !== expectedModel) throw new CanaryAdmissionError("CANARY_PROVIDER_MODEL_PURPOSE_MISMATCH");
+      if (campaignPolicy) {
+        if (!campaignPolicy.allowedProviderModels.includes(bound.model)) throw new CanaryAdmissionError("CANARY_PROVIDER_NOT_IN_CAMPAIGN_POLICY");
+        if (!state.sessions.has(context.sessionId)) {
+          // Cross-campaign ownership uses an exclusive immutable claim shared
+          // by all campaign roots in this private evidence store.
+          const claim = sessionIdentityPath(canonicalRoot, context.sessionId);
+          if (await readJsonIfPresent(claim) !== undefined) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
+          await assertSessionNotInOtherCampaign(canonicalRoot, context.sessionId);
+          await persistExclusive(claim, sessionIdentity(canonicalRoot, campaignPolicy, context.sessionId, context.conversationId!));
+        }
+      } else {
+        // For the canonical local campaign layout, an exclusive identity claim
+        // also closes the race with a newly activated policy campaign. Old raw
+        // records, mono-session rules and budget defaults are not rewritten.
+        const legacyRoot = await realpath(options.root);
+        if (basename(legacyRoot) === `canary-${options.canaryCampaignId}`) {
+          const claim = sessionIdentityPath(legacyRoot, context.sessionId);
+          const expected = { campaignId: options.canaryCampaignId, policyDigest: null, evidenceRoot: legacyRoot,
+            sessionId: context.sessionId, conversationId: context.conversationId };
+          const existing = await readJsonIfPresent(claim);
+          if (existing === undefined) {
+            await mkdir(registryRoot(legacyRoot), { recursive: true, mode: 0o700 });
+            await persistExclusive(claim, expected);
+          } else if (digest(existing) !== digest(expected)) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
+        }
+      }
       return await record(input, init, {
         policy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: options.canaryCampaignId!,
         sessionId: context.sessionId, logicalCallId, committedBeforeUsd: state.committed,
-        measuredBeforeUsd: state.measured, budgetPolicy: CANARY_BUDGET_POLICY, bound,
+        measuredBeforeUsd: state.measured, budgetPolicy: budget, bound,
+        ...(campaignPolicy ? { campaignPolicy, conversationId: context.conversationId!, projectId: options.projectId ?? null } : {}),
       });
     } catch (error) {
       const code = error instanceof CanaryAdmissionError ? error.code : "CANARY_ADMISSION_OR_EVIDENCE_FAILURE";
@@ -294,6 +481,7 @@ export const createProtocolDesignerReplayFetch = (options: {
   root: string;
   refs: readonly string[];
   secrets?: readonly string[];
+  scope?: Readonly<{ campaignId: string; sessionId: string }>;
 }): typeof fetch => {
   const store = new FileScientificInterpretationEvidenceStore(options.root);
   let cursor = 0;
@@ -305,6 +493,14 @@ export const createProtocolDesignerReplayFetch = (options: {
     const stored = await store.read(ref);
     if (!stored || digest(stored.payload) !== stored.rawOutputDigest) throw new Error("PROVIDER_REPLAY_EVIDENCE_INTEGRITY_FAILURE");
     const exchange = stored.payload as Exchange;
+    if (exchange.canaryAdmission?.campaignPolicy || options.scope) {
+      if (!options.scope || exchange.canaryAdmission?.campaignId !== options.scope.campaignId
+        || exchange.canaryAdmission?.sessionId !== options.scope.sessionId
+        || ((init as ProviderObservedRequestInit | undefined)?.noxiaProviderObservation
+          && (init as ProviderObservedRequestInit).noxiaProviderObservation!.context.sessionId !== options.scope.sessionId)) {
+        throw new Error("PROVIDER_REPLAY_SESSION_SCOPE_MISMATCH");
+      }
+    }
     if (exchange.canaryAdmission && JSON.parse(exchange.request.body).service_tier === "default") {
       request = requestIdentity(input, withCanaryServiceTier(request, init), options.secrets);
     }
@@ -326,9 +522,21 @@ export const createProtocolDesignerReplayFetch = (options: {
   };
 };
 
-export const readProtocolDesignerReplayRefs = async (root: string) => (await readFile(join(root, "protocol-designer-exchanges.jsonl"), "utf8"))
+export const readProtocolDesignerReplayRefs = async (root: string, scope?: Readonly<{ campaignId: string; sessionId: string }>) => {
+  const entries = (await readFile(join(root, "protocol-designer-exchanges.jsonl"), "utf8"))
   .split("\n").filter(Boolean).map((line) => JSON.parse(line) as {
     disposition: string; rawOutputRef: string; startedAt: string; recordingSequence: number;
   }).filter((record) => record.disposition === "COMPLETED")
   .sort((a, b) => a.startedAt.localeCompare(b.startedAt) || a.recordingSequence - b.recordingSequence)
   .map((record) => record.rawOutputRef);
+  if (!scope) return entries;
+  const store = new FileScientificInterpretationEvidenceStore(root);
+  const selected: string[] = [];
+  for (const ref of entries) {
+    const record = await store.read(ref);
+    if (!record || digest(record.payload) !== record.rawOutputDigest) throw new Error("PROVIDER_REPLAY_EVIDENCE_INTEGRITY_FAILURE");
+    const admission = (record.payload as Exchange).canaryAdmission;
+    if (admission?.campaignId === scope.campaignId && admission.sessionId === scope.sessionId) selected.push(ref);
+  }
+  return selected;
+};

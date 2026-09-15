@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { providerModelPricing, PROVIDER_PRICING_SNAPSHOT_DATE } from "../src/features/protocol-designer/provider-call-observability.js";
 
 export const SINGLE_ATTEMPT_FAIL_CLOSED = "SINGLE_ATTEMPT_FAIL_CLOSED" as const;
@@ -29,6 +31,52 @@ const keysOnly = (v: Record<string, unknown>, keys: readonly string[]) => Object
 export class CanaryAdmissionError extends Error {
   constructor(readonly code: string) { super(code); this.name = "CanaryAdmissionError"; }
 }
+
+export type CanaryCampaignPolicy = Readonly<{
+  campaignId: string;
+  maxSessions: number;
+  measuredSoftStopUsd: number;
+  absoluteHardBoundUsd: number;
+  singleAttemptPolicy: typeof SINGLE_ATTEMPT_FAIL_CLOSED;
+  allowedProviderModels: readonly string[];
+  createdAt: string;
+  policyDigest: string;
+}>;
+export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
+const policyHash = (value: unknown) => createHash("sha256").update(stableStringify(value)).digest("hex");
+const campaignIdValid = (value: unknown): value is string => typeof value === "string" && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(value);
+
+/** Explicit local experimental envelope; these ceilings do not change the
+ * historical canary or the normal product defaults. Never read browser data. */
+export const createCanaryCampaignPolicy = (input: Omit<CanaryCampaignPolicy, "policyDigest">): CanaryCampaignPolicy => {
+  if (!object(input) || !keysOnly(input, ["campaignId", "maxSessions", "measuredSoftStopUsd", "absoluteHardBoundUsd", "singleAttemptPolicy", "allowedProviderModels", "createdAt"])
+    || !campaignIdValid(input.campaignId) || !integer(input.maxSessions) || input.maxSessions < 1 || input.maxSessions > 5
+    || !Number.isFinite(input.measuredSoftStopUsd) || input.measuredSoftStopUsd <= 0 || input.measuredSoftStopUsd > 3
+    || !Number.isFinite(input.absoluteHardBoundUsd) || input.absoluteHardBoundUsd <= 0 || input.absoluteHardBoundUsd > 10
+    || input.measuredSoftStopUsd > input.absoluteHardBoundUsd || input.singleAttemptPolicy !== SINGLE_ATTEMPT_FAIL_CLOSED
+    || typeof input.createdAt !== "string" || !Number.isFinite(Date.parse(input.createdAt))
+    || new Date(input.createdAt).toISOString() !== input.createdAt
+    || !Array.isArray(input.allowedProviderModels) || !input.allowedProviderModels.length
+    || new Set(input.allowedProviderModels).size !== input.allowedProviderModels.length
+    || !input.allowedProviderModels.every((model) => QUALIFIED_CAMPAIGN_MODELS.includes(model))) {
+    throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_INVALID");
+  }
+  const material = { ...input, allowedProviderModels: Object.freeze([...input.allowedProviderModels]) };
+  return Object.freeze({ ...material, policyDigest: policyHash(material) });
+};
+
+export const validateCanaryCampaignPolicy = (value: unknown): CanaryCampaignPolicy => {
+  if (!object(value) || typeof value.policyDigest !== "string") throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_INVALID");
+  const { policyDigest, ...material } = value;
+  const policy = createCanaryCampaignPolicy(material as Omit<CanaryCampaignPolicy, "policyDigest">);
+  if (policyDigest !== policy.policyDigest) throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_DIGEST_MISMATCH");
+  return policy;
+};
+
+export const campaignBudgetPolicy = (policy?: CanaryCampaignPolicy) => policy ? Object.freeze({
+  absoluteHardCampaignBoundUsd: policy.absoluteHardBoundUsd,
+  measuredCostSoftStopUsd: policy.measuredSoftStopUsd,
+}) : CANARY_BUDGET_POLICY;
 
 export type CanaryCallBound = Readonly<{
   model: string;
@@ -96,13 +144,18 @@ export const boundCanaryProviderCall = (endpoint: string, body: string): CanaryC
   });
 };
 
-export const canaryBudgetAdmission = (committedCostUsd: number, bound: CanaryCallBound | null, measuredCostUsd: number) => {
+export const canaryBudgetAdmission = (committedCostUsd: number, bound: CanaryCallBound | null, measuredCostUsd: number,
+  budget: Readonly<{ absoluteHardCampaignBoundUsd: number; measuredCostSoftStopUsd: number }> = CANARY_BUDGET_POLICY) => {
+  if (!Number.isFinite(budget.absoluteHardCampaignBoundUsd) || budget.absoluteHardCampaignBoundUsd <= 0 || budget.absoluteHardCampaignBoundUsd > 10
+    || !Number.isFinite(budget.measuredCostSoftStopUsd) || budget.measuredCostSoftStopUsd <= 0 || budget.measuredCostSoftStopUsd > 3
+    || budget.measuredCostSoftStopUsd > budget.absoluteHardCampaignBoundUsd) return "DENIED_INVALID_BUDGET_POLICY";
   if (!Number.isFinite(committedCostUsd) || committedCostUsd < 0
     || !Number.isFinite(measuredCostUsd) || measuredCostUsd < 0 || measuredCostUsd > committedCostUsd) return "DENIED_UNKNOWN_CUMULATIVE_COST";
   // Operational stop on reconstructed usage cost, NOT a one-dollar hard cap.
-  if (ceilUnits(measuredCostUsd) >= ceilUnits(MEASURED_COST_SOFT_STOP_USD)) return "DENIED_SOFT_STOP";
+  if (ceilUnits(measuredCostUsd) >= ceilUnits(budget.measuredCostSoftStopUsd)) return "DENIED_SOFT_STOP";
   if (!bound || !Number.isFinite(bound.upperBoundUsd) || bound.upperBoundUsd <= 0) return "DENIED_UNKNOWN_UPPER_BOUND";
-  if (ceilUnits(committedCostUsd) + ceilUnits(bound.upperBoundUsd) > ceilUnits(ABSOLUTE_HARD_CAMPAIGN_BOUND_USD)) return "DENIED_HARD_BUDGET";
+  // Costs round upward; an absolute ceiling must never be increased by rounding.
+  if (ceilUnits(committedCostUsd) + ceilUnits(bound.upperBoundUsd) > Math.floor(budget.absoluteHardCampaignBoundUsd * unitsPerUsd)) return "DENIED_HARD_BUDGET";
   return "ADMITTED";
 };
 
@@ -149,12 +202,22 @@ export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: s
   return { inputTokens: input, billableOutputTokens: output, measuredCostUsd, committedCostUpperBoundUsd };
 };
 
-export const resolveCanaryExecution = (environment: Readonly<Record<string, string | undefined>>) => {
+export type CanaryExecution = Readonly<{ attemptPolicy: typeof SINGLE_ATTEMPT_FAIL_CLOSED; campaignId: string; campaignPolicy?: CanaryCampaignPolicy }>;
+export const resolveCanaryExecution = (environment: Readonly<Record<string, string | undefined>>): CanaryExecution | null => {
   const policy = environment.PROTOCOL_DESIGNER_LIVE_CANARY?.trim();
   const id = environment.PROTOCOL_DESIGNER_CANARY_ID?.trim();
-  if (!policy && !id) return null;
+  const configuredCampaign = environment.PROTOCOL_DESIGNER_CAMPAIGN_POLICY?.trim();
+  if (environment.PROTOCOL_DESIGNER_CAMPAIGN_POLICY !== undefined && !configuredCampaign) {
+    throw new CanaryAdmissionError("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK");
+  }
+  if (!policy && !id && !configuredCampaign) return null;
   if (policy !== SINGLE_ATTEMPT_FAIL_CLOSED || !id || !/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(id)) {
     throw new CanaryAdmissionError("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK");
   }
-  return { attemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: id };
+  if (!configuredCampaign) return Object.freeze({ attemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: id });
+  let campaignPolicy: CanaryCampaignPolicy;
+  try { campaignPolicy = validateCanaryCampaignPolicy(JSON.parse(configuredCampaign)); }
+  catch { throw new CanaryAdmissionError("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK"); }
+  if (campaignPolicy.campaignId !== id) throw new CanaryAdmissionError("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK");
+  return Object.freeze({ attemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: id, campaignPolicy });
 };

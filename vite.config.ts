@@ -37,11 +37,16 @@ export const executeLocalProductBridgeRequest = (
 export const localProductBridge = (
   configuration: LocalProductBridgeConfiguration,
   evidenceRoot: string,
-  canary: ReturnType<typeof resolveCanaryExecution> = null,
+  canaryConfiguration: ReturnType<typeof resolveCanaryExecution> = null,
   fetchImpl: typeof fetch = fetch,
 ): Plugin => ({
   name: "noxia-local-product-bridge",
   configureServer(server) {
+    const canary = canaryConfiguration ? resolveCanaryExecution({
+      PROTOCOL_DESIGNER_LIVE_CANARY: canaryConfiguration.attemptPolicy,
+      PROTOCOL_DESIGNER_CANARY_ID: canaryConfiguration.campaignId,
+      ...(canaryConfiguration.campaignPolicy ? { PROTOCOL_DESIGNER_CAMPAIGN_POLICY: JSON.stringify(canaryConfiguration.campaignPolicy) } : {}),
+    }) : null;
     server.middlewares.use(canary ? "/api/" : "/api/protocol-designer-bridge", async (request, response, next) => {
       if (canary && request.url !== "/protocol-designer-bridge") {
         response.statusCode = 503;
@@ -72,6 +77,11 @@ export const localProductBridge = (
         root: canary ? path.join(evidenceRoot, `canary-${canary.campaignId}`) : evidenceRoot,
         fetchImpl,
         ...(canary ? { canaryCampaignId: canary.campaignId, onCanaryDenied: (code: string) => { canaryDenial = code; } } : {}),
+        ...(canary?.campaignPolicy ? { campaignPolicy: canary.campaignPolicy,
+          projectId: body && typeof body === "object" && "currentProject" in body
+            && body.currentProject && typeof body.currentProject === "object" && "projectId" in body.currentProject
+            && typeof body.currentProject.projectId === "string" ? body.currentProject.projectId : null,
+        } : {}),
         secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? ""],
         context: body && typeof body === "object" && "observabilityContext" in body
           ? body.observabilityContext : null,

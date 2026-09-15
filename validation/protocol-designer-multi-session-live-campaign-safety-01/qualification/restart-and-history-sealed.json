@@ -1,0 +1,34 @@
+{
+  "SEPARATE_PROCESS_RESTART": "PASS",
+  "CONSUMED_LOGICAL_CALL_REJECTED": true,
+  "FIVE_SESSIONS_RESTORED": true,
+  "HISTORICAL_LIVE_01R_STRICT_TRANSPORT_REPLAY": "5/5 PASS",
+  "legacyResults": [
+    {
+      "ref": "scientific-interpretation-raw:dbe4136cf0707c03c592c1c1b1d2d2f97d26edc8f6600865e2d922ff802090e3",
+      "status": "PASS"
+    },
+    {
+      "ref": "scientific-interpretation-raw:54de5bf99318c9357ea73d992fbeb0acdce266b8bcdffad45afce943961ad1a6",
+      "status": "PASS"
+    },
+    {
+      "ref": "scientific-interpretation-raw:3396410c274070d9bbaf90eabc30b3f78fc94b82216f413a9feb56bece55e5b6",
+      "status": "PASS"
+    },
+    {
+      "ref": "scientific-interpretation-raw:d968f634b7a6135a4b5dbb2104f37c14f38b60fd7899027e55c31c43b9c40eab",
+      "status": "PASS"
+    },
+    {
+      "ref": "scientific-interpretation-raw:993ff253c149abe828d2544e4e8660edc2094c586e342b664be93def0701217e",
+      "status": "PASS"
+    }
+  ],
+  "historicalEvidenceUnchanged": true,
+  "campaignJournalUnchanged": true,
+  "campaignJournalSha256": "248033fba930351892cae2ccaf203427a8f3a4c97a38d803058950a37719c565",
+  "transportInvocations": 0,
+  "PROVIDER_CALLS": 0,
+  "scope": "Offline transport and persisted admission state; no scientific/live requalification."
+}
