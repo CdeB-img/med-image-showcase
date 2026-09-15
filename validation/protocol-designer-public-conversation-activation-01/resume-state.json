@@ -3,7 +3,9 @@
   "updatedAt": "2026-09-15T00:00:00.000Z",
   "baseline": "bf9e46fdda9843a7dcb34a40ac35b4e1ddf914ca",
   "branch": "protocol-designer-canonical-ingestion",
-  "phase": "READY_FOR_REMOTE_INTEGRATION",
+  "phase": "PIPELINE_REPAIR_QUALIFIED",
+  "qualifiedCommit": "8f40aa73",
+  "remoteMainBeforePush": "b6aed0e2d3002d45cfce04c321f93e9faf917c01",
   "reproduction": {
     "target": "https://noxia-imagerie.fr/protocol-designer/demo",
     "result": "FAILURE_REPRODUCED",
@@ -17,7 +19,9 @@
     "validation/protocol-designer-public-conversation-activation-01/MANDATE-REFERENCE.md",
     "validation/protocol-designer-public-conversation-activation-01/checkpoint-log.md",
     "validation/protocol-designer-public-conversation-activation-01/resume-state.json",
-    "api/protocol-designer-public-guard.ts",
+    "server/protocol-designer-public-guard.ts",
+    "server/protocol-designer-canary-policy.ts",
+    "server/protocol-designer-provider-replay.ts",
     "api/protocol-designer-bridge.ts",
     "src/features/protocol-designer/public-runtime-access.ts",
     "src/features/protocol-designer/__tests__/v1-public-conversation-activation-01.test.ts",
@@ -28,13 +32,24 @@
     "54/54 targeted Vitest tests",
     "npm run typecheck",
     "npm run build",
-    "provider-secret bundle scan"
+    "provider-secret bundle scan",
+    "117/117 pipeline-repair focused tests",
+    "pipeline-repair npm run typecheck",
+    "pipeline-repair npm run build",
+    "Vercel function source count = 12"
   ],
   "remaining": [
-    "Verify live remote state",
-    "Review exact diff and final source safety",
-    "Run final source safety checks",
-    "Commit and deploy through existing origin/main Vercel production path",
+    "Secure the qualified pipeline-only repair commit",
+    "Obtain explicit approval to push that exact commit to origin/main",
+    "Push through the existing Vercel production path",
     "Run the exact live browser journey and capture provider observability"
-  ]
+  ],
+  "deploymentAttempt": {
+    "commit": "8f40aa73716636c3c531f453092116e816bc3652",
+    "deploymentId": "dpl_94KmGDfCG37p3KTmUgXZLvdqtVCd",
+    "status": "ERROR",
+    "errorCode": "exceeded_serverless_functions_per_deployment",
+    "errorMessage": "15 generated serverless functions exceeded the Hobby plan limit of 12; no production alias was assigned."
+  },
+  "blockingCondition": "The pipeline-only repair requires a new commit SHA and therefore a new exact push authorization."
 }

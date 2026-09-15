@@ -7,7 +7,7 @@ import {
   createPublicProtocolDesignerBudgetedFetch,
   publicProtocolDesignerGuardStateForTests,
   resetPublicProtocolDesignerGuardForTests,
-} from "../../../../api/protocol-designer-public-guard";
+} from "../../../../server/protocol-designer-public-guard";
 
 const body = (sessionId = "public-session:1") => ({
   apiVersion: "1.0.0",

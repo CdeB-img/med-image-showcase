@@ -3,7 +3,7 @@ import { appendFile, mkdir, open, readFile, readdir, unlink } from "node:fs/prom
 import { basename, dirname, join } from "node:path";
 import { realpath } from "node:fs/promises";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
-import { FileScientificInterpretationEvidenceStore } from "./scientific-interpretation-evidence-store.js";
+import { FileScientificInterpretationEvidenceStore } from "../api/scientific-interpretation-evidence-store.js";
 import type { ProviderObservedRequestInit } from "../src/features/protocol-designer/provider-call-observability.js";
 import {
   addCanaryCosts, boundCanaryProviderCall, canaryBudgetAdmission, CanaryAdmissionError,

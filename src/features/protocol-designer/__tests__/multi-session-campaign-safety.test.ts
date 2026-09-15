@@ -5,9 +5,9 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { stableStringify } from "../../knowledge-engine/canonical";
 import { FileScientificInterpretationEvidenceStore } from "../../../../api/scientific-interpretation-evidence-store";
-import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from "../../../../api/protocol-designer-provider-replay";
-import { boundCanaryProviderCall, createCanaryCampaignPolicy, resolveCanaryExecution, SINGLE_ATTEMPT_FAIL_CLOSED, QUALIFIED_CAMPAIGN_MODELS } from "../../../../api/protocol-designer-canary-policy";
-import type { CanaryCampaignPolicy } from "../../../../api/protocol-designer-canary-policy";
+import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from "../../../../server/protocol-designer-provider-replay";
+import { boundCanaryProviderCall, createCanaryCampaignPolicy, resolveCanaryExecution, SINGLE_ATTEMPT_FAIL_CLOSED, QUALIFIED_CAMPAIGN_MODELS } from "../../../../server/protocol-designer-canary-policy";
+import type { CanaryCampaignPolicy } from "../../../../server/protocol-designer-canary-policy";
 import type { ProviderObservedRequestInit } from "../provider-call-observability";
 
 const hash = (v: unknown) => createHash("sha256").update(stableStringify(v)).digest("hex");
@@ -97,7 +97,7 @@ describe("multi-session campaign safety — offline only", () => {
   });
   it("MULTI_SESSION_07: simulated process restart restores policy, sessions and consumption", async () => {
     const e = await create(); await e.run(endpoint, request("A")); vi.resetModules();
-    const fresh = await import("../../../../api/protocol-designer-provider-replay");
+    const fresh = await import("../../../../server/protocol-designer-provider-replay");
     await fresh.createRecordedProtocolDesignerFetch(e.options)(endpoint, request("B"));
     const rows = await exchanges(e.root);
     expect(rows[1].canaryAdmission.committedBeforeUsd).toBe(rows[0].canarySettlement.committedCostUpperBoundUsd);

@@ -6,10 +6,10 @@ import {
   createProtocolDesignerReplayFetch,
   createRecordedProtocolDesignerFetch,
   readProtocolDesignerReplayRefs,
-} from "../../../../api/protocol-designer-provider-replay";
+} from "../../../../server/protocol-designer-provider-replay";
 import type { ProviderObservedRequestInit } from "../provider-call-observability";
 import { FileScientificInterpretationEvidenceStore } from "../../../../api/scientific-interpretation-evidence-store";
-import { boundCanaryProviderCall, canaryBudgetAdmission, resolveCanaryExecution, settleCanaryProviderCall, SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../api/protocol-designer-canary-policy";
+import { boundCanaryProviderCall, canaryBudgetAdmission, resolveCanaryExecution, settleCanaryProviderCall, SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../server/protocol-designer-canary-policy";
 
 const endpoint = "https://api.openai.com/v1/responses";
 const request = { method: "POST", body: JSON.stringify({ model: "gpt-5.6-terra", input: "Texte scientifique exact", reasoning: { effort: "low" } }),

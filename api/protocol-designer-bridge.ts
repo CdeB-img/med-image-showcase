@@ -16,7 +16,7 @@ import {
   type ProductBridgeResponse,
 } from "../src/features/protocol-designer/product-bridge.js";
 import { ProductBridgeProviderError, executeNaturalConversation } from "./protocol-designer-bridge-provider.js";
-import { SINGLE_ATTEMPT_FAIL_CLOSED, type ProviderAttemptPolicy } from "./protocol-designer-canary-policy.js";
+import { SINGLE_ATTEMPT_FAIL_CLOSED, type ProviderAttemptPolicy } from "../server/protocol-designer-canary-policy.js";
 import {
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
@@ -39,7 +39,7 @@ import {
 import {
   admitPublicProtocolDesignerRequest,
   createPublicProtocolDesignerBudgetedFetch,
-} from "./protocol-designer-public-guard.js";
+} from "../server/protocol-designer-public-guard.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };

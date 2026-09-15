@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import ProtocolDesignerDemo from '../../src/pages/ProtocolDesignerDemo';
 import * as sessionModule from '../../src/features/protocol-designer/functional-reset/session';
 import { handleProtocolDesignerBridge, type ApiResponse } from '../../api/protocol-designer-bridge';
-import { createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../api/protocol-designer-provider-replay';
+import { createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../server/protocol-designer-provider-replay';
 import { FileScientificInterpretationEvidenceStore } from '../../api/scientific-interpretation-evidence-store';
 import { T01,T02,T03,T04,T05 } from '../../src/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay';
 

@@ -2,8 +2,8 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
-import { createRecordedProtocolDesignerFetch } from "./api/protocol-designer-provider-replay";
-import { resolveCanaryExecution } from "./api/protocol-designer-canary-policy";
+import { createRecordedProtocolDesignerFetch } from "./server/protocol-designer-provider-replay";
+import { resolveCanaryExecution } from "./server/protocol-designer-canary-policy";
 
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;

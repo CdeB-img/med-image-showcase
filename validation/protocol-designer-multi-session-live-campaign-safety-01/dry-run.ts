@@ -9,11 +9,11 @@ import type { ViteDevServer } from 'vite';
 import { localProductBridge } from '../../vite.config';
 import { stableStringify } from '../../src/features/knowledge-engine/canonical';
 import { FileScientificInterpretationEvidenceStore } from '../../api/scientific-interpretation-evidence-store';
-import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../api/protocol-designer-provider-replay';
+import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../server/protocol-designer-provider-replay';
 import { addCanaryCosts, canaryBudgetAdmission, campaignBudgetPolicy, createCanaryCampaignPolicy,
-  QUALIFIED_CAMPAIGN_MODELS, SINGLE_ATTEMPT_FAIL_CLOSED } from '../../api/protocol-designer-canary-policy';
+  QUALIFIED_CAMPAIGN_MODELS, SINGLE_ATTEMPT_FAIL_CLOSED } from '../../server/protocol-designer-canary-policy';
 import type { ProviderObservedRequestInit } from '../../src/features/protocol-designer/provider-call-observability';
-import type { CanaryCampaignPolicy, CanaryCallBound } from '../../api/protocol-designer-canary-policy';
+import type { CanaryCampaignPolicy, CanaryCallBound } from '../../server/protocol-designer-canary-policy';
 
 type DryRunExchange = {
   request: { endpoint: string; body: string }; response: { body: string };

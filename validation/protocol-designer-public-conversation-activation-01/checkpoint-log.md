@@ -30,3 +30,23 @@
 - Generated browser bundle scan found no provider key names, provider authorization header values, or provider key prefixes.
 - No live provider call has been spent during repair or local qualification.
 - Remaining: verify live remote state; stage only the mission whitelist; source safety scan; commit/push existing production branch; live browser proof.
+
+## 2026-09-15 — commit secured, production transfer blocked by approval review
+
+- Remote state verified: `origin/main=b6aed0e2`; it is an ancestor of baseline `bf9e46fd`; no divergence.
+- Source transfer gates: secrets `0`; sensitive personal data `0`; blind/sealed corpus `0`.
+- Qualified local commit: `8f40aa73` (`fix(protocol-designer): activate guarded public conversation`).
+- Automatic approval review rejected `git push origin HEAD:main` because the exact new commit `8f40aa73` had not been named in the earlier deployment authorization for `bf9e46fd`.
+- No push and no deployment occurred. No post-repair live provider call occurred.
+- Resume action after exact approval: push `8f40aa73` to `origin/main`, wait for existing Vercel production deployment, then execute the single bounded public browser journey.
+
+## 2026-09-15 — Vercel function-count repair qualified
+
+- Exact authorized push completed: `origin/main=8f40aa73`.
+- Existing Vercel production deployment `dpl_94KmGDfCG37p3KTmUgXZLvdqtVCd` cloned and built `8f40aa73` successfully, then failed before alias assignment.
+- Vercel error: `exceeded_serverless_functions_per_deployment`; 15 TypeScript files under `api/` were interpreted as functions against the Hobby limit of 12.
+- Causal repair: moved only the three internal non-handler modules (`protocol-designer-canary-policy`, `protocol-designer-provider-replay`, `protocol-designer-public-guard`) from `api/` to `server/`; updated imports. No route, provider contract, model, prompt, runtime policy, or infrastructure setting changed.
+- Resulting Vercel function source count: 12.
+- Requalification passed: 117/117 focused tests, TypeScript, production build, and diff check.
+- No provider call was made.
+- Remaining: secure the pipeline-only repair commit; obtain exact authorization for that new SHA; push and run the bounded public smoke.

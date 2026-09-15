@@ -5,8 +5,8 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { FileScientificInterpretationEvidenceStore } from '../../api/scientific-interpretation-evidence-store';
-import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../api/protocol-designer-provider-replay';
-import { validateCanaryCampaignPolicy } from '../../api/protocol-designer-canary-policy';
+import { createRecordedProtocolDesignerFetch, createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../server/protocol-designer-provider-replay';
+import { validateCanaryCampaignPolicy } from '../../server/protocol-designer-canary-policy';
 import type { ProviderObservedRequestInit } from '../../src/features/protocol-designer/provider-call-observability';
 
 assert.match(process.env.NODE_OPTIONS ?? '', /offline-guard\.cjs/);

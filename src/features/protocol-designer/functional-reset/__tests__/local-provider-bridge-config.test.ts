@@ -5,7 +5,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { ViteDevServer } from "vite";
 import { describe, expect, it, vi } from "vitest";
 import { languageProjectionIdentityDigest } from "../../conversation-language-gateway";
-import { SINGLE_ATTEMPT_FAIL_CLOSED, createCanaryCampaignPolicy, QUALIFIED_CAMPAIGN_MODELS } from "../../../../../api/protocol-designer-canary-policy";
+import { SINGLE_ATTEMPT_FAIL_CLOSED, createCanaryCampaignPolicy, QUALIFIED_CAMPAIGN_MODELS } from "../../../../../server/protocol-designer-canary-policy";
 
 vi.mock("vite", () => ({
   defineConfig: (configuration: unknown) => configuration,

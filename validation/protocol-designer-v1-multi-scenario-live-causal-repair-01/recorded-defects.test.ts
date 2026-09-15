@@ -2,7 +2,7 @@ import { expect, it } from 'vitest';
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { adoptInitial, extraction, recorded, rows, findings, baseline, mission } from './live-evidence';
-import { createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../api/protocol-designer-provider-replay';
+import { createProtocolDesignerReplayFetch, readProtocolDesignerReplayRefs } from '../../server/protocol-designer-provider-replay';
 import { detectSensitiveData } from '../../src/features/protocol-designer/intake/privacy';
 import { routeProductEntry } from '../../src/features/protocol-designer/functional-reset/product-entry-routing';
 import { buildScientificThinkingInputFromProjectSnapshot } from '../../src/features/research-project-construction';

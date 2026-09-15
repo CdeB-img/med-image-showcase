@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
-import { SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../../api/protocol-designer-canary-policy";
+import { SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../../server/protocol-designer-canary-policy";
 import { buildPersistentSourceCatalog, type ProductBridgeRequest, type ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { confirmResearchProjectContribution, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import type { GovernedConversationEnvelope } from "@/features/query-navigation/governed-conversation-realization";
