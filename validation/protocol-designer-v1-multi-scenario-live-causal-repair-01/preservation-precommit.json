@@ -1,0 +1,51 @@
+{
+  "at": "2026-09-15T12:01:50.804742+00:00",
+  "head": "91f0fbc5ab32c545b16cabb866299d1cbb756299",
+  "checks": {
+    "priorUntracked": {
+      "checked": 2225,
+      "drift": []
+    },
+    "privateEvidence": {
+      "checked": 36,
+      "drift": []
+    },
+    "trackedFiles": {
+      "checked": 5326,
+      "drift": []
+    }
+  },
+  "liveManifestSha256": "28b70548578160fa37c86b0621344540b2aeec6100a834e5b81e8b4fc485751b",
+  "productFiles": [
+    {
+      "path": "src/features/protocol-designer/intake/privacy.ts",
+      "sha256": "4b69bf63ace28d08972a8cecfda24fc4ab748948b0b163432f59805ba077890c"
+    },
+    {
+      "path": "src/features/protocol-designer/product-bridge.ts",
+      "sha256": "0441e7b438f3f5e144c2fc16785a22409eb7a994c9900e6980833adb2891810a"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ContributionReview.tsx",
+      "sha256": "ac87868243fb114911f3f6db9f31afca12c840ef63ee5d68db8380333d53a72d"
+    },
+    {
+      "path": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts",
+      "sha256": "a393b4a95d13ca3db4b31ceb971a7314616884f842095957f20435f4b3e56f8b"
+    },
+    {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "sha256": "600958e1242c374b9e9f54c454de65802fcb5b905ce2805f27637603f30a87b8"
+    },
+    {
+      "path": "src/features/research-project-construction/contribution-owner-boundary.ts",
+      "sha256": "c57c0f51933fca2778846c5a74112b4871fc843551d64696e25cd0ea0aea873c"
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/v1-causal-repair-regression.test.tsx",
+      "sha256": "c1d518ecaebd5e6da85776bb215c37d8e69c4e181f921a3304521485f5484d3e"
+    }
+  ],
+  "status": "PASS",
+  "scope": "Every frozen pre-existing untracked/private file and all baseline tracked files except the six authorized product changes are byte-identical. New regression test explicitly listed."
+}

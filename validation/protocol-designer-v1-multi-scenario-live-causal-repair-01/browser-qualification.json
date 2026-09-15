@@ -1,0 +1,63 @@
+{
+  "level": "REAL_IAB_BROWSER_REAL_STANDARD_REAL_HANDLER_OFFLINE_PROVIDER_SUBSTITUTION",
+  "paths": [
+    {
+      "scenario": "S1",
+      "status": "PASS_RECORDED_DEFECT",
+      "scientificNegativeControl": "NOT_APPLICABLE",
+      "sessionId": "protocol-designer-session:bae69bc4-ffc8-45db-857c-3249b8aa73e3",
+      "projectVersion": "protocol-designer-session:bae69bc4-ffc8-45db-857c-3249b8aa73e3:research-project:version:1",
+      "userTurns": 2,
+      "visibleSha256": "554b6b13796100cf217a9b026ccce78342c7cce8d73cdcb08574f4ef550cd2ad",
+      "sessionSha256": "3e97dc2bf1cdcc872a7fa2923a859d5523243243aa184e6764bf340a9041a8e0",
+      "providerCalls": 0
+    },
+    {
+      "scenario": "S2",
+      "status": "PASS_RECORDED_DEFECT",
+      "scientificNegativeControl": "NOT_APPLICABLE",
+      "sessionId": "protocol-designer-session:179c013e-d395-4b72-8d0f-89b0fe0cb7cb",
+      "projectVersion": "protocol-designer-session:179c013e-d395-4b72-8d0f-89b0fe0cb7cb:research-project:version:1",
+      "userTurns": 1,
+      "visibleSha256": "a06f19f854e8defbcd50d7e64f6abd6642afb4a691c992938b98f1abff57ef0b",
+      "sessionSha256": "4471545ed90ee7d478a250c106a11af2516a533dfb51624850bc62211a2e025a",
+      "providerCalls": 0
+    },
+    {
+      "scenario": "S3",
+      "status": "PASS_RECORDED_DEFECT",
+      "scientificNegativeControl": "NOT_APPLICABLE",
+      "sessionId": "protocol-designer-session:baddaa6f-ee12-461f-a56d-41c5472bbfbd",
+      "projectVersion": null,
+      "userTurns": 1,
+      "visibleSha256": "c6a974f9ec43f634f8487f9a1e35dfbd8c3166b6332f50160eedad1bc3911329",
+      "sessionSha256": "91a4ad3a0d44cfd77e822ec97c3305013af3a2af6182632dfec55bcb8108ae5a",
+      "providerCalls": 0
+    },
+    {
+      "scenario": "S4",
+      "status": "PASS_RECORDED_DEFECT",
+      "scientificNegativeControl": "NOT_APPLICABLE",
+      "sessionId": "protocol-designer-session:26819b67-d6f5-4794-a642-5f187fc17e91",
+      "projectVersion": "protocol-designer-session:26819b67-d6f5-4794-a642-5f187fc17e91:research-project:version:1",
+      "userTurns": 2,
+      "visibleSha256": "1b6dd9b82cad93ebff231e265708422a22c56e74e18ab2dd13a40cc16ab40dbb",
+      "sessionSha256": "582c79aeccad609b162948e31b640028ad7765913cacd861c3fcf4116ec5450f",
+      "providerCalls": 0
+    },
+    {
+      "scenario": "S5",
+      "status": "PASS_RECORDED_DEFECT",
+      "scientificNegativeControl": "PARTIAL",
+      "sessionId": "protocol-designer-session:f49d614f-4ef2-4092-abe4-f8ae1771c7eb",
+      "projectVersion": "protocol-designer-session:f49d614f-4ef2-4092-abe4-f8ae1771c7eb:research-project:version:2",
+      "userTurns": 8,
+      "visibleSha256": "67fe4aacd9e3a97503dbeeffa2c059846f6b7bf7b0e38816c88dc4dc18941ff0",
+      "sessionSha256": "7882e1f188612800df4679dd5272011098b97d32fde7c8bea295e59d14881499",
+      "providerCalls": 0
+    }
+  ],
+  "rawReceiptSha256": "06960b195ceed5efa3dcfc08919844d6607ac53ca5caa7ae155e86ce62182fd5",
+  "scope": "S1/S2/S4 retain recorded scientific deltas with explicit identity-only rebinding; S3/S5 use declared synthetic extraction, HOW uses the existing qualified synthetic adapter. Separate strict replay uses all seven original responses without rebinding.",
+  "initialCollectorIssue": "First collector accepted only 500 KB: S1/S2/S5 receipt writes were rejected although the button claimed success. Mission collector repaired to check HTTP success with 20 MB receipt-only limit; complete final receipts re-acquired. No product transport limit altered."
+}

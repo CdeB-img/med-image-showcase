@@ -160,6 +160,15 @@ export default function ContributionReview({ contribution, candidate, currentPro
       ? "Voici les changements repérés dans votre dernier message. Ils ne seront appliqués qu’après votre confirmation."
       : "Cette proposition reste modifiable. Vous pouvez la confirmer ou décrire librement ce que vous souhaitez changer."}</p>
 
+    {issueItems.some((item) => item.epistemicBoundary.epistemicStatus === "UNREPRESENTED_SOURCE_SPAN") && <p
+      role="status" className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm"
+    >Compréhension partielle : certains passages restent à vérifier. Confirmer cette proposition ne confirme que les éléments structurés affichés.</p>}
+
+    {isUpdate && issueItems.length > 0 && <section className="mt-3 rounded-xl border border-amber-500/40 p-3">
+      <h4 className="text-sm font-semibold">À clarifier</h4>
+      <ul className="mt-2 list-disc pl-5 text-sm">{issueItems.map((item) => <li key={item.itemId}>{item.content}</li>)}</ul>
+    </section>}
+
     {!isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-initial-review-summary">
       {summaryRows.map((row) => <div key={row.id} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold">{row.label}</dt>

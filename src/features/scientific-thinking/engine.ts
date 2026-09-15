@@ -125,7 +125,9 @@ const contextualLabel = (input: ScientificThinkingInput) => {
 };
 
 const relationTerms = (input: ScientificThinkingInput) => {
-  const ordered = unique([...input.phenomena, ...input.scientificObjectTerms, ...input.pathologyOrCondition]);
+  const ordered = input.researchContext.researchProjectId
+    ? unique(input.scientificObjectTerms)
+    : unique([...input.phenomena, ...input.scientificObjectTerms, ...input.pathologyOrCondition]);
   return { first: ordered[0] ?? objectLabel(input), second: ordered[1] ?? null };
 };
 
@@ -256,7 +258,7 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
   } else if (completeExistingQuestion) {
     const contextualProjectQuestion = input.information.interpreted.some((item) => item.startsWith("PROJECT_CONTEXTUAL_QUESTION_CANDIDATE:"));
     const representedSourceTerms = contextualProjectQuestion
-      ? unique([...input.scientificObjectTerms, ...input.pathologyOrCondition, ...input.phenomena, ...input.outcomes]
+      ? unique([...input.scientificObjectTerms, ...input.methodsMentioned, ...input.pathologyOrCondition, ...input.phenomena, ...input.outcomes]
         .filter((item) => termAppearsIn(source, item)))
       : unique([first, ...(second ? [second] : [])]);
     candidates.push({
@@ -266,6 +268,17 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
         ? "La relation comparative, ses deux extrémités et le critère sont déjà représentés dans le Project ; ils suffisent à formuler une question candidate sans redemander le phénomène étudié."
         : "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
       testability: "TESTABLE_CANDIDATE", scope, support, linkedAssumptionIds: hasRelation(source) ? ["ST-A-001"] : [], sourceTerms: representedSourceTerms,
+    });
+  } else if (input.researchContext.researchProjectId
+    && input.scientificPurpose.includes(source)
+    && has(source, /\b(evolution|progression|trajectoires?|longitudinal\w*)\b/)
+    && hasPopulation(input)) {
+    candidates.push({
+      questionId: "ST-Q-001",
+      text: `Comment ${source.charAt(0).toLocaleLowerCase("fr-FR")}${source.slice(1).replace(/[.?!]+$/, "")} ?`,
+      kind: "PRIMARY", testability: "TESTABLE_CANDIDATE", scope: "BALANCED", support,
+      rationale: "L’objectif longitudinal explicite est conservé comme une question candidate ; il n’est pas converti en opérande d’une association entre objets.",
+      linkedAssumptionIds: [], sourceTerms: [source],
     });
   } else if (hasPrediction(source) && first) {
     const outcome = input.outcomes[0] ?? (answeredOutcome && !["unknown", "exploratory", "declared-event"].includes(answeredOutcome) ? answeredOutcome : hasOutcome(input) ? "les événements mentionnés" : "un résultat à préciser");

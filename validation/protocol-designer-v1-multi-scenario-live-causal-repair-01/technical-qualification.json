@@ -1,0 +1,46 @@
+{
+  "fullSuite": {
+    "exitCode": 0,
+    "seconds": 28.68,
+    "testFiles": 276,
+    "passed": 4308,
+    "failed": 0,
+    "pending": 12,
+    "todo": 1,
+    "success": true,
+    "sourceUnchanged": true,
+    "providerCalls": 0,
+    "unhandledObserved": 0,
+    "unhandledEvidence": "Successful Vitest exit 0 and no unhandled diagnostic in final log; JSON reporter has no independent unhandledErrors field."
+  },
+  "typescript": "PASS_APP_API_SCIENTIFIC_SERVER",
+  "build": "PASS",
+  "lint": {
+    "files": 7,
+    "errors": 0,
+    "warnings": 0
+  },
+  "targetedPassed": 70,
+  "nativeSevenResponsePassed": 7,
+  "canonicalRegressionPassed": 55,
+  "countsOverlap": true,
+  "soakFamilies": {
+    "IDM_IRM": 15,
+    "NON_IMAGING_CLINICAL": 15,
+    "NON_MEDICAL_EXPERIMENTAL": 15
+  },
+  "warnings": [
+    "Existing build bundle size warning",
+    "Browserslist dataset age warning"
+  ],
+  "sources": [
+    "qualification/full-suite-commit-candidate.json",
+    "qualification/full-suite-commit-candidate-receipt.json",
+    "qualification/full-suite-commit-candidate.log",
+    "build-commit-candidate.log",
+    "lint-commit-candidate.json",
+    "canonical-regression.json",
+    "targeted-post-audit.json",
+    "seven-responses-native.json"
+  ]
+}

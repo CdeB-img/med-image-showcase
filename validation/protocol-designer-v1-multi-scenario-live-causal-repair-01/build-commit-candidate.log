@@ -1,0 +1,137 @@
+
+> vite_react_shadcn_ts@0.0.0 build
+> npm run typecheck && vite build
+
+
+> vite_react_shadcn_ts@0.0.0 typecheck
+> npm run check:typescript-gate && npm run typecheck:app && npm run typecheck:vercel-api && npm run check:scientific-interpretation-server
+
+
+> vite_react_shadcn_ts@0.0.0 check:typescript-gate
+> node scripts/check-typescript-gate.mjs
+
+NOXIA_TYPESCRIPT_GATE_CLEAN=CONFIGURATION_VERIFIED
+APP_MODULE_RESOLUTION=BUNDLER
+VERCEL_API_MODULE_RESOLUTION=NODENEXT
+VERCEL_API_GRAPH=api/**/*.ts
+
+> vite_react_shadcn_ts@0.0.0 typecheck:app
+> tsc -p tsconfig.app.json --noEmit
+
+
+> vite_react_shadcn_ts@0.0.0 typecheck:vercel-api
+> tsc -p tsconfig.scientific-interpretation-api.json --noEmit
+
+
+> vite_react_shadcn_ts@0.0.0 check:scientific-interpretation-server
+> npm run typecheck:scientific-interpretation-server && node scripts/check-scientific-interpretation-server.mjs
+
+
+> vite_react_shadcn_ts@0.0.0 typecheck:scientific-interpretation-server
+> tsc -p tsconfig.scientific-interpretation-server.json --noEmit
+
+STATIC_RUNTIME_MODULES=19
+RUNTIME_ALIAS_COUNT=0
+EXTENSIONLESS_RELATIVE_IMPORT_COUNT=0
+NODE_ESM_HANDLER_LOAD=PASS
+vite v5.4.19 building for production...
+transforming...
+Browserslist: browsers data (caniuse-lite) is 15 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+node_modules/react-helmet-async/lib/index.module.js (1:7186): A comment
+
+"/*#__PURE__*/"
+
+in "node_modules/react-helmet-async/lib/index.module.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/react-helmet-async/lib/index.module.js (1:13561): A comment
+
+"/*#__PURE__*/"
+
+in "node_modules/react-helmet-async/lib/index.module.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 2088 modules transformed.
+rendering chunks...
+warnings when minifying css:
+▲ [WARNING] Expected identifier but found "-" [css-syntax-error]
+
+    <stdin>:3025:2:
+      3025 │   -: .TZ;
+           ╵   ^
+
+
+computing gzip size...
+dist/index.html                                               3.00 kB │ gzip:   1.12 kB
+dist/assets/index-DhTjg_nZ.css                               94.72 kB │ gzip:  15.92 kB
+dist/assets/arrow-right-BwX40GNo.js                           0.33 kB │ gzip:   0.27 kB
+dist/assets/circle-check-DPAWxDvY.js                          0.34 kB │ gzip:   0.27 kB
+dist/assets/message-square-BdWptVjw.js                        0.35 kB │ gzip:   0.27 kB
+dist/assets/activity-CfBPHcGJ.js                              0.40 kB │ gzip:   0.30 kB
+dist/assets/timer-CwPkPGAe.js                                 0.41 kB │ gzip:   0.29 kB
+dist/assets/heart-D8I1U6Rj.js                                 0.41 kB │ gzip:   0.31 kB
+dist/assets/database-jzeTZS8O.js                              0.41 kB │ gzip:   0.31 kB
+dist/assets/settings-2-BTUmK-UD.js                            0.42 kB │ gzip:   0.30 kB
+dist/assets/circle-alert-DZGiiXUR.js                          0.42 kB │ gzip:   0.29 kB
+dist/assets/chart-column-BDhX3SXq.js                          0.42 kB │ gzip:   0.30 kB
+dist/assets/triangle-alert-NMmdkxVg.js                        0.43 kB │ gzip:   0.31 kB
+dist/assets/workflow-CzTWsZ1D.js                              0.43 kB │ gzip:   0.31 kB
+dist/assets/flask-conical-BMlH3lxO.js                         0.48 kB │ gzip:   0.34 kB
+dist/assets/file-code-DJD2DSLK.js                             0.49 kB │ gzip:   0.32 kB
+dist/assets/shield-check-DqWvOq1v.js                          0.49 kB │ gzip:   0.35 kB
+dist/assets/file-search-CGiWK_Ob.js                           0.49 kB │ gzip:   0.34 kB
+dist/assets/Breadcrumb-B-H8FOyo.js                            0.53 kB │ gzip:   0.31 kB
+dist/assets/scale-CVQPDhFr.js                                 0.53 kB │ gzip:   0.34 kB
+dist/assets/layers-CnuzX3j5.js                                0.53 kB │ gzip:   0.34 kB
+dist/assets/microscope-BVnwt5uv.js                            0.55 kB │ gzip:   0.35 kB
+dist/assets/atom-BjYacUeM.js                                  0.60 kB │ gzip:   0.38 kB
+dist/assets/badge-yE9dPill.js                                 0.60 kB │ gzip:   0.36 kB
+dist/assets/cpu-CcWPYlkH.js                                   0.67 kB │ gzip:   0.36 kB
+dist/assets/ProtocolDesignerUnavailable-DOx8YPAO.js           0.82 kB │ gzip:   0.50 kB
+dist/assets/AuthorExpertiseBlock-DSkRVOd7.js                  1.02 kB │ gzip:   0.55 kB
+dist/assets/button-C8wuv4i8.js                                1.22 kB │ gzip:   0.60 kB
+dist/assets/NotFound-BO_RKBFD.js                              1.63 kB │ gzip:   0.64 kB
+dist/assets/ExpertiseHero-h2kFfL8P.js                         2.51 kB │ gzip:   0.99 kB
+dist/assets/index-DSfWuVtN.js                                 5.53 kB │ gzip:   2.20 kB
+dist/assets/Footer-C1zlezAh.js                                6.16 kB │ gzip:   1.90 kB
+dist/assets/Projects-xXrNPcQO.js                             10.61 kB │ gzip:   3.50 kB
+dist/assets/QuantificationTissulaire-DYrLR-3i.js             11.95 kB │ gzip:   3.13 kB
+dist/assets/ScannerSpectralPrincipe-BFzEmKv0.js              12.00 kB │ gzip:   3.43 kB
+dist/assets/ReferencesPublications-SoM2aX91.js               12.17 kB │ gzip:   3.79 kB
+dist/assets/ProtocolDesigner-Ml1I_q16.js                     12.25 kB │ gzip:   3.80 kB
+dist/assets/APropos-XDj8G8hS.js                              12.73 kB │ gzip:   4.04 kB
+dist/assets/ScannerDoubleEnergie-D-wlIKa5.js                 13.45 kB │ gzip:   3.86 kB
+dist/assets/QuantificationCT-OHQ4rdyR.js                     13.73 kB │ gzip:   3.54 kB
+dist/assets/MetabolismeCerebral-BSOuA7ws.js                  14.34 kB │ gzip:   4.04 kB
+dist/assets/ScannerComptagePhoton-DsoEVi1u.js                14.96 kB │ gzip:   4.20 kB
+dist/assets/OEFImagerie-78aU72gw.js                          16.15 kB │ gzip:   3.86 kB
+dist/assets/PerfusionCerebrale-DZsfFRck.js                   16.19 kB │ gzip:   4.29 kB
+dist/assets/Combination-CU7Vp6kd.js                          16.68 kB │ gzip:   6.32 kB
+dist/assets/MethodologieImagerieQuantitative-DV8iwJEk.js     16.96 kB │ gzip:   4.20 kB
+dist/assets/BasesMulticentriques-By-dTCkd.js                 17.11 kB │ gzip:   4.07 kB
+dist/assets/PerfusionMetaboliqueNeuro-gcPPUTMM.js            17.33 kB │ gzip:   4.60 kB
+dist/assets/RecalageMultimodal-Jy1Cun87.js                   17.38 kB │ gzip:   4.14 kB
+dist/assets/PerfusionHemodynamiqueNeuro-CGHhMWck.js          17.55 kB │ gzip:   4.43 kB
+dist/assets/AnalyseDICOM-Ce_KwkhH.js                         17.77 kB │ gzip:   4.20 kB
+dist/assets/CMRO2Imagerie-C0sZKp53.js                        17.80 kB │ gzip:   4.38 kB
+dist/assets/CorelabEC-99kWpQja.js                            18.28 kB │ gzip:   4.88 kB
+dist/assets/Contact-CliXplKk.js                              18.73 kB │ gzip:   5.28 kB
+dist/assets/IRMImagerieQuantitative-C4pdlLVV.js              18.91 kB │ gzip:   4.61 kB
+dist/assets/Expertise-6uge6Ujr.js                            19.40 kB │ gzip:   4.56 kB
+dist/assets/Index-D0c_qTs8.js                                19.80 kB │ gzip:   6.42 kB
+dist/assets/CTImagerieQuantitative-Dq-t2h8v.js               20.37 kB │ gzip:   4.93 kB
+dist/assets/ECVMappingCardiaque-CXsPEKRD.js                  21.07 kB │ gzip:   5.37 kB
+dist/assets/CTPerfusionQuantitative-B8feTWUT.js              21.93 kB │ gzip:   5.90 kB
+dist/assets/Prestations-Bb1Vcbl5.js                          22.03 kB │ gzip:   4.63 kB
+dist/assets/BiomarqueursIRMCardiaqueEssais-DenbU2h5.js       23.22 kB │ gzip:   5.87 kB
+dist/assets/SegmentationIRM-BcXz3JrZ.js                      24.68 kB │ gzip:   6.29 kB
+dist/assets/IngenierieImagerieQuantitative-D80GER2B.js       24.91 kB │ gzip:   5.62 kB
+dist/assets/CTQuantitatifAvance-DbMnDdyN.js                  29.75 kB │ gzip:   6.79 kB
+dist/assets/ProjectDetail-BaDupP4u.js                        73.51 kB │ gzip:  18.28 kB
+dist/assets/ScientificKnowledgeExplorer-CNBvPsGD.js          80.03 kB │ gzip:  17.04 kB
+dist/assets/index-KOgRhbOH.js                             1,201.21 kB │ gzip: 312.86 kB
+dist/assets/ProtocolDesignerDemo-DyVsYqBJ.js              2,151.85 kB │ gzip: 464.71 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 8.24s

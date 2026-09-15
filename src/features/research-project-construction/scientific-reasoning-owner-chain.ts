@@ -230,7 +230,13 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     ...projectUnknowns(snapshot),
     ...(!question ? ["PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT"] : []),
   ]);
-  const scientificObjectTerms = unique(snapshot.objects.map((item) => item.content));
+  // Relation operands are variables, endpoints or exposures. Objectives,
+  // questions, methods and population prose retain their own input roles;
+  // their textual availability does not make them scientific variables.
+  const scientificObjectTerms = unique(snapshot.objects
+    .filter((item) => ["CANONICAL_VARIABLE", "ENDPOINT", "INTERVENTION_OR_EXPOSURE", "GROUP"].includes(item.type)
+      && !["UNKNOWN", "WITHHELD"].includes(item.epistemicState))
+    .map((item) => item.content));
   const relations = unique([
     ...snapshot.relations.map((item) => `${item.type}(${item.sourceProjectRef},${item.targetProjectRef})`),
     ...comparisons

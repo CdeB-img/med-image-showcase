@@ -1171,13 +1171,22 @@ const reviewReplacement = (previous: string, proposed: string) => {
   return `${previous} → ${proposed}`;
 };
 
-const reviewObjectLabel = (object: { objectType: string; content: string; provenance: { sourceText: string | null } } | null | undefined) => {
+const reviewObjectLabel = (object: {
+  objectType: string;
+  content: string;
+  provenance: { sourceText: string | null };
+  projection: { sourcePolarity?: string | null };
+} | null | undefined) => {
   if (!object) return null;
   const source = object.provenance.sourceText?.trim();
-  if (object.objectType === "OBJECTIVE" && source && folded(source) !== folded(object.content)) {
-    return `${object.content} — formulation d’origine : ${source}`;
-  }
-  return object.content;
+  const label = object.objectType === "OBJECTIVE" && source && folded(source) !== folded(object.content)
+    ? `${object.content} — formulation d’origine : ${source}` : object.content;
+  // ADD/REMOVE describe the change, not the truth polarity of its content.
+  // The same label is used for initial review, replacements and relation ends.
+  return object.projection.sourcePolarity === "NEGATED" ? `Exclusion / absence : ${label}`
+    : object.projection.sourcePolarity === "UNCERTAIN" ? `Incertain : ${label}`
+    : object.projection.sourcePolarity === "CONDITIONAL" ? `Sous condition : ${label}`
+    : label;
 };
 
 const humanReviewObjectSectionLabel = (
@@ -1321,9 +1330,9 @@ export const buildHumanReviewProjection = (
   const currentState = current ? ensureCanonicalProjectState(current) : null;
   const objectLabels = new Map<string, string>(currentState?.objects
     .filter((object) => object.actuality === "CURRENT")
-    .map((object) => [object.objectId, object.content] as const) ?? []);
+    .map((object) => [object.objectId, reviewObjectLabel(object)!] as const) ?? []);
   changeSet.objectChanges.forEach((change) => {
-    if (change.candidate) objectLabels.set(change.objectId, change.candidate.content);
+    if (change.candidate) objectLabels.set(change.objectId, reviewObjectLabel(change.candidate)!);
   });
   const grouped = new Map<string, HumanReviewProjectionItem[]>();
   const add = (label: string, item: HumanReviewProjectionItem) => grouped.set(label, [...(grouped.get(label) ?? []), item]);

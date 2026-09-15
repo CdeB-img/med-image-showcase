@@ -1,0 +1,1505 @@
+{
+  "counts": {
+    "CONFIRM": {
+      "PASS_DECISION_RECORDED": 16
+    },
+    "REFUSE": {
+      "PASS_DECISION_RECORDED": 15,
+      "PASS_CLARIFICATION_REQUIRED": 8
+    },
+    "SELECT_OLD_PROPOSAL": {
+      "PASS_CLARIFICATION_REQUIRED": 8
+    }
+  },
+  "wrongAdoption": 0,
+  "cases": [
+    {
+      "requestId": "A01-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:da57caa8-9941-4fb5-b08e-dc8273027687",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-a9d8cdde49cb078a",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:26.533Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-cfb3e5490748609d",
+          "persistent-delta-item:ke1-21e5d36c3e985158",
+          "variable",
+          "persistent-delta-item:ke1-2d35056514eb7c09",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-cfb3e5490748609d",
+          "ke1-aace30f15444a935",
+          "turn:8c4cece5-0a1b-45aa-ad29-c61d1c8bf46f",
+          "turn:da57caa8-9941-4fb5-b08e-dc8273027687"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:research-project:version:2"
+      },
+      "projectBefore": "ke1-5cf7b5375690a99b",
+      "projectAfterInput": "ke1-40c11d1cdc2e5480",
+      "evidence": "post_audit/A01/2026-09-15T11-47-26-060Z-54833/turns.jsonl#A01-T03"
+    },
+    {
+      "requestId": "A01-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:d5c7d6fe-5070-41aa-a2fc-65ff3f8b68cf",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-bc9f34e03c22ccfc",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:27.736Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-628c33f81ab808c4",
+          "followup6"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-628c33f81ab808c4",
+          "ke1-a2f0ebd73aafef83",
+          "turn:9e9bec77-6db0-4f9b-b1d6-f53c7c62ba3a",
+          "turn:d5c7d6fe-5070-41aa-a2fc-65ff3f8b68cf"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:research-project:version:3"
+      },
+      "projectBefore": "ke1-240f9ee86687be9c",
+      "projectAfterInput": "ke1-240f9ee86687be9c",
+      "evidence": "post_audit/A01/2026-09-15T11-47-26-060Z-54833/turns.jsonl#A01-T08"
+    },
+    {
+      "requestId": "A01-T12",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:59ce46f2-ed67-4b26-9b92-dc5381c1f221",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-71c6b3478eb2e08b",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:28.809Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-5d7b315f1a8ebf43",
+          "persistent-delta-item:ke1-022b47b6e6fd9c8a",
+          "acquisition"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-5d7b315f1a8ebf43",
+          "ke1-032184e22f85eb46",
+          "turn:33375d0a-1a6c-4538-b861-46d766d1c3e4",
+          "turn:59ce46f2-ed67-4b26-9b92-dc5381c1f221"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:f4821de7-9801-4add-af95-f74908558a66:research-project:version:5"
+      },
+      "projectBefore": "ke1-9e146b2ace6aac9e",
+      "projectAfterInput": "ke1-44f920a14e054c7d",
+      "evidence": "post_audit/A01/2026-09-15T11-47-26-060Z-54833/turns.jsonl#A01-T12"
+    },
+    {
+      "requestId": "A01-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:9d85e88f-18b0-4bc6-bfcc-5159ebeff03c",
+      "decision": null,
+      "projectBefore": "ke1-44f920a14e054c7d",
+      "projectAfterInput": "ke1-44f920a14e054c7d",
+      "evidence": "post_audit/A01/2026-09-15T11-47-26-060Z-54833/turns.jsonl#A01-T14"
+    },
+    {
+      "requestId": "A01-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:20cab0df-e571-4a35-8dee-c65122fb77f0",
+      "decision": null,
+      "projectBefore": "ke1-44f920a14e054c7d",
+      "projectAfterInput": "ke1-44f920a14e054c7d",
+      "evidence": "post_audit/A01/2026-09-15T11-47-26-060Z-54833/turns.jsonl#A01-T15"
+    },
+    {
+      "requestId": "A02-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:fe0f4e4d-25c7-453b-a1ba-5b8e9d0fe076",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-26f2e84caa132f78",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:9c545764-0d8b-4609-b586-2d8d1a409a32:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:31.247Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-315de45f3101c933",
+          "persistent-delta-item:ke1-16ee0fbace16062e",
+          "endpoint",
+          "followup6"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-315de45f3101c933",
+          "ke1-7d22148543680701",
+          "turn:85ef2a3c-8541-4893-81c9-bb28c42a8b26",
+          "turn:fe0f4e4d-25c7-453b-a1ba-5b8e9d0fe076"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:9c545764-0d8b-4609-b586-2d8d1a409a32:research-project:version:3"
+      },
+      "projectBefore": "ke1-c7e50d90219d39a4",
+      "projectAfterInput": "ke1-c7e50d90219d39a4",
+      "evidence": "post_audit/A02/2026-09-15T11-47-30-133Z-54833/turns.jsonl#A02-T08"
+    },
+    {
+      "requestId": "A03-T07",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:4126b287-4906-4b9b-99be-561e860bbd7e",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-90f43cd3bfaa9df7",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:dc1d1f6e-a906-48e8-b973-8726a0be322d:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:34.631Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-6b6801c7a6bafaeb",
+          "visit12"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-6b6801c7a6bafaeb",
+          "ke1-46b3c913a2d8037f",
+          "turn:2b25db0d-526c-463a-977b-00b93a8492cd",
+          "turn:4126b287-4906-4b9b-99be-561e860bbd7e"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:dc1d1f6e-a906-48e8-b973-8726a0be322d:research-project:version:3"
+      },
+      "projectBefore": "ke1-18254293d75d75df",
+      "projectAfterInput": "ke1-9cbbdb93383d2a5f",
+      "evidence": "post_audit/A03/2026-09-15T11-47-33-657Z-54833/turns.jsonl#A03-T07"
+    },
+    {
+      "requestId": "A03-T09",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:a4cb7e2a-59a7-4e94-a722-0bfbdec06703",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-905e0eb407c6ccc8",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:dc1d1f6e-a906-48e8-b973-8726a0be322d:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:35.167Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-9692d180c68b77b4",
+          "threshold-analysis"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-9692d180c68b77b4",
+          "ke1-4377520ffc15315b",
+          "turn:6931caf3-6f0a-479d-b6e6-631d7af865dd",
+          "turn:a4cb7e2a-59a7-4e94-a722-0bfbdec06703"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:dc1d1f6e-a906-48e8-b973-8726a0be322d:research-project:version:3"
+      },
+      "projectBefore": "ke1-9cbbdb93383d2a5f",
+      "projectAfterInput": "ke1-9cbbdb93383d2a5f",
+      "evidence": "post_audit/A03/2026-09-15T11-47-33-657Z-54833/turns.jsonl#A03-T09"
+    },
+    {
+      "requestId": "A04-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:0c2cf703-c263-4e3d-861c-1d1b4e908caa",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-347ba76c06681738",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1fe56cd1-99da-4621-8f98-3e6b989f09a2:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:38.018Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-5f9ed4c1f18133bd",
+          "reread"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-5f9ed4c1f18133bd",
+          "ke1-9807aff640fe4302",
+          "turn:07aecbe5-c5ad-44aa-8d33-67739ba5349c",
+          "turn:0c2cf703-c263-4e3d-861c-1d1b4e908caa"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1fe56cd1-99da-4621-8f98-3e6b989f09a2:research-project:version:2"
+      },
+      "projectBefore": "ke1-d93b73267b98454a",
+      "projectAfterInput": "ke1-c1f96e6b57858807",
+      "evidence": "post_audit/A04/2026-09-15T11-47-37-773Z-54833/turns.jsonl#A04-T03"
+    },
+    {
+      "requestId": "A04-T10",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:2bc9a739-eb1b-45fc-8da8-c3313f7b476a",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-43650e0f0dee5843",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1fe56cd1-99da-4621-8f98-3e6b989f09a2:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:39.529Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c78f54cb85c9fd4f",
+          "persistent-delta-item:ke1-311c0a99074a81e5",
+          "reread"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c78f54cb85c9fd4f",
+          "ke1-0dff70c016c3585c",
+          "turn:b82ab566-dc82-4a71-9547-b24b3a5ee64b",
+          "turn:2bc9a739-eb1b-45fc-8da8-c3313f7b476a"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1fe56cd1-99da-4621-8f98-3e6b989f09a2:research-project:version:3"
+      },
+      "projectBefore": "ke1-666abdef4c92492b",
+      "projectAfterInput": "ke1-666abdef4c92492b",
+      "evidence": "post_audit/A04/2026-09-15T11-47-37-773Z-54833/turns.jsonl#A04-T10"
+    },
+    {
+      "requestId": "A04-T13",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:a8a00d17-ab0f-442d-8740-31ca914fe982",
+      "decision": null,
+      "projectBefore": "ke1-a49021f03705affc",
+      "projectAfterInput": "ke1-a49021f03705affc",
+      "evidence": "post_audit/A04/2026-09-15T11-47-37-773Z-54833/turns.jsonl#A04-T13"
+    },
+    {
+      "requestId": "A04-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:53b5f4f2-758e-4346-aa38-793bcdf059c2",
+      "decision": null,
+      "projectBefore": "ke1-a49021f03705affc",
+      "projectAfterInput": "ke1-a49021f03705affc",
+      "evidence": "post_audit/A04/2026-09-15T11-47-37-773Z-54833/turns.jsonl#A04-T14"
+    },
+    {
+      "requestId": "B01-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:3f20a924-c894-4e5d-a79e-4c9c42a01e15",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-63cc35bb73b9227f",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:41.512Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-525ed58f4296bd5b",
+          "hypoglycemia"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-525ed58f4296bd5b",
+          "ke1-0a5421556efe7761",
+          "turn:26d5f35d-33df-4fb0-b0fe-fe02888c42c9",
+          "turn:3f20a924-c894-4e5d-a79e-4c9c42a01e15"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:research-project:version:2"
+      },
+      "projectBefore": "ke1-79bd7147df5d2ceb",
+      "projectAfterInput": "ke1-cb2054a619a0ce72",
+      "evidence": "post_audit/B01/2026-09-15T11-47-41-265Z-54833/turns.jsonl#B01-T03"
+    },
+    {
+      "requestId": "B01-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:aa5008d2-1301-4f21-a5cf-e46e0aa80917",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-3b5d48f5dfade279",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:42.504Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-50cd0ac4fbbca720",
+          "persistent-delta-item:ke1-cfbbf9f3e39fdd3f",
+          "endpoint",
+          "persistent-delta-item:ke1-94683901c5245aad",
+          "visit"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-50cd0ac4fbbca720",
+          "ke1-6f05006596a0ce41",
+          "turn:13e53917-dac0-46e8-bd63-c1656ab09242",
+          "turn:aa5008d2-1301-4f21-a5cf-e46e0aa80917"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:research-project:version:3"
+      },
+      "projectBefore": "ke1-244187f3ee3d47bf",
+      "projectAfterInput": "ke1-244187f3ee3d47bf",
+      "evidence": "post_audit/B01/2026-09-15T11-47-41-265Z-54833/turns.jsonl#B01-T08"
+    },
+    {
+      "requestId": "B01-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:a79988b9-2945-42b0-b9ee-5c3134130068",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-28f5b9e14ffc0c75",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:42.951Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-f6c8ca93f6c16627",
+          "persistent-delta-item:ke1-f740c696ff6fa4aa",
+          "endpoint",
+          "persistent-delta-item:ke1-ab877224fb01ff78",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-f6c8ca93f6c16627",
+          "ke1-3ee3059ac32d8b7e",
+          "turn:94a4bcf9-ce79-4090-b121-90ed6f626049",
+          "turn:a79988b9-2945-42b0-b9ee-5c3134130068"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:aeb9d1c8-4caf-4fd9-8ead-089788fc35c6:research-project:version:4"
+      },
+      "projectBefore": "ke1-244187f3ee3d47bf",
+      "projectAfterInput": "ke1-a0d86a1847572924",
+      "evidence": "post_audit/B01/2026-09-15T11-47-41-265Z-54833/turns.jsonl#B01-T11"
+    },
+    {
+      "requestId": "B02-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:4668a79b-eb51-4e03-a73b-57e66967a102",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-274375f0009896ac",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:38f51dca-6fa1-490e-9e1e-dd975916a7b7:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:45.717Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-432bc70f4d97a6a3"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-432bc70f4d97a6a3",
+          "ke1-e682f735ce88ede1",
+          "turn:6e5d7eb4-2b8f-49a3-9dee-aeb6a2cdd8eb",
+          "turn:4668a79b-eb51-4e03-a73b-57e66967a102"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:38f51dca-6fa1-490e-9e1e-dd975916a7b7:research-project:version:2"
+      },
+      "projectBefore": "ke1-9f3828db74b1590f",
+      "projectAfterInput": "ke1-9f3828db74b1590f",
+      "evidence": "post_audit/B02/2026-09-15T11-47-44-836Z-54833/turns.jsonl#B02-T07"
+    },
+    {
+      "requestId": "B02-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:f06659a1-df34-46cc-a9f5-c8d6b7be79a7",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-db552325445d3c01",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:38f51dca-6fa1-490e-9e1e-dd975916a7b7:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:47.763Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-6e7e0fdda6b21341",
+          "persistent-delta-item:ke1-83a3fcfddb8ff209",
+          "endpoint",
+          "persistent-delta-item:ke1-61b7f3c131e6489d",
+          "visit"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-6e7e0fdda6b21341",
+          "ke1-ec756db9b94f4915",
+          "turn:ed0b63d9-0b61-4974-9b3d-f7260c9fcf9f",
+          "turn:f06659a1-df34-46cc-a9f5-c8d6b7be79a7"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:38f51dca-6fa1-490e-9e1e-dd975916a7b7:research-project:version:4"
+      },
+      "projectBefore": "ke1-4745a26c31674c18",
+      "projectAfterInput": "ke1-4745a26c31674c18",
+      "evidence": "post_audit/B02/2026-09-15T11-47-44-836Z-54833/turns.jsonl#B02-T14"
+    },
+    {
+      "requestId": "B03-T07",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:e8059940-b994-45d5-8231-56038ecac6a4",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-43a50887d5aaaed3",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:49.038Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-f1c3ab6c80c21900"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-f1c3ab6c80c21900",
+          "ke1-2d52fe021c5044a6",
+          "turn:c24d556f-9883-4aa7-aa42-d2a9db40056d",
+          "turn:e8059940-b994-45d5-8231-56038ecac6a4"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:research-project:version:3"
+      },
+      "projectBefore": "ke1-54b4b4f25a1e8e2e",
+      "projectAfterInput": "ke1-300d5b2c40c2ca50",
+      "evidence": "post_audit/B03/2026-09-15T11-47-48-120Z-54833/turns.jsonl#B03-T07"
+    },
+    {
+      "requestId": "B03-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:e0d06f98-b441-4553-b398-18a6a038e39b",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-d99a7275ce780f89",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:50.045Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-28f443739650ec8f",
+          "persistent-delta-item:ke1-9d1486780516f7e4",
+          "endpoint",
+          "persistent-delta-item:ke1-b6cc803a92dcebce",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-28f443739650ec8f",
+          "ke1-b6b0a4d164a630a5",
+          "turn:3d66e72c-89ab-47ef-aa60-9924240cc51f",
+          "turn:e0d06f98-b441-4553-b398-18a6a038e39b"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:research-project:version:4"
+      },
+      "projectBefore": "ke1-300d5b2c40c2ca50",
+      "projectAfterInput": "ke1-afa1417f04767feb",
+      "evidence": "post_audit/B03/2026-09-15T11-47-48-120Z-54833/turns.jsonl#B03-T11"
+    },
+    {
+      "requestId": "B03-T13",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:8c103e44-40b8-4845-90bb-29eb5b00e73e",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-4edd98a4df30e800",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:50.712Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-0bfaab50bba43c9c",
+          "persistent-delta-item:ke1-835b868fa3dff0d3",
+          "population"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-0bfaab50bba43c9c",
+          "ke1-9a6f363421db54e8",
+          "turn:2463d2f0-545e-4265-9a61-e654559053fa",
+          "turn:8c103e44-40b8-4845-90bb-29eb5b00e73e"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:07531096-3202-4a2a-89df-aac18f15947f:research-project:version:4"
+      },
+      "projectBefore": "ke1-afa1417f04767feb",
+      "projectAfterInput": "ke1-afa1417f04767feb",
+      "evidence": "post_audit/B03/2026-09-15T11-47-48-120Z-54833/turns.jsonl#B03-T13"
+    },
+    {
+      "requestId": "B03-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:a96719a1-b7ba-4afd-b9bd-410ad3b01026",
+      "decision": null,
+      "projectBefore": "ke1-afa1417f04767feb",
+      "projectAfterInput": "ke1-afa1417f04767feb",
+      "evidence": "post_audit/B03/2026-09-15T11-47-48-120Z-54833/turns.jsonl#B03-T14"
+    },
+    {
+      "requestId": "B03-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:03f2261a-5af6-4a29-bdab-6adf32ba47c3",
+      "decision": null,
+      "projectBefore": "ke1-afa1417f04767feb",
+      "projectAfterInput": "ke1-afa1417f04767feb",
+      "evidence": "post_audit/B03/2026-09-15T11-47-48-120Z-54833/turns.jsonl#B03-T15"
+    },
+    {
+      "requestId": "B04-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:d649c588-e423-4609-bcdc-8bc4a959fdc5",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-78674164cf03acf8",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:51.404Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-ce5f687d353987c9",
+          "death"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-ce5f687d353987c9",
+          "ke1-39c26a9264a643ae",
+          "turn:9dbee5f9-2d91-4536-b181-a69da1cb06c4",
+          "turn:d649c588-e423-4609-bcdc-8bc4a959fdc5"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:research-project:version:2"
+      },
+      "projectBefore": "ke1-3f33dace267bbc52",
+      "projectAfterInput": "ke1-3896ee59675a0435",
+      "evidence": "post_audit/B04/2026-09-15T11-47-51-170Z-54833/turns.jsonl#B04-T03"
+    },
+    {
+      "requestId": "B04-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:7b3ab531-52d7-449c-80d1-b30843fc7927",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-cda1e80dc306b579",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:51.955Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-13e33e89f779354d",
+          "persistent-delta-item:ke1-8f34a3443784d748",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-13e33e89f779354d",
+          "ke1-0a11c3f0d111a454",
+          "turn:e78ec55a-6e5b-47e2-9f02-6044cd269445",
+          "turn:7b3ab531-52d7-449c-80d1-b30843fc7927"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:research-project:version:2"
+      },
+      "projectBefore": "ke1-3896ee59675a0435",
+      "projectAfterInput": "ke1-3896ee59675a0435",
+      "evidence": "post_audit/B04/2026-09-15T11-47-51-170Z-54833/turns.jsonl#B04-T07"
+    },
+    {
+      "requestId": "B04-T13",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:f1f10d1c-344f-41d3-a08f-a6205f1614fc",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-cccb5bbc44351eb0",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:53.704Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c3e04fb915cd20ad",
+          "visit90"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c3e04fb915cd20ad",
+          "ke1-543fcf1df8e6a601",
+          "turn:47af870e-0aa3-4bbb-9d54-d74ccb6f51af",
+          "turn:f1f10d1c-344f-41d3-a08f-a6205f1614fc"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1446ba9f-2a89-438a-94df-f2f055261423:research-project:version:5"
+      },
+      "projectBefore": "ke1-ebf393403acb04cc",
+      "projectAfterInput": "ke1-30d4f83f2e85c9c3",
+      "evidence": "post_audit/B04/2026-09-15T11-47-51-170Z-54833/turns.jsonl#B04-T13"
+    },
+    {
+      "requestId": "C01-T03",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:dea98792-5da3-4924-a801-516dd325b630",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-487bad13910a4c5f",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:28d9a53b-917f-4dc4-8632-701c7e729032:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:54.879Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-7c2bbd69daa64ded"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-7c2bbd69daa64ded",
+          "ke1-b3b350875aba2dcb",
+          "turn:46e9e88f-6023-4a5c-94bb-58eb594c51c0",
+          "turn:dea98792-5da3-4924-a801-516dd325b630"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:28d9a53b-917f-4dc4-8632-701c7e729032:research-project:version:1"
+      },
+      "projectBefore": "ke1-36449df0fe7f0574",
+      "projectAfterInput": "ke1-36449df0fe7f0574",
+      "evidence": "post_audit/C01/2026-09-15T11-47-54-640Z-54833/turns.jsonl#C01-T03"
+    },
+    {
+      "requestId": "C02-T05",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:15d12289-48ee-43e3-b3eb-6af0ae617269",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-cbcc9cb1260ff3fd",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:58.869Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-07c375f0d31163a4",
+          "nitrogen"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-07c375f0d31163a4",
+          "ke1-593c1c50c6a179bc",
+          "turn:16f3db5b-283f-4248-915d-7d91a225026c",
+          "turn:15d12289-48ee-43e3-b3eb-6af0ae617269"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:research-project:version:3"
+      },
+      "projectBefore": "ke1-a342a90120b06e35",
+      "projectAfterInput": "ke1-53617f0d949ccfc9",
+      "evidence": "post_audit/C02/2026-09-15T11-47-58-266Z-54833/turns.jsonl#C02-T05"
+    },
+    {
+      "requestId": "C02-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:cb01ea80-d73b-4092-b075-776f01cffab4",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-4cc9d29b3647f09f",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:47:59.267Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-646d4d277aa8bed3"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-646d4d277aa8bed3",
+          "ke1-4c775c1e9d29cc6a",
+          "turn:4281a782-80c3-413b-b80b-c3bb28667fcd",
+          "turn:cb01ea80-d73b-4092-b075-776f01cffab4"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:research-project:version:3"
+      },
+      "projectBefore": "ke1-53617f0d949ccfc9",
+      "projectAfterInput": "ke1-53617f0d949ccfc9",
+      "evidence": "post_audit/C02/2026-09-15T11-47-58-266Z-54833/turns.jsonl#C02-T07"
+    },
+    {
+      "requestId": "C02-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:ac5542f8-9ab2-47c8-9377-0660fb49655a",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-38444dfb4fd3290f",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:00.209Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-29d072cd1a1dc5c1",
+          "persistent-delta-item:ke1-870c5b1fd90d6023",
+          "endpoint",
+          "persistent-delta-item:ke1-3399c6c7b344161b",
+          "harvest"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-29d072cd1a1dc5c1",
+          "ke1-08f20f3fe374f9ab",
+          "turn:cc9eaf47-1184-431e-92ca-6c8ed4a113da",
+          "turn:ac5542f8-9ab2-47c8-9377-0660fb49655a"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:6ef35865-2f2e-4f5a-ac2f-4e070d62dbaa:research-project:version:5"
+      },
+      "projectBefore": "ke1-1255087334fe940f",
+      "projectAfterInput": "ke1-c6037dc46955dd48",
+      "evidence": "post_audit/C02/2026-09-15T11-47-58-266Z-54833/turns.jsonl#C02-T11"
+    },
+    {
+      "requestId": "C02-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:b1a4d009-5d52-42bb-a23b-77af0ff3eca5",
+      "decision": null,
+      "projectBefore": "ke1-b07f7dcade76e866",
+      "projectAfterInput": "ke1-b07f7dcade76e866",
+      "evidence": "post_audit/C02/2026-09-15T11-47-58-266Z-54833/turns.jsonl#C02-T14"
+    },
+    {
+      "requestId": "C02-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:700f27c1-7671-4e23-aa1d-99041b5206a4",
+      "decision": null,
+      "projectBefore": "ke1-b07f7dcade76e866",
+      "projectAfterInput": "ke1-b07f7dcade76e866",
+      "evidence": "post_audit/C02/2026-09-15T11-47-58-266Z-54833/turns.jsonl#C02-T15"
+    },
+    {
+      "requestId": "C03-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:a94536b7-9e18-415d-a35d-c91412df0b11",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-ff751858f3363294",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:78e15af7-891f-4a52-9266-f3957f224ac2:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:03.383Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-cc4f5dfb2070abbf"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-cc4f5dfb2070abbf",
+          "ke1-a5fc07a036ff6d24",
+          "turn:ac08560f-0ae5-4a0d-8461-cfd9734b2d15",
+          "turn:a94536b7-9e18-415d-a35d-c91412df0b11"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:78e15af7-891f-4a52-9266-f3957f224ac2:research-project:version:3"
+      },
+      "projectBefore": "ke1-dea5344fcd167663",
+      "projectAfterInput": "ke1-dea5344fcd167663",
+      "evidence": "post_audit/C03/2026-09-15T11-48-02-067Z-54833/turns.jsonl#C03-T08"
+    },
+    {
+      "requestId": "C03-T12",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:7a9c02b5-ca31-43fd-a383-a820d53be721",
+      "decision": null,
+      "projectBefore": "ke1-7b550e280a0f0464",
+      "projectAfterInput": "ke1-7b550e280a0f0464",
+      "evidence": "post_audit/C03/2026-09-15T11-48-02-067Z-54833/turns.jsonl#C03-T12"
+    },
+    {
+      "requestId": "C03-T13",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:1621b3b2-10f8-4dbc-b83e-7ddd69ed2d1f",
+      "decision": null,
+      "projectBefore": "ke1-7b550e280a0f0464",
+      "projectAfterInput": "ke1-7b550e280a0f0464",
+      "evidence": "post_audit/C03/2026-09-15T11-48-02-067Z-54833/turns.jsonl#C03-T13"
+    },
+    {
+      "requestId": "D01-T02",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:c594f260-3429-4656-8691-c4ae13bbc8b9",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-d89e2d0709ebe593",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:05.596Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-59c54d8e70af3b42",
+          "objective",
+          "population",
+          "design",
+          "intervention",
+          "comparator",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-59c54d8e70af3b42",
+          "ke1-d404657f434ec70b",
+          "turn:3eebabe6-050a-4ee4-808c-a668b00635f6",
+          "turn:c594f260-3429-4656-8691-c4ae13bbc8b9"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:research-project:version:1"
+      },
+      "projectBefore": null,
+      "projectAfterInput": "ke1-cb51f0e4fc7e0500",
+      "evidence": "post_audit/D01/2026-09-15T11-48-05-527Z-54833/turns.jsonl#D01-T02"
+    },
+    {
+      "requestId": "D01-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:e12c6342-803d-4df7-9d10-72d8dd5d2504",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-105d29273baf6d03",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:06.081Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-310e65632c62b547"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-310e65632c62b547",
+          "ke1-79865d36a6b49ff2",
+          "turn:09d1583e-6a58-4a8d-8849-d7db822d61a7",
+          "turn:e12c6342-803d-4df7-9d10-72d8dd5d2504"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:research-project:version:1"
+      },
+      "projectBefore": "ke1-cb51f0e4fc7e0500",
+      "projectAfterInput": "ke1-cb51f0e4fc7e0500",
+      "evidence": "post_audit/D01/2026-09-15T11-48-05-527Z-54833/turns.jsonl#D01-T07"
+    },
+    {
+      "requestId": "D01-T09",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:2c8e8a84-b70b-42e0-830d-4d6152370d18",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-b2081e5060349994",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:06.283Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c540b0081c7096d4"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c540b0081c7096d4",
+          "ke1-d0489fdf79f0731b",
+          "turn:05c08bee-63ee-46a9-8977-08655c50c245",
+          "turn:2c8e8a84-b70b-42e0-830d-4d6152370d18"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5d8d4a3a-b0f5-4272-90af-d72a8308cb7d:research-project:version:2"
+      },
+      "projectBefore": "ke1-cb51f0e4fc7e0500",
+      "projectAfterInput": "ke1-31736ebabcdeb036",
+      "evidence": "post_audit/D01/2026-09-15T11-48-05-527Z-54833/turns.jsonl#D01-T09"
+    },
+    {
+      "requestId": "D01-T12",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:c5adc846-f90c-481b-8611-0d89b424032a",
+      "decision": null,
+      "projectBefore": "ke1-5055f4f01e770034",
+      "projectAfterInput": "ke1-5055f4f01e770034",
+      "evidence": "post_audit/D01/2026-09-15T11-48-05-527Z-54833/turns.jsonl#D01-T12"
+    },
+    {
+      "requestId": "D01-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:7d257c51-11a2-43d4-88d6-6692b211245d",
+      "decision": null,
+      "projectBefore": "ke1-5055f4f01e770034",
+      "projectAfterInput": "ke1-5055f4f01e770034",
+      "evidence": "post_audit/D01/2026-09-15T11-48-05-527Z-54833/turns.jsonl#D01-T14"
+    },
+    {
+      "requestId": "E01-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:2b0845ab-ac68-46e5-97c1-6334580f9613",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-55eadb8b4d4f3eb7",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:355d8375-2f89-4975-88b3-a4e794ce645a:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:08.760Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c7e5e645b8c1fac9",
+          "visit15"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c7e5e645b8c1fac9",
+          "ke1-0571eca81cc37fe4",
+          "turn:4e486e28-6325-4d2b-9b98-9301aa2c77dd",
+          "turn:2b0845ab-ac68-46e5-97c1-6334580f9613"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:355d8375-2f89-4975-88b3-a4e794ce645a:research-project:version:2"
+      },
+      "projectBefore": "ke1-f86223aa48123d66",
+      "projectAfterInput": "ke1-f86223aa48123d66",
+      "evidence": "post_audit/E01/2026-09-15T11-48-07-872Z-54833/turns.jsonl#E01-T07"
+    },
+    {
+      "requestId": "E01-T12",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:c8c56dec-c934-4b19-b9b9-5bad3aa5f20b",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-1adf2ce6ba48cee2",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:355d8375-2f89-4975-88b3-a4e794ce645a:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:09.562Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-9173ef0190c6c86d",
+          "conditions"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-9173ef0190c6c86d",
+          "ke1-b4c7c0b3fc189e37",
+          "turn:77fbc856-0a8d-49a5-ad92-ea1d645c81d4",
+          "turn:c8c56dec-c934-4b19-b9b9-5bad3aa5f20b"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:355d8375-2f89-4975-88b3-a4e794ce645a:research-project:version:3"
+      },
+      "projectBefore": "ke1-f86223aa48123d66",
+      "projectAfterInput": "ke1-264ebf166da7f0e2",
+      "evidence": "post_audit/E01/2026-09-15T11-48-07-872Z-54833/turns.jsonl#E01-T12"
+    },
+    {
+      "requestId": "F01-T08",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:e214efec-9845-4d1c-8d44-714f56671599",
+      "decision": null,
+      "projectBefore": "ke1-f148145c17e38b38",
+      "projectAfterInput": "ke1-f148145c17e38b38",
+      "evidence": "post_audit/F01/2026-09-15T11-48-10-928Z-54833/turns.jsonl#F01-T08"
+    },
+    {
+      "requestId": "F01-T09",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:8b8882af-e20d-41cb-9afb-abdf71b072a5",
+      "decision": null,
+      "projectBefore": "ke1-f148145c17e38b38",
+      "projectAfterInput": "ke1-f148145c17e38b38",
+      "evidence": "post_audit/F01/2026-09-15T11-48-10-928Z-54833/turns.jsonl#F01-T09"
+    },
+    {
+      "requestId": "F02-T06",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:24077782-9ea5-42fd-bf80-653a9935b998",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-022261e82f37d1cc",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:dee361a7-e968-458e-ba93-e34349940641:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:15.207Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-db9fa5d97c852da5",
+          "persistent-delta-item:ke1-f60fefc1a3b80815",
+          "population"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-db9fa5d97c852da5",
+          "ke1-16c314bb8f710f47",
+          "turn:fb762254-9e7f-49bd-a265-1e71f20dd8ee",
+          "turn:24077782-9ea5-42fd-bf80-653a9935b998"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:dee361a7-e968-458e-ba93-e34349940641:research-project:version:1"
+      },
+      "projectBefore": "ke1-dafe1d4cdb76c550",
+      "projectAfterInput": "ke1-dafe1d4cdb76c550",
+      "evidence": "post_audit/F02/2026-09-15T11-48-14-658Z-54833/turns.jsonl#F02-T06"
+    },
+    {
+      "requestId": "F02-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "userTurnRef": "turn:930a874d-f173-4fdf-9d94-01cbbe71730e",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-7effb7e38cc753df",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:dee361a7-e968-458e-ba93-e34349940641:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T11:48:16.098Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-1e68bddd84e55bf9",
+          "persistent-delta-item:ke1-5de62304af5e21a0",
+          "endpoint",
+          "persistent-delta-item:ke1-c98e8b036d8aafb7",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-1e68bddd84e55bf9",
+          "ke1-5f9eb68125d63f85",
+          "turn:ac868794-2f14-4721-b805-1d9dfac3936c",
+          "turn:930a874d-f173-4fdf-9d94-01cbbe71730e"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:dee361a7-e968-458e-ba93-e34349940641:research-project:version:3"
+      },
+      "projectBefore": "ke1-30c4ba63006275ff",
+      "projectAfterInput": "ke1-0a16099da3846c81",
+      "evidence": "post_audit/F02/2026-09-15T11-48-14-658Z-54833/turns.jsonl#F02-T11"
+    },
+    {
+      "requestId": "F02-T13",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:ac675750-dd57-4e6b-b99a-1627f852835a",
+      "decision": null,
+      "projectBefore": "ke1-0a16099da3846c81",
+      "projectAfterInput": "ke1-0a16099da3846c81",
+      "evidence": "post_audit/F02/2026-09-15T11-48-14-658Z-54833/turns.jsonl#F02-T13"
+    },
+    {
+      "requestId": "F02-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "userTurnRef": "turn:1def2d37-6980-4117-a348-91cc36598c44",
+      "decision": null,
+      "projectBefore": "ke1-0a16099da3846c81",
+      "projectAfterInput": "ke1-0a16099da3846c81",
+      "evidence": "post_audit/F02/2026-09-15T11-48-14-658Z-54833/turns.jsonl#F02-T14"
+    }
+  ]
+}

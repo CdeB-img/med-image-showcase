@@ -1,0 +1,384 @@
+{
+  "conversations": 15,
+  "turns": 225,
+  "projectIntegrity": "PASS",
+  "adversarialReplay": "PARTIAL",
+  "v1FunctionalConvergence": "PASS_WITH_BOUNDED_ABSTENTIONS",
+  "rawCheckCounts": {
+    "PASS": 15005,
+    "SYNTHETIC_CONTRACT_ONLY": 225,
+    "FAIL": 18,
+    "REQUIRES_INDEPENDENT_SEMANTIC_REVIEW": 51,
+    "NOT_DEMONSTRATED": 8,
+    "CONVERSATIONAL_SELECTION_EXERCISED": 8,
+    "SUPERSEDED_BY_LATER_EXPLICIT_GOLD_ADOPTION": 10
+  },
+  "rawAnomaliesRetained": 18,
+  "unresolvedGenericCases": [
+    "C01-T06",
+    "C03-T10"
+  ],
+  "adjudication": [
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-A01-A01-T05-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A01",
+        "TURN": "A01-T05",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design traite le recrutement dans la population 35–85 ans, conserve les critères et demande une contrainte de faisabilité ou une justification d’éligibilité avant de proposer des seuils."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-A01-A01-T13-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A01",
+        "TURN": "A01-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Imaging se lie à J4–J7 après IDM et au critère à trois minutes après injection; il précise la limite de qualification des acquisitions et la documentation nécessaire."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-A01-A01-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "A01",
+        "TURN": "A01-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-A04-A04-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A04",
+        "TURN": "A04-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design examine l’organisation des mesures appariées dans le calendrier de quatre semaines; il déclare la limite méthodologique et demande les conditions à comparer."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-A04-A04-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "A04",
+        "TURN": "A04-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-B03-B03-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "B03",
+        "TURN": "B03-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Le prérequis Knowledge d’OBS échoue explicitement faute d’instrument qualifié; la réponse indique la documentation, la validité et les conditions de mesure nécessaires."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-B03-B03-T08-SCIENTIFIC_CANDIDATE_STATUS-8",
+        "SCENARIO": "B03",
+        "TURN": "B03-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_CANDIDATE_STATUS",
+        "VISIBLE_SYMPTOM": "Scientific alternatives must remain explicitly discussable candidates",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_TO_STANDARD_PROJECTION",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Le prérequis Knowledge d’OBS échoue explicitement faute d’instrument qualifié; la réponse indique la documentation, la validité et les conditions de mesure nécessaires."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-B03-B03-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "B03",
+        "TURN": "B03-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-C01-C01-T09-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "C01",
+        "TURN": "C01-T09",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design reconnaît la demande de méthodes et conditions d’étude; sa couverture locale insuffisante est explicitée dans le contexte matériaux."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-C02-C02-T13-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "C02",
+        "TURN": "C02-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design utilise six blocs et 120 jours; il borne les alternatives méthodologiques sans reprendre des hypothèses génériques sur le rendement."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-C02-C02-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "C02",
+        "TURN": "C02-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-C03-C03-T13-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "C03",
+        "TURN": "C03-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-D01-D01-T03-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "D01",
+        "TURN": "D01-T03",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design reconnaît le benchmark et les méthodes à comparer; il explicite la couverture insuffisante pour proposer une stratégie défendable."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-D01-D01-T05-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "D01",
+        "TURN": "D01-T05",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "L’alternative à cette première option n’est pas résoluble faute d’option source; le système clarifie sans substituer ST."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-D01-D01-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "D01",
+        "TURN": "D01-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-E01-E01-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "E01",
+        "TURN": "E01-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design traite la demande sur les effets de position; il borne les méthodes défendables dans les contraintes courantes et demande les conditions à comparer."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-F01-F01-T09-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "F01",
+        "TURN": "F01-T09",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "POST_AUDIT-F02-F02-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "F02",
+        "TURN": "F02-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "No resolved option to refuse; explicit clarification without Project write."
+    }
+  ],
+  "providerCalls": 0
+}

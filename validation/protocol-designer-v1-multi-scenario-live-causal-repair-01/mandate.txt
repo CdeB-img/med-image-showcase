@@ -1,0 +1,829 @@
+# NOXIA — MULTI-SCENARIO LIVE EVIDENCE CAUSAL REPAIR 01
+
+ASTRA_REASONING_RECOMMENDATION = ULTRA
+
+MISSION_ID =
+PROTOCOL_DESIGNER_V1_MULTI_SCENARIO_LIVE_EVIDENCE_CAUSAL_REPAIR_01
+
+MODE =
+RECORDED_LIVE_EVIDENCE
+→ OFFLINE_REPRODUCTION
+→ CAUSAL_CLUSTERING
+→ SYSTEMIC_REPAIR
+→ MASS_REQUALIFICATION
+
+EXECUTION_MODE =
+OFFLINE_ONLY
+
+EXECUTION_SAFETY =
+INTERRUPTION_SAFE_REQUIRED
+
+REPOSITORY =
+/Users/charles/Documents/Projets/NOXIA/noxia-dev
+
+EXPECTED_BRANCH =
+protocol-designer-canonical-ingestion
+
+EXPECTED_BASELINE =
+91f0fbc5ab32c545b16cabb866299d1cbb756299
+
+===============================================================================
+0. ÉTAT D'ENTRÉE
+===============================================================================
+
+La campagne live :
+
+PROTOCOL_DESIGNER_V1_MULTI_SESSION_LIVE_EVIDENCE_ACQUISITION_01R
+
+est clôturée.
+
+Résultats rapportés :
+
+SCENARIOS_EXECUTED = 5
+SCENARIOS_COMPLETED_LONG_HORIZON = 0
+
+PROVIDER_RESPONSES_CAPTURED = 7
+STRICT_REPLAY = 7/7 PASS
+PROVIDER_RETRIES = 0
+
+TOTAL_MEASURED_COST_USD = 0.2137379
+
+PRODUCT_FILES_MODIFIED_DURING_LIVE = 0
+
+Les cinq scénarios ont été arrêtés au premier défaut MATERIAL.
+
+Aucun nouveau provider ne doit être appelé dans cette mission.
+
+PROVIDER_CALLS = 0
+OPENAI_CALLS = 0
+GEMINI_CALLS = 0
+
+===============================================================================
+1. FINDINGS LIVE À REPRODUIRE
+===============================================================================
+
+FINDING S1 — MYOCARDITE / EXTRACTION COMPLETENESS
+
+Le texte utilisateur contient explicitement notamment :
+
+- adultes ;
+- myocardite aiguë récente.
+
+La requête provider contient ces informations.
+
+La réponse Terra enregistrée conserve certaines incertitudes mais ne restitue
+pas correctement toutes les précisions explicites de population.
+
+La candidate présentée est donc incomplète.
+
+IMPORTANT :
+
+ne pas conclure immédiatement :
+
+"Terra est fautif"
+ou
+"le prompt Terra est fautif".
+
+Attribuer séparément :
+
+- sortie provider réelle ;
+- validation de complétude ;
+- materialisation du delta ;
+- Human Review ;
+- possibilité existante de conserver/signaler un explicit fact non extrait.
+
+Question causale :
+
+HOW_CAN_AN_EXPLICIT_USER_FACT_DISAPPEAR_WITHOUT_BEING_SURFACED_AS_MISSING?
+
+-------------------------------------------------------------------------------
+
+FINDING S2 — THROMBUS POST-IDM / SCIENTIFIC THINKING TYPE SEMANTICS
+
+Le Project contient notamment deux objectifs de recherche du type :
+
+- comparer les examens ;
+- comprendre leur accord.
+
+Scientific Thinking local produit ensuite une association entre ces deux
+phrases comme si elles constituaient des variables/termes appropriés pour une
+hypothèse scientifique.
+
+Aucun provider n'est impliqué dans cette sortie fautive.
+
+Question causale :
+
+WHY_WERE_RESEARCH_OBJECTIVES_USED_AS_HYPOTHESIS_OPERANDS?
+
+Examiner la typologie réelle des objets Project transmis à ST, le scope,
+les références, la construction des candidats et leur projection.
+
+Ne pas réparer par un filtre lexical spécifique au thrombus.
+
+-------------------------------------------------------------------------------
+
+FINDING S3 — CEC / PRIVACY FALSE POSITIVE
+
+Le texte CEC exact fourni historiquement par l'utilisateur est refusé avant
+provider comme donnée personnelle/identifiante.
+
+Project = null
+QRY = null
+PROVIDER_CALLS = 0
+
+Le code observé suggère un motif PATIENT_IDENTIFIER trop large pouvant accepter
+un mot alphabétique ordinaire après certains marqueurs.
+
+Le texte exact historique doit être conservé.
+
+-------------------------------------------------------------------------------
+
+FINDING S4 — NEURO / NEGATION LOST IN HUMAN REVIEW
+
+La sortie Terra conserve explicitement :
+
+AVC aigu
+polarity = NEGATED
+
+Essai de traitement
+polarity = NEGATED
+
+La candidate persistante et la validation déterministe conservent également
+ces négations.
+
+Mais la Human Review affiche :
+
++ AVC aigu
++ Essai de traitement
+
+au lieu d'une représentation fidèle de leur négation/exclusion.
+
+Le candidat n'a pas été confirmé.
+
+Le Project reste intègre.
+
+Question causale :
+
+AT_WHICH_EXACT_PROJECTION_BOUNDARY_IS_POLARITY_LOST_OR_MISREPRESENTED?
+
+Ne pas modifier le provider ou l'extraction si la polarité est déjà correcte
+en amont.
+
+-------------------------------------------------------------------------------
+
+FINDING S5 — NEURO NEGATIVE CONTROL / PRIVACY FALSE POSITIVE
+
+Le scénario est explicitement fictif.
+
+Il contient :
+
+- molécule fictive ;
+- cible fictive ;
+- exposition CNS insuffisante ;
+- BHE intacte ;
+- question mécanistique volontairement problématique.
+
+Le Domain Gate le bloque comme donnée personnelle avant tout provider ou owner
+scientifique.
+
+La capacité scientifique attendue :
+
+STOP / NOT_EVALUABLE_AS_DESIGNED / CRITICAL_CLARIFICATION / REFORMULATION
+
+n'a donc PAS été testée.
+
+S3 et S5 peuvent appartenir à la même classe de défaut privacy.
+
+Ne les fusionner qu'après reproduction causale.
+
+===============================================================================
+2. PRINCIPES
+===============================================================================
+
+Reuse-first obligatoire.
+
+Ne créer aucun :
+
+- router ;
+- owner scientifique ;
+- engine ;
+- ontology ;
+- système de privacy parallèle ;
+- second Human Review system ;
+- second extraction system.
+
+Réparer le propriétaire réel.
+
+Ne jamais transformer :
+
+provider omission
+→ automatiquement en prompt defect
+
+ou :
+
+projection defect
+→ extraction defect
+
+ou :
+
+privacy false positive
+→ suppression générale de la privacy protection.
+
+===============================================================================
+3. INTERRUPTION-SAFE
+===============================================================================
+
+Créer :
+
+validation/protocol-designer-v1-multi-scenario-live-causal-repair-01/
+
+avec :
+
+resume-state.json
+checkpoint-log.md
+
+Checkpoints :
+
+CP0 = baseline et preuves vérifiées
+CP1 = reproductions rouges S1–S5
+CP2 = clustering causal
+CP3 = repair cluster privacy
+CP4 = repair extraction/completeness
+CP5 = repair ST semantics
+CP6 = repair Human Review polarity
+CP7 = negative control offline path
+CP8 = mass replay
+CP9 = browser qualification
+CP10 = full qualification
+CP11 = commit/final-state
+
+Après chaque checkpoint cohérent :
+persist state.
+
+Si interruption :
+
+inspect HEAD/index/worktree
+→ lire resume-state
+→ préserver dirty worktree
+→ reprendre
+→ jamais reset/clean/stash/rebase automatique.
+
+===============================================================================
+4. REPRODUCTION ROUGE AVANT MODIFICATION
+===============================================================================
+
+Avant toute correction produit :
+
+reproduire offline chaque défaut.
+
+S1 :
+utiliser la réponse Terra live enregistrée exacte.
+
+Attendu :
+candidate incomplète comme observée live.
+
+S2 :
+reconstruire le Project live concerné puis déclencher le même chemin ST local.
+
+Attendu :
+association incohérente des deux objectifs.
+
+S3 :
+soumettre exactement le texte CEC historique.
+
+Attendu :
+rejet privacy pré-provider.
+
+S4 :
+utiliser les réponses provider exactes S4.
+
+Attendu :
+amont polarity=NEGATED
+mais Human Review positive.
+
+S5 :
+soumettre exactement le scénario figé.
+
+Attendu :
+rejet privacy pré-owner.
+
+Rapporter :
+
+S1_RED_REPRODUCTION =
+S2_RED_REPRODUCTION =
+S3_RED_REPRODUCTION =
+S4_RED_REPRODUCTION =
+S5_RED_REPRODUCTION =
+
+Si un défaut ne peut pas être reproduit :
+
+ne pas le corriger par hypothèse.
+
+===============================================================================
+5. CLUSTERING CAUSAL
+===============================================================================
+
+Construire :
+
+CLUSTER_ID
+FINDINGS
+FIRST_CAUSAL_BOUNDARY
+REAL_OWNER
+UPSTREAM_STATE
+DOWNSTREAM_STATE
+WHY_CURRENT_TESTS_MISSED_IT
+BLAST_RADIUS
+CONFIDENCE
+
+Hypothèses de travail seulement :
+
+C1 = EXTRACTION_COMPLETENESS
+C2 = ST_TYPED_SEMANTICS
+C3 = PRIVACY_FALSE_POSITIVE
+C4 = HUMAN_REVIEW_POLARITY
+
+Ne pas imposer ces quatre clusters si l'analyse démontre autre chose.
+
+===============================================================================
+6. C3 — PRIVACY : RÉPARATION PRIORITAIRE
+===============================================================================
+
+S3 et S5 doivent d'abord pouvoir atteindre le produit scientifique sans
+affaiblir la protection réelle des données personnelles.
+
+Diagnostiquer précisément les motifs responsables.
+
+Construire une batterie de contre-exemples :
+
+DOIT ÊTRE ACCEPTÉ :
+
+- texte scientifique contenant "patient pour..." ;
+- "dossier fictif" ;
+- population de patients sans identité ;
+- numéro scientifique, dose, durée, groupe, bras ;
+- identifiants fictifs explicitement synthétiques si le contrat privacy
+  l'autorise.
+
+DOIT RESTER BLOQUÉ :
+
+- nom/prénom identifiable ;
+- numéro de dossier réel ;
+- adresse ;
+- email ;
+- téléphone ;
+- identifiant patient réel ;
+- informations personnelles suffisamment spécifiques selon le contrat actuel.
+
+Ne pas transformer la privacy en simple regex permissive.
+
+Réutiliser le mécanisme existant.
+
+Après correction :
+
+S3_PRIVACY_PATH =
+PASS_TO_SCIENTIFIC_PRODUCT
+
+S5_PRIVACY_PATH =
+PASS_TO_SCIENTIFIC_PRODUCT
+
+sans provider réel.
+
+===============================================================================
+7. C1 — EXPLICIT FACT COMPLETENESS
+===============================================================================
+
+S1 pose un problème critique :
+
+une information utilisateur explicitement fournie peut disparaître du candidat
+sans être visible comme omission.
+
+Déterminer si une capacité existante permet déjà de vérifier :
+
+SOURCE_TEXT
+→ EXPLICIT FACTS
+→ EXTRACTED CANDIDATE
+→ UNREPRESENTED EXPLICIT FACTS
+
+Ne pas inventer une seconde extraction générale.
+
+Invariants :
+
+EXPLICIT_USER_FACT
+ne peut pas devenir silencieusement absent si le produit prétend avoir traité
+le message.
+
+Comportements acceptables :
+
+A.
+fact correctement représenté ;
+
+B.
+fact conservé comme incertitude/qualification appropriée ;
+
+C.
+fact signalé comme non interprété et soumis à clarification ;
+
+D.
+candidate marquée partielle de façon visible.
+
+Comportement interdit :
+
+fact explicitement important
+→ disparaît silencieusement
+→ Human Review paraît complète.
+
+Examiner si :
+
+- validation déterministe ;
+- source anchors ;
+- candidate coverage ;
+- extraction provenance ;
+- existing semantic completeness mechanisms
+
+peuvent être réutilisés.
+
+Ne pas ajouter de second appel provider.
+
+Single-attempt reste invariant.
+
+===============================================================================
+8. C2 — SCIENTIFIC THINKING TYPED SEMANTICS
+===============================================================================
+
+Scientific Thinking ne doit pas traiter deux objets arbitraires comme des
+variables d'hypothèse simplement parce qu'ils sont textuellement disponibles.
+
+Examiner les types/rôles Project réellement transmis :
+
+QUESTION
+OBJECTIVE
+ENDPOINT
+CANONICAL_VARIABLE
+COMPARISON
+POPULATION
+METHOD
+OTHER
+
+Réutiliser PD-003 / Project semantics existants.
+
+Invariant :
+
+HYPOTHESIS_OPERANDS
+doivent être scientifiquement compatibles avec l'opération générée.
+
+Deux OBJECTIVES textuelles
+≠ automatiquement deux variables ou modalités comparables.
+
+Tester plusieurs domaines :
+
+- thrombus IRM vs écho ;
+- myocardite ;
+- clinique non-imagerie ;
+- neuro ;
+- stress non médical existant.
+
+Ne pas ajouter de règle "si contient objectif".
+
+===============================================================================
+9. C4 — HUMAN REVIEW POLARITY FIDELITY
+===============================================================================
+
+Human Review est une frontière de décision humaine.
+
+Elle doit donc être une projection fidèle des candidates.
+
+Invariant absolu :
+
+NEGATED
+ne peut pas être présenté comme ADDED/POSITIVE.
+
+Tester au minimum :
+
+NEGATED exclusion
+NEGATED intervention
+NEGATED diagnosis
+NEGATED prior event
+positive addition
+replacement
+removal
+conditional/uncertain item
+
+L'UI/Standard peut adapter le wording, mais pas le sens.
+
+Exemples acceptables :
+
+"Pas d'AVC aigu"
+"Exclusion : AVC aigu"
+"AVC aigu : absent"
+
+selon le modèle existant.
+
+Exemple interdit :
+
+"+ AVC aigu"
+
+pour `polarity=NEGATED`.
+
+===============================================================================
+10. S5 — CONTRÔLE NÉGATIF SCIENTIFIQUE OFFLINE
+===============================================================================
+
+Après réparation privacy, faire traverser S5 hors ligne dans le corridor réel
+avec transport provider synthétique/qualifié uniquement.
+
+IMPORTANT :
+
+cela ne démontre PAS la compétence provider live.
+
+Objectif :
+
+qualifier le comportement du système une fois la science atteinte.
+
+Expected acceptable behavior :
+
+PASS_STRUCTURAL_STOP
+PASS_NOT_EVALUABLE_AS_DESIGNED
+PASS_CRITICAL_CLARIFICATION
+PASS_REFORMULATION_REQUIRED
+PASS_BOUNDED_UNCERTAINTY
+
+Le produit doit distinguer :
+
+- effet CNS direct ;
+- exposition CNS nécessaire ;
+- éventuel effet périphérique indirect ;
+- preuve PK/PD manquante ;
+- alternative/reformulation possible.
+
+Si l'utilisateur insiste sur :
+
+même molécule
++ même voie
++ effet central direct
+
+malgré l'absence explicite d'exposition adéquate :
+
+le produit ne doit pas produire silencieusement un protocole présenté comme
+scientifiquement valide.
+
+L'arrêt peut être localisé à cette branche.
+
+Aucune alternative ne doit être adoptée sans humain.
+
+===============================================================================
+11. REPLAY DES PREUVES LIVE
+===============================================================================
+
+Utiliser les sept réponses provider enregistrées.
+
+NEW_PROVIDER_CALLS = 0
+
+Vérifier :
+
+LIVE_RESPONSES_USED =
+7/7 lorsque pertinentes.
+
+Ne jamais modifier les preuves historiques.
+
+Après réparation :
+
+rejouer les trajectoires correspondantes.
+
+Attendu :
+
+S1 =
+explicit facts no longer silently lost
+
+S2 =
+no invalid objective-object association
+
+S3 =
+privacy false positive removed
+
+S4 =
+negation faithfully displayed
+
+S5 =
+reaches scientific reasoning path
+
+===============================================================================
+12. REQUALIFICATION LARGE
+===============================================================================
+
+Après réparations :
+
+A.
+replay exact des 5 scénarios live jusqu'aux points atteints.
+
+B.
+V1 functional convergence corpus.
+
+C.
+15 conversations adversariales / 225 tours.
+
+D.
+SOAK A/B/C.
+
+E.
+C02 confirmation/refusal suite.
+
+F.
+83 scientific service requests.
+
+G.
+privacy regression suite.
+
+H.
+Human Review projection suite.
+
+I.
+Scientific Thinking typed-semantic suite.
+
+J.
+record/replay.
+
+K.
+multi-session campaign safety.
+
+L.
+provider budget safety.
+
+===============================================================================
+13. NAVIGATEUR RÉEL OFFLINE
+===============================================================================
+
+Rejouer au minimum les cinq scénarios live en vrai navigateur,
+provider transport offline.
+
+Pour S1–S4 :
+
+vérifier disparition du défaut exact.
+
+Pour S5 :
+
+vérifier qu'il atteint réellement les owners scientifiques.
+
+Puis poursuivre S5 suffisamment loin pour observer :
+
+scientific contradiction handling.
+
+Target :
+
+5/5 paths no longer blocked by the recorded defects.
+
+S5 scientific negative-control result doit être rapporté séparément :
+
+PASS / PARTIAL / FAIL.
+
+===============================================================================
+14. REVUE CONTRADICTOIRE ULTRA
+===============================================================================
+
+Après premier vert :
+
+rechercher activement :
+
+- privacy affaiblie ;
+- faux négatifs privacy ;
+- completude trop stricte ;
+- impossibilité de progresser avec une candidate partielle ;
+- règles spécifiques myocardite ;
+- invalidation de candidate légitime ;
+- ST rendu trop conservateur ;
+- perte de propositions utiles ;
+- polarité corrigée uniquement visuellement mais incorrecte ailleurs ;
+- duplication de logique ;
+- bypass Human Review ;
+- sur-ajustement aux cinq scénarios.
+
+Corriger seulement les défauts démontrés.
+
+===============================================================================
+15. QUALIFICATION TECHNIQUE
+===============================================================================
+
+Après corrections :
+
+- targeted tests ;
+- properties ;
+- browser offline ;
+- TypeScript ;
+- lint affecté ;
+- build ;
+- full suite.
+
+Attendu :
+
+FULL_SUITE_FAIL = 0
+FULL_SUITE_UNHANDLED = 0
+
+PROVIDER_CALLS = 0.
+
+===============================================================================
+16. CRITÈRE DE SORTIE
+===============================================================================
+
+MISSION_STATUS =
+MULTI_SCENARIO_LIVE_EVIDENCE_CAUSAL_REPAIR_QUALIFIED
+
+si :
+
+- cinq défauts live reproduits ou correctement attribués ;
+- clusters réels identifiés ;
+- corrections systémiques qualifiées ;
+- privacy réelle préservée ;
+- explicit facts ne disparaissent plus silencieusement dans S1 ;
+- ST ne reproduit plus S2 ;
+- S3/S5 atteignent le corridor scientifique ;
+- S4 Human Review conserve la négation ;
+- S5 peut réellement exercer le contrôle négatif scientifique offline ;
+- navigateur offline qualifié ;
+- full suite verte ;
+- zéro provider réel.
+
+===============================================================================
+17. GIT
+===============================================================================
+
+Préserver toutes les preuves live.
+
+Ne jamais modifier les raw responses.
+
+Pas de mass-add.
+
+Commit local après qualification.
+
+Pas de push.
+Pas de déploiement.
+
+Worktree suivi propre à la sortie.
+
+===============================================================================
+18. LIVRABLE FINAL
+===============================================================================
+
+Rapporter :
+
+BASELINE_HEAD =
+FINAL_HEAD =
+
+LIVE_FINDINGS_REPRODUCED =
+N/5
+
+CAUSAL_CLUSTERS =
+CLUSTERS_REPAIRED =
+CLUSTERS_UNRESOLVED =
+
+S1_EXTRACTION_COMPLETENESS =
+PASS / PARTIAL / FAIL
+
+S2_ST_TYPED_SEMANTICS =
+PASS / PARTIAL / FAIL
+
+S3_PRIVACY =
+PASS / FAIL
+
+S4_NEGATION_FIDELITY =
+PASS / FAIL
+
+S5_PRIVACY =
+PASS / FAIL
+
+S5_NEGATIVE_CONTROL_OFFLINE =
+PASS / PARTIAL / FAIL / NOT_EVALUABLE
+
+LIVE_RESPONSES_USED =
+N/7
+
+NEW_PROVIDER_CALLS =
+0
+
+ADVERSARIAL_225_TURN_REPLAY =
+PASS / PARTIAL / FAIL
+
+V1_FUNCTIONAL_CONVERGENCE =
+PASS / PARTIAL / FAIL
+
+REAL_BROWSER_OFFLINE =
+N/5 PASS
+
+FULL_SUITE =
+N PASS / N FAIL / N UNHANDLED
+
+TYPESCRIPT =
+PASS / FAIL
+
+BUILD =
+PASS / FAIL
+
+TRACKED_WORKTREE =
+CLEAN / DIRTY_EXPLAINED
+
+P1_COMPLETE = NO
+P1_EXIT_GATE = NOT_SATISFIED
+WAVE_2_AUTHORIZED = NO
+
+NEXT_ACTION =
+RETURN_FOR_FINAL_LIVE_VALIDATION_OR_V1_PRODUCT_CLOSURE_DECISION
+
+Ne lancer aucun live automatiquement.

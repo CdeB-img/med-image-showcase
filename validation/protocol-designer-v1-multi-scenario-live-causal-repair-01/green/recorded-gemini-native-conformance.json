@@ -1,0 +1,146 @@
+{
+  "checks": [
+    {
+      "call": 3,
+      "responseSha256": "18b5a562a0fdc37591479c68f45d37b0ff7df772e0a35857592b0839c388b077",
+      "scope": "EXACT_RECORDED_HISTORICAL_WHAT_ENVELOPE_NOT_REPAIRED_CURRENT_WHAT",
+      "result": {
+        "assistantReply": "Pour faire progresser le projet, que souhaitez-vous préciser concernant question ?",
+        "providerReplyAccepted": true,
+        "executor": "GEMINI_CONVERSATION_MODEL",
+        "fallbackUsed": false,
+        "conformance": {
+          "structuralStatus": "PASS",
+          "actionConformance": "PASS",
+          "actionEvidenceBasis": "PROVIDER_STRUCTURED_CLAIM_NOT_SEMANTIC_PROOF",
+          "visibleTextFidelity": "UNKNOWN",
+          "structuredRefCoverage": "CONTRACT_EVIDENCE_NOT_SEMANTIC_ORACLE",
+          "diagnostics": [],
+          "actionWitnessSpan": {
+            "start": 0,
+            "end": 82,
+            "exactText": "Pour faire progresser le projet, que souhaitez-vous préciser concernant question ?"
+          },
+          "contentWitnessSpans": [
+            {
+              "ref": "protocol-designer-session:36de581e-0097-4213-acbd-35b043d9fca7:research-project:standard-progression-dimension:QUESTION",
+              "span": {
+                "start": 0,
+                "end": 82,
+                "exactText": "Pour faire progresser le projet, que souhaitez-vous préciser concernant question ?"
+              }
+            }
+          ],
+          "visibleObligationSpans": [],
+          "representedContentRefs": [
+            "protocol-designer-session:36de581e-0097-4213-acbd-35b043d9fca7:research-project:standard-progression-dimension:QUESTION"
+          ],
+          "missingRequiredContentRefs": [],
+          "projectWriteAuthorized": false
+        },
+        "providerCallsPerformedByRealizer": 0,
+        "projectWriteAuthorized": false
+      }
+    },
+    {
+      "call": 7,
+      "responseSha256": "d38365340c8e76b144231e2ad72a3791cd4778bb8d0216685d86b9db340b2b9a",
+      "scope": "EXACT_RECORDED_HISTORICAL_WHAT_ENVELOPE_NOT_REPAIRED_CURRENT_WHAT",
+      "result": {
+        "assistantReply": "La formulation de cette étape n’a pas abouti. Aucune décision ni modification du projet n’a été effectuée.",
+        "providerReplyAccepted": false,
+        "executor": "LOCAL_DETERMINISTIC_REALIZATION",
+        "fallbackUsed": true,
+        "fallbackReason": "USER_SOURCE_ATTRIBUTION_SURFACE_MISSING",
+        "conformance": {
+          "structuralStatus": "FAIL",
+          "actionConformance": "PASS",
+          "actionEvidenceBasis": "PROVIDER_STRUCTURED_CLAIM_NOT_SEMANTIC_PROOF",
+          "visibleTextFidelity": "UNKNOWN",
+          "structuredRefCoverage": "CONTRACT_EVIDENCE_NOT_SEMANTIC_ORACLE",
+          "diagnostics": [
+            "USER_SOURCE_ATTRIBUTION_SURFACE_MISSING"
+          ],
+          "actionWitnessSpan": {
+            "start": 0,
+            "end": 80,
+            "exactText": "Voici la structuration des éléments que vous avez fournis, à examiner pour revue"
+          },
+          "contentWitnessSpans": [
+            {
+              "ref": "population:adultes-occlusion-carotidienne",
+              "span": {
+                "start": 83,
+                "end": 128,
+                "exactText": "Adultes présentant une occlusion carotidienne"
+              }
+            },
+            {
+              "ref": "eligibilite:symptomes-stables",
+              "span": {
+                "start": 130,
+                "end": 147,
+                "exactText": "Symptômes stables"
+              }
+            },
+            {
+              "ref": "study-design:etude-observationnelle",
+              "span": {
+                "start": 149,
+                "end": 168,
+                "exactText": "Étude d’observation"
+              }
+            },
+            {
+              "ref": "condition:occlusion-carotidienne-longue-duree",
+              "span": {
+                "start": 170,
+                "end": 250,
+                "exactText": "Occlusion carotidienne unilatérale chronique, sans durée opérationnelle précisée"
+              }
+            },
+            {
+              "ref": "eligibilite:avc-aigu-exclu",
+              "span": {
+                "start": 252,
+                "end": 260,
+                "exactText": "AVC aigu"
+              }
+            },
+            {
+              "ref": "study-design:essai-de-traitement",
+              "span": {
+                "start": 262,
+                "end": 281,
+                "exactText": "Essai de traitement"
+              }
+            },
+            {
+              "ref": "contribution-project-change:ke1-9f060ccd57ac1351",
+              "span": {
+                "start": 285,
+                "end": 363,
+                "exactText": "− Occlusion d’une carotide de longue durée, sans durée opérationnelle précisée"
+              }
+            }
+          ],
+          "visibleObligationSpans": [],
+          "representedContentRefs": [
+            "population:adultes-occlusion-carotidienne",
+            "eligibilite:symptomes-stables",
+            "study-design:etude-observationnelle",
+            "condition:occlusion-carotidienne-longue-duree",
+            "eligibilite:avc-aigu-exclu",
+            "study-design:essai-de-traitement",
+            "contribution-project-change:ke1-9f060ccd57ac1351"
+          ],
+          "missingRequiredContentRefs": [],
+          "projectWriteAuthorized": false
+        },
+        "providerCallsPerformedByRealizer": 0,
+        "projectWriteAuthorized": false
+      }
+    }
+  ],
+  "liveProviderCalls": 0
+}

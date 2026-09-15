@@ -3,6 +3,7 @@ import type { ProviderCallObservationContext, ProviderCallRecord } from "./provi
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { representExplicitScientificDimensions } from "./functional-reset/pre-project-intent.js";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -1574,13 +1575,43 @@ export const contributionFromPersistentDelta = (input: {
   const temporalElements = items.filter((item, index) => input.candidate.changes[index]?.targetSectionId === "TEMPORALITY"
     || /TEMPORAL|TIMING|TIMEPOINT|WINDOW|VISIT/i.test(item.proposedType ?? ""));
   const correctionsAndSupersessions = items.filter((_, index) => input.candidate.changes[index]?.operation !== "ADD");
+  // Source provenance is not a proof of semantic completeness. In particular,
+  // selecting even one sentence may omit facts inside it. Only an explicit
+  // rendering of the whole span discharges this conservative coverage notice.
+  // Reuse explicit spans and the non-adopting clarification channel; no second
+  // extraction, inferred Project object, or rejection of a usable partial delta.
+  const normalizedCoverageText = (text: string) => text.normalize("NFKC").toLocaleLowerCase("fr-FR")
+    .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  const sourceItems = [
+    ...input.candidate.changes, ...input.candidate.relations,
+    ...input.candidate.temporalQualifications, ...input.candidate.expectedVariableOccasions,
+  ];
+  const clarificationNeeds: ScientificContributionItem[] = representExplicitScientificDimensions({
+    raw: lastUserTurn.content, sourceTurnRef: lastUserTurn.turnId,
+  }).filter((dimension) => {
+    const span = normalizedCoverageText(dimension.sourceText);
+    return !sourceItems.some((item) => {
+      const content = "content" in item ? normalizedCoverageText(item.content) : "";
+      return content.length > 0 && content.includes(span);
+    });
+  }).map((dimension) => ({
+    itemId: `${dimension.dimensionRef}:unrepresented`, semanticIdentity: null,
+    proposedType: null,
+    content: `Interprétation complète du passage à vérifier : « ${dimension.sourceText} »`,
+    polarity: null, studyRole: null, confidence: null,
+    epistemicBoundary: {
+      ownership: "NOXIA", epistemicState: "UNKNOWN", epistemicStatus: "UNREPRESENTED_SOURCE_SPAN",
+      adoptionStatus: "NOT_ADOPTABLE", originType: "DETERMINISTIC_SOURCE_COVERAGE",
+      activeState: true, sourceTurnIds: [lastUserTurn.turnId], sourceText: dimension.sourceText,
+    },
+  }));
   const contributionId = `persistent-project-contribution:${logicalDigest({
     conversationId: input.conversation.conversationId,
     turnId: lastUserTurn.turnId,
     changes: input.candidate.changes,
     baseProject: input.currentProject?.versionId ?? null,
   })}`;
-  const contributionDigest = logicalDigest({ contributionId, candidate: input.candidate, items });
+  const contributionDigest = logicalDigest({ contributionId, candidate: input.candidate, items, clarificationNeeds });
   return {
     contract: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
     contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
@@ -1631,7 +1662,7 @@ export const contributionFromPersistentDelta = (input: {
       missingInformation: [],
       correctionsAndSupersessions,
       openDecisions: [],
-      clarificationNeeds: [],
+      clarificationNeeds,
       temporalQualifications: input.candidate.temporalQualifications.map((candidate) => ({
         operation: candidate.operation,
         qualificationId: candidate.qualificationId,

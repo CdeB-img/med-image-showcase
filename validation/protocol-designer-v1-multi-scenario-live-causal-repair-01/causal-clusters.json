@@ -1,0 +1,55 @@
+[
+  {
+    "CLUSTER_ID": "C3",
+    "FINDINGS": [
+      "S3",
+      "S5"
+    ],
+    "FIRST_CAUSAL_BOUNDARY": "detectSensitiveData: PATIENT_IDENTIFIER",
+    "REAL_OWNER": "intake/privacy.ts",
+    "UPSTREAM_STATE": "scientific raw text without an identifier",
+    "DOWNSTREAM_STATE": "PATIENT_IDENTIFIER then OUT_OF_SCOPE",
+    "WHY_CURRENT_TESTS_MISSED_IT": "identifier examples lacked ordinary words after patient or dossier",
+    "BLAST_RADIUS": "all entry privacy checks",
+    "CONFIDENCE": "HIGH"
+  },
+  {
+    "CLUSTER_ID": "C1",
+    "FINDINGS": [
+      "S1"
+    ],
+    "FIRST_CAUSAL_BOUNDARY": "validated delta to contribution: absent source coverage notice",
+    "REAL_OWNER": "product-bridge.ts: contributionFromPersistentDelta",
+    "UPSTREAM_STATE": "recorded extraction omits adults with acute recent myocarditis; source anchor remains available",
+    "DOWNSTREAM_STATE": "review is structurally COMPLETE with no omission-specific warning",
+    "WHY_CURRENT_TESTS_MISSED_IT": "valid source provenance and structural review coverage do not prove semantic completeness",
+    "BLAST_RADIUS": "persistent extraction contributions; warning must remain non-adopting and nonblocking",
+    "CONFIDENCE": "HIGH"
+  },
+  {
+    "CLUSTER_ID": "C2",
+    "FINDINGS": [
+      "S2"
+    ],
+    "FIRST_CAUSAL_BOUNDARY": "Project snapshot to ScientificThinkingInput scientificObjectTerms",
+    "REAL_OWNER": "scientific-reasoning-owner-chain.ts",
+    "UPSTREAM_STATE": "two correctly typed OBJECTIVE objects",
+    "DOWNSTREAM_STATE": "engine relation operands are objective prose",
+    "WHY_CURRENT_TESTS_MISSED_IT": "positive typed comparison tests did not check exclusion of arbitrary Project types",
+    "BLAST_RADIUS": "Project-bound Scientific Thinking inputs",
+    "CONFIDENCE": "HIGH"
+  },
+  {
+    "CLUSTER_ID": "C4",
+    "FINDINGS": [
+      "S4"
+    ],
+    "FIRST_CAUSAL_BOUNDARY": "canonical object to Human Review label",
+    "REAL_OWNER": "contribution-owner-boundary.ts: reviewObjectLabel",
+    "UPSTREAM_STATE": "NEGATED in recorded delta and canonical sourcePolarity",
+    "DOWNSTREAM_STATE": "+ AVC aigu and + Essai de traitement",
+    "WHY_CURRENT_TESTS_MISSED_IT": "coverage counts change references and does not check polarity fidelity",
+    "BLAST_RADIUS": "Human Review objects and linked labels, including replacement and removal",
+    "CONFIDENCE": "HIGH"
+  }
+]
