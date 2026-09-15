@@ -1,0 +1,46 @@
+{
+  "MISSION_ID": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "BASELINE_HEAD": "5c7e176a964bb4f0b3a6e8211d22d7d0ad6deb87",
+  "BRANCH": "protocol-designer-canonical-ingestion",
+  "CURRENT_PHASE": "COMPLETE",
+  "NEXT_ACTION": "RETURN_FOR_DEMO_REVIEW",
+  "EXECUTION_MODE": "OFFLINE_FIRST",
+  "PROVIDER_CALLS": 0,
+  "FULL_SUITE_RUNS": 1,
+  "PRODUCT_TRACKED_CHANGES": [
+    "src/features/knowledge-engine/types.ts",
+    "src/features/knowledge-engine/adapters/adapter-utils.ts",
+    "src/features/knowledge-engine/concept-resolver.ts",
+    "src/features/document-projection/scientific-narrative.ts",
+    "src/features/document-projection/scientific-document-revision.ts",
+    "src/features/document-projection/template-integration.ts",
+    "src/features/protocol-designer/functional-reset/documentary-conversation.ts",
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+    "src/features/document-projection/__tests__/scientific-narrative-evidence-synthesis-v1.test.ts"
+  ],
+  "TARGETED_QUALIFICATION": {
+    "TEST_FILES": 5,
+    "PASS": 63,
+    "FAIL": 0,
+    "TYPESCRIPT_NO_EMIT": "PASS",
+    "EVIDENCE": "qualification/targeted-tests.json"
+  },
+  "BROWSER_QUALIFICATION": {
+    "REAL_BROWSER": "PASS",
+    "CARDIO": "PASS",
+    "NEURO_SMOKE": "PASS",
+    "PROVIDER_CALLS": 0,
+    "EVIDENCE": "qualification/browser-evidence.json"
+  },
+  "FINAL_QUALIFICATION": {
+    "FULL_SUITE": "PASS",
+    "TEST_FILES": 278,
+    "TESTS_PASSED": 4352,
+    "TESTS_FAILED": 0,
+    "TESTS_PENDING": 12,
+    "TESTS_TODO": 1,
+    "EVIDENCE": "qualification/full-suite.json"
+  },
+  "LAST_COHERENT_CHECKPOINT": "CP8 candidate reviewed and ready for its containing local Git commit; all mission stop conditions passed",
+  "STATUS": "COMPLETE"
+}

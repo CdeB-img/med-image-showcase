@@ -1,0 +1,28 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "recordedAt": "2026-09-15T16:15:45Z",
+  "targetedLint": {
+    "status": "PASS",
+    "files": 9
+  },
+  "build": {
+    "status": "PASS",
+    "includes": [
+      "typescript configuration gate",
+      "application TypeScript",
+      "Vercel API TypeScript",
+      "scientific interpretation server TypeScript and ESM load",
+      "Vite production build"
+    ]
+  },
+  "diffCheck": "PASS",
+  "globalLint": {
+    "status": "PRE_EXISTING_REPOSITORY_DEBT",
+    "errors": 75,
+    "warnings": 36,
+    "causalRelationToMission": "NONE_OBSERVED",
+    "detail": "Global eslint includes pre-existing experiments, virtual-environment assets and untracked historical validation scripts. The nine mission files pass eslint."
+  },
+  "providerCalls": 0,
+  "fullSuiteRuns": 0
+}

@@ -1,0 +1,50 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "recordedAt": "2026-09-15T16:13:45Z",
+  "browser": "Codex in-app browser",
+  "transport": "REAL_BROWSER_SYNTHETIC_ADAPTER_TRANSPORT",
+  "realProviderCalls": 0,
+  "scenarioA": {
+    "status": "PASS",
+    "rawEvidenceDirectory": "browser-evidence-stable",
+    "httpExchanges": 7,
+    "receiptLabels": [
+      "SCENARIO_A_CARDIO_FINAL_SOURCE_PRIORITY",
+      "SCENARIO_A_CARDIO_REOPEN_PERSISTENCE"
+    ],
+    "observed": [
+      "Research Project version 2",
+      "Protocol document version 1.1.3 after expand, source-focus and shorten revisions",
+      "project-specific argumentative scientific context and rationale",
+      "visible Kellman, Miller and Schulz-Menger bibliography",
+      "explicit source-priority explanation",
+      "five immutable document versions after reopen",
+      "future continuum modules visible and disabled"
+    ]
+  },
+  "scenarioB": {
+    "status": "PASS",
+    "rawEvidenceDirectory": "browser-evidence-neuro-final",
+    "httpExchanges": 2,
+    "receiptLabels": [
+      "SCENARIO_B_NEURO_OBJECTIVE_FRAMING"
+    ],
+    "observed": [
+      "Research Project version 2",
+      "Protocol document version 1.1.0",
+      "objective-framed narrative without an empty quoted question",
+      "CBF knowledge and Copen/Chung bibliography",
+      "indirect applicability and scientific gap stated explicitly",
+      "no cardio-specific content"
+    ]
+  },
+  "gates": {
+    "CARDIO_NARRATIVE_E2E": "PASS",
+    "SCENARIO_A_SOURCE_PRIORITY": "PASS",
+    "SCENARIO_A_DYNAMIC_REVISION": "PASS",
+    "SCENARIO_A_REOPEN_PERSISTENCE": "PASS",
+    "ORTHOGONAL_SMOKE": "PASS",
+    "REAL_BROWSER": "PASS",
+    "PROVIDER_CALLS_ZERO": "PASS"
+  }
+}

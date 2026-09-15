@@ -1,0 +1,16 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "recordedAt": "2026-09-15T16:17:04Z",
+  "command": "npm test -- --reporter=json --outputFile=/tmp/noxia-scientific-narrative-full-suite.json",
+  "runNumberWithinMission": 1,
+  "success": true,
+  "testFiles": 278,
+  "testSuitesPassed": 667,
+  "testSuitesFailed": 0,
+  "testsTotal": 4365,
+  "testsPassed": 4352,
+  "testsFailed": 0,
+  "testsPending": 12,
+  "testsTodo": 1,
+  "providerCalls": 0
+}

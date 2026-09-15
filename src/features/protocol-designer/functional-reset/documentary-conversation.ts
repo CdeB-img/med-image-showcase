@@ -1,6 +1,6 @@
-import { createKnowledgeRequest, prepareScientificObjectTerms, type KnowledgeResult } from "@/features/knowledge-engine";
+import type { KnowledgeResult } from "@/features/knowledge-engine";
 import { collectProjectKnowledgeSources, emptyProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
-import { buildProjectContextSnapshot } from "@/features/research-project-construction";
+import { buildKnowledgeRequestFromCanonicalSnapshot, buildProjectContextSnapshot } from "@/features/research-project-construction";
 import { invokeKnowledgeForProject } from "../product-knowledge-owner-runtime";
 import { readProductOwnerResult } from "../product-owner-result-ledger";
 import type { FunctionalResetSession } from "./session";
@@ -25,13 +25,13 @@ export const resolveDocumentaryIntent = (text: string, documentContext = false):
   if (/qu.*chang|montre.*chang|difference|\bdiff\b/.test(normalized)) return { kind: "DIFF" };
   if (/reviens|revenir|restaure/.test(normalized) && /version precedente/.test(normalized)) return { kind: "RESTORE" };
   if (/compare/.test(normalized) && /article|source|publication|reference/.test(normalized)) return { kind: "COMPARE_SOURCES" };
-  if (/pourquoi/.test(normalized) && /reference|source|utilis|cite/.test(normalized)) return { kind: "EXPLAIN_SOURCE" };
+  if (/pourquoi/.test(normalized) && /reference|source|utilis|cite|privileg/.test(normalized)) return { kind: "EXPLAIN_SOURCE" };
   if (/contexte.*(source|reference)|prepar.*(source|bibliograph)|cherche.*corpus/.test(normalized)) return { kind: "PREPARE_EVIDENCE" };
   // A request targeting study methods cannot be accepted as an introduction edit merely because it contains an editorial verb.
   if (/raccour|develop|reformul|reecri/.test(normalized) && /population|methodolog|endpoint|critere|analyse statistique|procedur/.test(normalized)) return { kind: "CLARIFY" };
   if (/retire|retirer|supprime/.test(normalized) && /\b\d{4}\b|doi|pmid|reference|source|publication|article/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "REMOVE_SOURCE", sourceRequired: true };
   if (/il manque|ajoute|ajouter|cite cette/.test(normalized) && /\b\d{4}\b|doi|pmid|reference|source|publication|article/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "ADD_SOURCE", sourceRequired: true };
-  if (/angle|accent|partir de/.test(normalized) && /\b\d{4}\b|doi|pmid/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "FOCUS_SOURCE", sourceRequired: true };
+  if (/angle|accent|partir de|mets?.*(?:avant|valeur)|davantage.*avant/.test(normalized) && /\b\d{4}\b|doi|pmid/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "FOCUS_SOURCE", sourceRequired: true };
   if (/raccour|abrege|concis/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "SHORTEN", sourceRequired: false };
   if (/trop affirmative|trop affirmatif|plus prudent|nuance/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "CAUTION", sourceRequired: false };
   if (/developpe|developper|approfondis|etoffe/.test(normalized) && /introduction|cette partie|contexte/.test(normalized)) return { kind: "DOCUMENT_REVISION", transformation: "EXPAND", sourceRequired: false };
@@ -42,12 +42,12 @@ export const acquireDocumentKnowledge = (session: FunctionalResetSession, record
   const project = session.project;
   if (!project) throw new Error("DOCUMENT_PROJECT_REQUIRED");
   const snapshot = buildProjectContextSnapshot({ project });
-  const text = snapshot.objects.filter((object) => ["SCIENTIFIC_QUESTION", "CANONICAL_VARIABLE", "IMAGING_MODALITY", "CONDITION"].includes(object.type)).map((object) => object.content).join(" ; ");
-  const prepared = prepareScientificObjectTerms({ originalQuestion: text, candidates: snapshot.objects.filter((object) => ["CANONICAL_VARIABLE", "IMAGING_MODALITY", "CONDITION"].includes(object.type)).map((object) => ({ term: object.content, role: "SUBJECT" as const, sourceText: object.content, sourceRef: object.stableId })) });
-  const request = createKnowledgeRequest({ originalQuestion: `Documenter les notions présentes dans le projet, sans qualifier leur adoption ni leur applicabilité clinique : ${text}`,
-    scientificObjectTerms: prepared.accepted, researchProjectId: project.projectId, strategyVersion: snapshot.sourceProjectVersion, researchProjectVersion: project.versionId, researchProjectDigest: project.projectDigest,
-    // General scientific background only. This request does not qualify applicability to the study population.
-    consumer: "PROTOCOL_DESIGNER_UNDERSTAND", externalSearchPolicy: "INTERNAL_ONLY", context: {}, createdAt: recordedAt });
+  const request = buildKnowledgeRequestFromCanonicalSnapshot({
+    projectSnapshot: snapshot,
+    // UNDERSTAND keeps population/pathology differences explicit limitations instead of silently claiming exact applicability.
+    question: "Construire le contexte scientifique documenté du protocole à partir des notions validées dans le Research Project.",
+    createdAt: recordedAt,
+  });
   const existing = session.knowledgeOwnerLedger.entries.find((entry) => entry.result?.owner === "KNOWLEDGE" && (entry.request.nativeInput as { requestId?: string }).requestId === request.requestId);
   let ledger = session.knowledgeOwnerLedger;
   let result: KnowledgeResult;

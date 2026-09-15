@@ -1,0 +1,28 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "recordedAt": "2026-09-15T16:05:27Z",
+  "executionMode": "OFFLINE_LOCAL_ONLY",
+  "providerCalls": 0,
+  "command": "npx vitest run src/features/document-projection/__tests__/scientific-narrative-evidence-synthesis-v1.test.ts src/features/document-projection/__tests__/living-document-revision.test.ts src/features/knowledge-engine/__tests__/adapters.test.ts src/features/knowledge-engine/__tests__/mandatory-cases.test.ts src/features/knowledge-engine/__tests__/eng-002-product-cases.test.ts --reporter=verbose",
+  "testFiles": 5,
+  "testsPassed": 63,
+  "testsFailed": 0,
+  "typescriptNoEmit": "PASS",
+  "gates": {
+    "NARRATIVE_HAS_ARGUMENTATIVE_STRUCTURE": "PASS",
+    "NO_UNSUPPORTED_FACT": "PASS",
+    "SOURCE_APPLICABILITY_PRESERVED": "PASS",
+    "USER_PREFERENCE_DOES_NOT_OVERRIDE_EVIDENCE": "PASS",
+    "CONTRADICTORY_EVIDENCE_NOT_SILENTLY_RESOLVED": "PASS",
+    "USER_SOURCE_REMAINS_VISIBLE": "PASS",
+    "SECTION_SCOPED_REVISION": "PASS",
+    "SOURCE_FOCUS_REVISION": "PASS",
+    "SHORTEN_WITHOUT_SEMANTIC_LOSS": "PASS",
+    "WHY_SOURCE_EXPLANATION": "PASS",
+    "DOCUMENT_VERSION_CREATED": "PASS",
+    "PROJECT_UNCHANGED_BY_DOCUMENTARY_REVISION": "PASS",
+    "CITATIONS_MATCH_ASSERTIONS": "PASS",
+    "REFERENCES_MATCH_USED_SOURCES": "PASS",
+    "ORTHOGONAL_NEURO_SMOKE": "PASS"
+  }
+}

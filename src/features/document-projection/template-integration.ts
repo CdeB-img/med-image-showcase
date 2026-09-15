@@ -271,7 +271,9 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
     sections: baseComposition.sections.map((section) => enrichSection(request, section, templateDocument.sectionIds, allowedTemplateNodeIds, templateDocument.nodeId)),
   };
   const retainedEvidence = request.priorProjection?.source.projectId === request.project.documentHandoff.projectId ? request.priorProjection.evidenceContent : undefined;
-  const evidenceContent = request.knowledgeLibrary ? regenerateDocumentEvidence(request.knowledgeLibrary, retainedEvidence) : undefined;
+  const evidenceContent = request.knowledgeLibrary
+    ? regenerateDocumentEvidence(request.knowledgeLibrary, retainedEvidence, narrativeProjectContext(request.project))
+    : undefined;
   const sections = [...composeEditorialProjection(composition), ...(evidenceContent ? documentEvidenceSections(evidenceContent) : [])].sort((a, b) => a.order - b.order);
   const readiness = assessProjectionReadiness(sections);
   const versions = versionsFor(request, definition.definitionVersion);
@@ -376,3 +378,4 @@ export function projectDocument(request: DocumentProjectionRequest | LegacyDirec
     : projectDocumentLegacyDirect(request);
 }
 import { documentEvidenceSections, regenerateDocumentEvidence } from "./scientific-document-revision";
+import { narrativeProjectContext } from "./scientific-narrative";

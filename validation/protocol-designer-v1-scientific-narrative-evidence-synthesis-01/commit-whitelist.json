@@ -1,0 +1,18 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_SCIENTIFIC_NARRATIVE_EVIDENCE_SYNTHESIS_01",
+  "paths": [
+    "src/features/document-projection/scientific-document-revision.ts",
+    "src/features/document-projection/template-integration.ts",
+    "src/features/document-projection/scientific-narrative.ts",
+    "src/features/document-projection/__tests__/scientific-narrative-evidence-synthesis-v1.test.ts",
+    "src/features/knowledge-engine/adapters/adapter-utils.ts",
+    "src/features/knowledge-engine/concept-resolver.ts",
+    "src/features/knowledge-engine/types.ts",
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+    "src/features/protocol-designer/functional-reset/documentary-conversation.ts",
+    "validation/protocol-designer-v1-scientific-narrative-evidence-synthesis-01"
+  ],
+  "excluded": [
+    "all unrelated tracked or untracked paths"
+  ]
+}

@@ -214,6 +214,7 @@ import ProjectSourceLibraryView from "./ProjectSourceLibraryView";
 import { acquireDocumentKnowledge, resolveDocumentaryIntent } from "./documentary-conversation";
 import { recordSourceInterest, resolveProjectSource, sourceShortReference } from "@/features/knowledge-engine/project-source-library";
 import { availableDocumentEvidence, readableDocumentDiff, restoreDocumentRevision, reviseScientificDocument } from "@/features/document-projection/scientific-document-revision";
+import { explainDocumentSourceComparison, explainDocumentSourceSelection } from "@/features/document-projection/scientific-narrative";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -3459,12 +3460,15 @@ export default function ProtocolDesignerWorkspace({
         reply(resolution.matches.map((source) => `${sourceShortReference(source)} : ${candidates.filter((item) => item.sourceRefs.includes(source.source.sourceId)).map((item) => item.text).join(" ") || "Aucune assertion rédigée admissible disponible."}`).join("\n\n") + "\n\nCette comparaison porte sur les assertions accessibles. Leur niveau de preuve comparatif et leur applicabilité à votre étude ne sont pas établis par votre préférence.", evidence); return;
       }
       if (intent.kind === "EXPLAIN_SOURCE") {
-        if (resolution.status !== "RESOLVED") { reply("La référence doit être identifiée sans ambiguïté pour expliquer son usage.", evidence); return; }
+        if (resolution.matches.length === 2) {
+          reply(explainDocumentSourceComparison(evidence.sourceLibrary, projection?.evidenceContent?.narrative,
+            resolution.matches.map((match) => match.source.sourceId)), evidence); return;
+        }
+        if (resolution.status !== "RESOLVED") { reply("Identifiez une référence, ou exactement deux références pour expliquer leur priorité relative. Aucun rapprochement approximatif n’a été effectué.", evidence); return; }
         const id = resolution.matches[0]!.source.sourceId;
-        const used = projection?.evidenceContent?.paragraphs.filter((paragraph) => paragraph.sourceRefs.includes(id)) ?? [];
-        reply(used.length ? `Cette référence soutient ${used.length} affirmation(s) de l’introduction. Les liens assertion–source sont conservés dans cette version.`
-          : projection?.evidenceContent?.excludedSourceRefs.includes(id) ? "Cette référence a été retirée sur instruction documentaire. Elle reste visible dans la bibliothèque et l’historique ; ce retrait ne change pas sa qualification scientifique."
-            : "Cette référence n’est pas utilisée dans cette version. Son identité et son intérêt pour vous restent conservés ; son ajout exige une assertion accessible et soutenue. Le choix rédactionnel courant n’est pas un classement de qualité des publications.", evidence); return;
+        reply(projection?.evidenceContent?.excludedSourceRefs.includes(id)
+          ? "Cette référence a été retirée sur instruction documentaire. Elle reste visible dans la bibliothèque et l’historique ; ce retrait ne change pas sa qualification scientifique."
+          : explainDocumentSourceSelection(evidence.sourceLibrary, projection?.evidenceContent?.narrative, id), evidence); return;
       }
       if (intent.kind !== "DOCUMENT_REVISION") return;
       let sourceId: string | undefined;

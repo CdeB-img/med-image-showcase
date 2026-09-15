@@ -380,6 +380,16 @@ export type RuntimeAssertion = {
   locator: string;
   applicability: ApplicabilityState;
   applicabilityReasons: string[];
+  /** Qualifications already owned by the scientific corpus; consumers may order evidence but never promote them. */
+  scientificQualification?: {
+    maturity: string | null;
+    methodologicalQuality: string | null;
+    sourceTypes: string[];
+    populations: string[];
+    pathologies: string[];
+    techniques: string[];
+    measurements: string[];
+  };
 };
 
 export type GovernedDocumentaryStatement = {

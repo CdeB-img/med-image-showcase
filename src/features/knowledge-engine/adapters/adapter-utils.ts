@@ -13,14 +13,25 @@ export type ExternalAssertionRecord = {
   facets?: {
     concepts?: string[];
     modalities?: string[];
-    techniques?: string[];
-    measurements?: string[];
+    techniques?: unknown[];
+    measurements?: unknown[];
     findings?: string[];
     limitations?: string[];
+    sourceTypes?: unknown[];
+    populations?: unknown[];
+    diseases?: unknown[];
+    pathologies?: unknown[];
+    methods?: unknown[];
   };
+  population?: string;
   context?: Record<string, unknown>;
   polarity?: RuntimeAssertion["polarity"];
   reviewState?: string;
+  maturity?: string;
+  quality?: string;
+  scientificMaturity?: string;
+  confidence?: string;
+  evidenceQuality?: string | { methodologicalQuality?: string };
 };
 
 export type ExternalEvidenceRecord = {
@@ -78,6 +89,36 @@ export const normalizeSource = (source: ExternalSourceRecord): RuntimeSource => 
   pmcid: source.metadata?.pmcid ?? source.pmcid ?? undefined,
 });
 
+const corpusQuality = (assertion: ExternalAssertionRecord) => {
+  const embedded = typeof assertion.evidenceQuality === "string"
+    ? assertion.evidenceQuality
+    : assertion.evidenceQuality?.methodologicalQuality;
+  return [assertion.quality, embedded, assertion.confidence]
+    .find((value) => value && ["VERY_LOW", "LOW", "MODERATE", "HIGH"].includes(value)) ?? null;
+};
+
+const facetValues = (values: unknown[]) => uniqueSorted(values.flatMap((value) => {
+  if (typeof value === "string") return [value];
+  if (!value || typeof value !== "object") return [];
+  const record = value as Record<string, unknown>;
+  const identity = [record.stableId, record.entityId, record.objectId, record.id, record.label, record.name]
+    .find((candidate) => typeof candidate === "string");
+  return typeof identity === "string" ? [identity] : [];
+}));
+
+const corpusSourceTypes = (assertion: ExternalAssertionRecord) => {
+  const embedded = typeof assertion.evidenceQuality === "object" ? assertion.evidenceQuality.methodologicalQuality : null;
+  return facetValues([
+    ...facetValues(assertion.facets?.sourceTypes ?? []),
+    ...(embedded && !["VERY_LOW", "LOW", "MODERATE", "HIGH"].includes(embedded) ? [embedded] : []),
+  ]);
+};
+
+const corpusPopulations = (assertion: ExternalAssertionRecord) => facetValues([
+  ...facetValues(assertion.facets?.populations ?? []),
+  ...(assertion.population && !/^(NOT_APPLICABLE|UNKNOWN)$/u.test(assertion.population) ? [assertion.population] : []),
+]);
+
 export const baseAssertion = (assertion: ExternalAssertionRecord, providerId: string, evidenceLinks: RuntimeEvidenceLink[]): RuntimeAssertion => ({
   stableId: assertion.stableId ?? assertion.revisionId,
   revision: assertion.revisionId,
@@ -103,6 +144,15 @@ export const baseAssertion = (assertion: ExternalAssertionRecord, providerId: st
   locator: evidenceLinks.find((link) => link.assertionId === assertion.revisionId)?.locator ?? "LOCALISATEUR_NON_DOCUMENTE",
   applicability: "UNKNOWN_APPLICABILITY",
   applicabilityReasons: [],
+  scientificQualification: {
+    maturity: assertion.scientificMaturity ?? assertion.maturity ?? null,
+    methodologicalQuality: corpusQuality(assertion),
+    sourceTypes: corpusSourceTypes(assertion),
+    populations: corpusPopulations(assertion),
+    pathologies: facetValues([...(assertion.facets?.diseases ?? []), ...(assertion.facets?.pathologies ?? [])]),
+    techniques: facetValues([...(assertion.facets?.techniques ?? []), ...(assertion.facets?.methods ?? [])]),
+    measurements: facetValues(assertion.facets?.measurements ?? []),
+  },
 });
 
 export const representationDigest = (providerId: string, version: string, values: unknown[]) => logicalDigest({ providerId, version, values });
