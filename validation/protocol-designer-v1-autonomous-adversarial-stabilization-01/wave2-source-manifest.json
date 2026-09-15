@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-09-15T00:24:16.323735+00:00",
+  "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "files": {
+    "src/features/knowledge-engine/privacy.ts": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083",
+    "src/features/protocol-designer/functional-reset/ContributionReview.tsx": "0e625248f1295af12d752a8a04ca3816a7e4036ecb712d3a42a8a3b9e461a91e",
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf",
+    "src/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay.ts": "14214cf79da4f49e07aab7c6ee6fb844f02b69290f24b5f6c06316c484bedc59",
+    "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d",
+    "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx": "3d15ac83dd720728edfe96e164a2643fd583bc5a95874768f692ccc4da2dfe68",
+    "src/features/protocol-designer/functional-reset/product-entry-routing.ts": "a6152456c7277fa51bb68db8d822d43bfc3fa301d92213fbfb6f83d20aec37e2",
+    "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8",
+    "src/features/protocol-designer/intake/journey.ts": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a",
+    "src/features/protocol-designer/product-bridge.ts": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9",
+    "src/features/query-navigation/current-navigation-evidence.ts": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea",
+    "src/features/query-navigation/current-turn-navigation.ts": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed",
+    "src/features/knowledge-engine/__tests__/privacy.test.ts": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608",
+    "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": "fec3e6c96027fd0b980a371d227c761217406c2b08fc88a239cb1a34d90e1da2"
+  },
+  "realProviderCalls": 0
+}

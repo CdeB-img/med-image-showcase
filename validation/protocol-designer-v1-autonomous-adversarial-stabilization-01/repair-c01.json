@@ -1,0 +1,91 @@
+{
+  "contract": "AUTONOMOUS_ADVERSARIAL_REPAIR_RECEIPT",
+  "clusterId": "C01",
+  "wave": 1,
+  "status": "IMPLEMENTED_TARGETED_QUALIFICATION_PASS_INTEGRATED_CAMPAIGN_PENDING",
+  "recordedAt": "2026-09-14T21:57:11.172Z",
+  "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "authorization": "Root: discovery CP4 complete (225 turns); wave 1 authorized. No commit requested.",
+  "causalFinding": "Product Entry required lexical constructionIntentPresent before reaching reversible extraction. A01/A02/A03 T01 returned local Knowledge without HTTP; B01 T01 reached HOW with extraction NOT_REQUESTED. Route score and extraction admission are distinct responsibilities.",
+  "changedFiles": [
+    {
+      "path": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+      "sha256": "ca29d91db17a6989b81194651be45f0d75451c7f59237d7440cfa0881543f63a"
+    },
+    {
+      "path": "src/features/protocol-designer/intake/journey.ts",
+      "sha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts",
+      "sha256": "d125932fe3be244ec85e60db99160aa5c800ce3ea11949a4d35263a8ef03806b"
+    }
+  ],
+  "reusedOwners": [
+    {
+      "path": "src/features/query-navigation/current-navigation-evidence.ts",
+      "sha256": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669",
+      "responsibility": "Bounded explicit conversation acts, including explain/discuss/propose. Changes owned by C02 agent."
+    },
+    {
+      "path": "src/features/knowledge-engine/privacy.ts",
+      "sha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083",
+      "responsibility": "Complete personal-referent privacy predicate. Changes owned by C03 agent."
+    }
+  ],
+  "implementation": [
+    "Preserve Product Entry contract version, route scores and constructionIntentPresent semantics. projectConstructionEligible now means reversible extraction admission, not established construction finality or adoption.",
+    "Reuse explicit conversation acts per sentence/clause; split a comma before an explicit bounded act so preceding supplied material remains eligible. Internal commas in pure understanding requests remain protected.",
+    "Separate explicit understanding/formalization/future-idea finality from incidental topic words such as role or difference; do not use UNDERSTAND or FORMALIZE_IDEA as a global veto.",
+    "Keep explicit exclusions, forceUnderstand, empty input and Project preservation gates. Extend existing negative coordination to ne...ni...ni and preservation grammar to tel quel.",
+    "Use the full personal-referent predicate for Domain Gate before reversible extraction; remove the former narrowing conjunction. Mixed scientific/personal input remains excluded.",
+    "Only explicitCorrectionMode bypasses conversation-only admission; an interrogative mention of a Project edit does not authorize extraction.",
+    "No Project write is authorized, no provider boundary is replaced, and no scenario/domain phrase table was introduced."
+  ],
+  "validation": [
+    {
+      "kind": "TARGETED_TESTS",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts src/features/protocol-designer/functional-reset/__tests__/fic02-bounded-repair-03-router.test.ts src/features/protocol-designer/functional-reset/__tests__/p1-behavior-02b-study-construction-routing.test.ts src/features/protocol-designer/functional-reset/__tests__/v1-contextual-corrections.test.ts src/features/protocol-designer/functional-reset/__tests__/frozen-integrated-campaign-02-bounded-repair-02.test.ts src/features/protocol-designer/functional-reset/__tests__/product-checkpoint-01b-router-reconnection.test.tsx src/features/protocol-designer/functional-reset/__tests__/p1-ux-restore-01.test.tsx src/features/protocol-designer/functional-reset/__tests__/v1-qry-continuation-proactive-proposal-01.test.tsx src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/c01-tests-r6.log",
+      "exitCode": 0,
+      "filesPassed": 9,
+      "testsPassed": 161,
+      "newOwnerTests": 50
+    },
+    {
+      "kind": "LINT",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/eslint/bin/eslint.js src/features/protocol-designer/functional-reset/product-entry-routing.ts src/features/protocol-designer/intake/journey.ts src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/c01-lint-final.log",
+      "exitCode": 0
+    },
+    {
+      "kind": "TYPECHECK_APP",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/typescript/bin/tsc -p tsconfig.app.json --noEmit",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/c01-typecheck-app-final.log",
+      "exitCode": 0
+    }
+  ],
+  "testEvidenceNotes": [
+    "Frozen exact A01/A02/A03/B01 T01 regressions pass with constructionIntentPresent=false and projectConstructionEligible=true.",
+    "Tests cover pure questions (including edit wording), explanation/discussion/proposal/formalization, mixed punctuation/blank paragraphs, incidental topic words, exclusions, personal clinical material and mixed private/research input.",
+    "Existing candidate lifecycle/corrections and proposal-purpose suites remain passing; admission unit tests alone do not demonstrate extraction quality or adoption safety.",
+    "Earlier logs retained honestly: initial log has a test-file syntax error; r1 exposes negative coordination/preservation gaps; c01-tests-final.log exposes pure formalization regression. All fixed before r6. No historical proof was overwritten."
+  ],
+  "limitations": [
+    "Unresolved declarative discourse such as Bonjour, uncertainty-only or a declarative example may be admitted and incur an extraction evaluation. This is not a claim of scientific relevance or decision authority; an empty delta is legitimate.",
+    "A mixed proposal request with a declarative preamble can therefore reach extraction before proposal dispatch. Governing the act after an empty delta belongs to downstream QRY/Workspace integration.",
+    "Clause recognition remains bounded deterministic grammar, not a universal semantic interpreter; arbitrary nested, quoted or unpunctuated mixed acts are not generally proven.",
+    "Only the current personal-referent owner predicate is reused; these tests do not certify exhaustive detection of every sensitive expression.",
+    "Synthetic provider fixtures do not qualify live-provider language competence, quality, latency or cost. Full campaign/soaks/browser qualification belongs to root and is pending in this receipt."
+  ],
+  "scopePreservation": {
+    "workspaceEditedByThisAgent": false,
+    "currentNavigationEvidenceEditedByThisAgent": false,
+    "knowledgePrivacyEditedByThisAgent": false,
+    "corpusModified": false,
+    "historicalProofModified": false,
+    "resumeOrCheckpointModified": false,
+    "liveProviderCalls": 0,
+    "commitCreated": false
+  }
+}

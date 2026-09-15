@@ -1,0 +1,129 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_AUTONOMOUS_ADVERSARIAL_STABILIZATION_01",
+  "at": "2026-09-15T00:52:50.185610+00:00",
+  "status": "COMPLETED_NOT_QUALIFIED",
+  "qualificationVerdict": "FAIL",
+  "selectedConversations": 5,
+  "selectedMeaningfulTurns": 75,
+  "functionalPassConversations": 0,
+  "rawConversationsExecuted": 7,
+  "rawMeaningfulTurnsExecuted": 105,
+  "invalidatedControllerAttempts": 2,
+  "invalidatedControllerTurns": 30,
+  "selectedHttpExchanges": 70,
+  "rawHttpExchanges": 98,
+  "httpStatusCounts": {
+    "200": 98
+  },
+  "httpFailures": [],
+  "externalProviderCalls": 0,
+  "corpusModified": false,
+  "productModifiedDuringBrowser": false,
+  "observationReceipts": [
+    {
+      "scenario": "A01",
+      "path": "browser-evidence/A01-observation.json",
+      "sha256": "34df40ea6e9f38b8f6b0ca2ba6f3b31c0bd127e59dfe453c97f1cbaa15841687",
+      "verdict": "FAIL",
+      "sessionReopen": null,
+      "document": null
+    },
+    {
+      "scenario": "B01",
+      "path": "browser-evidence/B01-observation.json",
+      "sha256": "d6457e1de10949518510b017bd8a26f08bf3f2e1b12fe52d0959d959c969bd1a",
+      "verdict": "FAIL",
+      "sessionReopen": {
+        "turn": "B01-T13",
+        "method": "REAL_BROWSER_RELOAD",
+        "versionPreserved": true,
+        "historyPreserved": true,
+        "visibleProjectTextPreserved": true
+      },
+      "document": {
+        "turn": "B01-T14",
+        "action": "Créer l’aperçu",
+        "sourceVersion": 3,
+        "contains24Weeks": true,
+        "contains36Weeks": false,
+        "returnedToConversation": true
+      }
+    },
+    {
+      "scenario": "C01",
+      "path": "browser-evidence/C01-observation.json",
+      "sha256": "05936710356586385acf2362ec726641266869af5792795afc03c0b477542407",
+      "verdict": "FAIL",
+      "sessionReopen": {
+        "turn": "C01-T13",
+        "method": "REAL_BROWSER_RELOAD",
+        "versionPreserved": true,
+        "historyPreserved": true,
+        "visibleProjectTextPreserved": true
+      },
+      "document": {
+        "turn": "C01-T14",
+        "action": "Créer l’aperçu",
+        "sourceVersion": 5,
+        "returnedToConversation": true,
+        "observedContents": [
+          "Soixante éprouvettes aluminium par lots",
+          "Traitement thermique A versus B",
+          "Vieillissement humide de soixante cycles",
+          "Résistance en fatigue comme critère principal",
+          "Lecture des ruptures par deux opérateurs masqués",
+          "Analyse tenant compte des lots de fabrication",
+          "Sections À préciser et avertissement de version de travail"
+        ]
+      }
+    },
+    {
+      "scenario": "F01",
+      "path": "browser-evidence/F01-observation.json",
+      "sha256": "78e6cba568c959c54052293725e5aa25bfa4e6bd4f3bcbbc35eed9a581d418ed",
+      "verdict": "FAIL",
+      "sessionReopen": null,
+      "document": null
+    },
+    {
+      "scenario": "F02",
+      "path": "browser-evidence/F02-observation.json",
+      "sha256": "1b9dc28d9d9767b3085e483256471630a73ba71c29060d711b12b54cbdf36a11",
+      "verdict": "FAIL",
+      "sessionReopen": {
+        "turn": "F02-T12",
+        "status": "EXECUTED",
+        "versionPreserved": true,
+        "historyPreserved": true,
+        "projectVisibleTextPreserved": true
+      },
+      "document": null
+    }
+  ],
+  "invalidatedAttempts": [
+    {
+      "path": "F01-initial-ui-oracle-attempt.json",
+      "sha256": "40f0dbb92f3cef2b630359e86e3a957ee35e561e7e84b2d74c99a0767b4d7bb0"
+    },
+    {
+      "path": "F02-initial-ui-sequence-attempt.json",
+      "sha256": "6d52bfaae047872845345a187c4a955ce1e7ff7a8dcb7051d5ea1d7b52d4acfd"
+    }
+  ],
+  "httpEvidence": {
+    "path": "browser-evidence/browser-http-exchanges.jsonl",
+    "sha256": "18a64a3992520ecc2f5f12376d44761ebd3617955de0a4bdded510d6e12b52ad"
+  },
+  "uiFriction": {
+    "priority": "P2",
+    "attribution": "UI_SCROLL_OCCLUSION_RECOVERED",
+    "receipt": "browser-evidence/B01-document-return-attribution.json",
+    "productRepairApplied": false
+  },
+  "limitations": [
+    "Provider transport is synthetic: no live-provider language qualification.",
+    "Selected attempts alone count toward the 75-turn browser subset; prior controller mistakes are preserved and excluded.",
+    "Browser version preservation and document fidelity to current Project do not imply scientific or gold-state conformity.",
+    "Historical proposal selection cannot be qualified where no uniquely identified actionable proposal is exposed."
+  ]
+}

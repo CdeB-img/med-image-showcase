@@ -1,0 +1,135 @@
+{
+  "MISSION_ID": "PROTOCOL_DESIGNER_V1_AUTONOMOUS_ADVERSARIAL_STABILIZATION_01",
+  "REPAIR_ID": "C02",
+  "status": "IMPLEMENTED_FOCUSED_TESTS_PASS_MASS_REPLAY_PENDING",
+  "recordedAt": "2026-09-14T22:00:42.186621+00:00",
+  "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "currentHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "scope": [
+    "src/features/query-navigation/current-navigation-evidence.ts",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts",
+    "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts"
+  ],
+  "changes": [
+    "Existing QRY bounded interaction owner composes explicit performative clauses and binds decisions only to the exact UNIQUE_CURRENT retained candidate.",
+    "Decision complement must denote current candidate/contribution/proposal/addition/change; fact confirmation, attribute-only decisions, stale references, quotes, examples, conditions, negation, cancellation and partial decisions cannot authorize adoption.",
+    "Assisted-proposal acts survive sentence preambles and secondary clauses; polarity attaches to request verb, not to independent no-adoption constraints. No scientific meaning is inferred by this grammar.",
+    "Scientific Thinking does not consume a declarative correction merely because it contains difference or uncertainty; unrelated explanations fall through to QRY.",
+    "Scientific Thinking selection requires an indexed native reference or full matching candidate text; a shared long scientific token cannot resolve identity."
+  ],
+  "causalEvidence": [
+    {
+      "scenario": "A04",
+      "turn": "A04-T03",
+      "boundary": "BOUNDED_INTERACTION_ACT",
+      "observed": "Current reread candidate remained unadopted after an explicit composed confirmation; prior grammar matched only entire short forms."
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T04",
+      "boundary": "QRY_PURPOSE",
+      "observed": "Explicit proposal command in second sentence became RESPOND_WITHOUT_MUTATION with contentSource NONE; no new scientific owner result."
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T11",
+      "boundary": "ACTIVE_SCIENTIFIC_THINKING_INPUT",
+      "observed": "Declarative endpoint correction mentioning difference produced old hypotheses locally with zero HTTP and no new candidate."
+    }
+  ],
+  "validation": {
+    "testReport": "repair-c02-tests-r2.json",
+    "passed": 86,
+    "failed": 0,
+    "success": true,
+    "affectedLint": "PASS",
+    "whitelistDiffCheck": "PASS",
+    "nodeOfflineGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "realProviderCalls": 0
+  },
+  "limitations": [
+    "Natural-language decision grammar remains bounded, not a proof of general semantic understanding; unsupported or partial utterances fail closed.",
+    "A previous-proposal selection without a recoverable exact current native reference remains unresolved; no old proposal is fabricated.",
+    "C04: arbitrary scientific explanation is not generated. Existing native candidate discussion can restate rationale/observable condition/limitations, but correlation-versus-agreement or other external explanation requires a suitable knowledge/owner contribution. This repair only prevents false ownership by a generic active Scientific Thinking result.",
+    "Mass replay, live-browser offline confirmation and full-suite validation belong to the root qualification and remain pending.",
+    "Workspace ordering and Project admission are concurrent separate repairs, not part of this receipt.",
+    "R2 conservative ownership: mixed-content confirmations and discussions bypass local handlers to preserve all clauses; full semantic decomposition/adoption of multi-act messages is not newly claimed."
+  ],
+  "fileSha256": {
+    "src/features/query-navigation/current-navigation-evidence.ts": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "dade9ab62fb4bfe364360d7dbc3ec80a46f9ee3fd37ab9eb72242826e33d8431",
+    "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "c1ba513608c520955ff008d53fda0b0f9104ee1c8e0238def267677264a5ec97"
+  },
+  "testReportSha256": "da88efb667b262f4aa5c74157dd88e4f4c89e33d4ff266cc060e68c3c6181caf",
+  "productCommitCreated": false,
+  "resumeStateModified": false,
+  "revisionHistory": [
+    {
+      "revision": "R1",
+      "status": "FOCUSED_TESTS_PASS_SUPERSEDED_BY_ULTRA_REVIEW",
+      "validation": {
+        "testReport": "repair-c02-tests.json",
+        "passed": 86,
+        "failed": 0,
+        "success": true,
+        "affectedLint": "PASS",
+        "whitelistDiffCheck": "PASS",
+        "nodeOfflineGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+        "realProviderCalls": 0
+      },
+      "fileSha256": {
+        "src/features/query-navigation/current-navigation-evidence.ts": "68a9252f942ec77776c7729048ac9c62d54f22f5e3e27c5a1eee8f4e62bf4e5d",
+        "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "dd5eb9ddbfbf58334ce37514e3a5e8a5ee662ff2bc92bccc8937a10a8406df5f",
+        "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts": "18760a8bc26323a20ba0b3d9f82c5f113e588aa6dbc199f109ebd216bb9fe30b",
+        "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "d293a309b33e7c9ba1b286308b2c44851484ce9a152efb57caa395c6e48b53db"
+      },
+      "testReportSha256": "5a6029c3e888c40db86d9bed8622895973ab1406eeb9a4a4ca1cf5fb4319114c",
+      "summary": [
+        "Existing QRY bounded interaction owner composes explicit performative clauses and binds decisions only to the exact UNIQUE_CURRENT retained candidate.",
+        "Decision complement must denote current candidate/contribution/proposal/addition/change; fact confirmation, attribute-only decisions, stale references, quotes, examples, conditions, negation, cancellation and partial decisions cannot authorize adoption.",
+        "Assisted-proposal acts survive sentence preambles and secondary clauses; polarity attaches to request verb, not to independent no-adoption constraints. No scientific meaning is inferred by this grammar.",
+        "Scientific Thinking does not consume a declarative correction merely because it contains difference or uncertainty; unrelated explanations fall through to QRY.",
+        "Scientific Thinking selection requires an indexed native reference or full matching candidate text; a shared long scientific token cannot resolve identity."
+      ],
+      "limitations": [
+        "Natural-language decision grammar remains bounded, not a proof of general semantic understanding; unsupported or partial utterances fail closed.",
+        "A previous-proposal selection without a recoverable exact current native reference remains unresolved; no old proposal is fabricated.",
+        "C04: arbitrary scientific explanation is not generated. Existing native candidate discussion can restate rationale/observable condition/limitations, but correlation-versus-agreement or other external explanation requires a suitable knowledge/owner contribution. This repair only prevents false ownership by a generic active Scientific Thinking result.",
+        "Mass replay, live-browser offline confirmation and full-suite validation belong to the root qualification and remain pending.",
+        "Workspace ordering and Project admission are concurrent separate repairs, not part of this receipt.",
+        "R2 conservative ownership: mixed-content confirmations and discussions bypass local handlers to preserve all clauses; full semantic decomposition/adoption of multi-act messages is not newly claimed."
+      ],
+      "recordedAt": "2026-09-14T21:52:12.665504+00:00"
+    }
+  ],
+  "revision": "R2",
+  "reviewRepairs": [
+    {
+      "class": "QUOTED_DECISION_COMPLEMENT",
+      "observed": "Deleting a quoted complement turned a quotation into a bare confirmation.",
+      "correction": "Preserve quoted text unchanged and keep its sentence boundaries together; quoted turns cannot authorize local candidate decisions."
+    },
+    {
+      "class": "MIXED_TURN_DATA_LOSS",
+      "observed": "A confirmation or owner discussion could consume an additional declarative scientific clause.",
+      "correction": "Local decision accepts only scoped decisions and explicit unchanged-Project clauses; local owner handling declines multiple sentences. Full messages continue through the governed corridor."
+    },
+    {
+      "class": "OWNER_REFERENCE_SCOPE",
+      "observed": "A question about an external mathematical model was claimed by an active native owner.",
+      "correction": "Native discussion requires demonstrative or indexed owner-content reference; a common type noun alone is insufficient."
+    },
+    {
+      "class": "QUOTED_OR_AMBIGUOUS_SELECTION",
+      "observed": "Quoted selection was treated as performed, or the first candidate among multiple groups was selected.",
+      "correction": "Require a direct performative outside quoted/narrated text and exactly one indexed native reference, counting unresolved references rather than discarding them."
+    },
+    {
+      "class": "COORDINATED_CLAUSE_DATA_LOSS",
+      "observed": "Strong-punctuation splitting alone still consumed a leading assertion or trailing coordinated scientific payload.",
+      "correction": "Local selection now validates the full command and one exact native reference; local discussion validates the full request and owned reference. Any extra coordinated complement or leading assertion remains in the governed application corridor."
+    }
+  ]
+}

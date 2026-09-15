@@ -1,0 +1,1666 @@
+{
+  "phase": "MASS_REPLAY_1",
+  "at": "2026-09-15T00:02:51.541848+00:00",
+  "conversations": 15,
+  "meaningfulTurns": 225,
+  "harnessCompleted": 15,
+  "productPass": 0,
+  "rawOracleSymptoms": 902,
+  "severity": {
+    "MATERIAL": 902
+  },
+  "propertyCounts": {
+    "HUMAN": 15,
+    "EARLY": 223,
+    "OBJECT": 223,
+    "GOLD": 236,
+    "STANDARD": 15,
+    "SCIENTIFIC": 124,
+    "REFUSAL": 23,
+    "TEMPORAL": 4,
+    "PURPOSE": 6,
+    "OLD": 8,
+    "UNKNOWN": 23,
+    "CONVERSATIONAL": 1,
+    "CANDIDATE": 1
+  },
+  "scenarios": [
+    {
+      "id": "A01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 108,
+      "firstFailures": [
+        {
+          "turn": "A01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T04",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T05",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T06",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T07",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T09",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T11",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        },
+        {
+          "turn": "A01-T13",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable"
+          ]
+        },
+        {
+          "turn": "A01-T14",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        },
+        {
+          "turn": "A01-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json"
+    },
+    {
+      "id": "A02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 13,
+      "firstFailures": [
+        {
+          "turn": "A02-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T04",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "A02-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A02-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/result.json"
+    },
+    {
+      "id": "A03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 41,
+      "firstFailures": [
+        {
+          "turn": "A03-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "A03-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A03-T07",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T08",
+          "properties": [
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T09",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T10",
+          "properties": [
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T11",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T12",
+          "properties": [
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T13",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        },
+        {
+          "turn": "A03-T15",
+          "properties": [
+            "EARLY_INFORMATION_visit12",
+            "OBJECT_IDENTITY_visit12",
+            "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json"
+    },
+    {
+      "id": "A04",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 14,
+      "firstFailures": [
+        {
+          "turn": "A04-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T07",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T08",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "A04-T10",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A04-T12",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T13",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION"
+          ]
+        },
+        {
+          "turn": "A04-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A04-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json"
+    },
+    {
+      "id": "B01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 82,
+      "firstFailures": [
+        {
+          "turn": "B01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T04",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T05",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T06",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T07",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T09",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T10",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T13",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json"
+    },
+    {
+      "id": "B02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 9,
+      "firstFailures": [
+        {
+          "turn": "B02-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "B02-T03",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "B02-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "B02-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "B02-T12",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "B02-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json"
+    },
+    {
+      "id": "B03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 77,
+      "firstFailures": [
+        {
+          "turn": "B03-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "B03-T03",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "B03-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "B03-T07",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift",
+            "GOLD_CURRENT_CONTENT_B03-T06:work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift",
+            "GOLD_CURRENT_CONTENT_B03-T06:work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T09",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift",
+            "GOLD_CURRENT_CONTENT_B03-T06:work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T10",
+          "properties": [
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift",
+            "GOLD_CURRENT_CONTENT_B03-T06:work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift",
+            "GOLD_CURRENT_CONTENT_B03-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B03-T13",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T14",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift"
+          ]
+        },
+        {
+          "turn": "B03-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_work-shift",
+            "OBJECT_IDENTITY_work-shift"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json"
+    },
+    {
+      "id": "B04",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 83,
+      "firstFailures": [
+        {
+          "turn": "B04-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T04",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T06",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T09",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T11",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T12",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T13",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "EARLY_INFORMATION_visit90",
+            "OBJECT_IDENTITY_visit90",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_CURRENT_CONTENT_B04-T12:visit90"
+          ]
+        },
+        {
+          "turn": "B04-T14",
+          "properties": [
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "EARLY_INFORMATION_visit90",
+            "OBJECT_IDENTITY_visit90",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_CURRENT_CONTENT_B04-T12:visit90",
+            "GOLD_UNKNOWN_death"
+          ]
+        },
+        {
+          "turn": "B04-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_death",
+            "OBJECT_IDENTITY_death",
+            "UNKNOWN_death",
+            "EARLY_INFORMATION_visit90",
+            "OBJECT_IDENTITY_visit90",
+            "GOLD_CURRENT_CONTENT_B04-T02:death",
+            "GOLD_CURRENT_CONTENT_B04-T12:visit90"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json"
+    },
+    {
+      "id": "C01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 12,
+      "firstFailures": [
+        {
+          "turn": "C01-T03",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "C01-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "C01-T06",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C01-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C01-T09",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "C01-T12",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C01-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/result.json"
+    },
+    {
+      "id": "C02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 73,
+      "firstFailures": [
+        {
+          "turn": "C02-T03",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C02-T05",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T06",
+          "properties": [
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T08",
+          "properties": [
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T09",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T10",
+          "properties": [
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_harvest",
+            "OBJECT_SEMANTICS_harvest",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "C02-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_harvest",
+            "OBJECT_SEMANTICS_harvest",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_C02-T10:harvest"
+          ]
+        },
+        {
+          "turn": "C02-T13",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_harvest",
+            "OBJECT_SEMANTICS_harvest",
+            "EARLY_INFORMATION_nitrogen"
+          ]
+        },
+        {
+          "turn": "C02-T14",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_harvest",
+            "OBJECT_SEMANTICS_harvest",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "C02-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_harvest",
+            "OBJECT_SEMANTICS_harvest",
+            "EARLY_INFORMATION_nitrogen",
+            "OBJECT_IDENTITY_nitrogen",
+            "GOLD_CURRENT_CONTENT_C02-T10:endpoint"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json"
+    },
+    {
+      "id": "C03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 10,
+      "firstFailures": [
+        {
+          "turn": "C03-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C03-T04",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "C03-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "C03-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "C03-T12",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION"
+          ]
+        },
+        {
+          "turn": "C03-T13",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "C03-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json"
+    },
+    {
+      "id": "D01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 293,
+      "firstFailures": [
+        {
+          "turn": "D01-T02",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T03",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "D01-T04",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T06",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T08",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T09",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T11",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T12",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json"
+    },
+    {
+      "id": "E01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 20,
+      "firstFailures": [
+        {
+          "turn": "E01-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "E01-T04",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "E01-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "E01-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "E01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_conditions",
+            "OBJECT_SEMANTICS_conditions",
+            "GOLD_CURRENT_CONTENT_E01-T11:conditions"
+          ]
+        },
+        {
+          "turn": "E01-T13",
+          "properties": [
+            "EARLY_INFORMATION_conditions",
+            "OBJECT_SEMANTICS_conditions",
+            "GOLD_CURRENT_CONTENT_E01-T11:conditions"
+          ]
+        },
+        {
+          "turn": "E01-T14",
+          "properties": [
+            "EARLY_INFORMATION_conditions",
+            "OBJECT_SEMANTICS_conditions",
+            "GOLD_CURRENT_CONTENT_E01-T11:conditions"
+          ]
+        },
+        {
+          "turn": "E01-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_conditions",
+            "OBJECT_SEMANTICS_conditions",
+            "GOLD_CURRENT_CONTENT_E01-T11:conditions"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json"
+    },
+    {
+      "id": "F01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 14,
+      "firstFailures": [
+        {
+          "turn": "F01-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T04",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T06",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "F01-T07",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T08",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION"
+          ]
+        },
+        {
+          "turn": "F01-T09",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "F01-T13",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json"
+    },
+    {
+      "id": "F02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 53,
+      "firstFailures": [
+        {
+          "turn": "F02-T02",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "F02-T04",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "F02-T06",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "F02-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F02-T09",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F02-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T13",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit"
+          ]
+        }
+      ],
+      "evidence": "mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json"
+    }
+  ],
+  "realProviderCalls": 0,
+  "qualificationLimit": "Synthetic external provider contracts; provider language fidelity and global scientific adequacy not qualified",
+  "manifest": {
+    "mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json": "d16ec4e9f206ba7b14efb39ef5f8088d402bd34336a091bfc0672aac84b6e7b6",
+    "mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json": "eb98959cf936c00f84537ecfad73235ffeb229b1877c99838fd73d6fad0d47ad",
+    "mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/turns.jsonl": "6d9f2b178fdec7180da438544af6354fd810c5a12d0094f9b5853debd3d9fd5a",
+    "mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json": "b5b797a4f659b30139e590a1025bd1ced31ecfaab2c39bf77daf76a9b5f6e277",
+    "mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/session.json": "f21e4ddfd83c3b657a3cb73bb1a38cf430eca69bdab5d9ed3e4b3ebb02b9c027",
+    "mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/result.json": "268df867cf7ab6346cba67225ebcb7d48dc362938e781e5a9023c6d9b824f932",
+    "mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/turns.jsonl": "04f720aee02e9a221cbbf100d274971d3c24753740b8ef1276634239490e3512",
+    "mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/http.json": "6328bf16da03fb234199e4aec2d34ebc8d03add50d2760a3d1fab83d1ba71f2b",
+    "mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json": "4216435e5f78a991d6f038ad66d8edcda08a66d5d072f1a756bdeeffd658fc60",
+    "mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json": "2211d4679b49b965c3f749e173f7560b6f634c7291c8caed191d5097f2b0f42c",
+    "mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/turns.jsonl": "b266ff95f57071c28454bebd24f9c6f31df5fb7c3c0647099505a974c6575e9c",
+    "mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json": "3642e139f70accc229fdc6f47b349250dd4f2175db112cd0d3e4b57ac604b05a",
+    "mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json": "84c07713f6080f7127952744f473545195559c462e926de3444429487cd72786",
+    "mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json": "ba115b7652c3113bd6f64fc7de4964c3612307683378091e934626d53328ec13",
+    "mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/turns.jsonl": "eb5fee2f4a7138465f7640927ae76d6670473a9eb8728d600a7c86d22eb9b1c2",
+    "mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json": "c1ae25634a2f869e17c6f9af2a53999ecf9a8e56896330cfba2aea73abb97381",
+    "mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json": "0498cfd201d6d52d48865af47917fa7f21f750b96b9a74dc0456279fad28fa0f",
+    "mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json": "ec62740c868cc11d5a3eca33c95e66ce5a9f0e3c4caedd70a53d935b431de0f7",
+    "mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/turns.jsonl": "71cf28384c9c466cd7a56c622dcdb4b3d8f955c6f5a95a5d9ef9022909277de1",
+    "mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json": "6142380a3e6a462baa049f1162f0af660dd7c035b74941817a16a53f3b2ef7a4",
+    "mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/session.json": "f0917ba63c52de322063ee0f8c50507f98f0034f9de5af669343761150d1b9eb",
+    "mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json": "b08cad2199fee611c7be1c33097986bf688ce082bc5e03563452711ba9621dfc",
+    "mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/turns.jsonl": "077d095aa92abe2d96f85c24e0cfd290f552b48a2cf73a9f4be9bcb2ca3a549a",
+    "mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/http.json": "8304243aacd2998f2ae76d23cb36b319728417ac98bf8530c61a7fab5a0d7d60",
+    "mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json": "e5b4e35e596af6fcdd2ef360dc940715e7ea40a6307c3b506979c040d376ea4e",
+    "mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json": "dc30605d4b6d018ee6525bda8e649d92312be3b201bc5a0eed11f5a4eb06aadf",
+    "mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/turns.jsonl": "7601cabc64001342010f43e59b9706741a4a286a7c99d558a1856ce5973a0a7a",
+    "mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json": "307ed6784a596e3c12a95a4650b49f511c6bda1b4830c6c28c38f6783de72d9f",
+    "mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json": "1821ed9ceb7c497bcabd47fd5fccf9342ff5c270ad6b66e1a2ad345ca813afb7",
+    "mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json": "9df524bc11c09cec7caa27b5bec09b964a8be2c35ca6d4fb7b6150de0e799ace",
+    "mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/turns.jsonl": "7629817cd55f2799fb8de18418c0619b55e283b6d5776aaa880e1fe465f4ceea",
+    "mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json": "00e3ecb1bac79b9b03a0b0be5f4d5c0c6b9d2259fd62f8e4efa71d20d5c12bfc",
+    "mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/session.json": "d0eaf4c2323a3cf22dc757f84ca6e0f6f02a02f309550531d0492bc69494210c",
+    "mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/result.json": "6438a579c39bada02c076fabad50232625db59e3c4492a7228a2c82f68509e37",
+    "mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/turns.jsonl": "c046917466350271100d9ae6ce5ea737bee1b5058fab661bc63ea7efc208c0e4",
+    "mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/http.json": "a3260fc4c3fecb90084c1bc1db642d3a7372256f4ea9b749e764165294060136",
+    "mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json": "ba615a19507630de7ab2578fa308290efce4e8c4c338e2400d802a4e2db6691c",
+    "mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json": "d21702faa38999eb301bcf03c14b245b12ccebe2614969020a1fe39d586a9d5f",
+    "mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/turns.jsonl": "cef1265470b632c1ac2120c9676e4dc05bdd43adb174b3b15a374b622fc0fb84",
+    "mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json": "136304e6c1860e7677aa57fce300649d94ca5f38b4b6dce825787b3b9966ff94",
+    "mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/session.json": "1f9637c0012855321d18657039ba3b000f4c09115205e87d0e2b7d28f45fe60b",
+    "mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json": "7c07696648d13b1fd0935f07eb91ce81262e499215d4541a27144e388eba40d8",
+    "mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/turns.jsonl": "da975c1da710de873e2f8785d080e2e049063f7700ee30ca46819552bb770ee9",
+    "mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/http.json": "f55b1ecbd39f65f0589963557c3d079b294785560d3c9749334108157300bf2e",
+    "mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json": "9c392e68ebe74468d34951d0fb9b53a89ee97ed80e2ed8e150a11524fa22f071",
+    "mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json": "f4c95a85b183addb3d8454f2f0bb31a9de6de5deff6de5a4382e0b8185153e44",
+    "mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl": "c2da4ffb70316a213d456b81f1903036130a573b3566ed4d62ac166e5050f887",
+    "mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json": "3515d47333418f0dee2fa9b8eff5e9c55f766bd8e8e6d36aea069e5c23c6731a",
+    "mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/session.json": "6ad5534b7ff0aef951974c3d24d23f1f38b7bf26b141f6fddba111f1e1cfa351",
+    "mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json": "8177fe60e47326f0a06a7d8f0598c1e51631143836803ddb636fba79ba6eecc1",
+    "mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/turns.jsonl": "b44a7726f80c7959308351de475e3330330c4ab3dbdc1486f434fe3886e8a123",
+    "mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/http.json": "b0b361f7bc8b3351ee8d6c46769d60c051d73da644d329ddcb4ef502558a1e7a",
+    "mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json": "1dcf94c9bb0fcd061d08ccb2ce3242685c50c27dd99c21b48f74f70e484cd0aa",
+    "mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json": "70cac1659cfd08494bc0aad2e444d11f73b30bc75d3b51fdc8482cb0610f1580",
+    "mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/turns.jsonl": "16dc4db427d773233406eb85e8c58597522b61d219a0c1dbc2c84a2809449436",
+    "mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json": "19315eb85d821efc3d06db46dcc5b38b52fd49fbeb4162f5d13c2d6908cf74e0",
+    "mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json": "6f72a977b1b36e5671fa9cd7136e0fcab766a726d34957b09f693b78faefccf8",
+    "mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json": "e2850523e48e746210f34707fd649e564d2c94eed7ccdc4d8c1076d6784faee4",
+    "mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl": "8227ca6fc26aafa35fbbcb9811530d11ea6151a73ed3bc95c6ea6d99459c77be",
+    "mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json": "38f4110c8c111388c7e0382a931888015df772f753ead50dcc83478548a35886"
+  }
+}

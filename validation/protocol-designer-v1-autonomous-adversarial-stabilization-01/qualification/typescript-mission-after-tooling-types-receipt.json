@@ -1,0 +1,17 @@
+{
+  "id": "typescript-mission-after-tooling-types",
+  "command": [
+    "node",
+    "./node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/tsconfig.json"
+  ],
+  "status": "PASS",
+  "exitCode": 0,
+  "startedAt": "2026-09-15T00:37:35.996248+00:00",
+  "durationSeconds": 3.743,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/typescript-mission-after-tooling-types.log",
+  "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "logBytes": 0
+}

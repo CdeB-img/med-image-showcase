@@ -1,0 +1,31 @@
+{
+  "id": "mission-transport-selftest",
+  "startedAt": "2026-09-15T00:25:36.101600+00:00",
+  "completedAt": "2026-09-15T00:25:36.891589+00:00",
+  "durationSeconds": 0.79,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/mission-transport-selftest.log",
+  "logSha256": "82645ad461114f5c24ec3447fd29cc2eee8fc9ed4052c14d62491e55ca3a51eb",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/mission-transport-selftest.json",
+    "sha256": "f765dc008a119ece94e5f2a677ed08ebb69fb9ef23c11af6717e5e2f871f6c2e",
+    "success": true,
+    "numTotalTests": 3,
+    "numPassedTests": 3,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 2,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 1,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

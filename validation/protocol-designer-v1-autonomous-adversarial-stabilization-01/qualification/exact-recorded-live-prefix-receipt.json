@@ -1,0 +1,31 @@
+{
+  "id": "exact-recorded-live-prefix",
+  "startedAt": "2026-09-15T00:25:36.893563+00:00",
+  "completedAt": "2026-09-15T00:25:40.546562+00:00",
+  "durationSeconds": 3.653,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/exact-recorded-live-prefix.log",
+  "logSha256": "847da54a56330d277157e0967956d49e2f24e45a2f75f59b7099ab94b053abc6",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/exact-recorded-live-prefix.json",
+    "sha256": "8d3130a5c49c62b144fa47acc260274a1c1c866e7a3aaf8937cc87dd1eef7e9f",
+    "success": true,
+    "numTotalTests": 1,
+    "numPassedTests": 1,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 1,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 1,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

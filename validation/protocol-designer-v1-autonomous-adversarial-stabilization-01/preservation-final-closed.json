@@ -1,0 +1,284 @@
+{
+  "contract": "FINAL_PRESERVATION_AFTER_BROWSER_CLOSURE",
+  "recordedAt": "2026-09-15T00:55:18.883Z",
+  "status": "PASS_AFTER_AUTHORIZED_SOURCE_COMMIT",
+  "source": "READ_ONLY_POST_BROWSER_AND_SOURCE_COMMIT_FILE_SHA_AUDIT",
+  "baseline": {
+    "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/baseline.json",
+    "sha256": "2423cab49e179fc2d03699a7ab22eb9f084ea8f7707de2e9666cefd5d4840c7e",
+    "head": "85a260c4883231da7d58254c973d16afad5f8b06"
+  },
+  "originalUntracked": {
+    "expected": 533,
+    "preserved": 533
+  },
+  "historicalLive": {
+    "expected": 34,
+    "preserved": 34,
+    "newFiles": []
+  },
+  "wave2Sources": {
+    "expected": 16,
+    "preserved": 16,
+    "manifestSha256": "c52c7afe626df599e8adf817bebd9c8c31d23ee03cf1ea4496d615f2fe9f8fab",
+    "files": [
+      {
+        "path": "src/features/knowledge-engine/privacy.ts",
+        "expectedSha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083",
+        "workingSha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083",
+        "committedSha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/ContributionReview.tsx",
+        "expectedSha256": "0e625248f1295af12d752a8a04ca3816a7e4036ecb712d3a42a8a3b9e461a91e",
+        "workingSha256": "0e625248f1295af12d752a8a04ca3816a7e4036ecb712d3a42a8a3b9e461a91e",
+        "committedSha256": "0e625248f1295af12d752a8a04ca3816a7e4036ecb712d3a42a8a3b9e461a91e"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+        "expectedSha256": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf",
+        "workingSha256": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf",
+        "committedSha256": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay.ts",
+        "expectedSha256": "14214cf79da4f49e07aab7c6ee6fb844f02b69290f24b5f6c06316c484bedc59",
+        "workingSha256": "14214cf79da4f49e07aab7c6ee6fb844f02b69290f24b5f6c06316c484bedc59",
+        "committedSha256": "14214cf79da4f49e07aab7c6ee6fb844f02b69290f24b5f6c06316c484bedc59"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts",
+        "expectedSha256": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94",
+        "workingSha256": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94",
+        "committedSha256": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts",
+        "expectedSha256": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d",
+        "workingSha256": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d",
+        "committedSha256": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx",
+        "expectedSha256": "3d15ac83dd720728edfe96e164a2643fd583bc5a95874768f692ccc4da2dfe68",
+        "workingSha256": "3d15ac83dd720728edfe96e164a2643fd583bc5a95874768f692ccc4da2dfe68",
+        "committedSha256": "3d15ac83dd720728edfe96e164a2643fd583bc5a95874768f692ccc4da2dfe68"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+        "expectedSha256": "a6152456c7277fa51bb68db8d822d43bfc3fa301d92213fbfb6f83d20aec37e2",
+        "workingSha256": "a6152456c7277fa51bb68db8d822d43bfc3fa301d92213fbfb6f83d20aec37e2",
+        "committedSha256": "a6152456c7277fa51bb68db8d822d43bfc3fa301d92213fbfb6f83d20aec37e2"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+        "expectedSha256": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8",
+        "workingSha256": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8",
+        "committedSha256": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8"
+      },
+      {
+        "path": "src/features/protocol-designer/intake/journey.ts",
+        "expectedSha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a",
+        "workingSha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a",
+        "committedSha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a"
+      },
+      {
+        "path": "src/features/protocol-designer/product-bridge.ts",
+        "expectedSha256": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410",
+        "workingSha256": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410",
+        "committedSha256": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410"
+      },
+      {
+        "path": "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts",
+        "expectedSha256": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9",
+        "workingSha256": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9",
+        "committedSha256": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9"
+      },
+      {
+        "path": "src/features/query-navigation/current-navigation-evidence.ts",
+        "expectedSha256": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea",
+        "workingSha256": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea",
+        "committedSha256": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea"
+      },
+      {
+        "path": "src/features/query-navigation/current-turn-navigation.ts",
+        "expectedSha256": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed",
+        "workingSha256": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed",
+        "committedSha256": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed"
+      },
+      {
+        "path": "src/features/knowledge-engine/__tests__/privacy.test.ts",
+        "expectedSha256": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608",
+        "workingSha256": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608",
+        "committedSha256": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts",
+        "expectedSha256": "fec3e6c96027fd0b980a371d227c761217406c2b08fc88a239cb1a34d90e1da2",
+        "workingSha256": "fec3e6c96027fd0b980a371d227c761217406c2b08fc88a239cb1a34d90e1da2",
+        "committedSha256": "fec3e6c96027fd0b980a371d227c761217406c2b08fc88a239cb1a34d90e1da2"
+      }
+    ]
+  },
+  "protected": [
+    {
+      "path": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+      "expectedSha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae",
+      "actualSha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae",
+      "preserved": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-live-canary-01r-offline-causal-repair-01/qualification-results.json",
+      "expectedSha256": "cec16e5da2c3217e671872dc25fb9114e9f2014140ffdab65c7049a03cfef31f",
+      "actualSha256": "cec16e5da2c3217e671872dc25fb9114e9f2014140ffdab65c7049a03cfef31f",
+      "preserved": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/corpus.json",
+      "expectedSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+      "actualSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+      "preserved": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/semantic-corpus.json",
+      "expectedSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+      "actualSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+      "preserved": true
+    }
+  ],
+  "repository": {
+    "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+    "sourceCommit": "f087bb3bf939d8c72e02c48db10b3b26466b8979",
+    "sourceCommitParent": "85a260c4883231da7d58254c973d16afad5f8b06",
+    "parentEqualsBaseline": true,
+    "branch": "protocol-designer-canonical-ingestion",
+    "branchUnchanged": true,
+    "sourceCommitChangedPaths": [
+      "src/features/knowledge-engine/__tests__/privacy.test.ts",
+      "src/features/knowledge-engine/privacy.ts",
+      "src/features/protocol-designer/functional-reset/ContributionReview.tsx",
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx",
+      "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+      "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+      "src/features/protocol-designer/intake/journey.ts",
+      "src/features/protocol-designer/product-bridge.ts",
+      "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts",
+      "src/features/query-navigation/current-navigation-evidence.ts",
+      "src/features/query-navigation/current-turn-navigation.ts"
+    ],
+    "exact16SourcePathsOnly": true,
+    "stagedNameStatus": "",
+    "indexClean": true,
+    "trackedWorkingTree": "",
+    "sourceBytesMatchFrozenManifest": true
+  },
+  "browserClosure": {
+    "rootSignal": "No more HTTP exchange additions; selected 5 conversations / 75 turns, raw 7 attempts / 105 turns including 2 invalid attempts.",
+    "summary": {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/browser-summary.json",
+      "sha256": "73737b15b887b3e6e19e1324e82f956c95c1d27ad79105e73796dfcac9222f73",
+      "keys": [
+        "missionId",
+        "at",
+        "status",
+        "qualificationVerdict",
+        "selectedConversations",
+        "selectedMeaningfulTurns",
+        "functionalPassConversations",
+        "rawConversationsExecuted",
+        "rawMeaningfulTurnsExecuted",
+        "invalidatedControllerAttempts",
+        "invalidatedControllerTurns",
+        "selectedHttpExchanges",
+        "rawHttpExchanges",
+        "httpStatusCounts",
+        "httpFailures",
+        "externalProviderCalls",
+        "corpusModified",
+        "productModifiedDuringBrowser",
+        "observationReceipts",
+        "invalidatedAttempts",
+        "httpEvidence",
+        "uiFriction",
+        "limitations"
+      ]
+    },
+    "observations": [
+      {
+        "scenario": "A01",
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/A01-observation.json",
+        "sha256": "34df40ea6e9f38b8f6b0ca2ba6f3b31c0bd127e59dfe453c97f1cbaa15841687",
+        "conversationCompleted": true,
+        "meaningfulTurns": 15,
+        "verdict": "FAIL"
+      },
+      {
+        "scenario": "B01",
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/B01-observation.json",
+        "sha256": "d6457e1de10949518510b017bd8a26f08bf3f2e1b12fe52d0959d959c969bd1a",
+        "conversationCompleted": true,
+        "meaningfulTurns": 15,
+        "verdict": "FAIL"
+      },
+      {
+        "scenario": "C01",
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/C01-observation.json",
+        "sha256": "05936710356586385acf2362ec726641266869af5792795afc03c0b477542407",
+        "conversationCompleted": true,
+        "meaningfulTurns": 15,
+        "verdict": "FAIL"
+      },
+      {
+        "scenario": "F01",
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F01-observation.json",
+        "sha256": "78e6cba568c959c54052293725e5aa25bfa4e6bd4f3bcbbc35eed9a581d418ed",
+        "conversationCompleted": true,
+        "meaningfulTurns": 15,
+        "verdict": "FAIL"
+      },
+      {
+        "scenario": "F02",
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F02-observation.json",
+        "sha256": "1b9dc28d9d9767b3085e483256471630a73ba71c29060d711b12b54cbdf36a11",
+        "conversationCompleted": true,
+        "meaningfulTurns": 15,
+        "verdict": "FAIL"
+      }
+    ],
+    "rawHttp": {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/browser-http-exchanges.jsonl",
+      "sha256": "18a64a3992520ecc2f5f12376d44761ebd3617955de0a4bdded510d6e12b52ad",
+      "exchanges": 98,
+      "lastAt": "2026-09-15T00:51:14.706Z",
+      "realProviderCalls": 0,
+      "witnesses": 188,
+      "allWitnessesSynthetic": true
+    }
+  },
+  "priorVolumeInventory": {
+    "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-final.json",
+    "sha256": "2b36c755087554f4bd273cb00914032f5008ccb123e6b22b35f2e5698eef0764",
+    "role": "Earlier complete file inventory remains historical; current excluded raw file inventory and hashes are in commit-whitelist-final.json."
+  },
+  "integrityErrors": [],
+  "noProductModification": true,
+  "noCorpusModification": true,
+  "noOldEvidenceModification": true,
+  "noStagingOrCommit": true,
+  "limitations": [
+    "This final integrity audit does not turn the five browser functional verdicts into PASS; it verifies receipt completion and evidence preservation.",
+    "No independent network packet capture; zero new live execution is supported by unchanged live evidence, guarded transport and zero actual-live counters.",
+    "The final report may still be edited by root; commit-whitelist-final.json marks its digest provisional until finalization."
+  ],
+  "transientCapture": {
+    "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-final-during-source-staging.json",
+    "sha256": "965dddf9bd3fe0b74ffa6df6b6fb72d2d0a09563b52d4422b9b6bc015b0570b3",
+    "classification": "EXPECTED_AUTHORIZED_INDEX_TRANSITION_NOT_CONTENT_DRIFT",
+    "explanation": "The prior snapshot occurred while root staged exactly the 16 authorized files. Its raw FAIL reflected the then-nonempty index, with zero SHA integrity errors. Root completed source commit immediately afterwards; this receipt verifies its exact parent, paths and bytes."
+  }
+}

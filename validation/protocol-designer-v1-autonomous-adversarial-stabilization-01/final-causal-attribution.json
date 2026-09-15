@@ -1,0 +1,1340 @@
+{
+  "contract": "FINAL_REPLAY_CAUSAL_ATTRIBUTION",
+  "version": "1.0.0",
+  "missionId": "PROTOCOL_DESIGNER_V1_AUTONOMOUS_ADVERSARIAL_STABILIZATION_01",
+  "status": "FINAL_FUNCTIONAL_NOT_QUALIFIED_TECHNICAL_PASS",
+  "generatedAtUtc": "2026-09-15T01:00:48.644983+00:00",
+  "sourceCheckpoint": "FIVE_SELECTED_REAL_BROWSER_CONVERSATIONS_COMPLETE",
+  "currentRepairPhase": "TWO_REPAIR_WAVES_COMPLETED_NO_THIRD_WAVE",
+  "newProviderCalls": 0,
+  "sourceManifest": [
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/baseline.json",
+      "sha256": "2423cab49e179fc2d03699a7ab22eb9f084ea8f7707de2e9666cefd5d4840c7e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/corpus-freeze.json",
+      "sha256": "fe373e4f34cd9ee402ad2596c42c6ba4fdf5e47ec0442a1906f4992e839d8434"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery-summary.json",
+      "sha256": "b4f0aced71930b15585461d6963f66fe18b7162e1016679d28b90b5e6ee3b1dd"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery-metrics.json",
+      "sha256": "d36e53bc06b985db5c8f87e983ec050f76c6f891b06908c23e975899ec868c86"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery-anomaly-attribution.json",
+      "sha256": "56ce69cc0ba3c2eea35b03cdfeeb85422bd6d758b7f3ff741df5aca666adb8f7"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/causal-clusters-initial.json",
+      "sha256": "7c02abac948f11b7040652b652ae342820adf4c780d3bc08fe21ce73873fd32d"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery-causal-findings.md",
+      "sha256": "0dbe7b0aa76b46b9cbd4c08d71840abafb306535f5d9908c4fa83808a247775e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-c01.json",
+      "sha256": "cb1d437a91a63d64a7575cd06e57e8d6cb20ea78d132b45f2ecc8c2288db46ad"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-c02.json",
+      "sha256": "bb814f30302f448b3d9ef2220bf5ff6c9cddc01742af1bd18554d4d9132776e8"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-c03.json",
+      "sha256": "ebb1879a638974d5b1f2022f32f9d0dbcf9d30ec58c6e5357e266c924a4666b7"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave1-critical-review.json",
+      "sha256": "b9b108a309432cca26c923e701d5d35810af6653b0cdfcedeff7edf5b5e01909"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-after-wave1.json",
+      "sha256": "18592a3cb2e58c13db72db6c6cf567cb6ecf96d060afa167ee7c48e082e90455"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1-metrics.json",
+      "sha256": "b926398fb0c5efc38ed97a32875279597187ce37152748679cc9886d1c66dbef"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/semantic-review-mass1.json",
+      "sha256": "5d3d4d90df8e09135c38fda1a610878516f016dd9dbcddddd77f0c1390c74952"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-lifecycle-diagnosis.json",
+      "sha256": "f95262607148506ba7ba5ff33043850305ac71d4401944466ccbc65d46230f09"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-diagnosis.json",
+      "sha256": "2f5f30f0a7cbd323d079cc05fb79ab9f6b5f5768bc55e3c5f60b2e26e6c34314"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-parser-ablation.json",
+      "sha256": "9042dad1c023b02032905d621d76d1b6be6bce27ce1eaf77291bae61b5492c11"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-empty-delta-navigation.json",
+      "sha256": "85e08d0765155940d357f4c7dbd0390b09c7b4c2fdb3c8ff40d90846ce24ab33"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-bridge.json",
+      "sha256": "6f436d88c2f6ac2d242917e741ea926e5d358cc764a64b9630b256d11dc52c6d"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-captured-request-qualification.json",
+      "sha256": "a37c55af46d01ac3397ef3d707dbac3a633bf435d73f76e6eee8f4bfbe5880d4"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation-tests-r2.json",
+      "sha256": "5de8ac6762aeb097e54d4c51ebcda39c5984ad1d9f05bdf20f1284d015554f17"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-workspace-tests.json",
+      "sha256": "b476bcefbbd2c15ae651f833f5d7e096b65256a2d96cab915224aefba0cd255e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification-test-plan.json",
+      "sha256": "901330d450eef34cfe9351fd1f41a863cdb9027543b48eca0cb10c2bc8e054f2"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2-metrics.json",
+      "sha256": "c4de708879884e2e58272cdc806c1de6a7214ec5806d718ff11a64f15ac7d38e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/semantic-review-final.json",
+      "sha256": "31c9e6fbe7c5c5083e2457459789b1d43c8504f8c72a0bfec60dda3f614b3086"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-workspace.json",
+      "sha256": "fab9641c811a038f9d8f3183c3f321b522f372ec55b415ee0bc5e5987fc7b203"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation.json",
+      "sha256": "1dcf1dc4dac24ad27375d31db705aabdcbb718f16415257e3592fc8f4960c473"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-review.json",
+      "sha256": "fbc97b600e79671e4b32ee7cb319005060455f04624aad567910e25fa7b6798e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json",
+      "sha256": "b97dc89e9493043cf6af7afb51bdc1258e18749fe13321293e2cf3b61a70b745"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes-after-guard.json",
+      "sha256": "a2ad5ff602fe4e4f2608e8ab1a34d00809489c00c2de3dabf3b5b8eb2773e6cb"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/final-tech-qualification.json",
+      "sha256": "2dc87ee4e1b3307330854e43f2f2efdd2249d838d7f92f60160629e10706585c"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/full-canonical-suite-receipt.json",
+      "sha256": "8514b5f1df84177dc201d5f2f20ed221b9604645ced2644755d7570a0b5c0ed2"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/exact-recorded-live-prefix-receipt.json",
+      "sha256": "55206a8bad277050d59929e32a1062ab7e25b746802080e10be59f3c5502721e"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/baseline-soaks-and-standard-receipt.json",
+      "sha256": "894bc879339764176e68c30c23d0383e12d9f75aa5f51770fef47cb5157e0e5b"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/production-build-receipt.json",
+      "sha256": "5c9b22313be4db7bc3f4b1d0d9579052b832da1c9b7ace29cbcbc1f6768f209f"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/typescript-canonical-receipt.json",
+      "sha256": "e586aeee2c117a5bf0f38029b770ecc7bf8b68c122f92359d30cc5d03b87680c"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/typescript-mission-receipt.json",
+      "sha256": "88489340d3bd5c3d6356b43eec7a8e8e255a35e0f5cbd71ae7f73652cd5ce201"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/lint-scope-attribution.json",
+      "sha256": "4d6ccebfbb029be7262c4e6586c045237d85611d8e5dce2a5a4767501d8b95d5"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/lint-affected-after-tooling-types-receipt.json",
+      "sha256": "b200f07b1d95a0203f955fc050f7423203bff21a6e7da8cc49853b7240f2bfc0"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/A01-observation.json",
+      "sha256": "34df40ea6e9f38b8f6b0ca2ba6f3b31c0bd127e59dfe453c97f1cbaa15841687"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/B01-observation.json",
+      "sha256": "d6457e1de10949518510b017bd8a26f08bf3f2e1b12fe52d0959d959c969bd1a"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/C01-observation.json",
+      "sha256": "05936710356586385acf2362ec726641266869af5792795afc03c0b477542407"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F01-observation.json",
+      "sha256": "78e6cba568c959c54052293725e5aa25bfa4e6bd4f3bcbbc35eed9a581d418ed"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F02-observation.json",
+      "sha256": "1b9dc28d9d9767b3085e483256471630a73ba71c29060d711b12b54cbdf36a11"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F01-initial-ui-oracle-attempt.json",
+      "sha256": "40f0dbb92f3cef2b630359e86e3a957ee35e561e7e84b2d74c99a0767b4d7bb0"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F02-initial-ui-sequence-attempt.json",
+      "sha256": "6d52bfaae047872845345a187c4a955ce1e7ff7a8dcb7051d5ea1d7b52d4acfd"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-final.json",
+      "sha256": "2b36c755087554f4bd273cb00914032f5008ccb123e6b22b35f2e5698eef0764"
+    }
+  ],
+  "mandate": {
+    "path": "/Users/charles/.codex/attachments/6a7689f4-b3f7-46a9-b9b0-68046bc2c92b/pasted-text.txt",
+    "sha256": "c9c7151db555b8b65fe788692ae883d23ddc146ab9ed63639de9a2fd43e4d9e2"
+  },
+  "integrity": {
+    "frozenCorpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+    "semanticSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+    "resultReceiptsVerified": 45,
+    "resultReceipts": [
+      {
+        "phase": "DISCOVERY",
+        "scenario": "A01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/A01/2026-09-14T21-36-45-253Z-1546/result.json",
+        "sha256": "54091a22dc118b897ab75148795104a39752907f17f99a7b71fb0fe657783d5e"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "A02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/A02/2026-09-14T21-36-46-752Z-1546/result.json",
+        "sha256": "cff7edf36e2e3c2ffa5851137ca7dfa5effe259ac278b52fb9ebe6f489bda6a3"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "A03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/A03/2026-09-14T21-36-47-920Z-1546/result.json",
+        "sha256": "90253384517ad6a833ce947565bdfb28ce6a95977cd74a134988b2f39e722fc3"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "A04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/A04/2026-09-14T21-36-49-141Z-1546/result.json",
+        "sha256": "0e30de9ef105da8b1b930c5609dc75a8bdb522bc64e998a6fbe481c596d4f35b"
+      },
+      {
+        "phase": "DISCOVERY_DOCUMENT_RETURN_CORRECTED",
+        "scenario": "B01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/result.json",
+        "sha256": "3f34d63c43a4fededa3585373e32a88272096f38a0a19382d6e7d7e0e561dbfd"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "B02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/B02/2026-09-14T21-37-35-076Z-1712/result.json",
+        "sha256": "308684bcdc186621e7b9b8956d6d5c592d07afbcca2d60a0e781557242251fcc"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "B03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/B03/2026-09-14T21-37-36-722Z-1712/result.json",
+        "sha256": "0d5b8f6a01dc6bc094bab12b6ab0b192a8cbd4f22d7a9431c194ba1d8e3a1c1f"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "B04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/B04/2026-09-14T21-37-38-109Z-1712/result.json",
+        "sha256": "0ff68ba5fb7898b2985e3fb956ba5fd1a110433b812530dfed1ba7d908b83b33"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "C01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/C01/2026-09-14T21-37-39-637Z-1712/result.json",
+        "sha256": "574058425281b2aba2cff847b77d3d316f1641c8e568eb1fa33e0c9861613b7c"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "C02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/C02/2026-09-14T21-37-40-874Z-1712/result.json",
+        "sha256": "d22a3ed0d7fa1e3ba1ac0c0a7eaebfa7e311e2a9987c4b22e6e499db8c739797"
+      },
+      {
+        "phase": "DISCOVERY_DOCUMENT_RETURN_CORRECTED",
+        "scenario": "C03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/result.json",
+        "sha256": "cedd58a0933b6bc48d607fadedca53e90cbe2cac139d227e45e1183b96a327ae"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "D01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/D01/2026-09-14T21-38-17-137Z-1876/result.json",
+        "sha256": "3fb6cddb3d027f06150e46c607a78e5faafa84d3d54a6a9e0ca93c984638dc2a"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "E01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/E01/2026-09-14T21-38-18-206Z-1876/result.json",
+        "sha256": "87064ee42cb45b2e0e275f6f3b8819ec630a4fb4eb48bb683295e027601b554f"
+      },
+      {
+        "phase": "DISCOVERY_HARNESS_CORRECTED",
+        "scenario": "F01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/result.json",
+        "sha256": "5c5d07f24871f4a07d7ad72edb83842e04d1e0432ecdcea4a5d8cfb0e0a9b479"
+      },
+      {
+        "phase": "DISCOVERY",
+        "scenario": "F02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/discovery/F02/2026-09-14T21-38-23-633Z-1876/result.json",
+        "sha256": "45863cad9e3a67f5a6e622785fc7b82414b9a9b5d12e4e8b8608ded07d1379a4"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "A01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "sha256": "eb98959cf936c00f84537ecfad73235ffeb229b1877c99838fd73d6fad0d47ad"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "A02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/result.json",
+        "sha256": "268df867cf7ab6346cba67225ebcb7d48dc362938e781e5a9023c6d9b824f932"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "A03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json",
+        "sha256": "2211d4679b49b965c3f749e173f7560b6f634c7291c8caed191d5097f2b0f42c"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "A04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json",
+        "sha256": "ba115b7652c3113bd6f64fc7de4964c3612307683378091e934626d53328ec13"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "B01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+        "sha256": "ec62740c868cc11d5a3eca33c95e66ce5a9f0e3c4caedd70a53d935b431de0f7"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "B02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json",
+        "sha256": "b08cad2199fee611c7be1c33097986bf688ce082bc5e03563452711ba9621dfc"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "B03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+        "sha256": "dc30605d4b6d018ee6525bda8e649d92312be3b201bc5a0eed11f5a4eb06aadf"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "B04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json",
+        "sha256": "9df524bc11c09cec7caa27b5bec09b964a8be2c35ca6d4fb7b6150de0e799ace"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "C01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/result.json",
+        "sha256": "6438a579c39bada02c076fabad50232625db59e3c4492a7228a2c82f68509e37"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "C02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+        "sha256": "d21702faa38999eb301bcf03c14b245b12ccebe2614969020a1fe39d586a9d5f"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "C03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json",
+        "sha256": "7c07696648d13b1fd0935f07eb91ce81262e499215d4541a27144e388eba40d8"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "D01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "sha256": "f4c95a85b183addb3d8454f2f0bb31a9de6de5deff6de5a4382e0b8185153e44"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "E01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json",
+        "sha256": "8177fe60e47326f0a06a7d8f0598c1e51631143836803ddb636fba79ba6eecc1"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "F01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json",
+        "sha256": "70cac1659cfd08494bc0aad2e444d11f73b30bc75d3b51fdc8482cb0610f1580"
+      },
+      {
+        "phase": "MASS_REPLAY_1",
+        "scenario": "F02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+        "sha256": "e2850523e48e746210f34707fd649e564d2c94eed7ccdc4d8c1076d6784faee4"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "A01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/A01/2026-09-15T00-24-34-337Z-8594/result.json",
+        "sha256": "8354dcbf5f2af13f52cfca74b76dc8c218fe1db47998f378ac3d6af0dc343361"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "A02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/A02/2026-09-15T00-24-38-480Z-8594/result.json",
+        "sha256": "b3cb8fec4e764fbe333ee30edf5dda90983a7c70be008cb44da86d38385ff787"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "A03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/A03/2026-09-15T00-24-42-539Z-8594/result.json",
+        "sha256": "260d9ac3461d522b90e1c7c5a9a011f6c49b837835c2f0ad8eae60bce1593d85"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "A04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/A04/2026-09-15T00-24-46-751Z-8594/result.json",
+        "sha256": "a8fa9a221b9c7dd93ea66c0ff3fb2f3b55ae437553d92246cfbd99a7cbae5893"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "B01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/B01/2026-09-15T00-24-50-862Z-8594/result.json",
+        "sha256": "8833b00e0552c16b50e83b3766a84fa269c38a6f153f0c76365c3f358af2094b"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "B02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/B02/2026-09-15T00-24-55-059Z-8594/result.json",
+        "sha256": "b4b2202e96354119a36a79decc77c16babada6a202ff53797a1ea2a33f36cda4"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "B03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/B03/2026-09-15T00-24-59-012Z-8594/result.json",
+        "sha256": "ddfc391aaebad15855eb8598442085ba57a560e0445de36a52a397e7b431d555"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "B04",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/B04/2026-09-15T00-25-02-436Z-8594/result.json",
+        "sha256": "63d707c4aea82ac796bf1f4f36e252e93cef216fdfcbebc45cf4243b0aa2787c"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "C01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/C01/2026-09-15T00-25-06-198Z-8594/result.json",
+        "sha256": "a62e62f8f1ee049507af0a57b356c98d9fd4f98c5dd022a4672f770a9300bb62"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "C02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/C02/2026-09-15T00-25-11-068Z-8594/result.json",
+        "sha256": "bf0907254a1e68ef165d565cb0955a4ee516ea951814e0ce91b062482d91493b"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "C03",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/C03/2026-09-15T00-25-15-287Z-8594/result.json",
+        "sha256": "6cf1755314402c7dbaab5e2445a337f7d8eff1b2bd242caee1349aa99a6d8b4d"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "D01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/D01/2026-09-15T00-25-19-776Z-8594/result.json",
+        "sha256": "267c4a5626d2b9cd2f27ddb2c82bb6a9a1497f71c1bed5ae123f3fb9c7cfb65c"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "E01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/E01/2026-09-15T00-25-21-729Z-8594/result.json",
+        "sha256": "c0c1dd5bdda5aafde3c6336cab45421b2d6f2da81fa465247853c0f54128cf33"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "F01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/F01/2026-09-15T00-25-25-247Z-8594/result.json",
+        "sha256": "81b4d53459a344b5ab9ed171854c0d432f895dc4d4f6a855592d788077ac55a9"
+      },
+      {
+        "phase": "MASS_REPLAY_2",
+        "scenario": "F02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_2/F02/2026-09-15T00-25-29-735Z-8594/result.json",
+        "sha256": "5f13bc9f30e17bf5d9268ccc1bb787cf7a1d08c124b700c8c6bfa77f95a982e5"
+      }
+    ]
+  },
+  "counts": {
+    "DISCOVERY": {
+      "conversations": 15,
+      "meaningfulTurns": 225,
+      "TOTAL_ANOMALIES": 5985,
+      "COSMETIC": 0,
+      "MINOR": 0,
+      "MATERIAL": 5985,
+      "FATAL": 0
+    },
+    "MASS_REPLAY_1": {
+      "conversations": 15,
+      "meaningfulTurns": 225,
+      "TOTAL_ANOMALIES": 902,
+      "COSMETIC": 0,
+      "MINOR": 0,
+      "MATERIAL": 902,
+      "FATAL": 0
+    },
+    "MASS_REPLAY_2": {
+      "conversations": 15,
+      "meaningfulTurns": 225,
+      "TOTAL_ANOMALIES": 737,
+      "COSMETIC": 0,
+      "MINOR": 0,
+      "MATERIAL": 737,
+      "FATAL": 0,
+      "zeroAnomalyScenarios": 0
+    },
+    "workingProductClusterCount": 6,
+    "TOTAL_CAUSAL_CLUSTERS": 6,
+    "HIGH_BLAST_RADIUS_CLUSTERS": [
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06"
+    ],
+    "MEDIUM_CLUSTERS": "NONE_ASSIGNED_IN_FINAL_WORK_TABLE_NOT_PROOF_OF_ABSENCE",
+    "ISOLATED_DEFECTS": "NOT_ESTABLISHED",
+    "independentDefectCount": "NOT_EQUAL_TO_RAW_SYMPTOMS",
+    "CLUSTERS_REPAIRED": "C03_OWNER_GUARD_AND_C05_HTTP_CONTRACT_BOUNDED; C01_C02_C06_PARTIAL_OR_DISPATCH_ONLY",
+    "CLUSTERS_UNRESOLVED": "C02_HUMAN_ACTS_AND_OLD_REFERENTS; C04_SCIENTIFIC_SCOPE; CROSS_CLUSTER_PRIOR_DECISION_CASCADES",
+    "clusterCountBoundary": "Six documented work families, not a proved count of independent root defects; overlap and dependencies retained."
+  },
+  "initialDiscoveryAttribution": {
+    "rows": 5985,
+    "assignmentCounts": {
+      "C01_OR_C02": 288,
+      "C01_DOWNSTREAM": 5485,
+      "C02": 39,
+      "C02_OR_C04": 103,
+      "ATTRIBUTION_PENDING": 21,
+      "C02_DOWNSTREAM": 49
+    },
+    "meaning": "Raw symptoms retained separately from four causal investigations; assignments explicitly include cascades and unresolved relations. No false independent defect count."
+  },
+  "causalClusters": [
+    {
+      "CLUSTER_ID": "C01",
+      "ANOMALY_ID": "C01-ADMISSION",
+      "SCENARIO": [
+        "A01",
+        "A02",
+        "A03",
+        "B01"
+      ],
+      "TURN": [
+        "A01-T01",
+        "A02-T01",
+        "A03-T01",
+        "B01-T01"
+      ],
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P1",
+      "VISIBLE_SYMPTOM": "Des informations scientifiques initiales ne deviennent pas évaluables comme candidats; les contrôles ultérieurs échouent faute de Project adopté attendu.",
+      "FIRST_BLOCKING_BOUNDARY": "Product Entry → admission de l’extracteur persistant",
+      "LIKELY_OWNER": "Product Entry / journey",
+      "PROJECT_IMPACT": "Admission manquante puis objets ou versions attendus absents; le nombre de symptômes aval ne mesure pas le nombre de défauts.",
+      "QRY_IMPACT": "Contexte Project incomplet ou absent, donc continuité dégradée.",
+      "REUSE_IMPACT": "Des entrées appauvries peuvent rester identiques; faute de preuve, ne pas attribuer un défaut de cache distinct.",
+      "PROVIDER_DEPENDENCY": "NONE_FOR_LOCAL_ADMISSION_PROOF; SYNTHETIC_FOR_FULL_REPLAY",
+      "CONFIDENCE": "CONFIRMED_LOCAL_CAUSE_AND_WAVE1_REPLAY_IMPROVEMENT_NOT_EXHAUSTIVE",
+      "blastRadius": "HIGH",
+      "status": "ADMISSION_REPAIR_IMPLEMENTED_TARGETED_AND_MASS_REPLAY_EXERCISED_NO_EXHAUSTIVE_LANGUAGE_CLAIM",
+      "evidence": [
+        "causal-clusters-initial.json",
+        "repair-c01.json",
+        "wave1-critical-review.json",
+        "preservation-after-wave1.json",
+        "wave2-critical-review.json",
+        "mass_replay_2-metrics.json"
+      ],
+      "limitations": [
+        "A03-T01 rencontre aussi C03; les attributions ne sont pas disjointes.",
+        "La perte de contenu déclaratif dans des demandes composées restait un résidu P1 après wave1."
+      ],
+      "finalAssessment": "Initial admission symptoms reduced; final mixed-payload counterexamples pass at admission. Remaining Project absences must be traced to their actual candidate/decision boundary rather than universally reassigned to C01."
+    },
+    {
+      "CLUSTER_ID": "C02",
+      "ANOMALY_ID": "C02-BOUNDED-ACTS",
+      "SCENARIO": [
+        "A04",
+        "A01",
+        "B01",
+        "D01",
+        "F01",
+        "F02"
+      ],
+      "TURN": [
+        "A04-T03",
+        "A04-T04",
+        "A04-T11"
+      ],
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P0_OR_P1_BY_MANIFESTATION",
+      "VISIBLE_SYMPTOM": "Confirmations/refus manqués, référence ancienne ou ambiguë non résolue, interception du tour par Scientific Thinking; contre-exemples de citation et de payload mixte découverts en revue.",
+      "FIRST_BLOCKING_BOUNDARY": "Acte humain borné → arbitrage du propriétaire et cible du candidat",
+      "LIKELY_OWNER": "QRY current-navigation-evidence, Scientific Thinking continuation, ordre Workspace",
+      "PROJECT_IMPACT": "Décision attendue non appliquée; risque de mauvaise cible si le matching est élargi sans preuve sémantique. Les contre-exemples P0 de revue ont été corrigés avant MASS1, pas assimilés à des FATAL du corpus.",
+      "QRY_IMPACT": "Purpose ou demande courant ignoré, lifecycle antérieur restant actif.",
+      "REUSE_IMPACT": "Absence de nouvelle contribution peut être une cascade d’acte non reconnu; pas de preuve d’un cache à désactiver.",
+      "PROVIDER_DEPENDENCY": "LOCAL_ACT_ROUTING; SYNTHETIC_STANDARD_REPLAY",
+      "CONFIDENCE": "CONFIRMED_WITH_RESIDUALS_AND_CAUSAL_DEPENDENCIES",
+      "blastRadius": "HIGH",
+      "status": "PARTIALLY_REPAIRED_MASS2_RESIDUALS_CONFIRMED",
+      "evidence": [
+        "repair-c02.json",
+        "wave1-critical-review.json",
+        "wave2-lifecycle-diagnosis.json",
+        "wave2-proposal-diagnosis.json",
+        "repair-wave2-conversation-tests-r2.json",
+        "mass_replay_2-metrics.json",
+        "semantic-review-final.json",
+        "wave2-critical-review.json",
+        "browser-evidence/A01-observation.json",
+        "browser-evidence/B01-observation.json",
+        "browser-evidence/C01-observation.json",
+        "browser-evidence/F01-observation.json",
+        "browser-evidence/F02-observation.json"
+      ],
+      "observedCounts": {
+        "naturalConfirmationsFailed": 15,
+        "naturalConfirmationsTotal": 16,
+        "failedConfirmationUniqueCurrent": 11,
+        "failedConfirmationAmbiguous": 4,
+        "refusalChecksFailed": 23,
+        "refusalChecksTotal": 23,
+        "terminalRefusalsBlockedByPriorSelectionFailure": 8,
+        "proposalTurnsWithNoRecognizedBoundedActAndNoChange": 14
+      },
+      "limitations": [
+        "UNIQUE_CURRENT désigne une unicité de lifecycle, pas une preuve que la phrase humaine vise ce candidat.",
+        "Les huit refus dépendant d’une sélection ancienne manquée ne sont pas huit défauts de refus indépendants.",
+        "La réparation ne doit pas transformer une citation, hypothèse, décision partielle ou déclaration scientifique indépendante en autorisation globale."
+      ],
+      "mass2Counts": {
+        "naturalConfirmationsFailed": 14,
+        "naturalConfirmationsTotal": 16,
+        "refusalChecksFailed": 23,
+        "refusalChecksTotal": 23
+      },
+      "finalAssessment": "Some generic acts and accented demonstratives repaired, but confirmation/refusal and old-selection service remains incomplete. Previous 8 dependent refusals are not re-counted as 8 new independent roots without final target-level attribution.",
+      "finalBrowserConfirmation": "Material findings reproduced across selected actual browser conversations; no new independent root count inferred."
+    },
+    {
+      "CLUSTER_ID": "C03",
+      "ANOMALY_ID": "C03-PRIVACY-REFERENT",
+      "SCENARIO": [
+        "A03"
+      ],
+      "TURN": [
+        "A03-T01"
+      ],
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P1",
+      "VISIBLE_SYMPTOM": "Une entrée scientifique à la première personne est refusée comme PATIENT_LEVEL.",
+      "FIRST_BLOCKING_BOUNDARY": "Knowledge Engine privacy → Domain Gate",
+      "LIKELY_OWNER": "src/features/knowledge-engine/privacy.ts",
+      "PROJECT_IMPACT": "Admission scientifique bloquée en amont; interaction avec C01.",
+      "QRY_IMPACT": "Refus individuel avant parcours scientifique.",
+      "REUSE_IMPACT": "NOT_DEMONSTRATED",
+      "PROVIDER_DEPENDENCY": "NONE; OWNER_DETERMINISTIC_TESTS",
+      "CONFIDENCE": "CONFIRMED_A03; OTHER_INITIAL_WITNESSES_NOT_PROMOTED",
+      "blastRadius": "HIGH",
+      "status": "BOUNDED_OWNER_REPAIR_VERIFIED_FULL_SUITE_PASS_NO_UNIVERSAL_PRIVACY_QUALIFICATION",
+      "evidence": [
+        "repair-c03.json",
+        "wave1-critical-review.json",
+        "mass_replay_1-metrics.json",
+        "qualification/full-canonical-suite-receipt.json"
+      ],
+      "limitations": [
+        "Les anciens témoins D01-T10 et E01-T10 ne sont pas promus en confirmations causales sans preuve spécifique.",
+        "La détection demeure lexicale et bornée; aucune capacité générale de compréhension clinique ou de rappel exhaustif des données sensibles n’est qualifiée."
+      ],
+      "finalAssessment": "49 privacy countertests included in the 272-file full suite. No broad recall or language-generalization claim."
+    },
+    {
+      "CLUSTER_ID": "C04",
+      "ANOMALY_ID": "C04-EXPLANATION-SCOPE",
+      "SCENARIO": "15 scénarios; liste exacte dans semantic-review-mass1.json",
+      "TURN": "51 tours EXPLAIN/DISCUSS",
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P1",
+      "VISIBLE_SYMPTOM": "40 réponses annoncent une liste vide; 11 réponses Knowledge signalent une absence de connaissance sans traiter la demande.",
+      "FIRST_BLOCKING_BOUNDARY": "Purpose / référent du tour → contenu requis ou résultat de propriétaire → réalisation HOW",
+      "LIKELY_OWNER": "QRY / contenu autorisé / résolution de référent; Knowledge pour couverture et certaines orientations locales",
+      "PROJECT_IMPACT": "Aucune mutation sur les 51 tours examinés; cela ne constitue pas une utilité scientifique.",
+      "QRY_IMPACT": "40 enveloppes RESPOND_WITHOUT_MUTATION, contentSource NONE, requiredContentRefs []; 7 traitements locaux ou référents inadaptés.",
+      "REUSE_IMPACT": "Un résultat absent ou non applicable ne prouve pas un cache erroné. La disponibilité du référent peut être dégradée par des causes antérieures.",
+      "PROVIDER_DEPENDENCY": "SYNTHETIC_HOW; LIVE_LANGUAGE_NOT_EVALUABLE",
+      "CONFIDENCE": "OBSERVED_PER_TURN_SCOPE; ROOT_CAUSE_SUBDIVISION_PROVISIONAL",
+      "blastRadius": "HIGH",
+      "status": "UNRESOLVED_MAJOR_SCIENTIFIC_SCOPE_LIMIT_MASS2",
+      "evidence": [
+        "semantic-review-mass1.json",
+        "wave2-proposal-diagnosis.json",
+        "semantic-review-final.json",
+        "browser-evidence/A01-observation.json",
+        "browser-evidence/B01-observation.json",
+        "browser-evidence/C01-observation.json",
+        "browser-evidence/F01-observation.json",
+        "browser-evidence/F02-observation.json"
+      ],
+      "observedCounts": {
+        "upstreamEmptyHow": 40,
+        "localWrongOwnerOrReferent": 7,
+        "localKnowledgeNoApplicableContent": 4,
+        "replyScopeFail": 51,
+        "requestedConversationalScopeFail": 46,
+        "documentaryOutcomeNotEvaluable": 5
+      },
+      "limitations": [
+        "Les quatre absences de connaissance applicable ne démontrent pas que Knowledge était un propriétaire illégitime.",
+        "Les cinq demandes documentaires ont un artefact distinct; leur issue globale ne se déduit pas du message vide.",
+        "C04 recouvre des symptômes pouvant dépendre de C02/C05/C06; ne pas additionner les populations de tours."
+      ],
+      "finalAssessment": "Owner dispatch recovered for 27/32 proposals but is insufficient for requested scope. All 51 explanation/discussion replies unchanged.",
+      "finalSemanticCounts": {
+        "turnsReviewed": 83,
+        "proposalTurns": 32,
+        "explainDiscussTurns": 51,
+        "scopeVerdicts": {
+          "FAIL": 70,
+          "PASS": 6,
+          "NOT_EVALUABLE": 5,
+          "PARTIAL": 2
+        },
+        "proposalScopeVerdicts": {
+          "FAIL": 24,
+          "PASS": 6,
+          "PARTIAL": 2
+        },
+        "explainDiscussScopeVerdicts": {
+          "FAIL": 46,
+          "NOT_EVALUABLE": 5
+        },
+        "causes": {
+          "NATIVE_OUTPUT_SCOPE_MISMATCH": 6,
+          "LOCAL_KNOWLEDGE_NO_APPLICABLE_CONTENT": 4,
+          "UPSTREAM_EMPTY_HOW": 45,
+          "ACTUALLY_RESPONDS_BOUNDED_GENERIC_HYPOTHESES": 6,
+          "LOCAL_WRONG_OWNER_OR_REFERENT": 7,
+          "NATIVE_CAPABILITY_LIMIT_NO_REQUESTED_OPTIONS": 11,
+          "CURRENT_PROJECT_CONTENT_BEHIND_GOLD_AND_SCOPE_MISMATCH": 2,
+          "SCOPED_HYPOTHESES_WITH_MISSING_REQUEST_CONSTRAINTS": 2
+        },
+        "nativeProposalReplies": 27,
+        "emptyHowReplies": 45,
+        "explainDiscussRepliesUnchangedFromMass1": 51,
+        "noProjectMutationCount": 83,
+        "realProviderCalls": 0,
+        "mass2Http400CountAllTurns": 0
+      },
+      "nativeOutputScopeMismatchWitnesses": [
+        "A01-T05",
+        "A04-T04",
+        "A04-T08",
+        "B01-T15",
+        "C01-T09",
+        "E01-T08",
+        "F02-T15"
+      ],
+      "scientificCapacityBoundary": "The current generic hypothesis capability is insufficient for several requested methodological, recruitment, measurement or analytical contributions. A new owner is not authorized or formally established as the necessary solution; owner routing, scope propagation and existing-capability reuse require later architectural arbitration.",
+      "finalBrowserConfirmation": "Material findings reproduced across selected actual browser conversations; no new independent root count inferred."
+    },
+    {
+      "CLUSTER_ID": "C05",
+      "ANOMALY_ID": "PROP-HTTP-CONTRACT",
+      "SCENARIO": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "B01",
+        "C01",
+        "C03",
+        "D01",
+        "F01",
+        "F02"
+      ],
+      "TURN": [
+        "A01-T05",
+        "A02-T04",
+        "A03-T13",
+        "A04-T08",
+        "B01-T04",
+        "B01-T15",
+        "C01-T09",
+        "C03-T04",
+        "D01-T03",
+        "D01-T15",
+        "F01-T06",
+        "F01-T15",
+        "F02-T02",
+        "F02-T04"
+      ],
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P1",
+      "VISIBLE_SYMPTOM": "14 demandes de proposition retournent HTTP400 avant transport provider.",
+      "FIRST_BLOCKING_BOUNDARY": "parseProductBridgeRequest / allowlist boundedInteraction",
+      "LIKELY_OWNER": "Product Bridge request contract",
+      "PROJECT_IMPACT": "Aucune adoption par ces requêtes rejetées; progression scientifique interrompue.",
+      "QRY_IMPACT": "Le purpose de proposition ne parvient pas à QRY.",
+      "REUSE_IMPACT": "Un PASS de différence de texte avec réponse vide ne prouve pas une réussite de reuse.",
+      "PROVIDER_DEPENDENCY": "NONE; 14_CAPTURED_REQUEST_ABLATIONS",
+      "CONFIDENCE": "PROVEN_BY_EXACT_CAPTURED_REQUEST_ABLATION",
+      "blastRadius": "HIGH",
+      "status": "REPAIRED_BOUNDED_HTTP_CONTRACT_VERIFIED_MASS2",
+      "evidence": [
+        "wave2-proposal-diagnosis.json",
+        "wave2-proposal-parser-ablation.json",
+        "repair-wave2-bridge.json",
+        "wave2-bridge-captured-request-qualification.json",
+        "semantic-review-final.json",
+        "mass_replay_2-metrics.json"
+      ],
+      "limitations": [
+        "Le contrat réparé laisse passer l’acte sans créer de propositions utiles.",
+        "Aucune conclusion d’intégration finale avant MASS2 et qualification."
+      ],
+      "finalAssessment": "0 HTTP400 among MASS2 HTTP entries. The 14 previously rejected proposal turns now progress beyond parsing; 12 receive a native owner projection, while 2 D01 turns remain blocked by missing upstream Project. This is contract repair, not 14 successful scientific proposals.",
+      "observedCounts": {
+        "previousCapturedHttp400": 14,
+        "mass2Http400AllTurns": 0,
+        "formerRejectedTurnsWithNativeProjection": 12,
+        "formerRejectedTurnsWithUpstreamProjectAbsent": 2
+      }
+    },
+    {
+      "CLUSTER_ID": "C06",
+      "ANOMALY_ID": "PROP-EMPTY-DELTA-LOST-ACT",
+      "SCENARIO": "Sous-ensemble de demandes explicites de proposition",
+      "TURN": "14 requêtes examinées sous hypothèse d’un delta vide valide",
+      "SEVERITY": "MATERIAL",
+      "PRIORITY": "P1",
+      "VISIBLE_SYMPTOM": "Après suppression du blocage HTTP, l’acte de proposition peut encore se perdre dans la branche NO_CHANGE sans candidat.",
+      "FIRST_BLOCKING_BOUNDARY": "Retour extraction vide → current-turn navigation / dispatch du propriétaire",
+      "LIKELY_OWNER": "QRY current-turn navigation et continuation Workspace",
+      "PROJECT_IMPACT": "Aucune modification ne doit être inventée pour déclencher une proposition.",
+      "QRY_IMPACT": "RESPOND_WITHOUT_MUTATION remplace une contribution attendue du propriétaire scientifique.",
+      "REUSE_IMPACT": "Purpose doit rester distinct; pas de neutralisation générale du cache.",
+      "PROVIDER_DEPENDENCY": "PURE_FUNCTION_COUNTERFACTUAL_ON_CAPTURED_INPUT; INTEGRATED_REPLAY_PENDING",
+      "CONFIDENCE": "PROVEN_BOUNDED_COUNTERFACTUAL_NOT_YET_FULL_CORRIDOR",
+      "blastRadius": "HIGH",
+      "status": "POST_NO_CHANGE_DISPATCH_REPAIRED_IN_BOUNDED_PATH_SCIENTIFIC_RESULT_SCOPE_SEPARATE",
+      "evidence": [
+        "wave2-proposal-diagnosis.json",
+        "wave2-proposal-empty-delta-navigation.json",
+        "wave2-workspace-tests.json",
+        "mass_replay_2-metrics.json",
+        "semantic-review-final.json",
+        "wave2-critical-review.json",
+        "wave2-concurrent-confirmation-after-guard.json"
+      ],
+      "limitations": [
+        "Le diagnostic impose explicitement un delta vide valide; ce n’est pas une exécution du produit réparé de bout en bout.",
+        "Ne pas compter deux fois les 14 requêtes communes avec C05."
+      ],
+      "finalAssessment": "MASS2 now verifies dispatch in the 12 former rejected proposal cases with a Project; the 2 D01 cases still lack a Project. The reviewed concurrency regression was repaired in wave2 and its UI/handler countertest passes. No universal async safety or scientific usefulness follows."
+    }
+  ],
+  "nonProductOrDependentFindings": [
+    {
+      "id": "H01-DISCOVERY-HARNESS-CONTINUATION",
+      "kind": "HARNESS_DEFECT_REPAIRED_BEFORE_DISCOVERY_COMPLETION",
+      "evidence": [
+        "checkpoint-log.md",
+        "discovery-summary.json"
+      ],
+      "finding": "Attente inconditionnelle de continuation après adoption et mauvais contrôle de retour depuis document; essais incomplets B01/C03/F01 conservés puis seuls scénarios affectés rejoués.",
+      "countingRule": "Les tentatives invalidées ne servent pas à gonfler les 5985 symptômes des 15 trajectoires retenues."
+    },
+    {
+      "id": "H02-ORACLE-INTERPRETATION",
+      "kind": "HARNESS_LIMITATIONS_AND_FALSE_POSITIVE",
+      "evidence": [
+        "wave2-proposal-diagnosis.json",
+        "wave2-lifecycle-diagnosis.json",
+        "semantic-review-mass1.json"
+      ],
+      "finding": "Réponse vide différente de la précédente pouvait produire PURPOSE_AND_REUSE PASS; dernier candidat non lié à la cible ne suffit pas à mesurer un refus; longueur ne mesure pas l’utilité; latestTrace peut être antérieur à la requête en erreur.",
+      "countingRule": "Préserver les sorties historiques, séparer preuve brute et réinterprétation, ne pas faire de PASS rétroactif."
+    },
+    {
+      "id": "PROPAGATION-D01-T11",
+      "kind": "DOWNSTREAM_MANIFESTATION_NOT_NEW_ROOT_CAUSE",
+      "evidence": [
+        "wave2-proposal-diagnosis.json"
+      ],
+      "finding": "REPLACE endpoint reçu sans Project; la fixture refuse CURRENT_PROJECT_REQUIRED, traduit génériquement en NETWORK_FAILURE; aucun réseau réel.",
+      "countingRule": "Ne pas inventer un Project ni requalifier comme panne provider réelle."
+    },
+    {
+      "id": "W2-CONCURRENCY-REPAIRED",
+      "kind": "REPAIRED_IN_SECOND_WAVE_NOT_A_SEVENTH_INDEPENDENT_CLUSTER",
+      "evidence": [
+        "wave2-critical-review.json",
+        "wave2-concurrent-confirmation-after-guard.json"
+      ],
+      "finding": "Deferred NO_CHANGE could reapply old Project context and lose runtime turns during concurrent confirmation. Review disabled while busy plus context guards resolve the targeted real Standard repro; universal race freedom not claimed."
+    },
+    {
+      "id": "W2-RESIDUAL-BOUNDED-ACTS",
+      "kind": "DECLARED_OFF_CORPUS_LIMITS",
+      "evidence": [
+        "wave2-critical-review.json"
+      ],
+      "finding": "J’accepte cette proposition remains a bounded grammar false negative; explain-and-propose mixed act has one-kind representation. Extra HOW localization of masked mixed-branch response is source-observed; no accounting loss demonstrated."
+    },
+    {
+      "id": "TEMPORAL-PROJECT-CASCADE",
+      "kind": "UPSTREAM_CURRENT_PROJECT_BEHIND_GOLD",
+      "evidence": [
+        "semantic-review-final.json"
+      ],
+      "finding": "B01-T15 source Project retains 24 weeks rather than 36 and F02-T15 retains 8 rather than 12. Both owner replies follow that observed source; do not label a live-provider hallucination or autonomous cache failure."
+    }
+  ],
+  "interpretationRules": [
+    "Les six familles de travail ne constituent pas un décompte prouvé de défauts indépendants.",
+    "Les compteurs sont des symptômes par contrôle et par tour, incluant la répétition de cascades.",
+    "L’oracle a été renforcé entre discovery et replay: aucune réduction relative n’est présentée comme taux causal de correction.",
+    "Statuts de réparation ciblée distincts du résultat intégré final; aucune qualification produit globale.",
+    "Les décisions produit FUTURE_V1 restent hors portée, de même que tout canary réel.",
+    "Aucune répartition exhaustive des 737 symptômes finaux entre défauts indépendants n’est démontrée.",
+    "Régression technique 4168 PASS n’est pas une validation de qualité scientifique ni du corridor adversarial.",
+    "Deux vagues sont consommées. Les résidus sont attribués pour arbitrage ultérieur, sans troisième vague ni canary automatique.",
+    "La validation navigateur est terminée avec 0/5 PASS fonctionnel, et non simplement PENDING.",
+    "Les 30 tours des deux tentatives contrôleur invalidées restent préservés et exclus du bilan produit; 98 HTTP bruts ne signifient pas 98 tours.",
+    "La qualification technique PASS et le commit des sources correspondant ne promeuvent pas le résultat fonctionnel NOT_QUALIFIED."
+  ],
+  "priorDraftSha256": "eb056cc2b3bc136cf21057167f8d5889fc226ca7a92f79d827b7ed64a0dc3511",
+  "semanticFinalReview": {
+    "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/semantic-review-final.json",
+    "sha256": "31c9e6fbe7c5c5083e2457459789b1d43c8504f8c72a0bfec60dda3f614b3086",
+    "summary": {
+      "turnsReviewed": 83,
+      "proposalTurns": 32,
+      "explainDiscussTurns": 51,
+      "scopeVerdicts": {
+        "FAIL": 70,
+        "PASS": 6,
+        "NOT_EVALUABLE": 5,
+        "PARTIAL": 2
+      },
+      "proposalScopeVerdicts": {
+        "FAIL": 24,
+        "PASS": 6,
+        "PARTIAL": 2
+      },
+      "explainDiscussScopeVerdicts": {
+        "FAIL": 46,
+        "NOT_EVALUABLE": 5
+      },
+      "causes": {
+        "NATIVE_OUTPUT_SCOPE_MISMATCH": 6,
+        "LOCAL_KNOWLEDGE_NO_APPLICABLE_CONTENT": 4,
+        "UPSTREAM_EMPTY_HOW": 45,
+        "ACTUALLY_RESPONDS_BOUNDED_GENERIC_HYPOTHESES": 6,
+        "LOCAL_WRONG_OWNER_OR_REFERENT": 7,
+        "NATIVE_CAPABILITY_LIMIT_NO_REQUESTED_OPTIONS": 11,
+        "CURRENT_PROJECT_CONTENT_BEHIND_GOLD_AND_SCOPE_MISMATCH": 2,
+        "SCOPED_HYPOTHESES_WITH_MISSING_REQUEST_CONSTRAINTS": 2
+      },
+      "nativeProposalReplies": 27,
+      "emptyHowReplies": 45,
+      "explainDiscussRepliesUnchangedFromMass1": 51,
+      "noProjectMutationCount": 83,
+      "realProviderCalls": 0,
+      "mass2Http400CountAllTurns": 0
+    }
+  },
+  "technicalQualificationAtCapture": {
+    "aggregateRawStatus": "FAIL_INITIAL_EXECUTION_PRESERVED",
+    "fullSuite": {
+      "passed": 4168,
+      "failed": 0,
+      "unhandled": 0,
+      "files": 272,
+      "skipped": 12,
+      "todo": 1
+    },
+    "typescript": "PASS",
+    "build": "PASS_WITH_CHUNK_SIZE_WARNING",
+    "exactRecordedPrefix": "PASS",
+    "baselineSoaks": "PASS",
+    "lint": "PASS_AFTER_TOOLING_TYPES_WITH_ORIGINAL_FAIL_PRESERVED",
+    "browser": "5_CONVERSATIONS_75_TURNS_EXECUTED_0_OF_5_FUNCTIONAL_PASS",
+    "productQualification": "NOT_QUALIFIED",
+    "reason": "737 MATERIAL symptoms persist; final semantic scope review and actual browser confirm major functional gaps despite all technical gates passing.",
+    "lintCorrectiveReceipt": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/lint-affected-after-tooling-types-receipt.json",
+    "technicalFinalAssessment": "PASS_AFTER_LINT_TOOLING_CORRECTION; ORIGINAL_AGGREGATE_FAIL_PRESERVED",
+    "effectiveFinalStatus": "PASS"
+  },
+  "productQualification": "NOT_QUALIFIED",
+  "technicalQualification": "PASS",
+  "sourceManifestHistory": [
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/final-tech-qualification.json",
+      "sha256": "3cfea205695be1fb3c6076687dbd392266fdd417eefa9e6d0c9f2809764a2113",
+      "status": "PRIOR_CAPTURE_BEFORE_EFFECTIVE_LINT_GATE_UPDATE",
+      "supersededBySha256": "2dc87ee4e1b3307330854e43f2f2efdd2249d838d7f92f60160629e10706585c"
+    }
+  ],
+  "browserConfirmation": {
+    "status": "COMPLETED_FUNCTIONAL_FAIL",
+    "selectedConversations": 5,
+    "selectedMeaningfulTurns": 75,
+    "functionalPass": 0,
+    "functionalFail": 5,
+    "attemptedMeaningfulTurnsIncludingInvalidated": 105,
+    "invalidatedControllerMeaningfulTurns": 30,
+    "httpJournalTotalLines": 98,
+    "selectedHttpLines": 70,
+    "invalidatedAttemptHttpLines": 28,
+    "httpJournal": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/browser-http-exchanges.jsonl",
+    "httpJournalSha256AtCloseout": "18a64a3992520ecc2f5f12376d44761ebd3617955de0a4bdded510d6e12b52ad",
+    "selectedReceipts": [
+      {
+        "scenario": "A01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/A01-observation.json",
+        "sha256": "34df40ea6e9f38b8f6b0ca2ba6f3b31c0bd127e59dfe453c97f1cbaa15841687",
+        "meaningfulTurns": 15,
+        "functionalVerdict": "FAIL",
+        "httpLines": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "httpLineHashesVerified": true,
+        "materialFindings": [
+          {
+            "turn": "A01-T05",
+            "finding": "Demande de pistes sur critères et limites du recrutement répondue par hypothèses génériques de différence entre bras."
+          },
+          {
+            "turn": "A01-T06",
+            "finding": "AUCUNE CORRESPONDANCE EXPLOITABLE; absence d'explication de la difficulté du double aveugle."
+          },
+          {
+            "turn": "A01-T08",
+            "finding": "Refus répond par Vous avez indiqué les éléments suivants.; aucun rejet visible."
+          },
+          {
+            "turn": "A01-T10",
+            "finding": "Explication d'ancienne proposition sans contenu explicatif."
+          },
+          {
+            "turn": "A01-T12",
+            "finding": "Confirmation du déplacement IRM non appliquée: Version4 reste4, calendrier final encoreJ3-J6."
+          },
+          {
+            "turn": "A01-T14",
+            "finding": "Ancienne proposition non sélectionnée; réponse générique sans clarification du référent."
+          },
+          {
+            "turn": "A01-T15",
+            "finding": "Refus ancien sans rejet démontré."
+          }
+        ],
+        "sessionReopen": null
+      },
+      {
+        "scenario": "B01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/B01-observation.json",
+        "sha256": "d6457e1de10949518510b017bd8a26f08bf3f2e1b12fe52d0959d959c969bd1a",
+        "meaningfulTurns": 15,
+        "functionalVerdict": "FAIL",
+        "httpLines": [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27
+        ],
+        "httpLineHashesVerified": true,
+        "materialFindings": [
+          {
+            "turn": "B01-T03",
+            "finding": "Confirmation des hypoglycémies sévères non appliquée; version 1 conservée."
+          },
+          {
+            "turn": "B01-T06",
+            "finding": "Discussion sans contenu: Vous avez indiqué les éléments suivants."
+          },
+          {
+            "turn": "B01-T08",
+            "finding": "Refus non matérialisé par rejet; réponse générique."
+          },
+          {
+            "turn": "B01-T09",
+            "finding": "Absence de connaissance applicable à l'explication demandée."
+          },
+          {
+            "turn": "B01-T11",
+            "finding": "Confirmation à 36 semaines non appliquée; version 2 reste 2."
+          },
+          {
+            "turn": "B01-T14",
+            "finding": "Document version 3 cohérent avec Project adopté à 24 semaines, mais non conforme à intention utilisateur 36 semaines faute de confirmation reconnue."
+          },
+          {
+            "turn": "B01-T15",
+            "finding": "Demande de choix analyse/centres traitée par hypothèses génériques de différence entre bras."
+          }
+        ],
+        "sessionReopen": {
+          "turn": "B01-T13",
+          "method": "REAL_BROWSER_RELOAD",
+          "versionPreserved": true,
+          "historyPreserved": true,
+          "visibleProjectTextPreserved": true
+        }
+      },
+      {
+        "scenario": "C01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/C01-observation.json",
+        "sha256": "05936710356586385acf2362ec726641266869af5792795afc03c0b477542407",
+        "meaningfulTurns": 15,
+        "functionalVerdict": "FAIL",
+        "httpLines": [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42
+        ],
+        "httpLineHashesVerified": true,
+        "materialFindings": [
+          {
+            "turn": "C01-T03",
+            "finding": "Refus de rugosité répond par Vous avez indiqué les éléments suivants.; rejet explicite non démontré."
+          },
+          {
+            "turn": "C01-T06",
+            "finding": "Explication demandée sans contenu explicatif."
+          },
+          {
+            "turn": "C01-T08",
+            "finding": "Discussion répond par Vous avez indiqué les éléments suivants."
+          },
+          {
+            "turn": "C01-T12",
+            "finding": "Explication répond par Vous avez indiqué les éléments suivants."
+          }
+        ],
+        "sessionReopen": {
+          "turn": "C01-T13",
+          "method": "REAL_BROWSER_RELOAD",
+          "versionPreserved": true,
+          "historyPreserved": true,
+          "visibleProjectTextPreserved": true
+        }
+      },
+      {
+        "scenario": "F01",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F01-observation.json",
+        "sha256": "78e6cba568c959c54052293725e5aa25bfa4e6bd4f3bcbbc35eed9a581d418ed",
+        "meaningfulTurns": 15,
+        "functionalVerdict": "FAIL",
+        "httpLines": [
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70
+        ],
+        "httpLineHashesVerified": true,
+        "materialFindings": [
+          {
+            "turn": "F01-T02",
+            "finding": "Discussion répond par Vous avez indiqué les éléments suivants."
+          },
+          {
+            "turn": "F01-T04",
+            "finding": "Discussion sans contenu utile."
+          },
+          {
+            "turn": "F01-T07",
+            "finding": "Discussion sans contenu utile."
+          },
+          {
+            "turn": "F01-T08",
+            "finding": "Ancienne proposition non sélectionnée et absence de clarification explicite du référent."
+          },
+          {
+            "turn": "F01-T09",
+            "finding": "Refus ne matérialise aucun rejet; cascade de sélection précédente manquée."
+          },
+          {
+            "turn": "F01-T12",
+            "finding": "Question de rédaction routée vers connaissance sans correspondance exploitable."
+          },
+          {
+            "turn": "F01-T13",
+            "finding": "Explication répond par Vous avez indiqué les éléments suivants."
+          }
+        ],
+        "sessionReopen": null
+      },
+      {
+        "scenario": "F02",
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F02-observation.json",
+        "sha256": "1b9dc28d9d9767b3085e483256471630a73ba71c29060d711b12b54cbdf36a11",
+        "meaningfulTurns": 15,
+        "functionalVerdict": "FAIL",
+        "httpLines": [
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98
+        ],
+        "httpLineHashesVerified": true,
+        "materialFindings": [
+          "T11 natural confirmation does not adopt the visible twelve-week correction: Project remains V2 at eight weeks, including the T15 hypothesis projection.",
+          "T06 and T14 refusals do not complete the targeted lifecycle transition; T08 discussion and T09 explanation return generic acknowledgement.",
+          "T13 does not identify the first historical proposal or explain failure to identify it; no matching historical selection action is exposed. The current twelve-week correction was not arbitrarily selected.",
+          "T03 explanation routes to unavailable knowledge with irrelevant imaging clarification choices; conversation usefulness is not established by preserved Project versions."
+        ],
+        "sessionReopen": {
+          "turn": "F02-T12",
+          "status": "EXECUTED",
+          "versionPreserved": true,
+          "historyPreserved": true,
+          "projectVisibleTextPreserved": true
+        }
+      }
+    ],
+    "invalidatedAttemptsPreserved": [
+      {
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F01-initial-ui-oracle-attempt.json",
+        "sha256": "40f0dbb92f3cef2b630359e86e3a957ee35e561e7e84b2d74c99a0767b4d7bb0",
+        "scenario": "F01",
+        "status": "INVALIDATED_UI_ORACLE_ATTEMPT_PRESERVED",
+        "reason": "Literal content containment wrongly required role prefix adjacent to endpoint text; actual review showed role heading plus 12-to-16-week replacement and preserved unknown instrument. No product defect inferred from withheld confirmation.",
+        "meaningfulTurnsExcluded": 15,
+        "productFailureInferred": false
+      },
+      {
+        "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/browser-evidence/F02-initial-ui-sequence-attempt.json",
+        "sha256": "6d52bfaae047872845345a187c4a955ce1e7ff7a8dcb7051d5ea1d7b52d4acfd",
+        "scenario": "F02",
+        "status": "INVALIDATED_UI_ACTION_SEQUENCE_ATTEMPT_PRESERVED",
+        "reason": "REOPEN_EXISTING_SESSION required after T12 was deferred by the browser controller; replay from first turn is required for exact browser sequence. No product failure inferred.",
+        "meaningfulTurnsExcluded": 15,
+        "productFailureInferred": false
+      }
+    ],
+    "newProviderCalls": 0,
+    "causalBoundary": "Confirms existing human-act/scope/temporal cascades in actual browser; findings are not added as independent defects to 737 MASS2 symptoms.",
+    "captureLimit": "In-app browser full content export unavailable; observation receipts preserve visible actions/versions/findings and line-hashed HTTP exchanges are retained separately."
+  },
+  "preservationFinal": {
+    "status": "PASS_AFTER_AUTHORIZED_SOURCE_COMMIT",
+    "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-final-closed.json",
+    "sha256": "7d248db6053cf2b1424acb78268d9bb6f56820baa3615b0959b7ff76e367b4b6",
+    "baselineUntrackedPreserved": 533,
+    "liveEvidencePreserved": 34,
+    "frozenProductSourcesPreserved": 16,
+    "browserClosed": true
+  },
+  "gitFinalReceipt": {
+    "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/final-state.json",
+    "creationResponsibility": "ROOT_POST_COMMIT",
+    "purpose": "Records qualified source commit and final HEAD without making this report self-referential. A technically qualified source commit does not assert functional qualification."
+  },
+  "qualifiedSourceCommit": "f087bb3bf939d8c72e02c48db10b3b26466b8979",
+  "preservationEarlierCapture": {
+    "status": "PASS_AT_CAPTURE_BROWSER_STILL_APPENDING_NEW_EVIDENCE",
+    "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/preservation-final.json",
+    "sha256": "2b36c755087554f4bd273cb00914032f5008ccb123e6b22b35f2e5698eef0764",
+    "baselineUntrackedPreserved": 533,
+    "liveEvidencePreserved": 34,
+    "frozenProductSourcesPreserved": 16,
+    "integrityFailures": [],
+    "scope": "Exact baseline/source/guard/corpus byte preservation at 00:41 capture; browser was still appending new evidence. Final selected browser receipts and HTTP line hashes checked separately at closeout."
+  },
+  "pendingAtPreDocumentationCommitCapture": [
+    "POST_COMMIT_FINAL_STATE_RECEIPT_BY_ROOT"
+  ],
+  "browserUiDebt": {
+    "priority": "P2",
+    "attribution": "UI_SCROLL_OCCLUSION_RECOVERED",
+    "receipt": "browser-evidence/B01-document-return-attribution.json",
+    "productRepairApplied": false,
+    "countedIn737RuntimeSymptoms": false
+  }
+}

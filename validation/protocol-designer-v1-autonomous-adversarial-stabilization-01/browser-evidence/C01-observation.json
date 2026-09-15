@@ -1,0 +1,365 @@
+{
+  "scenario": "C01",
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      4
+    ],
+    [
+      4,
+      4,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ]
+  ],
+  "humanReviewClicks": [
+    "C01-T01",
+    "C01-T04",
+    "C01-T07",
+    "C01-T10",
+    "C01-T11"
+  ],
+  "materialFindings": [
+    {
+      "turn": "C01-T03",
+      "finding": "Refus de rugosité répond par Vous avez indiqué les éléments suivants.; rejet explicite non démontré."
+    },
+    {
+      "turn": "C01-T06",
+      "finding": "Explication demandée sans contenu explicatif."
+    },
+    {
+      "turn": "C01-T08",
+      "finding": "Discussion répond par Vous avez indiqué les éléments suivants."
+    },
+    {
+      "turn": "C01-T12",
+      "finding": "Explication répond par Vous avez indiqué les éléments suivants."
+    }
+  ],
+  "sessionReopen": {
+    "turn": "C01-T13",
+    "method": "REAL_BROWSER_RELOAD",
+    "versionPreserved": true,
+    "historyPreserved": true,
+    "visibleProjectTextPreserved": true
+  },
+  "document": {
+    "turn": "C01-T14",
+    "action": "Créer l’aperçu",
+    "sourceVersion": 5,
+    "returnedToConversation": true,
+    "observedContents": [
+      "Soixante éprouvettes aluminium par lots",
+      "Traitement thermique A versus B",
+      "Vieillissement humide de soixante cycles",
+      "Résistance en fatigue comme critère principal",
+      "Lecture des ruptures par deux opérateurs masqués",
+      "Analyse tenant compte des lots de fabrication",
+      "Sections À préciser et avertissement de version de travail"
+    ]
+  },
+  "finalVisibleScientificFacts": [
+    "Version 5",
+    "Comparaison de deux traitements thermiques",
+    "60 cycles de vieillissement humide",
+    "Analyse par lots et lecture masquée"
+  ],
+  "uiFriction": "Native upward scroll used before document return to avoid known global-header occlusion.",
+  "at": "2026-09-15T00:38:20.401804+00:00",
+  "turns": [
+    {
+      "turn": "C01-T01",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        0,
+        0,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T02",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T03",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T04",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T05",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T06",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T07",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T08",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T09",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T10",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T11",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        4,
+        4,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T12",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T13",
+      "outcome": "PRESERVE",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T14",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "C01-T15",
+      "outcome": "PRESERVE",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    }
+  ],
+  "conversationCompleted": true,
+  "meaningfulTurns": 15,
+  "qualificationVerdict": "FAIL",
+  "source": "CUA_REAL_BROWSER_STANDARD_UI_WITH_SYNTHETIC_EXTERNAL_PROVIDER_TRANSPORT",
+  "newProviderCalls": 0,
+  "httpEvidence": {
+    "path": "browser-http-exchanges.jsonl",
+    "lineNumbers": [
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "lineSha256": {
+      "28": "cde128e09721e4b93e048ecbd65ef0cde39e6312154279ccf4666e3032b73ba9",
+      "29": "b7dfebd27cfe518a0bf044aed370536dffc4f4803056d0f58f05b3646ba80ba9",
+      "30": "fa25bbfe709f8e579c4725979c7b7066f1ef92e01662ff4a6efd7743b8c604da",
+      "31": "522666e0665283adcc8e75dddd086aa4fa0282ea19e3718df0cbe642eba7e2e2",
+      "32": "9ec31e2d99defdb853b7c169a81fc6a991a02ddfe0b9fbce5d7eb1f524cecb5e",
+      "33": "aa5fa5b46efb8bcac2ed7b8e62281f639b43c6c2d68be4bbcb5ab970f3b8be0e",
+      "34": "c3d64fab317dc0d8a8001eb59d6df132f8a7987da22e5ec8928faa843d863841",
+      "35": "778155ee65b9da8e79fb81cb890310fcaf81e2d0a867e8c22959a78b1e04a8f3",
+      "36": "ee8b74f0d155673edbfef50a040ad0afcf88fa1d13e3ef37802a9b3e7366b8cf",
+      "37": "9905d76adbb68443004ef6b89e91ef70b7dc3ba6a76b440da976a44f172e404e",
+      "38": "6f91fbf4e8daa817415e06a224833290e6f986aa8cfc84980557ece579476244",
+      "39": "7b78021f30f084d91b2594ca6a7de61958aceb18357fa82ae699693d1e8aa993",
+      "40": "3d7dd2fdd549af2fc7d498faf5aae40605225113914fa371e885e228d7ce4cfb",
+      "41": "f8bb4446808775205ac3fb1f8ee4fa3ac3ea5e2fa24696ee3c27954f846b46c5",
+      "42": "3b6ba6441c05505816156eb76ef3b4d1754dbfd5f3979f2a7f08dc9803ca3bf5"
+    },
+    "requests": 15
+  },
+  "limitations": [
+    "Synthetic provider responses do not qualify live language fidelity.",
+    "CUA content export is unsupported by the in-app browser; this receipt preserves observed versions/actions/findings, while complete HTTP exchanges are stored separately.",
+    "Scientific response scope is independently reviewed in semantic-review-final.json; version preservation alone is not scientific PASS."
+  ]
+}

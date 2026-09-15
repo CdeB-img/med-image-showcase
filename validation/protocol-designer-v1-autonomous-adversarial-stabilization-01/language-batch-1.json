@@ -1,0 +1,1178 @@
+{
+  "semanticSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+  "scenarios": [
+    {
+      "id": "A01",
+      "turns": [
+        {
+          "id": "A01-T01",
+          "userText": "Je travaille sur la viabilité du myocarde après un IDM. L'idée est de comparer deux groupes : stent posé immédiatement dans le groupe intervention, pose différée dans le groupe comparateur. Un double aveugle serait souhaitable, mais je ne sais pas encore s'il est réalisable.\nOn prévoit une IRM cardiaque entre le troisième et le sixième jour après l'infarctus. Le principal serait la taille des lésions microvasculaires, en valeur absolue, mesurée 3 minutes après l'injection. Il y aura aussi la cinétique segmentaire, le strain, T1 et T2. J'ai écrit précoce et tardif dans mes notes, le sens de ces termes reste à préciser. Pour l'effectif, rien de fixé à ce stade.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne sais pas encore s'il est réalisable",
+              "rien de fixé à ce stade"
+            ],
+            "UNCERTAINTY": [
+              "Un double aveugle serait souhaitable, mais je ne sais pas encore s'il est réalisable",
+              "le sens de ces termes reste à préciser",
+              "Pour l'effectif, rien de fixé à ce stade"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer deux groupes : stent posé immédiatement dans le groupe intervention, pose différée dans le groupe comparateur"
+            ],
+            "TEMPORAL_RELATION": [
+              "après un IDM",
+              "entre le troisième et le sixième jour après l'infarctus",
+              "3 minutes après l'injection"
+            ]
+          }
+        },
+        {
+          "id": "A01-T02",
+          "userText": "Petite correction sur la mesure : je voudrais exprimer ces lésions en pourcentage de la masse du VG, au lieu d'une taille absolue. Juste ça. Ce serait toujours le critère principal, à trois minutes après injection.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "en pourcentage de la masse du VG, au lieu d'une taille absolue"
+            ],
+            "TEMPORAL_RELATION": [
+              "à trois minutes après injection"
+            ]
+          }
+        },
+        {
+          "id": "A01-T03",
+          "userText": "Oui, je confirme cette modification-là, celle que tu viens de présenter.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A01-T04",
+          "userText": "Pour la population, ce serait du tout venant de 35 à 85 ans, à l'occasion du premier IDM reconnu. Reconnu, car un ancien infarctus silencieux reste possible. On écarterait les antécédents coronariens connus ainsi que les vraies contre-indications à l'IRM. Je pense par ex aux pacemakers, mais il faudrait regarder de quoi il s'agit : en citer un ne veut pas dire exclure systématiquement tous les porteurs.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne veut pas dire exclure systématiquement tous les porteurs"
+            ],
+            "UNCERTAINTY": [
+              "un ancien infarctus silencieux reste possible",
+              "il faudrait regarder de quoi il s'agit"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "à l'occasion du premier IDM reconnu",
+              "un ancien infarctus silencieux"
+            ]
+          }
+        },
+        {
+          "id": "A01-T05",
+          "userText": "Sur cette population, donne-moi plusieurs pistes pour travailler les critères et les limites du recrutement. J'aimerais avoir des options à examiner.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A01-T06",
+          "userText": "Pourquoi le double aveugle serait-il compliqué dans cette comparaison ? Je veux comprendre la difficulté, je ne suis pas en train de renoncer à l'aveugle ou à une randomisation.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne suis pas en train de renoncer à l'aveugle ou à une randomisation"
+            ],
+            "UNCERTAINTY": [
+              "le double aveugle serait-il compliqué"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "dans cette comparaison"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A01-T07",
+          "userText": "On pourrait envisager une consultation de suivi à six mois. Je reste hésitant sur ce délai, je ne sais pas si c'est le bon moment cliniquement.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne sais pas si c'est le bon moment cliniquement"
+            ],
+            "UNCERTAINTY": [
+              "On pourrait envisager une consultation de suivi à six mois",
+              "Je reste hésitant sur ce délai"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "à six mois"
+            ]
+          }
+        },
+        {
+          "id": "A01-T08",
+          "userText": "Non, je ne retiens pas cette proposition de suivi. On conserve ce qui était déjà validé.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne retiens pas cette proposition de suivi"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "ce qui était déjà validé"
+            ]
+          }
+        },
+        {
+          "id": "A01-T09",
+          "userText": "Je propose plutôt une visite clinique douze mois après l'IDM. On y évaluerait les événements cardiovasculaires, comme critère secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "plutôt"
+            ],
+            "TEMPORAL_RELATION": [
+              "douze mois après l'IDM"
+            ]
+          }
+        },
+        {
+          "id": "A01-T10",
+          "userText": "Je reviens à ta liste de pistes sur la population : pourquoi avais-tu mis la deuxième ? Explique-moi son intérêt ; je ne la choisis pas pour le moment.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne la choisis pas pour le moment"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Je reviens à ta liste de pistes sur la population"
+            ]
+          }
+        },
+        {
+          "id": "A01-T11",
+          "userText": "En relisant mon premier message, il y a le calendrier de l'IRM à corriger : ce serait J4 à J7 après l'IDM, au lieu de J3 à J6. Je parle du jour de l'examen ; les trois minutes après l'injection et les critères retenus restent tels quels.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "J4 à J7 après l'IDM, au lieu de J3 à J6"
+            ],
+            "TEMPORAL_RELATION": [
+              "J4 à J7 après l'IDM",
+              "les trois minutes après l'injection"
+            ]
+          }
+        },
+        {
+          "id": "A01-T12",
+          "userText": "C'est bien ça, je valide uniquement le déplacement du créneau IRM que tu viens de m'afficher.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A01-T13",
+          "userText": "Avec ce créneau IRM corrigé, quelles autres options proposerais-tu ? Repars de cette version pour examiner des alternatives, pas simplement de la liste précédente.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas simplement de la liste précédente"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Avec ce créneau IRM corrigé",
+              "la liste précédente"
+            ]
+          }
+        },
+        {
+          "id": "A01-T14",
+          "userText": "Je sélectionne la première de tes propositions sur la population, dans la liste donnée avant ma question sur le double aveugle. Vérifie qu'elle convient encore au projet avec le calendrier corrigé ; si oui, présente-la pour relecture. Si tu ne retrouves pas cette proposition précise, dis-le au lieu d'en prendre une autre.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne retrouves pas cette proposition précise"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "si oui, présente-la pour relecture",
+              "Si tu ne retrouves pas cette proposition précise, dis-le au lieu d'en prendre une autre"
+            ],
+            "COMPARISON": [
+              "au lieu d'en prendre une autre"
+            ],
+            "TEMPORAL_RELATION": [
+              "dans la liste donnée avant ma question sur le double aveugle",
+              "avec le calendrier corrigé"
+            ]
+          }
+        },
+        {
+          "id": "A01-T15",
+          "userText": "Après relecture, non, je refuse cette ancienne proposition. L'IRM à J4-J7 et le suivi clinique à douze mois restent bien retenus.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cette ancienne proposition"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Après relecture",
+              "L'IRM à J4-J7",
+              "le suivi clinique à douze mois"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "turns": [
+        {
+          "id": "A02-T01",
+          "userText": "Je commence par qui on peut recruter : des adultes de 35 à 85 ans après un premier infarctus reconnu. On exclurait les contre-indications réelles à l'IRM cardiaque. Les dispositifs implantés sont des exemples à regarder individuellement, pas une liste d'exclusions automatiques.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas une liste d'exclusions automatiques"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "après un premier infarctus reconnu"
+            ]
+          }
+        },
+        {
+          "id": "A02-T02",
+          "userText": "J'ai commencé par les patients parce que le recrutement est déjà préparé de mon côté. C'est juste l'ordre dans lequel je vous présente les choses, n'en déduisez pas encore la question scientifique.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "n'en déduisez pas encore la question scientifique"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "le recrutement est déjà préparé"
+            ]
+          }
+        },
+        {
+          "id": "A02-T03",
+          "userText": "Pour la question scientifique maintenant : je voudrais comparer la viabilité myocardique après IDM entre une pose immédiate de stent et une pose différée. Ce serait une étude prospective comparative, avec le stent immédiat comme intervention et le différé comme comparateur.\nL'IRM cardiaque est prévue de J3 à J6 après l'IDM. En principal, la part de la masse VG occupée par les lésions microvasculaires, en pourcentage, trois minutes après injection.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer la viabilité myocardique après IDM entre une pose immédiate de stent et une pose différée",
+              "le stent immédiat comme intervention et le différé comme comparateur"
+            ],
+            "TEMPORAL_RELATION": [
+              "après IDM",
+              "de J3 à J6 après l'IDM",
+              "trois minutes après injection"
+            ]
+          }
+        },
+        {
+          "id": "A02-T04",
+          "userText": "À partir de ce qu'on a maintenant, proposez-moi plusieurs pistes scientifiques pour faire avancer ce projet.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A02-T05",
+          "userText": "La deuxième de cette liste, qu'est-ce qui la justifie scientifiquement ? Je demande l'explication, je ne valide aucune de ces pistes à ce stade.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne valide aucune de ces pistes à ce stade"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A02-T06",
+          "userText": "Je voudrais ajouter une analyse selon le territoire de l'infarctus. À titre exploratoire seulement, sans autre changement.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "sans autre changement"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A02-T07",
+          "userText": "Autre possibilité que je vous soumets : remplacer le principal actuel par la FEVG six mois après l'IDM, avec une évaluation à ce moment-là. Montrez-moi ce que donnerait cette modification avant de l'appliquer.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "remplacer le principal actuel par la FEVG"
+            ],
+            "TEMPORAL_RELATION": [
+              "six mois après l'IDM",
+              "une évaluation à ce moment-là",
+              "avant de l'appliquer"
+            ]
+          }
+        },
+        {
+          "id": "A02-T08",
+          "userText": "Non finalement, je refuse le remplacement par la FEVG et l'évaluation à six mois qui va avec. Gardons la version déjà retenue.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse le remplacement par la FEVG et l'évaluation à six mois qui va avec"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "l'évaluation à six mois"
+            ]
+          }
+        },
+        {
+          "id": "A02-T09",
+          "userText": "Pour le recrutement je voudrais maintenant nous limiter aux infarctus avec sus-décalage de ST. Toujours un premier épisode reconnu chez les 35-85 ans ; les exclusions déjà posées restent les mêmes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Toujours un premier épisode reconnu",
+              "les exclusions déjà posées"
+            ]
+          }
+        },
+        {
+          "id": "A02-T10",
+          "userText": "Je reviens juste sur les implants : quand j'en donnais des exemples, ce n'était pas pour exclure tout patient qui en porte un. L'appréciation de la contre-indication IRM reste individuelle.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ce n'était pas pour exclure tout patient qui en porte un"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "quand j'en donnais des exemples"
+            ]
+          }
+        },
+        {
+          "id": "A02-T11",
+          "userText": "Je m'aperçois que la limite haute donnée au début est trop large pour ce que je veux. Je propose 80 ans à la place de 85. La limite basse reste 35 ans, et il s'agit toujours du premier STEMI reconnu.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "80 ans à la place de 85"
+            ],
+            "TEMPORAL_RELATION": [
+              "donnée au début",
+              "toujours du premier STEMI reconnu"
+            ]
+          }
+        },
+        {
+          "id": "A02-T12",
+          "userText": "Pouvez-vous m'expliquer exactement ce qui a changé dans la population au fil de ces corrections, et ce qui n'a pas bougé ?",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ce qui n'a pas bougé"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "ce qui a changé dans la population au fil de ces corrections, et ce qui n'a pas bougé"
+            ],
+            "TEMPORAL_RELATION": [
+              "au fil de ces corrections"
+            ]
+          }
+        },
+        {
+          "id": "A02-T13",
+          "userText": "Je veux relire ce qui est retenu, puis rouvrir cette même session. Vérifions que je retrouve la population, le critère principal et les exclusions dans leur version validée.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "relire ce qui est retenu, puis rouvrir cette même session"
+            ]
+          }
+        },
+        {
+          "id": "A02-T14",
+          "userText": "Pouvez-vous me sortir le document disponible à partir de cette version du projet ? Les rubriques encore incomplètes doivent rester visibles comme telles, sans compléter les trous par supposition.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "sans compléter les trous par supposition"
+            ],
+            "UNCERTAINTY": [
+              "Les rubriques encore incomplètes"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A02-T15",
+          "userText": "Maintenant que nous avons repris, quelles pistes scientifiques examiner ensuite ? Appuyez-vous sur l'âge et le critère déjà retenus, ne me les redemandez pas.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne me les redemandez pas"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Maintenant que nous avons repris",
+              "le critère déjà retenu"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "turns": [
+        {
+          "id": "A03-T01",
+          "userText": "Mon sujet, c'est le lien entre l'œdème myocardique et le strain après infarctus. Je pars sur une cohorte observationnelle prospective d'adultes après un premier IDM reconnu. L'examen serait une IRM cardiaque, entre J2 et J4 après l'IDM, avec le strain longitudinal global de cette IRM initiale comme principal. Pour l'œdème, on prévoit une mesure par T2.\nIl y aurait aussi une mesure dite tardive. Le délai après injection pour celle-là, je ne le connais pas encore.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne le connais pas encore"
+            ],
+            "UNCERTAINTY": [
+              "Le délai après injection pour celle-là, je ne le connais pas encore"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "après infarctus",
+              "après un premier IDM reconnu",
+              "entre J2 et J4 après l'IDM",
+              "cette IRM initiale",
+              "une mesure dite tardive",
+              "Le délai après injection"
+            ]
+          }
+        },
+        {
+          "id": "A03-T02",
+          "userText": "Avec ces éléments, quelles pistes scientifiques vois-tu ? J'en voudrais plusieurs pour pouvoir réfléchir aux options.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T03",
+          "userText": "Pour la lecture des IRM : je propose deux lecteurs, avec les données cliniques masquées pour chacun.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "les données cliniques masquées pour chacun"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T04",
+          "userText": "Aide-moi à distinguer les deux : avoir ces lecteurs masqués aux données cliniques et dire que toute l'étude est en double aveugle, qu'est-ce que ça change exactement ?",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "lecteurs masqués aux données cliniques"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "avoir ces lecteurs masqués aux données cliniques et dire que toute l'étude est en double aveugle"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T05",
+          "userText": "Un T2 au-dessus d'un certain niveau, par exemple... c'est le genre de seuil auquel je pensais. Mais c'est pour illustrer, je ne retiens ni valeur précise ni règle à ce stade.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne retiens ni valeur précise ni règle à ce stade"
+            ],
+            "UNCERTAINTY": [
+              "au-dessus d'un certain niveau",
+              "c'est pour illustrer"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "au-dessus d'un certain niveau"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T06",
+          "userText": "Je propose d'ajouter un rendez-vous clinique douze mois après l'infarctus.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "douze mois après l'infarctus"
+            ]
+          }
+        },
+        {
+          "id": "A03-T07",
+          "userText": "Oui, j'adopte cette visite telle que tu viens de la présenter.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T08",
+          "userText": "Et si on ajoutait une analyse exploratoire en fonction d'un seuil de T2 ? Je propose cette analyse avec un seuil encore indéterminé ; je n'ai pas de valeur à donner.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je n'ai pas de valeur à donner"
+            ],
+            "UNCERTAINTY": [
+              "un seuil encore indéterminé"
+            ],
+            "CONDITIONALITY": [
+              "Et si on ajoutait une analyse exploratoire en fonction d'un seuil de T2 ?"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T09",
+          "userText": "Non, je ne retiens pas l'analyse avec seuil. Le reste de ce qui a été validé reste en place.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne retiens pas l'analyse avec seuil"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "ce qui a été validé"
+            ]
+          }
+        },
+        {
+          "id": "A03-T10",
+          "userText": "Retour sur le calendrier annoncé au départ : je voudrais passer l'IRM à J5-J7 après l'IDM, au lieu de J2-J4. Le strain longitudinal global garde sa place de critère principal.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "J5-J7 après l'IDM, au lieu de J2-J4"
+            ],
+            "TEMPORAL_RELATION": [
+              "au départ",
+              "J5-J7 après l'IDM"
+            ]
+          }
+        },
+        {
+          "id": "A03-T11",
+          "userText": "Quand on parle de la mesure « tardive », tardive par rapport à quoi exactement : l'injection ou l'infarctus ? Je n'arrive plus à savoir lequel de ces deux délais est visé.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je n'arrive plus à savoir lequel de ces deux délais est visé"
+            ],
+            "UNCERTAINTY": [
+              "tardive par rapport à quoi exactement : l'injection ou l'infarctus ?",
+              "Je n'arrive plus à savoir lequel de ces deux délais est visé"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "l'injection ou l'infarctus"
+            ],
+            "TEMPORAL_RELATION": [
+              "tardive par rapport à quoi exactement : l'injection ou l'infarctus ?"
+            ]
+          }
+        },
+        {
+          "id": "A03-T12",
+          "userText": "Je précise ce que j'avais en tête : tardive veut dire dix minutes après l'injection. Ça concerne cette mesure, pas le jour de l'IRM ; l'examen reste entre J5 et J7 après l'IDM.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas le jour de l'IRM"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "dix minutes après l'injection",
+              "entre J5 et J7 après l'IDM"
+            ]
+          }
+        },
+        {
+          "id": "A03-T13",
+          "userText": "Les deux délais sont maintenant distingués. Quelles propositions scientifiques peut-on examiner à partir de là ? Donne-moi plusieurs possibilités.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "Les deux délais sont maintenant distingués"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T14",
+          "userText": "Je reformule ma demande : présente-moi différentes pistes qui tiennent compte de ces mêmes délais, pour ce projet. J'aimerais voir plusieurs options concrètes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A03-T15",
+          "userText": "On garde le projet dans son état validé. Les pistes qu'on vient de discuter ne sont pas adoptées.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne sont pas adoptées"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "qu'on vient de discuter"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "turns": [
+        {
+          "id": "A04-T01",
+          "userText": "Je voudrais monter une étude de méthode sur des IRM d'adultes après IDM : comparer la segmentation manuelle des lésions microvasculaires à une segmentation semi-automatique. Les deux méthodes portent sur chaque même examen, donc il s'agit bien de données appariées. Les images ont été acquises trois minutes après injection.\nJe propose comme critère principal la différence de volume des lésions segmentées entre les méthodes, exprimée en millilitres.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer la segmentation manuelle des lésions microvasculaires à une segmentation semi-automatique",
+              "la différence de volume des lésions segmentées entre les méthodes"
+            ],
+            "TEMPORAL_RELATION": [
+              "après IDM",
+              "trois minutes après injection"
+            ]
+          }
+        },
+        {
+          "id": "A04-T02",
+          "userText": "Pour la relecture, je propose que les mêmes lecteurs reprennent ces mêmes IRM quatre semaines après leur première lecture.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "quatre semaines après leur première lecture"
+            ]
+          }
+        },
+        {
+          "id": "A04-T03",
+          "userText": "Oui, cette seconde lecture comme présentée me convient, je la confirme.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A04-T04",
+          "userText": "Quelles mesures d'accord pourraient convenir ici ? Propose-moi plusieurs possibilités qui respectent le fait qu'on a les mêmes examens dans les deux méthodes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "pourraient convenir ici"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "les mêmes examens dans les deux méthodes"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A04-T05",
+          "userText": "J'ai besoin de comprendre pourquoi une corrélation et un accord ne répondent pas à la même question. Peux-tu me l'expliquer avant qu'on choisisse une métrique ?",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne répondent pas à la même question"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "une corrélation et un accord ne répondent pas à la même question"
+            ],
+            "TEMPORAL_RELATION": [
+              "avant qu'on choisisse une métrique"
+            ]
+          }
+        },
+        {
+          "id": "A04-T06",
+          "userText": "Autre mesure à ajouter : le temps passé à segmenter chaque examen. Je le mettrais en critère secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A04-T07",
+          "userText": "J'aurais tendance à penser que l'automatisation pourrait donner de meilleurs résultats que le manuel. C'est une intuition, pas quelque chose qu'on a démontré.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas quelque chose qu'on a démontré"
+            ],
+            "UNCERTAINTY": [
+              "J'aurais tendance à penser",
+              "pourrait donner de meilleurs résultats",
+              "C'est une intuition"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "de meilleurs résultats que le manuel"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "A04-T08",
+          "userText": "D'accord pour l'explication. Maintenant propose-moi une autre approche méthodologique, j'ai besoin d'une alternative, pas de la même explication formulée autrement.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas de la même explication formulée autrement"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "une autre approche méthodologique"
+            ],
+            "TEMPORAL_RELATION": [
+              "Maintenant"
+            ]
+          }
+        },
+        {
+          "id": "A04-T09",
+          "userText": "Je soumets une correction du délai de relecture : une semaine au lieu de quatre, avec les mêmes lecteurs et les mêmes images.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "une semaine au lieu de quatre"
+            ],
+            "TEMPORAL_RELATION": [
+              "délai de relecture : une semaine au lieu de quatre"
+            ]
+          }
+        },
+        {
+          "id": "A04-T10",
+          "userText": "Non, je refuse ce raccourcissement. On en reste aux dispositions déjà adoptées.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse ce raccourcissement"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "déjà adoptées"
+            ]
+          }
+        },
+        {
+          "id": "A04-T11",
+          "userText": "Je reviens au principal du début. Je voudrais exprimer les lésions en pourcentage de la masse VG plutôt qu'en mL, puis prendre la différence entre les deux méthodes. On garde ce rôle de critère principal et la comparaison appariée sur les mêmes examens ; seule l'expression de la mesure change.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "en pourcentage de la masse VG plutôt qu'en mL",
+              "la différence entre les deux méthodes",
+              "la comparaison appariée sur les mêmes examens"
+            ],
+            "TEMPORAL_RELATION": [
+              "au principal du début",
+              "puis prendre la différence"
+            ]
+          }
+        },
+        {
+          "id": "A04-T12",
+          "userText": "Juste pour vérifier ma compréhension : pour la relecture, nous sommes donc toujours à quatre semaines ? Rappelle-moi ce qui est retenu, sans modifier quoi que ce soit.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "sans modifier quoi que ce soit"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "pour la relecture, nous sommes donc toujours à quatre semaines"
+            ]
+          }
+        },
+        {
+          "id": "A04-T13",
+          "userText": "Je choisis la deuxième de la première liste de mesures d'accord que tu m'avais donnée, avant l'explication corrélation/accord. Reprends cette proposition précise et vérifie son application avec la mesure maintenant exprimée en pourcentage de masse VG, puis présente-la à nouveau pour revue. Si tu ne peux pas identifier la proposition d'origine, signale-le.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne peux pas identifier la proposition d'origine"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "Si tu ne peux pas identifier la proposition d'origine, signale-le"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "avant l'explication corrélation/accord",
+              "maintenant exprimée en pourcentage de masse VG",
+              "puis présente-la à nouveau pour revue"
+            ]
+          }
+        },
+        {
+          "id": "A04-T14",
+          "userText": "À la relecture, je préfère refuser cette proposition ancienne. La différence entre méthodes rapportée à la masse VG, déjà adoptée, reste telle quelle.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "refuser cette proposition ancienne"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "La différence entre méthodes rapportée à la masse VG"
+            ],
+            "TEMPORAL_RELATION": [
+              "À la relecture",
+              "déjà adoptée"
+            ]
+          }
+        },
+        {
+          "id": "A04-T15",
+          "userText": "Quels points méthodologiques restent à traiter et quelles pistes proposes-tu pour y répondre ? Pour la métrique d'accord, le choix reste ouvert.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "Pour la métrique d'accord, le choix reste ouvert"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "turns": [
+        {
+          "id": "B01-T01",
+          "userText": "Je prépare un essai chez des adultes ayant un diabète de type 2. L'objectif serait de comparer l'effet d'un suivi infirmier coordonné à celui du suivi habituel sur le contrôle glycémique. Essai randomisé, ouvert, avec le suivi infirmier dans le bras intervention et le suivi habituel en comparaison.\nLe principal serait le changement d'HbA1c entre l'inclusion et 24 semaines ; la visite d'évaluation principale se ferait à 24 semaines.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer l'effet d'un suivi infirmier coordonné à celui du suivi habituel",
+              "le suivi infirmier dans le bras intervention et le suivi habituel en comparaison"
+            ],
+            "TEMPORAL_RELATION": [
+              "entre l'inclusion et 24 semaines",
+              "la visite d'évaluation principale se ferait à 24 semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T02",
+          "userText": "Côté sécurité, je propose d'ajouter les hypoglycémies sévères comme critère secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T03",
+          "userText": "Oui, je confirme l'ajout que tu viens de présenter pour les hypoglycémies sévères.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T04",
+          "userText": "Avec cette base, propose-moi plusieurs pistes scientifiques pertinentes pour la suite du travail.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T05",
+          "userText": "Ce sera multicentrique. Nous envisageons quatre centres, mais ce chiffre n'est pas confirmé : le nombre final reste à déterminer.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ce chiffre n'est pas confirmé"
+            ],
+            "UNCERTAINTY": [
+              "Nous envisageons quatre centres",
+              "le nombre final reste à déterminer"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T06",
+          "userText": "Parlons de la précision qu'on peut espérer obtenir. Nous n'avons ni effectif fixé ni calcul de puissance à ce stade, donc je voudrais discuter des éléments nécessaires sans inventer de chiffre.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Nous n'avons ni effectif fixé ni calcul de puissance à ce stade",
+              "sans inventer de chiffre"
+            ],
+            "UNCERTAINTY": [
+              "Nous n'avons ni effectif fixé ni calcul de puissance à ce stade"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T07",
+          "userText": "Je propose un suivi plus long : déplacer la visite principale à 36 semaines et mesurer la variation d'HbA1c de l'inclusion à 36 semaines pour le principal. Les deux iraient ensemble.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "un suivi plus long"
+            ],
+            "TEMPORAL_RELATION": [
+              "la visite principale à 36 semaines",
+              "de l'inclusion à 36 semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T08",
+          "userText": "Non, je refuse ce passage à trente-six semaines. Nous restons à vingt-quatre pour la visite et le principal.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse ce passage à trente-six semaines"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "ce passage à trente-six semaines",
+              "à vingt-quatre pour la visite et le principal"
+            ]
+          }
+        },
+        {
+          "id": "B01-T09",
+          "userText": "Sur le fond, pourquoi pourrait-on préférer un suivi plus long ? Je veux comprendre les arguments, ça ne signifie pas que j'en décide maintenant.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ça ne signifie pas que j'en décide maintenant"
+            ],
+            "UNCERTAINTY": [
+              "pourrait-on préférer un suivi plus long"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "un suivi plus long"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "B01-T10",
+          "userText": "Après réflexion, ma préférence a changé. Je vous soumets maintenant une visite principale à 36 semaines, avec l'évolution de l'HbA1c entre inclusion et 36 semaines comme critère principal. C'est bien l'ensemble de cette modification que je souhaite examiner.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Après réflexion",
+              "une visite principale à 36 semaines",
+              "entre inclusion et 36 semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T11",
+          "userText": "Cette fois oui : je valide cette modification, visite et critère principal à trente-six semaines.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "à trente-six semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T12",
+          "userText": "J'ai la précision pour les centres : il y en a finalement trois de confirmés. Je propose de remplacer les quatre centres envisagés par ces trois centres, l'étude restant multicentrique.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "les quatre centres envisagés"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "remplacer les quatre centres envisagés par ces trois centres"
+            ],
+            "TEMPORAL_RELATION": [
+              "finalement trois de confirmés"
+            ]
+          }
+        },
+        {
+          "id": "B01-T13",
+          "userText": "Relisons l'état retenu, puis rouvrons la même session. Je veux y retrouver les trois centres, l'évaluation à trente-six semaines et les hypoglycémies sévères en secondaire de sécurité.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Relisons l'état retenu, puis rouvrons la même session",
+              "l'évaluation à trente-six semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T14",
+          "userText": "Préparez la version documentaire disponible à partir du projet actuel, avec les trois centres et les trente-six semaines. Laissez ce qui manque dans les éléments administratifs en l'état, sans inventer pour donner l'impression que tout est complet.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "sans inventer pour donner l'impression que tout est complet"
+            ],
+            "UNCERTAINTY": [
+              "ce qui manque dans les éléments administratifs"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "les trente-six semaines"
+            ]
+          }
+        },
+        {
+          "id": "B01-T15",
+          "userText": "Proposez-moi une alternative pour l'analyse, en repartant de ce qui est retenu maintenant. Le nombre de centres et la durée figurent déjà dans le projet, inutile de me les redemander.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "inutile de me les redemander"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "une alternative pour l'analyse"
+            ],
+            "TEMPORAL_RELATION": [
+              "ce qui est retenu maintenant",
+              "figurent déjà dans le projet"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

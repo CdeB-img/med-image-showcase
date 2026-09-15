@@ -1,0 +1,1184 @@
+{
+  "semanticSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+  "scenarios": [
+    {
+      "id": "C03",
+      "turns": [
+        {
+          "id": "C03-T01",
+          "userText": "Je voudrais étudier comment la biodiversité aquatique évolue après la restauration d'un cours d'eau. Nous observerions des tronçons restaurés et des tronçons témoins non restaurés, avant et après les travaux. La restauration est observée, elle n'est pas attribuée aléatoirement par l'étude.\nLe principal serait la variation de la richesse spécifique entre avant la restauration et deux ans après ; le suivi principal serait donc à deux ans après restauration.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "témoins non restaurés",
+              "elle n'est pas attribuée aléatoirement par l'étude"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "des tronçons restaurés et des tronçons témoins non restaurés",
+              "la variation de la richesse spécifique entre avant la restauration et deux ans après"
+            ],
+            "TEMPORAL_RELATION": [
+              "après la restauration d'un cours d'eau",
+              "avant et après les travaux",
+              "entre avant la restauration et deux ans après",
+              "à deux ans après restauration"
+            ]
+          }
+        },
+        {
+          "id": "C03-T02",
+          "userText": "La randomisation des sites serait impossible dans notre situation. Je le précise pour la discussion : on reste bien dans l'observation, cela ne transforme pas le projet en essai.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "La randomisation des sites serait impossible",
+              "cela ne transforme pas le projet en essai"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "C03-T03",
+          "userText": "Pour le prélèvement, je propose quatre campagnes saisonnières chaque année du suivi.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "quatre campagnes saisonnières chaque année du suivi"
+            ]
+          }
+        },
+        {
+          "id": "C03-T04",
+          "userText": "Sur cette base, proposez-moi plusieurs pistes scientifiques pour construire la suite.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "C03-T05",
+          "userText": "Je voudrais remplacer la richesse spécifique par un indice de diversité comme principal. On comparerait toujours l'avant-restauration à deux ans après. En revanche, je n'ai pas choisi quel indice de diversité utiliser.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je n'ai pas choisi quel indice de diversité utiliser"
+            ],
+            "UNCERTAINTY": [
+              "je n'ai pas choisi quel indice de diversité utiliser"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "remplacer la richesse spécifique par un indice de diversité",
+              "On comparerait toujours l'avant-restauration à deux ans après"
+            ],
+            "TEMPORAL_RELATION": [
+              "l'avant-restauration à deux ans après"
+            ]
+          }
+        },
+        {
+          "id": "C03-T06",
+          "userText": "Pouvez-vous m'expliquer pourquoi richesse spécifique et diversité ne sont pas interchangeables ? Je veux comprendre la distinction, pas sélectionner maintenant une formule d'indice.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne sont pas interchangeables",
+              "pas sélectionner maintenant une formule d'indice"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "richesse spécifique et diversité ne sont pas interchangeables"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "C03-T07",
+          "userText": "Je propose aussi de mesurer la turbidité de l'eau, comme mesure secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "C03-T08",
+          "userText": "Non, je refuse cet ajout sur la turbidité. Les décisions déjà validées restent conservées.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cet ajout sur la turbidité"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "déjà validées"
+            ]
+          }
+        },
+        {
+          "id": "C03-T09",
+          "userText": "À ce stade j'envisage douze tronçons. C'est à consigner comme une possibilité : leur disponibilité définitive n'est pas connue.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "leur disponibilité définitive n'est pas connue"
+            ],
+            "UNCERTAINTY": [
+              "j'envisage douze tronçons",
+              "une possibilité",
+              "leur disponibilité définitive n'est pas connue"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "C03-T10",
+          "userText": "Mon hypothèse est que, si une amélioration apparaît ensuite, elle pourrait s'expliquer par la restauration. Mais nous n'avons pas établi de lien causal ; je ne présente pas cette explication comme un résultat.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "nous n'avons pas établi de lien causal",
+              "je ne présente pas cette explication comme un résultat"
+            ],
+            "UNCERTAINTY": [
+              "Mon hypothèse",
+              "elle pourrait s'expliquer par la restauration"
+            ],
+            "CONDITIONALITY": [
+              "si une amélioration apparaît ensuite"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "une amélioration apparaît ensuite"
+            ]
+          }
+        },
+        {
+          "id": "C03-T11",
+          "userText": "Je reviens à la durée indiquée tout au début : je propose trois ans après restauration pour le suivi principal, et pour la variation de l'indice entre avant restauration et ce suivi. On conserve les quatre campagnes par an. L'indice précis reste à choisir.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "L'indice précis reste à choisir"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "la variation de l'indice entre avant restauration et ce suivi"
+            ],
+            "TEMPORAL_RELATION": [
+              "indiquée tout au début",
+              "trois ans après restauration",
+              "entre avant restauration et ce suivi",
+              "quatre campagnes par an"
+            ]
+          }
+        },
+        {
+          "id": "C03-T12",
+          "userText": "Reprenons la première proposition de votre première liste, celle d'avant mon changement de la richesse spécifique vers un indice. Je la sélectionne pour examen : retrouvez la référence exacte et vérifiez qu'elle convient encore avec trois ans de suivi, puis présentez-la pour revue. Si la référence manque, signalez-le.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "Si la référence manque, signalez-le"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "celle d'avant mon changement de la richesse spécifique vers un indice",
+              "avec trois ans de suivi",
+              "puis présentez-la pour revue"
+            ]
+          }
+        },
+        {
+          "id": "C03-T13",
+          "userText": "Après examen, je refuse cette proposition. Gardons tout ce qui était adopté auparavant.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cette proposition"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Après examen",
+              "ce qui était adopté auparavant"
+            ]
+          }
+        },
+        {
+          "id": "C03-T14",
+          "userText": "Préparez le document disponible pour le projet actuel : restauration observée avec témoins non restaurés, suivi principal à trois ans, et indice de diversité toujours non choisi. Ces limites doivent rester explicites dans le document.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "témoins non restaurés",
+              "toujours non choisi"
+            ],
+            "UNCERTAINTY": [
+              "indice de diversité toujours non choisi"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "restauration observée avec témoins non restaurés"
+            ],
+            "TEMPORAL_RELATION": [
+              "suivi principal à trois ans"
+            ]
+          }
+        },
+        {
+          "id": "C03-T15",
+          "userText": "Je conserve l'état adopté du projet. Les autres pistes discutées ne sont pas retenues.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Les autres pistes discutées ne sont pas retenues"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "turns": [
+        {
+          "id": "D01-T01",
+          "userText": "Nous voulons comparer les moteurs de recherche A et B sur la vitesse et la qualité des réponses. Je propose un benchmark apparié : exactement le même corpus de requêtes est envoyé aux deux moteurs, avec A comme système testé et B comme comparateur. Pour le critère principal, je pars sur le 95e percentile de la latence, en millisecondes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer les moteurs de recherche A et B",
+              "exactement le même corpus de requêtes est envoyé aux deux moteurs",
+              "A comme système testé et B comme comparateur"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T02",
+          "userText": "Oui, je confirme ce benchmark tel que vous venez de le présenter.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T03",
+          "userText": "Quelles options méthodologiques me proposez-vous pour ce benchmark ? Donnez-en plusieurs.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T04",
+          "userText": "La première de ces propositions, pouvez-vous expliquer ce qu'elle apporte ? Je ne prends pas de décision dessus pour le moment.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je ne prends pas de décision dessus pour le moment"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T05",
+          "userText": "À présent, quelles alternatives à cette première piste voyez-vous ? J'aimerais d'autres choix possibles.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "d'autres choix possibles"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "quelles alternatives à cette première piste"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T06",
+          "userText": "Je voudrais ajouter le rappel documentaire comme mesure secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T07",
+          "userText": "Non, je refuse uniquement cet ajout du rappel documentaire. Le benchmark reste tel qu'il a été validé.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse uniquement cet ajout du rappel documentaire"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "tel qu'il a été validé"
+            ]
+          }
+        },
+        {
+          "id": "D01-T08",
+          "userText": "Je propose plutôt une autre mesure secondaire : le taux de réponses correctes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "plutôt une autre mesure secondaire"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T09",
+          "userText": "Oui, je confirme cet ajout du taux de réponses correctes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T10",
+          "userText": "La façon dont vous l'avez écrit est maladroite, la phrase sonne bizarrement en français. Mon commentaire porte sur la formulation, pas sur le principal ou les mesures retenues.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas sur le principal ou les mesures retenues"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T11",
+          "userText": "Je reviens au percentile : je propose le 99e à la place du 95e. Le principal reste une latence en millisecondes et le benchmark reste apparié sur les mêmes requêtes.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "le 99e à la place du 95e",
+              "apparié sur les mêmes requêtes"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "D01-T12",
+          "userText": "Je sélectionne la deuxième proposition de la toute première liste, celle qui précédait ma demande d'explication de la première. Retrouvez bien cette proposition précise dans ce qui a été affiché et vérifiez-la avec le principal au 99e percentile avant de me la soumettre pour revue. Si vous ne pouvez pas retrouver la référence, dites-le.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne pouvez pas retrouver la référence"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "Si vous ne pouvez pas retrouver la référence, dites-le"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "celle qui précédait ma demande d'explication de la première",
+              "avant de me la soumettre pour revue"
+            ]
+          }
+        },
+        {
+          "id": "D01-T13",
+          "userText": "Pouvez-vous m'expliquer la proposition que vous venez de présenter à partir de cette ancienne piste ? Je veux comprendre ce qu'elle implique, cela ne vaut pas validation.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "cela ne vaut pas validation"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "que vous venez de présenter à partir de cette ancienne piste"
+            ]
+          }
+        },
+        {
+          "id": "D01-T14",
+          "userText": "Je refuse cette proposition après votre explication. Le taux de réponses correctes, lui, reste bien la mesure secondaire déjà adoptée.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je refuse cette proposition"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "après votre explication",
+              "déjà adoptée"
+            ]
+          }
+        },
+        {
+          "id": "D01-T15",
+          "userText": "Quelles nouvelles propositions pouvez-vous faire à partir de notre principal au 99e percentile ? Je veux repartir du projet actuel.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "turns": [
+        {
+          "id": "E01-T01",
+          "userText": "Je souhaite comparer deux traitements de semences, A et B, sur la croissance initiale des plants, dans une expérience contrôlée en serre. A serait le traitement testé et B le comparateur. Les semences concernent une même espèce, mais l'origine des lots n'est pas encore confirmée.\nJe prévois une culture à 22 °C, avec 16 heures de lumière et 8 heures d'obscurité chaque jour. Le principal serait la biomasse sèche par plant, à mesurer trente jours après semis.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "l'origine des lots n'est pas encore confirmée"
+            ],
+            "UNCERTAINTY": [
+              "l'origine des lots n'est pas encore confirmée"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer deux traitements de semences, A et B",
+              "A serait le traitement testé et B le comparateur"
+            ],
+            "TEMPORAL_RELATION": [
+              "16 heures de lumière et 8 heures d'obscurité chaque jour",
+              "trente jours après semis"
+            ]
+          }
+        },
+        {
+          "id": "E01-T02",
+          "userText": "Quelles pistes scientifiques pourrait-on explorer à partir de cette expérience ? Présentez plusieurs possibilités.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "pourrait-on explorer",
+              "plusieurs possibilités"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T03",
+          "userText": "Je propose de compter les plants levés sept jours après semis. Ce comptage serait un critère secondaire.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "sept jours après semis"
+            ]
+          }
+        },
+        {
+          "id": "E01-T04",
+          "userText": "Pourquoi considérez-vous la levée et la biomasse comme deux objets distincts ? J'aimerais comprendre ce qu'on mesure dans chacun des deux cas.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "la levée et la biomasse comme deux objets distincts"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T05",
+          "userText": "Pour la provenance, un lot venant d'un fournisseur local, par exemple... Je donne juste une illustration, pas l'origine réelle de nos semences.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas l'origine réelle de nos semences"
+            ],
+            "UNCERTAINTY": [
+              "un lot venant d'un fournisseur local, par exemple",
+              "Je donne juste une illustration"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T06",
+          "userText": "Je soumets l'ajout d'une mesure intermédiaire quinze jours après semis, en plus du calendrier prévu.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "quinze jours après semis"
+            ]
+          }
+        },
+        {
+          "id": "E01-T07",
+          "userText": "Non, je refuse cette mesure intermédiaire. Conservons les éléments qui étaient déjà retenus.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cette mesure intermédiaire"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "déjà retenus"
+            ]
+          }
+        },
+        {
+          "id": "E01-T08",
+          "userText": "Proposez-moi des alternatives pour limiter les effets de position dans la serre.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "des alternatives"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T09",
+          "userText": "La deuxième de ces alternatives, pouvez-vous expliquer son fonctionnement ? Je ne choisis pas de répartition à ce stade.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je ne choisis pas de répartition à ce stade"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T10",
+          "userText": "Nous conservons l'état déjà adopté. La mesure intermédiaire que j'ai refusée reste écartée.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "reste écartée"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "déjà adopté",
+              "que j'ai refusée"
+            ]
+          }
+        },
+        {
+          "id": "E01-T11",
+          "userText": "Une correction des conditions données au premier message : ce serait 24 °C au lieu de 22. Les 16 heures de lumière et 8 heures d'obscurité ne changent pas, ni le principal de biomasse sèche à trente jours après semis.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne changent pas, ni le principal de biomasse sèche à trente jours après semis"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "24 °C au lieu de 22"
+            ],
+            "TEMPORAL_RELATION": [
+              "données au premier message",
+              "16 heures de lumière et 8 heures d'obscurité",
+              "à trente jours après semis"
+            ]
+          }
+        },
+        {
+          "id": "E01-T12",
+          "userText": "Oui, je confirme la correction de température qui vient d'être présentée.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "E01-T13",
+          "userText": "Relisons puis rouvrons cette même session. Je veux retrouver 24 °C, la photopériode initiale, la biomasse à J30 et l'origine des semences toujours inconnue.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "l'origine des semences toujours inconnue"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Relisons puis rouvrons cette même session",
+              "la photopériode initiale",
+              "la biomasse à J30"
+            ]
+          }
+        },
+        {
+          "id": "E01-T14",
+          "userText": "Maintenant que nous avons repris, je propose de déplacer seulement la mesure de biomasse sèche de J30 à J35 après semis. La biomasse par plant reste le principal à cette nouvelle date ; le comptage de levée à J7 reste en place.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "de J30 à J35 après semis"
+            ],
+            "TEMPORAL_RELATION": [
+              "Maintenant que nous avons repris",
+              "de J30 à J35 après semis",
+              "à cette nouvelle date",
+              "le comptage de levée à J7"
+            ]
+          }
+        },
+        {
+          "id": "E01-T15",
+          "userText": "Pouvez-vous régénérer le document à partir de la version courante ? Il doit refléter les 24 °C, la biomasse en principal à J35 après semis et la levée en secondaire à J7.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "à J35 après semis",
+              "à J7"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "F01",
+      "turns": [
+        {
+          "id": "F01-T01",
+          "userText": "Je voudrais décrire l'évolution de la fatigue chez des adultes vivant avec une maladie chronique stable. Ce serait une cohorte prospective observationnelle, avec un premier suivi prévu sur douze semaines. Pour le moment le critère principal et le nombre de participants restent à préciser.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "le critère principal et le nombre de participants restent à préciser"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "un premier suivi prévu sur douze semaines"
+            ]
+          }
+        },
+        {
+          "id": "F01-T02",
+          "userText": "On pourrait regarder la fatigue, ou le manque d'énergie, les douleurs peut-être... enfin, par exemple. Je pensais à quelque chose qui... je ne sais pas encore.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne sais pas encore"
+            ],
+            "UNCERTAINTY": [
+              "On pourrait regarder",
+              "les douleurs peut-être",
+              "par exemple",
+              "je ne sais pas encore"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T03",
+          "userText": "Pour le principal, je propose de retenir l'évolution de la fatigue à douze semaines. L'instrument précis, je ne l'ai pas choisi.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne l'ai pas choisi"
+            ],
+            "UNCERTAINTY": [
+              "L'instrument précis, je ne l'ai pas choisi"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "à douze semaines"
+            ]
+          }
+        },
+        {
+          "id": "F01-T04",
+          "userText": "Non, pas ça.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Non",
+              "pas ça"
+            ],
+            "UNCERTAINTY": [
+              "ça"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T05",
+          "userText": "Il faut préciser qu'on n'inclut pas les mineurs. La population reste adulte ; c'est une exclusion à ajouter, je ne rejette pas l'étude.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "on n'inclut pas les mineurs",
+              "je ne rejette pas l'étude"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T06",
+          "userText": "Donnez-moi plusieurs propositions distinctes pour l'instrument ou les critères. Je voudrais voir différentes options.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T07",
+          "userText": "Entre les deux premières, c'est celle-là que j'avais en tête. On parle bien de la même ?",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [
+              "celle-là",
+              "On parle bien de la même ?"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T08",
+          "userText": "Je précise : je sélectionne seulement la deuxième proposition de la liste donnée quand j'ai demandé des options d'instrument ou de critères. Retrouvez cette référence exacte et présentez-la pour revue sur le projet actuel. Si elle n'est pas identifiable, dites-le ; je ne vous demande pas de deviner.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "elle n'est pas identifiable",
+              "je ne vous demande pas de deviner"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "Si elle n'est pas identifiable, dites-le"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T09",
+          "userText": "Non finalement, je refuse cette proposition. Nous n'avons toujours pas choisi l'instrument pour la fatigue.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cette proposition",
+              "Nous n'avons toujours pas choisi l'instrument pour la fatigue"
+            ],
+            "UNCERTAINTY": [
+              "Nous n'avons toujours pas choisi l'instrument pour la fatigue"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T10",
+          "userText": "Pour l'effectif, 150 adultes serait une possibilité. Je propose de noter ce chiffre comme envisagé : je ne sais pas encore si le recrutement est faisable, et le dimensionnement n'est pas confirmé.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne sais pas encore si le recrutement est faisable",
+              "le dimensionnement n'est pas confirmé"
+            ],
+            "UNCERTAINTY": [
+              "150 adultes serait une possibilité",
+              "ce chiffre comme envisagé",
+              "je ne sais pas encore si le recrutement est faisable",
+              "le dimensionnement n'est pas confirmé"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T11",
+          "userText": "Je voudrais passer le suivi principal de douze à seize semaines. On mesurerait donc l'évolution de la fatigue en principal à seize semaines, avec toujours l'instrument à décider. Les 150 participants restent une hypothèse non confirmée.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "une hypothèse non confirmée"
+            ],
+            "UNCERTAINTY": [
+              "l'instrument à décider",
+              "Les 150 participants restent une hypothèse non confirmée"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "de douze à seize semaines"
+            ],
+            "TEMPORAL_RELATION": [
+              "le suivi principal de douze à seize semaines",
+              "en principal à seize semaines"
+            ]
+          }
+        },
+        {
+          "id": "F01-T12",
+          "userText": "Cette phrase est mal écrite en français, elle est lourde et on ne comprend pas bien la tournure. Je critique seulement la rédaction, je ne demande pas une correction scientifique.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "on ne comprend pas bien la tournure",
+              "je ne demande pas une correction scientifique"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T13",
+          "userText": "Expliquez-moi la différence entre une hypothèse causale et un résultat observationnel dans ce contexte. Il ne s'agit pas d'affirmer une efficacité.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Il ne s'agit pas d'affirmer une efficacité"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "la différence entre une hypothèse causale et un résultat observationnel"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F01-T14",
+          "userText": "Je conserve le projet tel qu'il a été adopté. Je n'ajoute pas les pistes dont nous venons de discuter.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je n'ajoute pas les pistes dont nous venons de discuter"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "tel qu'il a été adopté",
+              "dont nous venons de discuter"
+            ]
+          }
+        },
+        {
+          "id": "F01-T15",
+          "userText": "Quelles autres propositions pouvez-vous faire maintenant ? Gardez bien en tête que l'effectif n'est pas confirmé et que l'instrument reste à choisir.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "l'effectif n'est pas confirmé"
+            ],
+            "UNCERTAINTY": [
+              "l'effectif n'est pas confirmé",
+              "l'instrument reste à choisir"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "turns": [
+        {
+          "id": "F02-T01",
+          "userText": "Je veux comparer deux formations pour les enseignants du primaire, une interactive et une documentaire, sur leur score de performance pédagogique. La formation interactive serait l'intervention, la documentaire le comparateur. Nous inclurions les débutants et les enseignants expérimentés, regroupés dans leurs écoles.\nLa randomisation se fait par école, mais la mesure est individuelle chez l'enseignant. Le principal serait la variation du score à huit semaines, avec une évaluation huit semaines après la formation ; l'instrument pour établir ce score n'est pas encore choisi.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "l'instrument pour établir ce score n'est pas encore choisi"
+            ],
+            "UNCERTAINTY": [
+              "l'instrument pour établir ce score n'est pas encore choisi"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "comparer deux formations pour les enseignants du primaire, une interactive et une documentaire",
+              "La formation interactive serait l'intervention, la documentaire le comparateur",
+              "La randomisation se fait par école, mais la mesure est individuelle chez l'enseignant"
+            ],
+            "TEMPORAL_RELATION": [
+              "à huit semaines",
+              "huit semaines après la formation"
+            ]
+          }
+        },
+        {
+          "id": "F02-T02",
+          "userText": "Quelles pistes me proposes-tu ? J'en voudrais plusieurs, en respectant bien l'école pour la randomisation et l'enseignant pour la mesure individuelle.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "l'école pour la randomisation et l'enseignant pour la mesure individuelle"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T03",
+          "userText": "La première de tes propositions, pourquoi serait-elle intéressante ici ? Explique-moi son intérêt sans changer la randomisation.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "sans changer la randomisation"
+            ],
+            "UNCERTAINTY": [
+              "pourquoi serait-elle intéressante ici"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T04",
+          "userText": "Maintenant donne-moi plusieurs alternatives. Je voudrais d'autres choix à examiner, pas seulement la même explication reprise autrement.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "pas seulement la même explication reprise autrement"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "plusieurs alternatives",
+              "d'autres choix à examiner"
+            ],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T05",
+          "userText": "Je propose une restriction de population : ne garder que les enseignants débutants du primaire, toujours regroupés dans leurs écoles.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne garder que les enseignants débutants du primaire"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T06",
+          "userText": "Non, je refuse cette restriction. Les débutants et les expérimentés restent tous inclus.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je refuse cette restriction"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T07",
+          "userText": "Deux ajouts : la satisfaction des enseignants envers la formation comme secondaire, et des correcteurs du score pédagogique qui ne connaissent pas le groupe de formation.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne connaissent pas le groupe de formation"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T08",
+          "userText": "Une école d'une centaine d'élèves, par exemple, ça donne une idée du contexte. C'est juste un exemple de taille d'école ; je ne fixe ni limite d'inclusion ni nombre d'enseignants avec ce chiffre.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "je ne fixe ni limite d'inclusion ni nombre d'enseignants avec ce chiffre"
+            ],
+            "UNCERTAINTY": [
+              "par exemple",
+              "juste un exemple de taille d'école"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": []
+          }
+        },
+        {
+          "id": "F02-T09",
+          "userText": "Je reviens à l'unité de randomisation : c'est toujours l'école, comme indiqué au début ? Explique-moi ce qui est retenu ; ce point a déjà été donné, inutile de me le redemander.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "inutile de me le redemander"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "comme indiqué au début",
+              "ce point a déjà été donné"
+            ]
+          }
+        },
+        {
+          "id": "F02-T10",
+          "userText": "Je voudrais reprendre le délai initial : douze semaines après la formation, au lieu de huit, pour l'évaluation principale et la variation du score. La randomisation reste par école et l'instrument du score est toujours non choisi.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "l'instrument du score est toujours non choisi"
+            ],
+            "UNCERTAINTY": [
+              "l'instrument du score est toujours non choisi"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [
+              "douze semaines après la formation, au lieu de huit"
+            ],
+            "TEMPORAL_RELATION": [
+              "le délai initial",
+              "douze semaines après la formation, au lieu de huit"
+            ]
+          }
+        },
+        {
+          "id": "F02-T11",
+          "userText": "Oui, je confirme ce passage à douze semaines tel que tu viens de le présenter.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "ce passage à douze semaines"
+            ]
+          }
+        },
+        {
+          "id": "F02-T12",
+          "userText": "Relisons puis rouvrons la session actuelle. Je veux retrouver les douze semaines, la randomisation des écoles, et les deux catégories d'enseignants, débutants comme expérimentés.",
+          "languageInvariantEvidence": {
+            "NEGATION": [],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Relisons puis rouvrons la session actuelle",
+              "les douze semaines"
+            ]
+          }
+        },
+        {
+          "id": "F02-T13",
+          "userText": "Après cette reprise, je sélectionne la première proposition de ta toute première liste, celle que tu avais donnée juste après la présentation de l'essai. Retrouve sa référence dans l'historique puis vérifie sa pertinence sur la version actuelle avant de la présenter pour revue. Si tu ne l'identifies pas, signale-le.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "ne l'identifies pas"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [
+              "Si tu ne l'identifies pas, signale-le"
+            ],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Après cette reprise",
+              "juste après la présentation de l'essai",
+              "puis vérifie sa pertinence sur la version actuelle",
+              "avant de la présenter pour revue"
+            ]
+          }
+        },
+        {
+          "id": "F02-T14",
+          "userText": "Je refuse cette proposition ancienne. En revanche les douze semaines et les correcteurs masqués au groupe de formation restent tels qu'adoptés.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Je refuse cette proposition ancienne",
+              "correcteurs masqués au groupe de formation"
+            ],
+            "UNCERTAINTY": [],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "les douze semaines",
+              "tels qu'adoptés"
+            ]
+          }
+        },
+        {
+          "id": "F02-T15",
+          "userText": "Après ce refus, quelles nouvelles pistes peut-on envisager ? Repars du projet actuel : la randomisation par école est déjà renseignée et le suivi est à douze semaines. Ne me redemande pas l'unité, et ne repars pas sur huit semaines.",
+          "languageInvariantEvidence": {
+            "NEGATION": [
+              "Ne me redemande pas l'unité",
+              "ne repars pas sur huit semaines"
+            ],
+            "UNCERTAINTY": [
+              "quelles nouvelles pistes peut-on envisager"
+            ],
+            "CONDITIONALITY": [],
+            "COMPARISON": [],
+            "TEMPORAL_RELATION": [
+              "Après ce refus",
+              "déjà renseignée",
+              "le suivi est à douze semaines",
+              "huit semaines"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

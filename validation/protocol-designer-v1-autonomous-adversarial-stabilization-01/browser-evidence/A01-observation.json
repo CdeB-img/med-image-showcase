@@ -1,0 +1,352 @@
+{
+  "scenario": "A01",
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ]
+  ],
+  "humanReviewClicks": [
+    "A01-T01",
+    "A01-T04",
+    "A01-T09"
+  ],
+  "materialFindings": [
+    {
+      "turn": "A01-T05",
+      "finding": "Demande de pistes sur critères et limites du recrutement répondue par hypothèses génériques de différence entre bras."
+    },
+    {
+      "turn": "A01-T06",
+      "finding": "AUCUNE CORRESPONDANCE EXPLOITABLE; absence d'explication de la difficulté du double aveugle."
+    },
+    {
+      "turn": "A01-T08",
+      "finding": "Refus répond par Vous avez indiqué les éléments suivants.; aucun rejet visible."
+    },
+    {
+      "turn": "A01-T10",
+      "finding": "Explication d'ancienne proposition sans contenu explicatif."
+    },
+    {
+      "turn": "A01-T12",
+      "finding": "Confirmation du déplacement IRM non appliquée: Version4 reste4, calendrier final encoreJ3-J6."
+    },
+    {
+      "turn": "A01-T14",
+      "finding": "Ancienne proposition non sélectionnée; réponse générique sans clarification du référent."
+    },
+    {
+      "turn": "A01-T15",
+      "finding": "Refus ancien sans rejet démontré."
+    }
+  ],
+  "finalVisibleScientificFacts": [
+    "Version4",
+    "Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à3minutes après injection",
+    "IRM cardiaque entreJ3 etJ6 aprèsIDM",
+    "Suivi clinique à12mois aprèsIDM",
+    "Événements cardiovasculaires au suivi clinique de12mois; critère secondaire",
+    "Primo-IDM reconnu35à85ans; antécédent silencieux demeure possible",
+    "Double aveugle souhaité, faisabilité non établie"
+  ],
+  "oldSelectionUi": "No applicable selection performed; reference clarification not demonstrated",
+  "at": "2026-09-15T00:31:06.672918+00:00",
+  "turns": [
+    {
+      "turn": "A01-T01",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        0,
+        0,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T02",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T03",
+      "outcome": "CONFIRM",
+      "observedVisibleVersions": [
+        1,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T04",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T05",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T06",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T07",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T08",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T09",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T10",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T11",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T12",
+      "outcome": "CONFIRM",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": false,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T13",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T14",
+      "outcome": "SELECT_OLD_PROPOSAL",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "A01-T15",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        4,
+        4,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    }
+  ],
+  "conversationCompleted": true,
+  "meaningfulTurns": 15,
+  "qualificationVerdict": "FAIL",
+  "source": "CUA_REAL_BROWSER_STANDARD_UI_WITH_SYNTHETIC_EXTERNAL_PROVIDER_TRANSPORT",
+  "newProviderCalls": 0,
+  "httpEvidence": {
+    "path": "browser-http-exchanges.jsonl",
+    "lineNumbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "lineSha256": {
+      "1": "b878478b761eb492af06351a419541b18f64c293a0b6e5f164b7ce8939b7caee",
+      "2": "d3a7849f0a9f29af3dd9c8cffe83110b363ff6d13cb96cc7ed0481033c810089",
+      "3": "597eadcdeaeca4558c833a16c8f6acdfb6b1c4016e5fb1ccc63de81575b86f4b",
+      "4": "fe1b98f375ea3ff3eb69def6d1f2d7df9288687f276338e9aa73d8b84f3a2cac",
+      "5": "8d7727c4fa26660eae44522e1e5a2a6aabe5f4c3c7f0e330ac98bc14dad986a5",
+      "6": "0a87f9a1fc61315cc3041945be0d25d9afd7ef8bc5f1e8429404dd98822c2596",
+      "7": "9f5821bab771b3cfd6bb415043d8543a6e54b51a1c84ea3c415ce382323082f7",
+      "8": "23376fda6c60b17695902b93c5e66e60297bf060012d8098904c77045099a35f",
+      "9": "aaaa7259c988dc524d83d8b8dae2cdbe51cbe010b077d47b402aa96ccfe6da96",
+      "10": "7b929d7e2506e9f3ba2343cb7e656da6e31c9673b8f5b798a2677844b74d8718",
+      "11": "80132fbd65385f0f0ef9facd2feb157105e42db6842b79d85bc75296a6a12a9d",
+      "12": "52483224513d71cc7e53284c0f052343442c63e5636f8f4092184353cf81f3eb",
+      "13": "2e323ef2213adf4c42f8bf7135faf8e405b6f6af768350323cc7a18ce98fe134"
+    },
+    "requests": 13
+  },
+  "limitations": [
+    "Synthetic provider responses do not qualify live language fidelity.",
+    "CUA content export is unsupported by the in-app browser; this receipt preserves observed versions/actions/findings, while complete HTTP exchanges are stored separately.",
+    "Scientific response scope is independently reviewed in semantic-review-final.json; version preservation alone is not scientific PASS."
+  ]
+}

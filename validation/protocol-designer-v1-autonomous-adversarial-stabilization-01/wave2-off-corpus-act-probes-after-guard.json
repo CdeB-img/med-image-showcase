@@ -1,0 +1,191 @@
+{
+  "mode": "PURE_GRAMMAR_AND_ROUTING_NOT_ADOPTION_TEST",
+  "results": [
+    {
+      "raw": "Je confirme cette proposition.",
+      "expected": "USER_CONFIRMS_CURRENT_CANDIDATE",
+      "actual": "USER_CONFIRMS_CURRENT_CANDIDATE",
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme cette proposition. La période sera de huit jours.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme seulement cette mesure.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme cette proposition si les données sont disponibles.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme que les données sont disponibles.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "« Je confirme cette proposition. » est un exemple.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je ne confirme pas cette proposition.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme cette proposition et je refuse cette proposition.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je confirme cette proposition.",
+      "context": "NONE",
+      "expected": "CLARIFY_CANDIDATE_REFERENCE",
+      "actual": "CLARIFY_CANDIDATE_REFERENCE",
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Je refuse cette proposition.",
+      "context": "AMBIGUOUS",
+      "expected": "CLARIFY_CANDIDATE_REFERENCE",
+      "actual": "CLARIFY_CANDIDATE_REFERENCE",
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "J’accepte cette proposition.",
+      "expected": "USER_CONFIRMS_CURRENT_CANDIDATE",
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": false,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Donnez-moi quelques possibilités, sans en retenir une.",
+      "expected": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "actual": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Ne proposez aucune alternative.",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Quelles possibilités ne peux-tu pas proposer ?",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Il a écrit « proposez plusieurs options ».",
+      "expected": null,
+      "actual": null,
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Suggérez une approche à examiner.",
+      "expected": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "actual": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": null
+    },
+    {
+      "raw": "Propose-moi plusieurs options, les mesures couvrent huit séries.",
+      "expected": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "expectedAdmission": true,
+      "actual": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": true
+    },
+    {
+      "raw": "Les mesures couvrent huit séries puis propose-moi plusieurs options.",
+      "expected": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "expectedAdmission": true,
+      "actual": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": true
+    },
+    {
+      "raw": "Les mesures couvrent huit séries. Propose-moi plusieurs options.",
+      "expected": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "expectedAdmission": true,
+      "actual": "USER_REQUESTS_ASSISTED_PROPOSAL",
+      "projectConstructionEligible": true,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": true,
+      "admissionMatchesExpected": true
+    },
+    {
+      "raw": "Explique cette option et propose-en plusieurs autres.",
+      "expected": "MULTI_ACT_EXPLAIN_AND_PROPOSE",
+      "knownSingleKindLimit": true,
+      "actual": "EXPLAIN_REFERENCED_CONTENT",
+      "projectConstructionEligible": false,
+      "constructionIntentPresent": false,
+      "actMatchesExpected": false,
+      "admissionMatchesExpected": null
+    }
+  ]
+}

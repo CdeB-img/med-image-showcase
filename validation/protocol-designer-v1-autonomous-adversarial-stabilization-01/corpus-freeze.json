@@ -1,0 +1,15 @@
+{
+  "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+  "semanticSha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+  "languageInputs": {
+    "language-batch-1.json": "01e5c4aa6b6e8c4b8eb81a84bfa239e0ce61ca351f807e5ad7fd42f4bf1d1a3c",
+    "language-batch-2.json": "d2ee10f5e4c7dcc78bf21e272f82e2cd8a6545d904792f9c5554ecd6b5e9bc02",
+    "language-batch-3.json": "77811384401c322df1d85012e29e65a5f4772be32005fc0df90ec21216381b6c"
+  },
+  "frozenAtUtc": "2026-09-14T21:36:32.648610+00:00",
+  "conversations": 15,
+  "turns": 225,
+  "productChangesAtFreeze": "NONE",
+  "languageGeneration": "PARSER_BLIND_AFTER_SEMANTIC_FREEZE",
+  "languageUnderstandingClaim": "SYNTHETIC_CONTRACT_ONLY"
+}

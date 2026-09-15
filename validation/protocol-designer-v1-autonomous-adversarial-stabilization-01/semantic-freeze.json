@@ -1,0 +1,8 @@
+{
+  "sha256": "a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f",
+  "frozenAtUtc": "2026-09-14T21:25:32.393813+00:00",
+  "conversations": 15,
+  "turns": 225,
+  "noUserTextYet": true,
+  "languageGenerationOrder": "AFTER_SEMANTIC_FREEZE_BEFORE_DISCOVERY"
+}

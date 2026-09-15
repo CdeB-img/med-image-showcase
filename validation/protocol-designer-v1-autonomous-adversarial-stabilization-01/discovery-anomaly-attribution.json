@@ -1,0 +1,12 @@
+{
+  "rows": 5985,
+  "assignmentCounts": {
+    "C01_OR_C02": 288,
+    "C01_DOWNSTREAM": 5485,
+    "C02": 39,
+    "C02_OR_C04": 103,
+    "ATTRIBUTION_PENDING": 21,
+    "C02_DOWNSTREAM": 49
+  },
+  "meaning": "Raw symptoms retained separately from four causal investigations; assignments explicitly include cascades and unresolved relations. No false independent defect count."
+}

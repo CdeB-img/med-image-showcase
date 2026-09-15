@@ -1,0 +1,31 @@
+{
+  "id": "qry-freshness-and-standard",
+  "startedAt": "2026-09-15T00:25:29.933865+00:00",
+  "completedAt": "2026-09-15T00:25:33.085261+00:00",
+  "durationSeconds": 3.151,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/qry-freshness-and-standard.log",
+  "logSha256": "1f0d341645aecb623d02f700f0aa187bd525637572f90bb800fa7d3d74de2fa3",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/qry-freshness-and-standard.json",
+    "sha256": "4d1e439726a0e92530979ad4163389f05423ef7d4ab98196e0ffaffbcadf6364",
+    "success": true,
+    "numTotalTests": 77,
+    "numPassedTests": 77,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 11,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 5,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

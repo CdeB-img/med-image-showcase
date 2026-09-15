@@ -1,0 +1,31 @@
+{
+  "id": "uncertainty-negative-representation",
+  "startedAt": "2026-09-15T00:25:34.666984+00:00",
+  "completedAt": "2026-09-15T00:25:36.099734+00:00",
+  "durationSeconds": 1.433,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/uncertainty-negative-representation.log",
+  "logSha256": "f5cebd8dd122460031ab91a6acf040be1a0fe6445363821e897cb227df6c56ad",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/uncertainty-negative-representation.json",
+    "sha256": "debab4ef0d3c91ad800501e5556312d641756579c022e6881feb35eb369067ba",
+    "success": true,
+    "numTotalTests": 34,
+    "numPassedTests": 34,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 4,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 2,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

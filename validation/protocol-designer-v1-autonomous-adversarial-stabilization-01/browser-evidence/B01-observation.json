@@ -1,0 +1,370 @@
+{
+  "scenario": "B01",
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ]
+  ],
+  "humanReviewClicks": [
+    "B01-T01",
+    "B01-T05",
+    "B01-T12"
+  ],
+  "materialFindings": [
+    {
+      "turn": "B01-T03",
+      "finding": "Confirmation des hypoglycémies sévères non appliquée; version 1 conservée."
+    },
+    {
+      "turn": "B01-T06",
+      "finding": "Discussion sans contenu: Vous avez indiqué les éléments suivants."
+    },
+    {
+      "turn": "B01-T08",
+      "finding": "Refus non matérialisé par rejet; réponse générique."
+    },
+    {
+      "turn": "B01-T09",
+      "finding": "Absence de connaissance applicable à l'explication demandée."
+    },
+    {
+      "turn": "B01-T11",
+      "finding": "Confirmation à 36 semaines non appliquée; version 2 reste 2."
+    },
+    {
+      "turn": "B01-T14",
+      "finding": "Document version 3 cohérent avec Project adopté à 24 semaines, mais non conforme à intention utilisateur 36 semaines faute de confirmation reconnue."
+    },
+    {
+      "turn": "B01-T15",
+      "finding": "Demande de choix analyse/centres traitée par hypothèses génériques de différence entre bras."
+    }
+  ],
+  "sessionReopen": {
+    "turn": "B01-T13",
+    "method": "REAL_BROWSER_RELOAD",
+    "versionPreserved": true,
+    "historyPreserved": true,
+    "visibleProjectTextPreserved": true
+  },
+  "document": {
+    "turn": "B01-T14",
+    "action": "Créer l’aperçu",
+    "sourceVersion": 3,
+    "contains24Weeks": true,
+    "contains36Weeks": false,
+    "returnedToConversation": true
+  },
+  "uiFriction": {
+    "initialSelectorFailure": "Control helper retained prior corpus; corrected with explicit scenario argument before any B01 input.",
+    "documentReturn": "Two locator clicks did not activate obscured return button. Native upward scroll placed button at y202 and subsequent click returned to conversation. No state mutation workaround."
+  },
+  "finalVisibleScientificFacts": [
+    "Version 3",
+    "Trois centres confirmés",
+    "Critère principal HbA1c à 24 semaines",
+    "Visite à 24 semaines",
+    "Adultes avec diabète de type 2"
+  ],
+  "at": "2026-09-15T00:35:40.185093+00:00",
+  "turns": [
+    {
+      "turn": "B01-T01",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        0,
+        0,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T02",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T03",
+      "outcome": "CONFIRM",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": false,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T04",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T05",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T06",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T07",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T08",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T09",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T10",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T11",
+      "outcome": "CONFIRM",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": false,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T12",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T13",
+      "outcome": "PRESERVE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T14",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "B01-T15",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    }
+  ],
+  "conversationCompleted": true,
+  "meaningfulTurns": 15,
+  "qualificationVerdict": "FAIL",
+  "source": "CUA_REAL_BROWSER_STANDARD_UI_WITH_SYNTHETIC_EXTERNAL_PROVIDER_TRANSPORT",
+  "newProviderCalls": 0,
+  "httpEvidence": {
+    "path": "browser-http-exchanges.jsonl",
+    "lineNumbers": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "lineSha256": {
+      "14": "ad195d08e24578e85cd3b31a0d0d0f161c93e00d821eb621dd526869063f9e02",
+      "15": "693b43d50f62bdf93fab6a1c411b3ca92e57b37f461b0146e860e9456edf8f16",
+      "16": "fbe0a31f84c22c83676441251b38d7e836abf69cd53970632024c384601862da",
+      "17": "02d76e63f1164420b3eaadd29b7ea49875c9096efb1be52512f6568025493305",
+      "18": "4a426fe9dd81da4200f4faca8b8a3a015d3cc796a12843a1bb9361e19c9d4242",
+      "19": "3291e4b820713e7710d595a4c5f99af52ba82378f2dc210b84f65dd01b564e4e",
+      "20": "448253599b8e7846536a742b35390ccc377590d9d84e4e760fd827c6fae9c8d3",
+      "21": "4abbb2be8169160cd7f5f4166a10b44020025b1d46453fffdf66dd11e078f379",
+      "22": "248e6081c78633885a54700eb6b745dcd150fa2d01f7120f70e09fbd778f5e44",
+      "23": "ec2af5ce2e23eff30b707a892e972b1bbe3185374293cbf041f78f5b0c750e7b",
+      "24": "84b893d3cd453dad76e4d93f7b2323f1d00608adb89eddeb757ba63a5db80f46",
+      "25": "5aa44c35830067fb68ddc8b543f5031347d98c7fed7aeb1779104b2ad57457fd",
+      "26": "38013af9a7e2b07d479bc362e4ec2af624f73760cc7a071b09bd50b437e09645",
+      "27": "ced5dbd92f079880d2dbd3291290cfe65d6f1d466bc20aeb76f5bec2e7f46ad8"
+    },
+    "requests": 14
+  },
+  "limitations": [
+    "Synthetic provider responses do not qualify live language fidelity.",
+    "CUA content export is unsupported by the in-app browser; this receipt preserves observed versions/actions/findings, while complete HTTP exchanges are stored separately.",
+    "Scientific response scope is independently reviewed in semantic-review-final.json; version preservation alone is not scientific PASS."
+  ]
+}

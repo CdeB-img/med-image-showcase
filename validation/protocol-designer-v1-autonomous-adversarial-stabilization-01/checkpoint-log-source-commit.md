@@ -1,0 +1,87 @@
+# Checkpoints — autonomous adversarial stabilization 01
+
+- 2026-09-14T21:10:09.590804+00:00 — CP0: expected HEAD/branch; clean tracked/index; 533 preexisting untracked files hashed; 34 live evidence files unchanged; prior 4033 PASS receipt and source digests verified. Replay execution and corpus freeze pending. No product changes.
+- 2026-09-14T21:13:07.986839+00:00 — CP0 complete: exact 5/5 historical response replay PASS through real Standard React runtime and handler; repeated request and human-review selection PASS; all outputs written only in new mission/preflight.
+- 2026-09-14T21:27:16.033994+00:00 — Semantic corpus frozen before language generation: 15 conversations / 225 turns, SHA256 a8d5b0c47979f521212e427e7b6f6272e91737cc7109a40edc1cfd06a4475d8f. CP1 not yet complete: parser-blind language batches pending. Harness review corrections made only in new validation files; no product changes.
+- 2026-09-14T21:35:32.503434+00:00 — Harness review complete before discovery: semantic gold immutable; legitimate later readoption distinguishes rejected candidate from identical wording; exact object semantics checked; invalid candidate not confirmed; completed receipt hashes verified on resume; true FATAL stops affected conversation. Product edits=0; providers=0.
+- 2026-09-14T21:36:32.648610+00:00 — CP1 corpus frozen: 15 conversations / 225 turns; semantic then parser-blind language; product unchanged; providers=0. SHA256 36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0.
+- 2026-09-14T21:36:46.744Z — DISCOVERY A01: 15/15 turns; 639 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:36:47.914Z — DISCOVERY A02: 15/15 turns; 425 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:36:49.134Z — DISCOVERY A03: 15/15 turns; 476 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:36:51.082Z — DISCOVERY A04: 15/15 turns; 75 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:36:55.473Z — DISCOVERY B01: 5/15 turns; 105 observed anomalies; conversation stopped, cause pending. Evidence persisted. New providers=0.
+- 2026-09-14T21:37:33.055145+00:00 — CP2 first five attempts persisted: A01/A02/A03/A04 15 turns each; B01 stopped T05 after continuation wait, attribution pending. 65 attempted turns; 1720 raw oracle symptoms include cascading unavailable gold objects, not 1720 independent defects. Product unchanged; providers=0.
+- 2026-09-14T21:37:36.715Z — DISCOVERY B02: 15/15 turns; 398 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:37:38.104Z — DISCOVERY B03: 15/15 turns; 442 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:37:39.632Z — DISCOVERY B04: 15/15 turns; 346 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:37:40.868Z — DISCOVERY C01: 15/15 turns; 436 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:37:42.386Z — DISCOVERY C02: 15/15 turns; 529 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:10.108778+00:00 — CP3 ten discovery attempts preserved: 140/150 turns; B01 early stop remains attributed separately. No product edits, no provider calls.
+- 2026-09-14T21:38:17.130Z — DISCOVERY C03: 9/15 turns; 218 observed anomalies; conversation stopped, cause pending. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:18.199Z — DISCOVERY D01: 15/15 turns; 295 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:19.380Z — DISCOVERY E01: 15/15 turns; 459 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:23.628Z — DISCOVERY F01: 3/15 turns; 33 observed anomalies; conversation stopped, cause pending. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:24.993Z — DISCOVERY F02: 15/15 turns; 430 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:49.674146+00:00 — Discovery all fifteen attempted. Harness wait defect attributed independently: QRY can validly finish with currentAction=null, requiring no HTTP continuation. B01/C03/F01 incomplete attempts retained and excluded from product-failure counts; only these conversations replayed after harness correction. Product unchanged.
+- 2026-09-14T21:38:53.668Z — DISCOVERY_HARNESS_CORRECTED B01: 15/15 turns; 376 observed anomalies; conversation stopped, cause pending. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:55.147Z — DISCOVERY_HARNESS_CORRECTED C03: 15/15 turns; 385 observed anomalies; conversation stopped, cause pending. Evidence persisted. New providers=0.
+- 2026-09-14T21:38:57.098Z — DISCOVERY_HARNESS_CORRECTED F01: 15/15 turns; 219 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:39:55.081Z — DISCOVERY_DOCUMENT_RETURN_CORRECTED B01: 15/15 turns; 405 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:39:56.717Z — DISCOVERY_DOCUMENT_RETURN_CORRECTED C03: 15/15 turns; 411 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T21:40:38.434047+00:00 — CP4 discovery complete: 15 conversations / 225 meaningful turns, zero product modification. Harness defects (optional continuation; document return control) corrected with affected reruns only, all earlier evidence retained. Raw symptoms 5985; causal attribution follows. Providers=0.
+- 2026-09-14T21:41:40.217032+00:00 — Wave1 scope fixed after CP4: C01 candidate admission, C02 contextual act arbitration, C03 privacy referent. C04 scientific explanation scope under review. No new owner/router/engine; existing extractor and human lifecycle retained. Product changes may now begin, max2 waves.
+- 2026-09-14T21:43:24.878546+00:00 — Coherent C02 caller repair persisted: existing bounded act selection now precedes active owner interception. Context identity, human decision handler and owner result caches unchanged. Targeted/corpus validation pending.
+- 2026-09-14T21:44:17.988213+00:00 — Oracle strengthened for replay after independent critique: generic acknowledgement no longer counts as old-reference clarification; adopted objects require gold-authorized identities. Historical discovery outputs unchanged. Scientific explanation lexical length is only a smoke check, semantic scope remains manual review.
+- 2026-09-14T21:51:54.669767+00:00 — C03 privacy repair completed at real owner; 97 targeted offline tests PASS, including49 new contrary cases. Full-corpus and global qualification pending; new providers=0.
+- 2026-09-14T21:57:12.941642+00:00 — Wave1 critical review still active; quoted/partial/mixed decisions and C01×C03 personal-data admission counterexamples being addressed. Harness TypeScript PASS after source-digest binding and semantic-review status correction. Browser CSP self-only added to offline server. No repair wave2, no browser qualification, no commit/provider.
+- 2026-09-14T21:57:57.283290+00:00 — C01 completed:161 targeted tests PASS,50new; lint and app TypeScript PASS. C02 initial86PASS followed by critical-review fixes still underway. No mass replay before stabilized implementation.
+- 2026-09-14T22:01:39.666329+00:00 — Wave1 implementation stable; C01=161PASS, C02R2=86PASS, C03=97PASS targeted. ULTRA known P0 counterexamples resolved; residual C01 mixed-sentence P1 retained. Full source diff and SHA manifest captured. 533preexisting+34live preserved. Begin affected replay then full mass replay; no edits during execution.
+- 2026-09-14T22:01:45.111Z — WAVE1_AFFECTED A01: 15/15 turns; 108 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:01:48.148Z — WAVE1_AFFECTED A04: 15/15 turns; 14 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:01:51.169Z — WAVE1_AFFECTED B01: 15/15 turns; 82 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:01:54.374Z — WAVE1_AFFECTED F01: 15/15 turns; 14 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:11.411Z — MASS_REPLAY_1 A01: 15/15 turns; 108 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:14.757Z — MASS_REPLAY_1 A02: 15/15 turns; 13 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:17.908Z — MASS_REPLAY_1 A03: 15/15 turns; 41 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:20.920Z — MASS_REPLAY_1 A04: 15/15 turns; 14 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:23.956Z — MASS_REPLAY_1 B01: 15/15 turns; 82 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:27.201Z — MASS_REPLAY_1 B02: 15/15 turns; 9 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:29.798Z — MASS_REPLAY_1 B03: 15/15 turns; 77 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:32.857Z — MASS_REPLAY_1 B04: 15/15 turns; 83 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:36.534Z — MASS_REPLAY_1 C01: 15/15 turns; 12 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:40.006Z — MASS_REPLAY_1 C02: 15/15 turns; 73 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:43.734Z — MASS_REPLAY_1 C03: 15/15 turns; 10 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:45.396Z — MASS_REPLAY_1 D01: 15/15 turns; 293 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:48.438Z — MASS_REPLAY_1 E01: 15/15 turns; 20 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:51.672Z — MASS_REPLAY_1 F01: 15/15 turns; 14 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-14T22:02:54.014Z — MASS_REPLAY_1 F02: 15/15 turns; 53 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:10:38.928377+00:00 — MASS_REPLAY_1 complete: 15/15 conversations, 225 turns, 902 MATERIAL symptoms, 0 FATAL. Receipt digests and stable source verified on recovery. Final repair wave begins; no real provider.
+- 2026-09-15T00:16:01.324179+00:00 — Wave2 coherent bridge, conversation and Workspace repairs persisted with targeted tests. Critical review and affected/full replay remain. Providers=0.
+- 2026-09-15T00:21:24.934Z — WAVE2_AFFECTED A01: 15/15 turns; 21 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:21:28.652Z — WAVE2_AFFECTED A02: 15/15 turns; 9 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:21:32.324Z — WAVE2_AFFECTED B01: 15/15 turns; 74 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:21:34.127Z — WAVE2_AFFECTED D01: 15/15 turns; 294 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:21:37.115Z — WAVE2_AFFECTED F02: 15/15 turns; 41 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:16.323735+00:00 — Final wave2 repairs and source hashes frozen after targeted66 PASS, affected75 turns and independent concurrency green countertest. No third wave; final qualification begins.
+- 2026-09-15T00:24:38.457Z — MASS_REPLAY_2 A01: 15/15 turns; 21 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:42.518Z — MASS_REPLAY_2 A02: 15/15 turns; 9 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:46.727Z — MASS_REPLAY_2 A03: 15/15 turns; 31 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:50.839Z — MASS_REPLAY_2 A04: 15/15 turns; 5 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:55.035Z — MASS_REPLAY_2 B01: 15/15 turns; 74 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:24:58.988Z — MASS_REPLAY_2 B02: 15/15 turns; 5 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:02.411Z — MASS_REPLAY_2 B03: 15/15 turns; 73 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:06.177Z — MASS_REPLAY_2 B04: 15/15 turns; 80 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:11.043Z — MASS_REPLAY_2 C01: 15/15 turns; 5 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:15.265Z — MASS_REPLAY_2 C02: 15/15 turns; 70 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:19.753Z — MASS_REPLAY_2 C03: 15/15 turns; 6 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:21.707Z — MASS_REPLAY_2 D01: 15/15 turns; 294 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:25.224Z — MASS_REPLAY_2 E01: 15/15 turns; 17 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:29.711Z — MASS_REPLAY_2 F01: 15/15 turns; 6 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:25:33.074Z — MASS_REPLAY_2 F02: 15/15 turns; 41 observed anomalies; conversation completed. Evidence persisted. New providers=0.
+- 2026-09-15T00:31:06.672918+00:00 — REAL_BROWSER A01: 15/15 turns, FAIL; UI observations and HTTP line digests persisted; new providers=0.
+- 2026-09-15T00:35:40.185093+00:00 — REAL_BROWSER B01: 15/15 turns, FAIL; UI observations and HTTP line digests persisted; new providers=0.
+- 2026-09-15T00:38:20.401804+00:00 — REAL_BROWSER C01: 15/15 turns, FAIL; UI observations and HTTP line digests persisted; new providers=0.
+- 2026-09-15T00:43:43.933922+00:00 — REAL_BROWSER F01: 15/15 turns, FAIL; UI observations and HTTP line digests persisted; new providers=0.
+- 2026-09-15T00:51:47.725869+00:00 — REAL_BROWSER F02: 15/15 turns, FAIL; UI observations and HTTP line digests persisted; new providers=0.
+- 2026-09-15T00:52:50.185610+00:00 — BROWSER_FINAL: 5 selected conversations /75 turns, 0 functional PASS; 2 controller-invalidated attempts /30 turns preserved separately; 70 selected /98 raw HTTP exchanges; zero external providers. No further repair wave.
+- 2026-09-15T00:54:32.245709+00:00 — SOURCE_COMMIT f087bb3bf939d8c72e02c48db10b3b26466b8979: exactly16 qualified source/test files, baseline parent preserved; tracked worktree and index clean. Browser server stopped, temporary tabs closed. Mission NOT_QUALIFIED; compact evidence commit remains.

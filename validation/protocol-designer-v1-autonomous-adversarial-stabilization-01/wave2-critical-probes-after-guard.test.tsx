@@ -1,0 +1,121 @@
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { afterEach, expect, it, vi } from 'vitest';
+import fs from 'node:fs';
+import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router-dom';
+import ProtocolDesignerDemo from '@/pages/ProtocolDesignerDemo';
+import { handleProtocolDesignerBridge, type ApiResponse } from '../../api/protocol-designer-bridge';
+import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from '@/features/protocol-designer/functional-reset/session';
+import { T01, T02, createLongHorizonProviderReplay, type ProviderCallWitness } from '@/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay';
+
+const MIXED = 'Les observations actuelles restent disponibles. Propose-moi plusieurs possibilités.';
+type ProjectSession = FunctionalResetSession & { project: NonNullable<FunctionalResetSession['project']> };
+const state = () => JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as ProjectSession;
+const ready = () => waitFor(() => expect(document.querySelector('.animate-spin')).toBeNull(), { timeout: 5000 });
+const submit = async (text: string) => {
+  await act(async () => { fireEvent.change(screen.getByLabelText('Votre message'), { target: { value: text } }); });
+  await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Envoyer' })); await new Promise(r => setTimeout(r, 0)); });
+};
+const latestConfirmation = () => within(screen.getAllByTestId('functional-contribution-review').at(-1)!)
+  .getByRole('button', { name: 'Cela correspond à mon projet' }) as HTMLButtonElement;
+const confirmLatest = async () => {
+  await act(async () => { fireEvent.click(latestConfirmation()); await new Promise(r => setTimeout(r, 0)); });
+};
+const projectIdentity = (s: ProjectSession) => ({ version: s.project.versionId, digest: s.project.projectDigest });
+const lostTurns = (before: ProjectSession, after: ProjectSession) => before.runtimeTurns
+  .filter((t) => !after.runtimeTurns.some((u) => u.turnId === t.turnId)).map((t) => t.turnId);
+const lostOwnerResults = (before: ProjectSession, after: ProjectSession) => before.knowledgeOwnerLedger.entries
+  .filter((e) => !after.knowledgeOwnerLedger.entries.some((u) => u.result?.resultId === e.result?.resultId))
+  .map((e) => e.result?.resultId);
+const lostTraceEvents = (before: ProjectSession, after: ProjectSession) => before.scientificExecutionTraceLedger.events
+  .filter((e) => !after.scientificExecutionTraceLedger.events.some((u) => u.eventId === e.eventId)).map((e) => e.eventId);
+const ownerMatches = (s: ProjectSession) => s.scientificThinkingInteraction?.sourceProjectVersion === s.project.versionId
+  && s.scientificThinkingInteraction?.sourceProjectDigest === s.project.projectDigest;
+afterEach(() => { cleanup(); localStorage.clear(); vi.unstubAllGlobals(); });
+
+it('off-corpus guard probe: pending review is disabled during extraction and reopened without losing current owner, history, or trace', async () => {
+  const witnesses: ProviderCallWitness[] = [];
+  const provider = createLongHorizonProviderReplay(witnesses, { how: 'SUCCESS', additionalReplays: {
+    [MIXED]: () => ({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+  } });
+  let reached = false;
+  let release!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const fetchImpl: typeof fetch = async (url, init) => {
+    const payload = JSON.parse(String(init?.body));
+    if (String(url).includes('api.openai.com') && String(payload.input).includes(MIXED)) {
+      reached = true;
+      await held;
+    }
+    return provider(url, init);
+  };
+  vi.stubGlobal('fetch', vi.fn(async (_url, init) => {
+    let status = 0; let body: unknown;
+    const response: ApiResponse = { status(code) { status = code; return this; }, setHeader() {}, json(value) { body = value; } };
+    await handleProtocolDesignerBridge({ method: init.method, body: init.body, headers: { 'content-type': 'application/json', host: '127.0.0.1:5198', origin: 'http://127.0.0.1:5198' } }, response,
+      { NODE_ENV: 'development', OPENAI_API_KEY: 'offline-test-key', GEMINI_API_KEY: 'offline-test-key' }, { fetchImpl });
+    return { ok: status >= 200 && status < 300, status, json: async () => body, text: async () => JSON.stringify(body) };
+  }));
+  render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
+  await submit(T01);
+  await ready();
+  await confirmLatest();
+  await ready();
+  await submit(T02);
+  await ready();
+  const before = state();
+  await submit(MIXED);
+  await waitFor(() => expect(reached).toBe(true));
+  const confirmationDisabledWhileExtracting = latestConfirmation().disabled;
+  const restartDisabledWhileExtracting = (screen.getByRole('button', { name: 'Recommencer' }) as HTMLButtonElement).disabled;
+  // Exercise the real disabled DOM control. No direct component callback or state injection.
+  await confirmLatest();
+  const afterBlockedClick = state();
+  await act(async () => { release(); await new Promise(r => setTimeout(r, 0)); });
+  await ready();
+  const afterResponse = state();
+  const confirmationEnabledAfterResponse = !latestConfirmation().disabled;
+  await confirmLatest();
+  await ready();
+  const afterConfirmation = state();
+  const evidence = {
+    mode: 'REAL_STANDARD_UI_REAL_BRIDGE_SYNTHETIC_PROVIDER_BOUNDARY', sourceText: MIXED,
+    confirmationDisabledWhileExtracting, restartDisabledWhileExtracting,
+    beforeProject: projectIdentity(before), afterBlockedClickProject: projectIdentity(afterBlockedClick),
+    pendingPreservedAfterBlockedClick: afterBlockedClick.pendingContribution?.identity.contributionId === before.pendingContribution?.identity.contributionId,
+    humanDecisionUnchangedAfterBlockedClick: JSON.stringify(afterBlockedClick.project.confirmationDecision) === JSON.stringify(before.project.confirmationDecision),
+    afterResponseProject: projectIdentity(afterResponse), confirmationEnabledAfterResponse,
+    pendingPreservedAfterResponse: afterResponse.pendingContribution?.identity.contributionId === before.pendingContribution?.identity.contributionId,
+    ownerMatchesAfterResponse: ownerMatches(afterResponse),
+    afterConfirmationProject: projectIdentity(afterConfirmation), ownerMatchesAfterConfirmation: ownerMatches(afterConfirmation),
+    revisionIncreasedOnlyAfterEnabledConfirmation: afterBlockedClick.project.revision === before.project.revision
+      && afterResponse.project.revision === before.project.revision && afterConfirmation.project.revision === before.project.revision + 1,
+    priorRuntimeTurnsLostAfterResponse: lostTurns(before, afterResponse),
+    priorRuntimeTurnsLostAfterConfirmation: lostTurns(afterResponse, afterConfirmation),
+    priorOwnerResultsLostAfterResponse: lostOwnerResults(before, afterResponse),
+    priorOwnerResultsLostAfterConfirmation: lostOwnerResults(afterResponse, afterConfirmation),
+    priorTraceEventsLostAfterResponse: lostTraceEvents(before, afterResponse),
+    priorTraceEventsLostAfterConfirmation: lostTraceEvents(afterResponse, afterConfirmation),
+    errors: afterConfirmation.entries.filter((e) => e.kind === 'ERROR').map((e) => e.content),
+    witnessCount: witnesses.length, realProviderCalls: 0,
+  };
+  fs.writeFileSync('validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json', JSON.stringify(evidence, null, 2));
+  expect(evidence.confirmationDisabledWhileExtracting).toBe(true);
+  expect(evidence.restartDisabledWhileExtracting).toBe(true);
+  expect(evidence.afterBlockedClickProject).toEqual(evidence.beforeProject);
+  expect(evidence.pendingPreservedAfterBlockedClick).toBe(true);
+  expect(evidence.humanDecisionUnchangedAfterBlockedClick).toBe(true);
+  expect(evidence.afterResponseProject).toEqual(evidence.beforeProject);
+  expect(evidence.confirmationEnabledAfterResponse).toBe(true);
+  expect(evidence.pendingPreservedAfterResponse).toBe(true);
+  expect(evidence.ownerMatchesAfterResponse).toBe(true);
+  expect(evidence.ownerMatchesAfterConfirmation).toBe(true);
+  expect(evidence.revisionIncreasedOnlyAfterEnabledConfirmation).toBe(true);
+  expect(evidence.priorRuntimeTurnsLostAfterResponse).toEqual([]);
+  expect(evidence.priorRuntimeTurnsLostAfterConfirmation).toEqual([]);
+  expect(evidence.priorOwnerResultsLostAfterResponse).toEqual([]);
+  expect(evidence.priorOwnerResultsLostAfterConfirmation).toEqual([]);
+  expect(evidence.priorTraceEventsLostAfterResponse).toEqual([]);
+  expect(evidence.priorTraceEventsLostAfterConfirmation).toEqual([]);
+  expect(evidence.errors).toEqual([]);
+});

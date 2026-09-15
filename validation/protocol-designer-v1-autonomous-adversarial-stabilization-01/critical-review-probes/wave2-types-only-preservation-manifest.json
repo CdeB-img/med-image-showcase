@@ -1,0 +1,30 @@
+{
+  "contract": "CRITICAL_REVIEW_PROBES_TYPE_ONLY_PRESERVATION",
+  "recordedAt": "2026-09-15T00:27:31.558Z",
+  "status": "ORIGINALS_PRESERVED_BEFORE_TYPE_ONLY_EDIT",
+  "copies": [
+    {
+      "source": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.test.tsx",
+      "originalCopy": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/critical-review-probes/wave2-critical-probes.test.tsx.original",
+      "sourceSha256": "7948d39dc026b023da393421da5e79c25f4f17f7095eee4578d513f309b198f5",
+      "copySha256": "7948d39dc026b023da393421da5e79c25f4f17f7095eee4578d513f309b198f5",
+      "byteIdentical": true
+    },
+    {
+      "source": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.test.tsx",
+      "originalCopy": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/critical-review-probes/wave2-critical-probes-after-guard.test.tsx.original",
+      "sourceSha256": "f7125ee7cf6128dc9342b82960b0ac23862c224b2a44e55b8af531940f3e50ab",
+      "copySha256": "f7125ee7cf6128dc9342b82960b0ac23862c224b2a44e55b8af531940f3e50ab",
+      "byteIdentical": true
+    }
+  ],
+  "historicalEvidence": {
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.log": "2d9ac7a1bdbc2bcfd0c18430d104c77a03f74f646811b26f27b5851adc5d8a45",
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.log": "8493f8e7c6ec92e2e2afbd1f22c543a844be48f552abf83fad8216d504f81895",
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-probe.json": "b9606c635dcc2ac59019bd56074900a44f57c9a03bc7df3f8a604924d6a9812c",
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json": "b97dc89e9493043cf6af7afb51bdc1258e18749fe13321293e2cf3b61a70b745",
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-review.json": "fbc97b600e79671e4b32ee7cb319005060455f04624aad567910e25fa7b6798e"
+  },
+  "runtimeReplayed": false,
+  "productModified": false
+}

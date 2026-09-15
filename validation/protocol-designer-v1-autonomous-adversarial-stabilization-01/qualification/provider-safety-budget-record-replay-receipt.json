@@ -1,0 +1,31 @@
+{
+  "id": "provider-safety-budget-record-replay",
+  "startedAt": "2026-09-15T00:25:33.087226+00:00",
+  "completedAt": "2026-09-15T00:25:34.664953+00:00",
+  "durationSeconds": 1.578,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/provider-safety-budget-record-replay.log",
+  "logSha256": "9d3078be13543abdd4f3db77dcf6ff048ae33ecc0d85ba3e496431e6ab0306e3",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/provider-safety-budget-record-replay.json",
+    "sha256": "7ac74c6a4767280445b3135d7d16e2330595f7c4b604a971868b7cd7e38c122f",
+    "success": true,
+    "numTotalTests": 97,
+    "numPassedTests": 97,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 13,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 5,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

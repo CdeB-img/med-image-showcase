@@ -1,0 +1,275 @@
+{
+  "contract": "AUTONOMOUS_ADVERSARIAL_STABILIZATION_WAVE2_CRITICAL_REVIEW",
+  "recordedAt": "2026-09-15T00:26:11.959Z",
+  "status": "TARGETED_REVIEW_COMPLETE_WITH_DECLARED_RESIDUALS_MASS_2_AND_FINAL_GATES_PENDING",
+  "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "observedHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "scope": {
+    "wholeWave2Reviewed": true,
+    "reviewOwner": "/root/adversarial_transport",
+    "qualificationScope": "Revue source de la seconde vague, probes purement déterministes hors corpus et contretest réel Standard UI/client/handler sous transport synthétique au provider boundary.",
+    "reviewerPriorContribution": "Le relecteur a écrit le patch minimal Product Bridge ; cette partie n’est pas une revue indépendante de son propre auteur. La revue Workspace/actes/admission et le contretest concurrence sont contradictoires et hors corpus gelé.",
+    "noProductEditDuringReview": true,
+    "noCorpusEdit": true,
+    "noHistoricalEvidenceEdit": true,
+    "noCommit": true,
+    "noLiveProvider": true,
+    "environmentFilesRead": false,
+    "networkGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs"
+  },
+  "summary": {
+    "confirmedCriticalCounterexampleBeforeFinalCorrection": 1,
+    "sameSafetyPropertyVerifiedAfterCorrection": true,
+    "confirmedP0OrP1StillOpenInProbedPaths": 0,
+    "remainingOffCorpusActLimitations": 2,
+    "wholeCampaignPassClaimed": false,
+    "conclusion": "La contre-preuve de concurrence a provoqué une correction dans la seconde vague encore ouverte. Le contretest révisé protège le même scénario par indisponibilité de la décision pendant busy, puis prouve sa réouverture et la conservation des données. Les deux pertes de payload mixte sont également corrigées. La revue permet de lancer MASS_REPLAY_2 et les gates ; elle ne remplace pas leur qualification."
+  },
+  "findings": [
+    {
+      "id": "W2-CR-01",
+      "priority": "P1",
+      "status": "CONFIRMED_BEFORE_CORRECTION_RESOLVED_IN_TARGETED_REPRO",
+      "owner": "ProtocolDesignerWorkspace / ContributionReview",
+      "trigger": "Project V1 adopté, candidate T02 en attente, extraction vide différée d’une nouvelle demande mixte ; confirmation humaine de T02 pendant cette extraction.",
+      "before": "La carte était actionnable. La confirmation créait V2 ; la réponse V1 retardée réactivait un owner lié à V1, remplaçait un résultat owner V2 et faisait disparaître deux tours NOXIA. Project lui-même restait V2 ; aucun ERROR.",
+      "causality": "Le nouveau dispatch après NO_CHANGE capturait session.project/runtimeTurns/ownerResultLedger à V1. La carte de décision autorisait un changement légitime à V2 pendant await, puis le job remettait les snapshots V1 en circulation.",
+      "correctionObserved": "Contrôles review et Recommencer disabled pendant busy ; callbacks confirm/reject bloqués pendant busy hors décision naturelle courante ; comparaison sessionId/conversationId/projectId/versionId/projectDigest après réponse bridge et localisation, avant application.",
+      "qualification": {
+        "mode": "REAL_STANDARD_UI_REAL_BRIDGE_SYNTHETIC_PROVIDER_BOUNDARY",
+        "sourceText": "Les observations actuelles restent disponibles. Propose-moi plusieurs possibilités.",
+        "confirmationDisabledWhileExtracting": true,
+        "restartDisabledWhileExtracting": true,
+        "beforeProject": {
+          "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+          "digest": "ke1-5c8300306aa79b94"
+        },
+        "afterBlockedClickProject": {
+          "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+          "digest": "ke1-5c8300306aa79b94"
+        },
+        "pendingPreservedAfterBlockedClick": true,
+        "humanDecisionUnchangedAfterBlockedClick": true,
+        "afterResponseProject": {
+          "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+          "digest": "ke1-5c8300306aa79b94"
+        },
+        "confirmationEnabledAfterResponse": true,
+        "pendingPreservedAfterResponse": true,
+        "ownerMatchesAfterResponse": true,
+        "afterConfirmationProject": {
+          "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:2",
+          "digest": "ke1-c5f3687ad827b226"
+        },
+        "ownerMatchesAfterConfirmation": true,
+        "revisionIncreasedOnlyAfterEnabledConfirmation": true,
+        "priorRuntimeTurnsLostAfterResponse": [],
+        "priorRuntimeTurnsLostAfterConfirmation": [],
+        "priorOwnerResultsLostAfterResponse": [],
+        "priorOwnerResultsLostAfterConfirmation": [],
+        "priorTraceEventsLostAfterResponse": [],
+        "priorTraceEventsLostAfterConfirmation": [],
+        "errors": [],
+        "witnessCount": 5,
+        "realProviderCalls": 0
+      },
+      "redEvidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-probe.json",
+      "greenEvidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json",
+      "limit": "Le probe post-correction démontre le verrou UI et sa réouverture, pas une injection de changement de session/Project qui contournerait le contrôle. La garde SUBMISSION_CONTEXT_CHANGED a été relue mais n’a pas été forcée dynamiquement. Aucune comparaison baseline isolée ne prouve que tous les risques asynchrones connexes étaient nouveaux."
+    },
+    {
+      "id": "W2-CR-02",
+      "priority": "P1",
+      "status": "CONFIRMED_ADMISSION_LOSS_RESOLVED_IN_PURE_REPRO",
+      "owner": "product-entry-routing.ts",
+      "beforeCases": [
+        "Propose-moi plusieurs options, les mesures couvrent huit séries.",
+        "Les mesures couvrent huit séries puis propose-moi plusieurs options."
+      ],
+      "before": "Acte proposition reconnu mais projectConstructionEligible=false : la branche early proposal pouvait omettre le payload fourni.",
+      "after": "Les mêmes textes exacts sont projectConstructionEligible=true ; les clauses non classées sont admises avant proposition. constructionIntentPresent reste false et aucun Project write n’est autorisé.",
+      "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes-after-guard.json",
+      "limit": "Preuve pure du point d’admission ; la fidélité d’un extracteur vivant et tous les types de coordination ne sont pas démontrés. Une liste à virgule peut provoquer une extraction NO_CHANGE supplémentaire."
+    },
+    {
+      "id": "W2-CR-03",
+      "priority": "P2",
+      "status": "OPEN_BOUNDED_GRAMMAR_FALSE_NEGATIVE",
+      "owner": "current-navigation-evidence.ts",
+      "counterexample": "J’accepte cette proposition.",
+      "expected": "Avec une candidate courante unique et sa provenance complète, une décision naturelle pourrait être reconnue.",
+      "observed": "kind=null et admission extraction true ; la grammaire reconnaît je/nous et manque l’élision j’.",
+      "consequence": "Faux négatif et coût/rupture possible du dialogue ; aucune adoption automatique non autorisée démontrée.",
+      "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes-after-guard.json"
+    },
+    {
+      "id": "W2-CR-04",
+      "priority": "P2",
+      "status": "OPEN_KNOWN_SINGLE_ACT_REPRESENTATION_LIMIT",
+      "owner": "BoundedConversationInteraction / current-navigation-evidence.ts",
+      "counterexample": "Explique cette option et propose-en plusieurs autres.",
+      "observed": "EXPLAIN_REFERENCED_CONTENT seul. Le type courant exprime un kind unique et la demande explicative précède le test proposition.",
+      "consequence": "La seconde demande peut rester insatisfaite. MULTI_ACT_EXPLAIN_AND_PROPOSE est une attente de revue, pas un type actuellement promis. Aucun correctif lexical ajouté pour donner artificiellement PASS.",
+      "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes-after-guard.json"
+    },
+    {
+      "id": "W2-CR-05",
+      "priority": "P2",
+      "status": "SOURCE_CONFIRMED_EXTRA_REALIZATION_AND_TRACE_VISIBILITY_LIMIT",
+      "owner": "ProtocolDesignerWorkspace.tsx / scientific-execution-trace.ts",
+      "observed": "Sur la branche mixte NO_CHANGE, le bridge réalise déjà HOW. Le client localise sa réponse avant de masquer la réponse autonome et de déléguer l’owner. recordLocalizedConversationResponseTrace reste appelé sur ce texte masqué.",
+      "consequence": "Une réalisation HOW synthétique est consommée sans réponse autonome visible. Hors français, une projection linguistique supplémentaire du texte masqué est plausible mais non testée ici. La raison VISIBLE_RESPONSE_LOCALIZED/FRENCH_RESPONSE_USED_DIRECTLY ne doit pas être lue comme preuve de rendu.",
+      "preserved": "Les providerCallRecords sont ajoutés séparément via appendFunctionalResetProviderCallRecords avec déduplication callId. Aucune perte de comptabilité ni fausse étape RESPONSE_RENDERED n’a été démontrée.",
+      "evidence": [
+        "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx:2421",
+        "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx:2465",
+        "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx:2531",
+        "src/features/protocol-designer/scientific-execution-trace.ts:2516"
+      ]
+    }
+  ],
+  "propertyAssessment": [
+    {
+      "property": "Human Review authority",
+      "assessment": "PRESERVED_IN_TARGETED_TESTS_AND_SOURCE",
+      "evidence": "Nonempty extraction conserve candidate pending et Project identique dans tests root ; confirmation/refus passent par autorités et présentation existantes. Le probe busy bloque la décision pendant await, puis prouve l’adoption explicite après réouverture."
+    },
+    {
+      "property": "Incoming Product Bridge contract",
+      "assessment": "MINIMAL_ALLOWLIST_CHANGE_VERIFIED",
+      "evidence": "USER_REQUESTS_ASSISTED_PROPOSAL ajouté comme acte readonly. CONFIRM/REFUSE/CLARIFY, versions invalides et champs non conformes restent rejetés ; aucun transfert d’autorité Project."
+    },
+    {
+      "property": "Exact Project and append-only continuity",
+      "assessment": "TARGETED_RED_TO_GREEN",
+      "evidence": "Après correction, owner version+digest exacts avant et après confirmation ; zéro ancien tour, résultat owner ou événement TRACE manquant dans le contretest. La propriété universelle attend les gates et MASS2."
+    },
+    {
+      "property": "Purpose and reuse",
+      "assessment": "SOURCE_REUSE_FIRST_NO_NEW_CACHE",
+      "evidence": "Les deux chemins appellent le même constructeur QRY avec requestedAction ASSISTED_PROPOSAL, attachent le prérequis existant et délèguent aux owners existants. Aucun cache/store/engine nouveau ni modification du ledger/cache natif. Suites owner de conservation 140 PASS rapportées par reçu lu, non relancées ici."
+    },
+    {
+      "property": "Failclosed empty extraction continuation",
+      "assessment": "EXPLICIT_SOURCE_GUARDS_AND_POSITIVE_RUNTIME_CASES",
+      "evidence": "Dispatch tardif exige NO_CHANGE, pas de contribution, pas de candidate, pas conversationFailure. Tests root couvrent vide et non-vide ; branche BLOCKED/TECHNICAL_FAILURE de ce nouveau fallback non forcée dans cette revue."
+    },
+    {
+      "property": "Bounded acts and candidate reference",
+      "assessment": "19_SINGLE_ACT_EXPECTATIONS_WITH_ONE_FALSE_NEGATIVE",
+      "evidence": "Confirmations partielles/conditionnelles/citées/négatives/contradictoires et assertion indépendante ne deviennent pas décision. NONE/AMBIGUOUS donnent CLARIFY ; provenance complète requise. Un second cas multi-acte est une limite distincte du type."
+    },
+    {
+      "property": "Corpus independence",
+      "assessment": "SOURCE_GENERIC_AND_OFF_CORPUS_PROBES",
+      "evidence": "Pas de tables par scenario/domaine ajoutées aux propriétaires relus. Le provider synthétique encode des contrats gold et ne prouve pas la fidélité réelle d’extraction. Probes mixed/grammar indépendants du corpus gelé."
+    }
+  ],
+  "verification": {
+    "ownConcurrentProbe": {
+      "before": {
+        "tests": 1,
+        "passed": 0,
+        "failed": 1,
+        "artifact": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.log"
+      },
+      "after": {
+        "tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "artifact": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.log",
+        "realProviderCalls": 0,
+        "syntheticWitnesses": 5
+      }
+    },
+    "ownPureProbes": {
+      "cases": 20,
+      "expectationsSatisfied": 18,
+      "remainingMismatches": [
+        "J’accepte cette proposition.",
+        "Explique cette option et propose-en plusieurs autres."
+      ],
+      "providerCalls": 0
+    },
+    "rootR4ReceiptRead": {
+      "tests": 66,
+      "passed": 66,
+      "failed": 0,
+      "artifact": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-workspace-tests-r4.json",
+      "scope": "55 Product Entry et 11 Standard runtime, incluant les trois soaks de 15 tours"
+    },
+    "ownerReceiptsRead": [
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation.json",
+        "finalPassed": 140,
+        "finalFailed": 0
+      },
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-bridge.json",
+        "finalPassed": 95,
+        "finalFailed": 0,
+        "capturedRequestsAccepted": 14
+      }
+    ],
+    "noFullSuiteRunByReviewer": true,
+    "note": "Les nombres ne sont pas additionnés comme tests uniques : les suites se recouvrent. Le redprobe est conservé intentionnellement rouge historiquement et ne doit pas entrer dans une glob de qualification verte. Le test post-correction séparé est le test reproductible courant."
+  },
+  "remainingQualification": [
+    "MASS_REPLAY_2 complet sur sources finales",
+    "Gates canonical full suite, typecheck/lint/build selon whitelist parent",
+    "Qualification navigateur réel distincte de jsdom ; aucun résultat navigateur vivant revendiqué ici"
+  ],
+  "evidence": {
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.test.tsx": {
+      "sha256": "7948d39dc026b023da393421da5e79c25f4f17f7095eee4578d513f309b198f5"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.log": {
+      "sha256": "2d9ac7a1bdbc2bcfd0c18430d104c77a03f74f646811b26f27b5851adc5d8a45"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-probe.json": {
+      "sha256": "b9606c635dcc2ac59019bd56074900a44f57c9a03bc7df3f8a604924d6a9812c"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.test.tsx": {
+      "sha256": "f7125ee7cf6128dc9342b82960b0ac23862c224b2a44e55b8af531940f3e50ab"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.log": {
+      "sha256": "8493f8e7c6ec92e2e2afbd1f22c543a844be48f552abf83fad8216d504f81895"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json": {
+      "sha256": "b97dc89e9493043cf6af7afb51bdc1258e18749fe13321293e2cf3b61a70b745"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes.json": {
+      "sha256": "6b9b4ed907e07f512a266e7dfe722d429c1b9511d23512a7acfe15a8d0410d64"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-off-corpus-act-probes-after-guard.json": {
+      "sha256": "a2ad5ff602fe4e4f2608e8ab1a34d00809489c00c2de3dabf3b5b8eb2773e6cb"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-workspace-tests-r4.json": {
+      "sha256": "6fc5ba69e94086b5bac32fff0421cc976ce34c5a844923cbd37eeae1dce9f7c0"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation.json": {
+      "sha256": "1dcf1dc4dac24ad27375d31db705aabdcbb718f16415257e3592fc8f4960c473"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-bridge.json": {
+      "sha256": "6f436d88c2f6ac2d242917e741ea926e5d358cc764a64b9630b256d11dc52c6d"
+    },
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-captured-request-qualification.json": {
+      "sha256": "a37c55af46d01ac3397ef3d707dbac3a633bf435d73f76e6eee8f4bfbe5880d4"
+    }
+  },
+  "sourceSha256": {
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf",
+    "src/features/protocol-designer/functional-reset/ContributionReview.tsx": "0e625248f1295af12d752a8a04ca3816a7e4036ecb712d3a42a8a3b9e461a91e",
+    "src/features/protocol-designer/functional-reset/product-entry-routing.ts": "a6152456c7277fa51bb68db8d822d43bfc3fa301d92213fbfb6f83d20aec37e2",
+    "src/features/protocol-designer/product-bridge.ts": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410",
+    "src/features/query-navigation/current-navigation-evidence.ts": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea",
+    "src/features/query-navigation/current-turn-navigation.ts": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed",
+    "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx": "3d15ac83dd720728edfe96e164a2643fd583bc5a95874768f692ccc4da2dfe68",
+    "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": "fec3e6c96027fd0b980a371d227c761217406c2b08fc88a239cb1a34d90e1da2",
+    "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d",
+    "src/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay.ts": "14214cf79da4f49e07aab7c6ee6fb844f02b69290f24b5f6c06316c484bedc59"
+  },
+  "guardSha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae"
+}

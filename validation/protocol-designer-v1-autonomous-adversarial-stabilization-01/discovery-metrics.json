@@ -1,0 +1,3122 @@
+{
+  "phase": "DISCOVERY",
+  "at": "2026-09-14T21:45:57.848877+00:00",
+  "conversations": 15,
+  "meaningfulTurns": 225,
+  "harnessCompleted": 15,
+  "productPass": 0,
+  "rawOracleSymptoms": 5985,
+  "severity": {
+    "MATERIAL": 5985
+  },
+  "propertyCounts": {
+    "CONVERSATIONAL": 73,
+    "CANDIDATE": 172,
+    "HUMAN": 59,
+    "EARLY": 1741,
+    "OBJECT": 1741,
+    "UNKNOWN": 156,
+    "GOLD": 1892,
+    "SCIENTIFIC": 91,
+    "PURPOSE": 12,
+    "STANDARD": 7,
+    "REFUSAL": 23,
+    "RELATION": 18
+  },
+  "scenarios": [
+    {
+      "id": "A01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 639,
+      "firstFailures": [
+        {
+          "turn": "A01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_modality",
+            "CANDIDATE_SEMANTICS_acquisition",
+            "CANDIDATE_SEMANTICS_variable"
+          ]
+        },
+        {
+          "turn": "A01-T02",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_variable",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "A01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A01-T04",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_eligibility",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A01-T05",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A01-T06",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "A01-T07",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_followup6",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "A01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A01-T09",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_followup12",
+            "CANDIDATE_SEMANTICS_clinical-events",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A01-T10",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "A01-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "A01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A01-T13",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A01-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "A01-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator",
+            "EARLY_INFORMATION_design"
+          ]
+        }
+      ],
+      "evidence": "discovery/A01/2026-09-14T21-36-45-253Z-1546/result.json"
+    },
+    {
+      "id": "A02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 425,
+      "firstFailures": [
+        {
+          "turn": "A02-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_exclusion",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion"
+          ]
+        },
+        {
+          "turn": "A02-T02",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "GOLD_CURRENT_CONTENT_A02-T01:population",
+            "GOLD_CURRENT_CONTENT_A02-T01:exclusion"
+          ]
+        },
+        {
+          "turn": "A02-T03",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_modality",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_acquisition"
+          ]
+        },
+        {
+          "turn": "A02-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion"
+          ]
+        },
+        {
+          "turn": "A02-T05",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_analysis",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective"
+          ]
+        },
+        {
+          "turn": "A02-T07",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_followup6",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective"
+          ]
+        },
+        {
+          "turn": "A02-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T09",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective"
+          ]
+        },
+        {
+          "turn": "A02-T10",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective"
+          ]
+        },
+        {
+          "turn": "A02-T12",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T13",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T14",
+          "properties": [
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "A02-T15",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_exclusion",
+            "OBJECT_IDENTITY_exclusion",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective"
+          ]
+        }
+      ],
+      "evidence": "discovery/A02/2026-09-14T21-36-46-752Z-1546/result.json"
+    },
+    {
+      "id": "A03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 476,
+      "firstFailures": [
+        {
+          "turn": "A03-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_modality",
+            "CANDIDATE_SEMANTICS_acquisition",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_edema"
+          ]
+        },
+        {
+          "turn": "A03-T02",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality"
+          ]
+        },
+        {
+          "turn": "A03-T03",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_reading",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A03-T04",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality",
+            "OBJECT_IDENTITY_modality"
+          ]
+        },
+        {
+          "turn": "A03-T05",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality",
+            "OBJECT_IDENTITY_modality"
+          ]
+        },
+        {
+          "turn": "A03-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit12",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "A03-T07",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality"
+          ]
+        },
+        {
+          "turn": "A03-T08",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_threshold-analysis",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "A03-T09",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality"
+          ]
+        },
+        {
+          "turn": "A03-T10",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_acquisition",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A03-T11",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality",
+            "OBJECT_IDENTITY_modality"
+          ]
+        },
+        {
+          "turn": "A03-T12",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_contrast",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "A03-T13",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality"
+          ]
+        },
+        {
+          "turn": "A03-T14",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality"
+          ]
+        },
+        {
+          "turn": "A03-T15",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_modality",
+            "OBJECT_IDENTITY_modality"
+          ]
+        }
+      ],
+      "evidence": "discovery/A03/2026-09-14T21-36-47-920Z-1546/result.json"
+    },
+    {
+      "id": "A04",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 75,
+      "firstFailures": [
+        {
+          "turn": "A04-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T05",
+          "properties": [
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T06",
+          "properties": [
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T07",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T08",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T09",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_reread",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T10",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T11:endpoint"
+          ]
+        },
+        {
+          "turn": "A04-T12",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T11:endpoint",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T13",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T11:endpoint",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T11:endpoint",
+            "GOLD_CURRENT_CONTENT_A04-T02:reread"
+          ]
+        },
+        {
+          "turn": "A04-T15",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_reread",
+            "OBJECT_IDENTITY_reread",
+            "GOLD_CURRENT_CONTENT_A04-T11:endpoint"
+          ]
+        }
+      ],
+      "evidence": "discovery/A04/2026-09-14T21-36-49-141Z-1546/result.json"
+    },
+    {
+      "id": "B01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 405,
+      "firstFailures": [
+        {
+          "turn": "B01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit"
+          ]
+        },
+        {
+          "turn": "B01-T02",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B01-T05",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T06",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T07",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "B01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T09",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T10",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "B01-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T12",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_centers",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "B01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B01-T15",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        }
+      ],
+      "evidence": "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/result.json"
+    },
+    {
+      "id": "B02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 398,
+      "firstFailures": [
+        {
+          "turn": "B02-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_exposure",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit",
+            "HUMAN_REVIEW_REACHABLE"
+          ]
+        },
+        {
+          "turn": "B02-T02",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure"
+          ]
+        },
+        {
+          "turn": "B02-T03",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B02-T04",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_renal-endpoint",
+            "CANDIDATE_SEMANTICS_no-imaging",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B02-T05",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure",
+            "OBJECT_IDENTITY_exposure"
+          ]
+        },
+        {
+          "turn": "B02-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_sample",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B02-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure"
+          ]
+        },
+        {
+          "turn": "B02-T08",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B02-T09",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_renal-threshold",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "B02-T10",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B02-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "B02-T12",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure"
+          ]
+        },
+        {
+          "turn": "B02-T13",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design"
+          ]
+        },
+        {
+          "turn": "B02-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure"
+          ]
+        },
+        {
+          "turn": "B02-T15",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_exposure",
+            "OBJECT_IDENTITY_exposure"
+          ]
+        }
+      ],
+      "evidence": "discovery/B02/2026-09-14T21-37-35-076Z-1712/result.json"
+    },
+    {
+      "id": "B03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 442,
+      "firstFailures": [
+        {
+          "turn": "B03-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit"
+          ]
+        },
+        {
+          "turn": "B03-T02",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "B03-T03",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T04",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_absence",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "B03-T05",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_work-shift",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "B03-T07",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T08",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B03-T09",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T10",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B03-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T12",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "B03-T13",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "B03-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        }
+      ],
+      "evidence": "discovery/B03/2026-09-14T21-37-36-722Z-1712/result.json"
+    },
+    {
+      "id": "B04",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 346,
+      "firstFailures": [
+        {
+          "turn": "B04-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective"
+          ]
+        },
+        {
+          "turn": "B04-T02",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_IDENTITY_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "B04-T05",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B04-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T08",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_IDENTITY_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T09",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_analysis",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B04-T10",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B04-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B04-T12",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit90",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "B04-T13",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_IDENTITY_endpoint"
+          ]
+        },
+        {
+          "turn": "B04-T15",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_endpoint"
+          ]
+        }
+      ],
+      "evidence": "discovery/B04/2026-09-14T21-37-38-109Z-1712/result.json"
+    },
+    {
+      "id": "C01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 436,
+      "firstFailures": [
+        {
+          "turn": "C01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_temperature"
+          ]
+        },
+        {
+          "turn": "C01-T02",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_roughness",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "C01-T03",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T04",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_aging",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C01-T05",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "C01-T06",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T07",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_reading",
+            "CANDIDATE_SEMANTICS_batch-analysis",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "C01-T08",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T09",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T10",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_aging",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C01-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_temperature",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C01-T12",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C01-T15",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        }
+      ],
+      "evidence": "discovery/C01/2026-09-14T21-37-39-637Z-1712/result.json"
+    },
+    {
+      "id": "C02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 529,
+      "firstFailures": [
+        {
+          "turn": "C02-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_harvest"
+          ]
+        },
+        {
+          "turn": "C02-T02",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_water",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T03",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T04",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_nitrogen",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T05",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_dose-option",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T08",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_design",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T09",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T10",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_harvest",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T12",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_sites",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C02-T13",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "C02-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C02-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        }
+      ],
+      "evidence": "discovery/C02/2026-09-14T21-37-40-874Z-1712/result.json"
+    },
+    {
+      "id": "C03",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 411,
+      "firstFailures": [
+        {
+          "turn": "C03-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit"
+          ]
+        },
+        {
+          "turn": "C03-T02",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T03",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_season",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C03-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "C03-T05",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "C03-T06",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T07",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_turbidity",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "C03-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T09",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T10",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "C03-T12",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T13",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "C03-T15",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        }
+      ],
+      "evidence": "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/result.json"
+    },
+    {
+      "id": "D01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 295,
+      "firstFailures": [
+        {
+          "turn": "D01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint"
+          ]
+        },
+        {
+          "turn": "D01-T02",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T03",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T04",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T05",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_recall",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T08",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_accuracy",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T09",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T10",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T12",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T15",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        }
+      ],
+      "evidence": "discovery/D01/2026-09-14T21-38-17-137Z-1876/result.json"
+    },
+    {
+      "id": "E01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 459,
+      "firstFailures": [
+        {
+          "turn": "E01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_conditions",
+            "CANDIDATE_SEMANTICS_endpoint"
+          ]
+        },
+        {
+          "turn": "E01-T02",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population"
+          ]
+        },
+        {
+          "turn": "E01-T03",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_emergence",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population"
+          ]
+        },
+        {
+          "turn": "E01-T04",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "E01-T05",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "E01-T06",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit15",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "E01-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "E01-T08",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_USEFULNESS",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "E01-T09",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "E01-T10",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "E01-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_conditions",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "E01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "E01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "E01-T14",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "E01-T15",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "UNKNOWN_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        }
+      ],
+      "evidence": "discovery/E01/2026-09-14T21-38-18-206Z-1876/result.json"
+    },
+    {
+      "id": "F01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 219,
+      "firstFailures": [
+        {
+          "turn": "F01-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_visit",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective"
+          ]
+        },
+        {
+          "turn": "F01-T02",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "F01-T03",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T04",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit"
+          ]
+        },
+        {
+          "turn": "F01-T05",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T06",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design"
+          ]
+        },
+        {
+          "turn": "F01-T07",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit"
+          ]
+        },
+        {
+          "turn": "F01-T08",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T09",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit"
+          ]
+        },
+        {
+          "turn": "F01-T10",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T11",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_visit",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "F01-T12",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T13",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit"
+          ]
+        },
+        {
+          "turn": "F01-T14",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_IDENTITY_visit"
+          ]
+        },
+        {
+          "turn": "F01-T15",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_design",
+            "OBJECT_IDENTITY_design",
+            "EARLY_INFORMATION_visit"
+          ]
+        }
+      ],
+      "evidence": "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/result.json"
+    },
+    {
+      "id": "F02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 430,
+      "firstFailures": [
+        {
+          "turn": "F02-T01",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_objective",
+            "CANDIDATE_SEMANTICS_population",
+            "CANDIDATE_SEMANTICS_intervention",
+            "CANDIDATE_SEMANTICS_comparator",
+            "CANDIDATE_SEMANTICS_design",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit"
+          ]
+        },
+        {
+          "turn": "F02-T02",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "F02-T03",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T04",
+          "properties": [
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "F02-T05",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_population",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention"
+          ]
+        },
+        {
+          "turn": "F02-T06",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T07",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_satisfaction",
+            "CANDIDATE_SEMANTICS_grading",
+            "HUMAN_REVIEW_REACHABLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "F02-T08",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T09",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T10",
+          "properties": [
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "CANDIDATE_SEMANTICS_visit",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "F02-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T12",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "F02-T15",
+          "properties": [
+            "SCIENTIFIC_USEFULNESS",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        }
+      ],
+      "evidence": "discovery/F02/2026-09-14T21-38-23-633Z-1876/result.json"
+    }
+  ],
+  "realProviderCalls": 0,
+  "qualificationLimit": "Synthetic external provider contracts; provider language fidelity and global scientific adequacy not qualified",
+  "manifest": {
+    "discovery/A01/2026-09-14T21-36-45-253Z-1546/session.json": "03130a42e60e6b74839c3d3afe162904d65ea18ac798346198e5e72faa5749bc",
+    "discovery/A01/2026-09-14T21-36-45-253Z-1546/result.json": "54091a22dc118b897ab75148795104a39752907f17f99a7b71fb0fe657783d5e",
+    "discovery/A01/2026-09-14T21-36-45-253Z-1546/turns.jsonl": "89a4c2046092cbbcdc94e06f7c57447a07e062949bc566639af8e96f64f18234",
+    "discovery/A01/2026-09-14T21-36-45-253Z-1546/http.json": "053fb664fd5fa6fe4c7987b98081978e3b441bbb8436a4080bf335fe3d2a6fd4",
+    "discovery/A02/2026-09-14T21-36-46-752Z-1546/session.json": "257c0be85abe7e96a597c76d485fd674e2f87cf3906ba86aaa18e862bd5fa5f8",
+    "discovery/A02/2026-09-14T21-36-46-752Z-1546/result.json": "cff7edf36e2e3c2ffa5851137ca7dfa5effe259ac278b52fb9ebe6f489bda6a3",
+    "discovery/A02/2026-09-14T21-36-46-752Z-1546/turns.jsonl": "4243ee2e9b0a1595020dbd714a25660cbe15dfcdd710452205067f8f1c09b2d8",
+    "discovery/A02/2026-09-14T21-36-46-752Z-1546/http.json": "d8656a498a1f1beb736bec469a867638fb030e6001e145ec57d28e0a3438ed9d",
+    "discovery/A03/2026-09-14T21-36-47-920Z-1546/session.json": "25c36b136fa9d8642e1d1def5708ac8689e9c66ec82dc95ec1e0eafb47ffd0ca",
+    "discovery/A03/2026-09-14T21-36-47-920Z-1546/result.json": "90253384517ad6a833ce947565bdfb28ce6a95977cd74a134988b2f39e722fc3",
+    "discovery/A03/2026-09-14T21-36-47-920Z-1546/turns.jsonl": "c6832b83a735de58e3a06a3fbb2e624938ce6715ca6cfb6d21acb73cf681e7fb",
+    "discovery/A03/2026-09-14T21-36-47-920Z-1546/http.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "discovery/A04/2026-09-14T21-36-49-141Z-1546/session.json": "13e83102533ac482ee0e3851c761d862f6140052337ffdeb895da64f82cb2eff",
+    "discovery/A04/2026-09-14T21-36-49-141Z-1546/result.json": "0e30de9ef105da8b1b930c5609dc75a8bdb522bc64e998a6fbe481c596d4f35b",
+    "discovery/A04/2026-09-14T21-36-49-141Z-1546/turns.jsonl": "28b6f17d7ddb7fce3c9f0558880a3ff3363800b36412a93885298314172d66b4",
+    "discovery/A04/2026-09-14T21-36-49-141Z-1546/http.json": "457081828bfdde270070f2245c528dd5257ae1988c8ae4010f8e57ad0dc331fe",
+    "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/session.json": "e1a306f5457b3f3b866a35ef6d9857d11132b6621c7ed5253066596e76028592",
+    "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/result.json": "3f34d63c43a4fededa3585373e32a88272096f38a0a19382d6e7d7e0e561dbfd",
+    "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/turns.jsonl": "395516e817ff3aea731fdf4ea6f28dc8b9cb515a6c06a98b07893684ccb7d1ab",
+    "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/http.json": "09ff335d9062ae8283d8d902dc6ec0ce87917e53ec145295dac18205bed2af04",
+    "discovery/B02/2026-09-14T21-37-35-076Z-1712/session.json": "fd78575de6930783c03ac536183b158a579c22609a8aa9615b593b0935388569",
+    "discovery/B02/2026-09-14T21-37-35-076Z-1712/result.json": "308684bcdc186621e7b9b8956d6d5c592d07afbcca2d60a0e781557242251fcc",
+    "discovery/B02/2026-09-14T21-37-35-076Z-1712/turns.jsonl": "3e8ae861d07fe0b870a660c11041b979478890fa2b20ef99a8de964e007366d8",
+    "discovery/B02/2026-09-14T21-37-35-076Z-1712/http.json": "5f066cab6012fceb744d5f8f925d07aa67b4297adead287eb971f4db4567c3ce",
+    "discovery/B03/2026-09-14T21-37-36-722Z-1712/session.json": "7cab62ccc50926dd00f21920fa133117310fbb3ff215f6337d527972975736d0",
+    "discovery/B03/2026-09-14T21-37-36-722Z-1712/result.json": "0d5b8f6a01dc6bc094bab12b6ab0b192a8cbd4f22d7a9431c194ba1d8e3a1c1f",
+    "discovery/B03/2026-09-14T21-37-36-722Z-1712/turns.jsonl": "7e89b8ac2995e0aeaccb93dcd08c7357a7d4158cd0b966e765ffadf6da54a291",
+    "discovery/B03/2026-09-14T21-37-36-722Z-1712/http.json": "6af099ef625adcf254c533af48a5fd66a89c341b759a71c26b6d1a1a18a3d35e",
+    "discovery/B04/2026-09-14T21-37-38-109Z-1712/session.json": "61eaddda54f36b06a518d34b8f5758df11c2fbbee9cef417bca4535a22036dce",
+    "discovery/B04/2026-09-14T21-37-38-109Z-1712/result.json": "0ff68ba5fb7898b2985e3fb956ba5fd1a110433b812530dfed1ba7d908b83b33",
+    "discovery/B04/2026-09-14T21-37-38-109Z-1712/turns.jsonl": "70cc2eef11abf58d277833f59a317fe30d6f3e8da2e25726a0d049ed1de6c8da",
+    "discovery/B04/2026-09-14T21-37-38-109Z-1712/http.json": "11e0fa5c441ce43174b22bab1ae16febaf151d600040145edab259aa7c28438d",
+    "discovery/C01/2026-09-14T21-37-39-637Z-1712/session.json": "c24ab17d39477ab53cd4938b57d439cce92ae8c862c4d4ceccf7558f8c899a89",
+    "discovery/C01/2026-09-14T21-37-39-637Z-1712/result.json": "574058425281b2aba2cff847b77d3d316f1641c8e568eb1fa33e0c9861613b7c",
+    "discovery/C01/2026-09-14T21-37-39-637Z-1712/turns.jsonl": "d5f652a683056e1cd797bbdd983c6f4b1918b415118111baf3bb21f7e05036ec",
+    "discovery/C01/2026-09-14T21-37-39-637Z-1712/http.json": "01ea3f174a625b07ac74f168caa8339e436677d750c935a79b4d7c25c03c9867",
+    "discovery/C02/2026-09-14T21-37-40-874Z-1712/session.json": "d0e240b9b8b44b1b53fe601cb3585aee615b11ef3af4f04c633ab8784f63e4c1",
+    "discovery/C02/2026-09-14T21-37-40-874Z-1712/result.json": "d22a3ed0d7fa1e3ba1ac0c0a7eaebfa7e311e2a9987c4b22e6e499db8c739797",
+    "discovery/C02/2026-09-14T21-37-40-874Z-1712/turns.jsonl": "3fc4806f0f0859d3362437bedae1ed9b7911d21dd0c3d999caf2f1d977f48044",
+    "discovery/C02/2026-09-14T21-37-40-874Z-1712/http.json": "9cd34434c785d8c91faea64dcd88fa59b2238f99daa07d051f9ad4fbe1e61f40",
+    "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/session.json": "55c2dad6cb4defabb8fe85c4fe82078f3d05884139d6eec0eb344730663709c5",
+    "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/result.json": "cedd58a0933b6bc48d607fadedca53e90cbe2cac139d227e45e1183b96a327ae",
+    "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/turns.jsonl": "3b9795ccf92b3a74a5c96abb18465a1a8c78bf1ed0bca0e6a3d8cb118e2a6deb",
+    "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/http.json": "a30846ee55d6a1c3aeacbf453b4d1d8e08c61b21ecd4eb7c363e84fc215ea4a1",
+    "discovery/D01/2026-09-14T21-38-17-137Z-1876/session.json": "80ad1e009935d5fda8b20a7d7caa93c165d1d3596b574beda1e204c330ac7f33",
+    "discovery/D01/2026-09-14T21-38-17-137Z-1876/result.json": "3fb6cddb3d027f06150e46c607a78e5faafa84d3d54a6a9e0ca93c984638dc2a",
+    "discovery/D01/2026-09-14T21-38-17-137Z-1876/turns.jsonl": "262d044a102324df7cae818a42fd524f49aee7151ede283f112d8995ca04c902",
+    "discovery/D01/2026-09-14T21-38-17-137Z-1876/http.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "discovery/E01/2026-09-14T21-38-18-206Z-1876/session.json": "63f37205cb9f6b61d204bf4a8d4aebbfa3788c8b7640ba636284c86af3c8a8f5",
+    "discovery/E01/2026-09-14T21-38-18-206Z-1876/result.json": "87064ee42cb45b2e0e275f6f3b8819ec630a4fb4eb48bb683295e027601b554f",
+    "discovery/E01/2026-09-14T21-38-18-206Z-1876/turns.jsonl": "ca2cd2a901cbfd0ce26b3e68afb925fd8c5a71aa014b7004bea627b299594f62",
+    "discovery/E01/2026-09-14T21-38-18-206Z-1876/http.json": "a5f3bef50b08c875254fc2f7ae79f5af82457ba4d88230dd1fe4f090534c7a2f",
+    "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/session.json": "66cd503eda2e1826b1ece23ffb86360a3f58af2e6e7f46a5bb9511197daa81ca",
+    "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/result.json": "5c5d07f24871f4a07d7ad72edb83842e04d1e0432ecdcea4a5d8cfb0e0a9b479",
+    "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/turns.jsonl": "9aa89350831b3b1651e4890a9bc397685bf278fef2cbc506d0692145bb731c85",
+    "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/http.json": "12c06097b3224735e874252a71abab5c86a07ddf74d353c06e2c00f72bd53c17",
+    "discovery/F02/2026-09-14T21-38-23-633Z-1876/session.json": "1aa5bf354373631619012a5d18c56756e7518f9e7dbb1aa71688c7c3f814ae3d",
+    "discovery/F02/2026-09-14T21-38-23-633Z-1876/result.json": "45863cad9e3a67f5a6e622785fc7b82414b9a9b5d12e4e8b8608ded07d1379a4",
+    "discovery/F02/2026-09-14T21-38-23-633Z-1876/turns.jsonl": "584633231350e1184e6ee99a52010d54f339f3cea98f69c984d440da3d76c4b2",
+    "discovery/F02/2026-09-14T21-38-23-633Z-1876/http.json": "e7dd59930e558771fc3c924ce531d35d22ca633e6f9c77aa92595d9f529ea40b"
+  }
+}

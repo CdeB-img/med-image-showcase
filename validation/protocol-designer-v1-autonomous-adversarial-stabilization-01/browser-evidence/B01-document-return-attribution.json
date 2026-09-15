@@ -1,0 +1,81 @@
+{
+  "contract": "BROWSER_PREVIEW_RETURN_RESIDUAL_ATTRIBUTION",
+  "recordedAt": "2026-09-15T00:36:15.198Z",
+  "scenario": "B01",
+  "turns": [
+    "T13",
+    "T14",
+    "T15"
+  ],
+  "status": "P2_SCROLL_OCCLUSION_RECOVERED_NO_STATE_FAILURE_DEMONSTRATED",
+  "evidenceBoundary": {
+    "sourceIndependentlyRead": true,
+    "browserObservedBy": "/root",
+    "screenshotIndependentlyInspectedByThisAgent": false,
+    "noNewRuntimeProbe": true,
+    "noNewProviderCall": true,
+    "noProductMutation": true,
+    "noUiStateInjection": true
+  },
+  "reportedBrowserSequence": [
+    "T13 actual reload preserved adopted Project version 3, history and pane.",
+    "T14 preview generated from adopted version 3; 24 weeks preserved, expected later 36-week gold never adopted.",
+    "Two CUA clicks on Return left preview visible; composer unavailable. T15 provider selection occurred but no submission.",
+    "Root inspected screenshot and AX: scrolled page; Return existed in AX but its area was occluded by site navigation. Native upward scroll moved Return to y=202,height=44. Clicking it then restored conversation/composer."
+  ],
+  "sourceFindings": [
+    {
+      "location": "src/components/Header.tsx:435",
+      "fact": "Site header uses sticky top-0 z-50; inner row h-16."
+    },
+    {
+      "location": "src/App.tsx:77",
+      "fact": "Real routed application mounts global Header before routed content."
+    },
+    {
+      "location": "src/features/protocol-designer/functional-reset/ProtocolPreview.tsx:24",
+      "fact": "Preview header independently uses sticky top-0 z-10, with Return button at line25; no offset beneath site header."
+    },
+    {
+      "location": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx:3566",
+      "fact": "Return onClose sets current session openDocumentProjectionId to null."
+    },
+    {
+      "location": "src/features/document-projection/functional-reset-boundary.ts:936",
+      "fact": "Projection resolver returns null when projectionId is null, without latest-preview fallback."
+    },
+    {
+      "location": "src/features/protocol-designer/functional-reset/session.ts:432",
+      "fact": "Reload restores stored session and Project; no effect forcing a preview to reopen after close."
+    },
+    {
+      "location": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx:952",
+      "fact": "Session changes are persisted through the existing useEffect."
+    }
+  ],
+  "causalAssessment": {
+    "stateLifecycle": "No onClose, resolver, or reload defect established. Native scroll followed by the same control successfully restores conversation.",
+    "layout": "Source stacking and top offsets strongly support an overlap of global navigation and preview header after scrolling. Browser-reported screenshot is concordant. Exact click interception is not independently instrumented here.",
+    "automation": "AX presence alone does not demonstrate pointer reachability under the higher-z navigation. Need visible geometry/occlusion inspection before declaring an onClose failure.",
+    "severity": "P2 navigation friction, recovered through supported native UI; not a functional block and not a Project write/adoption defect."
+  },
+  "jsdomCoverage": {
+    "campaign": "Mounts ProtocolDesignerDemo directly in MemoryRouter/HelmetProvider, omitting real App/Header. DOCUMENT action clicks Return but does not separately assert preview closure; next T15 submission indirectly checks composer reachability.",
+    "canonicalTests": [
+      "functional-reset-02.test.tsx",
+      "p1-e2e-03-standard-projection.test.tsx"
+    ],
+    "observedFullSuiteStatus": "Relevant files passed in existing full-suite.json. No tests rerun here.",
+    "limitation": "Direct fireEvent in jsdom does not exercise browser geometry, pointer hit testing or CSS stacking. Existing PASS does not refute recovered real-browser occlusion."
+  },
+  "disposition": "Record residual only. Two product repair waves are closed. Continue B01 T15 through restored real UI without direct mutation or additional canary provider.",
+  "sourceSha256": {
+    "src/components/Header.tsx": "800d534623f1a6c82c1792f433ed51781741173051b7df4a83aba845c8c1b3be",
+    "src/App.tsx": "2481cf4e1b1cd2d3177338f70f649a0bd70654388692c775b5ea38450b61525e",
+    "src/features/protocol-designer/functional-reset/ProtocolPreview.tsx": "79e5fb49c2ed03de48cace6f30908e7e2ecf9bcb65f1d87e60f265c6a436aeb1",
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx": "ee6e30c94d2877ac08b3e72552e167b7ac8faaca28a820407048085bfaffd2bf",
+    "src/features/protocol-designer/functional-reset/session.ts": "eb3d58351741b52b13aedf89db5ddc8e712f33e880676ed7ee39da278b592eb8",
+    "src/features/document-projection/functional-reset-boundary.ts": "9800027dccb6e5a4566a28c5954c9798d00dc8370f1392d08dc2b9fd787dc695",
+    "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx": "89e14eae59f58762dc1550c44a739a0b0d62dcb49901719375fa7f89194817a8"
+  }
+}

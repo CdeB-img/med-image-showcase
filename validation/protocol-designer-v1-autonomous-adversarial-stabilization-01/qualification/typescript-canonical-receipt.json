@@ -1,0 +1,12 @@
+{
+  "id": "typescript-canonical",
+  "startedAt": "2026-09-15T00:24:37.890306+00:00",
+  "completedAt": "2026-09-15T00:24:51.604027+00:00",
+  "durationSeconds": 13.714,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/typescript-canonical.log",
+  "logSha256": "8be7f9abb4aa227922481c8b0b84d172820237221a3a167978613b24e791f157",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "status": "PASS"
+}

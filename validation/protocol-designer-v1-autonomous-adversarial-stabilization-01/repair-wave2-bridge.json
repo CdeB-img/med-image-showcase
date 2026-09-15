@@ -1,0 +1,80 @@
+{
+  "contract": "AUTONOMOUS_ADVERSARIAL_REPAIR_RECEIPT",
+  "wave": 2,
+  "clusterId": "PROP-HTTP-CONTRACT",
+  "status": "IMPLEMENTED_TARGETED_QUALIFICATION_PASS_INTEGRATED_CAMPAIGN_PENDING",
+  "recordedAt": "2026-09-15T00:12:20.787Z",
+  "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "authorization": "Root explicitly authorized the second/final wave minimal parser repair and positive/negative tests; Workspace and bounded-act owner excluded from this agent scope.",
+  "diagnosis": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-diagnosis.json",
+  "causalProofBefore": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-parser-ablation.json",
+  "changedFiles": [
+    {
+      "path": "src/features/protocol-designer/product-bridge.ts",
+      "sha256": "f6d89f1bcaec0a93c24d03ede43f70cf4b9b235abb6a19b080d6d9511eed1410"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts",
+      "sha256": "aae6596ca7cf4025f7594d9edcef7e003e60139f414cd5b0c5d822c3863a1d94"
+    }
+  ],
+  "implementation": "Add only USER_REQUESTS_ASSISTED_PROPOSAL to parseProductBridgeRequest boundedInteraction runtime allowlist. Preserve existing evidence shape validation, explanation referent requirement, injected realization stripping, API/type contract versions and direct human-decision rejection.",
+  "testsAdded": 16,
+  "testsAddedToExistingTrackedFile": true,
+  "newTestDiscoveryRequirement": false,
+  "validation": [
+    {
+      "kind": "TARGETED_TESTS",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts src/features/protocol-designer/functional-reset/__tests__/pass3a-bridge-lifecycle.test.ts src/features/protocol-designer/functional-reset/__tests__/multilingual-conversation-gateway-01.test.ts src/features/protocol-designer/functional-reset/__tests__/p1-e2e-07-pre-project-ownership-repair.test.ts src/features/protocol-designer/__tests__/v1-provider-cost-and-public-boundary-regression.test.ts",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-tests-final.log",
+      "exitCode": 0,
+      "filesPassed": 5,
+      "testsPassed": 95
+    },
+    {
+      "kind": "LINT",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/eslint/bin/eslint.js src/features/protocol-designer/product-bridge.ts src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge.test.ts",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-lint.log",
+      "exitCode": 0
+    },
+    {
+      "kind": "TYPECHECK_APP",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/typescript/bin/tsc -p tsconfig.app.json --noEmit",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-typecheck-app.log",
+      "exitCode": 0
+    },
+    {
+      "kind": "CAPTURED_REQUEST_PARSER_QUALIFICATION",
+      "output": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-bridge-captured-request-qualification.json",
+      "cases": 14,
+      "acceptedOriginalRequests": 14,
+      "unchangedRequests": 14,
+      "unauthorizedDecisionKindsRejected": 14,
+      "httpCalls": 0,
+      "providerCalls": 0
+    }
+  ],
+  "properties": [
+    "Proposal kind is accepted with extraction eligibility true and false.",
+    "No Project is manufactured when currentProject is null; caller-provided governedRealization is still stripped.",
+    "CONFIRM, REFUSE, CLARIFY_CANDIDATE_REFERENCE and unknown kinds return HTTP400 before mock provider use.",
+    "Missing/non-array/malformed/empty evidence refs fail closed.",
+    "Existing explanation kind still requires a bounded referent context.",
+    "Mixed input can now pass parser and reach a validated NO_CHANGE response through existing synthetic provider fixtures without Project mutation."
+  ],
+  "limits": [
+    "The parser repair does not generate useful proposals; post-empty-delta QRY continuity is assigned to root and act reachability to the other agent.",
+    "No live provider call, repaired full campaign or browser run was performed by this repair subtask.",
+    "Accepting a non-adopting act does not authorize Project adoption or dispatch of a client-local decision."
+  ],
+  "scopePreservation": {
+    "workspaceModified": false,
+    "currentNavigationEvidenceModified": false,
+    "currentTurnNavigationModified": false,
+    "corpusModified": false,
+    "historicalProofModified": false,
+    "resumeStateModified": false,
+    "realProviderCalls": 0,
+    "commitCreated": false
+  }
+}

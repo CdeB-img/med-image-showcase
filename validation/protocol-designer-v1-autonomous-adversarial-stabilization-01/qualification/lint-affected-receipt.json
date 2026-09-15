@@ -1,0 +1,12 @@
+{
+  "id": "lint-affected",
+  "startedAt": "2026-09-15T00:24:55.416105+00:00",
+  "completedAt": "2026-09-15T00:24:56.257210+00:00",
+  "durationSeconds": 0.841,
+  "exitCode": 1,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/lint-affected.log",
+  "logSha256": "f2f12833c5355dae1277f609ed4183b788484acf585bfa726752d5dec89366b0",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "status": "FAIL"
+}

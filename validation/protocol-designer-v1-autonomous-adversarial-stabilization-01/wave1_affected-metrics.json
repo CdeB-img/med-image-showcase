@@ -1,0 +1,490 @@
+{
+  "phase": "WAVE1_AFFECTED",
+  "at": "2026-09-14T22:02:07.179012+00:00",
+  "conversations": 4,
+  "meaningfulTurns": 60,
+  "harnessCompleted": 4,
+  "productPass": 0,
+  "rawOracleSymptoms": 218,
+  "severity": {
+    "MATERIAL": 218
+  },
+  "propertyCounts": {
+    "HUMAN": 4,
+    "EARLY": 53,
+    "OBJECT": 53,
+    "GOLD": 53,
+    "STANDARD": 6,
+    "SCIENTIFIC": 34,
+    "REFUSAL": 6,
+    "TEMPORAL": 4,
+    "PURPOSE": 2,
+    "OLD": 3
+  },
+  "scenarios": [
+    {
+      "id": "A01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 108,
+      "firstFailures": [
+        {
+          "turn": "A01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T04",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T05",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T06",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T07",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T09",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T11",
+          "properties": [
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T02:variable",
+            "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+          ]
+        },
+        {
+          "turn": "A01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        },
+        {
+          "turn": "A01-T13",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable"
+          ]
+        },
+        {
+          "turn": "A01-T14",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        },
+        {
+          "turn": "A01-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "EARLY_INFORMATION_variable",
+            "OBJECT_SEMANTICS_variable",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition"
+          ]
+        }
+      ],
+      "evidence": "wave1_affected/A01/2026-09-14T22-01-41-755Z-4620/result.json"
+    },
+    {
+      "id": "A04",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 14,
+      "firstFailures": [
+        {
+          "turn": "A04-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T07",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T08",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "A04-T10",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A04-T12",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A04-T13",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION"
+          ]
+        },
+        {
+          "turn": "A04-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A04-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "wave1_affected/A04/2026-09-14T22-01-45-130Z-4620/result.json"
+    },
+    {
+      "id": "B01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 82,
+      "firstFailures": [
+        {
+          "turn": "B01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T04",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T05",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T06",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T07",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T09",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T10",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T13",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit"
+          ]
+        }
+      ],
+      "evidence": "wave1_affected/B01/2026-09-14T22-01-48-166Z-4620/result.json"
+    },
+    {
+      "id": "F01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 14,
+      "firstFailures": [
+        {
+          "turn": "F01-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T04",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T06",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        },
+        {
+          "turn": "F01-T07",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T08",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION"
+          ]
+        },
+        {
+          "turn": "F01-T09",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "F01-T13",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F01-T15",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "wave1_affected/F01/2026-09-14T22-01-51-186Z-4620/result.json"
+    }
+  ],
+  "realProviderCalls": 0,
+  "qualificationLimit": "Synthetic external provider contracts; provider language fidelity and global scientific adequacy not qualified",
+  "manifest": {
+    "wave1_affected/A01/2026-09-14T22-01-41-755Z-4620/session.json": "ffd73a361f0175522ce4cd459bd44018177153a03eec779aae3aaef95203b0a9",
+    "wave1_affected/A01/2026-09-14T22-01-41-755Z-4620/result.json": "a51887a16ebb58a53958c0b47f7c73bc3de3a91445c4833d6de39cbb9bf222b3",
+    "wave1_affected/A01/2026-09-14T22-01-41-755Z-4620/turns.jsonl": "94219216a272decd6ce874caa4f11a2a9ff2d1ae975fb5863b3b41c8d4145945",
+    "wave1_affected/A01/2026-09-14T22-01-41-755Z-4620/http.json": "0c532376f41befa2b85fd7f07891aae2b739eeb954cef974a0433359e43dfcab",
+    "wave1_affected/A04/2026-09-14T22-01-45-130Z-4620/session.json": "3dbae1eef49d479be207b306cb12c151215f5700866c333320592511392c1742",
+    "wave1_affected/A04/2026-09-14T22-01-45-130Z-4620/result.json": "d241393b559fce4e4b63064ce57fc277e094768c6d3293340c187f9814cc3eb6",
+    "wave1_affected/A04/2026-09-14T22-01-45-130Z-4620/turns.jsonl": "bd4a745b2a7265e3082c0bf182b5eca652d3a9030de4ba133f7952438bde75e5",
+    "wave1_affected/A04/2026-09-14T22-01-45-130Z-4620/http.json": "f374771da6b07042cb763e433bd2295b12a1e63d5afd7a215c1063f7a9aa63f4",
+    "wave1_affected/B01/2026-09-14T22-01-48-166Z-4620/session.json": "05eb5e011b9f45998c928353626e7f9226a25666a8a5b80f823a24518b18ad35",
+    "wave1_affected/B01/2026-09-14T22-01-48-166Z-4620/result.json": "925789e5c2918d95c1e9a4705b579273aa3b38a0e07377f1c04daca2e325f7cf",
+    "wave1_affected/B01/2026-09-14T22-01-48-166Z-4620/turns.jsonl": "8f332fd72beba4a3a1f3f44d78de9e3164ba1cf5b801c631ace86d08877f4774",
+    "wave1_affected/B01/2026-09-14T22-01-48-166Z-4620/http.json": "d865995ba9ffffdfd54885f4c64458f85d7e1417c7964bb87f1cd187dc4c3645",
+    "wave1_affected/F01/2026-09-14T22-01-51-186Z-4620/session.json": "2e53c620a4fa93b3364d5d687b6bea4b6f972d666f35eec7af5de47a841e9975",
+    "wave1_affected/F01/2026-09-14T22-01-51-186Z-4620/result.json": "902df3ee00dfd076943d438089bf19d633ea0c9aa970a805e3539b15bac94457",
+    "wave1_affected/F01/2026-09-14T22-01-51-186Z-4620/turns.jsonl": "de9be5a25a5d74b6e6d439113fd9cd3003310f881e8ee4c356c85caa86c3b2ff",
+    "wave1_affected/F01/2026-09-14T22-01-51-186Z-4620/http.json": "7f9dfecd0bb26783589d2e8d533f61f46b82be98837497c0de9f26d02d85a821"
+  }
+}

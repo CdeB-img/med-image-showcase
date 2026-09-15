@@ -1,0 +1,212 @@
+[
+  {
+    "turn": "A01-T05",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "A02-T04",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "A03-T13",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "A04-T08",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "B01-T04",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "B01-T15",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "C01-T09",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "C03-T04",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:b00ee8c7-ac14-4cb5-b76b-7a489e72c572:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "D01-T03",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": null,
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "D01-T15",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": null,
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "F01-T06",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "F01-T15",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "F02-T02",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  },
+  {
+    "turn": "F02-T04",
+    "assumption": "COUNTERFACTUAL_VALID_EMPTY_DELTA_AFTER_HTTP_CONTRACT_REPAIR",
+    "sourceProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+    "requestedInteraction": "USER_REQUESTS_ASSISTED_PROPOSAL",
+    "action": "RESPOND",
+    "owner": "QUERY_NAVIGATION",
+    "intervention": {
+      "kind": "RESPOND_WITHOUT_MUTATION",
+      "contentSource": "NONE",
+      "sourceRefs": []
+    },
+    "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+    "sourceRefs": []
+  }
+]

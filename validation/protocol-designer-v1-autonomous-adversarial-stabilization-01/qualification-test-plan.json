@@ -1,0 +1,1417 @@
+{
+  "contract": "NOXIA_OFFLINE_QUALIFICATION_TEST_PLAN",
+  "version": "1.0.0",
+  "missionId": "PROTOCOL_DESIGNER_V1_AUTONOMOUS_ADVERSARIAL_STABILIZATION_01",
+  "createdAtUtc": "2026-09-14T21:36:53.060042+00:00",
+  "repository": "/Users/charles/Documents/Projets/NOXIA/noxia-dev",
+  "headObserved": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "status": "PREPARED_NOT_EXECUTED",
+  "scope": "Read-only inventory plus this new campaign plan; no product or historical evidence modification.",
+  "safety": {
+    "realProviderCallsAuthorized": 0,
+    "guard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "guardSha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae",
+    "credentialFiles": "Never inspect .env; preload supplies empty reads and strips known provider credential env vars.",
+    "allNodeSubprocesses": "Set NODE_OPTIONS to preload guard, not only top-level --require. This also satisfies the exact-prefix harness assertion.",
+    "historicalRecordReplay": "Read-only input under .provider-evidence.local; all output redirected to campaign/qualification/recorded-live-prefix."
+  },
+  "outputDirectory": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification",
+  "setupCommands": [
+    "node -e 'require(\"node:fs\").mkdirSync(\"validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/recorded-live-prefix\", {recursive:true})'"
+  ],
+  "testInventory": [
+    {
+      "id": "long_horizon",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx",
+      "sha256AtInventory": "10da773f7048bdf7cd6086390f3f8de1e39dca2178ca554efe1649d90dff9f61",
+      "literalTests": [
+        {
+          "line": 287,
+          "title": "traverses Standard UI, real client, bridge, validators and provider adapters for T01–T05"
+        },
+        {
+          "line": 383,
+          "title": "preserves the adopted Project when a natural-language decision refuses the current candidate"
+        },
+        {
+          "line": 407,
+          "title": "fails closed on a structurally invalid bridge response without creating a Project"
+        },
+        {
+          "line": 423,
+          "title": "keeps human review reachable through the real handler when HOW returns 503"
+        },
+        {
+          "line": 442,
+          "title": "replays the IDM/IRM family for 15 meaningful Standard turns from turn 1"
+        },
+        {
+          "line": 473,
+          "title": "replays a non-imaging clinical family for 15 meaningful Standard turns from turn 1"
+        },
+        {
+          "line": 492,
+          "title": "replays a non-medical experimental family for 15 meaningful Standard turns from turn 1"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "reuse",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts",
+      "sha256AtInventory": "0d67f4c6787c6707fe2d027f562ae33000c3fd6f1f9ae20d37256c2d6a687354",
+      "literalTests": [
+        {
+          "line": 146,
+          "title": "PROPERTY_REUSE_01 — a different purpose cannot reuse the same fresh owner result as equivalent"
+        },
+        {
+          "line": 167,
+          "title": "PROPERTY_REUSE_02 — semantically equivalent requests retain compatible owner reuse"
+        },
+        {
+          "line": 181,
+          "title": "PROPERTY_REUSE_03 — a genuinely confirmed Project change invalidates the dependent result"
+        },
+        {
+          "line": 209,
+          "title": "PROPERTY_REUSE_04 — requesting, discussing, refusing and selecting proposals never adopts Project"
+        },
+        {
+          "line": 237,
+          "title": "PROPERTY_REUSE_05 — repeated requests return a bounded exhaustion explanation without invented novelty"
+        },
+        {
+          "line": 257,
+          "title": "keeps objective links valid when already represented hypotheses are filtered from new proposals"
+        },
+        {
+          "line": 313,
+          "title": "preserves the last selectable proposals across an empty alternative result, until Project changes"
+        },
+        {
+          "line": 381,
+          "title": "preserves the existing explanation act"
+        },
+        {
+          "line": 385,
+          "title": "keeps a question about already adopted options in discussion rather than generating proposals"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "corrections",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-contextual-corrections.test.ts",
+      "sha256AtInventory": "0704894e1aff86d036ca8bebc7cb14ce13dfd98aee9718670de7802d31c3b127",
+      "literalTests": [
+        {
+          "line": 149,
+          "title": "keeps local definitions scoped to the current Project and preserves the human adoption gate"
+        },
+        {
+          "line": 223,
+          "title": "A — a same-exam addition does not create another acquisition"
+        },
+        {
+          "line": 236,
+          "title": "keeps an ellipted phase ambiguity attached to one occurrence and exposes it for clarification"
+        },
+        {
+          "line": 259,
+          "title": "B/C — distinguishes two explicit exams from a context-free temporal ambiguity"
+        },
+        {
+          "line": 303,
+          "title": "D — reuses a non-cardiac local definition without creating a second test"
+        },
+        {
+          "line": 359,
+          "title": "does not invent a Project correction without an adopted Project or capture an owner candidate selection"
+        },
+        {
+          "line": 380,
+          "title": "prepares the exact endpoint/variable patch without mutating v1 and preserves role, occasion and provenance"
+        },
+        {
+          "line": 428,
+          "title": "A/B/C — patches timing or population and adds a measure without reconstructing unrelated Project state"
+        },
+        {
+          "line": 479,
+          "title": "D/E — preserves the prior state on refusal and rejects an unresolved ambiguous replacement target"
+        },
+        {
+          "line": 495,
+          "title": "F — applies the same partial-patch invariant to a non-medical measure"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "qry_continuation",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-qry-continuation-proactive-proposal-01.test.tsx",
+      "sha256AtInventory": "186ddc19605ba37ec8caa989aac58f75bf146e7465a8d550ba54f12302d05527",
+      "literalTests": [
+        {
+          "line": 129,
+          "title": "QCP01 — recovers both endpoints of a context-bound 35/85 age range without treating arbitrary pairs as age"
+        },
+        {
+          "line": 149,
+          "title": "QCP02-QCP04 — recomputes resolved population facets and keeps a genuinely unknown exclusion open"
+        },
+        {
+          "line": 175,
+          "title": "QCP-sensitive — preserves the controlled vulnerable-population exclusion and only the explicit exception"
+        },
+        {
+          "line": 200,
+          "title": "QCP07-QCP08 — QRY selects an existing proposal-capable owner without Project write"
+        },
+        {
+          "line": 218,
+          "title": "QCP10 — applies the same proposal act to a non-medical material/temperature/geometry project"
+        },
+        {
+          "line": 243,
+          "title": "QCP07-QCP10 — Standard shows the existing owner proposal for the explicit request, with zero bridge/provider call"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "current_navigation",
+      "path": "src/features/query-navigation/__tests__/pass3a-current-turn-navigation.test.ts",
+      "sha256AtInventory": "7362d8334326c873adc2d3d5a722cb263a3c22e46ff1ad59ce9742fe86322c94",
+      "literalTests": [
+        {
+          "line": 170,
+          "title": "produces context-specific purposes A–D without requiring four different action categories"
+        },
+        {
+          "line": 177,
+          "title": "uses the exact thrombus source and structures its two represented objectives without inventing endpoints"
+        },
+        {
+          "line": 187,
+          "title": "keeps the thrombus proposal non-adopted when a second turn asks only for an explanation"
+        },
+        {
+          "line": 197,
+          "title": "supports the same typed objective structure outside imaging"
+        },
+        {
+          "line": 216,
+          "title": "keeps known objective information available instead of selecting it as a question"
+        },
+        {
+          "line": 224,
+          "title": "leaves a pure comparison request conversational with no fabricated candidate"
+        },
+        {
+          "line": 230,
+          "title": "distinguishes a USER_TURN asking why from explicit POST_ADOPTION continuation"
+        },
+        {
+          "line": 242,
+          "title": "preserves native QRY COMPARE_OPTIONS and its alternatives rather than rewriting it as ASK"
+        },
+        {
+          "line": 252,
+          "title": "does not ask a governed need already explicitly answered"
+        },
+        {
+          "line": 272,
+          "title": "does not reuse a candidate from an unrelated turn merely because the base Project version matches"
+        },
+        {
+          "line": 279,
+          "title": "does not use a failed or unvalidated candidate as governed evidence"
+        },
+        {
+          "line": 286,
+          "title": "binds a corrective delta to the adopted version without mutating that version"
+        },
+        {
+          "line": 304,
+          "title": "represents a temporal-only delta as a real change, not a zero-change candidate"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "freshness",
+      "path": "src/features/query-navigation/__tests__/part3-freshness-trace.test.ts",
+      "sha256AtInventory": "f780a09876bcb8e996f12f991e546f3be96cf4750501441ac4480b849235544b",
+      "literalTests": [
+        {
+          "line": 28,
+          "title": "QRY3-FRESH-C01 source version is preserved"
+        },
+        {
+          "line": 29,
+          "title": "QRY3-FRESH-C02 Project change is detected"
+        },
+        {
+          "line": 30,
+          "title": "QRY3-FRESH-C03 stale action is blocked"
+        },
+        {
+          "line": 31,
+          "title": "QRY3-FRESH-C04 stale response is preserved but never promoted"
+        },
+        {
+          "line": 32,
+          "title": "QRY3-FRESH-C05 state change creates a new selection trace"
+        },
+        {
+          "line": 33,
+          "title": "QRY3-FRESH-C06 old trace remains intact"
+        },
+        {
+          "line": 34,
+          "title": "QRY3-FRESH-C07 resolved need is removed from next context"
+        },
+        {
+          "line": 35,
+          "title": "QRY3-FRESH-C08 new need becomes a candidate"
+        },
+        {
+          "line": 39,
+          "title": "QRY3-TRACE-C01 selection is reconstructible"
+        },
+        {
+          "line": 40,
+          "title": "QRY3-TRACE-C02 presentation is reconstructible"
+        },
+        {
+          "line": 41,
+          "title": "QRY3-TRACE-C03 response is reconstructible"
+        },
+        {
+          "line": 42,
+          "title": "QRY3-TRACE-C04 destination can be reconstructed from contracts"
+        },
+        {
+          "line": 43,
+          "title": "QRY3-TRACE-C05 decision target stays referenced"
+        },
+        {
+          "line": 44,
+          "title": "QRY3-TRACE-C06 Project transition preserves previous trace"
+        },
+        {
+          "line": 45,
+          "title": "QRY3-TRACE-C07 VAL/source transition changes source digest"
+        },
+        {
+          "line": 46,
+          "title": "QRY3-TRACE-C08 lifecycle replay is identical"
+        },
+        {
+          "line": 47,
+          "title": "QRY3-TRACE-C09 canonical forms have no UI dependency"
+        },
+        {
+          "line": 48,
+          "title": "QRY3-TRACE-C10 digests ignore audit timestamps"
+        },
+        {
+          "line": 49,
+          "title": "event causal order remains semantically significant"
+        },
+        {
+          "line": 50,
+          "title": "response canonical form retains raw evidence"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "evidence_binding",
+      "path": "src/features/query-navigation/__tests__/current-navigation-evidence.test.ts",
+      "sha256AtInventory": "440a5b00f69d4888646cb6856ddc416f2119d1bf4f2ebb82f3a60dd0b8095470",
+      "literalTests": [
+        {
+          "line": 68,
+          "title": "does not resolve Project needs merely because the actual consumer receives a scoped owner result"
+        },
+        {
+          "line": 97,
+          "title": "still excludes an explicitly resolved native owner need without resolving absent Project needs"
+        },
+        {
+          "line": 126,
+          "title": "preserves candidate objects, relations, epistemic state and provenance without a fake Project"
+        },
+        {
+          "line": 140,
+          "title": "does not turn an explicit UNKNOWN alone into a clarification"
+        },
+        {
+          "line": 156,
+          "title": "excludes a candidate with changed source or base and preserves exact old bindings"
+        },
+        {
+          "line": 162,
+          "title": "consumes a current governed Study Design information need using the existing owner runtime"
+        },
+        {
+          "line": 182,
+          "title": "changes the navigation digest for a relevant result with an unchanged adopted Project"
+        },
+        {
+          "line": 192,
+          "title": "reuses the unchanged QRY engine for an explicit governed trade-off, not a invented blocking decision"
+        },
+        {
+          "line": 213,
+          "title": "projects the selected current Study Design options, discriminants and limitations into HOW obligations"
+        },
+        {
+          "line": 243,
+          "title": "projects an ASK target as the exact interrogative sentence rather than its Standard preamble"
+        },
+        {
+          "line": 265,
+          "title": "does not include unselected ledger entries in QRY context or digest"
+        },
+        {
+          "line": 278,
+          "title": "recomputes the actual QRY consumer for changed applicable evidence with unchanged Project"
+        },
+        {
+          "line": 294,
+          "title": "does not recompute the actual QRY consumer when only an unselected result is added"
+        },
+        {
+          "line": 314,
+          "title": "excludes nonapplicable or non-current scope without changing active digest"
+        },
+        {
+          "line": 325,
+          "title": "excludes another Project even if the consumer proposes an overlapping object scope"
+        },
+        {
+          "line": 334,
+          "title": "excludes changed Project version/digest and checks the source snapshot separately"
+        },
+        {
+          "line": 353,
+          "title": "retains distinct current conflicting owner needs instead of picking the newest one"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "standard_intelligence",
+      "path": "src/features/query-navigation/__tests__/v1-standard-scientific-conversation-intelligence.test.tsx",
+      "sha256AtInventory": "e9fa8e25e4d087d310ddf0e9382f1eb38bcedc79ef2f50debabb2818a02a6a8d",
+      "literalTests": [
+        {
+          "line": 244,
+          "title": "C01-C03 — resurfaces old relevant Project facts after a distant turn, excludes the irrelevant fact, and keeps the new candidate explicit"
+        },
+        {
+          "line": 259,
+          "title": "C04-C09 — exposes independent multi-select actions, Other, deferral, explanations, explicit statuses and free-text-only continuation"
+        },
+        {
+          "line": 291,
+          "title": "C10-C12 — selection is non-mutating, rejection leaves Project stable, and adoption alone versions Project and document projections"
+        },
+        {
+          "line": 326,
+          "title": "C13-C14 — works for a non-biological endpoint and does not flood unrelated or weakly associated turns"
+        },
+        {
+          "line": 380,
+          "title": "C15 — preserves QRY ownership, exact evidence bindings and zero provider execution"
+        },
+        {
+          "line": 425,
+          "title": "Standard integration — after six unrelated turns, shows useful context, combines requests, survives rejection, then adopts a fresh candidate"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "persistence",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/project-persistence-oai-02.test.ts",
+      "sha256AtInventory": "b19f6b46811fff084764a3c1f76157205b5685050f7d5d23accef265dc39cd91",
+      "literalTests": [
+        {
+          "line": 156,
+          "title": "O01/O02 resolves the configured Gemini conversation model and its Flash-Lite fallback"
+        },
+        {
+          "line": 171,
+          "title": "O03/O04 resolves the configured Terra extraction model and its fallback"
+        },
+        {
+          "line": 177,
+          "title": "O05/O06 keeps OpenAI credentials server-only and out of frontend/payload"
+        },
+        {
+          "line": 188,
+          "title": "O07 never falls back from missing Terra credentials to Gemini extraction"
+        },
+        {
+          "line": 198,
+          "title": "O08 Terra transport failure leaves the exact Project unchanged"
+        },
+        {
+          "line": 212,
+          "title": "O09 an invalid Terra candidate is blocked and cannot write Project truth"
+        },
+        {
+          "line": 222,
+          "title": "O10 persists explicit OpenAI/Terra provenance and the frozen semantic contract digests"
+        },
+        {
+          "line": 239,
+          "title": "O11/O13/O14 C traverses extraction, complete review and explicit Human Decision"
+        },
+        {
+          "line": 257,
+          "title": "O12/O15 D preserves source-grounded J5-J7 timing and reloads exactly"
+        },
+        {
+          "line": 281,
+          "title": "O16/O17/O18 keeps QRY/DOC ownership suites external and restores model configuration without changing prompts"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "candidate_lifecycle",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/pass3a-candidate-lifecycle-ui.test.tsx",
+      "sha256AtInventory": "d0e1664c1185260bfbb1b962d7617c60df34b789ca38568a48f65d9004112de9",
+      "literalTests": [
+        {
+          "line": 281,
+          "title": "successful HOW and presentation records PRESENTED without adopting the Project"
+        },
+        {
+          "line": 296,
+          "title": "a real review render failure retains the unseen candidate and never remounts it automatically"
+        },
+        {
+          "line": 319,
+          "title": "HOW failure presents the retained validated candidate through the deterministic degraded path"
+        },
+        {
+          "line": 341,
+          "title": "keeps the exact live first turn reviewable when Gemini HOW is rejected by conformance"
+        },
+        {
+          "line": 552,
+          "title": "localization failure after successful HOW retains the exact original source and no presented candidate"
+        },
+        {
+          "line": 576,
+          "title": "keeps an older presented candidate unchanged while presenting a newer validated candidate after HOW failure"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "language",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/multilingual-conversation-gateway-01.test.ts",
+      "sha256AtInventory": "d786801bd5297b54e829d8922d5ae756323144b14504f27f3d49ead824eef4e6",
+      "literalTests": [
+        {
+          "line": 127,
+          "title": "uses French input directly without a provider projection"
+        },
+        {
+          "line": 151,
+          "title": "preserves the exact frozen English intent while routing from a derived French projection"
+        },
+        {
+          "line": 210,
+          "title": "accepts the exact FIC02 witness MRI to IRM projection without treating scientific acronyms as opaque identifiers"
+        },
+        {
+          "line": 236,
+          "title": "transmits only protected opaque literals to the provider, not scientific acronyms"
+        },
+        {
+          "line": 247,
+          "title": "keeps explicitly protected and structurally opaque identifiers rejected with exact diagnostics"
+        },
+        {
+          "line": 288,
+          "title": "keeps provenance, provider shape, numbers, units, uncertainty and negation fail-closed"
+        },
+        {
+          "line": 328,
+          "title": "accepts same-call uncertainty evidence without requiring a local target synonym"
+        },
+        {
+          "line": 353,
+          "title": "treats an absent semantic invariant as non-applicable without fabricating preservation"
+        },
+        {
+          "line": 423,
+          "title": "keeps source and target evidence provenance verbatim and rejects duplicate attestations"
+        },
+        {
+          "line": 449,
+          "title": "requires the produced-text language contract before localization can report success"
+        },
+        {
+          "line": 495,
+          "title": "requires complete semantic attestations and rejects an attested uncertainty loss"
+        },
+        {
+          "line": 531,
+          "title": "binds unit evidence to measured quantities rather than isolated prose letters"
+        },
+        {
+          "line": 553,
+          "title": "preserves Japanese numbers, MRI units, uncertainty, conditionality and UNKNOWN status"
+        },
+        {
+          "line": 565,
+          "title": "preserves Chinese comparison, negation, uncertainty and technical acronyms"
+        },
+        {
+          "line": 577,
+          "title": "keeps a mixed French scientific sentence in French and does not switch on weak English evidence"
+        },
+        {
+          "line": 593,
+          "title": "requires provider attestation for ambiguity and keeps the bounded ambiguity note"
+        },
+        {
+          "line": 618,
+          "title": "fails closed for unsupported or invariant-breaking provider output"
+        },
+        {
+          "line": 655,
+          "title": "deduplicates an unchanged projection identity and keeps localized prose non-authoritative"
+        },
+        {
+          "line": 685,
+          "title": "uses the shared OpenAI Responses bridge for one structured projection call without Project authority"
+        },
+        {
+          "line": 715,
+          "title": "returns the rejected sub-invariant and provider-result digest without returning provider text"
+        },
+        {
+          "line": 755,
+          "title": "uses the existing one-attempt provider policy and reports a bounded language failure"
+        },
+        {
+          "line": 773,
+          "title": "starts TRACE at the user turn, includes language and Router on an early UNDERSTAND path, and records projection failure before routing"
+        },
+        {
+          "line": 842,
+          "title": "records the complete successful and rejected language materialization boundaries at LEVEL_2"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "language_context",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/language-gateway-openai-luna-context-boundary-01.test.ts",
+      "sha256AtInventory": "47e3f8b8c0b760afc952a259323c2071d573f47ac21c00a3ba0ada03266b2d8e",
+      "literalTests": [
+        {
+          "line": 116,
+          "title": "publishes one coherent Language Gateway 1.4.0 contract with the adopted uncertainty boundary"
+        },
+        {
+          "line": 147,
+          "title": "rejects a provider claim that promotes not-yet alone to uncertainty"
+        },
+        {
+          "line": 165,
+          "title": "keeps UNKNOWN distinct from ABSENT and LOST"
+        },
+        {
+          "line": 190,
+          "title": "keeps current human references separate from product schema and contract gates"
+        },
+        {
+          "line": 212,
+          "title": "builds a bounded provider payload independent from irrelevant long histories"
+        },
+        {
+          "line": 251,
+          "title": "reuses the Responses transport, materializes usage and fails closed without fallback"
+        },
+        {
+          "line": 298,
+          "title": "routes the product Language Gateway to Luna low only and records provider execution in TRACE"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "weak_uncertainty",
+      "path": "src/features/protocol-designer/functional-reset/__tests__/frozen-integrated-campaign-02-bounded-repair-02.test.ts",
+      "sha256AtInventory": "38275ba04bc4c9edce73bf4be9300795edbe61a66080aca34c45f39e70cc11a2",
+      "literalTests": [
+        {
+          "line": 17,
+          "title": "preserves a pure UNDERSTAND route without opening construction"
+        },
+        {
+          "line": 31,
+          "title": "keeps a pure methodological comparison outside construction"
+        },
+        {
+          "line": 44,
+          "title": "keeps an explicit construction finality reachable"
+        },
+        {
+          "line": 57,
+          "title": "recognizes an action bound to a declared study plan without treating the design noun alone as finality"
+        },
+        {
+          "line": 70,
+          "title": "preserves a secondary construction finality without replacing the primary UNDERSTAND intent"
+        },
+        {
+          "line": 82,
+          "title": "routes an explicit generic validation operation to the construction corridor"
+        },
+        {
+          "line": 88,
+          "title": "does not turn weak uncertainty into an artificial construction decision"
+        },
+        {
+          "line": 98,
+          "title": "retains an established secondary construction intent across a low-information follow-up"
+        },
+        {
+          "line": 119,
+          "title": "retains an established primary construction corridor across a low-information follow-up"
+        },
+        {
+          "line": 139,
+          "title": "keeps the mixed-intent responsibility chain inside existing LEVEL_2 TRACE"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "negative_representation",
+      "path": "src/features/scientific-interpretation/__tests__/scientific-interpretation.test.ts",
+      "sha256AtInventory": "182528db5fe2da3020367bfbc9441bbf4ec295f590a47e2c534662dc74d4f92a",
+      "literalTests": [
+        {
+          "line": 105,
+          "title": "HRI-C01 reflects the controlled cutover default"
+        },
+        {
+          "line": 107,
+          "title": "HRI-C02 returns a Contribution and never a Research Project"
+        },
+        {
+          "line": 114,
+          "title": "HRI-C03 product code imports no contract from experiments"
+        },
+        {
+          "line": 120,
+          "title": "HRI-C04 persists raw output before parsing"
+        },
+        {
+          "line": 130,
+          "title": "HRI-C05 keeps raw inspectable after schema or parsing failure"
+        },
+        {
+          "line": 137,
+          "title": "HRI-C06 preserves candidate distinct from adopted"
+        },
+        {
+          "line": 143,
+          "title": "HRI-C07 preserves Knowledge support distinct from Project decision"
+        },
+        {
+          "line": 149,
+          "title": "HRI-C08 keeps critical relations representable in V1"
+        },
+        {
+          "line": 155,
+          "title": "HRI-C09 keeps rejected and superseded states reconstructible"
+        },
+        {
+          "line": 161,
+          "title": "HRI-C10 keeps local practice local"
+        },
+        {
+          "line": 169,
+          "title": "HRI-C11 keeps partial availability explicit"
+        },
+        {
+          "line": 175,
+          "title": "HRI-C12 never upgrades association to causality"
+        },
+        {
+          "line": 181,
+          "title": "HRI-C13 SEM-AUDIT-D is non-mutating"
+        },
+        {
+          "line": 190,
+          "title": "HRI-C14 keeps SEM-AUDIT-L shadow-only"
+        },
+        {
+          "line": 192,
+          "title": "HRI-C15 never calls an adjudicator"
+        },
+        {
+          "line": 199,
+          "title": "HRI-C16 HYBRID_SHADOW mutates neither UI nor Project state"
+        },
+        {
+          "line": 212,
+          "title": "HRI-C17 legacy adapter preserves historic SEM identity"
+        },
+        {
+          "line": 227,
+          "title": "HRI-C18 V1 projection does not claim PD-003 V2"
+        },
+        {
+          "line": 233,
+          "title": "HRI-C19 replay manifest reads no Blind path"
+        },
+        {
+          "line": 239,
+          "title": "HRI-C20 replays 24/24 states with zero provider call"
+        },
+        {
+          "line": 253,
+          "title": "HRI-C21 exposes the previous Contribution identity without a parallel history"
+        },
+        {
+          "line": 274,
+          "title": "HRI-C22 refuses an active relation whose endpoint is inactive"
+        },
+        {
+          "line": 285,
+          "title": "HRI-C23 accepts one sourced negative constraint as representation of the same negative statement"
+        },
+        {
+          "line": 309,
+          "title": "HRI-C24 accepts ordered exact source fragments separated by an explicit ellipsis only"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "human_versioning",
+      "path": "src/features/research-project-construction/__tests__/decisions-versioning-change.test.ts",
+      "sha256AtInventory": "226a8f6ab6760417b1fd3450dcf0c252aa5b71edc34acc1e4410e305ac04cf9c",
+      "literalTests": [
+        {
+          "line": 18,
+          "title": "n’adopte un design qu’après proposition et décision humaine traçable"
+        },
+        {
+          "line": 29,
+          "title": "gèle une version seulement après toutes les portes structurantes puis autorise un handoff Document distinct"
+        },
+        {
+          "line": 41,
+          "title": "préserve une version gelée et ouvre une nouvelle candidate après changement majeur confirmé"
+        },
+        {
+          "line": 57,
+          "title": "un changement rejeté préserve les objets et la version courante"
+        },
+        {
+          "line": 67,
+          "title": "une réponse adaptative alimente réellement la Population ou le Critère candidat"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "provider_replay_budget",
+      "path": "src/features/protocol-designer/__tests__/v1-provider-record-replay.test.ts",
+      "sha256AtInventory": "3920bee65e572455ca47446e5ceb85000ea7a9a922119894150877c37f3755bf",
+      "literalTests": [
+        {
+          "line": 20,
+          "title": "persists the actual payload, response, usage and context then replays without a provider"
+        },
+        {
+          "line": 48,
+          "title": "records HTTP failure and transport failure with no retry; redacts secrets"
+        },
+        {
+          "line": 65,
+          "title": "rejects tampered evidence and unsupported endpoints without a provider"
+        },
+        {
+          "line": 80,
+          "title": "consumes a fixture only once even for concurrent identical requests"
+        },
+        {
+          "line": 88,
+          "title": "blocks before a paid request when recording preflight is unavailable"
+        },
+        {
+          "line": 97,
+          "title": "does not lose received usage or trigger another call on completion IO failure"
+        },
+        {
+          "line": 114,
+          "title": "replays start order when concurrent responses complete out of order"
+        },
+        {
+          "line": 134,
+          "title": "keeps the adapter response usable when only its evidence copy fails"
+        },
+        {
+          "line": 172,
+          "title": "B1/B7: records the bound BEFORE spend, preserves payload/response and settles reported cost separately"
+        },
+        {
+          "line": 200,
+          "title": "B2: denies a next Terra call that would exceed six dollars, even through a new recorder instance"
+        },
+        {
+          "line": 210,
+          "title": "B3: stops at one measured dollar, not at one conservatively committed dollar"
+        },
+        {
+          "line": 242,
+          "title": "B6: recalculates inside the SAME turn; each logical call has its own reservation"
+        },
+        {
+          "line": 251,
+          "title": "B8: concurrent instances cannot spend the same reservation, and a duplicate logical call stays consumed"
+        },
+        {
+          "line": 272,
+          "title": "cannot create a fresh budget by changing the session within the same campaign"
+        },
+        {
+          "line": 296,
+          "title": "keeps unknown evidence fail-closed and requires explicit server configuration"
+        },
+        {
+          "line": 308,
+          "title": "admits the first Terra call under six dollars without inventing a tighter token bound"
+        },
+        {
+          "line": 332,
+          "title": "accounts for Gemini hidden reasoning and rejects missing or mismatched billing/model evidence"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "provider_cost_shutdown",
+      "path": "src/features/protocol-designer/__tests__/v1-provider-cost-and-public-boundary-regression.test.ts",
+      "sha256AtInventory": "a4856d307f39f2f8c99a739a646f5bdc0125c44ea0d09ac35b3d9185155a61b4",
+      "literalTests": [
+        {
+          "line": 114,
+          "title": "also blocks the deprecated scientific-semantic alias"
+        },
+        {
+          "line": 128,
+          "title": "retains usage when a successful provider output is rejected by the language contract"
+        },
+        {
+          "line": 168,
+          "title": "preserves a known subtotal and explicitly marks unknown-priced attempts"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "provider_observability",
+      "path": "src/features/protocol-designer/__tests__/v1-long-horizon-runtime-stabilization-01.test.ts",
+      "sha256AtInventory": "d25714efcae3d5efad2c3f8c520438131d6615f12f24babf860dc5010f24896d",
+      "literalTests": [
+        {
+          "line": 73,
+          "title": "records one Gemini attempt with correlation, usage, latency and reproducible cost"
+        },
+        {
+          "line": 115,
+          "title": "records an OpenAI Terra extraction at the actual adapter boundary"
+        },
+        {
+          "line": 168,
+          "title": "does not invent a cost for an unknown model or incomplete usage"
+        },
+        {
+          "line": 179,
+          "title": "keeps the cumulative session cost monotonic after the UI trace window is truncated"
+        },
+        {
+          "line": 189,
+          "title": "keeps local development enabled and production fail-closed"
+        },
+        {
+          "line": 197,
+          "title": "blocks the production API before any provider credential or call is considered"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "recorded_live_prefix",
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/recorded-prefix.test.tsx",
+      "sha256AtInventory": "030e53645202b40af9995ff7a2df97acf238b1788a344162e30869a1a0cecac1",
+      "literalTests": [
+        {
+          "line": 20,
+          "title": "reconstructs exact recorded live prefix through Standard and evaluates explicit T05 proposals"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "transport_selftest",
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/transport-selftest.test.tsx",
+      "sha256AtInventory": "49ae75ed730c12d87bf0c41c243928e28179e37d51e5c0d39a8430f2a5f90961",
+      "literalTests": [
+        {
+          "line": 27,
+          "title": "preserves paragraphs and blank lines through the actual provider source catalog"
+        },
+        {
+          "line": 33,
+          "title": "serves extraction, French identity language and governed HOW through the provider transport"
+        },
+        {
+          "line": 73,
+          "title": "fails closed for no active turn, unknown endpoint, wrong frozen text and absent replacement target"
+        }
+      ],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    },
+    {
+      "id": "campaign",
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "sha256AtInventory": "52877a0ab669a718790732e3148bcf6277617a97ae3373758dbfa45d68c128e7",
+      "literalTests": [],
+      "titleListingIsNotExpandedParameterizedTestCount": true
+    }
+  ],
+  "propertyCoverage": [
+    {
+      "property": "SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED",
+      "source": "reuse",
+      "lines": [
+        145,
+        165
+      ],
+      "tests": [
+        "PROPERTY_REUSE_01"
+      ],
+      "evidenceScope": "Owner/session runtime with real dispatch and ledger; not complete Standard corridor",
+      "assertions": [
+        "ownerResultRef changes",
+        "ledger grows by exactly one",
+        "hypothesis candidates, contextual content and UNKNOWN retained",
+        "Project byte equality"
+      ]
+    },
+    {
+      "property": "SEMANTICALLY_EQUIVALENT_PURPOSE_MAY_REUSE_COMPATIBLE_RESULT",
+      "source": "reuse",
+      "lines": [
+        167,
+        179
+      ],
+      "tests": [
+        "PROPERTY_REUSE_02"
+      ],
+      "evidenceScope": "Three domain fixtures and multiple equivalent request phrases; direct act classification then same governed dispatch",
+      "assertions": [
+        "same ownerResultRef",
+        "ledger length unchanged",
+        "candidate/human boundary preserved"
+      ],
+      "limit": "Compatible reuse is permitted, not arbitrary semantic equivalence or a live-language fidelity proof."
+    },
+    {
+      "property": "PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT",
+      "source": "reuse",
+      "lines": [
+        181,
+        207
+      ],
+      "tests": [
+        "PROPERTY_REUSE_03"
+      ],
+      "evidenceScope": "Actual confirmResearchProjectContribution then scientific dispatch",
+      "assertions": [
+        "revision increments",
+        "Project digest changes",
+        "old interaction no longer current",
+        "new ownerResultRef",
+        "next output binds changed Project"
+      ]
+    },
+    {
+      "property": "NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION",
+      "sources": [
+        "long_horizon",
+        "reuse",
+        "persistence",
+        "candidate_lifecycle",
+        "human_versioning"
+      ],
+      "tests": [
+        "PROPERTY_REUSE_04",
+        "O11/O13/O14",
+        "successful HOW and presentation records PRESENTED without adopting the Project"
+      ],
+      "evidenceScope": "Mixture of Standard full handler/adapters and targeted lifecycle tests"
+    },
+    {
+      "property": "REFUSAL_PRESERVES_CURRENT_PROJECT",
+      "sources": [
+        "long_horizon",
+        "reuse",
+        "corrections",
+        "human_versioning"
+      ],
+      "tests": [
+        "preserves the adopted Project when a natural-language decision refuses the current candidate",
+        "PROPERTY_REUSE_04",
+        "D/E — preserves the prior state on refusal and rejects an unresolved ambiguous replacement target"
+      ],
+      "evidenceScope": "Standard + candidate lifecycle"
+    },
+    {
+      "property": "PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES",
+      "source": "corrections",
+      "lines": [
+        380,
+        506
+      ],
+      "tests": [
+        "prepares the exact endpoint/variable patch without mutating v1 and preserves role, occasion and provenance",
+        "A/B/C — patches timing or population and adds a measure without reconstructing unrelated Project state",
+        "F — applies the same partial-patch invariant to a non-medical measure"
+      ],
+      "evidenceScope": "Real materializer/candidate/adoption with provider-shaped fixture; Standard soaks add corridor coverage"
+    },
+    {
+      "property": "RESOLVED_NEED_NOT_GENERICALLY_REASKED",
+      "sources": [
+        "long_horizon",
+        "qry_continuation",
+        "current_navigation",
+        "freshness"
+      ],
+      "tests": [
+        "QCP02-QCP04",
+        "does not ask a governed need already explicitly answered",
+        "QRY3-FRESH-C07"
+      ],
+      "evidenceScope": "Typed QRY tests and Standard soak population checks"
+    },
+    {
+      "property": "EXAMPLE_NOT_PROMOTED_TO_RULE",
+      "source": "long_horizon",
+      "lines": [
+        442,
+        470
+      ],
+      "tests": [
+        "replays the IDM/IRM family for 15 meaningful Standard turns from turn 1"
+      ],
+      "assertions": [
+        "No CURRENT object content exactly pacemaker",
+        "Any preserved pacemaker content includes example/contraindication scope"
+      ],
+      "evidenceScope": "Synthetic extractor + real Standard corridor",
+      "limit": "Specific semantic fixture protects this example; does not prove general live extraction understanding."
+    },
+    {
+      "property": "UNCERTAINTY_NOT_PROMOTED_TO_FACT",
+      "sources": [
+        "long_horizon",
+        "reuse",
+        "language",
+        "language_context",
+        "weak_uncertainty"
+      ],
+      "tests": [
+        "A/B soaks UNKNOWN facts",
+        "PROPERTY_REUSE_01",
+        "does not turn weak uncertainty into an artificial construction decision",
+        "rejects a provider claim that promotes not-yet alone to uncertainty"
+      ],
+      "evidenceScope": "UNKNOWN preservation downstream of synthetic extraction and bounded act/language contract tests"
+    },
+    {
+      "property": "CURRENT_PROJECT_DRIVES_QRY",
+      "sources": [
+        "long_horizon",
+        "qry_continuation",
+        "current_navigation",
+        "evidence_binding"
+      ],
+      "assertions": [
+        "queryNavigation projectRef/version/digest match current Project",
+        "stale/foreign evidence blocked"
+      ],
+      "evidenceScope": "Standard full corridor plus QRY binding tests"
+    },
+    {
+      "property": "EXPLICIT_PROPOSAL_REMAINS_CANDIDATE",
+      "sources": [
+        "reuse",
+        "qry_continuation",
+        "long_horizon"
+      ],
+      "tests": [
+        "PROPERTY_REUSE_04",
+        "QCP07-QCP10 Standard"
+      ],
+      "evidenceScope": "Non-adopting owner proposal and Standard user handling"
+    },
+    {
+      "property": "NEGATIVE_CONSTRAINT_NOT_CONFUSED_WITH_REFUSAL",
+      "source": "negative_representation",
+      "lines": [
+        285,
+        311
+      ],
+      "tests": [
+        "HRI-C23 accepts one sourced negative constraint as representation of the same negative statement"
+      ],
+      "evidenceScope": "Contribution audit representation only",
+      "coverageAssessment": "BASELINE_DIRECT_CONVERSATIONAL_ROUTING_TEST_NOT_FOUND",
+      "limit": "HRI-C23 does not exercise Product Entry routing against a pending candidate. Separate refusal tests do not close this gap. Require adversarial Standard evidence and any demonstrated repair regression."
+    },
+    {
+      "property": "DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION",
+      "sources": [
+        "reuse",
+        "current_navigation",
+        "corrections"
+      ],
+      "tests": [
+        "PROPERTY_REUSE_04",
+        "keeps the thrombus proposal non-adopted when a second turn asks only for an explanation"
+      ],
+      "evidenceScope": "Typed/conversational act and bounded owner tests; Standard campaign required for broader language"
+    },
+    {
+      "property": "EARLY_INFORMATION_REMAINS_AVAILABLE_WHEN_LATER_NEEDED",
+      "source": "standard_intelligence",
+      "lines": [
+        244,
+        439
+      ],
+      "tests": [
+        "C01-C03",
+        "Standard integration — after six unrelated turns"
+      ],
+      "evidenceScope": "Standard integration existing fact resurface, contextual relevance and version-bound evidence"
+    },
+    {
+      "property": "OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION",
+      "sources": [
+        "reuse",
+        "corrections",
+        "current_navigation",
+        "evidence_binding"
+      ],
+      "tests": [
+        "preserves the last selectable proposals across an empty alternative result, until Project changes",
+        "blocks stale/foreign interaction at the %s binding"
+      ],
+      "evidenceScope": "Targeted identity/freshness tests",
+      "limit": "Long-distance 8–12 turn revisit requires campaign observation; do not infer that from helper-only PASS."
+    }
+  ],
+  "baselineSoaks": [
+    {
+      "id": "SOAK_A",
+      "source": "long_horizon",
+      "line": 442,
+      "testName": "replays the IDM/IRM family for 15 meaningful Standard turns from turn 1",
+      "meaningfulTurns": 15,
+      "transport": "SYNTHETIC_CONTRACT_FIXTURE",
+      "expectedFinalProjectRevision": 4
+    },
+    {
+      "id": "SOAK_B",
+      "source": "long_horizon",
+      "line": 473,
+      "testName": "replays a non-imaging clinical family for 15 meaningful Standard turns from turn 1",
+      "meaningfulTurns": 15,
+      "transport": "SYNTHETIC_CONTRACT_FIXTURE",
+      "expectedFinalProjectRevision": 3
+    },
+    {
+      "id": "SOAK_C",
+      "source": "long_horizon",
+      "line": 492,
+      "testName": "replays a non-medical experimental family for 15 meaningful Standard turns from turn 1",
+      "meaningfulTurns": 15,
+      "transport": "SYNTHETIC_CONTRACT_FIXTURE",
+      "expectedFinalProjectRevision": 3
+    }
+  ],
+  "providerSafetyCoverage": {
+    "recordReplayFile": "src/features/protocol-designer/__tests__/v1-provider-record-replay.test.ts",
+    "cases": [
+      "Exact request mismatch rejects",
+      "Exhaustion has no live fallback",
+      "Tampered evidence rejects",
+      "Concurrent identical replay consumes once",
+      "IO preflight blocks before transport",
+      "Usage remains visible on completion IO failure",
+      "Start order retained despite completion order",
+      "B1-B8 pre-spend bound reservation, per-turn call reservations, shared campaign journal and restart safety",
+      "Missing/empty/truncated journal never resets spend",
+      "Missing usage/HTTP/capture failure keep uncertain reservation",
+      "Hidden Gemini reasoning and model/billing identity checks"
+    ],
+    "limits": [
+      "All provider calls in these tests are mocks. Numerical budget bounds are implementation regression fixtures, not independently refreshed provider pricing."
+    ]
+  },
+  "commands": [
+    {
+      "id": "baseline-soaks-and-standard",
+      "testFiles": [
+        "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/baseline-soaks-and-standard.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "strong-properties-reuse-lifecycle",
+      "testFiles": [
+        "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts",
+        "src/features/protocol-designer/functional-reset/__tests__/v1-contextual-corrections.test.ts",
+        "src/features/protocol-designer/functional-reset/__tests__/v1-qry-continuation-proactive-proposal-01.test.tsx",
+        "src/features/protocol-designer/functional-reset/__tests__/project-persistence-oai-02.test.ts",
+        "src/features/research-project-construction/__tests__/decisions-versioning-change.test.ts"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts src/features/protocol-designer/functional-reset/__tests__/v1-contextual-corrections.test.ts src/features/protocol-designer/functional-reset/__tests__/v1-qry-continuation-proactive-proposal-01.test.tsx src/features/protocol-designer/functional-reset/__tests__/project-persistence-oai-02.test.ts src/features/research-project-construction/__tests__/decisions-versioning-change.test.ts --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/strong-properties-reuse-lifecycle.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "qry-freshness-and-standard",
+      "testFiles": [
+        "src/features/query-navigation/__tests__/pass3a-current-turn-navigation.test.ts",
+        "src/features/query-navigation/__tests__/part3-freshness-trace.test.ts",
+        "src/features/query-navigation/__tests__/current-navigation-evidence.test.ts",
+        "src/features/query-navigation/__tests__/v1-standard-scientific-conversation-intelligence.test.tsx",
+        "src/features/protocol-designer/functional-reset/__tests__/pass3a-candidate-lifecycle-ui.test.tsx"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/query-navigation/__tests__/pass3a-current-turn-navigation.test.ts src/features/query-navigation/__tests__/part3-freshness-trace.test.ts src/features/query-navigation/__tests__/current-navigation-evidence.test.ts src/features/query-navigation/__tests__/v1-standard-scientific-conversation-intelligence.test.tsx src/features/protocol-designer/functional-reset/__tests__/pass3a-candidate-lifecycle-ui.test.tsx --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/qry-freshness-and-standard.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "provider-safety-budget-record-replay",
+      "testFiles": [
+        "src/features/protocol-designer/__tests__/v1-provider-record-replay.test.ts",
+        "src/features/protocol-designer/__tests__/v1-provider-cost-and-public-boundary-regression.test.ts",
+        "src/features/protocol-designer/__tests__/v1-long-horizon-runtime-stabilization-01.test.ts",
+        "src/features/protocol-designer/functional-reset/__tests__/multilingual-conversation-gateway-01.test.ts",
+        "src/features/protocol-designer/functional-reset/__tests__/language-gateway-openai-luna-context-boundary-01.test.ts"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/__tests__/v1-provider-record-replay.test.ts src/features/protocol-designer/__tests__/v1-provider-cost-and-public-boundary-regression.test.ts src/features/protocol-designer/__tests__/v1-long-horizon-runtime-stabilization-01.test.ts src/features/protocol-designer/functional-reset/__tests__/multilingual-conversation-gateway-01.test.ts src/features/protocol-designer/functional-reset/__tests__/language-gateway-openai-luna-context-boundary-01.test.ts --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/provider-safety-budget-record-replay.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "uncertainty-negative-representation",
+      "testFiles": [
+        "src/features/protocol-designer/functional-reset/__tests__/frozen-integrated-campaign-02-bounded-repair-02.test.ts",
+        "src/features/scientific-interpretation/__tests__/scientific-interpretation.test.ts"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run src/features/protocol-designer/functional-reset/__tests__/frozen-integrated-campaign-02-bounded-repair-02.test.ts src/features/scientific-interpretation/__tests__/scientific-interpretation.test.ts --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/uncertainty-negative-representation.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "mission-transport-selftest",
+      "testFiles": [
+        "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/transport-selftest.test.tsx"
+      ],
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run --config validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/vitest.config.ts validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/transport-selftest.test.tsx --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/mission-transport-selftest.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    },
+    {
+      "id": "exact-recorded-live-prefix",
+      "testFiles": [
+        "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/recorded-prefix.test.tsx"
+      ],
+      "command": "env NOXIA_REPLAY_OUTPUT_DIR='/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/recorded-live-prefix' EXPECT_LIVE_01R_RED='0' NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run --config validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/vitest.config.ts validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/recorded-prefix.test.tsx --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/exact-recorded-live-prefix.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "expected": "No failures or unhandled errors; inspect report, never infer PASS from process dispatch."
+    }
+  ],
+  "additionalFinalGates": [
+    {
+      "id": "mass-adversarial-replay",
+      "status": "ROOT_CAMPAIGN_HARNESS_OWNS_COMMAND",
+      "test": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "instruction": "Use final frozen language corpus and final-phase output isolation/checkpoints from root; replay all conversations from first turn. Do not execute with discovery labels or overwrite earlier evidence."
+    },
+    {
+      "id": "real-browser-five-conversations",
+      "status": "NOT_REPLACED_BY_JSDOM",
+      "config": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/offline-browser.config.ts",
+      "required": [
+        "IDM/IRM",
+        "non-imaging clinical",
+        "non-medical",
+        "multiple-anomaly conversation",
+        "most-adversarial conversation"
+      ],
+      "safety": "Loopback guard + active frozen turn selection; no provider/network fallback."
+    },
+    {
+      "id": "typescript-canonical",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' npm run typecheck",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN"
+    },
+    {
+      "id": "typescript-mission",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/typescript/bin/tsc --noEmit -p validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/tsconfig.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN"
+    },
+    {
+      "id": "lint-affected",
+      "commandTemplate": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/eslint/bin/eslint.js <EXPLICIT_FINAL_CHANGED_TS_TSX_CJS_WHITELIST>",
+      "status": "RESOLVE_FINAL_WHITELIST_AFTER_REPAIRS"
+    },
+    {
+      "id": "production-build",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' npm run build",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN"
+    },
+    {
+      "id": "full-canonical-suite",
+      "command": "env NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' node ./node_modules/vitest/vitest.mjs run --reporter=default --reporter=json --outputFile=validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/full-suite.json",
+      "status": "NOT_EXECUTED_BY_THIS_PLAN",
+      "limit": "Base discovery enumerates tracked canonical src tests plus explicitly requested canonical src files. validation mission tests need separate custom-config executions. Full-suite PASS cannot replace mission corpus replay."
+    }
+  ],
+  "executionRules": [
+    "Run no full suite during discovery merely to inventory.",
+    "Root owns phase/checkpoint coordination.",
+    "Do not overwrite preflight or prior wave evidence; choose final qualification directory.",
+    "If no product change since an already verified checkpoint, retain that evidence unless final mandate or affected later changes require replay.",
+    "No live canary, counting request, reroll or paid search.",
+    "A helper/unit test PASS is not a Standard corridor PASS; synthetic extraction is not live language fidelity."
+  ]
+}

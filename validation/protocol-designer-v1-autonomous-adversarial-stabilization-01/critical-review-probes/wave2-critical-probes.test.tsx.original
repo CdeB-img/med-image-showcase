@@ -1,0 +1,84 @@
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { afterEach, expect, it, vi } from 'vitest';
+import fs from 'node:fs';
+import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router-dom';
+import ProtocolDesignerDemo from '@/pages/ProtocolDesignerDemo';
+import { handleProtocolDesignerBridge, type ApiResponse } from '../../api/protocol-designer-bridge';
+import { FUNCTIONAL_RESET_STORAGE_KEY } from '@/features/protocol-designer/functional-reset/session';
+import { T01, T02, createLongHorizonProviderReplay, type ProviderCallWitness } from '@/features/protocol-designer/functional-reset/__tests__/fixtures/long-horizon-provider-replay';
+
+const MIXED = 'Les observations actuelles restent disponibles. Propose-moi plusieurs possibilités.';
+const state = () => JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+const ready = () => waitFor(() => expect(document.querySelector('.animate-spin')).toBeNull(), { timeout: 5000 });
+const submit = async (text: string) => {
+  await act(async () => { fireEvent.change(screen.getByLabelText('Votre message'), { target: { value: text } }); });
+  await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Envoyer' })); await new Promise(r => setTimeout(r, 0)); });
+};
+const confirmLatest = async () => {
+  const card = screen.getAllByTestId('functional-contribution-review').at(-1)!;
+  const button = within(card).getByRole('button', { name: 'Cela correspond à mon projet' });
+  await act(async () => { fireEvent.click(button); await new Promise(r => setTimeout(r, 0)); });
+};
+afterEach(() => { cleanup(); localStorage.clear(); vi.unstubAllGlobals(); });
+
+it('off-corpus review probe: delayed empty extraction cannot restore stale owner state after a concurrent human confirmation', async () => {
+  const witnesses: ProviderCallWitness[] = [];
+  const provider = createLongHorizonProviderReplay(witnesses, { how: 'SUCCESS', additionalReplays: {
+    [MIXED]: () => ({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+  } });
+  let reached = false;
+  let release!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const fetchImpl: typeof fetch = async (url, init) => {
+    const payload = JSON.parse(String(init?.body));
+    if (String(url).includes('api.openai.com') && String(payload.input).includes(MIXED)) {
+      reached = true;
+      await held;
+    }
+    return provider(url, init);
+  };
+  vi.stubGlobal('fetch', vi.fn(async (_url, init) => {
+    let status = 0; let body: unknown;
+    const response: ApiResponse = { status(code) { status = code; return this; }, setHeader() {}, json(value) { body = value; } };
+    await handleProtocolDesignerBridge({ method: init.method, body: init.body, headers: { 'content-type': 'application/json', host: '127.0.0.1:5198', origin: 'http://127.0.0.1:5198' } }, response,
+      { NODE_ENV: 'development', OPENAI_API_KEY: 'offline-test-key', GEMINI_API_KEY: 'offline-test-key' }, { fetchImpl });
+    return { ok: status >= 200 && status < 300, status, json: async () => body, text: async () => JSON.stringify(body) };
+  }));
+  render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
+  await submit(T01);
+  await ready();
+  await confirmLatest();
+  await ready();
+  await submit(T02);
+  await ready();
+  const before = state();
+  await submit(MIXED);
+  await waitFor(() => expect(reached).toBe(true));
+  const card = screen.getAllByTestId('functional-contribution-review').at(-1)!;
+  const confirmationEnabledWhileExtracting = !(within(card).getByRole('button', { name: 'Cela correspond à mon projet' }) as HTMLButtonElement).disabled;
+  await confirmLatest();
+  await waitFor(() => expect(state().project.revision).toBe(before.project.revision + 1));
+  await ready();
+  const adoptedDuringWait = state();
+  await act(async () => { release(); await new Promise(r => setTimeout(r, 0)); });
+  await ready();
+  await new Promise(r => setTimeout(r, 30));
+  const after = state();
+  const evidence = {
+    sourceText: MIXED, confirmationEnabledWhileExtracting,
+    beforeProject: { version: before.project.versionId, digest: before.project.projectDigest },
+    adoptedDuringWait: { version: adoptedDuringWait.project.versionId, digest: adoptedDuringWait.project.projectDigest },
+    afterProject: { version: after.project.versionId, digest: after.project.projectDigest },
+    afterOwnerInteraction: after.scientificThinkingInteraction,
+    currentOwnerMatchesProject: after.scientificThinkingInteraction?.sourceProjectDigest === after.project.projectDigest,
+    adoptedOwnerResults: adoptedDuringWait.knowledgeOwnerLedger.entries.map((e: any) => e.result?.resultId),
+    afterOwnerResults: after.knowledgeOwnerLedger.entries.map((e: any) => e.result?.resultId),
+    adoptedRuntimeTurnsLost: adoptedDuringWait.runtimeTurns.filter((t: any) => !after.runtimeTurns.some((u: any) => u.turnId === t.turnId)).map((t: any) => ({ turnId: t.turnId, role: t.role })),
+    errors: after.entries.filter((e: any) => e.kind === 'ERROR').map((e: any) => e.content),
+    witnessCount: witnesses.length, realProviderCalls: 0,
+  };
+  fs.writeFileSync('validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-probe.json', JSON.stringify(evidence, null, 2));
+  expect(evidence.currentOwnerMatchesProject, JSON.stringify(evidence)).toBe(true);
+  expect(evidence.adoptedRuntimeTurnsLost).toEqual([]);
+});

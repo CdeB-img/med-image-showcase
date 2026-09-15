@@ -1,0 +1,89 @@
+{
+  "mode": "PURE_PARSER_ONLY_NO_HTTP_NO_PROVIDER",
+  "results": [
+    {
+      "turn": "A01-T05",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "A02-T04",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "A03-T13",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "A04-T08",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "B01-T04",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "B01-T15",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "C01-T09",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "C03-T04",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "D01-T03",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "D01-T15",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "F01-T06",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "F01-T15",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "F02-T02",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    },
+    {
+      "turn": "F02-T04",
+      "originalCapturedRequestAccepted": true,
+      "requestBytesUnchanged": true,
+      "unsupportedDecisionStillRejected": true
+    }
+  ]
+}

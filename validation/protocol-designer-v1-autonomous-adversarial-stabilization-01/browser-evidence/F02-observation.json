@@ -1,0 +1,345 @@
+{
+  "scenario": "F02",
+  "httpLineStart": 85,
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ]
+  ],
+  "humanReviewClicks": [
+    "F02-T01",
+    "F02-T07"
+  ],
+  "materialFindings": [
+    "T11 natural confirmation does not adopt the visible twelve-week correction: Project remains V2 at eight weeks, including the T15 hypothesis projection.",
+    "T06 and T14 refusals do not complete the targeted lifecycle transition; T08 discussion and T09 explanation return generic acknowledgement.",
+    "T13 does not identify the first historical proposal or explain failure to identify it; no matching historical selection action is exposed. The current twelve-week correction was not arbitrarily selected.",
+    "T03 explanation routes to unavailable knowledge with irrelevant imaging clarification choices; conversation usefulness is not established by preserved Project versions."
+  ],
+  "sessionReopen": {
+    "turn": "F02-T12",
+    "status": "EXECUTED",
+    "versionPreserved": true,
+    "historyPreserved": true,
+    "projectVisibleTextPreserved": true
+  },
+  "finalVisibleScientificFacts": [
+    "School-randomized comparison of interactive versus documentary teacher training",
+    "Both beginner and experienced primary-school teachers retained",
+    "Primary performance score at eight weeks; measurement instrument remains unchosen",
+    "Primary visit eight weeks after training",
+    "Teacher satisfaction secondary endpoint",
+    "Score assessors masked to training group"
+  ],
+  "oldProposalSelection": {
+    "turn": "F02-T13",
+    "status": "UNAVAILABLE_TARGET_NOT_SELECTED",
+    "reason": "Historical first proposal not identified by product; current pending temporal correction is a different target."
+  },
+  "controllerAttempt": {
+    "priorAttempt": "F02-initial-ui-sequence-attempt.json",
+    "reason": "T12 reload sequence corrected by replaying the whole conversation",
+    "productModified": false
+  },
+  "at": "2026-09-15T00:51:47.725869+00:00",
+  "turns": [
+    {
+      "turn": "F02-T01",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        0,
+        0,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T02",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T03",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T04",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T05",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T06",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T07",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T08",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T09",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T10",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T11",
+      "outcome": "CONFIRM",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": false,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T12",
+      "outcome": "PRESERVE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T13",
+      "outcome": "SELECT_OLD_PROPOSAL",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T14",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F02-T15",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    }
+  ],
+  "conversationCompleted": true,
+  "meaningfulTurns": 15,
+  "qualificationVerdict": "FAIL",
+  "source": "CUA_REAL_BROWSER_STANDARD_UI_WITH_SYNTHETIC_EXTERNAL_PROVIDER_TRANSPORT",
+  "newProviderCalls": 0,
+  "httpEvidence": {
+    "path": "browser-http-exchanges.jsonl",
+    "lineNumbers": [
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98
+    ],
+    "lineSha256": {
+      "85": "d4500ce5a02db5049f1253d32e31800e39299aa3a69047b6157cc7ea7c3e6915",
+      "86": "866400097a6330a582b69a38ae011db287d6d69e5edf753a633eba8d38135fef",
+      "87": "e051e04fab7a261444bd13257cc990b7fe0c9e4ab915bd99718e788acf181d74",
+      "88": "56dccb9603b86918e5ed5b856122356dceac3e10b8c2a8d1d4ccdafc4dd7b965",
+      "89": "0d517a3fa578d50f0d879f69560057b4b930367336201a7a6324687af0f99d9c",
+      "90": "eba1e794f6d45f8bcdde9796931abe5077797917bd1da1f82fa75316b7d33ef9",
+      "91": "8b5bca0b62fbdf6665bcbf4b876276009f58496ac46c5d7b0560117d04b72881",
+      "92": "ac270964801a5ccb3eb36a9e2bee286aeb15cbdd1a43405ef8ce7c9cbf7a58e2",
+      "93": "bb9aca702e1085b4d11d61e37d18d6edeadce21356f41795a4d887f158bc4c6d",
+      "94": "3eb40c5b32129ae36392cc8da38679d6656d1abd1904e3aa16b72b8bca93db09",
+      "95": "3f5ba5dae8d7aae227ad9475d6939dfdf5ee9075d61d74dfbb59e8a1264e7cd5",
+      "96": "e089ab1764399024817656609e7379449587418b48056aecf799d3aa598e2fd5",
+      "97": "a81b1ea88e974e967a080cc7798fb0729c50995510de3badc7f2f6b272669136",
+      "98": "6b55fa3c45364ba7fb690d2c6890ecb2dd35f93d9c2f9bb3fb9fca8647f36059"
+    },
+    "requests": 14
+  },
+  "limitations": [
+    "Synthetic provider responses do not qualify live language fidelity.",
+    "CUA content export is unsupported by the in-app browser; this receipt preserves observed versions/actions/findings, while complete HTTP exchanges are stored separately.",
+    "Scientific response scope is independently reviewed in semantic-review-final.json; version preservation alone is not scientific PASS."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "MISSION_ID": "PROTOCOL_DESIGNER_V1_AUTONOMOUS_ADVERSARIAL_STABILIZATION_01",
+  "REPAIR_ID": "WAVE2_CONVERSATION",
+  "status": "FOCUSED_AND_PRESERVATION_TESTS_PASS_INDEPENDENT_REVIEW_AND_MASS_REPLAY_PENDING",
+  "recordedAt": "2026-09-15T00:15:33.490674+00:00",
+  "baselineHead": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "priorRepair": "repair-c02.json",
+  "causalDiagnosis": "wave2-lifecycle-diagnosis.json",
+  "scope": [
+    "src/features/query-navigation/current-navigation-evidence.ts",
+    "src/features/query-navigation/current-turn-navigation.ts",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts"
+  ],
+  "changes": [
+    "Current generic candidate demonstratives use Unicode letter/mark/number boundaries; an accented -là suffix is consumed as one token and a longer nominal token cannot match by prefix.",
+    "Complete recognized decisions require UNIQUE_CURRENT plus nonempty candidateRef, sourceTurnRef and sourceDigest. Otherwise a new client-local CLARIFY_CANDIDATE_REFERENCE carries no target refs and cannot authorize Project writes.",
+    "The clarification kind is added to the existing interaction type only. Its local Workspace rendering and server-parser exclusion are separately owned concurrent changes.",
+    "Assisted-proposal requests recognize generic présenter imperatives, explicit proposer/suggérer imperatives without a domain-object lexicon, subject-modal requests and inverted interrogatives after a contextual preamble. Negative, quoted and hypothetical proposal clauses remain excluded.",
+    "One existing Scientific Thinking test fixture now supplies the actual selection-turn identity and digest instead of asserting UNIQUE_CURRENT with null provenance. No Scientific Thinking production code changed in this wave."
+  ],
+  "safetyPreserved": [
+    "No scientific-noun list expansion.",
+    "No adoption by candidate recency; ambiguous or stale references carry no authorization.",
+    "No widening of uniquement/seulement, partial decisions, quoted decisions, conditions, negation, or mixed decision plus new scientific content.",
+    "Correction mode remains ACKNOWLEDGE_USER_DIRECTION.",
+    "Proposal purpose is non-authoritative and preserves full-turn extraction; no direct Project mutation."
+  ],
+  "validation": {
+    "runs": [
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation-red.json",
+        "passed": 23,
+        "failed": 4,
+        "success": false,
+        "sha256": "3468e1a4a150dde5c62be7b92ed29aa3be7133db5af7d4ebd46a16029ac707bd"
+      },
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation-targeted.json",
+        "passed": 27,
+        "failed": 0,
+        "success": true,
+        "sha256": "cb0432d2af6300ce950dbea01fb3417276d0cd456f6e12c7e01f1eaffb17047c"
+      },
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation-tests.json",
+        "passed": 138,
+        "failed": 2,
+        "success": false,
+        "sha256": "6e1e0c12ef29e8c5e5b9436c2a2b0ecbcd4a866ba91b68b302b8a41349c40f61"
+      },
+      {
+        "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/repair-wave2-conversation-tests-r2.json",
+        "passed": 140,
+        "failed": 0,
+        "success": true,
+        "sha256": "5de8ac6762aeb097e54d4c51ebcda39c5984ad1d9f05bdf20f1284d015554f17"
+      }
+    ],
+    "finalPassed": 140,
+    "finalFailed": 0,
+    "typescriptApp": "PASS",
+    "affectedLint": "PASS",
+    "whitelistDiffCheck": "PASS",
+    "nodeOfflineGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "realProviderCalls": 0,
+    "syntheticProviderCalls": 0
+  },
+  "independentOffCorpusProbes": {
+    "source": "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts",
+    "tests": [
+      "10d accented demonstrative boundary and adjacent-letter/partial/quoted/negated/conditional payload counterexamples",
+      "10e whole-act clarification for AMBIGUOUS, STALE_OR_SUPERSEDED and NONE; unrelated payload and correction-mode preservation",
+      "10f no authorization with missing candidateRef/sourceTurnRef/sourceDigest",
+      "10g generic proposal request syntax and negated/quoted/hypothetical/non-request counterexamples"
+    ],
+    "preRepair": "23 PASS / 4 FAIL",
+    "postRepair": "27 PASS / 0 FAIL"
+  },
+  "knownLimitations": [
+    "Natural confirmations naming a scientific object instead of the generic current candidate remain conservatively unsupported unless the existing grammar already resolves them. This is intentional: the current projection does not prove that a named attribute denotes the full candidate.",
+    "Eight replay terminal refusals remain causally dependent on exact old-proposal selection; this repair does not fabricate that reference.",
+    "Arbitrary proposal semantics and scientific explanations are not newly supplied.",
+    "Final app typecheck ran successfully against the concurrent workspace state; attribution of other concurrent changes belongs to their receipts.",
+    "Mass replay and visible UI behavior are not established by this local receipt."
+  ],
+  "fileSha256": {
+    "src/features/query-navigation/current-navigation-evidence.ts": "93e0885f4a2be87599a81526bd982767d9fc5d78bb70572a86b249fd777559ea",
+    "src/features/query-navigation/current-turn-navigation.ts": "13b6c1ceb3fe2fd1830f30a9b20ac1fbd3422e9b4f3896649070068eb989b4ed",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "2836991dd18f20b88e68087fcc3e1181d795970932cec802f03b2596b989f1c9",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "55387043e572763faa3a045ba90712184d0b6b3814cb8b9a1885cb11cbabc67d"
+  },
+  "productCommitCreated": false,
+  "resumeStateModified": false
+}

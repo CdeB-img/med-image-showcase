@@ -1,0 +1,360 @@
+{
+  "scenario": "F01",
+  "httpLineStart": 57,
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      4
+    ],
+    [
+      4,
+      4,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ],
+    [
+      5,
+      5,
+      5
+    ]
+  ],
+  "humanReviewClicks": [
+    "F01-T01",
+    "F01-T03",
+    "F01-T05",
+    "F01-T10",
+    "F01-T11"
+  ],
+  "materialFindings": [
+    {
+      "turn": "F01-T02",
+      "finding": "Discussion répond par Vous avez indiqué les éléments suivants."
+    },
+    {
+      "turn": "F01-T04",
+      "finding": "Discussion sans contenu utile."
+    },
+    {
+      "turn": "F01-T07",
+      "finding": "Discussion sans contenu utile."
+    },
+    {
+      "turn": "F01-T08",
+      "finding": "Ancienne proposition non sélectionnée et absence de clarification explicite du référent."
+    },
+    {
+      "turn": "F01-T09",
+      "finding": "Refus ne matérialise aucun rejet; cascade de sélection précédente manquée."
+    },
+    {
+      "turn": "F01-T12",
+      "finding": "Question de rédaction routée vers connaissance sans correspondance exploitable."
+    },
+    {
+      "turn": "F01-T13",
+      "finding": "Explication répond par Vous avez indiqué les éléments suivants."
+    }
+  ],
+  "finalVisibleScientificFacts": [
+    "Version 5",
+    "Suivi principal à seize semaines",
+    "Critère principal fatigue à seize semaines, instrument encore inconnu",
+    "Effectif envisagé sans dimensionnement confirmé"
+  ],
+  "oracleCorrection": {
+    "priorAttempt": "F01-initial-ui-oracle-attempt.json",
+    "reason": "Role prefix displayed separately from endpoint content; compare semantic content and role separately.",
+    "goldModified": false,
+    "productModified": false,
+    "fullConversationReplayed": true
+  },
+  "at": "2026-09-15T00:43:43.933922+00:00",
+  "turns": [
+    {
+      "turn": "F01-T01",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        0,
+        0,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T02",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        1,
+        1,
+        1
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T03",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        1,
+        1,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T04",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        2,
+        2,
+        2
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T05",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        2,
+        2,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T06",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T07",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T08",
+      "outcome": "SELECT_OLD_PROPOSAL",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T09",
+      "outcome": "REFUSE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        3
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T10",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        3,
+        3,
+        4
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T11",
+      "outcome": "CANDIDATE",
+      "observedVisibleVersions": [
+        4,
+        4,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T12",
+      "outcome": "DISCUSS",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T13",
+      "outcome": "EXPLAIN",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T14",
+      "outcome": "PRESERVE",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    },
+    {
+      "turn": "F01-T15",
+      "outcome": "PROPOSAL",
+      "observedVisibleVersions": [
+        5,
+        5,
+        5
+      ],
+      "inputVersionMatchesGold": true,
+      "uiVersionMatchesGold": true,
+      "scope": "Visible version and actual UI actions; canonical identity/integrity separately evidenced by real handler and runtime replay"
+    }
+  ],
+  "conversationCompleted": true,
+  "meaningfulTurns": 15,
+  "qualificationVerdict": "FAIL",
+  "source": "CUA_REAL_BROWSER_STANDARD_UI_WITH_SYNTHETIC_EXTERNAL_PROVIDER_TRANSPORT",
+  "newProviderCalls": 0,
+  "httpEvidence": {
+    "path": "browser-http-exchanges.jsonl",
+    "lineNumbers": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "lineSha256": {
+      "57": "95bafec487f0203afcfc70cd7bdc953dc873104069209f62e69650d76bc92e12",
+      "58": "27923946f4e637fc9c3fadebe049d4cec69a61310402f2e497b68359f0eecd2f",
+      "59": "ffe61504a100b3e71165142ab4131fb8de5ea2f7da3602a7726244b1dd5a44fa",
+      "60": "03cb9471b3a165b4731b50e388c7fa1e4acf98d3fdb8f28658b89a749b312b03",
+      "61": "8304daa55e610ff8efb83960c91c4560377b42f5be5e5f7ecfcfafa09c4d0fc3",
+      "62": "5624dea9e5566812d3dff4469033883e97bdb812964ec208734e4c524f0ee449",
+      "63": "9e83dffc8d5122a8a2a7bf8ea7694cbce56a9fbf61ad20e819e8b9262f037139",
+      "64": "092f8e44e0c4aceef9c0504374e51512a0c584e54de5c751a7b5f7be2f7e44bc",
+      "65": "cc7a0f3a60c74e80b38a60252dfaa24f5b608309026ec90b3de9e85263bf97d5",
+      "66": "71a3c6cce47e6255894bc5a284109f6f7c4d71033bb9a2fab14e4943d9fbe00e",
+      "67": "7e4422abe24f7dedd18338ffd1d977fd3a0bc76f54e479f8f3585967483869d3",
+      "68": "43fab79c215139ba1efafa3c3840ef61b718a1299b8607ef8a6e5ebf2c2e0968",
+      "69": "8e7231ac68ecc649c7e41adf0cd961991acbab6ad5e5855777b221d97940e3b2",
+      "70": "06f64ed6772f61ea9f8913d9f11abffde0687d46fc537f640876f21c31ffda8c"
+    },
+    "requests": 14
+  },
+  "limitations": [
+    "Synthetic provider responses do not qualify live language fidelity.",
+    "CUA content export is unsupported by the in-app browser; this receipt preserves observed versions/actions/findings, while complete HTTP exchanges are stored separately.",
+    "Scientific response scope is independently reviewed in semantic-review-final.json; version preservation alone is not scientific PASS."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-14T22:01:39.629031+00:00",
+  "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+  "patchSha256": "8967e869f597833ff4e9b90fc50f48f5544c3066649c7ef31d8e420023bb5d8e",
+  "files": {
+    "src/features/knowledge-engine/privacy.ts": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083",
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "c1ba513608c520955ff008d53fda0b0f9104ee1c8e0238def267677264a5ec97",
+    "src/features/protocol-designer/functional-reset/product-entry-routing.ts": "ca29d91db17a6989b81194651be45f0d75451c7f59237d7440cfa0881543f63a",
+    "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8",
+    "src/features/protocol-designer/intake/journey.ts": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a",
+    "src/features/query-navigation/__tests__/pass3a-governed-conversation-conformance-context-repair.test.ts": "dade9ab62fb4bfe364360d7dbc3ec80a46f9ee3fd37ab9eb72242826e33d8431",
+    "src/features/query-navigation/current-navigation-evidence.ts": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669",
+    "src/features/knowledge-engine/__tests__/privacy.test.ts": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608",
+    "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": "d125932fe3be244ec85e60db99160aa5c800ce3ea11949a4d35263a8ef03806b"
+  },
+  "knownResidual": "W1-CR-03 mixed same-sentence Product Entry scope remains P1; evaluate wave2 after mass replay"
+}

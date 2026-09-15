@@ -1,0 +1,593 @@
+{
+  "phase": "WAVE2_AFFECTED",
+  "at": "2026-09-15T00:21:55.127047+00:00",
+  "conversations": 5,
+  "meaningfulTurns": 75,
+  "harnessCompleted": 5,
+  "productPass": 0,
+  "rawOracleSymptoms": 439,
+  "severity": {
+    "MATERIAL": 439
+  },
+  "propertyCounts": {
+    "REFUSAL": 8,
+    "SCIENTIFIC": 22,
+    "HUMAN": 6,
+    "EARLY": 128,
+    "OBJECT": 128,
+    "GOLD": 128,
+    "TEMPORAL": 4,
+    "OLD": 3,
+    "PURPOSE": 4,
+    "STANDARD": 1,
+    "CONVERSATIONAL": 1,
+    "CANDIDATE": 1,
+    "UNKNOWN": 5
+  },
+  "scenarios": [
+    {
+      "id": "A01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 21,
+      "firstFailures": [
+        {
+          "turn": "A01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A01-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A01-T12",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition",
+            "TEMPORAL_QUALIFICATION_timing:acquisition:after-idm"
+          ]
+        },
+        {
+          "turn": "A01-T13",
+          "properties": [
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition",
+            "TEMPORAL_QUALIFICATION_timing:acquisition:after-idm"
+          ]
+        },
+        {
+          "turn": "A01-T14",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition",
+            "TEMPORAL_QUALIFICATION_timing:acquisition:after-idm"
+          ]
+        },
+        {
+          "turn": "A01-T15",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_acquisition",
+            "OBJECT_SEMANTICS_acquisition",
+            "GOLD_CURRENT_CONTENT_A01-T11:acquisition",
+            "TEMPORAL_QUALIFICATION_timing:acquisition:after-idm"
+          ]
+        }
+      ],
+      "evidence": "wave2_affected/A01/2026-09-15T00-21-20-998Z-8167/result.json"
+    },
+    {
+      "id": "A02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 9,
+      "firstFailures": [
+        {
+          "turn": "A02-T02",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "A02-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "A02-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS"
+          ]
+        }
+      ],
+      "evidence": "wave2_affected/A02/2026-09-15T00-21-24-954Z-8167/result.json"
+    },
+    {
+      "id": "B01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 74,
+      "firstFailures": [
+        {
+          "turn": "B01-T03",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T04",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T05",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T06",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T07",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T08",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T09",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T10",
+          "properties": [
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+          ]
+        },
+        {
+          "turn": "B01-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T13",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        },
+        {
+          "turn": "B01-T14",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint"
+          ]
+        },
+        {
+          "turn": "B01-T15",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "EARLY_INFORMATION_hypoglycemia",
+            "OBJECT_IDENTITY_hypoglycemia",
+            "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_B01-T10:visit"
+          ]
+        }
+      ],
+      "evidence": "wave2_affected/B01/2026-09-15T00-21-28-671Z-8167/result.json"
+    },
+    {
+      "id": "D01",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 294,
+      "firstFailures": [
+        {
+          "turn": "D01-T02",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T03",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "D01-T04",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T05",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        },
+        {
+          "turn": "D01-T06",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T07",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T08",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T09",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T10",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T11",
+          "properties": [
+            "STANDARD_CONVERSATION",
+            "CONVERSATIONAL_ACT",
+            "CANDIDATE_SEMANTICS_endpoint",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention"
+          ]
+        },
+        {
+          "turn": "D01-T12",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T13",
+          "properties": [
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator",
+            "OBJECT_IDENTITY_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population",
+            "EARLY_INFORMATION_intervention",
+            "OBJECT_IDENTITY_intervention",
+            "EARLY_INFORMATION_comparator"
+          ]
+        },
+        {
+          "turn": "D01-T15",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT",
+            "PURPOSE_AND_REUSE",
+            "SCIENTIFIC_PROJECT_ANCHORING",
+            "SCIENTIFIC_CANDIDATE_STATUS",
+            "EARLY_INFORMATION_objective",
+            "OBJECT_IDENTITY_objective",
+            "EARLY_INFORMATION_population",
+            "OBJECT_IDENTITY_population"
+          ]
+        }
+      ],
+      "evidence": "wave2_affected/D01/2026-09-15T00-21-32-344Z-8167/result.json"
+    },
+    {
+      "id": "F02",
+      "turns": 15,
+      "plannedTurns": 15,
+      "harnessCompleted": true,
+      "productVerdict": "FAIL",
+      "anomalies": 41,
+      "firstFailures": [
+        {
+          "turn": "F02-T06",
+          "properties": [
+            "REFUSAL_LIFECYCLE"
+          ]
+        },
+        {
+          "turn": "F02-T08",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F02-T09",
+          "properties": [
+            "SCIENTIFIC_RESPONSE_PRESENT"
+          ]
+        },
+        {
+          "turn": "F02-T11",
+          "properties": [
+            "HUMAN_DECISION_BOUNDARY",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T12",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T13",
+          "properties": [
+            "OLD_REFERENCE_SAFE_ABSTENTION",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T14",
+          "properties": [
+            "REFUSAL_LIFECYCLE",
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        },
+        {
+          "turn": "F02-T15",
+          "properties": [
+            "EARLY_INFORMATION_endpoint",
+            "OBJECT_SEMANTICS_endpoint",
+            "UNKNOWN_endpoint",
+            "EARLY_INFORMATION_visit",
+            "OBJECT_SEMANTICS_visit",
+            "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+            "GOLD_CURRENT_CONTENT_F02-T10:visit"
+          ]
+        }
+      ],
+      "evidence": "wave2_affected/F02/2026-09-15T00-21-34-146Z-8167/result.json"
+    }
+  ],
+  "realProviderCalls": 0,
+  "qualificationLimit": "Synthetic external provider contracts; provider language fidelity and global scientific adequacy not qualified",
+  "manifest": {
+    "wave2_affected/A01/2026-09-15T00-21-20-998Z-8167/session.json": "b56406cf85196022b49fcc994c6bfc25db102105b6daab6f0825f42276bf3441",
+    "wave2_affected/A01/2026-09-15T00-21-20-998Z-8167/result.json": "f23b8a25fa5c9c04c424208336750b882199afc758f81d4e428008b7e3a0106d",
+    "wave2_affected/A01/2026-09-15T00-21-20-998Z-8167/turns.jsonl": "19431cf64ff46a6e433ef88946716371b2ff6dd58923f511f3042682a78c0a93",
+    "wave2_affected/A01/2026-09-15T00-21-20-998Z-8167/http.json": "7e90a59751c1d24350d0d24ce47ffbcb00612643102c2642b2f5f968fc9967e7",
+    "wave2_affected/A02/2026-09-15T00-21-24-954Z-8167/session.json": "b257914c2b1f1901f22150cdda7f753e322ff83f40ce3a6faeb949e9fa812a31",
+    "wave2_affected/A02/2026-09-15T00-21-24-954Z-8167/result.json": "f3d0dd5711095696daaeda57f0f5364856249a515857771ac1523a99367164f9",
+    "wave2_affected/A02/2026-09-15T00-21-24-954Z-8167/turns.jsonl": "e394d6e58fc175c57b72d38b9f011d23dcb03001dca63822bef60610a7e63c48",
+    "wave2_affected/A02/2026-09-15T00-21-24-954Z-8167/http.json": "048a3720da24fd9f734ea5450354056d5607ba484c997cd813b44487125c262e",
+    "wave2_affected/B01/2026-09-15T00-21-28-671Z-8167/session.json": "75c750a0f3aedeca93f8795986c848608f5b5d61faa3a7e6c77bdbc8401082e6",
+    "wave2_affected/B01/2026-09-15T00-21-28-671Z-8167/result.json": "692c90b076e7bbb03702a2c8fc143a74dd90eb4bfc4cb8ea3e76b7d0bf1c5839",
+    "wave2_affected/B01/2026-09-15T00-21-28-671Z-8167/turns.jsonl": "3731328ca2745eca7d02089187ab5cd0a592c7491f3230648d11a5ca19c1c5bf",
+    "wave2_affected/B01/2026-09-15T00-21-28-671Z-8167/http.json": "31808ef1bace2ed162c075f79f94ba3201a8f634340ad28312299575d70d2973",
+    "wave2_affected/D01/2026-09-15T00-21-32-344Z-8167/session.json": "59c5d6eed1c4e8a9897ac3ad5aea45ea7cbc5b7075c74a82a658fef022eab8c6",
+    "wave2_affected/D01/2026-09-15T00-21-32-344Z-8167/result.json": "2c91b69c89e65f400338ffffb5a233d203df69cbe910bc8aece291723d57c920",
+    "wave2_affected/D01/2026-09-15T00-21-32-344Z-8167/turns.jsonl": "d2a469b4dc6c3297983298153c85a42e0a5f20e15564bea710cb7d095d7d73c0",
+    "wave2_affected/D01/2026-09-15T00-21-32-344Z-8167/http.json": "c3be596a5448471c6dcc904f0e611f31170d0e6bd020f252870379a1782ae771",
+    "wave2_affected/F02/2026-09-15T00-21-34-146Z-8167/session.json": "d9cd645414c7a5cf712e821f6e07f85e062200aea4d9f886316b0370c257dfab",
+    "wave2_affected/F02/2026-09-15T00-21-34-146Z-8167/result.json": "255138dc4ad0be603cab8bb73b67f62bbc61e405cc08189ce4327d6b2e080f33",
+    "wave2_affected/F02/2026-09-15T00-21-34-146Z-8167/turns.jsonl": "7dae59df1305662a62068796bd97989b699ac16e19a02f3bbfcf64bec6469f76",
+    "wave2_affected/F02/2026-09-15T00-21-34-146Z-8167/http.json": "0638ab3e275747cff6759a4db0c0c9fd215d47eb0a987e4fa909f95a514b9edd"
+  }
+}

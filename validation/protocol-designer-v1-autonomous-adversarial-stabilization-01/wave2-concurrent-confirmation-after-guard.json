@@ -1,0 +1,38 @@
+{
+  "mode": "REAL_STANDARD_UI_REAL_BRIDGE_SYNTHETIC_PROVIDER_BOUNDARY",
+  "sourceText": "Les observations actuelles restent disponibles. Propose-moi plusieurs possibilités.",
+  "confirmationDisabledWhileExtracting": true,
+  "restartDisabledWhileExtracting": true,
+  "beforeProject": {
+    "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+    "digest": "ke1-5c8300306aa79b94"
+  },
+  "afterBlockedClickProject": {
+    "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+    "digest": "ke1-5c8300306aa79b94"
+  },
+  "pendingPreservedAfterBlockedClick": true,
+  "humanDecisionUnchangedAfterBlockedClick": true,
+  "afterResponseProject": {
+    "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:1",
+    "digest": "ke1-5c8300306aa79b94"
+  },
+  "confirmationEnabledAfterResponse": true,
+  "pendingPreservedAfterResponse": true,
+  "ownerMatchesAfterResponse": true,
+  "afterConfirmationProject": {
+    "version": "protocol-designer-session:32221e17-e309-48a5-aab2-eff037b177c4:research-project:version:2",
+    "digest": "ke1-c5f3687ad827b226"
+  },
+  "ownerMatchesAfterConfirmation": true,
+  "revisionIncreasedOnlyAfterEnabledConfirmation": true,
+  "priorRuntimeTurnsLostAfterResponse": [],
+  "priorRuntimeTurnsLostAfterConfirmation": [],
+  "priorOwnerResultsLostAfterResponse": [],
+  "priorOwnerResultsLostAfterConfirmation": [],
+  "priorTraceEventsLostAfterResponse": [],
+  "priorTraceEventsLostAfterConfirmation": [],
+  "errors": [],
+  "witnessCount": 5,
+  "realProviderCalls": 0
+}

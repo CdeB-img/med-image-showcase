@@ -1,0 +1,557 @@
+{
+  "reviewId": "WAVE1-CRITICAL-REVIEW",
+  "recordedAt": "2026-09-14T21:56:32.018918+00:00",
+  "scope": "Read-only adversarial review of the wave 1 product diff, independent off-corpus probes; no product or corpus mutation.",
+  "reviewBoundary": "Local function execution plus inspected Workspace control flow. No actual Project adoption was executed by these probes; UI consequences are supported control-flow inferences, explicitly identified below.",
+  "snapshot": [
+    {
+      "path": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+      "sha256": "ca29d91db17a6989b81194651be45f0d75451c7f59237d7440cfa0881543f63a"
+    },
+    {
+      "path": "src/features/protocol-designer/intake/journey.ts",
+      "sha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+      "sha256": "1968255f78fcd26480272b243fd35c67f9c955e59640d30cae62644bfab9dd7a"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "sha256": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2"
+    },
+    {
+      "path": "src/features/query-navigation/current-navigation-evidence.ts",
+      "sha256": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669"
+    },
+    {
+      "path": "src/features/knowledge-engine/privacy.ts",
+      "sha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+    }
+  ],
+  "probe": {
+    "script": "/private/tmp/noxia-wave1-critical-probes.ts",
+    "sha256": "0782ed2977d31f89bd92a9bbe2d414fc9206e521a054eec49c6840e7a6d31987",
+    "offlineGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "providerCalls": 0,
+    "results": {
+      "acts": [
+        {
+          "raw": "Je confirme « aucune adoption ».",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Le suivi sera de dix mois.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette proposition. Nous analyserons aussi la mobilité.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Je refuse son adoption.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Je ne donne aucune autorisation.",
+          "result": null
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers; propose-moi plusieurs options.",
+          "result": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          }
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers, propose-moi plusieurs options.",
+          "result": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          }
+        },
+        {
+          "raw": "Je confirme cette candidate telle que présentée.",
+          "result": {
+            "kind": "USER_CONFIRMS_CURRENT_CANDIDATE",
+            "evidenceRefs": [
+              "candidate:review",
+              "turn:presented"
+            ]
+          }
+        }
+      ],
+      "routes": [
+        {
+          "raw": "J’ai un T2 élevé.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Ma douleur persiste.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Mes symptômes ont changé.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers, propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers; propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers. Propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Explique ce modèle. Les observations couvrent trois ateliers.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Nous conserverons le calendrier actuel et la taille passe à 180 observations.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        }
+      ],
+      "owner": [
+        {
+          "raw": "Explique cette hypothèse. Le suivi sera de dix mois.",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Nous aurons cinq ateliers. Pourquoi ces hypothèses ?",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Pourquoi le modèle linéaire suppose-t-il une relation additive ?",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Je choisis la première question et la première hypothèse.",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "La citation est « je choisis la première hypothèse ».",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        }
+      ]
+    }
+  },
+  "findings": [
+    {
+      "id": "W1-CR-01",
+      "priority": "P0",
+      "owner": "src/features/query-navigation/current-navigation-evidence.ts",
+      "boundary": "quoted object -> candidateDecision -> Workspace confirmContribution",
+      "status": "RESOLVED_BY_C02_R2_AND_VERIFIED",
+      "counterexample": "Je confirme « aucune adoption ».",
+      "observed": "USER_CONFIRMS_CURRENT_CANDIDATE with exact current candidate refs.",
+      "cause": "interactionClauses removes quoted text, leaving a bare confirm performative which acquires the current candidate as its object.",
+      "impact": "In a UNIQUE_CURRENT session Workspace invokes confirmContribution and returns. This is a concrete path to adoption without an unquoted candidate-confirmation act; actual UI adoption was not executed in this review.",
+      "requiredValidation": "Quoted objects remain an ambiguity barrier and never collapse into a current-candidate authorization.",
+      "priorStatus": "DEMONSTRATED_AT_FIRST_PROBE; correction delegated by root to C02 owner",
+      "followupVerification": "Quoted confirmation returns null; unqualified genuine current-candidate confirmation remains recognized."
+    },
+    {
+      "id": "W1-CR-02",
+      "priority": "P0",
+      "owner": "src/features/query-navigation/current-navigation-evidence.ts",
+      "boundary": "compound human decision -> Workspace early return",
+      "status": "RESOLVED_FOR_DEMONSTRATED_CASES_BY_C02_R2_AND_VERIFIED",
+      "counterexamples": [
+        "Je confirme cette candidate. Le suivi sera de dix mois.",
+        "Je confirme cette proposition. Nous analyserons aussi la mobilité.",
+        "Je confirme cette candidate. Je ne donne aucune autorisation."
+      ],
+      "observed": "All three returned USER_CONFIRMS_CURRENT_CANDIDATE.",
+      "cause": "Only a finite veto-word set is tested globally; otherwise unconsumed clauses do not prevent a whole-turn decision.",
+      "impact": "The first two can drop newly supplied content after early confirmation; the third is contradictory authorization and must abstain. Workspace effect is a control-flow inference.",
+      "requiredValidation": "All clauses must be accounted for before deciding the whole turn; non-decision payload or contradictory authorization must preserve review/extraction or ask clarification.",
+      "priorStatus": "DEMONSTRATED_AT_FIRST_PROBE; correction delegated by root to C02 owner",
+      "followupVerification": "Mixed declarative decisions and contradictory authorization probes now return null."
+    },
+    {
+      "id": "W1-CR-03",
+      "priority": "P1",
+      "owner": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+      "boundary": "mixed same-sentence material -> conversationOnly -> assisted proposal",
+      "status": "PARTIAL_REPAIR_REMAINING_CASES_DEMONSTRATED",
+      "counterexample": "Les observations couvrent trois ateliers, propose-moi plusieurs options.",
+      "observed": "projectConstructionEligible=false, domainGate=IN_SCOPE; changing comma to semicolon or period gives eligible=true.",
+      "cause": "isConversationOnlyInput classifies an entire sentence as conversational if any bounded proposal act is detected, even when a preceding clause supplies material.",
+      "impact": "Workspace takes the assisted-proposal path on the existing Project and skips persistent evaluation of the three workshops. No actual UI execution in this review.",
+      "requiredValidation": "Mixed-act preservation must hold across commas, conjunctions and paragraph punctuation, not just separate sentences.",
+      "priorStatus": "DEMONSTRATED_AT_PROBE; root notified",
+      "followupVerification": "Data-comma-request is fixed. Request-comma-data and data-puis-request remain eligible=false and can bypass extraction.",
+      "remainingCounterexamples": [
+        {
+          "raw": "Propose-moi plusieurs options, les observations couvrent trois ateliers.",
+          "privacy": "PUBLIC",
+          "eligible": false,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers puis propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": false,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "W1-CR-04",
+      "priority": "P1",
+      "owner": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+      "boundary": "active owner -> DISCUSS -> early return before general extraction",
+      "status": "PARTIAL_REPAIR_REMAINING_CASES_DEMONSTRATED",
+      "counterexamples": [
+        "Nous aurons cinq ateliers. Pourquoi ces hypothèses ?",
+        "Pourquoi le modèle linéaire suppose-t-il une relation additive ?"
+      ],
+      "observed": "Both return DISCUSS with the active hypothesis text.",
+      "cause": "referencesOwnerContent relies on generic words hypotheses/questions/models/options rather than resolution to the actual visible owner result; presence of one discussion request consumes the entire raw turn.",
+      "impact": "The mixed turn loses five workshops when currentProjectDirection=NONE and no boundedInteraction resolves; the unrelated explanatory question is answered using unrelated active hypotheses.",
+      "requiredValidation": "Discussion ownership must require an actual referent and must not consume independent declarative content.",
+      "priorStatus": "DEMONSTRATED_AT_PROBE; root notified",
+      "followupVerification": "Multi-sentence and unrelated-model probes now FALLTHROUGH. Same-sentence comma discussion and coordinated selection still consume new material.",
+      "remainingCounterexamples": [
+        {
+          "raw": "Nous aurons cinq ateliers, pourquoi ces hypothèses ?",
+          "result": {
+            "kind": "DISCUSS",
+            "response": "Hypothèse 1 : La mobilité dépend de l'exposition\nMobilité recueillie"
+          }
+        },
+        {
+          "raw": "Je choisis la première hypothèse et les observations couvriront cinq ateliers.",
+          "result": {
+            "kind": "SELECT_CANDIDATE",
+            "candidateRef": "h:one"
+          }
+        }
+      ]
+    },
+    {
+      "id": "W1-CR-05",
+      "priority": "P1",
+      "owner": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+      "boundary": "selection language -> candidate identity",
+      "status": "RESOLVED_FOR_QUOTED_AND_MULTIPLE_REFERENCES_AND_VERIFIED",
+      "counterexamples": [
+        "La citation est « je choisis la première hypothèse ».",
+        "Je choisis la première question et la première hypothèse."
+      ],
+      "observed": "Both return SELECT_CANDIDATE h:one.",
+      "cause": "selectionIntent includes quoted text; group iteration returns the first matched category instead of detecting multiple selected references.",
+      "impact": "False or arbitrary candidate is constructed. The existing Human Review gate still prevents automatic adoption, so this is not claimed as a Project-write P0.",
+      "requiredValidation": "Quoted selections remain non-performative; multi-reference selection is explicitly represented or refused/clarified, never chosen by loop order.",
+      "priorStatus": "DEMONSTRATED_AT_PROBE; root notified",
+      "followupVerification": "Quoted and multiple-reference selections now FALLTHROUGH. Separate residual mixed-selection payload issue is attached to W1-CR-04."
+    },
+    {
+      "id": "W1-CR-06",
+      "priority": "P0",
+      "owner": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+      "boundary": "C01 admission x C03 personal sensitivity",
+      "status": "RESOLVED_IN_CONCURRENT_PATCH_AND_VERIFIED_BY_PROBE",
+      "beforeEvidence": "The initially inspected routing source required isPatientLevelExpression AND one of six legacy exact fragments; unqualified personal declarations could bypass the admission Domain Gate.",
+      "counterexamples": [
+        "J’ai un T2 élevé.",
+        "Ma douleur persiste.",
+        "Mes symptômes ont changé."
+      ],
+      "afterObserved": "All three now return OUT_OF_SCOPE and projectConstructionEligible=false while Knowledge privacy returns RESTRICTED_PERSONAL.",
+      "requiredValidation": "Maintain shared personal predicate as sufficient denial before extractor/provider admission."
+    },
+    {
+      "id": "W1-CR-07",
+      "priority": "P2",
+      "owner": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "boundary": "EXPLAIN oracle -> scientific usefulness claim",
+      "status": "ORACLE_LABEL_CORRECTED_SCOPE_REVIEW_STILL_REQUIRED",
+      "cause": "SCIENTIFIC_USEFULNESS for EXPLAIN/DISCUSS checks reply length >60, and candidate absence; no exact explained-reference check in that branch.",
+      "impact": "A long unrelated active-owner explanation can pass this property despite failing the intended question.",
+      "requiredValidation": "Label length-based evidence narrowly; do not use it to establish explanation correctness. Add off-corpus/reference-aware qualification in a new proof, without rewriting frozen prior evidence.",
+      "priorStatus": "OBSERVED_EVALUATION_LIMIT",
+      "followupVerification": "Harness now uses SCIENTIFIC_RESPONSE_PRESENT and marks EXPLAIN/DISCUSS SCIENTIFIC_USEFULNESS as REQUIRES_INDEPENDENT_SEMANTIC_REVIEW. No usefulness PASS from length."
+    }
+  ],
+  "nonFindingsAndLimits": [
+    "No wave-1 diff was observed in the scientific owner result cache key: exact native-input digest, purpose, current Project identity/digest and freshness remain checked.",
+    "No new retry loop or duplicated provider dispatch was demonstrated. Reversible admission intentionally increases the set of inputs eligible for extraction; provider-call budgets require root replay evidence.",
+    "C01 still produces candidates subject to existing deterministic validation and Human Review. No automatic write was found in the new admission boolean itself.",
+    "The corpus regression text appears in tests, not as product phrase-specific exceptions in the inspected diff.",
+    "The campaign explicitly distinguishes Vitest collection success from product success and records synthetic language-contract scope; this distinction must be maintained in final reporting.",
+    "Several files were being corrected concurrently. First-probe findings retain their observed status; the embedded latest probe results and snapshot hashes govern any claim about resolution."
+  ],
+  "recommendation": "The demonstrated P0 paths are corrected in the latest probes. Do not yet declare global stability: same-sentence mixed payload remains an observed P1 class. Root mass replay remains required, followed by independent semantic review of explanation/discussion scope; this review neither edits product nor blocks the collection run.",
+  "updatedAt": "2026-09-14T21:58:41.951849+00:00",
+  "stabilityVerdict": "PARTIAL_ONLY_SAME_SENTENCE_MIXED_PAYLOAD_REMAINS_OPEN",
+  "followupProbe": {
+    "results": {
+      "acts": [
+        {
+          "raw": "Je confirme « aucune adoption ».",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Le suivi sera de dix mois.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette proposition. Nous analyserons aussi la mobilité.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Je refuse son adoption.",
+          "result": null
+        },
+        {
+          "raw": "Je confirme cette candidate. Je ne donne aucune autorisation.",
+          "result": null
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers; propose-moi plusieurs options.",
+          "result": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          }
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers, propose-moi plusieurs options.",
+          "result": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          }
+        },
+        {
+          "raw": "Je confirme cette candidate telle que présentée.",
+          "result": {
+            "kind": "USER_CONFIRMS_CURRENT_CANDIDATE",
+            "evidenceRefs": [
+              "candidate:review",
+              "turn:presented"
+            ]
+          }
+        }
+      ],
+      "routes": [
+        {
+          "raw": "Propose-moi plusieurs options, les observations couvrent trois ateliers.",
+          "privacy": "PUBLIC",
+          "eligible": false,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers puis propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": false,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "J’ai un T2 élevé.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Ma douleur persiste.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Mes symptômes ont changé.",
+          "privacy": "RESTRICTED_PERSONAL",
+          "eligible": false,
+          "domainGate": "OUT_OF_SCOPE",
+          "routeIntent": null,
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers, propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers; propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Les observations couvrent trois ateliers. Propose-moi plusieurs options.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Explique ce modèle. Les observations couvrent trois ateliers.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        },
+        {
+          "raw": "Nous conserverons le calendrier actuel et la taille passe à 180 observations.",
+          "privacy": "PUBLIC",
+          "eligible": true,
+          "domainGate": "IN_SCOPE",
+          "routeIntent": "UNDERSTAND",
+          "direction": "NONE"
+        }
+      ],
+      "owner": [
+        {
+          "raw": "Nous aurons cinq ateliers, pourquoi ces hypothèses ?",
+          "result": {
+            "kind": "DISCUSS",
+            "response": "Hypothèse 1 : La mobilité dépend de l'exposition\nMobilité recueillie"
+          }
+        },
+        {
+          "raw": "Je choisis la première hypothèse et les observations couvriront cinq ateliers.",
+          "result": {
+            "kind": "SELECT_CANDIDATE",
+            "candidateRef": "h:one"
+          }
+        },
+        {
+          "raw": "Le compte rendu indique : je choisis la première hypothèse.",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Explique cette hypothèse. Le suivi sera de dix mois.",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Nous aurons cinq ateliers. Pourquoi ces hypothèses ?",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Pourquoi le modèle linéaire suppose-t-il une relation additive ?",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "Je choisis la première question et la première hypothèse.",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        },
+        {
+          "raw": "La citation est « je choisis la première hypothèse ».",
+          "result": {
+            "kind": "FALLTHROUGH"
+          }
+        }
+      ]
+    },
+    "scriptSha256": "3e643d802943830b05d4d4ab85a0236f291346baecc0e238b580bc9b88c4da56",
+    "snapshot": [
+      {
+        "path": "src/features/protocol-designer/functional-reset/product-entry-routing.ts",
+        "sha256": "ca29d91db17a6989b81194651be45f0d75451c7f59237d7440cfa0881543f63a"
+      },
+      {
+        "path": "src/features/protocol-designer/intake/journey.ts",
+        "sha256": "66ed33f85325fa587a5172dca8156685a24646d628e410ee72f341105e852a0a"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+        "sha256": "6643524d7e4a9491a1398e9c8862fb9f22b08e7d14e693674bcd8e2e2bfb4346"
+      },
+      {
+        "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+        "sha256": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2"
+      },
+      {
+        "path": "src/features/query-navigation/current-navigation-evidence.ts",
+        "sha256": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669"
+      },
+      {
+        "path": "src/features/knowledge-engine/privacy.ts",
+        "sha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083"
+      },
+      {
+        "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+        "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+      }
+    ]
+  }
+}

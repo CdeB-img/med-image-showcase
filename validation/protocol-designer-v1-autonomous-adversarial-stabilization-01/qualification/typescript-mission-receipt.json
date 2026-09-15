@@ -1,0 +1,12 @@
+{
+  "id": "typescript-mission",
+  "startedAt": "2026-09-15T00:24:51.605710+00:00",
+  "completedAt": "2026-09-15T00:24:55.414269+00:00",
+  "durationSeconds": 3.809,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/typescript-mission.log",
+  "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "status": "PASS"
+}

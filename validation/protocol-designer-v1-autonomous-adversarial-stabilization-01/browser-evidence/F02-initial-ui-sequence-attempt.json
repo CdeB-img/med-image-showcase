@@ -1,0 +1,23 @@
+{
+  "scenario": "F02",
+  "status": "INVALIDATED_UI_ACTION_SEQUENCE_ATTEMPT_PRESERVED",
+  "turnsExecuted": 15,
+  "reason": "REOPEN_EXISTING_SESSION required after T12 was deferred by the browser controller; replay from first turn is required for exact browser sequence. No product failure inferred.",
+  "httpLines": [
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84
+  ],
+  "realProviderCalls": 0
+}

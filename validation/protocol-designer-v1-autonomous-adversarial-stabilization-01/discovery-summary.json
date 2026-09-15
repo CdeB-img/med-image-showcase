@@ -1,0 +1,133 @@
+{
+  "conversations": 15,
+  "meaningfulTurns": 225,
+  "rawOracleSymptoms": 5985,
+  "severity": {
+    "MATERIAL": 5985
+  },
+  "attempts": [
+    {
+      "key": "DISCOVERY:A01",
+      "phase": "DISCOVERY",
+      "scenario": "A01",
+      "turns": 15,
+      "result": "discovery/A01/2026-09-14T21-36-45-253Z-1546/result.json",
+      "sha256": "54091a22dc118b897ab75148795104a39752907f17f99a7b71fb0fe657783d5e"
+    },
+    {
+      "key": "DISCOVERY:A02",
+      "phase": "DISCOVERY",
+      "scenario": "A02",
+      "turns": 15,
+      "result": "discovery/A02/2026-09-14T21-36-46-752Z-1546/result.json",
+      "sha256": "cff7edf36e2e3c2ffa5851137ca7dfa5effe259ac278b52fb9ebe6f489bda6a3"
+    },
+    {
+      "key": "DISCOVERY:A03",
+      "phase": "DISCOVERY",
+      "scenario": "A03",
+      "turns": 15,
+      "result": "discovery/A03/2026-09-14T21-36-47-920Z-1546/result.json",
+      "sha256": "90253384517ad6a833ce947565bdfb28ce6a95977cd74a134988b2f39e722fc3"
+    },
+    {
+      "key": "DISCOVERY:A04",
+      "phase": "DISCOVERY",
+      "scenario": "A04",
+      "turns": 15,
+      "result": "discovery/A04/2026-09-14T21-36-49-141Z-1546/result.json",
+      "sha256": "0e30de9ef105da8b1b930c5609dc75a8bdb522bc64e998a6fbe481c596d4f35b"
+    },
+    {
+      "key": "DISCOVERY_DOCUMENT_RETURN_CORRECTED:B01",
+      "phase": "DISCOVERY_DOCUMENT_RETURN_CORRECTED",
+      "scenario": "B01",
+      "turns": 15,
+      "result": "discovery_document_return_corrected/B01/2026-09-14T21-39-52-885Z-2154/result.json",
+      "sha256": "3f34d63c43a4fededa3585373e32a88272096f38a0a19382d6e7d7e0e561dbfd"
+    },
+    {
+      "key": "DISCOVERY:B02",
+      "phase": "DISCOVERY",
+      "scenario": "B02",
+      "turns": 15,
+      "result": "discovery/B02/2026-09-14T21-37-35-076Z-1712/result.json",
+      "sha256": "308684bcdc186621e7b9b8956d6d5c592d07afbcca2d60a0e781557242251fcc"
+    },
+    {
+      "key": "DISCOVERY:B03",
+      "phase": "DISCOVERY",
+      "scenario": "B03",
+      "turns": 15,
+      "result": "discovery/B03/2026-09-14T21-37-36-722Z-1712/result.json",
+      "sha256": "0d5b8f6a01dc6bc094bab12b6ab0b192a8cbd4f22d7a9431c194ba1d8e3a1c1f"
+    },
+    {
+      "key": "DISCOVERY:B04",
+      "phase": "DISCOVERY",
+      "scenario": "B04",
+      "turns": 15,
+      "result": "discovery/B04/2026-09-14T21-37-38-109Z-1712/result.json",
+      "sha256": "0ff68ba5fb7898b2985e3fb956ba5fd1a110433b812530dfed1ba7d908b83b33"
+    },
+    {
+      "key": "DISCOVERY:C01",
+      "phase": "DISCOVERY",
+      "scenario": "C01",
+      "turns": 15,
+      "result": "discovery/C01/2026-09-14T21-37-39-637Z-1712/result.json",
+      "sha256": "574058425281b2aba2cff847b77d3d316f1641c8e568eb1fa33e0c9861613b7c"
+    },
+    {
+      "key": "DISCOVERY:C02",
+      "phase": "DISCOVERY",
+      "scenario": "C02",
+      "turns": 15,
+      "result": "discovery/C02/2026-09-14T21-37-40-874Z-1712/result.json",
+      "sha256": "d22a3ed0d7fa1e3ba1ac0c0a7eaebfa7e311e2a9987c4b22e6e499db8c739797"
+    },
+    {
+      "key": "DISCOVERY_DOCUMENT_RETURN_CORRECTED:C03",
+      "phase": "DISCOVERY_DOCUMENT_RETURN_CORRECTED",
+      "scenario": "C03",
+      "turns": 15,
+      "result": "discovery_document_return_corrected/C03/2026-09-14T21-39-55-088Z-2154/result.json",
+      "sha256": "cedd58a0933b6bc48d607fadedca53e90cbe2cac139d227e45e1183b96a327ae"
+    },
+    {
+      "key": "DISCOVERY:D01",
+      "phase": "DISCOVERY",
+      "scenario": "D01",
+      "turns": 15,
+      "result": "discovery/D01/2026-09-14T21-38-17-137Z-1876/result.json",
+      "sha256": "3fb6cddb3d027f06150e46c607a78e5faafa84d3d54a6a9e0ca93c984638dc2a"
+    },
+    {
+      "key": "DISCOVERY:E01",
+      "phase": "DISCOVERY",
+      "scenario": "E01",
+      "turns": 15,
+      "result": "discovery/E01/2026-09-14T21-38-18-206Z-1876/result.json",
+      "sha256": "87064ee42cb45b2e0e275f6f3b8819ec630a4fb4eb48bb683295e027601b554f"
+    },
+    {
+      "key": "DISCOVERY_HARNESS_CORRECTED:F01",
+      "phase": "DISCOVERY_HARNESS_CORRECTED",
+      "scenario": "F01",
+      "turns": 15,
+      "result": "discovery_harness_corrected/F01/2026-09-14T21-38-55-152Z-2016/result.json",
+      "sha256": "5c5d07f24871f4a07d7ad72edb83842e04d1e0432ecdcea4a5d8cfb0e0a9b479"
+    },
+    {
+      "key": "DISCOVERY:F02",
+      "phase": "DISCOVERY",
+      "scenario": "F02",
+      "turns": 15,
+      "result": "discovery/F02/2026-09-14T21-38-23-633Z-1876/result.json",
+      "sha256": "45863cad9e3a67f5a6e622785fc7b82414b9a9b5d12e4e8b8608ded07d1379a4"
+    }
+  ],
+  "productChangedDuringDiscovery": false,
+  "newProviderCalls": 0,
+  "note": "Symptoms include cascading failed prerequisites; do not count as independent defects; exact HOW wording synthetic."
+}

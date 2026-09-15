@@ -1,0 +1,113 @@
+{
+  "parserAblation": [
+    {
+      "turn": "A01-T05",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "A02-T04",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "A03-T13",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "A04-T08",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "B01-T04",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "B01-T15",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "C01-T09",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "C03-T04",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "D01-T03",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "D01-T15",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "F01-T06",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "F01-T15",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "F02-T02",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    },
+    {
+      "turn": "F02-T04",
+      "originalAccepted": false,
+      "withoutBoundedInteractionAccepted": true,
+      "acknowledgementControlAccepted": true,
+      "unknownKindRejected": true
+    }
+  ],
+  "d01": {
+    "currentProjectInRecordedRequest": null,
+    "semanticDelta": [
+      {
+        "operation": "REPLACE",
+        "key": "endpoint"
+      }
+    ],
+    "pureTargetResolutionError": "ADVERSARIAL_OFFLINE_TRANSPORT:CURRENT_PROJECT_REQUIRED:endpoint",
+    "note": "Pure target-resolution call only; no HTTP/provider replay or product mutation."
+  }
+}

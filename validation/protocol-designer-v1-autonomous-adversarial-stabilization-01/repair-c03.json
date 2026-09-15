@@ -1,0 +1,75 @@
+{
+  "repairId": "C03",
+  "status": "IMPLEMENTED_FOCUSED_TESTS_PASS_PENDING_ROOT_REQUALIFICATION",
+  "recordedAt": "2026-09-14T21:51:17.452436+00:00",
+  "owner": "src/features/knowledge-engine/privacy.ts",
+  "authorizationContext": "Wave 1 after frozen 225-turn baseline and CP4, as instructed by root.",
+  "baselineCause": {
+    "observedByParent": "A03-T01 refused as patient-level for a scientific first-person introduction.",
+    "verifiedInOwner": "The prior PATIENT_LEVEL regular expression classified mon/ma/mes, j’ai, chez moi and pour moi without examining the referent."
+  },
+  "changes": [
+    "Replace bare possessive and first-person markers with local positive attachment to clinical or private referents.",
+    "Generic result/value/measurement/data heads require a personal or medical qualifier or an attached clinical referent; ownership of work is insufficient.",
+    "First-person avoir requires a clinical experience or individual age; research discourse verbs and mal compris do not count as patient evidence.",
+    "Potentially polysemous heads such as treatment, examination and pressure require a qualified clinical phrase or a bounded individual assertion.",
+    "Normalize French case, apostrophe, accents and spacing once and reuse exactly the same predicate for sensitivity classification, persistence and the Domain Gate.",
+    "Preserve direct-identifier and secret patterns and the existing external transmission restrictions."
+  ],
+  "files": [
+    {
+      "path": "src/features/knowledge-engine/privacy.ts",
+      "sha256": "b8d0f5f2e71a2c673bd74493a21542b4f5db9f4a614ff9b1a5178bd3ee08c083"
+    },
+    {
+      "path": "src/features/knowledge-engine/__tests__/privacy.test.ts",
+      "sha256": "d32da3555d38fbaa56feb2cbbd5da61014408084ab2403c7b0a79a1131f2b608"
+    }
+  ],
+  "validation": {
+    "offlineGuard": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "command": "NODE_OPTIONS='--require /Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs' ./node_modules/.bin/vitest run src/features/knowledge-engine/__tests__/privacy.test.ts src/features/knowledge-engine/__tests__/mandatory-cases.test.ts src/features/knowledge-engine/__tests__/eng-002-product-cases.test.ts src/features/knowledge-engine/__tests__/eng-003-external-search.test.ts",
+    "result": {
+      "exitCode": 0,
+      "testFilesPassed": 4,
+      "testsPassed": 97,
+      "testsFailed": 0,
+      "durationSeconds": 1.11
+    },
+    "testBreakdown": {
+      "privacy.test.ts": 49,
+      "mandatory-cases.test.ts": 8,
+      "eng-002-product-cases.test.ts": 14,
+      "eng-003-external-search.test.ts": 26
+    },
+    "diffCheck": {
+      "command": "git diff --check -- src/features/knowledge-engine/privacy.ts src/features/knowledge-engine/__tests__/privacy.test.ts",
+      "exitCode": 0
+    },
+    "counterexamples": [
+      "Work possessives with clinical terms elsewhere in the sentence.",
+      "Experimental measurements, research results, thermal treatments and vapor pressure.",
+      "J’ai besoin/prévu/étudié/mal compris and nonpersonal Pour moi.",
+      "Symptoms, biomarker values, disease, pain, individual age and private family/contact/financial data.",
+      "Mixed scientific and personal clauses without whole-message exemption.",
+      "Email, phone, birth date, patient identifier and secret preservation.",
+      "Shared Domain Gate and sensitivity predicate, no external call for individual cases."
+    ]
+  },
+  "boundaries": {
+    "languageFixturesModified": false,
+    "otherProductOwnersModified": false,
+    "providerCallsMade": false,
+    "networkCallsMade": false,
+    "environmentSecretsRead": false,
+    "commitCreated": false,
+    "globalCorpusRequalification": "NOT_RUN_BY_THIS_SUBAGENT; assigned to root."
+  },
+  "risksAndLimits": [
+    "The detector is a deterministic bounded lexical classifier, not a general clinical or privacy comprehension capability.",
+    "Unlisted conditions, novel names, distant anaphora, other languages, spelling errors and complex syntactic attachment are not comprehensively covered; no universal privacy recall claim.",
+    "Short ambiguous individual-looking expressions may still overblock, including polysemous medical/technical heads without enough context.",
+    "Unqualified ownership of results or data no longer suffices for restriction; sensitivity needs an explicit personal/clinical referent or a direct identifier.",
+    "No statement here qualifies scientific correctness, adopted project semantics, or the complete 225-turn campaign."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "baseline-soaks-and-standard",
+  "startedAt": "2026-09-15T00:25:14.672483+00:00",
+  "completedAt": "2026-09-15T00:25:27.446878+00:00",
+  "durationSeconds": 12.774,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/baseline-soaks-and-standard.log",
+  "logSha256": "61ff492a5a39f396d192d6fefdc2103f833740e7626b1f6da7b460a286d7ee5f",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/baseline-soaks-and-standard.json",
+    "sha256": "7ede0fbe83748936048fa65239a77b98d3170581ea3cc95c307c94cea41b595d",
+    "success": true,
+    "numTotalTests": 12,
+    "numPassedTests": 12,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 2,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 1,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": false,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": false
+    }
+  },
+  "status": "PASS"
+}

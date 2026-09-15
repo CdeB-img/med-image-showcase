@@ -1,0 +1,2358 @@
+{
+  "contract": "AUTONOMOUS_ADVERSARIAL_WAVE2_PROPOSAL_CAUSAL_DIAGNOSIS",
+  "phase": "mass_replay_1",
+  "recordedAt": "2026-09-15T00:08:48.259Z",
+  "status": "READ_ONLY_DIAGNOSIS_COMPLETE_NO_REPAIR",
+  "findings": [
+    {
+      "id": "PROP-HTTP-CONTRACT",
+      "classification": "PRODUCT_REQUEST_CONTRACT_DRIFT",
+      "confidence": "PROVEN_BY_14_CAPTURED_REQUEST_ABLATIONS",
+      "affectedTurns": [
+        "A01-T05",
+        "A02-T04",
+        "A03-T13",
+        "A04-T08",
+        "B01-T04",
+        "B01-T15",
+        "C01-T09",
+        "C03-T04",
+        "D01-T03",
+        "D01-T15",
+        "F01-T06",
+        "F01-T15",
+        "F02-T02",
+        "F02-T04"
+      ],
+      "cause": "The TS type and Workspace emit USER_REQUESTS_ASSISTED_PROPOSAL, but parseProductBridgeRequest admits only explanation/acknowledgement. All 14 requests fail before provider transport.",
+      "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-parser-ablation.json",
+      "notProviderOrHarness": "Every captured HTTP400 has zero provider witnesses. Removing only boundedInteraction makes each exact captured request parse. The harness calls the real handler with the real body."
+    },
+    {
+      "id": "PROP-EMPTY-DELTA-LOST-ACT",
+      "classification": "PRODUCT_OWNER_ARBITRATION_GAP",
+      "confidence": "PROVEN_PURE_CURRENT_NAVIGATION_COUNTERFACTUAL_AND_CODE_PATH",
+      "affectedTurns": [
+        "A01-T05",
+        "A02-T04",
+        "A03-T13",
+        "A04-T08",
+        "B01-T04",
+        "B01-T15",
+        "C01-T09",
+        "C03-T04",
+        "D01-T03",
+        "D01-T15",
+        "F01-T06",
+        "F01-T15",
+        "F02-T02",
+        "F02-T04"
+      ],
+      "cause": "After HTTP contract repair, an eligible mixed request with valid NO_CHANGE has no candidate; buildCurrentTurnNavigation drops the native action and has no assisted-proposal branch. Workspace has only the early non-extraction dispatch.",
+      "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-empty-delta-navigation.json",
+      "counterfactualBoundary": "Pure function called with captured request and null candidate/contribution; this demonstrates downstream behavior under an explicitly assumed valid empty delta, not a replay of a repaired product."
+    },
+    {
+      "id": "PROP-UNRECOGNIZED-ACT",
+      "classification": "PRODUCT_BOUNDED_CONVERSATIONAL_ACT_REACHABILITY_GAP",
+      "confidence": "OBSERVED_14_EXECUTED_NO_CHANGE_PATHS",
+      "affectedTurns": [
+        "A01-T13",
+        "A02-T15",
+        "A03-T02",
+        "A03-T14",
+        "A04-T15",
+        "B02-T03",
+        "B03-T02",
+        "B03-T08",
+        "B04-T10",
+        "C01-T05",
+        "C02-T13",
+        "D01-T05",
+        "E01-T02",
+        "F02-T15"
+      ],
+      "cause": "These 14 PROPOSAL gold turns have no boundedInteraction in the captured request, return NO_CHANGE, then RESPOND_WITHOUT_MUTATION/contentSource NONE. No owner result is added.",
+      "providerLimit": "The 40-character acknowledgement wording comes from the explicit SYNTHETIC_CONTRACT_FIXTURE. Its wording does not qualify a live provider, but absent scientific owner dispatch is observable product behavior."
+    },
+    {
+      "id": "D01-T11-PROPAGATION",
+      "classification": "UPSTREAM_PROJECT_ABSENCE_PROPAGATED_THROUGH_FAIL_CLOSED_FIXTURE",
+      "confidence": "PROVEN_CAPTURED_NULL_PROJECT_AND_PURE_TARGET_RESOLUTION",
+      "affectedTurns": [
+        "D01-T11"
+      ],
+      "cause": "Gold REPLACE endpoint arrives with request.currentProject=null; strict transport throws ADVERSARIAL_OFFLINE_TRANSPORT:CURRENT_PROJECT_REQUIRED:endpoint before recording a provider witness. Provider adapter reports NETWORK_FAILURE generically.",
+      "notLiveNetwork": "No real network call occurred. Do not relax target binding, fabricate a Project, treat this as real provider downtime, or count a new root product defect at this propagation boundary."
+    },
+    {
+      "id": "HARNESS-EMPTY-REPLY-AND-STALE-TRACE",
+      "classification": "EVIDENCE_INTERPRETATION_LIMITATION_NOT_CAUSE_OF_HTTP_REJECTION",
+      "confidence": "OBSERVED_CAPTURE_AND_HARNESS_CODE",
+      "cause": "reply is the new NOXIA runtime text; HTTP errors live in session.entries as ERROR. latestTrace can remain the previous turn. Therefore an empty reply is not evidence of a blank DOM and the previous trace is not the failed request trace."
+    },
+    {
+      "id": "HARNESS-REUSE-FALSE-POSITIVE",
+      "classification": "HARNESS_PROPERTY_FALSE_POSITIVE",
+      "confidence": "PROVEN_PREDICATE",
+      "affectedTurns": [
+        "A01-T05",
+        "A02-T04",
+        "A03-T13",
+        "A04-T08",
+        "B01-T04",
+        "B01-T15",
+        "C01-T09",
+        "C03-T04",
+        "D01-T03",
+        "D01-T15",
+        "F01-T06",
+        "F01-T15",
+        "F02-T02",
+        "F02-T04"
+      ],
+      "cause": "replies !== prior || exhausted marks empty text as a PURPOSE_AND_REUSE PASS when prior is non-empty. STANDARD_CONVERSATION and SCIENTIFIC_RESPONSE_PRESENT still fail.",
+      "recommendedEvaluation": "Require substantive visible owner material and purpose-aware current owner-result evidence, or explicit bounded exhaustion, before PASS. An error/empty reply must be FAIL or NOT_DEMONSTRATED. Preserve raw runs and frozen gold."
+    }
+  ],
+  "counts": {
+    "standardConversationFailures": 15,
+    "proposalTurns": 32,
+    "proposalHttp400": 14,
+    "proposalHttp200NoChange": 14,
+    "localOwnerDispatches": 4,
+    "nonProposalTechnicalFailures": [
+      "D01-T11"
+    ]
+  },
+  "proposedRepair": {
+    "status": "PROPOSAL_ONLY_NOT_IMPLEMENTED",
+    "order": [
+      "At product-bridge.ts runtime request owner, accept the declared non-adopting USER_REQUESTS_ASSISTED_PROPOSAL contract while preserving evidence shape and fail-closed rejection of unknown kinds. Do not automatically whitelist direct HTTP confirm/refuse acts: those need the existing human-decision envelope/lifecycle, not a string-kind authority.",
+      "Reuse the current Workspace/QRY assisted-proposal dispatch after successful validated NO_CHANGE when an explicit request remains pending and an exact current adopted Project is available. Preserve input/transport receipt, trace continuity and busy lifecycle; rebuild ASSISTED_PROPOSAL navigation with existing native owners and purpose-aware reuse.",
+      "Keep mixed data candidate handling prior to the pending proposal act. A non-empty candidate must retain its Human Review boundary; errors/BLOCKED/TECHNICAL_FAILURE must never be interpreted as empty semantic delta or authorization to bypass unresolved material.",
+      "Repair conversational-act reachability at current-navigation-evidence owner using generic act composition and existing grammar, independently of scientific domain words. Do not solve by adding the frozen scenario sentences to ProductEntry.",
+      "For pre-Project requests, preserve the absent adopted-Project boundary and repair upstream candidate/adoption reachability; do not inject gold Project state merely to enable proposal generation.",
+      "Strengthen the harness PURPOSE_AND_REUSE predicate and record its prior PASS limitation without rewriting discovery/mass replay evidence."
+    ],
+    "noNewEngine": true,
+    "noProviderSynthesisOfOwnerAuthority": true,
+    "suggestedQualification": [
+      "Exact captured rejected requests parse with assisted-proposal kind; malformed/unknown kinds and unauthorised direct decisions remain rejected.",
+      "Standard mixed requests in both orders, comma/conjunction/paragraph separators, valid empty delta => same exact Project plus existing owner proposal dispatch.",
+      "Non-empty delta => retained reviewable candidate and no implicit adoption; technical failure/blocked delta => no false late fallback.",
+      "Equivalent-purpose reuse, different-purpose invalidation, real Project version invalidation and no-write-on-discussion/refusal remain passing.",
+      "No-content or error reply cannot satisfy PURPOSE_AND_REUSE; synthetic wording is not promoted to live linguistic evidence."
+    ]
+  },
+  "codeReferences": [
+    {
+      "path": "src/features/protocol-designer/product-bridge.ts",
+      "line": 1798,
+      "role": "parseProductBridgeRequest runtime allowlist omits USER_REQUESTS_ASSISTED_PROPOSAL.",
+      "sha256": "3d06ed1638bcf15484ba38a27416ee43f4fcd75f211482f491d287637998821e"
+    },
+    {
+      "path": "src/features/query-navigation/current-turn-navigation.ts",
+      "line": 39,
+      "role": "Declared interaction type includes USER_REQUESTS_ASSISTED_PROPOSAL.",
+      "sha256": "a9a3e3c7862007e5df08a35892471c731bc86225d51cc6bd7900db542e476d80"
+    },
+    {
+      "path": "src/features/query-navigation/current-turn-navigation.ts",
+      "line": 169,
+      "role": "With no candidate and USER_TURN, current governed native action is not considered; explicit proposal kind has no purpose/intervention branch.",
+      "sha256": "a9a3e3c7862007e5df08a35892471c731bc86225d51cc6bd7900db542e476d80"
+    },
+    {
+      "path": "api/protocol-designer-bridge.ts",
+      "line": 222,
+      "role": "Parser rejection returns HTTP400 before extraction/provider invocation.",
+      "sha256": "6f732c227072fe01d46eff781cde1e723290f5f20ccc43ccb04a39ab258224d8"
+    },
+    {
+      "path": "api/protocol-designer-bridge.ts",
+      "line": 350,
+      "role": "Valid empty extractor response is classified NO_CHANGE; downstream current-turn navigation still runs.",
+      "sha256": "6f732c227072fe01d46eff781cde1e723290f5f20ccc43ccb04a39ab258224d8"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "line": 2112,
+      "role": "Existing local assisted-proposal dispatch runs only before bridge and only when extraction admission is false.",
+      "sha256": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "line": 2265,
+      "role": "Request transmits boundedInteraction and then consumes extraction response; no late assisted-proposal dispatch exists on NO_CHANGE.",
+      "sha256": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "line": 2670,
+      "role": "HTTP exception is persisted as visible ERROR, not a NOXIA runtime assistant turn.",
+      "sha256": "ff84f7f24116dec1122e7a92f33dcc3a8cbc6aa1b82966d9533e2c063e5200c2"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+      "line": 380,
+      "role": "Existing assisted purpose selects GENERATE_ALTERNATIVE_HYPOTHESIS and retains purpose/snapshot-sensitive owner reuse.",
+      "sha256": "8e18601b3a8d71089cf8571636f7261cfc702e9690e0dda70429943a686463b8"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "line": 92,
+      "role": "Harness sends actual request body to real product handler and only substitutes fetchImpl at provider boundary.",
+      "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "line": 116,
+      "role": "STANDARD_CONVERSATION correctly fails on newly visible ERROR entries.",
+      "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "line": 170,
+      "role": "PURPOSE_AND_REUSE can wrongly pass an empty/different reply; textual inequality is insufficient proof of useful owner output.",
+      "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/provider-transport.ts",
+      "line": 89,
+      "role": "REPLACE requires an actual current Project; missing baseline state fails closed before a witness is recorded.",
+      "sha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8"
+    }
+  ],
+  "standardConversationFailures": [
+    {
+      "scenario": "A01",
+      "turn": "A01-T05",
+      "input": "Sur cette population, donne-moi plusieurs pistes pour travailler les critères et les limites du recrutement. J'aimerais avoir des options à examiner.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 4,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project",
+          "currentProjectVersion": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:08a88cc3-7987-498b-96f2-21693cadd030",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:fde7261a-236f-4efa-9a5d-54285e5c2332",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "A02",
+      "turn": "A02-T04",
+      "input": "À partir de ce qu'on a maintenant, proposez-moi plusieurs pistes scientifiques pour faire avancer ce projet.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project",
+          "currentProjectVersion": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:52b8089e-474e-450b-b574-713047eab2fc",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c199d29b-48d7-4ab8-8bea-324ff25f3994",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "A03",
+      "turn": "A03-T13",
+      "input": "Les deux délais sont maintenant distingués. Quelles propositions scientifiques peut-on examiner à partir de là ? Donne-moi plusieurs possibilités.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 11,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project",
+          "currentProjectVersion": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project:version:4",
+          "currentProjectRevision": 4,
+          "sourceTurnRef": "turn:b5300acd-d0cf-4f91-8b27-f5c69a0e2b71",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c944ea47-f1eb-42ad-a093-cc42e0fa4d93",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T08",
+      "input": "D'accord pour l'explication. Maintenant propose-moi une autre approche méthodologique, j'ai besoin d'une alternative, pas de la même explication formulée autrement.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 5,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project",
+          "currentProjectVersion": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:f4fdd4d2-e157-45bd-bc81-7affa168a33c",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:ab3c2a47-ad0a-4b54-9672-699f7df3450a",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "B01",
+      "turn": "B01-T04",
+      "input": "Avec cette base, propose-moi plusieurs pistes scientifiques pertinentes pour la suite du travail.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+          "currentProjectVersion": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:e36cf8e2-6bf5-45da-ae22-b04d8e8ab576",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:714f7d29-8c2d-484e-97b3-e662c11df287",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "B01",
+      "turn": "B01-T15",
+      "input": "Proposez-moi une alternative pour l'analyse, en repartant de ce qui est retenu maintenant. Le nombre de centres et la durée figurent déjà dans le projet, inutile de me les redemander.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+          "currentProjectVersion": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:754b59e6-58d3-4f8b-a67c-03c27458daa3",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c235ff84-dc3a-4ed1-8fae-65e4795f63ab",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "C01",
+      "turn": "C01-T09",
+      "input": "Pour avancer, donnez-moi d'autres options méthodologiques. Je cherche d'autres pistes, pas une nouvelle explication de celle qu'on vient de commenter.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 8,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project",
+          "currentProjectVersion": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:175a0d4c-2cc6-4fdb-a974-513a06fc3aa6",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:977252be-b8cc-488b-b1f3-e174a7b618bb",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "C03",
+      "turn": "C03-T04",
+      "input": "Sur cette base, proposez-moi plusieurs pistes scientifiques pour construire la suite.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:b00ee8c7-ac14-4cb5-b76b-7a489e72c572:research-project",
+          "currentProjectVersion": "protocol-designer-session:b00ee8c7-ac14-4cb5-b76b-7a489e72c572:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:3d0bea23-14bb-409a-a0e6-4d980828b78b",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:0106b664-218b-4351-976d-8242c0c015ce",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T03",
+      "input": "Quelles options méthodologiques me proposez-vous pour ce benchmark ? Donnez-en plusieurs.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 2,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:204a07c3-718a-4b95-8cd2-766056842b54",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:6e9e9b37-9f78-4134-8870-22ebb3083b47",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T11",
+      "input": "Je reviens au percentile : je propose le 99e à la place du 95e. Le principal reste une latence en millisecondes et le benchmark reste apparié sur les mêmes requêtes.",
+      "outcome": "CANDIDATE",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "La formulation de cette étape n’a pas abouti. Aucune décision ni modification du projet n’a été effectuée.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 9,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:2175f830-1411-4eec-878a-6e3e04c77185",
+          "providerWitnessCount": 0,
+          "extractionStatus": "TECHNICAL_FAILURE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:2175f830-1411-4eec-878a-6e3e04c77185",
+      "standardError": "Je vous ai répondu, mais NOXIA n’a pas pu préparer ces informations pour le Research Project. Le Project reste inchangé."
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T15",
+      "input": "Quelles nouvelles propositions pouvez-vous faire à partir de notre principal au 99e percentile ? Je veux repartir du projet actuel.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 12,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:9503d85c-a681-420c-960b-ba072d9f4547",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:29e6bb80-6a67-4a1c-aee9-ce396e7e1c2a",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "F01",
+      "turn": "F01-T06",
+      "input": "Donnez-moi plusieurs propositions distinctes pour l'instrument ou les critères. Je voudrais voir différentes options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 5,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+          "currentProjectVersion": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:ef872fcc-1b7e-4092-ade0-1aa3d3eec407",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:80f636f3-7b7f-4999-b505-3ea1bc1dc9e3",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "F01",
+      "turn": "F01-T15",
+      "input": "Quelles autres propositions pouvez-vous faire maintenant ? Gardez bien en tête que l'effectif n'est pas confirmé et que l'instrument reste à choisir.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+          "currentProjectVersion": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project:version:5",
+          "currentProjectRevision": 5,
+          "sourceTurnRef": "turn:438c4940-6066-487b-a782-17c7b735a13d",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:ee07a3c8-2989-4e8a-8c3d-053e0448144e",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "F02",
+      "turn": "F02-T02",
+      "input": "Quelles pistes me proposes-tu ? J'en voudrais plusieurs, en respectant bien l'école pour la randomisation et l'enseignant pour la mesure individuelle.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 1,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+          "currentProjectVersion": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:73708c4d-cbf0-4491-b689-fda610e4cca6",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:eaa5b0e0-e45d-4e31-9317-63b41df94e85",
+      "standardError": "Contrat du pont produit invalide."
+    },
+    {
+      "scenario": "F02",
+      "turn": "F02-T04",
+      "input": "Maintenant donne-moi plusieurs alternatives. Je voudrais d'autres choix à examiner, pas seulement la même explication reprise autrement.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 2,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+          "currentProjectVersion": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:4a57c119-4e3a-4cd8-b3d9-58393e8c9d48",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c91b9119-35f1-44b1-9142-841c4d5b3b70",
+      "standardError": "Contrat du pont produit invalide."
+    }
+  ],
+  "proposalInventory": [
+    {
+      "scenario": "A01",
+      "turn": "A01-T05",
+      "input": "Sur cette population, donne-moi plusieurs pistes pour travailler les critères et les limites du recrutement. J'aimerais avoir des options à examiner.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 4,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project",
+          "currentProjectVersion": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:08a88cc3-7987-498b-96f2-21693cadd030",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:fde7261a-236f-4efa-9a5d-54285e5c2332",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_variable",
+        "OBJECT_SEMANTICS_variable",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_SEMANTICS_endpoint",
+        "GOLD_CURRENT_CONTENT_A01-T02:variable",
+        "GOLD_CURRENT_CONTENT_A01-T02:endpoint"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A01",
+      "turn": "A01-T13",
+      "input": "Avec ce créneau IRM corrigé, quelles autres options proposerais-tu ? Repars de cette version pour examiner des alternatives, pas simplement de la liste précédente.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 11,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project",
+          "currentProjectVersion": "protocol-designer-session:eb228462-a137-4a12-a059-3e132062d2dd:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:41f76da7-d9a0-408a-b709-cec954881e2c",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:41f76da7-d9a0-408a-b709-cec954881e2c",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_acquisition",
+        "OBJECT_SEMANTICS_acquisition",
+        "EARLY_INFORMATION_variable",
+        "OBJECT_SEMANTICS_variable",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_SEMANTICS_endpoint",
+        "GOLD_CURRENT_CONTENT_A01-T11:acquisition",
+        "GOLD_CURRENT_CONTENT_A01-T02:variable",
+        "GOLD_CURRENT_CONTENT_A01-T02:endpoint",
+        "TEMPORAL_QUALIFICATION_timing:acquisition:after-idm"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A02",
+      "turn": "A02-T04",
+      "input": "À partir de ce qu'on a maintenant, proposez-moi plusieurs pistes scientifiques pour faire avancer ce projet.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project",
+          "currentProjectVersion": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:52b8089e-474e-450b-b574-713047eab2fc",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c199d29b-48d7-4ab8-8bea-324ff25f3994",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A02",
+      "turn": "A02-T15",
+      "input": "Maintenant que nous avons repris, quelles pistes scientifiques examiner ensuite ? Appuyez-vous sur l'âge et le critère déjà retenus, ne me les redemandez pas.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project",
+          "currentProjectVersion": "protocol-designer-session:cb8d8fa2-eb3b-4501-9b24-6f2eba5c2d2e:research-project:version:5",
+          "currentProjectRevision": 5,
+          "sourceTurnRef": "turn:fab80c88-1bb7-4b6e-9451-29afd67ea8f9",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:fab80c88-1bb7-4b6e-9451-29afd67ea8f9",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A03",
+      "turn": "A03-T02",
+      "input": "Avec ces éléments, quelles pistes scientifiques vois-tu ? J'en voudrais plusieurs pour pouvoir réfléchir aux options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 1,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project",
+          "currentProjectVersion": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:14cfe7b8-a798-48fa-84d9-0f3e6dc0bcea",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:14cfe7b8-a798-48fa-84d9-0f3e6dc0bcea",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A03",
+      "turn": "A03-T13",
+      "input": "Les deux délais sont maintenant distingués. Quelles propositions scientifiques peut-on examiner à partir de là ? Donne-moi plusieurs possibilités.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 11,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project",
+          "currentProjectVersion": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project:version:4",
+          "currentProjectRevision": 4,
+          "sourceTurnRef": "turn:b5300acd-d0cf-4f91-8b27-f5c69a0e2b71",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c944ea47-f1eb-42ad-a093-cc42e0fa4d93",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_visit12",
+        "OBJECT_IDENTITY_visit12",
+        "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A03",
+      "turn": "A03-T14",
+      "input": "Je reformule ma demande : présente-moi différentes pistes qui tiennent compte de ces mêmes délais, pour ce projet. J'aimerais voir plusieurs options concrètes.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 12,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project",
+          "currentProjectVersion": "protocol-designer-session:4cb757bc-4bf3-4ece-8ee8-df5b5b39e068:research-project:version:4",
+          "currentProjectRevision": 4,
+          "sourceTurnRef": "turn:18f1d1ed-dcac-4304-80b3-cc1c1468bffc",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:18f1d1ed-dcac-4304-80b3-cc1c1468bffc",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_visit12",
+        "OBJECT_IDENTITY_visit12",
+        "GOLD_CURRENT_CONTENT_A03-T06:visit12"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T04",
+      "input": "Quelles mesures d'accord pourraient convenir ici ? Propose-moi plusieurs possibilités qui respectent le fait qu'on a les mêmes examens dans les deux méthodes.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      },
+      "reply": "Voici des hypothèses scientifiques candidates à discuter à partir des éléments confirmés du projet. Aucune n’est privilégiée ni adoptée.\n\nHypothèse 1\nHypothèse candidate : une différence est observable entre « Segmentation manuelle » et « Segmentation semi-automatique » pour « Critère principal: différence de volume segmenté des lésions microvasculaires en millilitres », sans présumer quelle option présente la valeur la plus élevée.\nPour la confronter : Comparer le même critère dans les deux options avec des conditions de mesure explicites et quantifier l’incertitude de l’écart observé.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nHypothèse 2\nHypothèse concurrente candidate : aucune différence n’est discernable entre « Segmentation manuelle » et « Segmentation semi-automatique » pour « Critère principal: différence de volume segmenté des lésions microvasculaires en millilitres » dans les conditions étudiées.\nPour la confronter : Examiner si la précision des observations permet de distinguer un faible écart d’une information insuffisante ; une absence de différence détectée ne démontre pas l’équivalence.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation. Le projet reste inchangé.",
+      "newOwnerResults": 1,
+      "http": [],
+      "latestTraceSourceTurn": "turn:5a534525-5fb7-4970-a8e6-a722a7834431",
+      "standardStatus": "PASS",
+      "failedProperties": [],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T08",
+      "input": "D'accord pour l'explication. Maintenant propose-moi une autre approche méthodologique, j'ai besoin d'une alternative, pas de la même explication formulée autrement.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 5,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project",
+          "currentProjectVersion": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:f4fdd4d2-e157-45bd-bc81-7affa168a33c",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:ab3c2a47-ad0a-4b54-9672-699f7df3450a",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "A04",
+      "turn": "A04-T15",
+      "input": "Quels points méthodologiques restent à traiter et quelles pistes proposes-tu pour y répondre ? Pour la métrique d'accord, le choix reste ouvert.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 12,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project",
+          "currentProjectVersion": "protocol-designer-session:12c4c87d-60cf-4b39-b767-15129209b4ff:research-project:version:4",
+          "currentProjectRevision": 4,
+          "sourceTurnRef": "turn:76e861c4-4430-4582-ae7e-dd09be8ffde1",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:76e861c4-4430-4582-ae7e-dd09be8ffde1",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B01",
+      "turn": "B01-T04",
+      "input": "Avec cette base, propose-moi plusieurs pistes scientifiques pertinentes pour la suite du travail.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+          "currentProjectVersion": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:e36cf8e2-6bf5-45da-ae22-b04d8e8ab576",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:714f7d29-8c2d-484e-97b3-e662c11df287",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_hypoglycemia",
+        "OBJECT_IDENTITY_hypoglycemia",
+        "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B01",
+      "turn": "B01-T15",
+      "input": "Proposez-moi une alternative pour l'analyse, en repartant de ce qui est retenu maintenant. Le nombre de centres et la durée figurent déjà dans le projet, inutile de me les redemander.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project",
+          "currentProjectVersion": "protocol-designer-session:89636709-c350-4b70-9ab3-f51a5094bb6f:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:754b59e6-58d3-4f8b-a67c-03c27458daa3",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c235ff84-dc3a-4ed1-8fae-65e4795f63ab",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_SEMANTICS_endpoint",
+        "EARLY_INFORMATION_visit",
+        "OBJECT_SEMANTICS_visit",
+        "EARLY_INFORMATION_hypoglycemia",
+        "OBJECT_IDENTITY_hypoglycemia",
+        "GOLD_CURRENT_CONTENT_B01-T10:endpoint",
+        "GOLD_CURRENT_CONTENT_B01-T10:visit",
+        "GOLD_CURRENT_CONTENT_B01-T02:hypoglycemia"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B02",
+      "turn": "B02-T03",
+      "input": "Proposez plusieurs façons de comparer les niveaux d'activité dans cette cohorte. Il faut que cela reste une comparaison observationnelle, sans inventer des bras randomisés.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 2,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:df1a7f27-8858-4ef3-897b-edabebe407a1:research-project",
+          "currentProjectVersion": "protocol-designer-session:df1a7f27-8858-4ef3-897b-edabebe407a1:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:e3e1a771-21f7-491e-ab93-e54083f8a8a0",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:e3e1a771-21f7-491e-ab93-e54083f8a8a0",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B02",
+      "turn": "B02-T10",
+      "input": "Quelles autres analyses pourrait-on envisager avec les données de cette cohorte ? Donnez-moi des alternatives en gardant le cadre observationnel.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/session.json"
+      },
+      "reply": "Je ne peux pas proposer ici d’hypothèse supplémentaire défendable : aucune justification scientifique distincte n’est établie dans les éléments examinés. Reformuler une hypothèse déjà confirmée ne constitue pas une nouvelle proposition.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nCette limite porte sur le projet et les éléments disponibles ici ; elle ne signifie pas que toutes les possibilités scientifiques ont été explorées. Préciser les inconnues ou apporter des connaissances supplémentaires permettra de réexaminer les options. Le projet reste inchangé.",
+      "newOwnerResults": 1,
+      "http": [],
+      "latestTraceSourceTurn": "turn:dc3bb4c1-d2d5-47f9-8fce-0e9ceb2b2460",
+      "standardStatus": "PASS",
+      "failedProperties": [],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B03",
+      "turn": "B03-T02",
+      "input": "Tu peux me proposer plusieurs pistes scientifiques à partir de ce projet ? Je voudrais de quoi examiner différentes possibilités.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 1,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:ac9f5864-a178-43a7-b1ed-a30d09dbabed:research-project",
+          "currentProjectVersion": "protocol-designer-session:ac9f5864-a178-43a7-b1ed-a30d09dbabed:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:0cb6c821-fee9-4bae-9000-b43704c3062d",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:0cb6c821-fee9-4bae-9000-b43704c3062d",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B03",
+      "turn": "B03-T08",
+      "input": "Pour mesurer les symptômes, donne-moi plusieurs solutions possibles. Je souhaite voir les alternatives avant de choisir l'instrument.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 7,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:ac9f5864-a178-43a7-b1ed-a30d09dbabed:research-project",
+          "currentProjectVersion": "protocol-designer-session:ac9f5864-a178-43a7-b1ed-a30d09dbabed:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:aeb8516e-fa89-4aca-94c5-89b99ca5d094",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:aeb8516e-fa89-4aca-94c5-89b99ca5d094",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_work-shift",
+        "OBJECT_IDENTITY_work-shift",
+        "GOLD_CURRENT_CONTENT_B03-T06:work-shift"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B04",
+      "turn": "B04-T04",
+      "input": "Quelles approches permettrait de bien distinguer décès et réhospitalisation ? Propose-moi plusieurs options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json"
+      },
+      "reply": "Je ne peux pas proposer ici d’hypothèse supplémentaire défendable : aucune justification scientifique distincte n’est établie dans les éléments examinés. Reformuler une hypothèse déjà confirmée ne constitue pas une nouvelle proposition.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nCette limite porte sur le projet et les éléments disponibles ici ; elle ne signifie pas que toutes les possibilités scientifiques ont été explorées. Préciser les inconnues ou apporter des connaissances supplémentaires permettra de réexaminer les options. Le projet reste inchangé.",
+      "newOwnerResults": 1,
+      "http": [],
+      "latestTraceSourceTurn": "turn:7f584fb3-eec3-4fd5-b3a6-b37b0534c7eb",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "EARLY_INFORMATION_death",
+        "OBJECT_IDENTITY_death",
+        "UNKNOWN_death",
+        "GOLD_CURRENT_CONTENT_B04-T02:death",
+        "GOLD_UNKNOWN_death"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "B04",
+      "turn": "B04-T10",
+      "input": "En partant du critère principal actuel, la réhospitalisation seule, quelles nouvelles pistes me proposes-tu ?",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 8,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:738d8133-f24c-4668-bccf-54b671cf21ed:research-project",
+          "currentProjectVersion": "protocol-designer-session:738d8133-f24c-4668-bccf-54b671cf21ed:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:3d84eecd-bb42-4835-8dba-b43a34e0a547",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:3d84eecd-bb42-4835-8dba-b43a34e0a547",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_death",
+        "OBJECT_IDENTITY_death",
+        "UNKNOWN_death",
+        "GOLD_CURRENT_CONTENT_B04-T02:death",
+        "GOLD_UNKNOWN_death"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "C01",
+      "turn": "C01-T05",
+      "input": "Quelles pistes scientifiques proposeriez-vous maintenant pour cette expérience ? J'aimerais plusieurs options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 4,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project",
+          "currentProjectVersion": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:6a61b1c8-5e7f-4b63-9f7d-30da4a9d1a8d",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:6a61b1c8-5e7f-4b63-9f7d-30da4a9d1a8d",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "C01",
+      "turn": "C01-T09",
+      "input": "Pour avancer, donnez-moi d'autres options méthodologiques. Je cherche d'autres pistes, pas une nouvelle explication de celle qu'on vient de commenter.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 8,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project",
+          "currentProjectVersion": "protocol-designer-session:6a6f1ca0-2998-492e-891b-ae10178a3184:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:175a0d4c-2cc6-4fdb-a974-513a06fc3aa6",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:977252be-b8cc-488b-b1f3-e174a7b618bb",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "C02",
+      "turn": "C02-T13",
+      "input": "À partir de nos six blocs et du régime hydrique encore indécis, quelles prochaines pistes agronomiques proposes-tu ? Présente-moi plusieurs options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 12,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:3aa42ccd-50be-48d8-bb5a-2e7a51ed20fb:research-project",
+          "currentProjectVersion": "protocol-designer-session:3aa42ccd-50be-48d8-bb5a-2e7a51ed20fb:research-project:version:4",
+          "currentProjectRevision": 4,
+          "sourceTurnRef": "turn:6708f0c0-92b1-4a7a-8b05-31ac8d97c459",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:6708f0c0-92b1-4a7a-8b05-31ac8d97c459",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_SEMANTICS_endpoint",
+        "EARLY_INFORMATION_harvest",
+        "OBJECT_SEMANTICS_harvest",
+        "EARLY_INFORMATION_nitrogen",
+        "OBJECT_IDENTITY_nitrogen",
+        "GOLD_CURRENT_CONTENT_C02-T10:endpoint",
+        "GOLD_CURRENT_CONTENT_C02-T10:harvest",
+        "GOLD_CURRENT_CONTENT_C02-T04:nitrogen"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "C03",
+      "turn": "C03-T04",
+      "input": "Sur cette base, proposez-moi plusieurs pistes scientifiques pour construire la suite.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:b00ee8c7-ac14-4cb5-b76b-7a489e72c572:research-project",
+          "currentProjectVersion": "protocol-designer-session:b00ee8c7-ac14-4cb5-b76b-7a489e72c572:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:3d0bea23-14bb-409a-a0e6-4d980828b78b",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:0106b664-218b-4351-976d-8242c0c015ce",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T03",
+      "input": "Quelles options méthodologiques me proposez-vous pour ce benchmark ? Donnez-en plusieurs.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 2,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:204a07c3-718a-4b95-8cd2-766056842b54",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:6e9e9b37-9f78-4134-8870-22ebb3083b47",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_objective",
+        "OBJECT_IDENTITY_objective",
+        "EARLY_INFORMATION_population",
+        "OBJECT_IDENTITY_population",
+        "EARLY_INFORMATION_intervention",
+        "OBJECT_IDENTITY_intervention",
+        "EARLY_INFORMATION_comparator",
+        "OBJECT_IDENTITY_comparator",
+        "EARLY_INFORMATION_design",
+        "OBJECT_IDENTITY_design",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_IDENTITY_endpoint",
+        "GOLD_CURRENT_CONTENT_D01-T01:objective",
+        "GOLD_CURRENT_CONTENT_D01-T01:population",
+        "GOLD_CURRENT_CONTENT_D01-T01:intervention",
+        "GOLD_CURRENT_CONTENT_D01-T01:comparator",
+        "GOLD_CURRENT_CONTENT_D01-T01:design",
+        "GOLD_CURRENT_CONTENT_D01-T01:endpoint"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T05",
+      "input": "À présent, quelles alternatives à cette première piste voyez-vous ? J'aimerais d'autres choix possibles.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 3,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:c3a23bd3-15c0-49b7-97ff-5712cc118f86",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c3a23bd3-15c0-49b7-97ff-5712cc118f86",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_objective",
+        "OBJECT_IDENTITY_objective",
+        "EARLY_INFORMATION_population",
+        "OBJECT_IDENTITY_population",
+        "EARLY_INFORMATION_intervention",
+        "OBJECT_IDENTITY_intervention",
+        "EARLY_INFORMATION_comparator",
+        "OBJECT_IDENTITY_comparator",
+        "EARLY_INFORMATION_design",
+        "OBJECT_IDENTITY_design",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_IDENTITY_endpoint",
+        "GOLD_CURRENT_CONTENT_D01-T01:objective",
+        "GOLD_CURRENT_CONTENT_D01-T01:population",
+        "GOLD_CURRENT_CONTENT_D01-T01:intervention",
+        "GOLD_CURRENT_CONTENT_D01-T01:comparator",
+        "GOLD_CURRENT_CONTENT_D01-T01:design",
+        "GOLD_CURRENT_CONTENT_D01-T01:endpoint"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "D01",
+      "turn": "D01-T15",
+      "input": "Quelles nouvelles propositions pouvez-vous faire à partir de notre principal au 99e percentile ? Je veux repartir du projet actuel.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 12,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": null,
+          "currentProjectVersion": null,
+          "currentProjectRevision": null,
+          "sourceTurnRef": "turn:9503d85c-a681-420c-960b-ba072d9f4547",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:29e6bb80-6a67-4a1c-aee9-ce396e7e1c2a",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_objective",
+        "OBJECT_IDENTITY_objective",
+        "EARLY_INFORMATION_population",
+        "OBJECT_IDENTITY_population",
+        "EARLY_INFORMATION_intervention",
+        "OBJECT_IDENTITY_intervention",
+        "EARLY_INFORMATION_comparator",
+        "OBJECT_IDENTITY_comparator",
+        "EARLY_INFORMATION_design",
+        "OBJECT_IDENTITY_design",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_IDENTITY_endpoint",
+        "EARLY_INFORMATION_accuracy",
+        "OBJECT_IDENTITY_accuracy",
+        "GOLD_CURRENT_CONTENT_D01-T01:objective",
+        "GOLD_CURRENT_CONTENT_D01-T01:population",
+        "GOLD_CURRENT_CONTENT_D01-T01:intervention",
+        "GOLD_CURRENT_CONTENT_D01-T01:comparator",
+        "GOLD_CURRENT_CONTENT_D01-T01:design",
+        "GOLD_CURRENT_CONTENT_D01-T11:endpoint",
+        "GOLD_CURRENT_CONTENT_D01-T08:accuracy"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "E01",
+      "turn": "E01-T02",
+      "input": "Quelles pistes scientifiques pourrait-on explorer à partir de cette expérience ? Présentez plusieurs possibilités.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 1,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:d11706d4-2f00-4a84-9caa-4dc88fb479f3:research-project",
+          "currentProjectVersion": "protocol-designer-session:d11706d4-2f00-4a84-9caa-4dc88fb479f3:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:0dd98c34-8883-4110-88ce-b7d7b6186fd7",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:0dd98c34-8883-4110-88ce-b7d7b6186fd7",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "E01",
+      "turn": "E01-T08",
+      "input": "Proposez-moi des alternatives pour limiter les effets de position dans la serre.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/session.json"
+      },
+      "reply": "Voici des hypothèses scientifiques candidates à discuter à partir des éléments confirmés du projet. Aucune n’est privilégiée ni adoptée.\n\nHypothèse 1\nHypothèse candidate : une différence est observable entre « Traitement de semences A » et « Traitement de semences B » pour « Critère principal: biomasse sèche par plant au jour 30 après semis », sans présumer quelle option présente la valeur la plus élevée.\nPour la confronter : Comparer le même critère dans les deux options avec des conditions de mesure explicites et quantifier l’incertitude de l’écart observé.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nHypothèse 2\nHypothèse concurrente candidate : aucune différence n’est discernable entre « Traitement de semences A » et « Traitement de semences B » pour « Critère principal: biomasse sèche par plant au jour 30 après semis » dans les conditions étudiées.\nPour la confronter : Examiner si la précision des observations permet de distinguer un faible écart d’une information insuffisante ; une absence de différence détectée ne démontre pas l’équivalence.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nPoints à préciser\n– Plants issus de semences de une même espèce; origine des lots non encore confirmée\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation. Le projet reste inchangé.",
+      "newOwnerResults": 1,
+      "http": [],
+      "latestTraceSourceTurn": "turn:0d58a179-23a5-47ed-9721-e39800639021",
+      "standardStatus": "PASS",
+      "failedProperties": [],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "F01",
+      "turn": "F01-T06",
+      "input": "Donnez-moi plusieurs propositions distinctes pour l'instrument ou les critères. Je voudrais voir différentes options.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 5,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+          "currentProjectVersion": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project:version:3",
+          "currentProjectRevision": 3,
+          "sourceTurnRef": "turn:ef872fcc-1b7e-4092-ade0-1aa3d3eec407",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:80f636f3-7b7f-4999-b505-3ea1bc1dc9e3",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "F01",
+      "turn": "F01-T15",
+      "input": "Quelles autres propositions pouvez-vous faire maintenant ? Gardez bien en tête que l'effectif n'est pas confirmé et que l'instrument reste à choisir.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project",
+          "currentProjectVersion": "protocol-designer-session:77ce49dd-5196-4421-b7a5-9dc402042066:research-project:version:5",
+          "currentProjectRevision": 5,
+          "sourceTurnRef": "turn:438c4940-6066-487b-a782-17c7b735a13d",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:ee07a3c8-2989-4e8a-8c3d-053e0448144e",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "F02",
+      "turn": "F02-T02",
+      "input": "Quelles pistes me proposes-tu ? J'en voudrais plusieurs, en respectant bien l'école pour la randomisation et l'enseignant pour la mesure individuelle.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 1,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+          "currentProjectVersion": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:73708c4d-cbf0-4491-b689-fda610e4cca6",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:eaa5b0e0-e45d-4e31-9317-63b41df94e85",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "F02",
+      "turn": "F02-T04",
+      "input": "Maintenant donne-moi plusieurs alternatives. Je voudrais d'autres choix à examiner, pas seulement la même explication reprise autrement.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "reply": "",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 2,
+          "status": 400,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": {
+            "kind": "USER_REQUESTS_ASSISTED_PROPOSAL",
+            "evidenceRefs": []
+          },
+          "currentProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+          "currentProjectVersion": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project:version:1",
+          "currentProjectRevision": 1,
+          "sourceTurnRef": "turn:4a57c119-4e3a-4cd8-b3d9-58393e8c9d48",
+          "providerWitnessCount": 0,
+          "extractionStatus": null,
+          "intervention": null,
+          "error": {
+            "code": "INVALID_REQUEST",
+            "message": "Contrat du pont produit invalide."
+          }
+        }
+      ],
+      "latestTraceSourceTurn": "turn:c91b9119-35f1-44b1-9142-841c4d5b3b70",
+      "standardStatus": "FAIL",
+      "failedProperties": [
+        "STANDARD_CONVERSATION",
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "PASS",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    },
+    {
+      "scenario": "F02",
+      "turn": "F02-T15",
+      "input": "Après ce refus, quelles nouvelles pistes peut-on envisager ? Repars du projet actuel : la randomisation par école est déjà renseignée et le suivi est à douze semaines. Ne me redemande pas l'unité, et ne repars pas sur huit semaines.",
+      "outcome": "PROPOSAL",
+      "evidence": {
+        "turns": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/turns.jsonl",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "newOwnerResults": 0,
+      "http": [
+        {
+          "index": 13,
+          "status": 200,
+          "requestKind": "USER_TURN",
+          "evaluatePersistentDelta": true,
+          "boundedInteraction": null,
+          "currentProjectRef": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project",
+          "currentProjectVersion": "protocol-designer-session:e61abe39-bd1f-4d90-a7a7-de55dbbb755a:research-project:version:2",
+          "currentProjectRevision": 2,
+          "sourceTurnRef": "turn:960a201c-cfe0-4219-96e6-18b9cdde4702",
+          "providerWitnessCount": 2,
+          "extractionStatus": "NO_CHANGE",
+          "intervention": {
+            "kind": "RESPOND_WITHOUT_MUTATION",
+            "contentSource": "NONE",
+            "sourceRefs": []
+          },
+          "error": null
+        }
+      ],
+      "latestTraceSourceTurn": "turn:960a201c-cfe0-4219-96e6-18b9cdde4702",
+      "standardStatus": "PASS",
+      "failedProperties": [
+        "SCIENTIFIC_RESPONSE_PRESENT",
+        "PURPOSE_AND_REUSE",
+        "SCIENTIFIC_PROJECT_ANCHORING",
+        "SCIENTIFIC_CANDIDATE_STATUS",
+        "EARLY_INFORMATION_endpoint",
+        "OBJECT_SEMANTICS_endpoint",
+        "UNKNOWN_endpoint",
+        "EARLY_INFORMATION_visit",
+        "OBJECT_SEMANTICS_visit",
+        "GOLD_CURRENT_CONTENT_F02-T10:endpoint",
+        "GOLD_CURRENT_CONTENT_F02-T10:visit"
+      ],
+      "purposeAndReuse": {
+        "property": "PURPOSE_AND_REUSE",
+        "status": "FAIL",
+        "detail": "Proposal request must add useful content or provide a bounded explanation of exhaustion"
+      }
+    }
+  ],
+  "pureDiagnostics": {
+    "parser": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-parser-ablation.json",
+    "emptyNavigation": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-proposal-empty-delta-navigation.json",
+    "productCodeEdited": false,
+    "historicalProofEdited": false,
+    "actualHttpCalls": 0,
+    "realProviderCalls": 0,
+    "fullTestsRun": false
+  },
+  "limitations": [
+    "The 902 MATERIAL anomaly count contains downstream manifestations; this report does not count each as an independent root defect.",
+    "No production patch was applied and no repaired integrated scenario was executed. Later provider quality and proposal usefulness require separate qualification."
+  ]
+}

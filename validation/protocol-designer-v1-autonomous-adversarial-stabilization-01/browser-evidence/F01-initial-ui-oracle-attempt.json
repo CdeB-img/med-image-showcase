@@ -1,0 +1,101 @@
+{
+  "scenario": "F01",
+  "status": "INVALIDATED_UI_ORACLE_ATTEMPT_PRESERVED",
+  "turnsExecuted": 15,
+  "reason": "Literal content containment wrongly required role prefix adjacent to endpoint text; actual review showed role heading plus 12-to-16-week replacement and preserved unknown instrument. No product defect inferred from withheld confirmation.",
+  "faultAt": "F01-T11",
+  "versions": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      3,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ],
+    [
+      4,
+      4,
+      4
+    ]
+  ],
+  "httpLines": [
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56
+  ],
+  "realProviderCalls": 0
+}

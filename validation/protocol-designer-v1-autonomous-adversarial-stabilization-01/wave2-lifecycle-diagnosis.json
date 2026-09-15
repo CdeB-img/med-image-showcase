@@ -1,0 +1,1512 @@
+{
+  "contract": "NOXIA_WAVE2_LIFECYCLE_CAUSAL_DIAGNOSIS",
+  "createdAt": "2026-09-15T00:09:21.532078+00:00",
+  "scope": "Read-only product and replay analysis; this report is the only authored artifact. No provider call; the one JavaScript regex probe ran under the existing offline guard.",
+  "phase": "MASS_REPLAY_1",
+  "conversations": 15,
+  "turns": 225,
+  "counts": [
+    {
+      "outcome": "CONFIRM",
+      "propertyStatus": "FAIL",
+      "referentResolution": "AMBIGUOUS",
+      "count": 4
+    },
+    {
+      "outcome": "CONFIRM",
+      "propertyStatus": "FAIL",
+      "referentResolution": "UNIQUE_CURRENT",
+      "count": 11
+    },
+    {
+      "outcome": "CONFIRM",
+      "propertyStatus": "PASS",
+      "referentResolution": "LOCAL_NO_HTTP",
+      "count": 1
+    },
+    {
+      "outcome": "REFUSE",
+      "propertyStatus": "FAIL",
+      "referentResolution": "AMBIGUOUS",
+      "count": 7
+    },
+    {
+      "outcome": "REFUSE",
+      "propertyStatus": "FAIL",
+      "referentResolution": "STALE_OR_SUPERSEDED",
+      "count": 4
+    },
+    {
+      "outcome": "REFUSE",
+      "propertyStatus": "FAIL",
+      "referentResolution": "UNIQUE_CURRENT",
+      "count": 12
+    }
+  ],
+  "persistedCandidateDecisions": {
+    "ADOPTED": 52,
+    "NONE": 30
+  },
+  "conclusions": [
+    "15/16 natural confirmations fail: 11 fail with an exact UNIQUE_CURRENT reference because local whole-act grammar does not recognize them; 4 are conservatively blocked by AMBIGUOUS lifecycle context after earlier decisions were missed.",
+    "23/23 refusal checks fail: 12 UNIQUE_CURRENT, 7 AMBIGUOUS, 4 STALE_OR_SUPERSEDED. Eight terminal refusals depend on old-proposal selection that produced no candidate, so they are not independent refusal-recognition failures.",
+    "Every failed confirmation/refusal reached a USER_TURN HTTP exchange. The sole successful confirmation A04-T03 is local and has no such exchange. This supports missed local decision ownership, rather than a harness wait falsely hiding completed local decisions.",
+    "No REJECTED decision exists among 82 retained candidates in final sessions. retained.at(-1) did not demonstrably mask a successful rejection in this replay; its target-unbound assertion still overstates standalone refusal defects when the expected selection never existed.",
+    "UNIQUE_CURRENT is lifecycle uniqueness, not proof that the noun phrase in the new user message denotes that candidate. In A01-T15 and F02-T14 the old-proposal target is absent while a different correction is current. Widening matching without semantic target evidence risks rejecting the wrong candidate."
+  ],
+  "oracleAssessment": {
+    "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+    "line": 135,
+    "observedExpression": "afterInput.retainedContributionCandidates?.at(-1)?.humanDecision?.status === REJECTED",
+    "actualSuccessfulRejectionFalseNegative": "NOT_DEMONSTRATED",
+    "defect": "Last-array-item status is not decision evidence bound to the expected target and current human turn. Lack of target after failed selection should be attributed as dependency blocked, not a new independent refusal defect.",
+    "dependentRefusalTurns": {
+      "A01-T15": "A01-T14",
+      "A04-T14": "A04-T13",
+      "B03-T15": "B03-T14",
+      "C02-T15": "C02-T14",
+      "C03-T13": "C03-T12",
+      "D01-T14": "D01-T12",
+      "F01-T09": "F01-T08",
+      "F02-T14": "F02-T13"
+    }
+  },
+  "genericOwnerRecommendations": [
+    {
+      "priority": 1,
+      "owner": "current-navigation-evidence / bounded conversation decision evidence",
+      "proposal": "Preserve exact lifecycle binding and fail-closed ambiguity. Recognize complete human decision scope only when referent evidence proves it denotes the entire currently presented candidate; distinguish scope to that candidate from partial approval of an attribute, quoted/hypothetical acts, negation and unrelated new assertions. Do not solve by scientific-noun lists or corpus phrase tables."
+    },
+    {
+      "priority": 1,
+      "owner": "candidate lifecycle and selection owners",
+      "proposal": "Resolve primary missed decisions before interpreting later AMBIGUOUS cascades. Old proposals require exact origin identity and current applicability; do not collapse several current candidates to most recent and do not substitute an unrelated unique current candidate."
+    },
+    {
+      "priority": 2,
+      "owner": "current-navigation-evidence lexical boundary",
+      "proposal": "Replace the demonstrated ASCII-style word-boundary assumption around accented suffixes with a Unicode-correct token boundary; validate independently of the observed corpus."
+    },
+    {
+      "priority": 2,
+      "owner": "campaign refusal oracle",
+      "proposal": "Bind rejection assertion to the exact expected candidateRef and a decision event produced by the current human turn. If prior selection did not produce the intended candidate, retain the primary selection failure and mark dependent rejection BLOCKED_BY_PRIOR_SELECTION_FAILURE."
+    }
+  ],
+  "safetyConstraints": [
+    "No loosening of quote, hypothetical, negation, partial-scope or independent-payload safeguards from wave1.",
+    "No adoption inferred from candidate recency.",
+    "Do not infer language-provider capacity from synthetic offline transport."
+  ],
+  "keyCases": [
+    {
+      "turn": "A01-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme cette modification-là, celle que tu viens de présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-90c2e6e7c1c86f93",
+      "boundContent": [
+        {
+          "ref": "variable",
+          "text": "Pourcentage de la masse VG représenté par les lésions microvasculaires",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à 3 minutes après injection",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "mechanism": "UNICODE_WORD_BOUNDARY: currentObject matches only cette modification; ASCII-style \\b cannot end after accented à before comma, leaving -là in unsupported qualifier. Demonstrated by guarded Node probe."
+    },
+    {
+      "turn": "A01-T12",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "C'est bien ça, je valide uniquement le déplacement du créneau IRM que tu viens de m'afficher.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-ed24e1537e9e2f07",
+      "boundContent": [
+        {
+          "ref": "acquisition",
+          "text": "IRM cardiaque entre J4 et J7 après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "mechanism": "PARTIAL_SCOPE_GUARD: uniquement globally blocks decision; c’est bien ça prefix and déplacement nominal are also outside grammar. Do not remove this safeguard without proving the limited phrase denotes the entire candidate."
+    },
+    {
+      "turn": "A01-T15",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Après relecture, non, je refuse cette ancienne proposition. L'IRM à J4-J7 et le suivi clinique à douze mois restent bien retenus.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-ed24e1537e9e2f07",
+      "boundContent": [
+        {
+          "ref": "acquisition",
+          "text": "IRM cardiaque entre J4 et J7 après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "dependsOn": "A01-T14",
+      "targetMismatchRisk": "The unique current candidate belongs to an earlier unconfirmed correction, not the old proposal the user requested to select. Rejecting the unique current candidate would target the wrong object."
+    },
+    {
+      "turn": "B01-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme l'ajout que tu viens de présenter pour les hypoglycémies sévères.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-fd5ddecac91a600e",
+      "boundContent": [
+        {
+          "ref": "hypoglycemia",
+          "text": "Critère secondaire de sécurité: hypoglycémies sévères",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "mechanism": "QUALIFIER_NOT_WHOLE: l’ajout matches, but descriptive complement pour les hypoglycémies sévères after présenter is rejected."
+    },
+    {
+      "turn": "D01-T02",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme ce benchmark tel que vous venez de le présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-a806626cf8508070",
+      "boundContent": [
+        {
+          "ref": "objective",
+          "text": "Comparer moteurs de recherche A et B sur rapidité et qualité des réponses",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "mechanism": "NOMINAL_REFERENCE: benchmark is outside closed currentObject grammar; the binding itself is UNIQUE_CURRENT and exact."
+    },
+    {
+      "turn": "F02-T14",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Je refuse cette proposition ancienne. En revanche les douze semaines et les correcteurs masqués au groupe de formation restent tels qu'adoptés.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-41296b73cb96716f",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: variation score de performance pédagogique à douze semaines; instrument non choisi",
+          "status": "UNKNOWN"
+        },
+        {
+          "ref": "visit",
+          "text": "Évaluation principale douze semaines après formation",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "dependsOn": "F02-T13",
+      "targetMismatchRisk": "The unique current candidate belongs to an earlier unconfirmed correction, not the old proposal the user requested to select. Rejecting the unique current candidate would target the wrong object."
+    }
+  ],
+  "cases": [
+    {
+      "turn": "A01-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme cette modification-là, celle que tu viens de présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-90c2e6e7c1c86f93",
+      "boundContent": [
+        {
+          "ref": "variable",
+          "text": "Pourcentage de la masse VG représenté par les lésions microvasculaires",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à 3 minutes après injection",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "mechanism": "UNICODE_WORD_BOUNDARY: currentObject matches only cette modification; ASCII-style \\b cannot end after accented à before comma, leaving -là in unsupported qualifier. Demonstrated by guarded Node probe."
+    },
+    {
+      "turn": "A01-T08",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je ne retiens pas cette proposition de suivi. On conserve ce qui était déjà validé.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-3206f0eaa9990f36",
+      "boundContent": [
+        {
+          "ref": "followup6",
+          "text": "Suivi clinique à 6 mois envisagé; pertinence du délai encore discutée",
+          "status": "UNKNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "A01-T12",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "C'est bien ça, je valide uniquement le déplacement du créneau IRM que tu viens de m'afficher.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-ed24e1537e9e2f07",
+      "boundContent": [
+        {
+          "ref": "acquisition",
+          "text": "IRM cardiaque entre J4 et J7 après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "mechanism": "PARTIAL_SCOPE_GUARD: uniquement globally blocks decision; c’est bien ça prefix and déplacement nominal are also outside grammar. Do not remove this safeguard without proving the limited phrase denotes the entire candidate."
+    },
+    {
+      "turn": "A01-T15",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Après relecture, non, je refuse cette ancienne proposition. L'IRM à J4-J7 et le suivi clinique à douze mois restent bien retenus.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-ed24e1537e9e2f07",
+      "boundContent": [
+        {
+          "ref": "acquisition",
+          "text": "IRM cardiaque entre J4 et J7 après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/session.json"
+      },
+      "dependsOn": "A01-T14",
+      "targetMismatchRisk": "The unique current candidate belongs to an earlier unconfirmed correction, not the old proposal the user requested to select. Rejecting the unique current candidate would target the wrong object."
+    },
+    {
+      "turn": "A02-T08",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non finalement, je refuse le remplacement par la FEVG et l'évaluation à six mois qui va avec. Gardons la version déjà retenue.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-b312543747c829db",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal proposé: FEVG à six mois après IDM",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "followup6",
+          "text": "Évaluation à six mois après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "A03-T07",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, j'adopte cette visite telle que tu viens de la présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-f5899145cc3e7699",
+      "boundContent": [
+        {
+          "ref": "visit12",
+          "text": "Visite clinique à douze mois après IDM",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      },
+      "mechanism": "UNSUPPORTED_PERFORMATIVE_AND_OBJECT: j’adopte and visite are outside decision grammar."
+    },
+    {
+      "turn": "A03-T09",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je ne retiens pas l'analyse avec seuil. Le reste de ce qui a été validé reste en place.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "A04-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "PASS",
+      "input": "Oui, cette seconde lecture comme présentée me convient, je la confirme.",
+      "referentResolution": "LOCAL_NO_HTTP",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "DECISION_SUCCEEDED_LOCALLY",
+      "httpUserTurns": 0,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "A04-T10",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse ce raccourcissement. On en reste aux dispositions déjà adoptées.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-aa0cb53b4c0f88c7",
+      "boundContent": [
+        {
+          "ref": "reread",
+          "text": "Seconde lecture des mêmes IRM par les mêmes lecteurs après une semaine",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "A04-T14",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "À la relecture, je préfère refuser cette proposition ancienne. La différence entre méthodes rapportée à la masse VG, déjà adoptée, reste telle quelle.",
+      "referentResolution": "STALE_OR_SUPERSEDED",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/session.json"
+      },
+      "dependsOn": "A04-T13"
+    },
+    {
+      "turn": "B01-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme l'ajout que tu viens de présenter pour les hypoglycémies sévères.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-fd5ddecac91a600e",
+      "boundContent": [
+        {
+          "ref": "hypoglycemia",
+          "text": "Critère secondaire de sécurité: hypoglycémies sévères",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      },
+      "mechanism": "QUALIFIER_NOT_WHOLE: l’ajout matches, but descriptive complement pour les hypoglycémies sévères after présenter is rejected."
+    },
+    {
+      "turn": "B01-T08",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse ce passage à trente-six semaines. Nous restons à vingt-quatre pour la visite et le principal.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-d53a48d640b6f52a",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: variation HbA1c entre inclusion et 36 semaines",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "visit",
+          "text": "Visite de évaluation principale à 36 semaines",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B01-T11",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Cette fois oui : je valide cette modification, visite et critère principal à trente-six semaines.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B02-T07",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, retirons cette proposition de 150 participants. Je ne la retiens pas ; cela ne remet pas en cause la cohorte ni les critères déjà validés.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-b2eefa73163fc75f",
+      "boundContent": [
+        {
+          "ref": "sample",
+          "text": "Effectif envisagé de 150 personnes; faisabilité et dimensionnement inconnus",
+          "status": "UNKNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B02-T14",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse ce déplacement à dix-huit mois. Conservez toutes les décisions antérieures.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-f4c10c5066224f24",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: évolution pression artérielle systolique à dix-huit mois",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "visit",
+          "text": "Évaluation clinique à dix-huit mois",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B03-T07",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme cette covariable exactement comme tu viens de la présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-dd10f36c9738ac90",
+      "boundContent": [
+        {
+          "ref": "work-shift",
+          "text": "Changements de poste ou horaires de travail pendant le suivi",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      },
+      "mechanism": "NOMINAL_REFERENCE: covariable and exactly-as-presented complement are outside closed currentObject grammar."
+    },
+    {
+      "turn": "B03-T11",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je valide la modification que tu m'affiches, le passage à huit semaines.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B03-T13",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, cette restriction aux nuits permanentes, je la refuse. Nous gardons l'ensemble des horaires postés.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B03-T15",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Après lecture, je refuse cette proposition de mesure. L'instrument reste à choisir, et le suivi reste à huit semaines.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/session.json"
+      },
+      "dependsOn": "B03-T14"
+    },
+    {
+      "turn": "B04-T03",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, j'adopte ce recueil distinct des décès tel que tu viens de le présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-b4f6fd5ba23f9eef",
+      "boundContent": [
+        {
+          "ref": "death",
+          "text": "Décès dans trente jours après sortie, recueilli distinctement; articulation analytique à discuter",
+          "status": "UNKNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json"
+      },
+      "mechanism": "UNSUPPORTED_PERFORMATIVE_AND_OBJECT: j’adopte and recueil are outside decision grammar."
+    },
+    {
+      "turn": "B04-T07",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse le composite en principal. On reste sur la réhospitalisation non programmée seule pour le critère principal.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "B04-T13",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme ce recueil supplémentaire que tu viens de présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-1fb9003139c6d535",
+      "boundContent": [
+        {
+          "ref": "visit90",
+          "text": "Recueil secondaire supplémentaire quatre-vingt-dix jours après sortie",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/session.json"
+      },
+      "mechanism": "NOMINAL_REFERENCE: recueil supplémentaire is outside closed currentObject grammar."
+    },
+    {
+      "turn": "C01-T03",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je ne retiens pas la mesure de rugosité. Le reste du projet validé est conservé.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-473ac3a9590d19bd",
+      "boundContent": [
+        {
+          "ref": "roughness",
+          "text": "Rugosité de surface, mesure secondaire envisagée",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "C02-T05",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je valide cet ajout sur l'absorption d'azote, tel qu'il vient d'être présenté.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-3fceca9eec1b9072",
+      "boundContent": [
+        {
+          "ref": "nitrogen",
+          "text": "Critère secondaire: absorption azote par culture",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json"
+      },
+      "mechanism": "QUALIFIER_NOT_WHOLE: added-object descriptive complement and passive presentation clause are not admitted."
+    },
+    {
+      "turn": "C02-T07",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse cette proposition des deux niveaux. Gardons les décisions déjà retenues.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "C02-T11",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme cette modification du calendrier et du moment de mesure du principal.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-813d3b8ce2cd92f0",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: rendement grain par parcelle à récolte prévue cent vingt jours après semis",
+          "status": "KNOWN"
+        },
+        {
+          "ref": "harvest",
+          "text": "Récolte cent vingt jours après semis",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json"
+      },
+      "mechanism": "QUALIFIER_NOT_WHOLE: contextual description of calendar and endpoint timing is outside boundedQualifier."
+    },
+    {
+      "turn": "C02-T15",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, après examen, je refuse cette proposition. On reste à six blocs, la récolte à 120 jours après semis, et le régime hydrique reste inconnu.",
+      "referentResolution": "STALE_OR_SUPERSEDED",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/session.json"
+      },
+      "dependsOn": "C02-T14"
+    },
+    {
+      "turn": "C03-T08",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse cet ajout sur la turbidité. Les décisions déjà validées restent conservées.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-9e7cdca872844a74",
+      "boundContent": [
+        {
+          "ref": "turbidity",
+          "text": "Turbidité de eau comme mesure secondaire",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "C03-T13",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Après examen, je refuse cette proposition. Gardons tout ce qui était adopté auparavant.",
+      "referentResolution": "STALE_OR_SUPERSEDED",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/session.json"
+      },
+      "dependsOn": "C03-T12"
+    },
+    {
+      "turn": "D01-T02",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme ce benchmark tel que vous venez de le présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-a806626cf8508070",
+      "boundContent": [
+        {
+          "ref": "objective",
+          "text": "Comparer moteurs de recherche A et B sur rapidité et qualité des réponses",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "mechanism": "NOMINAL_REFERENCE: benchmark is outside closed currentObject grammar; the binding itself is UNIQUE_CURRENT and exact."
+    },
+    {
+      "turn": "D01-T07",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse uniquement cet ajout du rappel documentaire. Le benchmark reste tel qu'il a été validé.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "D01-T09",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme cet ajout du taux de réponses correctes.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "D01-T14",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Je refuse cette proposition après votre explication. Le taux de réponses correctes, lui, reste bien la mesure secondaire déjà adoptée.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/session.json"
+      },
+      "dependsOn": "D01-T12"
+    },
+    {
+      "turn": "E01-T07",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse cette mesure intermédiaire. Conservons les éléments qui étaient déjà retenus.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-1d69f5a55d5bbf51",
+      "boundContent": [
+        {
+          "ref": "visit15",
+          "text": "Mesure intermédiaire supplémentaire au jour quinze après semis",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "E01-T12",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme la correction de température qui vient d'être présentée.",
+      "referentResolution": "AMBIGUOUS",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "CASCADE_UNRESOLVED_CURRENT_CANDIDATES",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "F01-T09",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non finalement, je refuse cette proposition. Nous n'avons toujours pas choisi l'instrument pour la fatigue.",
+      "referentResolution": "STALE_OR_SUPERSEDED",
+      "candidateRef": null,
+      "boundContent": [],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/session.json"
+      },
+      "dependsOn": "F01-T08"
+    },
+    {
+      "turn": "F02-T06",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Non, je refuse cette restriction. Les débutants et les expérimentés restent tous inclus.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-1b87631a6d956e46",
+      "boundContent": [
+        {
+          "ref": "population",
+          "text": "Enseignants débutants du primaire regroupés dans leurs écoles",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "REFUSAL_GRAMMAR_OR_PRESERVATION_CLAUSE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      }
+    },
+    {
+      "turn": "F02-T11",
+      "outcome": "CONFIRM",
+      "property": "HUMAN_DECISION_BOUNDARY",
+      "status": "FAIL",
+      "input": "Oui, je confirme ce passage à douze semaines tel que tu viens de le présenter.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-41296b73cb96716f",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: variation score de performance pédagogique à douze semaines; instrument non choisi",
+          "status": "UNKNOWN"
+        },
+        {
+          "ref": "visit",
+          "text": "Évaluation principale douze semaines après formation",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "ACT_GRAMMAR_OR_SCOPE_NOT_RECOGNIZED",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "mechanism": "NOMINAL_REFERENCE: passage à douze semaines is outside closed currentObject grammar."
+    },
+    {
+      "turn": "F02-T14",
+      "outcome": "REFUSE",
+      "property": "REFUSAL_LIFECYCLE",
+      "status": "FAIL",
+      "input": "Je refuse cette proposition ancienne. En revanche les douze semaines et les correcteurs masqués au groupe de formation restent tels qu'adoptés.",
+      "referentResolution": "UNIQUE_CURRENT",
+      "candidateRef": "persistent-project-contribution:ke1-41296b73cb96716f",
+      "boundContent": [
+        {
+          "ref": "endpoint",
+          "text": "Critère principal: variation score de performance pédagogique à douze semaines; instrument non choisi",
+          "status": "UNKNOWN"
+        },
+        {
+          "ref": "visit",
+          "text": "Évaluation principale douze semaines après formation",
+          "status": "KNOWN"
+        }
+      ],
+      "causalClass": "BLOCKED_BY_PRIOR_SELECTION_FAILURE",
+      "httpUserTurns": 1,
+      "finalTargetDecision": null,
+      "evidence": {
+        "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+        "http": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/http.json",
+        "session": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/session.json"
+      },
+      "dependsOn": "F02-T13",
+      "targetMismatchRisk": "The unique current candidate belongs to an earlier unconfirmed correction, not the old proposal the user requested to select. Rejecting the unique current candidate would target the wrong object."
+    }
+  ],
+  "precedingSelectionEvidence": [
+    {
+      "turn": "A01-T14",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json"
+    },
+    {
+      "turn": "A04-T13",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json"
+    },
+    {
+      "turn": "B03-T14",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json"
+    },
+    {
+      "turn": "C02-T14",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json"
+    },
+    {
+      "turn": "C03-T12",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json"
+    },
+    {
+      "turn": "D01-T12",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json"
+    },
+    {
+      "turn": "F01-T08",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json"
+    },
+    {
+      "turn": "F02-T13",
+      "reply": "Vous avez indiqué les éléments suivants.",
+      "checks": [
+        {
+          "property": "OLD_REFERENCE_SAFE_ABSTENTION",
+          "status": "FAIL",
+          "detail": "Missing/stale reference needs an explicit reference or applicability clarification; generic acknowledgement is insufficient"
+        },
+        {
+          "property": "OLD_REFERENCE_FUNCTIONAL_REACHABILITY",
+          "status": "NOT_DEMONSTRATED",
+          "detail": "No candidate selected; preserve this limitation separately from safe abstention."
+        }
+      ],
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json"
+    }
+  ],
+  "sources": [
+    {
+      "file": "src/features/query-navigation/current-navigation-evidence.ts",
+      "sha256": "e26d402b215dfb140efc9bcb0cfdb601a08afa02ea2bad6594bf17bb4a52c669"
+    },
+    {
+      "file": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/campaign.test.tsx",
+      "sha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514"
+    }
+  ],
+  "replayResults": [
+    {
+      "scenario": "A01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A01/2026-09-14T22-02-08-000Z-4797/result.json",
+      "sha256": "eb98959cf936c00f84537ecfad73235ffeb229b1877c99838fd73d6fad0d47ad"
+    },
+    {
+      "scenario": "A02",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A02/2026-09-14T22-02-11-431Z-4797/result.json",
+      "sha256": "268df867cf7ab6346cba67225ebcb7d48dc362938e781e5a9023c6d9b824f932"
+    },
+    {
+      "scenario": "A03",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A03/2026-09-14T22-02-14-774Z-4797/result.json",
+      "sha256": "2211d4679b49b965c3f749e173f7560b6f634c7291c8caed191d5097f2b0f42c"
+    },
+    {
+      "scenario": "A04",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/A04/2026-09-14T22-02-17-925Z-4797/result.json",
+      "sha256": "ba115b7652c3113bd6f64fc7de4964c3612307683378091e934626d53328ec13"
+    },
+    {
+      "scenario": "B01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B01/2026-09-14T22-02-20-937Z-4797/result.json",
+      "sha256": "ec62740c868cc11d5a3eca33c95e66ce5a9f0e3c4caedd70a53d935b431de0f7"
+    },
+    {
+      "scenario": "B02",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B02/2026-09-14T22-02-23-973Z-4797/result.json",
+      "sha256": "b08cad2199fee611c7be1c33097986bf688ce082bc5e03563452711ba9621dfc"
+    },
+    {
+      "scenario": "B03",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B03/2026-09-14T22-02-27-218Z-4797/result.json",
+      "sha256": "dc30605d4b6d018ee6525bda8e649d92312be3b201bc5a0eed11f5a4eb06aadf"
+    },
+    {
+      "scenario": "B04",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/B04/2026-09-14T22-02-29-816Z-4797/result.json",
+      "sha256": "9df524bc11c09cec7caa27b5bec09b964a8be2c35ca6d4fb7b6150de0e799ace"
+    },
+    {
+      "scenario": "C01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C01/2026-09-14T22-02-32-874Z-4797/result.json",
+      "sha256": "6438a579c39bada02c076fabad50232625db59e3c4492a7228a2c82f68509e37"
+    },
+    {
+      "scenario": "C02",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C02/2026-09-14T22-02-36-552Z-4797/result.json",
+      "sha256": "d21702faa38999eb301bcf03c14b245b12ccebe2614969020a1fe39d586a9d5f"
+    },
+    {
+      "scenario": "C03",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/C03/2026-09-14T22-02-40-023Z-4797/result.json",
+      "sha256": "7c07696648d13b1fd0935f07eb91ce81262e499215d4541a27144e388eba40d8"
+    },
+    {
+      "scenario": "D01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/D01/2026-09-14T22-02-43-753Z-4797/result.json",
+      "sha256": "f4c95a85b183addb3d8454f2f0bb31a9de6de5deff6de5a4382e0b8185153e44"
+    },
+    {
+      "scenario": "E01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/E01/2026-09-14T22-02-45-412Z-4797/result.json",
+      "sha256": "8177fe60e47326f0a06a7d8f0598c1e51631143836803ddb636fba79ba6eecc1"
+    },
+    {
+      "scenario": "F01",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F01/2026-09-14T22-02-48-456Z-4797/result.json",
+      "sha256": "70cac1659cfd08494bc0aad2e444d11f73b30bc75d3b51fdc8482cb0610f1580"
+    },
+    {
+      "scenario": "F02",
+      "sourceState": {
+        "head": "85a260c4883231da7d58254c973d16afad5f8b06",
+        "trackedDiffSha256": "0b8324dfcce66adb66e209647b317a0c9ac73e541b8ef25f15c97c5d588edb8e",
+        "harnessSha256": "b08b749846c68d908b3907132aa0342aba574e2a3998e46d21d246b6f34d6514",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "result": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/mass_replay_1/F02/2026-09-14T22-02-51-690Z-4797/result.json",
+      "sha256": "e2850523e48e746210f34707fd649e564d2c94eed7ccdc4d8c1076d6784faee4"
+    }
+  ],
+  "limitations": [
+    "The 11 UNIQUE_CURRENT confirmation classifications establish bounded local-grammar rejection, not sufficient semantic authorization to broaden matching automatically.",
+    "Final sessions exclude a currently persisted successful REJECTED record; intermediate per-turn receipt plus USER_TURN routing support the causal interpretation, but no product repair or counterfactual replay was performed in this diagnostic."
+  ]
+}

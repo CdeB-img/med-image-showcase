@@ -1,0 +1,22 @@
+{
+  "rawLintStatus": "FAIL",
+  "productDiagnosticCount": 0,
+  "toolingDiagnosticCount": 26,
+  "classification": "VALIDATION_PROBE_TYPING_ONLY",
+  "files": [
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.test.tsx",
+      "errors": 19,
+      "rule": "@typescript-eslint/no-explicit-any"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.test.tsx",
+      "errors": 7,
+      "rule": "@typescript-eslint/no-explicit-any"
+    }
+  ],
+  "evidence": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/lint-affected.log",
+  "evidenceSha256": "f2f12833c5355dae1277f609ed4183b788484acf585bfa726752d5dec89366b0",
+  "productLintStatus": "NO_PRODUCT_DIAGNOSTICS_IN_FULL_EXPLICIT_WHITELIST",
+  "toolingEditPerformedByQualifier": false
+}

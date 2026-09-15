@@ -1,0 +1,33 @@
+{
+  "id": "full-canonical-suite",
+  "startedAt": "2026-09-15T00:25:40.549066+00:00",
+  "completedAt": "2026-09-15T00:26:08.134725+00:00",
+  "durationSeconds": 27.586,
+  "exitCode": 0,
+  "log": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/full-canonical-suite.log",
+  "logSha256": "70c6348e96056052f3dc565ba496d0a9c73b3a57227ef85f395ede68c286beca",
+  "unhandledDiagnosticLines": [],
+  "reportedUnhandledCount": 0,
+  "vitest": {
+    "reportExists": true,
+    "report": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/qualification/full-suite.json",
+    "sha256": "c02480cdaf64a4ee69a38e6cb8792c9acb7e3b532c12a5b4aa4a98b4bcedbef6",
+    "success": true,
+    "numTotalTests": 4181,
+    "numPassedTests": 4168,
+    "numFailedTests": 0,
+    "numPendingTests": 12,
+    "numTodoTests": 1,
+    "numTotalTestSuites": 653,
+    "numFailedTestSuites": 0,
+    "reportedTestFiles": 272,
+    "failedAssertions": [],
+    "extraRequiredFiles": {
+      "src/features/knowledge-engine/__tests__/privacy.test.ts": true,
+      "src/features/protocol-designer/functional-reset/__tests__/product-entry-reversible-admission.test.ts": true
+    }
+  },
+  "status": "PASS",
+  "missingCanonicalTestFiles": [],
+  "expectedCanonicalTestFiles": 272
+}

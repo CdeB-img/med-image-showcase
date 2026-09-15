@@ -1,0 +1,59 @@
+{
+  "contract": "CRITICAL_REVIEW_PROBES_TYPE_ONLY_EDIT_RECEIPT",
+  "recordedAt": "2026-09-15T00:28:35.156Z",
+  "status": "TYPE_ONLY_EDIT_COMPLETE_LINT_TYPESCRIPT_RERUN_PENDING",
+  "checked": [
+    {
+      "source": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.test.tsx",
+      "originalCopy": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/critical-review-probes/wave2-critical-probes.test.tsx.original",
+      "originalSha256": "7948d39dc026b023da393421da5e79c25f4f17f7095eee4578d513f309b198f5",
+      "currentSha256": "631791f071e3291056bfd5832ac0c790e00301933e775f69e29333b69caf154a",
+      "originalBytesPreserved": true,
+      "remainingExplicitAny": 0,
+      "typescriptErasedJavaScriptIdentical": true,
+      "emittedOriginalSha256": "3b45c3fcfe22f14c865f9a666ab813f5d0ac6e3c637a7f916e8db3465e3f52a2",
+      "emittedCurrentSha256": "3b45c3fcfe22f14c865f9a666ab813f5d0ac6e3c637a7f916e8db3465e3f52a2"
+    },
+    {
+      "source": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.test.tsx",
+      "originalCopy": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/critical-review-probes/wave2-critical-probes-after-guard.test.tsx.original",
+      "originalSha256": "f7125ee7cf6128dc9342b82960b0ac23862c224b2a44e55b8af531940f3e50ab",
+      "currentSha256": "17723b818e90cad3278b3f4b4fe181476d6398da1bc77aff55fa537a90d1d86e",
+      "originalBytesPreserved": true,
+      "remainingExplicitAny": 0,
+      "typescriptErasedJavaScriptIdentical": true,
+      "emittedOriginalSha256": "6fc7a183b3607cd2b256483ee08d2378d06e153a8b701e6b9c1e1b64d4e1d189",
+      "emittedCurrentSha256": "6fc7a183b3607cd2b256483ee08d2378d06e153a8b701e6b9c1e1b64d4e1d189"
+    }
+  ],
+  "evidencePreserved": [
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes.log",
+      "sha256": "2d9ac7a1bdbc2bcfd0c18430d104c77a03f74f646811b26f27b5851adc5d8a45",
+      "unchanged": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-probes-after-guard.log",
+      "sha256": "8493f8e7c6ec92e2e2afbd1f22c543a844be48f552abf83fad8216d504f81895",
+      "unchanged": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-probe.json",
+      "sha256": "b9606c635dcc2ac59019bd56074900a44f57c9a03bc7df3f8a604924d6a9812c",
+      "unchanged": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-concurrent-confirmation-after-guard.json",
+      "sha256": "b97dc89e9493043cf6af7afb51bdc1258e18749fe13321293e2cf3b61a70b745",
+      "unchanged": true
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/wave2-critical-review.json",
+      "sha256": "fbc97b600e79671e4b32ee7cb319005060455f04624aad567910e25fa7b6798e",
+      "unchanged": true
+    }
+  ],
+  "runtimeReplayed": false,
+  "productModified": false,
+  "corpusModified": false
+}
