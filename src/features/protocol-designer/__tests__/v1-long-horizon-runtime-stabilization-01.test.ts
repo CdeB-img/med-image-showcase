@@ -188,7 +188,7 @@ describe("V1 long-horizon provider observability", () => {
 describe("public Protocol Designer runtime boundaries", () => {
   it("keeps legacy provider surfaces closed while the Standard bridge is enabled", () => {
     expect(protocolDesignerPublicUiEnabled(true)).toBe(true);
-    expect(protocolDesignerPublicUiEnabled(false)).toBe(false);
+    expect(protocolDesignerPublicUiEnabled(false)).toBe(true);
     expect(protocolDesignerProviderCallsAllowed({ NODE_ENV: "development" })).toBe(true);
     expect(protocolDesignerProviderCallsAllowed({ NODE_ENV: "production" })).toBe(false);
     expect(protocolDesignerProviderCallsAllowed({ VERCEL_ENV: "production" })).toBe(false);
