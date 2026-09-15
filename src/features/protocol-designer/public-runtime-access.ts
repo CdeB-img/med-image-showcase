@@ -15,4 +15,5 @@ export const protocolDesignerProviderCallsAllowed = (environment: ProtocolDesign
 /** The qualified Standard product bridge is the sole public provider surface. */
 export const protocolDesignerStandardConversationCallsAllowed = (_environment: ProtocolDesignerRuntimeEnvironment) => true;
 
-export const protocolDesignerPublicUiEnabled = (developmentMode: boolean) => developmentMode;
+/** The public evaluation UI is available in development and production. */
+export const protocolDesignerPublicUiEnabled = (_developmentMode: boolean) => true;
