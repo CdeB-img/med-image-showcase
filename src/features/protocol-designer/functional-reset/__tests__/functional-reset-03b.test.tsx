@@ -1,3 +1,5 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
+import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -154,7 +156,8 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     renderDemo();
     await createProjectInUi();
     const visible = screen.getByTestId("functional-reset-workspace").textContent ?? "";
-    expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|score|branch|gate/i);
+    // Match internal tokens, not the substring "gate" inside the user-facing "navigateur".
+    expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|\b(?:score|branch|gate)\b/i);
     expect(visible).toMatch(/Pour faire progresser le projet,[^?]+\?/);
   });
 
@@ -270,12 +273,12 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
   it("FR03B-C09 — a confirmed Project update triggers QRY re-evaluation", async () => {
     renderDemo();
     await createProjectInUi();
-    const first = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation;
+    const first = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation;
     submit(COLCHICINE_03A_MODIFICATION);
     await screen.findByText("J’ai compris deux modifications :");
     confirm();
     await screen.findByText(/Projet mis à jour\./);
-    const second = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation;
+    const second = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation;
     expect(second.projectVersion).not.toBe(first.projectVersion);
     expect(second.selection.trace.traceId).not.toBe(first.selection.trace.traceId);
     expect(second.memory.previousSelectionTraceRefs).toContain(first.selection.trace.traceId);
@@ -305,23 +308,26 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
   it("FR03B-C12 — reload restores the same QRY action and actually realized continuation", async () => {
     const firstRender = renderDemo();
     await createProjectInUi();
-    const sessionBefore = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+    const sessionBefore = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
     const before = sessionBefore.queryNavigation;
-    const visibleReply = sessionBefore.entries.at(-1).content;
+    const lastEntry = sessionBefore.entries.at(-1);
+    if (!lastEntry || !("content" in lastEntry)) throw new Error("Expected the persisted conversational reply.");
+    const visibleReply = lastEntry.content;
     firstRender.unmount();
     renderDemo();
-    const after = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation;
+    const after = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation;
     expect(after.currentAction.selectedActionId).toBe(before.currentAction.selectedActionId);
     expect(after.standardQuestion.questionId).toBe(before.standardQuestion.questionId);
     expect(screen.getByRole("region", { name: "Conversation" })).toHaveTextContent(visibleReply);
   });
 
-  it("FR03B-C13 — reset clears QRY navigation memory", async () => {
+  it("FR03B-C13 — new project starts empty QRY while preserving previous navigation", async () => {
     renderDemo();
     await createProjectInUi();
-    expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation).not.toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
-    await waitFor(() => expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation).toBeNull());
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation).not.toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
+    await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)!, true).queryNavigation).toBeNull());
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation).not.toBeNull();
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
   });
 

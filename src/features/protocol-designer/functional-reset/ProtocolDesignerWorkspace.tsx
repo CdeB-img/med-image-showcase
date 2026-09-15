@@ -1,3 +1,4 @@
+import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   buildBoundedConversationReferentContext,
@@ -207,6 +208,12 @@ import {
 import { attachCurrentKnowledgePrerequisiteWhenRequired, dispatchKnowledgePrerequisiteFromQuery } from "./knowledge-standard";
 import { isProductKnowledgePrerequisiteDispatch } from "@/features/query-navigation";
 import { dispatchRegulatoryFromQuery, isRegulatoryQueryDispatch } from "./regulatory-standard";
+import { documentAdministrationFrom } from "./project-administration";
+import ProjectContinuum from "./ProjectContinuum";
+import ProjectSourceLibraryView from "./ProjectSourceLibraryView";
+import { acquireDocumentKnowledge, resolveDocumentaryIntent } from "./documentary-conversation";
+import { recordSourceInterest, resolveProjectSource, sourceShortReference } from "@/features/knowledge-engine/project-source-library";
+import { availableDocumentEvidence, readableDocumentDiff, restoreDocumentRevision, reviseScientificDocument } from "@/features/document-projection/scientific-document-revision";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -931,14 +938,22 @@ const resolvePostAdoptionContinuationJob = async (
 
 type ProtocolDesignerWorkspaceProps = Readonly<{
   traceCaptureConfiguration?: ScientificTraceCaptureConfiguration;
+  initialSession?: FunctionalResetSession;
+  onSessionChange?: (session: FunctionalResetSession) => void;
+  onLeaveWorkspace?: () => void;
+  onEditAdministration?: () => void;
+  onNewProject?: () => void;
 }>;
 
 const VALIDATED_CANDIDATE_DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 
 export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
+  initialSession, onSessionChange, onLeaveWorkspace, onEditAdministration, onNewProject,
 }: ProtocolDesignerWorkspaceProps) {
-  const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
+  const [session, setSession] = useState<FunctionalResetSession>(() => initialSession ?? loadInitialSession());
+  const administration = useMemo(() => session.workspace
+    ? documentAdministrationFrom(session.projectId, session.workspace) : undefined, [session.projectId, session.workspace]);
   const latestSessionRef = useRef(session);
   useEffect(() => { latestSessionRef.current = session; }, [session]);
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
@@ -947,17 +962,20 @@ export default function ProtocolDesignerWorkspace({
   const [busyMessage, setBusyMessage] = useState("NOXIA vous répond…");
   const [correctionMode, setCorrectionMode] = useState(false);
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
+  const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
+  const [documentMessage, setDocumentMessage] = useState("");
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const confirmationInFlightRef = useRef<string | null>(null);
 
   useEffect(() => {
-    persistFunctionalResetSession(window.localStorage, session);
+    if (onSessionChange) onSessionChange(session);
+    else persistFunctionalResetSession(window.localStorage, session);
     if (import.meta.env.DEV && session.bridgeTraces.length > 0) {
       console.debug("NOXIA_PRODUCT_BRIDGE_TRACE", JSON.stringify(session.bridgeTraces.at(-1)));
     }
-  }, [session]);
+  }, [session, onSessionChange]);
 
   useEffect(() => {
     if (!postAdoptionContinuationJob) return;
@@ -1860,7 +1878,9 @@ export default function ProtocolDesignerWorkspace({
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    const content = draft.trim();
+    await submitText(draft.trim());
+  };
+  const submitText = async (content: string) => {
     if (!content || busy) return;
     const now = new Date().toISOString();
     setDraft("");
@@ -1986,6 +2006,7 @@ export default function ProtocolDesignerWorkspace({
       let queryNavigation = session.queryNavigation;
       const withUser: FunctionalResetSession = {
         ...session,
+        openDocumentProjectionId: null,
         queryNavigation,
         runtimeTurns,
         conversationLanguageGateway: preparedGateway.state,
@@ -2073,6 +2094,12 @@ export default function ProtocolDesignerWorkspace({
           scientificExecutionTraceLedger,
           updatedAt: rejectedAt,
         }));
+        return;
+      }
+
+      const documentaryIntent = resolveDocumentaryIntent(preparedInput.workingText);
+      if (session.project && !["PROJECT_CHANGE", "NOT_DOCUMENTARY"].includes(documentaryIntent.kind)) {
+        handleDocumentInstruction(preparedInput.workingText, false, userTurn.turnId);
         return;
       }
 
@@ -2895,6 +2922,7 @@ export default function ProtocolDesignerWorkspace({
       let documentWarning = false;
       try {
         documents = refreshFunctionalResetDocumentPortfolio({
+          administration,
           project,
           previous: session.documents,
           requestedAt: now,
@@ -3366,16 +3394,116 @@ export default function ProtocolDesignerWorkspace({
     requestProtocolProjection(command);
   }
 
-  function requestProtocolProjection(command?: { content: string; createdAt: string }) {
+  function acquireSources() {
+    if (!session.project) return;
+    try {
+      const evidence = acquireDocumentKnowledge(session, new Date().toISOString());
+      setSession((current) => ({ ...current, ...evidence }));
+      setDocumentMessage(`${evidence.sourceLibrary.sources.length} source(s) du corpus local conservée(s). Les qualifications existantes sont distinctes de votre intérêt pour ces références.`);
+    } catch {
+      setDocumentMessage("Les sources ne peuvent pas être préparées dans cet état. Le Project et les documents sont conservés ; aucune recherche externe n’a été lancée.");
+    }
+  }
+
+  function handleDocumentInstruction(instruction: string, recordUser = true, sourceTurnRef = createTurnId()) {
+    const timestamp = new Date().toISOString();
+    const intent = resolveDocumentaryIntent(instruction, true);
+    const reply = (message: string, update: Partial<FunctionalResetSession> = {}) => {
+      setDocumentMessage(message);
+      setSession((current) => ({ ...current, ...update, updatedAt: timestamp,
+        entries: [...current.entries, ...(recordUser ? [{ entryId: sourceTurnRef, kind: "TEXT" as const, role: "USER" as const, content: instruction, createdAt: timestamp }] : []),
+          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: message, createdAt: timestamp }],
+      }));
+    };
+    if (intent.kind === "PROJECT_CHANGE") {
+      setDocumentMessage("Cette instruction modifie la science du projet. Elle passe dans la conversation scientifique et exige votre revue avant adoption.");
+      setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false);
+      setSession((current) => ({ ...current, openDocumentProjectionId: null }));
+      void submitText(instruction);
+      return;
+    }
+    if (intent.kind === "CLARIFY" || intent.kind === "NOT_DOCUMENTARY") {
+      reply("Précisez la section et la transformation demandées. La révision disponible porte sur l’introduction et ses références : développer, raccourcir, réorienter vers une source identifiée, ajouter ou retirer une référence. Aucune autre section n’a été modifiée.");
+      return;
+    }
+    if (!session.project) { reply("Confirmez d’abord le projet scientifique pour lui associer des sources et un document."); return; }
+    const projection = session.documents.projections.at(-1);
+    if (projection && !isFunctionalDocumentProjectionCurrent(projection, session.project, administration)) {
+      reply("Le document courant doit être régénéré depuis le Project avant une nouvelle révision. Les versions précédentes restent consultables."); return;
+    }
+    if (session.openDocumentProjectionId && projection && session.openDocumentProjectionId !== projection.projectionId) {
+      reply("Cette version est historique. Ouvrez la version documentaire courante avant de la réviser."); return;
+    }
+    let retainedEvidence: ReturnType<typeof acquireDocumentKnowledge> | undefined;
+    try {
+      let evidence = acquireDocumentKnowledge(session, timestamp);
+      retainedEvidence = evidence;
+      if (intent.kind === "PREPARE_EVIDENCE") {
+        requestProtocolProjection(recordUser ? { content: instruction, createdAt: timestamp } : undefined, evidence);
+        setDocumentMessage("Le contexte et la bibliographie ont été produits depuis les assertions soutenues du corpus local. La science propre à l’étude reste celle du Project adopté.");
+        setSourceLibraryOpen(false);
+        return;
+      }
+      if (["DIFF", "RESTORE"].includes(intent.kind)) {
+        const previous = session.documents.projections.find((item) => item.projectionId === projection?.priorProjectionId);
+        if (!projection || !previous) { reply("Il n’existe pas encore deux versions documentaires à comparer.", evidence); return; }
+        if (intent.kind === "DIFF") { reply(readableDocumentDiff(previous, projection), evidence); return; }
+        const restored = restoreDocumentRevision(projection, previous, { instruction, turnRef: sourceTurnRef, timestamp });
+        const documents = refreshFunctionalResetDocumentPortfolio({ project: session.project, previous: { ...session.documents, projections: [...session.documents.projections, restored] }, administration, knowledgeLibrary: evidence.sourceLibrary, handoffDecision: session.documents.handoffDecision, requestedAt: timestamp });
+        reply(`Le contenu de la version ${previous.projectionVersion} a été restauré dans une nouvelle version ${restored.projectionVersion}. Les versions antérieures et le Project sont conservés.`, { ...evidence, documents, openDocumentProjectionId: restored.projectionId }); return;
+      }
+      const resolution = resolveProjectSource(evidence.sourceLibrary, instruction);
+      if (intent.kind === "COMPARE_SOURCES") {
+        if (resolution.matches.length !== 2) { reply("Identifiez exactement deux références par auteur et année, DOI ou PMID. Aucun rapprochement approximatif n’a été effectué.", evidence); return; }
+        const candidates = availableDocumentEvidence(evidence.sourceLibrary);
+        reply(resolution.matches.map((source) => `${sourceShortReference(source)} : ${candidates.filter((item) => item.sourceRefs.includes(source.source.sourceId)).map((item) => item.text).join(" ") || "Aucune assertion rédigée admissible disponible."}`).join("\n\n") + "\n\nCette comparaison porte sur les assertions accessibles. Leur niveau de preuve comparatif et leur applicabilité à votre étude ne sont pas établis par votre préférence.", evidence); return;
+      }
+      if (intent.kind === "EXPLAIN_SOURCE") {
+        if (resolution.status !== "RESOLVED") { reply("La référence doit être identifiée sans ambiguïté pour expliquer son usage.", evidence); return; }
+        const id = resolution.matches[0]!.source.sourceId;
+        const used = projection?.evidenceContent?.paragraphs.filter((paragraph) => paragraph.sourceRefs.includes(id)) ?? [];
+        reply(used.length ? `Cette référence soutient ${used.length} affirmation(s) de l’introduction. Les liens assertion–source sont conservés dans cette version.`
+          : projection?.evidenceContent?.excludedSourceRefs.includes(id) ? "Cette référence a été retirée sur instruction documentaire. Elle reste visible dans la bibliothèque et l’historique ; ce retrait ne change pas sa qualification scientifique."
+            : "Cette référence n’est pas utilisée dans cette version. Son identité et son intérêt pour vous restent conservés ; son ajout exige une assertion accessible et soutenue. Le choix rédactionnel courant n’est pas un classement de qualité des publications.", evidence); return;
+      }
+      if (intent.kind !== "DOCUMENT_REVISION") return;
+      let sourceId: string | undefined;
+      if (intent.sourceRequired) {
+        const interest = recordSourceInterest(evidence.sourceLibrary, { text: instruction, turnRef: sourceTurnRef, recordedAt: timestamp, explicitUse: intent.transformation !== "REMOVE_SOURCE" });
+        evidence = { ...evidence, sourceLibrary: interest.library };
+        retainedEvidence = evidence;
+        if (interest.resolution.status !== "RESOLVED") {
+          reply(interest.resolution.status === "AMBIGUOUS" ? "Plusieurs références correspondent. Précisez le DOI ou le PMID ; aucune citation n’a été ajoutée."
+            : "Cette référence n’est pas identifiée dans les sources locales accessibles. Votre mention est conservée ; aucun auteur, DOI, PMID ou contenu n’a été inventé et aucune recherche externe n’a été lancée.", evidence); return;
+        }
+        sourceId = interest.resolution.matches[0]!.source.sourceId;
+      }
+      if (!projection?.evidenceContent) { reply("La source est conservée. Préparez d’abord le contexte sourcé et les références depuis l’aperçu du protocole, puis appliquez cette révision.", evidence); return; }
+      const revision = reviseScientificDocument({ projection, library: evidence.sourceLibrary, transformation: intent.transformation, sourceId, instruction, turnRef: sourceTurnRef, timestamp });
+      const documents = revision.projection === projection ? session.documents : refreshFunctionalResetDocumentPortfolio({ project: session.project, previous: { ...session.documents, projections: [...session.documents.projections, revision.projection] }, administration, knowledgeLibrary: evidence.sourceLibrary, handoffDecision: session.documents.handoffDecision, requestedAt: timestamp });
+      reply(revision.message, { ...evidence, documents, openDocumentProjectionId: revision.projection.projectionId });
+      setSourceLibraryOpen(false);
+    } catch (error) {
+      const code = error instanceof Error ? error.message : "DOCUMENT_REVISION_UNAVAILABLE";
+      reply(code === "SOURCE_WITHOUT_APPLICABLE_DOCUMENTARY_ASSERTION" ? "Cette référence ne dispose pas d’une assertion rédigée suffisamment qualifiée pour cette révision. Son ajout comme citation décorative a été refusé."
+        : code === "DOCUMENT_RESTORE_SOURCE_CHANGED" ? "Cette version dépend d’un autre état scientifique ou administratif. Elle reste consultable dans l’historique ; la restauration ne peut pas remplacer silencieusement le Project courant."
+          : "La révision n’a pas pu être qualifiée. Le Project et toutes les versions documentaires précédentes sont conservés.", retainedEvidence ?? {});
+    }
+  }
+
+  function requestProtocolProjection(command?: { content: string; createdAt: string }, requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>) {
     if (!session.project) return;
     const now = new Date().toISOString();
     try {
+      const evidence = requestedEvidence ?? (session.sourceLibrary ? acquireDocumentKnowledge(session, now) : undefined);
       const decision = authorizeResearchProjectDocumentHandoff({
         project: session.project,
         authority: session.projectAuthority,
         confirmedAt: now,
       });
       const documents = refreshFunctionalResetDocumentPortfolio({
+        knowledgeLibrary: evidence?.sourceLibrary,
+        administration,
         project: session.project,
         previous: session.documents,
         handoffDecision: decision,
@@ -3403,6 +3531,7 @@ export default function ProtocolDesignerWorkspace({
         });
         return {
         ...current,
+        ...(evidence ?? {}),
         runtimeTurns: [...current.runtimeTurns, { turnId: createTurnId(), role: "NOXIA", content: documentReply, createdAt: now }],
         documents,
         openDocumentProjectionId: protocol.projectionId,
@@ -3478,6 +3607,7 @@ export default function ProtocolDesignerWorkspace({
   };
 
   const reset = () => {
+    if (onNewProject) { onNewProject(); return; }
     clearFunctionalResetSession(window.localStorage);
     setSession(createFunctionalResetSession());
     setDraft("");
@@ -3512,8 +3642,7 @@ export default function ProtocolDesignerWorkspace({
   const currentProtocolProjection = session.project
     ? [...session.documents.projections].reverse().find((projection) => projection.projectionType === "PROTOCOL"
       && projection.source.projectId === session.project!.projectId
-      && projection.source.projectVersion === session.project!.versionId
-      && projection.source.projectDigest === session.project!.projectDigest) ?? null
+      && isFunctionalDocumentProjectionCurrent(projection, session.project!, administration)) ?? null
     : null;
   const deliverablePortfolio = useMemo(() => session.project ? buildStudyDeliverablePortfolio({
     project: session.project,
@@ -3531,7 +3660,8 @@ export default function ProtocolDesignerWorkspace({
       setDeliverableWorkspaceOpen(false);
       setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }));
     }}
-    onRequestProtocol={requestProtocolProjection}
+    onRequestProtocol={() => requestProtocolProjection()}
+    onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
     onOpenDeliverables={() => {
@@ -3570,6 +3700,9 @@ export default function ProtocolDesignerWorkspace({
             : "Surface détaillée de développement et de diagnostic"}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          {onLeaveWorkspace && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onLeaveWorkspace} className="min-h-11 rounded-xl border bg-background px-3 text-sm font-medium">Mes projets</button>}
+          {onEditAdministration && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onEditAdministration} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Informations du projet</button>}
+          {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources du projet</button>}
           <div className="inline-flex rounded-xl border bg-background p-1" role="group" aria-label="Mode d’affichage">
             <button
               type="button"
@@ -3591,23 +3724,34 @@ export default function ProtocolDesignerWorkspace({
               <div className="pt-7">{projectPanel}</div>
             </SheetContent>
           </Sheet>
-          <button type="button" aria-label="Recommencer" disabled={busy} onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>Recommencer</span></button>
+          <button type="button" aria-label={onNewProject ? "Nouveau projet" : "Recommencer"} disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>{onNewProject ? "Nouveau projet" : "Recommencer"}</span></button>
         </div>
       </header>
+      {session.workspace && <p className="mb-4 text-sm font-medium" aria-label="Projet ouvert">{session.workspace.title} <span className="font-normal text-muted-foreground">· sauvegarde locale dans ce navigateur</span></p>}
+      <ProjectContinuum documentsAvailable={Boolean(session.project)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
+        disabled={busy || Boolean(postAdoptionContinuationJob)}
+        onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
+        onDocuments={() => { setSourceLibraryOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); setDeliverableWorkspaceOpen(true); }} />
 
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
 
-        {deliverableWorkspaceOpen && deliverablePortfolio ? <StudyDeliverableWorkspace
+        {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && deliverablePortfolio ? <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
           onClose={() => setDeliverableWorkspaceOpen(false)}
         /> : openProjection ? <ProtocolPreview
+          onDocumentInstruction={handleDocumentInstruction}
+          documentMessage={documentMessage}
           projection={openProjection}
-          stale={protocolCard?.freshness === "STALE" || openProjection.source.projectVersion !== session.project?.versionId}
+          stale={!session.project || !isFunctionalDocumentProjectionCurrent(openProjection, session.project, administration)}
           onClose={() => setSession((current) => ({ ...current, openDocumentProjectionId: null }))}
           onArtifactGenerated={recordOpenProjectionArtifact}
+          onCompleteAdministration={onEditAdministration}
+          onRegenerate={() => requestProtocolProjection()}
+          history={session.documents.projections}
+          onOpenVersion={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
         /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>

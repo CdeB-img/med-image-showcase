@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -19,7 +20,7 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 
-const storedSession = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const storedSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 
 const submit = (content: string) => {
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: content } });
@@ -155,7 +156,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     fireEvent.click(within(history).getByText("Versions précédentes (1)"));
     fireEvent.click(within(history).getByRole("button", { name: "Ouvrir cette version historique" }));
     const historicalPreview = await screen.findByTestId("functional-protocol-preview");
-    expect(within(historicalPreview).getByRole("status")).toHaveTextContent("Le projet a changé depuis cette version du protocole");
+    expect(within(historicalPreview).getByRole("status")).toHaveTextContent("Le projet ou ses informations administratives ont changé depuis cette version du protocole");
     expect(within(historicalPreview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).not.toBe(stateBeforeSwitch);
     const afterHistoricalOpen = storedSession();

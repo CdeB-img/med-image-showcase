@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -55,14 +56,14 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     expect(await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." })).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: null }));
-    expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(2));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     const project = screen.getByTestId("functional-research-project");
     expect(within(project).getByText("Version 1")).toBeInTheDocument();
-    const firstProject = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project;
+    const firstProject = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project;
     expect(firstProject).toMatchObject({
       contract: "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION",
       boundary: "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER",
@@ -104,7 +105,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(within(project).getByText("biomarqueurs sanguins")).toBeInTheDocument();
     expect(within(project).getByText("taille de l’infarctus")).toBeInTheDocument();
 
-    const adoptedProjectBeforeRefusal = JSON.stringify(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project);
+    const adoptedProjectBeforeRefusal = JSON.stringify(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project);
     const adoptedProgressBeforeRefusal = screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow");
     const adoptedCountsBeforeRefusal = within(project).getByTestId("project-cockpit-counts").textContent;
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_LATER_MODIFICATION } });
@@ -112,7 +113,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     await screen.findByText("IRM : J3–J5 → J5–J7");
     fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
     await screen.findByText("Proposition refusée. Le Research Project est inchangé.");
-    expect(JSON.stringify(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project)).toBe(adoptedProjectBeforeRefusal);
+    expect(JSON.stringify(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project)).toBe(adoptedProjectBeforeRefusal);
     expect(within(project).getByText("Version 2")).toBeInTheDocument();
     expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();
     expect(within(project).queryByText("IRM : J5–J7")).toBeNull();
@@ -125,10 +126,12 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(within(reloaded).getByText("Version 2")).toBeInTheDocument();
     expect(within(reloaded).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
+    fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
     expect(within(screen.getByTestId("functional-research-project")).queryByText("colchicine")).toBeNull();
+    // A new workspace no longer deletes the prior Project.
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project.revision).toBe(2);
   });
 
   it("keeps the product usable when the runtime fails", async () => {

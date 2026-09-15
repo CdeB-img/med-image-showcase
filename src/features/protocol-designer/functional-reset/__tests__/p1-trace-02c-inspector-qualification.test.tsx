@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -115,7 +116,7 @@ const recordCecRun = (input: {
   });
 };
 
-const storedSession = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const storedSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 
 describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
   beforeEach(() => {

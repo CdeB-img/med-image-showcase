@@ -1,0 +1,699 @@
+# NOXIA — V1 PRODUCT CLOSURE & DEMO READINESS 01
+
+ASTRA_REASONING_RECOMMENDATION = ULTRA
+
+MISSION_ID =
+PROTOCOL_DESIGNER_V1_PRODUCT_CLOSURE_AND_DEMO_READINESS_01
+
+REPOSITORY =
+/Users/charles/Documents/Projets/NOXIA/noxia-dev
+
+EXPECTED_BRANCH =
+protocol-designer-canonical-ingestion
+
+EXPECTED_BASELINE =
+86739f3d864af68c57fff8045606a19eb0cb0eea
+
+MODE =
+OBSERVE_CURRENT_PRODUCT
+→ GAP_ANALYSIS
+→ REUSE_FIRST
+→ IMPLEMENT_VISIBLE_V1
+→ REAL_BROWSER_END_TO_END
+→ QUALIFY
+
+EXECUTION_SAFETY =
+INTERRUPTION_SAFE_REQUIRED
+
+===============================================================================
+0. OBJECTIF
+===============================================================================
+
+L'objectif n'est plus d'améliorer abstraitement le moteur scientifique.
+
+L'objectif est d'obtenir une V1 Protocol Designer réellement démontrable à
+un chercheur, une DRCI, Bpifrance ou un partenaire institutionnel.
+
+À la fin de cette mission, un utilisateur doit pouvoir vivre un parcours
+cohérent :
+
+NEW / EXISTING RESEARCH PROJECT
+→ STANDARD CONVERSATION
+→ UNDERSTANDING
+→ HUMAN REVIEW
+→ CANONICAL RESEARCH PROJECT
+→ SCIENTIFIC ITERATION
+→ DOCUMENT GENERATION
+→ ADMINISTRATIVE COMPLETION
+→ DOCUMENT REGENERATION
+→ PERSIST
+→ CLOSE
+→ REOPEN
+→ CONTINUE
+
+Ne pas déclarer une capacité sans la démontrer par le produit réel.
+
+===============================================================================
+1. PRINCIPES ET AUTORITÉS
+===============================================================================
+
+Respecter le SOURCE-OF-TRUTH-INDEX.
+
+Research Project reste la source canonique projet.
+
+Les documents restent des projections.
+
+Human adoption reste obligatoire pour les décisions scientifiques.
+
+Reuse-first obligatoire.
+
+Avant tout nouveau mécanisme, rechercher et réutiliser les capacités
+existantes.
+
+Ne créer aucun nouveau router / owner / engine / ontology sans gap démontré.
+
+Editorial Engine reste générique.
+
+Les responsabilités scientifiques NOXIA restent dans Protocol Designer et ses
+owners appropriés.
+
+===============================================================================
+2. ÉTAT SCIENTIFIQUE D'ENTRÉE
+===============================================================================
+
+État rapporté :
+
+HEAD =
+86739f3d864af68c57fff8045606a19eb0cb0eea
+
+LIVE_FINDINGS_REPRODUCED =
+5/5
+
+CAUSAL_CLUSTERS_REPAIRED =
+4/4
+
+S1 = PASS
+S2 = PASS
+S3 = PASS
+S4 = PASS
+
+S5_PRIVACY = PASS
+S5_NEGATIVE_CONTROL_OFFLINE = PARTIAL
+
+FULL_SUITE =
+4308 PASS / 0 FAIL / 0 UNHANDLED
+
+REAL_BROWSER_OFFLINE =
+5/5
+
+HISTORICAL_PROVIDER_REPLAY =
+7/7
+
+Ne pas rouvrir ces réparations sans nouvelle preuve.
+
+S5 PARTIAL reste une limite scientifique connue.
+
+Il ne justifie pas à lui seul de bloquer la fermeture produit V1.
+
+===============================================================================
+3. PREMIÈRE ÉTAPE : OBSERVER L'ÉTAT TECHNIQUE RÉEL
+===============================================================================
+
+Avant d'implémenter quoi que ce soit :
+
+inspecter le repository courant.
+
+Pour chacune des capacités suivantes, classifier :
+
+IMPLEMENTED_AND_PRODUCT_REACHABLE
+IMPLEMENTED_NOT_PRODUCT_REACHABLE
+PARTIAL
+HISTORICAL_ONLY
+ABSENT
+UNKNOWN
+
+CAP-01 — création d'un nouveau Research Project
+CAP-02 — coexistence de plusieurs Research Projects
+CAP-03 — liste / workspace de projets
+CAP-04 — persistance durable du Project
+CAP-05 — fermeture puis réouverture
+CAP-06 — conversation réhydratée après réouverture
+CAP-07 — versionnement / supersession
+CAP-08 — génération documentaire réelle
+CAP-09 — document généré depuis le Project courant
+CAP-10 — placeholders administratifs
+CAP-11 — formulaire de complétion administrative
+CAP-12 — profil utilisateur / organisation réutilisable
+CAP-13 — distinction profil global vs rôles propres au Project
+CAP-14 — régénération documentaire après modification
+CAP-15 — état DRAFT_WITH_PLACEHOLDERS
+CAP-16 — état final/submission-ready ou équivalent existant
+CAP-17 — téléchargement/export document
+CAP-18 — Standard Mode end-to-end
+CAP-19 — navigation claire entre Project / conversation / documents
+CAP-20 — recovery après refresh navigateur
+
+Ne rien déduire des anciens rapports si le repository permet de l'observer.
+
+Produire :
+
+CURRENT_PRODUCT_CAPABILITY_MAP.md
+
+avant la première modification.
+
+===============================================================================
+4. CIBLE V1 À IMPLÉMENTER
+===============================================================================
+
+Construire uniquement ce qui manque pour ce corridor :
+
+A. PROJECT WORKSPACE
+
+Un utilisateur doit pouvoir :
+
+- créer un projet ;
+- lui donner au minimum un titre temporaire ;
+- voir ses projets existants ;
+- ouvrir un projet ;
+- revenir à la liste ;
+- reprendre un projet existant.
+
+Plusieurs Research Projects doivent pouvoir coexister sans contamination.
+
+===============================================================================
+
+B. PERSISTENCE
+
+Le Research Project, ses décisions, versions et éléments nécessaires à la
+conversation doivent survivre :
+
+- refresh ;
+- fermeture/réouverture de l'écran ;
+- nouvelle session locale selon le mécanisme V1 retenu.
+
+Pour cette V1 de démonstration :
+
+ne pas construire une infrastructure SaaS complexe si une persistence locale
+ou backend existante qualifiée permet de démontrer correctement le contrat.
+
+Mais ne pas simuler la persistence dans le seul state React.
+
+===============================================================================
+
+C. PROFIL ET MÉTADONNÉES ADMINISTRATIVES
+
+Prévoir deux niveaux explicitement distincts :
+
+USER / ORGANIZATION PROFILE
+réutilisable entre projets
+
+et
+
+PROJECT-SPECIFIC ADMINISTRATIVE DATA / ACTOR ROLES
+
+Ne jamais injecter firstname/address/etc. comme science dans Research Project.
+
+Réutiliser ActorRefs / organization refs / rôles existants lorsqu'ils existent.
+
+Le formulaire doit distinguer :
+
+REQUIRED
+OPTIONAL
+
+Pour les champs optionnels, expliquer brièvement pourquoi l'information peut
+être utile, notamment pour préremplir les documents.
+
+Ne pas exiger les données administratives avant de permettre au chercheur de
+travailler scientifiquement.
+
+===============================================================================
+
+D. DOCUMENTS AVEC PLACEHOLDERS
+
+L'utilisateur doit pouvoir obtenir un document même lorsque certaines données
+administratives manquent.
+
+Deux parcours :
+
+1.
+GENERATE_NOW
+
+→ document concret
+→ placeholders explicites pour informations absentes
+→ statut :
+
+DRAFT_WITH_PLACEHOLDERS
+
+2.
+COMPLETE_INFORMATION_FIRST
+
+→ formulaire
+→ complétion
+→ génération
+
+Les placeholders ne doivent jamais être inventés.
+
+Exemples :
+
+[Investigateur principal à compléter]
+[Numéro de version à compléter]
+[Promoteur à compléter]
+
+selon les besoins réels du template.
+
+===============================================================================
+
+E. RÉGÉNÉRATION
+
+Après :
+
+- modification scientifique adoptée ;
+- modification méthodologique adoptée ;
+- ajout de données administratives ;
+
+l'utilisateur doit pouvoir régénérer le document depuis l'état courant du
+Project.
+
+Ne jamais modifier manuellement le document comme nouvelle source de vérité.
+
+PROJECT CURRENT STATE
+→ DOCUMENT PROJECTION
+
+===============================================================================
+
+F. DOCUMENT RÉEL
+
+Au moins UNE famille documentaire importante doit être réellement démontrable
+end-to-end.
+
+Préférer la famille déjà la mieux implémentée / câblée.
+
+Ne pas développer dix documents médiocres.
+
+Objectif minimal :
+
+un protocole/synopsis/document d'étude suffisamment substantiel pour être
+montré à un chercheur.
+
+Il doit contenir du contenu issu du Project réel et non une fixture.
+
+===============================================================================
+5. AUTHENTIFICATION
+===============================================================================
+
+Ne pas construire un système complet d'authentification si celui-ci n'existe
+pas et n'est pas nécessaire à la démonstration V1.
+
+Pour la démonstration, la priorité est :
+
+MULTI_PROJECT
+PERSISTENCE
+PROFILE
+DOCUMENTS
+
+Si une abstraction utilisateur existe déjà, la réutiliser.
+
+Si une authentification complète constitue un chantier indépendant important :
+
+la reporter explicitement.
+
+Ne jamais construire un faux système de sécurité présenté comme production-ready.
+
+===============================================================================
+6. PAIEMENT
+===============================================================================
+
+OUT_OF_SCOPE.
+
+Ne pas implémenter Stripe, abonnement, entitlement commercial ou pricing dans
+cette mission.
+
+Les hypothèses commerciales restent séparées de la V1 scientifique.
+
+===============================================================================
+7. SCÉNARIO DE DÉMONSTRATION PRINCIPAL
+===============================================================================
+
+Construire un E2E réel avec un scénario scientifique naturel.
+
+Éviter de reprendre exclusivement l'ancien IDM canonique.
+
+Préférer par exemple :
+
+CARDIO —
+myocardite, colchicine vs placebo
+
+ou
+
+CARDIO —
+fibrose myocardique chez le diabétique
+
+Le scénario doit être saisi comme un chercheur humain :
+
+- phrases imparfaites ;
+- corrections ;
+- informations ajoutées progressivement ;
+- demande de proposition ;
+- refus ;
+- confirmation ;
+- modification ultérieure.
+
+Ne pas écrire le scénario pour satisfaire le parser.
+
+===============================================================================
+8. DEUXIÈME SMOKE TEST
+===============================================================================
+
+Après le parcours principal :
+
+faire un smoke test indépendant neuro.
+
+Utiliser le corpus neuro existant sans développer de capacité neuro spécifique.
+
+Objectif :
+
+prouver que le workspace / persistence / documents / Project ne sont pas
+spécifiques au scénario cardio.
+
+===============================================================================
+9. PARCOURS E2E OBLIGATOIRE
+===============================================================================
+
+En vrai navigateur :
+
+1.
+ouvrir Protocol Designer
+
+2.
+créer Project A
+
+3.
+mener plusieurs tours scientifiques
+
+4.
+confirmer/refuser/corriger au moins plusieurs éléments
+
+5.
+obtenir Research Project courant
+
+6.
+générer le document
+
+7.
+laisser volontairement certaines métadonnées administratives absentes
+
+8.
+vérifier DRAFT_WITH_PLACEHOLDERS
+
+9.
+quitter Project A
+
+10.
+créer Project B
+
+11.
+vérifier absence de contamination
+
+12.
+fermer/recharger
+
+13.
+retrouver A et B
+
+14.
+rouvrir Project A
+
+15.
+vérifier réhydratation scientifique correcte
+
+16.
+compléter une partie des données administratives
+
+17.
+modifier une décision scientifique ou méthodologique
+
+18.
+régénérer
+
+19.
+vérifier que le document reflète le Project courant
+
+20.
+vérifier que l'ancien état reste historiquement traçable selon le mécanisme
+de versionnement existant.
+
+===============================================================================
+10. QUALITÉ PRODUIT
+===============================================================================
+
+La démonstration ne doit pas montrer au chercheur des détails d'architecture
+interne inutiles.
+
+Standard Mode reste la surface principale.
+
+L'expérience attendue :
+
+COLLEAGUE_SCIENTIFIC
+PRECISE
+PROACTIVE
+NATURAL_CONVERSATION
+
+Les contrôles structurés servent à accélérer les décisions, pas à remplacer
+la conversation.
+
+Traiter comme MATERIAL :
+
+- perte du Project ;
+- contamination entre Projects ;
+- décision non adoptée apparaissant comme adoptée ;
+- document construit depuis un état périmé ;
+- placeholder inventé ;
+- disparition silencieuse d'une information ;
+- réouverture incohérente ;
+- génération documentaire fictive ;
+- dead end visible dans le corridor principal.
+
+===============================================================================
+11. REUSE DES SCÉNARIOS HISTORIQUES
+===============================================================================
+
+Pendant cette mission, ne pas effectuer un audit exhaustif de tous les anciens
+benchmarks.
+
+Cependant, si un scénario de régression est nécessaire :
+
+reuse-first dans :
+
+- anciens scenario packs Development ;
+- campagnes adversariales ;
+- FIC ;
+- hybrid runtime ;
+- SEM Development.
+
+NE JAMAIS ouvrir/utiliser un corpus explicitement BLIND/SEALED pour guider
+une réparation.
+
+Préserver sa valeur de qualification future.
+
+===============================================================================
+12. PROVIDERS
+===============================================================================
+
+Cette mission est principalement une fermeture produit.
+
+Par défaut :
+
+OFFLINE / REPLAY / SYNTHETIC QUALIFIED TRANSPORT.
+
+Ne faire aucun appel provider live sans autorisation explicite distincte si le
+mandat courant ne le permet pas.
+
+Les appels provider live ne sont pas nécessaires pour prouver persistence,
+multi-project, placeholders ou wiring documentaire.
+
+===============================================================================
+13. TESTS
+===============================================================================
+
+Ajouter les tests nécessaires aux capacités réellement implémentées.
+
+Au minimum :
+
+MULTI_PROJECT_ISOLATION
+PROJECT_PERSISTENCE
+PROJECT_REOPEN
+CONVERSATION_REHYDRATION
+PROFILE_VS_PROJECT_METADATA
+PLACEHOLDER_GENERATION
+NO_PLACEHOLDER_HALLUCINATION
+DOCUMENT_FROM_CURRENT_PROJECT
+DOCUMENT_REGENERATION
+PROJECT_VERSION_TRACEABILITY
+REFRESH_RECOVERY
+
+Puis :
+
+targeted tests
+real browser
+TypeScript
+affected lint
+build
+full suite
+
+FULL_SUITE_FAIL = 0
+FULL_SUITE_UNHANDLED = 0
+
+===============================================================================
+14. REVUE CONTRADICTOIRE ULTRA
+===============================================================================
+
+Après premier vert, chercher activement :
+
+- persistence uniquement apparente ;
+- données partagées entre Projects ;
+- document utilisant un Project stale ;
+- metadata administratives injectées dans la science ;
+- science stockée dans profil global ;
+- placeholder remplacé par invention ;
+- document modifié indépendamment du Project ;
+- perte de provenance ;
+- perte de version ;
+- réouverture qui reconstruit approximativement l'état ;
+- UI qui nécessite des manipulations Expert pour le parcours normal ;
+- implémentation spécifique au scénario cardio ;
+- nouvelle abstraction inutile.
+
+Corriger uniquement les défauts démontrés.
+
+===============================================================================
+15. INTERRUPTION SAFE
+===============================================================================
+
+Créer :
+
+validation/protocol-designer-v1-product-closure-and-demo-readiness-01/
+
+avec :
+
+resume-state.json
+checkpoint-log.md
+
+Checkpoints :
+
+CP0 observation / capability map
+CP1 corridor architecture
+CP2 Project workspace
+CP3 persistence/reopen
+CP4 profile/admin metadata
+CP5 document placeholders
+CP6 regeneration
+CP7 real-browser E2E
+CP8 neuro smoke
+CP9 contradictory review
+CP10 full qualification
+CP11 commit/final-state
+
+Ne jamais reset/clean/stash automatiquement.
+
+===============================================================================
+16. CRITÈRE DE SORTIE
+===============================================================================
+
+MISSION_STATUS =
+V1_DEMO_READY
+
+uniquement si le vrai parcours navigateur démontre :
+
+MULTI_PROJECT = PASS
+PERSISTENCE = PASS
+REOPEN = PASS
+CONVERSATION_REHYDRATION = PASS
+SCIENTIFIC_PROJECT_INTEGRITY = PASS
+DOCUMENT_REAL_GENERATION = PASS
+DRAFT_WITH_PLACEHOLDERS = PASS
+ADMIN_COMPLETION = PASS
+DOCUMENT_REGENERATION = PASS
+CARDIO_E2E = PASS
+NEURO_SMOKE = PASS
+
+Si une capacité importante ne peut pas être fermée proprement :
+
+MISSION_STATUS =
+V1_DEMO_READINESS_PARTIAL
+
+et décrire précisément le blocker réel.
+
+===============================================================================
+17. LIVRABLE FINAL
+===============================================================================
+
+Rapporter :
+
+BASELINE_HEAD =
+FINAL_HEAD =
+
+CURRENT_CAPABILITY_MAP =
+
+MULTI_PROJECT =
+PERSISTENCE =
+PROJECT_REOPEN =
+CONVERSATION_REHYDRATION =
+
+PROFILE =
+ORGANIZATION_DATA =
+PROJECT_ACTOR_ROLES =
+
+DOCUMENT_GENERATION =
+DOCUMENT_FAMILY_DEMONSTRATED =
+DRAFT_WITH_PLACEHOLDERS =
+ADMIN_FORM =
+DOCUMENT_REGENERATION =
+
+CARDIO_E2E =
+NEURO_SMOKE =
+
+REAL_BROWSER =
+FULL_SUITE =
+TYPESCRIPT =
+BUILD =
+LINT_AFFECTED =
+
+PROVIDER_CALLS =
+
+KNOWN_SCIENTIFIC_LIMITATIONS =
+KNOWN_PRODUCT_LIMITATIONS =
+
+DEMO_READY =
+YES / PARTIAL / NO
+
+P1_COMPLETE =
+ne pas modifier artificiellement selon la seule réussite de cette mission
+
+P1_EXIT_GATE =
+selon preuve réelle
+
+WAVE_2_AUTHORIZED =
+NO sauf autorisation distincte
+
+NEXT_ACTION =
+RETURN_FOR_DEMO_REVIEW
+
+Ne pas lancer automatiquement :
+- paiement ;
+- PACS ;
+- SI hospitalier ;
+- déploiement ;
+- Wave 2.
+
+===============================================================================
+18. GIT
+===============================================================================
+
+Commit local uniquement après qualification.
+
+Whitelist explicite.
+
+Pas de push.
+Pas de déploiement.
+
+Worktree suivi propre en sortie.

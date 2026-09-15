@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -39,7 +40,7 @@ const IMAGING = "IRM cardiaque avec rehaussement tardif au gadolinium";
 const DESIGN = "Étude de validation méthodologique prospective multicentrique";
 const PRIMARY_ENDPOINT = "Accord absolu entre la mesure automatisée et l’évaluation manuelle experte au niveau du patient";
 
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const submit = (text: string) => {
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });

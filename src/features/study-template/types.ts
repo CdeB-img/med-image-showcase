@@ -71,6 +71,7 @@ export const TEMPLATE_SUPPORT_KINDS = [
   "DOCUMENTARY_SUPPORT",
   "DEPENDENCY_SUPPORT",
   "HUMAN_DECISION_SUPPORT",
+  "KNOWLEDGE_SUPPORT",
 ] as const;
 
 export const TEMPLATE_AUDIT_CODES = [
@@ -400,6 +401,7 @@ export type StudyTemplateProjectInput = {
 };
 
 export type StudyTemplateCompositionInput = {
+  knowledgeSupport?: { digest: string; sourceRefs: string[]; assertionRefs: string[] };
   researchProject: Readonly<StudyTemplateProjectInput>;
   applicableRequirementSet: Readonly<RegulatoryResolutionResult>;
   documentaryPatternGraph: Readonly<PatternCatalog>;

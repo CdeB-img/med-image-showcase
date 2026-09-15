@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -27,9 +28,7 @@ const deterministicResponse = (
   } as unknown as Response;
 };
 
-const currentSession = () => JSON.parse(
-  window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!,
-) as FunctionalResetSession;
+const currentSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 
 const renderWorkspace = () => render(
   <HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>,
@@ -473,7 +472,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     await submit(text);
     await waitFor(() => expect(reached).toBe(true));
     expect(confirmation()).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Recommencer" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Nouveau projet" })).toBeDisabled();
     await clickAndFlush(confirmation());
     expect(currentSession().project).toEqual(before.project);
     await act(async () => { release(); await new Promise(resolve => setTimeout(resolve, 0)); });

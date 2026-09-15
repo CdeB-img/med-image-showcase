@@ -1,4 +1,5 @@
 import { logicalDigest, uniqueSorted } from "@/features/knowledge-engine/canonical";
+import { validateDocumentEvidence } from "./scientific-document-revision";
 import type {
   DocumentProjection,
   DocumentProjectionAuditCode,
@@ -58,6 +59,15 @@ export const auditDocumentProjection = (
 
   const { instance, definition } = context;
   const project = request.project;
+  if (projection?.evidenceContent) {
+    try {
+      if (request.knowledgeLibrary?.projectId !== projection.source.projectId || request.knowledgeLibrary.digest !== projection.evidenceContent.libraryDigest) throw new Error("KNOWLEDGE_PROJECT_BINDING_MISMATCH");
+      validateDocumentEvidence(projection.evidenceContent);
+      if (!["TMP-NODE:SCIENTIFIC_BACKGROUND", "TMP-NODE:SCIENTIFIC_REFERENCES"].every((id) => instance.nodes.some((node) => node.nodeId === id))) throw new Error("KNOWLEDGE_TEMPLATE_BINDING_MISSING");
+    } catch (error) {
+      findings.push(finding("DOC_CONTENT_WITHOUT_PROJECT_SOURCE", "ERROR", subjectId, error instanceof Error ? error.message : "KNOWLEDGE_DOCUMENT_EVIDENCE_INVALID"));
+    }
+  }
   if (
     instance.inputRefs.researchProjectId !== project.documentHandoff.projectId
     || instance.inputRefs.researchProjectVersion !== project.candidateVersion.versionId
@@ -92,7 +102,8 @@ export const auditDocumentProjection = (
   projection?.sections.forEach((section) => {
     if (!section.templateNodeIds.length) findings.push(finding("DOC_SECTION_WITHOUT_TEMPLATE_NODE", "ERROR", section.sectionId, "La section DOC ne référence aucun nœud TMP."));
     const hasSubstantiveContent = section.blocks.some((block) => block.kind !== "EMPTY_STATE" && block.items.length > 0);
-    if (hasSubstantiveContent && !section.projectObjectIds.length) findings.push(finding("DOC_CONTENT_WITHOUT_PROJECT_SOURCE", "ERROR", section.sectionId, "Un contenu documentaire ne référence aucun objet du Research Project."));
+    const knowledgeSection = projection?.evidenceContent && ["scientific-background", "scientific-references"].includes(section.sectionId) && section.sourceEngine === "KNOWLEDGE";
+    if (hasSubstantiveContent && !section.projectObjectIds.length && !knowledgeSection) findings.push(finding("DOC_CONTENT_WITHOUT_PROJECT_SOURCE", "ERROR", section.sectionId, "Un contenu documentaire ne référence aucun objet du Research Project."));
     if (section.requirementIds.length && !section.provenanceRefs.includes(request.regulatoryResolutionRef.resolutionId)) findings.push(finding("DOC_REQUIREMENT_WITHOUT_REG_SOURCE", "ERROR", section.sectionId, "Des exigences sont projetées sans référence à la résolution REG-001."));
     if (section.patternIds.length && !section.provenanceRefs.includes(request.documentaryPatternSnapshotRef.catalogId)) findings.push(finding("DOC_PATTERN_WITHOUT_DOC002_SOURCE", "ERROR", section.sectionId, "Des patterns sont utilisés sans référence au snapshot DOC-002."));
     if (section.templateStatus === "UNKNOWN" && !["UNKNOWN", "BLOCKED"].includes(section.status)) findings.push(finding("TMP_UNKNOWN_STRENGTHENED", "ERROR", section.sectionId, "Un statut TMP UNKNOWN a été renforcé dans DOC.", [section.status]));

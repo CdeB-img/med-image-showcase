@@ -244,7 +244,7 @@ describe("V1 QRY continuation and proactive proposal flow", () => {
     const project = completePreAnalysisProject();
     const session = createFunctionalResetSession("2026-09-10T12:00:00.000Z");
     const queryNavigation = buildFunctionalResetQueryNavigation({ project, recordedAt: "2026-09-10T12:00:01.000Z" });
-    persistFunctionalResetSession(window.localStorage, { ...session, project, queryNavigation });
+    persistFunctionalResetSession(window.localStorage, { ...session, projectId: project.projectId, project, queryNavigation });
 
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: "fais moi des propositions" } });

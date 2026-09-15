@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -31,7 +32,7 @@ const STRUCTURE = "Je veux construire une étude unique à deux volets coordonn�
 const FIRST_OBJECTIVE = "Évaluer les thrombus manqués à l’échographie et détectés à l’IRM";
 const SECOND_OBJECTIVE = "Évaluer le devenir clinique à 12 mois des patients atteints de thrombus intra-VG";
 
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const submit = (text: string) => {
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });

@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -36,7 +37,7 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 const UPDATE_RAW = "L’âge maximal sera 75 ans.";
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 const lastVisibleNoxiaText = (session: FunctionalResetSession) => {
   const entry = [...session.entries].reverse().find((candidate) => candidate.kind === "TEXT" && candidate.role === "NOXIA");
   if (!entry || entry.kind !== "TEXT") throw new Error("EXPECTED_VISIBLE_NOXIA_TEXT");

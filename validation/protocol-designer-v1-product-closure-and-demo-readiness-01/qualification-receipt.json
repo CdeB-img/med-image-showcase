@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-15T14:36:06.485160+00:00",
+  "baselineHead": "86739f3d864af68c57fff8045606a19eb0cb0eea",
+  "fullSuite": {
+    "exitCode": 0,
+    "seconds": 31.36,
+    "testFiles": 278,
+    "passed": 4352,
+    "failed": 0,
+    "pending": 12,
+    "todo": 1,
+    "success": true,
+    "sourceUnchanged": true,
+    "providerCalls": 0
+  },
+  "unhandledErrorsReported": 0,
+  "runtimeErrorSuites": null,
+  "typescript": "PASS",
+  "typescriptLog": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/typecheck-final-qualified.log",
+  "lint": "PASS",
+  "lintLogs": [
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/lint-closure-qualified.log",
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/lint-last-test-type-fixes.log"
+  ],
+  "build": "PASS",
+  "buildLog": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/build-closure-qualified.log",
+  "buildScope": "Product source unchanged after build; subsequent changes only correct types in two test readers.",
+  "browserInvariants": "PASS",
+  "preservation": "PASS",
+  "providerCalls": 0,
+  "demoReady": "PARTIAL",
+  "noPush": true,
+  "noDeployment": true,
+  "scientificNarrative": "PARTIAL",
+  "qualifiedSourceFreeze": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/source-freeze-final-verification.json"
+}

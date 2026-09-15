@@ -1,5 +1,8 @@
 import type { ProjectDecisionRecord, ResearchProjectDesignResult } from "@/features/research-project-construction/types";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { DocumentAdministration } from "./administration";
+import type { ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
+import type { DocumentEvidenceContent, DocumentRevisionRecord } from "./scientific-document-revision";
 import type {
   StudyTemplateDefinition,
   StudyTemplateInstance,
@@ -282,6 +285,9 @@ export type DocumentProjectionAuditResult = {
 };
 
 export type DocumentProjection = {
+  evidenceContent?: DocumentEvidenceContent;
+  documentaryRevision?: DocumentRevisionRecord;
+  administration?: DocumentAdministration;
   contractVersion: typeof DOCUMENT_PROJECTION_ENGINE_VERSION;
   projectionId: string;
   seriesId: string;
@@ -300,6 +306,8 @@ export type DocumentProjection = {
     projectVersion: string;
     projectDigest: string;
     handoffVersion: string;
+    administrationDigest?: string;
+    projectSnapshotDigest?: string;
     template: null | {
       templateId: string;
       templateVersion: string;
@@ -348,6 +356,9 @@ export type LegacyDirectProjectProjectionRequest = {
 };
 
 export type DocumentProjectionRequest = LegacyDirectProjectProjectionRequest & {
+  knowledgeLibrary?: ProjectSourceLibrary;
+  sourceSnapshotDigest?: string;
+  administration?: DocumentAdministration;
   templateContext: StudyTemplateProjectionContext;
   regulatoryResolutionRef: RegulatoryResolutionReference;
   documentaryPatternSnapshotRef: DocumentaryPatternSnapshotReference;

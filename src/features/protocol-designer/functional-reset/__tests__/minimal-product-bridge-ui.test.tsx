@@ -1,3 +1,4 @@
+import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -25,7 +26,7 @@ const submit = (content: string) => {
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: content } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+const stored = () => JSON.parse(window.localStorage.getItem(window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY) ?? FUNCTIONAL_RESET_STORAGE_KEY)!);
 
 const singleObjectContribution = (
   turns: ScientificInterpretationTurn[],
@@ -145,7 +146,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
       decision: { status: "REJECTED", mandate: "PROJECT_OWNER" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
+    fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("functional-contribution-review");
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));

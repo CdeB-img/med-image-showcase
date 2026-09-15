@@ -349,7 +349,7 @@ export const buildCurrentTurnNavigation = (input: {
       : selectedNative && requiredVisibleObligations.length
         ? `${requiredVisibleObligations.map((item) => item.exactText).join("\n")}\nAucune adoption ni écriture Project n’est effectuée.`
         : selectedNative ? native!.explanation : candidate
-          ? `Je vous propose de structurer pour revue les éléments que vous avez formulés${content.length ? ` : ${content.map((item) => item.text).join(" ; ")}` : ". Les changements repérés sont conservés pour revue"}. Cette proposition reste à confirmer ; aucune information manquante n’est complétée.`
+          ? `Je vous propose de structurer pour revue les éléments que vous avez formulés${content.some((item) => item.text.includes("?")) ? " dans la synthèse ci-dessous" : content.length ? ` : ${content.map((item) => item.text).join(" ; ")}` : ". Les changements repérés sont conservés pour revue"}. Cette proposition reste à confirmer ; aucune information manquante n’est complétée.`
           : boundedReferents
             ? `Les contenus explicitement référencés sont : ${realizedContent.map((item) => item.text).join(" ; ")}. Leur distinction ne peut être précisée au-delà de ces éléments sans justification gouvernée supplémentaire.`
             : boundedReferentLimit

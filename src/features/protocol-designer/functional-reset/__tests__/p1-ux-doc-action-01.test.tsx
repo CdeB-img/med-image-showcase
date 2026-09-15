@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -109,7 +110,7 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 
 describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
   beforeEach(() => {
@@ -183,7 +184,8 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: after.runtimeTurns.at(-1)?.content });
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
     expect(after.pendingContribution).toBeNull();
-    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: "Voici la version actuelle du protocole." });
+    // This historical fixture predates the administrative snapshot contract.
+    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: "Voici la dernière version disponible du protocole. Elle reste signalée comme historique." });
   });
 
   it("leaves a scientific protocol modification on the normal conversation corridor", async () => {
@@ -286,7 +288,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     submit("télécharge le protocole");
 
     const preview = await screen.findByTestId("functional-protocol-preview");
-    expect(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" })).toBeInTheDocument();
+    expect(within(preview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
     expect(runtime.request).not.toHaveBeenCalled();
   });
 });

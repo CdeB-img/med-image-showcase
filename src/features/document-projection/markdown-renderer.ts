@@ -22,6 +22,11 @@ export const renderProjectionMarkdown = (projection: Readonly<DocumentProjection
     "",
     "> Projection documentaire en lecture seule. Elle n’est ni la vérité du Research Project, ni un protocole clinique exécutable, ni une approbation.",
   ];
+  if (projection.administration) {
+    lines.push("", "## Informations administratives", "", `Statut administratif : ${projection.administration.status}`, "",
+      ...projection.administration.fields.filter((f) => f.required || f.value).map((f) => `- ${f.label} : ${escapeMarkdown(f.value ?? f.placeholder)}`),
+      "", "La complétude administrative ne constitue pas une approbation scientifique ou réglementaire.");
+  }
   projection.sections.forEach((section) => {
     lines.push("", `## ${section.order}. ${escapeMarkdown(section.title)}`, "", `Statut : **${section.status}** · Applicabilité : **${section.applicability}** · TMP : **${section.templateStatus ?? "LEGACY"}**`);
     if (section.templateNodeIds.length) lines.push("", "Nœuds TMP :", bulletList(section.templateNodeIds));

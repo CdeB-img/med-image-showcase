@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -26,7 +27,7 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 
 const REQUEST = "Je veux créer une étude longitudinale pour caractériser l’évolution de la fonction myocardique après une intervention.";
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 const submit = async (text: string) => {
   await waitFor(() => expect(screen.getByLabelText("Votre message")).not.toBeDisabled());
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });

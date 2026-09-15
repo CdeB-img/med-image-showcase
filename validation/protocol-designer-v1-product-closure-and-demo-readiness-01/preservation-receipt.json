@@ -1,0 +1,233 @@
+{
+  "at": "2026-09-15T14:31:51.333413+00:00",
+  "baseline": "86739f3d864af68c57fff8045606a19eb0cb0eea",
+  "checked": {
+    "tracked": 4752,
+    "priorUntracked": 2509
+  },
+  "sealedNotOpened": 645,
+  "missing": [],
+  "changed": [
+    {
+      "path": "src/features/document-projection/audit.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/functional-reset-boundary.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/html-renderer.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/index.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/markdown-renderer.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/standard-protocol-presentation.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/template-integration.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/document-projection/types.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/knowledge-engine/understand-projection.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/p-web-02-contract.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolPreview.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ResearchProjectPanel.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-01.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-02.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-03a.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-03a1.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-03b.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/functional-reset-03c.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/minimal-product-bridge-ui.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/p1-e2e-03-standard-projection.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/p1-trace-02a-end-to-end-trace.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/p1-trace-02c-inspector-qualification.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/p1-ux-doc-action-01.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/pass3a-candidate-lifecycle-ui.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/project-qry-01.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/scientific-stack-biostatistics-01-standard.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/scientific-stack-data-01r-standard.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/scientific-stack-st-01-standard.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-qry-continuation-proactive-proposal-01.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-second-scientific-vertical.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/v1-thrombus-visible-vertical.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/session.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/protocol-designer/product-study-design-owner-runtime.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/query-navigation/__tests__/v1-standard-scientific-conversation-intelligence.test.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/query-navigation/current-turn-navigation.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/research-project-construction/canonical-project-backbone.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/research-project-construction/contribution-owner-boundary.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/study-template/composition.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/study-template/project-input.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/features/study-template/types.ts",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    },
+    {
+      "path": "src/pages/ProtocolDesignerDemo.tsx",
+      "kind": "tracked",
+      "allowedMissionSourceChange": true
+    }
+  ],
+  "priorUntrackedUnchanged": true,
+  "onlyMissionTrackedChanges": true,
+  "status": "PASS",
+  "privateEvidenceBaseline": "validation/protocol-designer-v1-multi-scenario-live-causal-repair-01/baseline.json",
+  "privateEvidenceVerifiedUnchanged": 36,
+  "privateEvidenceChangedOrMissing": []
+}

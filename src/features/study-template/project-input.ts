@@ -1,3 +1,4 @@
+import { presentResearchProjectAssertion } from "@/features/research-project-construction/contribution-owner-boundary";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import {
   CANONICAL_PROJECT_OBJECT_TYPES,
@@ -47,7 +48,7 @@ export const studyTemplateProjectInputFromProjectSnapshot = (
     versionRef: object.versionRef,
     version: object.version,
     type: object.type,
-    content: object.content,
+    content: presentResearchProjectAssertion(object.content, "polarity" in object ? object.polarity as string | null : null),
     scientificRole: object.scientificRole,
     semanticKey: object.semanticKey,
     epistemicState: object.epistemicState,
@@ -61,7 +62,7 @@ export const studyTemplateProjectInputFromProjectSnapshot = (
     versionRef: object.versionRef,
     version: object.version,
     type: object.type,
-    content: object.content,
+    content: presentResearchProjectAssertion(object.content, "polarity" in object ? object.polarity as string | null : null),
     scientificRole: object.scientificRole,
     semanticKey: `${object.type}:${object.stableId}`,
     epistemicState: "UNKNOWN",

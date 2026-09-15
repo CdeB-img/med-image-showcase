@@ -1,0 +1,187 @@
+{
+  "provenance": "CARDIO_NATURAL_LANGUAGE_FROZEN_BEFORE_EXECUTION_AND_EXISTING_NEURO_LIVE_S4",
+  "qualificationScope": "Transport only supplies explicit semantic extraction; Project adoption, documents and persistence must be produced by native product. No provider-live competence claim.",
+  "turns": [
+    {
+      "id": "CARDIO-01",
+      "text": "Je voudrais construire une étude sur la fibrose myocardique chez des adultes avec un diabète de type 2. On pourrait regarder l'ECV en IRM, je cherche surtout à voir son lien avec la durée du diabète. Pour l'instant je n'ai pas d'effectif arrêté.",
+      "decision": "CONFIRM",
+      "semanticDelta": [
+        {
+          "operation": "ADD",
+          "key": "cardio:question",
+          "type": "SCIENTIFIC_QUESTION",
+          "content": "Quel est le lien entre l'ECV myocardique en IRM et la durée du diabète chez les adultes avec un diabète de type 2 ?",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:population",
+          "type": "POPULATION",
+          "content": "Adultes avec un diabète de type 2",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:condition",
+          "type": "CONDITION",
+          "content": "Fibrose myocardique",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:ecv",
+          "type": "CANONICAL_VARIABLE",
+          "content": "ECV myocardique",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:duration",
+          "type": "CANONICAL_VARIABLE",
+          "content": "Durée du diabète",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:irm",
+          "type": "IMAGING_MODALITY",
+          "content": "IRM",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:size",
+          "type": "UNCERTAINTY",
+          "content": "L'effectif reste à définir",
+          "epistemicState": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "CARDIO-02",
+      "text": "Pour le recueil, je pensais inclure des adultes de 40 à 80 ans et faire l'IRM une seule fois au départ.",
+      "decision": "REFUSE",
+      "semanticDelta": [
+        {
+          "operation": "ADD",
+          "key": "cardio:rejected-age",
+          "type": "ELIGIBILITY_CRITERION",
+          "content": "Âge de 40 à 80 ans",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:rejected-time",
+          "type": "TIMEPOINT",
+          "content": "IRM une seule fois au départ",
+          "epistemicState": "KNOWN"
+        }
+      ]
+    },
+    {
+      "id": "CARDIO-03",
+      "text": "Non je corrige : on garde les adultes avec un diabète de type 2, mais l'âge sera de 45 à 75 ans. Une IRM à l'inclusion me suffit.",
+      "decision": "CONFIRM",
+      "semanticDelta": [
+        {
+          "operation": "ADD",
+          "key": "cardio:age",
+          "type": "ELIGIBILITY_CRITERION",
+          "content": "Âge de 45 à 75 ans",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:baseline",
+          "type": "TIMEPOINT",
+          "content": "IRM à l'inclusion",
+          "epistemicState": "KNOWN"
+        }
+      ]
+    },
+    {
+      "id": "CARDIO-04",
+      "text": "Propose une manière d'étudier ce lien sans transformer cette association en preuve de causalité.",
+      "decision": "NONE",
+      "semanticDelta": []
+    },
+    {
+      "id": "CARDIO-05",
+      "text": "Je retiens une étude observationnelle prospective, avec l'ECV myocardique comme mesure principale et la durée du diabète comme variable explicative. Nous comparerons aussi les résultats selon le sexe, mais cette comparaison restera exploratoire.",
+      "decision": "CONFIRM",
+      "semanticDelta": [
+        {
+          "operation": "ADD",
+          "key": "cardio:design",
+          "type": "STUDY_DESIGN",
+          "content": "Étude observationnelle prospective",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:endpoint",
+          "type": "ENDPOINT",
+          "content": "ECV myocardique comme mesure principale",
+          "epistemicState": "KNOWN",
+          "studyRole": "PRIMARY_ENDPOINT"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:analysis",
+          "type": "ANALYSIS_SPECIFICATION",
+          "content": "Étudier l'association entre ECV myocardique et durée du diabète",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:exploratory",
+          "type": "ANALYSIS_SPECIFICATION",
+          "content": "Comparaison exploratoire selon le sexe",
+          "epistemicState": "KNOWN"
+        }
+      ]
+    },
+    {
+      "id": "CARDIO-06",
+      "text": "Après discussion avec l'équipe, on élargit finalement l'âge de 45 à 75 ans vers 35 à 80 ans, le reste du projet reste identique. Ajoute aussi une seconde IRM à douze mois pour suivre l'évolution de l'ECV.",
+      "decision": "CONFIRM",
+      "semanticDelta": [
+        {
+          "operation": "REPLACE",
+          "key": "cardio:age",
+          "type": "ELIGIBILITY_CRITERION",
+          "content": "Âge de 35 à 80 ans",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "operation": "ADD",
+          "key": "cardio:followup",
+          "type": "TIMEPOINT",
+          "content": "Seconde IRM à douze mois pour suivre l'évolution de l'ECV",
+          "epistemicState": "KNOWN"
+        }
+      ]
+    },
+    {
+      "id": "CARDIO-07",
+      "text": "Quel est le projet retenu maintenant ?",
+      "decision": "NONE",
+      "semanticDelta": []
+    },
+    {
+      "id": "NEURO-01",
+      "text": "Je pense à des patients avec une carotide bouchée depuis longtemps : parfois le débit cérébral au repos paraît préservé. Je voudrais étudier si c'est une compensation hémodynamique ou si on peut vraiment en déduire que leur consommation d'oxygène est normale, et je ne suis pas sûr que ce soit la même chose.",
+      "decision": "CONFIRM",
+      "recordedRepairScenario": "S4",
+      "recordedRepairTurn": 1
+    },
+    {
+      "id": "NEURO-02",
+      "text": "On reste sur des adultes avec une occlusion carotidienne unilatérale chronique, symptômes stables, pas d'AVC aigu. C'est une étude d'observation, pas un essai de traitement.",
+      "decision": "CONFIRM",
+      "recordedRepairScenario": "S4",
+      "recordedRepairTurn": 2
+    }
+  ]
+}

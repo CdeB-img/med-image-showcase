@@ -1,0 +1,74 @@
+{
+  "scope": "Local mission evidence retained outside Git; hashes anchor the exact qualified bytes. No prior blind/sealed file opened.",
+  "at": "2026-09-15T14:41:31.531039+00:00",
+  "files": {
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/baseline.json": {
+      "bytes": 1637948,
+      "sha256": "4231e57e1785444bc5aece4abaecfd048afed192c6995e2fc2295fb82a924bf8"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/browser-evidence/browser-receipts.jsonl": {
+      "bytes": 138677134,
+      "sha256": "4c958d8a1ccdd25d1eb88ac23a8449544e29195361d5496a419b46b2925c7d3b"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/browser-evidence/browser-http-exchanges.jsonl": {
+      "bytes": 2336498,
+      "sha256": "d27466ee7bd9f571e927d04350cb9d3171f626a0905efdbbf894a5faa086a3fe"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/browser-evidence/downloaded-artifacts.jsonl": {
+      "bytes": 1762925,
+      "sha256": "1308922a46064d747d8110bec99a17833333ae3d94776c089667ae5ec725fc9f"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/full-suite-final-verification.json": {
+      "bytes": 1617612,
+      "sha256": "994ec238b40ddeced2c83fafd19cab73c1e28bfda890886388bd6f3f517309c6"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/full-suite-final-verification.log": {
+      "bytes": 191,
+      "sha256": "67366f365e3666a60d01e4c2618c12237807014b952c0b1f3b94130f88538768"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-01.html": {
+      "bytes": 245774,
+      "sha256": "2a770f1b7580e2f9a04348d6bd3cb48152ba83c5777e5498d7a9a4681f7cfe07"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-02.html": {
+      "bytes": 268544,
+      "sha256": "caf4005e81f580d703c7ac0683c30fb3cb03d8446fa11def3acab56ad5f7e55e"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-03.html": {
+      "bytes": 240285,
+      "sha256": "c2cb8e3c36012294288bcf646eaf8edafe95b2052402133ee82380b711f858a0"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-04.html": {
+      "bytes": 268765,
+      "sha256": "637477a0988cae0a8a5fb03d5e26a3687c78b6cca8b5929f4cebdc3b54d73631"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-05.html": {
+      "bytes": 240299,
+      "sha256": "a26c958fc1ba308530b2cb7764afcb6e93c02767846a935e9bfaec3c6d664a3f"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-06.html": {
+      "bytes": 251163,
+      "sha256": "8f9b788b8988948dc06ac906b99a6c44a5bf93c2112f0c46feed377ec011879d"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-07.html": {
+      "bytes": 246084,
+      "sha256": "8f7c1fe49927568f63147cb5d1215096325fa196f634a3bd3addddb5d50f8a37"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/build-closure-qualified.log": {
+      "bytes": 7606,
+      "sha256": "ab2f29bb4a2a49e7d348c990a58d31285f508e949fd5460faf0c475a8df9eb9d"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/lint-closure-qualified.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/lint-last-test-type-fixes.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/qualification/typecheck-final-qualified.log": {
+      "bytes": 1051,
+      "sha256": "8be7f9abb4aa227922481c8b0b84d172820237221a3a167978613b24e791f157"
+    }
+  }
+}

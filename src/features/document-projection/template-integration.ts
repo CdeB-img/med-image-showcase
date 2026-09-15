@@ -222,6 +222,9 @@ const nextVersion = (prior: Readonly<DocumentProjection> | null, source: Documen
 };
 
 export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequest): ProjectionExecutionResult => {
+  if (request.administration && request.administration.projectId !== request.project.documentHandoff.projectId) {
+    throw new Error("DOCUMENT_ADMINISTRATION_PROJECT_MISMATCH");
+  }
   const projectBefore = stableStringify(request.project);
   const templateBefore = stableStringify(request.templateContext);
   const preflight = auditDocumentProjection(request);
@@ -267,7 +270,9 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
     ...baseComposition,
     sections: baseComposition.sections.map((section) => enrichSection(request, section, templateDocument.sectionIds, allowedTemplateNodeIds, templateDocument.nodeId)),
   };
-  const sections = composeEditorialProjection(composition);
+  const retainedEvidence = request.priorProjection?.source.projectId === request.project.documentHandoff.projectId ? request.priorProjection.evidenceContent : undefined;
+  const evidenceContent = request.knowledgeLibrary ? regenerateDocumentEvidence(request.knowledgeLibrary, retainedEvidence) : undefined;
+  const sections = [...composeEditorialProjection(composition), ...(evidenceContent ? documentEvidenceSections(evidenceContent) : [])].sort((a, b) => a.order - b.order);
   const readiness = assessProjectionReadiness(sections);
   const versions = versionsFor(request, definition.definitionVersion);
   const seriesId = `document-series:${logicalDigest({ projectId: request.project.documentHandoff.projectId, projectionType: request.projectionType, profile: request.profile, usage: request.usage, audience: request.audience, templateId: request.templateContext.definition.templateId })}`;
@@ -277,6 +282,8 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
     projectVersion: request.project.candidateVersion.versionId,
     projectDigest: request.project.resultDigest,
     handoffVersion: request.project.documentHandoff.handoffVersion,
+    ...(request.administration ? { administrationDigest: request.administration.digest } : {}),
+    ...(request.sourceSnapshotDigest ? { projectSnapshotDigest: request.sourceSnapshotDigest } : {}),
     template: {
       templateId: request.templateContext.definition.templateId,
       templateVersion: request.templateContext.instance.templateVersion,
@@ -294,8 +301,10 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
   const limitations = uniqueSorted([...sections.flatMap((section) => section.limitations), ...(request.limitations ?? [])]);
   const contradictions = uniqueSorted(sections.flatMap((section) => [...section.contradictions, ...section.conflicts]));
   const material = {
+    ...(evidenceContent ? { evidenceContent } : {}),
     seriesId,
     projectionType: request.projectionType,
+    ...(request.administration ? { administration: request.administration } : {}),
     source,
     versions,
     profile: request.profile,
@@ -311,7 +320,9 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
   const projectionDigest = logicalDigest(material);
   if (prior?.projectionDigest === projectionDigest) return { ok: true, projection: prior as DocumentProjection };
   const projection: DocumentProjection = {
+    ...(evidenceContent ? { evidenceContent } : {}),
     contractVersion: DOCUMENT_PROJECTION_ENGINE_VERSION,
+    ...(request.administration ? { administration: JSON.parse(JSON.stringify(request.administration)) } : {}),
     projectionId: `document-projection:${projectionDigest}`,
     seriesId,
     projectionType: request.projectionType,
@@ -364,3 +375,4 @@ export function projectDocument(request: DocumentProjectionRequest | LegacyDirec
     ? projectDocumentFromStudyTemplate(request)
     : projectDocumentLegacyDirect(request);
 }
+import { documentEvidenceSections, regenerateDocumentEvidence } from "./scientific-document-revision";

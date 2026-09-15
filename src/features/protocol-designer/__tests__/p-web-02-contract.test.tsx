@@ -45,8 +45,8 @@ describe("P-WEB-02 — preserved public boundaries after FUNCTIONAL-RESET-01", (
     expect(read("src/features/protocol-designer/fixtures.ts")).not.toMatch(/\b(?:TR|TE|dose|ml\/kg)\s*[:=]\s*\d+/i);
   });
   it("keeps the external Editorial Engine out of the guided page", () => expect(read("src/pages/ProtocolDesignerDemo.tsx")).not.toContain("@editorial-engine"));
-  it("keeps an immediate local reset", () => {
+  it("keeps an immediate new-project action", () => {
     renderDemo();
-    expect(screen.getByRole("button", { name: "Recommencer" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Nouveau projet" })).toBeInTheDocument();
   });
 });

@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -238,7 +239,7 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     fireEvent.click(screen.getByRole("button", { name: "Créer l’aperçu" }));
     await screen.findByTestId("functional-protocol-preview");
     await waitFor(() => {
-      const stored = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as {
+      const stored = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {
         scientificExecutionTraceLedger: ScientificExecutionTraceLedger;
       };
       const stages = stored.scientificExecutionTraceLedger.events.map((event) => event.common?.stage);
@@ -248,12 +249,7 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     fireEvent.click(screen.getByRole("button", { name: "Télécharger le protocole (.html)" }));
 
     await waitFor(() => {
-      const stored = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as {
-        bridgeTraces: Array<{ traceRunId?: string; preProjectTrace?: { captureMode: string; points: unknown[] } }>;
-        project: { projectId: string; versionId: string };
-        documents: { projections: Array<{ projectionId: string }> };
-        scientificExecutionTraceLedger: ScientificExecutionTraceLedger;
-      };
+      const stored = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
       const traceRunId = stored.bridgeTraces[0]?.traceRunId;
       expect(traceRunId).toBeTruthy();
       expect(stored.bridgeTraces[0]?.preProjectTrace?.captureMode).toBe("MINIMIZED");
@@ -295,7 +291,7 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
       expect(artifact?.artifactId).toMatch(new RegExp(`^artifact:${stored.documents.projections[0].projectionId}:HTML:`));
       expect(JSON.stringify(stored.scientificExecutionTraceLedger)).not.toContain(COLCHICINE_INITIAL);
     });
-    const measured = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as {
+    const measured = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {
       bridgeTraces: Array<{ traceRunId?: string }>;
       scientificExecutionTraceLedger: ScientificExecutionTraceLedger;
     };

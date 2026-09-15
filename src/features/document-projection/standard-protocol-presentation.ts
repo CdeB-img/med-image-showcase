@@ -3,6 +3,9 @@ import type { DocumentProjection, DocumentSectionInstance } from "./types";
 export const STANDARD_PROTOCOL_PRESENTATION_BOUNDARY = "DOC_001_STANDARD_PROTOCOL_PRESENTATION" as const;
 
 export type StandardProtocolSectionId =
+  | "synopsis"
+  | "scientific-background"
+  | "scientific-references"
   | "title"
   | "question"
   | "objectives"
@@ -261,7 +264,7 @@ const analysisEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
   /^Exigence\s+(?:COMPARISON|comparaison)/i,
 );
 
-const internalDiagnostic = (value: string) => /MeasurementDefinitions|ObservableProperties|BiomarkerRoles|canonicalPromotion|handoff|adaptation de lecture|contrat PRJ-001|champs booléens historiques|\b(?:IMAGING|BIOSTATISTICS|QRY|PRJ|TMP|DOC|OBSERVABILITY_MEASUREMENT):/i.test(value);
+const internalDiagnostic = (value: string) => /AnalysisSpecifications|MeasurementDefinitions|ObservableProperties|BiomarkerRoles|canonicalPromotion|handoff|adaptation de lecture|contrat PRJ-001|champs booléens historiques|\b(?:IMAGING|BIOSTATISTICS|QRY|PRJ|TMP|DOC|OBSERVABILITY_MEASUREMENT):/i.test(value);
 
 const limitationEntries = (sections: DocumentSectionInstance[]) => unique(
   simpleFacts(
@@ -348,7 +351,10 @@ export const buildStandardProtocolPresentation = (
 ): StandardProtocolPresentation => {
   const built = BUILDERS.map((builder) => {
     const sourceSections = projection.sections.filter((section) => builder.sourceSectionIds.includes(section.sectionId));
-    const entries = builder.entries(projection.sections);
+    const projectedEntries = builder.entries(projection.sections);
+    const administrativeTitle = projection.administration?.fields.find((field) => field.key === "title")?.value;
+    const entries = builder.sectionId === "title" && projectedEntries.length === 0 && administrativeTitle
+      ? [entry("title", "PARAGRAPH", administrativeTitle)] : projectedEntries;
     const openItems = openItemsFor(builder, sourceSections, entries);
     const section: StandardProtocolSection = {
       sectionId: builder.sectionId,
@@ -370,7 +376,17 @@ export const buildStandardProtocolPresentation = (
     persisted: false,
     readOnly: true,
     projectWriteAuthorized: false,
-    sections: built.map((item) => item.section),
+    sections: projection.evidenceContent ? [
+      built[0]!.section,
+      { sectionId: "synopsis", title: "Synopsis", completeness: "PARTIAL", sourceSectionIds: ["synopsis"],
+        entries: built.filter((item) => ["question", "population", "design", "endpoints", "temporality"].includes(item.section.sectionId))
+          .flatMap((item) => item.section.entries.map((value) => ({ ...value, entryId: `synopsis:${value.entryId}`, kind: "PARAGRAPH" as const, value: `${item.section.title} : ${value.value}` }))) },
+      { sectionId: "scientific-background", title: "Contexte et justification scientifique", completeness: "PARTIAL", sourceSectionIds: ["scientific-background"],
+        entries: projection.sections.filter((section) => section.sectionId === "scientific-background").flatMap((section) => section.blocks.flatMap((block) => block.items.map((value, index) => ({ entryId: `background:${index}`, kind: "PARAGRAPH" as const, label: null, value })))) },
+      ...built.slice(1).map((item) => item.section),
+      { sectionId: "scientific-references", title: "Références bibliographiques", completeness: projection.evidenceContent.sources.length ? "KNOWN" : "MISSING", sourceSectionIds: ["scientific-references"],
+        entries: projection.sections.filter((section) => section.sectionId === "scientific-references").flatMap((section) => section.blocks.flatMap((block) => block.items.map((value, index) => ({ entryId: `reference:${index}`, kind: "PARAGRAPH" as const, label: null, value })))) },
+    ] : built.map((item) => item.section),
     openItems: unique(built.flatMap((item) => item.openItems), (item) => normalizedKey(item.label)),
   };
 };

@@ -1,3 +1,5 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
+import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -175,7 +177,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
     expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
-    const storedV2 = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+    const storedV2 = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
     expect(storedV2.documents.projections).toHaveLength(2);
     expect(storedV2.documents.projections[1].source.projectVersion).toBe(storedV2.project.versionId);
 
@@ -196,9 +198,10 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(screen.getByText(COLCHICINE_LATER_MODIFICATION)).toBeInTheDocument();
     expect(screen.queryByText(/Guided Intake|Orientation|Actor|Mandate|Scientific Reasoning Graph/)).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
+    fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 3")).toBeNull());
-    const reset = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+    const reset = readPersistedSessionForTest(window.localStorage, window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)!, true);
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project.revision).toBe(3);
     expect(reset.project).toBeNull();
     expect(reset.documents.projections).toEqual([]);
     expect(reset.runtimeTurns).toEqual([]);

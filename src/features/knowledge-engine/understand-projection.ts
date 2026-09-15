@@ -194,7 +194,7 @@ const predicateLabels: Record<string, string> = {
   IS_NOT_SUFFICIENT_AS_STANDALONE_ECV_SURROGATE: "ne suffit pas comme substitut autonome de l’ECV",
 };
 
-const readableRelation = (conclusion: RuntimeKnowledgeConclusion) => {
+export const readableKnowledgeConclusion = (conclusion: Pick<RuntimeKnowledgeConclusion, "text" | "semanticRelation">) => {
   const relation = conclusion.semanticRelation;
   if (!relation || !predicateLabels[relation.predicate]) return conclusion.text.replace(/[.\s]+$/u, "");
   return `${readableEntity(relation.subject)} ${predicateLabels[relation.predicate]} ${readableEntity(relation.object)}`;
@@ -207,7 +207,7 @@ const statementFromConclusion = (
 ): UnderstandAnswerStatement => ({
   statementId: `understand-statement:${conclusion.conclusionId}`,
   role,
-  text: `${prefix}${readableRelation(conclusion)}.`,
+  text: `${prefix}${readableKnowledgeConclusion(conclusion)}.`,
   support: {
     ...emptySupport(),
     knowledgeItemRefs: [conclusion.assertionId],

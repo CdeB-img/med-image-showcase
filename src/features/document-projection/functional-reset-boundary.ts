@@ -1,3 +1,4 @@
+import { presentResearchProjectAssertion } from "@/features/research-project-construction/contribution-owner-boundary";
 import { DOCUMENTARY_PATTERN_CATALOG } from "@/features/documentary-knowledge/catalog";
 import { logicalDigest, uniqueSorted } from "@/features/knowledge-engine/canonical";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
@@ -28,6 +29,7 @@ import {
   studyTemplateProjectInputFromProjectSnapshot,
 } from "@/features/study-template";
 import { projectDocumentFromStudyTemplate, resolveTemplateDocumentDefinitions } from "./template-integration";
+import type { DocumentAdministration } from "./administration";
 import type {
   DocumentProjection,
   DocumentProjectionRequest,
@@ -74,7 +76,7 @@ export type FunctionalResetDocumentPortfolio = {
 };
 
 const elements = (project: ResearchProjectOwnerProjection, sectionId: ResearchProjectSectionId) =>
-  project.sections.find((section) => section.sectionId === sectionId)?.elements ?? [];
+  (project.sections.find((section) => section.sectionId === sectionId)?.elements ?? []).map((element) => ({ ...element, content: presentResearchProjectAssertion(element.content, element.sourcePolarity) }));
 
 const typeOf = (element: ResearchProjectElement) => `${element.sourceProposedType ?? ""} ${element.sourceStudyRole ?? ""}`.toLocaleUpperCase("fr-FR");
 const hasType = (element: ResearchProjectElement, pattern: RegExp) => pattern.test(typeOf(element));
@@ -153,7 +155,8 @@ export const projectDocumentSourceFromFunctionalProject = (
 ): ResearchProjectDesignResult => {
   const canonicalState = ensureCanonicalProjectState(project);
   const canonicalSnapshot = buildProjectContextSnapshot({ project });
-  const canonicalObjects = canonicalState.objects.filter((object) => object.actuality === "CURRENT");
+  const canonicalObjects = canonicalState.objects.filter((object) => object.actuality === "CURRENT")
+    .map((object) => ({ ...object, content: presentResearchProjectAssertion(object.content, object.projection.sourcePolarity) }));
   const canonicalOfType = (...types: CanonicalProjectObjectVersion["objectType"][]) => canonicalObjects.filter((object) => types.includes(object.objectType));
   const canonicalQuestion = canonicalOfType("SCIENTIFIC_QUESTION")[0] ?? null;
   const canonicalPopulation = canonicalOfType("CONDITION", "POPULATION", "ELIGIBILITY_CRITERION");
@@ -166,7 +169,7 @@ export const projectDocumentSourceFromFunctionalProject = (
   const canonicalDataNeeds = canonicalOfType("DATA_NEED");
   const canonicalVisits = canonicalOfType("VISIT");
   const studyDesignCandidates: ResearchProjectDesignResult["studyDesignCandidates"] = canonicalDesign.flatMap((design) => {
-    const family = canonicalStudyDesignFamily(design.scientificRole);
+    const family = design.projection.sourcePolarity === "NEGATED" ? null : canonicalStudyDesignFamily(design.scientificRole);
     return family ? [{
       designId: design.objectId,
       family,
@@ -594,8 +597,8 @@ const regulatoryInputFor = (
   asOf: string,
 ): RegulatoryResolutionInput => {
   const provenance = [project.projectId, project.versionId, project.projectDigest, FUNCTIONAL_RESET_DOCUMENT_BOUNDARY];
-  const interventionPresent = elements(project, "INTERVENTION").length > 0;
-  const multicenterDeclared = elements(project, "DESIGN").some((item) => /multicent/i.test(item.content));
+  const interventionPresent = elements(project, "INTERVENTION").some((item) => item.sourcePolarity !== "NEGATED");
+  const multicenterDeclared = elements(project, "DESIGN").some((item) => item.sourcePolarity !== "NEGATED" && /multicent/i.test(item.content));
   return createRegulatoryResolutionInput({
     researchProjectId: project.projectId,
     researchProjectVersion: project.versionId,
@@ -658,17 +661,29 @@ const regulatoryInputFor = (
   });
 };
 
+export const isFunctionalDocumentProjectionCurrent = (
+  projection: Readonly<DocumentProjection>, project: Readonly<ResearchProjectOwnerProjection>, administration?: DocumentAdministration,
+) => projection.source.projectVersion === project.versionId
+  && projection.source.projectDigest === project.projectDigest
+  && projection.source.administrationDigest === administration?.digest
+  && projection.source.projectSnapshotDigest === buildProjectContextSnapshot({ project }).snapshotDigest;
+
 const requestFor = (
   project: Readonly<ResearchProjectOwnerProjection>,
   handoffDecision: Readonly<HumanDecisionEnvelope> | null,
   requestedAt: string,
   priorProjection: Readonly<DocumentProjection> | null,
+  administration?: DocumentAdministration,
+  knowledgeLibrary?: ProjectSourceLibrary,
 ) => {
+  if (knowledgeLibrary && knowledgeLibrary.projectId !== project.projectId) throw new Error("DOCUMENT_KNOWLEDGE_PROJECT_MISMATCH");
   const source = projectDocumentSourceFromFunctionalProject(project, handoffDecision);
   const projectSnapshot = buildProjectContextSnapshot({ project });
   const templateProjectInput = studyTemplateProjectInputFromProjectSnapshot(projectSnapshot);
   const regulatory = resolveRegulatoryRequirements(regulatoryInputFor(project, source, requestedAt));
   const template = composeStudyTemplateInstance({
+    ...(knowledgeLibrary ? { knowledgeSupport: { digest: knowledgeLibrary.digest,
+      sourceRefs: knowledgeLibrary.sources.map((item) => item.source.sourceId), assertionRefs: availableDocumentEvidence(knowledgeLibrary).flatMap((item) => item.assertionRefs) } } : {}),
     researchProject: templateProjectInput,
     applicableRequirementSet: regulatory,
     documentaryPatternGraph: DOCUMENTARY_PATTERN_CATALOG,
@@ -688,6 +703,8 @@ const requestFor = (
     requestedDetailLevel: "SHORT",
   });
   const request: DocumentProjectionRequest = {
+    ...(administration ? { administration } : {}),
+    sourceSnapshotDigest: projectSnapshot.snapshotDigest,
     project: source,
     decisionRecords: source.documentHandoff.humanDecisions,
     projectionType: "PROTOCOL",
@@ -696,7 +713,8 @@ const requestFor = (
     audience: "RESEARCH_TEAM",
     requestedAt,
     priorProjection,
-    templateContext: { definition: CLINICAL_STUDY_TEMPLATE, instance: template },
+    ...(knowledgeLibrary ? { knowledgeLibrary } : {}),
+    templateContext: { definition: knowledgeLibrary ? CLINICAL_STUDY_EVIDENCE_TEMPLATE : CLINICAL_STUDY_TEMPLATE, instance: template },
     regulatoryResolutionRef: {
       resolutionId: regulatory.resolutionId,
       corpusVersion: regulatory.corpusVersion,
@@ -846,25 +864,24 @@ const refusalFailure = (plan: ProjectionPlan): FunctionalResetDocumentPortfolio[
 } : null;
 
 export const refreshFunctionalResetDocumentPortfolio = (input: {
+  knowledgeLibrary?: ProjectSourceLibrary;
   project: Readonly<ResearchProjectOwnerProjection>;
   previous?: Readonly<FunctionalResetDocumentPortfolio> | null;
   handoffDecision?: Readonly<HumanDecisionEnvelope> | null;
   requestedAt: string;
   generateProtocol?: boolean;
+  administration?: DocumentAdministration;
 }): FunctionalResetDocumentPortfolio => {
   const previous = input.previous ?? createEmptyFunctionalResetDocumentPortfolio();
   const priorProjection = previous.projections.at(-1) ?? null;
   const currentDecision = input.handoffDecision?.status === "ADOPTED" && input.handoffDecision.projectVersion === input.project.versionId
     ? input.handoffDecision
     : null;
-  const { request, definitions } = requestFor(input.project, currentDecision, input.requestedAt, priorProjection);
+  const { request, definitions } = requestFor(input.project, currentDecision, input.requestedAt, priorProjection, input.administration, input.knowledgeLibrary);
   const protocolDefinition = definitions.find((item) => item.documentId === "PROTOCOL");
   const dmpDefinition = definitions.find((item) => item.documentId === "DATA_MANAGEMENT_PLAN");
   const sapDefinition = definitions.find((item) => item.documentId === "SAP");
-  const stale = Boolean(priorProjection && (
-    priorProjection.source.projectVersion !== input.project.versionId
-    || priorProjection.source.projectDigest !== input.project.projectDigest
-  ));
+  const stale = Boolean(priorProjection && !isFunctionalDocumentProjectionCurrent(priorProjection, input.project, input.administration));
   let projection = priorProjection;
   let failure: FunctionalResetDocumentPortfolio["lastFailure"] = null;
   if (input.generateProtocol && currentDecision) {
@@ -872,10 +889,9 @@ export const refreshFunctionalResetDocumentPortfolio = (input: {
     if ("plan" in execution) failure = refusalFailure(execution.plan);
     else projection = execution.projection;
   }
-  const isCurrent = Boolean(projection
-    && projection.source.projectVersion === input.project.versionId
-    && projection.source.projectDigest === input.project.projectDigest);
-  const protocolCard: FunctionalDocumentCard = isCurrent && projection ? {
+  const isCurrent = Boolean(projection && isFunctionalDocumentProjectionCurrent(projection, input.project, input.administration));
+  const administrationCurrent = projection?.source.administrationDigest === input.administration?.digest;
+  const protocolCard: FunctionalDocumentCard = isCurrent && administrationCurrent && projection ? {
     kind: "PROTOCOL",
     label: "Protocole",
     templateStatus: protocolDefinition?.status ?? "UNKNOWN",
@@ -937,3 +953,6 @@ export const functionalProtocolProjection = (
   portfolio: Readonly<FunctionalResetDocumentPortfolio>,
   projectionId: string | null,
 ) => projectionId ? portfolio.projections.find((projection) => projection.projectionId === projectionId && projection.projectionType === "PROTOCOL") ?? null : null;
+import type { ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
+import { CLINICAL_STUDY_EVIDENCE_TEMPLATE } from "@/features/study-template/document-evidence-template";
+import { availableDocumentEvidence } from "./scientific-document-revision";

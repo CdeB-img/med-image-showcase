@@ -1,3 +1,4 @@
+import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -20,7 +21,7 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 
 const REQUEST = "Je veux construire une étude longitudinale avec une mesure IRM principale, plusieurs visites et une analyse déjà définie.";
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
 
 const completeContribution = (turns: ScientificInterpretationTurn[]) => {
   const contribution = makeFunctionalResetContribution(turns);

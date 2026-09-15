@@ -1,0 +1,85 @@
+[
+  {
+    "label": "C-LIVING-storage-repair-add-Roujol-persisted",
+    "storedCharacters": 3765865,
+    "projects": [
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3",
+        "title": "Fibrose myocardique et diabète",
+        "versions": [
+          "1.0.0",
+          "1.1.0",
+          "1.2.0"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 2169604,
+        "storedCharacters": 2169604
+      },
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3::project::protocol-designer-session:31cabe9c-9b6b-4bee-8dbe-0b4c4a55f063",
+        "title": "Hémodynamique et oxygénation cérébrales",
+        "versions": [
+          "1.0.0",
+          "1.1.0"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 1072150,
+        "storedCharacters": 1072150
+      },
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3::project::protocol-designer-session:af57cbbc-111f-4f6b-bf9e-2d586c42ecd1",
+        "title": "Fibrose — vérification finale",
+        "versions": [
+          "1.0.0",
+          "1.0.1",
+          "1.0.2"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 2074163,
+        "storedCharacters": 523330
+      }
+    ]
+  },
+  {
+    "label": "C-LIVING-storage-repair-remove-Roujol-persisted",
+    "storedCharacters": 3773623,
+    "projects": [
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3",
+        "title": "Fibrose myocardique et diabète",
+        "versions": [
+          "1.0.0",
+          "1.1.0",
+          "1.2.0"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 2169604,
+        "storedCharacters": 2169604
+      },
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3::project::protocol-designer-session:31cabe9c-9b6b-4bee-8dbe-0b4c4a55f063",
+        "title": "Hémodynamique et oxygénation cérébrales",
+        "versions": [
+          "1.0.0",
+          "1.1.0"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 1072150,
+        "storedCharacters": 1072150
+      },
+      {
+        "key": "noxia-protocol-designer-functional-reset-v3::project::protocol-designer-session:af57cbbc-111f-4f6b-bf9e-2d586c42ecd1",
+        "title": "Fibrose — vérification finale",
+        "versions": [
+          "1.0.0",
+          "1.0.1",
+          "1.0.2",
+          "1.0.3"
+        ],
+        "roundTrip": true,
+        "originalCharacters": 2360713,
+        "storedCharacters": 531088
+      }
+    ]
+  }
+]

@@ -1,3 +1,4 @@
+import { presentResearchProjectAssertion } from "@/features/research-project-construction/contribution-owner-boundary";
 import type { FunctionalResetDocumentPortfolio, StudyDeliverablePortfolio } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import {
@@ -15,6 +16,7 @@ type Props = {
   mode: "STANDARD" | "EXPERT";
   onOpenProtocol: (projectionId: string) => void;
   onRequestProtocol: () => void;
+  onCompleteAdministration?: () => void;
   deliverablePortfolio?: StudyDeliverablePortfolio | null;
   onOpenDeliverables?: () => void;
   queryNavigation?: FunctionalResetQueryNavigation | null;
@@ -60,6 +62,7 @@ export default function ResearchProjectPanel({
   mode,
   onOpenProtocol,
   onRequestProtocol,
+  onCompleteAdministration,
   deliverablePortfolio,
   onOpenDeliverables,
   queryNavigation,
@@ -67,7 +70,7 @@ export default function ResearchProjectPanel({
   const sections = project?.sections ?? emptyResearchProjectSections();
   const canonicalProject = project ? ensureCanonicalProjectState(project) : null;
   const currentObjects = canonicalProject?.objects.filter((object) => object.actuality === "CURRENT") ?? [];
-  const objectLabels = new Map(currentObjects.map((object) => [object.objectId, object.content]));
+  const objectLabels = new Map(currentObjects.map((object) => [object.objectId, presentResearchProjectAssertion(object.content, object.projection.sourcePolarity)]));
   const standardQuestion = project ? researchProjectQuestionPresentation(sections) : null;
   const definedSectionCount = sections.filter((section) => section.elements.length > 0).length;
   const openSectionCount = sections.length - definedSectionCount;
@@ -121,8 +124,8 @@ export default function ResearchProjectPanel({
             ? <li className="break-words leading-relaxed">{standardQuestion}</li>
             : null}
           {section.sectionId === "QUESTION"
-            ? questionDetails.map((element) => <li key={element.elementId} className="break-words leading-relaxed"><span className="font-medium">Objectif :</span> {element.content}</li>)
-            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}
+            ? questionDetails.map((element) => <li key={element.elementId} className="break-words leading-relaxed"><span className="font-medium">Objectif :</span> {presentResearchProjectAssertion(element.content, element.sourcePolarity)}</li>)
+            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{presentResearchProjectAssertion(element.content, element.sourcePolarity)}</li>)}
         </ul>
         : <p className="mt-2 text-sm text-muted-foreground">À préciser dans la conversation.</p>}
     </section>;
@@ -150,7 +153,7 @@ export default function ResearchProjectPanel({
         {groupObjects.map((object) => {
           const role = roleLabel(object.scientificRole);
           return <li key={object.objectVersionId} className="break-words leading-relaxed">
-            {role && <span className="mr-1 font-medium">{role} :</span>}{object.content}
+            {role && <span className="mr-1 font-medium">{role} :</span>}{presentResearchProjectAssertion(object.content, object.projection.sourcePolarity)}
           </li>;
         })}
         {endpointTimings.map((qualification) => <li key={qualification.qualificationVersionId} className="break-words pl-3 text-xs leading-relaxed text-muted-foreground">
@@ -159,7 +162,7 @@ export default function ResearchProjectPanel({
         {otherTimings.map((timing) => <li key={"qualificationVersionId" in timing ? timing.qualificationVersionId : timing.occasionVersionId} className="break-words leading-relaxed">
           {presentCanonicalTemporalAnchor(timing.anchor, objectLabels)}
         </li>)}
-        {legacyTimings.map((timing) => <li key={timing.objectVersionId} className="break-words leading-relaxed">{timing.content}</li>)}
+        {legacyTimings.map((timing) => <li key={timing.objectVersionId} className="break-words leading-relaxed">{presentResearchProjectAssertion(timing.content, timing.projection.sourcePolarity)}</li>)}
       </ul> : <p className="mt-2 text-sm text-muted-foreground">À définir</p>}
     </section>;
   };
@@ -246,6 +249,7 @@ export default function ResearchProjectPanel({
                 : "Souhaitez-vous créer un premier aperçu du protocole de travail ?"}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{protocol.freshness === "STALE" ? "Actualiser l’aperçu" : "Créer l’aperçu"}</button>
+                {onCompleteAdministration && <button type="button" onClick={onCompleteAdministration} className="min-h-10 rounded-lg border px-3 text-xs font-medium">Compléter les informations d’abord</button>}
               </div>
             </div>}
             {historicalProtocols.length > 0 && <details className="mt-3 text-xs" data-testid="protocol-history-disclosure">

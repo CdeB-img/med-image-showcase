@@ -371,7 +371,7 @@ describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () 
 
     render(<ProtocolPreview projection={historicalProjection} stale onClose={vi.fn()} />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Le projet a changé depuis cette version du protocole");
+    expect(screen.getByRole("status")).toHaveTextContent("Le projet ou ses informations administratives ont changé depuis cette version du protocole");
     expect(screen.getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
     expect(stale.projections).toEqual(current.projections);
     expect(JSON.stringify(changed)).toBe(changedBefore);

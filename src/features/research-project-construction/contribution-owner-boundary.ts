@@ -502,10 +502,10 @@ const populationEventWindow = (
 };
 
 const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope): SpecializedProjectElement[] => {
-  const localContext = folded(itemScientificValueContext(item));
+  const localContext = folded(item.content);
   const identityAwareContext = folded(itemIntrinsicContext(item));
   const fallbackContext = folded(itemContext(item, contribution));
-  const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
+  const localWithSeparators = foldedWithSeparators(item.content);
   const sourceWithSeparators = foldedWithSeparators(contribution.source.turns
     .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
     .map((turn) => turn.content)
@@ -520,7 +520,9 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
   // range written "35/85"). Recover both endpoints only when the same source
   // clause explicitly binds the pair to age; arbitrary numeric pairs remain
   // outside this compatibility projection.
-  const range = explicitRange(localWithSeparators) ?? contextualAgeRange(localWithSeparators) ?? contextualAgeRange(sourceWithSeparators);
+  const explicitBound = /\bage\s+(?:minim\w*|maxim\w*)\b/.test(localContext);
+  const range = explicitRange(localWithSeparators) ?? contextualAgeRange(localWithSeparators)
+    ?? (explicitBound ? null : contextualAgeRange(sourceWithSeparators));
   if (range?.[1] && range[2]) return [
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MIN", content: `Âge minimal : ${range[1].replace(",", ".")} ans` },
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MAX", content: `Âge maximal : ${range[2].replace(",", ".")} ans` },
@@ -638,14 +640,16 @@ const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchPr
   // temporal changes for other objects.
   if (sectionId !== "TEMPORALITY" || canonicalProjectObjectType(item) === "VISIT") return null;
   const context = folded(itemContext(item, contribution));
-  const localContext = folded(itemScientificValueContext(item));
-  const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
-  const contextWithSeparators = foldedWithSeparators(itemContext(item, contribution));
+  // Normalize only the temporal object's own value. Its evidence can be a
+  // complete turn containing unrelated ages or another acquisition's timing.
+  // Without an intrinsic numeric timing, preserve the supplied literal.
+  const localContext = folded(item.content);
+  const localWithSeparators = foldedWithSeparators(item.content);
   const dayRange = (value: string) => value.match(/\b(?:j|jour)\s*(\d+)\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?(\d+)\b/);
   const localRange = dayRange(localWithSeparators);
   const codedPoint = localWithSeparators.match(/\b([jmw])\s*(\d+)\b/);
   const duration = localContext.match(/\b(\d+(?:[.,]\d+)?)\s*(mois|month(?:s)?|semaines?|weeks?|jours?|days?|ans?|years?)\b/);
-  const range = localRange ?? (duration || codedPoint ? null : dayRange(contextWithSeparators));
+  const range = localRange;
   if (!range && !duration && !codedPoint) return null;
   const modality = temporalModality(context);
   const modalityKey = modality === "Mesure" ? "MEASURE" : folded(modality).toLocaleUpperCase("fr-FR");
@@ -1171,6 +1175,12 @@ const reviewReplacement = (previous: string, proposed: string) => {
   return `${previous} → ${proposed}`;
 };
 
+/** Text-only projection of an existing assertion polarity; no scientific inference. */
+export const presentResearchProjectAssertion = (content: string, polarity?: string | null) =>
+  polarity === "NEGATED" ? `Exclusion / absence : ${content}`
+    : polarity === "UNCERTAIN" ? `Incertain : ${content}`
+      : polarity === "CONDITIONAL" ? `Sous condition : ${content}` : content;
+
 const reviewObjectLabel = (object: {
   objectType: string;
   content: string;
@@ -1183,10 +1193,7 @@ const reviewObjectLabel = (object: {
     ? `${object.content} — formulation d’origine : ${source}` : object.content;
   // ADD/REMOVE describe the change, not the truth polarity of its content.
   // The same label is used for initial review, replacements and relation ends.
-  return object.projection.sourcePolarity === "NEGATED" ? `Exclusion / absence : ${label}`
-    : object.projection.sourcePolarity === "UNCERTAIN" ? `Incertain : ${label}`
-    : object.projection.sourcePolarity === "CONDITIONAL" ? `Sous condition : ${label}`
-    : label;
+  return presentResearchProjectAssertion(label, object.projection.sourcePolarity);
 };
 
 const humanReviewObjectSectionLabel = (

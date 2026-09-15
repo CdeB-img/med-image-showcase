@@ -1,7 +1,10 @@
-import type {
-  StudyDesignProposalContribution,
-  StudyDesignRuntimeInput,
+import {
+  buildStudyDesignRuntimeInput,
+  buildStudyDesignDownstreamHandoffRequests,
+  type StudyDesignProposalContribution,
+  type StudyDesignRuntimeInput,
 } from "@/features/study-design";
+import { stableStringify } from "@/features/knowledge-engine";
 import {
   invokeStudyDesignOwnerFromSnapshot,
   type ProjectContextSnapshot,
@@ -14,6 +17,7 @@ import {
   PRODUCT_OWNER_RESULT_LEDGER_VERSION,
   appendProductOwnerInvocation,
   readProductOwnerResult,
+  rehydrateProductOwnerResultLedger,
   type ProductOwnerResultLedger,
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
@@ -24,6 +28,7 @@ import {
 } from "./scientific-execution-trace";
 
 export type ProductStudyDesignOwnerInvocation = {
+  reused: boolean;
   ledger: Readonly<ProductOwnerResultLedger>;
   entry: Readonly<ProductOwnerResultLedgerEntry<StudyDesignRuntimeInput, StudyDesignProposalContribution>>;
   request: Readonly<SpecializedOwnerHandoffRequest<StudyDesignRuntimeInput>>;
@@ -57,6 +62,26 @@ export const invokeStudyDesignForProjectSnapshot = (input: {
   trace?: ScientificRunTraceRecorder;
 }): ProductStudyDesignOwnerInvocation => {
   try {
+    const ledger = rehydrateProductOwnerResultLedger(input.ledger);
+    const nativeInput = buildStudyDesignRuntimeInput(input.projectSnapshot, input.selectedNeed);
+    const existing = !input.runtime && ledger.entries.find((entry) => entry.result?.owner === "STUDY_DESIGN"
+      && stableStringify(entry.request.nativeInput) === stableStringify(nativeInput));
+    if (existing?.result) {
+      const retained = readProductOwnerResult({ ledger, resultId: existing.result.resultId,
+        currentProjectSnapshot: input.projectSnapshot, expectedOwner: "STUDY_DESIGN" });
+      if (retained.freshness.status !== "CURRENT") throw new Error("STALE_OWNER_RESULT");
+      const entry = retained.entry as ProductStudyDesignOwnerInvocation["entry"];
+      const downstreamHandoffRequests = buildStudyDesignDownstreamHandoffRequests(nativeInput, entry.result!.nativePayload);
+      input.trace?.append({
+        eventType: "HANDOFF_ACCEPTED", timestamp: input.completedAt, owner: "STUDY_DESIGN",
+        status: "CURRENT_OWNER_RESULT_REUSED", sourceRefs: [input.callerRef, entry.entryId, entry.result!.resultId],
+        diagnostic: { stage: "OWNER_RESULT_PERSISTENCE", code: "EXACT_NATIVE_INPUT_RESULT_REUSED" },
+        technicalMetadata: { runtimeStarts: 0, projectWrites: 0, entryId: entry.entryId, entryDigest: entry.entryDigest },
+      });
+      return deepFreeze({ ledger, entry, request: entry.request, result: entry.result,
+        observation: entry.observation as ScientificReasoningOwnerObservation, downstreamHandoffRequests,
+        reused: true, projectWrites: 0, humanDecisionCreated: false, providerCalls: 0 });
+    }
     const invocation = invokeStudyDesignOwnerFromSnapshot({
       projectSnapshot: input.projectSnapshot,
       purpose: input.purpose,
@@ -67,7 +92,7 @@ export const invokeStudyDesignForProjectSnapshot = (input: {
       monotonicNow: input.monotonicNow,
     });
     const retained = appendProductOwnerInvocation({
-      ledger: input.ledger,
+      ledger,
       callerRef: input.callerRef,
       retainedAt: input.retainedAt ?? input.completedAt,
       request: invocation.request,
@@ -83,6 +108,7 @@ export const invokeStudyDesignForProjectSnapshot = (input: {
       nextExpectedHandoff: null,
     });
     return deepFreeze({
+      reused: false,
       ledger: retained.ledger,
       entry: retained.entry,
       request: retained.entry.request,

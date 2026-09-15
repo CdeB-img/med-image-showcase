@@ -1650,6 +1650,8 @@ export type ProjectContextSnapshot = {
     version: number;
     type: CanonicalProjectObjectType;
     content: string;
+    /** Omitted only by legacy snapshots or affirmative assertions. */
+    polarity?: string | null;
     scientificRole: string | null;
     semanticKey: string;
     epistemicState: CanonicalProjectEpistemicState;
@@ -1701,6 +1703,8 @@ export type ProjectContextSnapshot = {
     version: number;
     type: CanonicalProjectObjectType;
     content: string;
+    /** Omitted only by legacy snapshots or affirmative assertions. */
+    polarity?: string | null;
     scientificRole: string | null;
     supersededByVersionRef: string | null;
     provenance: CanonicalProjectProvenance;
@@ -1779,6 +1783,8 @@ export const buildProjectContextSnapshot = (input: {
     version: object.version,
     type: object.objectType,
     content: object.content,
+    ...(object.projection.sourcePolarity && object.projection.sourcePolarity !== "AFFIRMED"
+      ? { polarity: object.projection.sourcePolarity } : {}),
     scientificRole: object.scientificRole,
     semanticKey: object.semanticKey,
     epistemicState: object.epistemicState,
@@ -1852,6 +1858,8 @@ export const buildProjectContextSnapshot = (input: {
     version: object.version,
     type: object.objectType,
     content: object.content,
+    ...(object.projection.sourcePolarity && object.projection.sourcePolarity !== "AFFIRMED"
+      ? { polarity: object.projection.sourcePolarity } : {}),
     scientificRole: object.scientificRole,
     supersededByVersionRef: object.supersededByVersionRef,
     provenance: { ...object.provenance,

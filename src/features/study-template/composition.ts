@@ -2,6 +2,7 @@ import type { DocumentaryPattern } from "@/features/documentary-knowledge/types"
 import type { RequirementResolution } from "@/features/regulatory-resolution/types";
 import { containsTemplateToken, stableTemplateStringify, templateDigest, uniqueSorted } from "./canonical.ts";
 import { CLINICAL_STUDY_TEMPLATE, STUDY_FAMILY_DEFINITIONS } from "./definitions.ts";
+import { CLINICAL_STUDY_EVIDENCE_TEMPLATE } from "./document-evidence-template";
 import type {
   FamilyResolutionStatus,
   StudyFamilyDefinition,
@@ -63,6 +64,11 @@ const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplate
   });
 
   for (const selector of node.projectSelectors) {
+    if (selector === "KNOWLEDGE_EVIDENCE" && input.knowledgeSupport?.sourceRefs.length && input.knowledgeSupport.assertionRefs.length) {
+      const sourceRefs = uniqueSorted([input.knowledgeSupport.digest, ...input.knowledgeSupport.sourceRefs, ...input.knowledgeSupport.assertionRefs]);
+      supports.push({ supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, sourceRefs])}`, kind: "KNOWLEDGE_SUPPORT", sourceRefs,
+        supportLevel: "DIRECT", reason: "Sources et assertions fournies par Knowledge ; aucune décision du Research Project n’est créée.", provenance: sourceRefs });
+    }
     if (selector === "PROJECT_ID") add(selector, [project.projectId, project.projectVersion, project.projectDigest], "L’identité et la version du Research Project sont présentes.");
     else if (selector === "SCIENTIFIC_QUESTION" && canonicalRefs("SCIENTIFIC_QUESTION").length) add(selector, canonicalRefs("SCIENTIFIC_QUESTION"), "La question scientifique gouvernée est présente.");
     else if (selector === "OBJECTIVES" && canonicalRefs("OBJECTIVE").length) add(selector, canonicalRefs("OBJECTIVE"), "Des objectifs structurés existent dans le Research Project.");
@@ -333,7 +339,7 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
     regulatory: stableTemplateStringify(input.applicableRequirementSet),
     patterns: stableTemplateStringify(input.documentaryPatternGraph),
   };
-  const template = CLINICAL_STUDY_TEMPLATE;
+  const template = input.knowledgeSupport ? CLINICAL_STUDY_EVIDENCE_TEMPLATE : CLINICAL_STUDY_TEMPLATE;
   if (input.templateId && input.templateId !== template.templateId) throw new Error(`UNKNOWN_STUDY_TEMPLATE:${input.templateId}`);
   const definitions = template.graph.nodes;
   const requirements = requirementEvidence(input);

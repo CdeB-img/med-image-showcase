@@ -1,0 +1,41 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {decodeSessionStorage} from '../../src/features/protocol-designer/functional-reset/session-storage-codec';
+import {stableStringify} from '../../src/features/knowledge-engine/canonical';
+import {validateDocumentEvidence} from '../../src/features/document-projection/scientific-document-revision';
+import {rehydrateProjectSourceLibrary} from '../../src/features/knowledge-engine/project-source-library';
+const root='validation/protocol-designer-v1-product-closure-and-demo-readiness-01';
+const rows=readFileSync(root+'/browser-evidence/browser-receipts.jsonl','utf8').trim().split('\n').map(JSON.parse);
+const receipt=(label:string)=>{const r=rows.findLast(r=>r.body.label===label);assert(r,label);return r;};
+const sessions=(r:any)=>Object.entries(r.body.storage).filter(([key])=>key.includes('functional-reset-v3')).map(([,raw])=>decodeSessionStorage(raw as string) as any);
+const session=(label:string,title='Fibrose — vérification finale')=>{const s=sessions(receipt(label)).find(s=>s.workspace?.title===title);assert(s,label);return s;};
+const hash=(value:unknown)=>createHash('sha256').update(stableStringify(value)).digest('hex');
+const start='C-LIVING-A-D1-context-references-project-v3';
+const finish='C-LIVING-final-new-tab-source-library-rehydrated';
+const beforeClose='C-LIVING-final-eight-versions-project-v4-before-close';
+const s0=session(start),last=session(finish),before=session(beforeClose);
+const finalProjects=sessions(receipt(finish));
+assert.equal(finalProjects.length,3);
+for(const title of ['Fibrose myocardique et diabète','Hémodynamique et oxygénation cérébrales']) assert.equal(hash(session(start,title)),hash(session(finish,title)),title+' unchanged throughout documentary tests');
+for(const label of ['C-LIVING-B-focus-Miller-version-1.0.1-narrative-quality-gap','C-LIVING-storage-repair-add-Roujol-persisted','C-LIVING-storage-repair-remove-Roujol-persisted','C-LIVING-E-document-to-native-review-project-v3-unchanged']) assert.equal(hash(session(label).project),hash(s0.project),'no silent science: '+label);
+assert(session('C-LIVING-E-document-to-native-review-project-v3-unchanged').pendingContribution,'native review pending');
+assert.equal(last.project.revision,4);assert.equal(last.documents.projections.length,8);
+assert.equal(hash(last.project),hash(before.project));assert.equal(hash(last.documents.projections),hash(before.documents.projections));assert.equal(hash(last.sourceLibrary),hash(before.sourceLibrary));
+rehydrateProjectSourceLibrary(last.sourceLibrary,last.projectId);
+const histories=new Map<string,string>();let observations=0;
+for(const row of rows) for(const s of sessions(row)) for(const doc of s.documents.projections) {
+ const digest=hash(doc);if(histories.has(doc.projectionId)) assert.equal(histories.get(doc.projectionId),digest,'immutable '+doc.projectionId);else histories.set(doc.projectionId,digest);observations++;
+}
+let evidenceDocs=0;
+for(const s of finalProjects) for(const doc of s.documents.projections) {assert.equal(doc.source.projectId,s.projectId);if(doc.evidenceContent){validateDocumentEvidence(doc.evidenceContent);evidenceDocs++;}}
+const roujol=last.sourceLibrary.sources.find((source:any)=>source.source.pmid==='24702727');assert(roujol);assert.equal(roujol.userRelevance,'EXPLICIT_INTEREST');assert.equal(roujol.scientificWeight.evidenceLevel,'NOT_ASSIGNED');
+const removed=session('C-LIVING-storage-repair-remove-Roujol-persisted').documents.projections.at(-1);assert(removed.evidenceContent.excludedSourceRefs.includes(roujol.source.sourceId));assert(!removed.evidenceContent.paragraphs.some((p:any)=>p.sourceRefs.includes(roujol.source.sourceId)));
+assert(last.documents.projections.at(-1).evidenceContent.excludedSourceRefs.includes(roujol.source.sourceId));
+const restored=last.documents.projections.find((p:any)=>p.projectionVersion==='1.1.2');const target=last.documents.projections.find((p:any)=>p.projectionVersion==='1.1.0');assert.equal(hash(restored.sections),hash(target.sections));assert.equal(restored.documentaryRevision.restoredFromProjectionId,target.projectionId);
+const lastDoc=last.documents.projections.at(-1);assert.equal(lastDoc.projectionVersion,'1.1.3');assert.equal(lastDoc.source.projectVersion,last.project.versionId);
+const artifacts=readFileSync(root+'/browser-evidence/downloaded-artifacts.jsonl','utf8').trim().split('\n').map(JSON.parse);mkdirSync(root+'/demo-artifacts',{recursive:true});
+const exports=artifacts.map((a:any,index:number)=>{const path=root+'/demo-artifacts/protocole-export-'+String(index+1).padStart(2,'0')+'.html';writeFileSync(path,a.body.content);return {path,at:a.at,sha256:createHash('sha256').update(a.body.content).digest('hex'),bytes:Buffer.byteLength(a.body.content)};});
+assert(artifacts.at(-1).body.content.includes('1.1.3'));assert(artifacts.at(-1).body.content.includes('Miller'));assert(artifacts.at(-1).body.content.includes('Investigateur principal'));
+const findings={status:'PASS',receiptCount:rows.length,projectCount:3,distinctHistoricalProjections:histories.size,historicalProjectionObservations:observations,immutableHistoricalProjections:true,otherProjectsUnchangedDuringDocumentaryTests:true,scientificReviewBoundary:true,finalProjectRevision:4,finalDocumentVersions:8,sourceLibraryEntries:last.sourceLibrary.sources.length,sourceInterestPreserved:true,sourceExclusionPreservedAfterProjectRegeneration:true,restorationCreatesNewVersionWithExactPriorSections:true,newTabReopenProjectDocumentsSourcesUnchanged:true,evidenceDocumentsValidated:evidenceDocs,exports,finalDocumentId:lastDoc.projectionId,finalSourceProjectId:last.projectId,providerCallsReal:0,limitations:['General background evidence only, no population-specific applicability qualification or comparative evidence ranking','Original unsaved quota-failure versions were not recovered; their DOM receipts and HTML export are preserved; later versions are explicit requalification','Narrative quality is PARTIAL; technical browser invariants are not scientific validation']};
+writeFileSync(root+'/browser-invariants-qualified.json',JSON.stringify(findings,null,2));console.log(JSON.stringify(findings));

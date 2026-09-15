@@ -1,3 +1,4 @@
+import { decodeSessionStorage } from "./session-storage-codec";
 import type {
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
@@ -14,6 +15,7 @@ import {
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
+import type { LocalProjectMetadata } from "./project-administration";
 import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
 import type {
   ProductEntryRoutingDecision,
@@ -210,6 +212,7 @@ export type ProductBridgeTrace = {
 };
 
 export type FunctionalResetSession = {
+  sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
   contractVersion: "2.0.0";
   sessionId: string;
@@ -235,6 +238,8 @@ export type FunctionalResetSession = {
   canonicalStudyDataInteraction: StandardCanonicalStudyDataInteraction | null;
   dataManagementInteraction: StandardDataManagementInteraction | null;
   documents: FunctionalResetDocumentPortfolio;
+  // Local workspace/document metadata only: never scientific extraction or an adopted Project object.
+  workspace?: LocalProjectMetadata;
   openDocumentProjectionId: string | null;
   bridgeTraces: ProductBridgeTrace[];
   knowledgeOwnerLedger: Readonly<ProductKnowledgeOwnerLedger>;
@@ -429,13 +434,19 @@ export const repairPersistedProductPresentation = (
   ? { ...entry, content: INITIAL_NOXIA_MESSAGE }
   : entry);
 
-export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSession => {
+export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTIONAL_RESET_STORAGE_KEY, strict = false): FunctionalResetSession => {
   try {
-    const raw = storage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
-    if (!raw) return createFunctionalResetSession();
-    const parsed: unknown = JSON.parse(raw);
+    const raw = storage.getItem(storageKey);
+    if (!raw) {
+      if (strict) throw new Error("SESSION_NOT_FOUND");
+      return createFunctionalResetSession();
+    }
+    const parsed: unknown = decodeSessionStorage(raw);
     const session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
-    if (!session) return createFunctionalResetSession();
+    if (!session) {
+      if (strict) throw new Error("SESSION_UNREADABLE");
+      return createFunctionalResetSession();
+    }
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
       retainedContributionCandidates: session.retainedContributionCandidates ?? [],
@@ -463,7 +474,8 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
         canonicalState: ensureCanonicalProjectState(reloadSafeSession.project),
       },
     } : reloadSafeSession;
-  } catch {
+  } catch (error) {
+    if (strict) throw error;
     return createFunctionalResetSession();
   }
 };
@@ -476,3 +488,4 @@ export const clearFunctionalResetSession = (storage: Storage) => storage.removeI
 
 export const createConversationEntryId = () => id("conversation-entry");
 export const createTurnId = () => id("turn");
+import type { ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";

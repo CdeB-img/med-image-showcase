@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "receiptCount": 44,
+  "projectCount": 3,
+  "distinctHistoricalProjections": 13,
+  "historicalProjectionObservations": 223,
+  "immutableHistoricalProjections": true,
+  "otherProjectsUnchangedDuringDocumentaryTests": true,
+  "scientificReviewBoundary": true,
+  "finalProjectRevision": 4,
+  "finalDocumentVersions": 8,
+  "sourceLibraryEntries": 17,
+  "sourceInterestPreserved": true,
+  "sourceExclusionPreservedAfterProjectRegeneration": true,
+  "restorationCreatesNewVersionWithExactPriorSections": true,
+  "newTabReopenProjectDocumentsSourcesUnchanged": true,
+  "evidenceDocumentsValidated": 8,
+  "exports": [
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-01.html",
+      "at": "2026-09-15T12:55:40.354Z",
+      "sha256": "2a770f1b7580e2f9a04348d6bd3cb48152ba83c5777e5498d7a9a4681f7cfe07",
+      "bytes": 245774
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-02.html",
+      "at": "2026-09-15T12:56:34.439Z",
+      "sha256": "caf4005e81f580d703c7ac0683c30fb3cb03d8446fa11def3acab56ad5f7e55e",
+      "bytes": 268544
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-03.html",
+      "at": "2026-09-15T13:05:43.201Z",
+      "sha256": "c2cb8e3c36012294288bcf646eaf8edafe95b2052402133ee82380b711f858a0",
+      "bytes": 240285
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-04.html",
+      "at": "2026-09-15T13:08:24.033Z",
+      "sha256": "637477a0988cae0a8a5fb03d5e26a3687c78b6cca8b5929f4cebdc3b54d73631",
+      "bytes": 268765
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-05.html",
+      "at": "2026-09-15T13:19:39.614Z",
+      "sha256": "a26c958fc1ba308530b2cb7764afcb6e93c02767846a935e9bfaec3c6d664a3f",
+      "bytes": 240299
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-06.html",
+      "at": "2026-09-15T14:00:23.152Z",
+      "sha256": "8f9b788b8988948dc06ac906b99a6c44a5bf93c2112f0c46feed377ec011879d",
+      "bytes": 251163
+    },
+    {
+      "path": "validation/protocol-designer-v1-product-closure-and-demo-readiness-01/demo-artifacts/protocole-export-07.html",
+      "at": "2026-09-15T14:26:26.456Z",
+      "sha256": "8f7c1fe49927568f63147cb5d1215096325fa196f634a3bd3addddb5d50f8a37",
+      "bytes": 246084
+    }
+  ],
+  "finalDocumentId": "document-projection:ke1-adf5b7718c93e4dd",
+  "finalSourceProjectId": "protocol-designer-session:af57cbbc-111f-4f6b-bf9e-2d586c42ecd1:research-project",
+  "providerCallsReal": 0,
+  "limitations": [
+    "General background evidence only, no population-specific applicability qualification or comparative evidence ranking",
+    "Original unsaved quota-failure versions were not recovered; their DOM receipts and HTML export are preserved; later versions are explicit requalification",
+    "Narrative quality is PARTIAL; technical browser invariants are not scientific validation"
+  ]
+}
