@@ -1,0 +1,202 @@
+{
+  "at": "2026-09-15T04:39:49.678097+00:00",
+  "scope": "Requested documents only; no complete document audit",
+  "documents": [
+    {
+      "scenario": "A02",
+      "projectionId": "document-projection:ke1-d86b8009fdb7076d",
+      "source": {
+        "projectId": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project",
+        "projectVersion": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project:version:5",
+        "projectDigest": "ke1-f1876d42259a12c6",
+        "handoffVersion": "1.1",
+        "template": {
+          "templateId": "TMP-STUDY:CLINICAL-STUDY",
+          "templateVersion": "1.1.0",
+          "templateRevision": 2,
+          "templateDefinitionDigest": "tmp1-f36112b42eff2270",
+          "templateInstanceId": "TMP-INSTANCE:577E516FCA4D",
+          "templateInstanceDigest": "tmp1-577e516fca4dfc03",
+          "requestedDetailLevel": "SHORT"
+        },
+        "regulatoryResolution": {
+          "resolutionId": "regulatory-resolution:ke1-93b2205711df6063",
+          "corpusVersion": "1.0.0",
+          "corpusDigest": "ke1-40ba687c4aefa298"
+        },
+        "documentaryPatternSnapshot": {
+          "catalogId": "DKC-53324D5E2771",
+          "catalogVersion": "1.1.0",
+          "catalogDigest": "doc2-605fc70376c81cff"
+        }
+      },
+      "currentContext": [
+        {
+          "versionRef": "exclusion:version:1",
+          "text": "Exclusion des contre-indications effectives à IRM cardiaque; exemples de dispositifs implantés à qualifier individuellement",
+          "epistemicState": "KNOWN"
+        }
+      ],
+      "currentProjectBinding": true,
+      "literalContextProjected": true
+    },
+    {
+      "scenario": "B01",
+      "projectionId": "document-projection:ke1-c820da1a10077d66",
+      "source": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "projectVersion": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:5",
+        "projectDigest": "ke1-4c4de88c5d6095d0",
+        "handoffVersion": "1.1",
+        "template": {
+          "templateId": "TMP-STUDY:CLINICAL-STUDY",
+          "templateVersion": "1.1.0",
+          "templateRevision": 2,
+          "templateDefinitionDigest": "tmp1-f36112b42eff2270",
+          "templateInstanceId": "TMP-INSTANCE:A0013DCAC4D3",
+          "templateInstanceDigest": "tmp1-a0013dcac4d3e7ae",
+          "requestedDetailLevel": "SHORT"
+        },
+        "regulatoryResolution": {
+          "resolutionId": "regulatory-resolution:ke1-682009174993a72b",
+          "corpusVersion": "1.0.0",
+          "corpusDigest": "ke1-40ba687c4aefa298"
+        },
+        "documentaryPatternSnapshot": {
+          "catalogId": "DKC-53324D5E2771",
+          "catalogVersion": "1.1.0",
+          "catalogDigest": "doc2-605fc70376c81cff"
+        }
+      },
+      "currentContext": [
+        {
+          "versionRef": "centers:version:2",
+          "text": "Étude multicentrique dans trois centres confirmés",
+          "epistemicState": "KNOWN"
+        }
+      ],
+      "currentProjectBinding": true,
+      "literalContextProjected": true
+    },
+    {
+      "scenario": "C01",
+      "projectionId": "document-projection:ke1-b790815b36a2f83f",
+      "source": {
+        "projectId": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project",
+        "projectVersion": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project:version:5",
+        "projectDigest": "ke1-31736234b071a9c0",
+        "handoffVersion": "1.1",
+        "template": {
+          "templateId": "TMP-STUDY:CLINICAL-STUDY",
+          "templateVersion": "1.1.0",
+          "templateRevision": 2,
+          "templateDefinitionDigest": "tmp1-f36112b42eff2270",
+          "templateInstanceId": "TMP-INSTANCE:C5D605C372C2",
+          "templateInstanceDigest": "tmp1-c5d605c372c2a337",
+          "requestedDetailLevel": "SHORT"
+        },
+        "regulatoryResolution": {
+          "resolutionId": "regulatory-resolution:ke1-8ae8178a49ffeee6",
+          "corpusVersion": "1.0.0",
+          "corpusDigest": "ke1-40ba687c4aefa298"
+        },
+        "documentaryPatternSnapshot": {
+          "catalogId": "DKC-53324D5E2771",
+          "catalogVersion": "1.1.0",
+          "catalogDigest": "doc2-605fc70376c81cff"
+        }
+      },
+      "currentContext": [
+        {
+          "versionRef": "temperature:version:2",
+          "text": "Essais mécaniques réalisés à 25 degrés Celsius",
+          "epistemicState": "KNOWN"
+        }
+      ],
+      "currentProjectBinding": true,
+      "literalContextProjected": true
+    },
+    {
+      "scenario": "C03",
+      "projectionId": "document-projection:ke1-1ffe7d341d2ce208",
+      "source": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "projectVersion": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:5",
+        "projectDigest": "ke1-a3a2da2104db2e75",
+        "handoffVersion": "1.1",
+        "template": {
+          "templateId": "TMP-STUDY:CLINICAL-STUDY",
+          "templateVersion": "1.1.0",
+          "templateRevision": 2,
+          "templateDefinitionDigest": "tmp1-f36112b42eff2270",
+          "templateInstanceId": "TMP-INSTANCE:A8A5C3C0B77D",
+          "templateInstanceDigest": "tmp1-a8a5c3c0b77d7414",
+          "requestedDetailLevel": "SHORT"
+        },
+        "regulatoryResolution": {
+          "resolutionId": "regulatory-resolution:ke1-e3a8cfa102767925",
+          "corpusVersion": "1.0.0",
+          "corpusDigest": "ke1-40ba687c4aefa298"
+        },
+        "documentaryPatternSnapshot": {
+          "catalogId": "DKC-53324D5E2771",
+          "catalogVersion": "1.1.0",
+          "catalogDigest": "doc2-605fc70376c81cff"
+        }
+      },
+      "currentContext": [
+        {
+          "versionRef": "season:version:1",
+          "text": "Quatre campagnes saisonnières de prélèvement par année de suivi",
+          "epistemicState": "KNOWN"
+        },
+        {
+          "versionRef": "sample:version:1",
+          "text": "Douze tronçons envisagés; disponibilité définitive inconnue",
+          "epistemicState": "UNKNOWN"
+        }
+      ],
+      "currentProjectBinding": true,
+      "literalContextProjected": true
+    },
+    {
+      "scenario": "E01",
+      "projectionId": "document-projection:ke1-cba4af9d90cdd309",
+      "source": {
+        "projectId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project",
+        "projectVersion": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:4",
+        "projectDigest": "ke1-d02d08358adb2911",
+        "handoffVersion": "1.1",
+        "template": {
+          "templateId": "TMP-STUDY:CLINICAL-STUDY",
+          "templateVersion": "1.1.0",
+          "templateRevision": 2,
+          "templateDefinitionDigest": "tmp1-f36112b42eff2270",
+          "templateInstanceId": "TMP-INSTANCE:F644618CA3AE",
+          "templateInstanceDigest": "tmp1-f644618ca3ae1a20",
+          "requestedDetailLevel": "SHORT"
+        },
+        "regulatoryResolution": {
+          "resolutionId": "regulatory-resolution:ke1-b0b5698bb3d35497",
+          "corpusVersion": "1.0.0",
+          "corpusDigest": "ke1-40ba687c4aefa298"
+        },
+        "documentaryPatternSnapshot": {
+          "catalogId": "DKC-53324D5E2771",
+          "catalogVersion": "1.1.0",
+          "catalogDigest": "doc2-605fc70376c81cff"
+        }
+      },
+      "currentContext": [
+        {
+          "versionRef": "conditions:version:2",
+          "text": "Culture à 24 degrés Celsius avec 16 heures de lumière et 8 heures de obscurité par jour",
+          "epistemicState": "KNOWN"
+        }
+      ],
+      "currentProjectBinding": true,
+      "literalContextProjected": true
+    }
+  ],
+  "realProviderCalls": 0
+}

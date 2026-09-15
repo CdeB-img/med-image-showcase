@@ -145,6 +145,7 @@ export type BiostatisticsReasoningResult = {
   sourceProject: { projectId: string; projectVersion: string; projectDigest: string; snapshotDigest: string };
   sourceNeed: BiostatisticsReasoningRuntimeInput["selectedNeed"];
   sourceOwnerLineage: readonly BiostatisticsUpstreamOwnerInput[];
+  scopeExplanation?: string;
   analysisSpecifications: readonly AnalysisSpecification[];
   methodCandidates: readonly BiostatisticsMethodCandidate[];
   dimensionnement: Readonly<DimensionnementDefinition>;
@@ -294,7 +295,25 @@ export const executeBiostatisticsReasoningRuntime = (
       : []),
   ];
   const analyzable = objectives.length > 0 && endpoints.length > 0 && targetVariables.length > 0 && populations.length === 1;
-  const methods = analyzable ? buildMethodCandidates(input, repeated, betweenGroups) : [];
+  const agreementRequested = /\b(?:accord|agreement|concordance)\b/i.test(input.selectedNeed.purpose);
+  const methods = analyzable && !agreementRequested ? buildMethodCandidates(input, repeated, betweenGroups) : [];
+  if (agreementRequested) informationNeeds.unshift(need(input.inputId, "AGREEMENT_METHOD_NOT_QUALIFIED",
+    "Qualifier la métrique d’accord avant d’en proposer une",
+    `Demande examinée : ${input.selectedNeed.purpose}\nLa capacité analytique locale ne fournit pas encore de métriques d’accord qualifiées. Le cadre adopté est conservé : ${currentKnown(input.projectSnapshot, "STUDY_DESIGN", "ENDPOINT", "CANONICAL_VARIABLE", "CONSTRAINT").map((item) => item.content).join(" ; ")}. Pour avancer, il faut documenter la différence acceptable entre méthodes et l’usage attendu de l’accord, puis confronter une méthode documentée à cette structure. Aucun seuil ni indépendance des observations n’est présumé.`,
+    "OBSERVABILITY_MEASUREMENT", [input.selectedNeed.needRef, ...endpoints.map((item) => item.versionRef)]));
+  const scopeExplanation = !methods.length ? [
+    `Demande analytique examinée : ${input.selectedNeed.purpose}`,
+    `Le cadre actuellement adopté est conservé : ${currentKnown(input.projectSnapshot, "OBJECTIVE", "STUDY_DESIGN", "POPULATION", "ENDPOINT", "CANONICAL_VARIABLE", "CONSTRAINT").map((item) => item.content).join(" ; ") || "les éléments analytiques ne sont pas encore définis"}.`,
+    agreementRequested
+      ? "La capacité locale ne fournit pas encore de métrique d’accord qualifiée. Pour comparer des méthodes, il faut documenter l’écart acceptable et l’usage attendu, puis confronter une méthode documentée à la structure effectivement retenue. Aucun seuil ni indépendance des observations n’est présumé."
+      : `Je ne peux pas proposer ici une alternative analytique défendable : ${[
+        ...(!objectives.length ? ["l’objectif analytique n’est pas identifié"] : []),
+        ...(!endpoints.length ? ["l’endpoint n’est pas défini"] : []),
+        ...(!targetVariables.length ? ["la variable opérationnelle liée à l’endpoint n’est pas qualifiée"] : []),
+        ...(populations.length !== 1 ? ["la population source de l’analyse n’est pas liée de façon univoque"] : []),
+      ].join(" ; ")}. La prochaine étape est de préciser, pour la comparaison demandée, la cible à estimer, l’unité d’observation et le lien entre la mesure et l’endpoint. Une méthode ou une justification documentaire peut ensuite être confrontée à cette cible et à la dépendance des observations. Les caractéristiques déjà adoptées ne sont pas redemandées.`,
+    "Cette limite concerne la qualification de la proposition analytique. Aucun modèle, calcul d’effectif, décision ni modification du projet n’en résulte.",
+  ].join("\n\n") : undefined;
   const projectRefs = [input.projectVersion, input.selectedNeed.needRef, ...objectives.map((item) => item.versionRef), ...endpoints.map((item) => item.versionRef), ...targetVariables.map((item) => item.versionRef)];
   const datasetRequirementId = `analysis-dataset-requirement:${logicalDigest({ input: input.inputId, variables: targetVariables.map((item) => item.stableId), occasions: occasions.map((item) => item.stableId) })}`;
   const analysisSpecifications: AnalysisSpecification[] = methods.map((method) => {
@@ -490,6 +509,7 @@ export const executeBiostatisticsReasoningRuntime = (
     dimensioningCalculation,
     datasetRequirement,
     informationNeeds,
+    ...(scopeExplanation ? { scopeExplanation } : {}),
     downstreamHandoffs,
   };
   const resultDigest = logicalDigest(resultMaterial);
@@ -506,6 +526,7 @@ export const executeBiostatisticsReasoningRuntime = (
     sourceProject: { projectId: input.projectId, projectVersion: input.projectVersion, projectDigest: input.projectDigest, snapshotDigest: input.projectSnapshot.snapshotDigest },
     sourceNeed: structuredClone(input.selectedNeed),
     sourceOwnerLineage: structuredClone(input.upstreamOwnerInputs),
+    ...(scopeExplanation ? { scopeExplanation } : {}),
     analysisSpecifications,
     methodCandidates: methods,
     dimensionnement,

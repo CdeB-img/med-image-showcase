@@ -1,0 +1,599 @@
+{
+  "at": "2026-09-15T04:39:49.381619+00:00",
+  "phase": "final_closure",
+  "conversations": 15,
+  "turns": 225,
+  "fatal": 0,
+  "realProviderCalls": 0,
+  "rawCheckCounts": {
+    "PASS": 15005,
+    "SYNTHETIC_CONTRACT_ONLY": 225,
+    "FAIL": 18,
+    "REQUIRES_INDEPENDENT_SEMANTIC_REVIEW": 51,
+    "NOT_DEMONSTRATED": 8,
+    "CONVERSATIONAL_SELECTION_EXERCISED": 8,
+    "SUPERSEDED_BY_LATER_EXPLICIT_GOLD_ADOPTION": 10
+  },
+  "rawMaterialOccurrences": 18,
+  "ADVERSARIAL_REPLAY": "PARTIAL",
+  "PROJECT_INTEGRITY": "PASS",
+  "reason": "V1 requests pass under the mission oracle. Two generic scientific/conversation requests remain PARTIAL; generic Project, lifecycle and authority invariants remain intact.",
+  "universalLanguageUnderstanding": "NOT_MEASURED_SYNTHETIC_CONTRACT_ONLY",
+  "rawAnomalyAdjudication": [
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-A01-A01-T05-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A01",
+        "TURN": "A01-T05",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design traite le recrutement dans la population 35–85 ans, conserve les critères et demande une contrainte de faisabilité ou une justification d’éligibilité avant de proposer des seuils.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-A01-A01-T13-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A01",
+        "TURN": "A01-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Imaging se lie à J4–J7 après IDM et au critère à trois minutes après injection; il précise la limite de qualification des acquisitions et la documentation nécessaire.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-A01-A01-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "A01",
+        "TURN": "A01-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-A04-A04-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "A04",
+        "TURN": "A04-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design examine l’organisation des mesures appariées dans le calendrier de quatre semaines; il déclare la limite méthodologique et demande les conditions à comparer.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-A04-A04-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "A04",
+        "TURN": "A04-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-B03-B03-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "B03",
+        "TURN": "B03-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Le prérequis Knowledge d’OBS échoue explicitement faute d’instrument qualifié; la réponse indique la documentation, la validité et les conditions de mesure nécessaires.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-B03-B03-T08-SCIENTIFIC_CANDIDATE_STATUS-8",
+        "SCENARIO": "B03",
+        "TURN": "B03-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_CANDIDATE_STATUS",
+        "VISIBLE_SYMPTOM": "Scientific alternatives must remain explicitly discussable candidates",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_TO_STANDARD_PROJECTION",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Le prérequis Knowledge d’OBS échoue explicitement faute d’instrument qualifié; la réponse indique la documentation, la validité et les conditions de mesure nécessaires.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-B03-B03-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "B03",
+        "TURN": "B03-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-C01-C01-T09-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "C01",
+        "TURN": "C01-T09",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design reconnaît la demande de méthodes et conditions d’étude; sa couverture locale insuffisante est explicitée dans le contexte matériaux.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-C02-C02-T13-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "C02",
+        "TURN": "C02-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design utilise six blocs et 120 jours; il borne les alternatives méthodologiques sans reprendre des hypothèses génériques sur le rendement.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-C02-C02-T15-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "C02",
+        "TURN": "C02-T15",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-C03-C03-T13-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "C03",
+        "TURN": "C03-T13",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-D01-D01-T03-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "D01",
+        "TURN": "D01-T03",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "SYNTHETIC_PROVIDER_BOUNDARY_TRAVERSED",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design reconnaît le benchmark et les méthodes à comparer; il explicite la couverture insuffisante pour proposer une stratégie défendable.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-D01-D01-T05-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "D01",
+        "TURN": "D01-T05",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "L’alternative à cette première option n’est pas résoluble faute d’option source; le système clarifie sans substituer ST.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-D01-D01-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "D01",
+        "TURN": "D01-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-E01-E01-T08-SCIENTIFIC_PROJECT_ANCHORING-7",
+        "SCENARIO": "E01",
+        "TURN": "E01-T08",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "SCIENTIFIC_PROJECT_ANCHORING",
+        "VISIBLE_SYMPTOM": "New proposals must preserve current scientific comparison and criterion, not merely differ in wording",
+        "FIRST_BLOCKING_BOUNDARY": "OWNER_PURPOSE_TO_STANDARD_CONTENT",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_BOUNDED_ABSTENTION",
+      "reason": "Study Design traite la demande sur les effets de position; il borne les méthodes défendables dans les contraintes courantes et demande les conditions à comparer.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-F01-F01-T09-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "F01",
+        "TURN": "F01-T09",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    },
+    {
+      "raw": {
+        "ANOMALY_ID": "FINAL_CLOSURE-F02-F02-T14-REFUSAL_LIFECYCLE-3",
+        "SCENARIO": "F02",
+        "TURN": "F02-T14",
+        "SEVERITY": "MATERIAL",
+        "PROPERTY": "REFUSAL_LIFECYCLE",
+        "VISIBLE_SYMPTOM": "The pending candidate identity must transition to explicitly rejected during this input",
+        "FIRST_BLOCKING_BOUNDARY": "REFUSAL_TO_CANDIDATE",
+        "LIKELY_OWNER": "TO_BE_CAUSALLY_ATTRIBUTED",
+        "PROJECT_IMPACT": "UNCHANGED",
+        "QRY_IMPACT": "TO_BE_ASSESSED",
+        "REUSE_IMPACT": "TO_BE_ASSESSED",
+        "PROVIDER_DEPENDENCY": "LOCAL_RUNTIME",
+        "CLUSTER_ID": "UNASSIGNED",
+        "CONFIDENCE": "OBSERVED_SYMPTOM_CAUSE_PENDING"
+      },
+      "finalVerdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "oracleMismatch": "Historical oracle mandates a proposal/adoption-state transition where this mission permits a justified abstention or clarification. Raw failure not erased."
+    }
+  ],
+  "scenarioReceipts": [
+    {
+      "scenario": "A01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 3
+    },
+    {
+      "scenario": "A02",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 0
+    },
+    {
+      "scenario": "A03",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 0
+    },
+    {
+      "scenario": "A04",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 2
+    },
+    {
+      "scenario": "B01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 0
+    },
+    {
+      "scenario": "B02",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 0
+    },
+    {
+      "scenario": "B03",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 3
+    },
+    {
+      "scenario": "B04",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 0
+    },
+    {
+      "scenario": "C01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 1
+    },
+    {
+      "scenario": "C02",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 2
+    },
+    {
+      "scenario": "C03",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 1
+    },
+    {
+      "scenario": "D01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 3
+    },
+    {
+      "scenario": "E01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 1
+    },
+    {
+      "scenario": "F01",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 1
+    },
+    {
+      "scenario": "F02",
+      "sourceState": {
+        "head": "567ee0ae1823de1d58380596af0e7fd98c86d795",
+        "trackedDiffSha256": "2920e18d918819398597b8e461feb95cb09c129f8be10b5e5bb20f5cfd71413a",
+        "harnessSha256": "befb28f43780c0f28d94b04b748963a3bb74e428e5676cceff68ff591664eb79",
+        "transportSha256": "0d5266d239661e0703468afa4f8772f7f7128322bb556d1ca772637f3957e1c8",
+        "corpusSha256": "36d00dfde76efaa5e2c80cab045b82a7b06e2685102ec35e8dd18a5ff13554d0",
+        "stableThroughConversation": true
+      },
+      "turns": 15,
+      "rawAnomalies": 1
+    }
+  ]
+}

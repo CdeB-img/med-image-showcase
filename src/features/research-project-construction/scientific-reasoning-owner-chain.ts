@@ -638,14 +638,16 @@ export const invokeScientificThinkingOwnerFromProject = (input: InvocationTiming
 export const invokeStudyDesignOwnerFromSnapshot = (input: InvocationTiming & {
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   purpose?: string;
+  selectedNeed?: StudyDesignRuntimeInput["selectedNeed"];
   traceSink?: StudyDesignTraceSink;
   runtime?: (nativeInput: Readonly<StudyDesignRuntimeInput>, traceSink?: StudyDesignTraceSink) => Readonly<StudyDesignProposalContribution>;
 }): StudyDesignOwnerInvocation => {
-  const nativeInput = buildStudyDesignRuntimeInput(input.projectSnapshot);
+  const nativeInput = buildStudyDesignRuntimeInput(input.projectSnapshot, input.selectedNeed);
   const handoffId = `study-design-handoff:${logicalDigest({
     project: nativeInput.projectDigest,
     version: nativeInput.projectVersion,
     snapshot: nativeInput.projectSnapshot.snapshotDigest,
+    ...(input.selectedNeed ? { selectedNeed: input.selectedNeed } : {}),
   })}`;
   const request = createSpecializedOwnerHandoffRequestFromSnapshot({
     handoffId,

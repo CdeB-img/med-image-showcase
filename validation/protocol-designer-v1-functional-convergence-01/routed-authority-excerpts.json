@@ -1,0 +1,753 @@
+{
+  "routingIndex": "/Users/charles/Documents/Projets/NOXIA/documents/Autorites/courant/0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+  "version": "1.45",
+  "matrixSection": 8,
+  "authoritiesUnmodified": true,
+  "sources": [
+    {
+      "role": "CHARTER",
+      "path": "output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx",
+      "sha256": "6b6fa882d47d07afb13ec77f3b57c5c03cf7619ab2b333d6bb1cd91266d43c9e",
+      "excerpts": [
+        {
+          "paragraph": 76,
+          "text": "les connaissances insuffisantes ;"
+        },
+        {
+          "paragraph": 77,
+          "text": "les controverses ;"
+        },
+        {
+          "paragraph": 78,
+          "text": "les situations nécessitant une expertise humaine."
+        },
+        {
+          "paragraph": 79,
+          "text": "La reproductibilité"
+        },
+        {
+          "paragraph": 80,
+          "text": "Une bonne recherche doit pouvoir être reproduite."
+        },
+        {
+          "paragraph": 81,
+          "text": "NOXIA considère la reproductibilité comme une exigence fondamentale."
+        },
+        {
+          "paragraph": 83,
+          "text": "CHAPITRE 4"
+        },
+        {
+          "paragraph": 84,
+          "text": "Ce que NOXIA est"
+        },
+        {
+          "paragraph": 85,
+          "text": "NOXIA n’est pas un produit unique."
+        },
+        {
+          "paragraph": 86,
+          "text": "NOXIA est un écosystème méthodologique."
+        },
+        {
+          "paragraph": 87,
+          "text": "Cet écosystème peut être projeté sous différentes formes selon le contexte."
+        },
+        {
+          "paragraph": 88,
+          "text": "Certaines interfaces privilégient l’apprentissage."
+        },
+        {
+          "paragraph": 89,
+          "text": "D’autres privilégient la construction d’un projet."
+        },
+        {
+          "paragraph": 90,
+          "text": "D’autres encore privilégient la structuration de contenus."
+        },
+        {
+          "paragraph": 91,
+          "text": "Toutes partagent les mêmes principes."
+        },
+        {
+          "paragraph": 92,
+          "text": "CHAPITRE 5"
+        },
+        {
+          "paragraph": 93,
+          "text": "Ce que NOXIA n’est pas"
+        },
+        {
+          "paragraph": 94,
+          "text": "NOXIA n’est pas :"
+        },
+        {
+          "paragraph": 95,
+          "text": "une encyclopédie ;"
+        },
+        {
+          "paragraph": 96,
+          "text": "un moteur de recherche ;"
+        },
+        {
+          "paragraph": 97,
+          "text": "un chatbot ;"
+        },
+        {
+          "paragraph": 98,
+          "text": "une intelligence artificielle médicale ;"
+        },
+        {
+          "paragraph": 99,
+          "text": "un système de décision clinique."
+        },
+        {
+          "paragraph": 100,
+          "text": "Ces outils peuvent constituer certaines interfaces."
+        },
+        {
+          "paragraph": 101,
+          "text": "Ils ne représentent jamais la philosophie du projet."
+        },
+        {
+          "paragraph": 102,
+          "text": "CHAPITRE 6"
+        },
+        {
+          "paragraph": 103,
+          "text": "Les principes universels"
+        },
+        {
+          "paragraph": 104,
+          "text": "Quel que soit le composant concerné."
+        },
+        {
+          "paragraph": 105,
+          "text": "Une règle reste vraie."
+        },
+        {
+          "paragraph": 106,
+          "text": "Le produit visible est plus important que son infrastructure."
+        },
+        {
+          "paragraph": 107,
+          "text": "Une nouvelle abstraction ne doit être introduite que lorsqu’un besoin réel le justifie."
+        },
+        {
+          "paragraph": 108,
+          "text": "Une information ne doit apparaître que lorsqu’elle devient utile."
+        },
+        {
+          "paragraph": 109,
+          "text": "Le contexte fait partie de la connaissance."
+        },
+        {
+          "paragraph": 125,
+          "text": "CHAPITRE 8"
+        },
+        {
+          "paragraph": 126,
+          "text": "Une vision commune"
+        },
+        {
+          "paragraph": 127,
+          "text": "Tous les composants de NOXIA doivent répondre à la même ambition."
+        },
+        {
+          "paragraph": 128,
+          "text": "Rendre l’expertise scientifique plus accessible, plus explicite, plus reproductible et plus transmissible."
+        },
+        {
+          "paragraph": 129,
+          "text": "Chaque composant possède une mission propre."
+        },
+        {
+          "paragraph": 130,
+          "text": "Mais aucun ne doit s’écarter de cette philosophie."
+        },
+        {
+          "paragraph": 132,
+          "text": "CHAPITRE 9"
+        },
+        {
+          "paragraph": 133,
+          "text": "Les manifestes spécialisés"
+        },
+        {
+          "paragraph": 134,
+          "text": "La présente charte constitue la philosophie générale de NOXIA."
+        },
+        {
+          "paragraph": 135,
+          "text": "Chaque composant important possède ensuite son propre manifeste."
+        },
+        {
+          "paragraph": 136,
+          "text": "Par exemple :"
+        },
+        {
+          "paragraph": 137,
+          "text": "Le Protocol Designer Manifesto décrit la manière dont NOXIA accompagne la construction d’un projet de recherche en imagerie."
+        },
+        {
+          "paragraph": 138,
+          "text": "L’Editorial Engine Manifesto décrit les responsabilités et les invariants du moteur éditorial générique."
+        },
+        {
+          "paragraph": 139,
+          "text": "Ces documents complètent la présente charte."
+        },
+        {
+          "paragraph": 140,
+          "text": "Ils ne doivent jamais la contredire."
+        },
+        {
+          "paragraph": 141,
+          "text": "CHAPITRE 10"
+        },
+        {
+          "paragraph": 142,
+          "text": "Une ambition"
+        },
+        {
+          "paragraph": 143,
+          "text": "NOXIA ne cherche pas à remplacer les chercheurs."
+        },
+        {
+          "paragraph": 144,
+          "text": "Il cherche à rendre leur raisonnement plus facilement partageable."
+        },
+        {
+          "paragraph": 145,
+          "text": "Il ne cherche pas à produire davantage de publications."
+        },
+        {
+          "paragraph": 146,
+          "text": "Il cherche à contribuer à produire de meilleures recherches."
+        },
+        {
+          "paragraph": 147,
+          "text": "Il ne cherche pas à automatiser la science."
+        },
+        {
+          "paragraph": 148,
+          "text": "Il cherche à rendre la science plus robuste."
+        },
+        {
+          "paragraph": 149,
+          "text": "Cette ambition guide toutes les décisions prises dans le projet."
+        },
+        {
+          "paragraph": 151,
+          "text": "ÉPILOGUE"
+        },
+        {
+          "paragraph": 152,
+          "text": "Une méthode avant d’être un outil"
+        },
+        {
+          "paragraph": 153,
+          "text": "NOXIA n’est pas né d’une idée de logiciel."
+        },
+        {
+          "paragraph": 154,
+          "text": "Il est né d’une pratique quotidienne de la recherche en imagerie médicale."
+        },
+        {
+          "paragraph": 155,
+          "text": "Avant d’être un projet informatique, il est une méthode."
+        },
+        {
+          "paragraph": 156,
+          "text": "Avant d’être un moteur, il est une manière de raisonner."
+        },
+        {
+          "paragraph": 157,
+          "text": "Avant d’être un écosystème, il est une conviction."
+        },
+        {
+          "paragraph": 158,
+          "text": "La conviction que la qualité d’un projet scientifique dépend autant de son raisonnement que de ses résultats."
+        },
+        {
+          "paragraph": 159,
+          "text": "Toutes les composantes futures de NOXIA devront rester fidèles à cette idée."
+        }
+      ]
+    },
+    {
+      "role": "MANIFESTO_V2",
+      "path": "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+      "sha256": "2efcd7528da964b5c4144eecfb29bd6332374748a82787b6577872a62c9d0893",
+      "excerpts": [
+        {
+          "paragraph": 24,
+          "text": "Gouvernance, évolution et adoption"
+        },
+        {
+          "paragraph": 25,
+          "text": "PARTIE I — Pourquoi NOXIA existe"
+        },
+        {
+          "paragraph": 26,
+          "text": "Chapitre 1 — Le problème n’est pas l’absence d’information"
+        },
+        {
+          "paragraph": 27,
+          "text": "La recherche contemporaine dispose d’une littérature abondante, de recommandations, de méthodes, de logiciels, de dispositifs et de données toujours plus nombreux. Cette abondance ne produit pas spontanément un projet cohérent. Le travail décisif consiste à déterminer quelles connaissances sont applicables, quelles explications restent plausibles, ce qui peut réellement être observé, quelles données sont nécessaires, comment les obtenir, comment les analyser et quelles conclusions leur contexte permet de soutenir."
+        },
+        {
+          "paragraph": 28,
+          "text": "Cette continuité est rarement décrite dans un seul endroit. Elle dépend de chercheurs, cliniciens, radiologues, biologistes, méthodologistes, statisticiens, ingénieurs, data managers et Core Labs dont les responsabilités sont différentes. NOXIA rend cette continuité explicite sans effacer la diversité des expertises."
+        },
+        {
+          "paragraph": 29,
+          "text": "Chapitre 2 — Le produit est une méthode de raisonnement assistée"
+        },
+        {
+          "paragraph": 30,
+          "text": "NOXIA n’est pas un chatbot médical, un moteur bibliographique, une encyclopédie, un générateur automatique de protocoles, un système de décision clinique ou une autorité réglementaire. Le dialogue, la recherche, les documents, les interfaces et les modèles d’intelligence artificielle sont des moyens."
+        },
+        {
+          "paragraph": 31,
+          "text": "Le produit est une méthode de raisonnement scientifique assistée. Elle doit permettre de reconstruire : la question posée, les connaissances mobilisées, les modèles considérés, les observables recherchés, les méthodes possibles, les décisions humaines, les données attendues, les données effectivement disponibles, les analyses, les résultats, les limites et la projection produite."
+        },
+        {
+          "paragraph": 32,
+          "text": "Chapitre 3 — La promesse"
+        },
+        {
+          "paragraph": 33,
+          "text": "NOXIA aide une équipe à comprendre avant de mesurer, à expliquer avant de recommander, à décider avant d’opérationnaliser et à vérifier avant de projeter. Il doit réduire le risque qu’une question structurante soit oubliée, qu’un raccourci scientifique devienne une certitude ou qu’une décision technique soit détachée de son objectif."
+        },
+        {
+          "paragraph": 34,
+          "text": "La promesse ne porte jamais sur une réponse universelle. Elle porte sur un raisonnement meilleur : plus explicite, plus cohérent, plus transparent, plus reproductible, plus transmissible et plus honnête sur ses limites."
+        },
+        {
+          "paragraph": 35,
+          "text": "PARTIE II — Les invariants qui ne changent pas"
+        },
+        {
+          "paragraph": 36,
+          "text": "Chapitre 4 — La science précède la technique"
+        },
+        {
+          "paragraph": 37,
+          "text": "Une modalité, une méthode, une séquence, un dosage, un dispositif ou un logiciel n’est jamais une finalité scientifique. NOXIA commence par l’intention, la question, les objectifs, les hypothèses, les phénomènes et le contexte. Les moyens techniques ne sont examinés qu’après que leur rôle scientifique peut être formulé."
+        },
+        {
+          "paragraph": 38,
+          "text": "Une méthode disponible n’est ni nécessaire, ni suffisante, ni supérieure par défaut. Une pratique fréquente n’est pas une preuve. Une innovation technique n’est pas un besoin scientifique tant que son apport, ses limites et son domaine de validité ne sont pas explicités."
+        },
+        {
+          "paragraph": 39,
+          "text": "Chapitre 5 — Le contexte fait partie de la connaissance"
+        },
+        {
+          "paragraph": 40,
+          "text": "Aucune affirmation, aucun modèle, aucune propriété observable, aucun rôle biomarqueur, aucune méthode, aucune variable, aucune analyse et aucune recommandation ne peut être interprété indépendamment de son contexte. Ce contexte peut inclure la population, la pathologie, le stade, le temps, la modalité, la méthode, l’équipement, le site, la qualité, l’objectif, la source, le niveau de preuve et les contraintes du projet."
+        },
+        {
+          "paragraph": 41,
+          "text": "Sortir une proposition de son domaine de validité est une modification de sens. NOXIA doit rendre cette modification visible et refuser toute généralisation silencieuse."
+        },
+        {
+          "paragraph": 53,
+          "text": "Une projection peut adapter le niveau de détail, la langue, le format, l’ordre pédagogique ou le libellé. Elle ne peut modifier l’identité, le statut, la preuve, la décision, l’incertitude ou la provenance du contenu projeté."
+        },
+        {
+          "paragraph": 54,
+          "text": "PARTIE III — Les plans de vérité scientifique"
+        },
+        {
+          "paragraph": 55,
+          "text": "Chapitre 10 — L’architecture constitutionnelle V2"
+        },
+        {
+          "paragraph": 56,
+          "text": "NOXIA organise le raisonnement selon la chaîne de responsabilités suivante :"
+        },
+        {
+          "paragraph": 57,
+          "text": "Knowledge → Scientific Models → Observable Properties → Measurement Definitions → Biomarker Roles → Research Project → Canonical Variables → Variable Occurrences → Analyses → Documents."
+        },
+        {
+          "paragraph": 58,
+          "text": "Cette chaîne n’est ni un pipeline automatique, ni une hiérarchie de propriété, ni une promesse d’implémentation. Elle indique des changements de nature et d’ownership. Chaque frontière transmet des références, versions, contextes, statuts, provenance, inconnues, contradictions et décisions. Aucun plan aval ne peut muter silencieusement le plan amont."
+        },
+        {
+          "paragraph": 59,
+          "text": "Chapitre 11 — Knowledge"
+        },
+        {
+          "paragraph": 60,
+          "text": "Knowledge possède les unités épistémiques gouvernées : concepts, terminologies, assertions, relations scientifiques, sources, preuves, domaines de validité, limites, controverses, lacunes et versions. Il répond à la question : que savons-nous, à partir de quoi, dans quel contexte et avec quelles réserves ?"
+        },
+        {
+          "paragraph": 61,
+          "text": "Knowledge ne possède ni l’explication globale adoptée par un projet, ni les besoins de données de l’étude, ni les variables, ni les valeurs individuelles, ni les décisions scientifiques du chercheur. Il fournit des références qualifiées ; il ne choisit pas leur usage."
+        },
+        {
+          "paragraph": 62,
+          "text": "Chapitre 12 — Scientific Models"
+        },
+        {
+          "paragraph": 63,
+          "text": "Un Scientific Model est une composition explicative versionnée d’éléments scientifiques référencés. Il organise des entités, états, processus, mécanismes, rôles, relations causales ou temporelles proposées, alternatives, hypothèses, conditions de réfutation, inconnues et domaine de validité."
+        },
+        {
+          "paragraph": 64,
+          "text": "Un modèle n’est pas une copie du Knowledge Graph et n’augmente jamais le niveau de preuve de ses éléments. Plusieurs modèles peuvent organiser les mêmes connaissances de manière différente. Leur coexistence est normale lorsqu’elle reflète une controverse, une question différente, un changement d’échelle ou une incertitude réelle."
+        },
+        {
+          "paragraph": 65,
+          "text": "Scientific Thinking peut proposer des modèles candidats. Leur adoption dans un Research Project reste une décision humaine. Un modèle adopté pour un projet ne devient pas une vérité universelle."
+        },
+        {
+          "paragraph": 66,
+          "text": "Chapitre 13 — Phénomènes biologiques et états scientifiques"
+        },
+        {
+          "paragraph": 67,
+          "text": "Le phénomène biologique désigne le processus, l’état ou la dynamique que le raisonnement cherche à comprendre. Il reste distinct de toute propriété qui permet de l’approcher et de toute méthode qui produit une donnée."
+        },
+        {
+          "paragraph": 68,
+          "text": "L’identité et les connaissances relatives à un phénomène appartiennent à Knowledge. Son rôle dans une explication appartient au Scientific Model. Cette distinction permet au même phénomène d’apparaître dans plusieurs modèles sans dupliquer sa définition ni imposer un enchaînement unique."
+        },
+        {
+          "paragraph": 125,
+          "text": "Lorsqu’un défaut est détecté en aval, la correction remonte vers l’owner amont sous forme de contribution, d’alerte ou de demande. Aucun moteur, validateur ou document ne corrige silencieusement un objet qu’il ne possède pas."
+        },
+        {
+          "paragraph": 126,
+          "text": "Chapitre 30 — Les handoffs sont des contrats de fidélité"
+        },
+        {
+          "paragraph": 127,
+          "text": "Un handoff transmet le minimum suffisant pour permettre au destinataire d’agir sans recopier l’autorité source. Il conserve identités, versions, rôles, contexte, statut, provenance, décisions, inconnues, contradictions, limites et dépendances."
+        },
+        {
+          "paragraph": 128,
+          "text": "Le destinataire peut produire une contribution dans sa responsabilité. Il ne peut augmenter la certitude, retirer une contradiction, créer une décision ou substituer son propre identifiant canonique."
+        },
+        {
+          "paragraph": 129,
+          "text": "Chapitre 31 — Les owners spécialisés restent distincts"
+        },
+        {
+          "paragraph": 130,
+          "text": "Knowledge gouverne les unités épistémiques. Scientific Thinking propose des questions, hypothèses et modèles candidats. Study Design maintient la cohérence du projet. Imaging, laboratoire et autres domaines de mesure proposent les méthodes spécialisées. Data Management gouverne structure, qualité et lignage. Biostatistics gouverne l’inférence. REG qualifie l’applicabilité d’exigences. TMP et DOC structurent et projettent. VAL diagnostique la fidélité."
+        },
+        {
+          "paragraph": 131,
+          "text": "Cette séparation interdit le moteur omniscient. NOXIA constitue un système coordonné de raisonnement, non une intelligence monolithique possédant toutes les vérités et toutes les décisions."
+        },
+        {
+          "paragraph": 132,
+          "text": "PARTIE VII — Identité, contexte, provenance et projections"
+        },
+        {
+          "paragraph": 133,
+          "text": "Chapitre 32 — Canonical Identity"
+        },
+        {
+          "paragraph": 134,
+          "text": "Une identité canonique représente une continuité sémantique gouvernée. Elle ne doit pas encoder une interprétation fragile, dépendre d’un libellé d’écran ou être remplacée par un code externe. Les révisions, alias, traductions et mappings conservent la relation avec cette identité."
+        },
+        {
+          "paragraph": 135,
+          "text": "Une modification compatible crée une nouvelle version ; une modification qui change le sens crée une nouvelle identité reliée à la précédente. Aucune fusion automatique n’est permise sur la seule proximité lexicale."
+        },
+        {
+          "paragraph": 136,
+          "text": "Chapitre 33 — Provenance et reconstructibilité"
+        },
+        {
+          "paragraph": 137,
+          "text": "Toute proposition importante doit permettre de reconstruire : son origine, ses sources, les transformations appliquées, les décisions, les versions, les personnes ou systèmes responsables, les contrôles, les limites et les sorties qui en dépendent. La traçabilité est la capacité de suivre cette continuité entre identités, versions, handoffs et projections ; la provenance décrit l’origine et l’historique des contributions qui la rendent démontrable."
+        },
+        {
+          "paragraph": 138,
+          "text": "La provenance n’est pas une décoration documentaire. Elle est nécessaire pour comparer deux résultats, rejouer une décision, analyser l’impact d’une correction, retirer une source, expliquer une divergence ou démontrer qu’une projection est fidèle."
+        },
+        {
+          "paragraph": 139,
+          "text": "Chapitre 34 — Standards externes"
+        },
+        {
+          "paragraph": 140,
+          "text": "NOXIA conserve son modèle scientifique et métier interne. Les terminologies et standards externes sont des correspondances ou projections versionnées. Ils peuvent améliorer l’échange, la comparaison et l’interopérabilité ; ils ne dictent pas silencieusement la question scientifique, l’ontologie interne, le rôle biomarqueur, l’identité de variable ou l’interprétation."
+        },
+        {
+          "paragraph": 141,
+          "text": "Tout mapping conserve le standard et sa version, le concept cible, la relation d’équivalence, le contexte, les exclusions, la provenance, l’état de revue et les alternatives. Une correspondance partielle ne devient jamais exacte pour satisfaire un export."
+        },
+        {
+          "paragraph": 142,
+          "text": "Chapitre 35 — Une vérité, plusieurs projections"
+        },
+        {
+          "paragraph": 143,
+          "text": "Le même objet ou raisonnement peut être projeté pour un chercheur débutant, un expert, un méthodologiste, un statisticien, un data manager, un radiologue, un technologue, un Core Lab, un promoteur ou un reviewer. La profondeur, le vocabulaire et la présentation peuvent varier."
+        },
+        {
+          "paragraph": 144,
+          "text": "Le fond scientifique, les identités, les décisions, les inconnues, les contradictions, les limites et la provenance restent invariants. Deux projections ne sont pas deux stratégies. Une projection passive ne peut pas promouvoir un candidat, combler une lacune ou corriger une contradiction."
+        },
+        {
+          "paragraph": 145,
+          "text": "PARTIE VIII — Les moteurs et produits de NOXIA"
+        },
+        {
+          "paragraph": 146,
+          "text": "Chapitre 36 — Un système scientifique coordonné"
+        },
+        {
+          "paragraph": 147,
+          "text": "La version 1.0 parlait d’un moteur scientifique unique afin d’interdire la duplication du raisonnement entre interfaces. La version 2.0 conserve cette intention et clarifie sa mise en œuvre : l’unité porte sur la vérité gouvernée et la continuité du raisonnement, non sur un composant logiciel monolithique."
+        },
+        {
+          "paragraph": 148,
+          "text": "NOXIA peut comporter plusieurs moteurs spécialisés, à condition qu’ils partagent les identités, respectent les handoffs, conservent les owners et ne créent pas de logique scientifique concurrente. Une nouvelle capacité enrichit le système gouverné avant d’être exposée dans une interface."
+        },
+        {
+          "paragraph": 149,
+          "text": "Chapitre 37 — Compatibilité des moteurs existants"
+        },
+        {
+          "paragraph": 150,
+          "text": "Knowledge, Scientific Thinking, Imaging, Research Project, REG, TMP, DOC et VAL restent compatibles avec la constitution V2 dans leurs responsabilités établies. La V2 ne modifie aucun moteur dans la présente décision. Elle impose toutefois une trajectoire de conformité : distinguer modèle scientifique, observable, définition de mesure, rôle biomarqueur, variable et occurrence lorsque ces concepts seront admis dans le modèle métier."
+        },
+        {
+          "paragraph": 151,
+          "text": "Les chaînes V1 utilisées par les implémentations existantes restent des projections historiques interprétables. Elles ne peuvent pas être invoquées comme preuve que les nouveaux objets V2 sont déjà implémentés."
+        },
+        {
+          "paragraph": 152,
+          "text": "Chapitre 38 — OBS, CDM, Data Management et Biostatistics"
+        }
+      ]
+    },
+    {
+      "role": "PRODUCT_SPECIFICATION_V1",
+      "path": "output/documents/noxia-protocol-designer-product-specification-v1.0.docx",
+      "sha256": "efcd73f2d79737b688896f4598a6244904448903dcf676daf3375cdb8ad5cdad",
+      "excerpts": [
+        {
+          "paragraph": 3,
+          "text": "Version : 1.0"
+        },
+        {
+          "paragraph": 4,
+          "text": "Statut : Référence produit fondatrice"
+        },
+        {
+          "paragraph": 5,
+          "text": "Public : Chercheurs, radiologues, ingénieurs, méthodologistes et Core Labs"
+        },
+        {
+          "paragraph": 6,
+          "text": "Périmètre : Construction d’un projet scientifique complet en imagerie médicale"
+        },
+        {
+          "paragraph": 7,
+          "text": "Date : Août 2026"
+        },
+        {
+          "paragraph": 8,
+          "text": "Le produit n’aide pas le chercheur à remplir un protocole. Il l’aide à construire, comprendre, discuter et transmettre le raisonnement qui rend ce protocole défendable."
+        },
+        {
+          "paragraph": 9,
+          "text": "65 écrans et panneaux - 8 parcours complets - 4 niveaux d’accompagnement - 3 formats d’écran"
+        },
+        {
+          "paragraph": 11,
+          "text": "DOCUMENT DE RÉFÉRENCE"
+        },
+        {
+          "paragraph": 92,
+          "text": "Qu’est-ce qui soutient cette proposition ?"
+        },
+        {
+          "paragraph": 93,
+          "text": "Assertion, source localisée, contexte et statut documentaire"
+        },
+        {
+          "paragraph": 95,
+          "text": "3. Ce que le produit ne fait jamais"
+        },
+        {
+          "paragraph": 96,
+          "text": "Il ne prend pas de décision scientifique à la place du chercheur."
+        },
+        {
+          "paragraph": 97,
+          "text": "Il ne valide pas un protocole, une hypothèse, un endpoint ou un centre."
+        },
+        {
+          "paragraph": 98,
+          "text": "Il ne transforme pas une association en causalité ni une mention en preuve."
+        },
+        {
+          "paragraph": 99,
+          "text": "Il ne produit pas de valeur, seuil, unité, compatibilité ou recommandation absente des sources."
+        },
+        {
+          "paragraph": 100,
+          "text": "Il ne masque pas les contradictions, les données insuffisantes ni la nécessité d’une expertise humaine."
+        },
+        {
+          "paragraph": 101,
+          "text": "Il ne présente pas une projection documentaire comme un protocole exécutable."
+        },
+        {
+          "paragraph": 102,
+          "text": "Il ne donne pas de recommandation clinique individuelle."
+        },
+        {
+          "paragraph": 103,
+          "text": "Il ne réduit pas la qualité d’un projet à un score unique."
+        },
+        {
+          "paragraph": 104,
+          "text": "4. Mesure du succès"
+        },
+        {
+          "paragraph": 105,
+          "text": "Le chercheur peut expliquer chaque décision importante sans reconstruire le projet de mémoire."
+        },
+        {
+          "paragraph": 106,
+          "text": "Une autre discipline peut relire le raisonnement et identifier son propre périmètre d’avis."
+        },
+        {
+          "paragraph": 107,
+          "text": "Les informations manquantes et contradictoires restent visibles au même titre que les éléments établis."
+        },
+        {
+          "paragraph": 108,
+          "text": "Une contrainte nouvelle peut être propagée jusqu’aux décisions affectées."
+        },
+        {
+          "paragraph": 109,
+          "text": "Un projet interrompu peut être repris à partir de sa prochaine décision utile."
+        },
+        {
+          "paragraph": 110,
+          "text": "Une version antérieure reste compréhensible après un amendement."
+        },
+        {
+          "paragraph": 111,
+          "text": "Le produit sait s’arrêter lorsque son territoire ou les preuves sont insuffisants."
+        },
+        {
+          "paragraph": 113,
+          "text": "PARTIE II"
+        },
+        {
+          "paragraph": 114,
+          "text": "Utilisateurs, rôles et niveaux"
+        },
+        {
+          "paragraph": 115,
+          "text": "La compétence dépend du domaine, de la modalité, du rôle et du moment du projet. NOXIA adapte l’accompagnement sans modifier le contenu scientifique."
+        },
+        {
+          "paragraph": 116,
+          "text": "1. Rôles dans un projet"
+        },
+        {
+          "paragraph": 117,
+          "text": "Rôle"
+        },
+        {
+          "paragraph": 118,
+          "text": "Périmètre principal"
+        },
+        {
+          "paragraph": 119,
+          "text": "Contribution attendue"
+        },
+        {
+          "paragraph": 120,
+          "text": "Porteur ou investigateur"
+        },
+        {
+          "paragraph": 121,
+          "text": "Question, hypothèses, objectifs et arbitrage final"
+        },
+        {
+          "paragraph": 122,
+          "text": "Exprime l’intention, choisit et assume les décisions scientifiques"
+        },
+        {
+          "paragraph": 123,
+          "text": "Radiologue"
+        },
+        {
+          "paragraph": 124,
+          "text": "Pertinence d’imagerie et interprétation"
+        },
+        {
+          "paragraph": 125,
+          "text": "Relit biomarqueurs, modalités, acquisitions et limites"
+        },
+        {
+          "paragraph": 126,
+          "text": "Manipulateur"
+        },
+        {
+          "paragraph": 127,
+          "text": "Faisabilité d’acquisition"
+        },
+        {
+          "paragraph": 128,
+          "text": "Précise exécution, contrôles immédiats et contraintes de terrain"
+        },
+        {
+          "paragraph": 311,
+          "text": "2. Interactions universelles"
+        },
+        {
+          "paragraph": 312,
+          "text": "Répondre ou choisir Je ne sais pas."
+        },
+        {
+          "paragraph": 313,
+          "text": "Demander Pourquoi cette question ? et voir la décision affectée."
+        },
+        {
+          "paragraph": 314,
+          "text": "Ouvrir la justification scientifique et revenir exactement au point de départ."
+        },
+        {
+          "paragraph": 315,
+          "text": "Comparer des alternatives dans un contexte commun."
+        },
+        {
+          "paragraph": 316,
+          "text": "Retenir, écarter, différer, contester ou demander une expertise."
+        },
+        {
+          "paragraph": 317,
+          "text": "Modifier une décision et parcourir ses impacts avant confirmation."
+        },
+        {
+          "paragraph": 318,
+          "text": "Commenter une décision, demander une revue et conserver un désaccord."
+        },
+        {
+          "paragraph": 319,
+          "text": "Mettre en pause puis reprendre avec un résumé des changements."
+        },
+        {
+          "paragraph": 320,
+          "text": "Revenir à une version antérieure en créant un nouvel état, sans écraser l’histoire."
+        }
+      ]
+    }
+  ]
+}

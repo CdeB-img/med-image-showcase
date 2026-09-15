@@ -224,6 +224,15 @@ describe.each(DOMAINS)("Scientific proposal purpose — $id", (domain) => {
     const selected = resolveScientificThinkingConversation({ raw: "Je choisis l'hypothèse 1", output: proposal.output });
     expect(selected.kind).toBe("SELECT_CANDIDATE");
     if (selected.kind !== "SELECT_CANDIDATE") throw new Error("CANDIDATE_SELECTION_REQUIRED");
+    const hypothesisList = buildStandardScientificThinkingPresentation(proposal.output, { requestedOperation: "GENERATE_ALTERNATIVE_HYPOTHESIS" });
+    expect(resolveScientificThinkingConversation({
+      raw: "Nous choisissons la deuxième option de la liste courante pour revue. Sans adoption définitive.", output: proposal.output,
+      presentedCandidateRefs: hypothesisList.candidates.map(candidate => candidate.candidateRef),
+    })).toEqual({ kind: "SELECT_CANDIDATE", candidateRef: proposal.output.hypotheses[1]!.hypothesisId });
+    expect(resolveScientificThinkingConversation({
+      raw: "Nous choisissons la deuxième option de la liste courante. Les observations concernent quatre groupes.", output: proposal.output,
+      presentedCandidateRefs: proposal.presentation.candidates.map(candidate => candidate.candidateRef),
+    })).toEqual({ kind: "FALLTHROUGH" });
     const selectionTurn = behaviorTurn("turn:proposal-purpose:select", "Je choisis l'hypothèse 1");
     const selection = buildScientificThinkingSelectionContribution({
       conversationId: "conversation:proposal-purpose", project, output: proposal.output,
@@ -332,6 +341,7 @@ describe.each(DOMAINS)("Scientific proposal purpose — $id", (domain) => {
     expect(alternative.interaction.selectionAnchor).toEqual({
       ownerResultRef: ordinary.interaction.ownerResultRef,
       presentationTurnRef: ordinary.interaction.presentationTurnRef,
+      presentedCandidateRefs: ordinary.interaction.presentedCandidateRefs,
       traceRunId: ordinary.interaction.traceRunId,
     });
     const anchored = readScientificThinkingOutputFromLedger({

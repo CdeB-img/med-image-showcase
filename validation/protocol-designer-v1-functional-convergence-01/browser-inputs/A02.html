@@ -1,0 +1,3220 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Corpus figé A02</title><h1>Population en premier, précision tardive de âge et reprise de session</h1><form method="post" action="/__offline_campaign/active-turn" target="active-receipt"><input type="hidden" name="scenarioId" value="A02"><label>Tour figé <select name="turnId"><option value="A02-T01">A02-T01</option><option value="A02-T02">A02-T02</option><option value="A02-T03">A02-T03</option><option value="A02-T04">A02-T04</option><option value="A02-T05">A02-T05</option><option value="A02-T06">A02-T06</option><option value="A02-T07">A02-T07</option><option value="A02-T08">A02-T08</option><option value="A02-T09">A02-T09</option><option value="A02-T10">A02-T10</option><option value="A02-T11">A02-T11</option><option value="A02-T12">A02-T12</option><option value="A02-T13">A02-T13</option><option value="A02-T14">A02-T14</option><option value="A02-T15">A02-T15</option></select></label><button>Activer le tour</button></form><iframe name="active-receipt" title="Activation"></iframe><form method="post" action="/__functional_validation/receipt" target="observation-receipt"><label>Observation du contrôle<textarea name="observation"></textarea></label><button>Enregistrer observation</button></form><iframe name="observation-receipt" title="Reçu observation"></iframe><pre>{
+  &quot;id&quot;: &quot;A02&quot;,
+  &quot;family&quot;: &quot;A&quot;,
+  &quot;domain&quot;: &quot;Imagerie cardiaque / IDM&quot;,
+  &quot;title&quot;: &quot;Population en premier, précision tardive de âge et reprise de session&quot;,
+  &quot;baselineUnknown&quot;: [
+    &quot;effectif non fixé&quot;,
+    &quot;stratégie de randomisation non spécifiée&quot;,
+    &quot;capacité documentaire à vérifier&quot;
+  ],
+  &quot;coverageTags&quot;: [
+    &quot;EARLY_POPULATION&quot;,
+    &quot;MULTI_ATTRIBUTE_PRESERVATION&quot;,
+    &quot;E_RETURN_10_TURNS&quot;,
+    &quot;SESSION_RESTORE&quot;,
+    &quot;DOCUMENT_CURRENT&quot;
+  ],
+  &quot;realBrowserPriority&quot;: false,
+  &quot;turns&quot;: [
+    {
+      &quot;intent&quot;: &quot;Donner la population et les exclusions avant la question scientifique.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;type&quot;: &quot;POPULATION&quot;,
+          &quot;content&quot;: &quot;Adultes de 35 à 85 ans après premier IDM reconnu&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;ageMin&quot;: 35,
+            &quot;ageMax&quot;: 85,
+            &quot;condition&quot;: &quot;premier IDM reconnu&quot;
+          }
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;type&quot;: &quot;PROJECT_INFORMATION&quot;,
+          &quot;content&quot;: &quot;Exclusion des contre-indications effectives à IRM cardiaque; exemples de dispositifs implantés à qualifier individuellement&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T01&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {},
+        &quot;expectedRelationKeys&quot;: [],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je commence par qui on peut recruter : des adultes de 35 à 85 ans après un premier infarctus reconnu. On exclurait les contre-indications réelles à l&#x27;IRM cardiaque. Les dispositifs implantés sont des exemples à regarder individuellement, pas une liste d&#x27;exclusions automatiques.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;pas une liste d&#x27;exclusions automatiques&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;après un premier infarctus reconnu&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Préciser que cet ordre de présentation vient du recrutement déjà préparé, sans créer un objectif par supposition.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;id&quot;: &quot;A02-T02&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;J&#x27;ai commencé par les patients parce que le recrutement est déjà préparé de mon côté. C&#x27;est juste l&#x27;ordre dans lequel je vous présente les choses, n&#x27;en déduisez pas encore la question scientifique.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;n&#x27;en déduisez pas encore la question scientifique&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;le recrutement est déjà préparé&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Compléter ensuite objectif, comparaison et mesure principale.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;type&quot;: &quot;OBJECTIVE&quot;,
+          &quot;content&quot;: &quot;Comparer la viabilité myocardique selon stent immédiat ou différé après IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;type&quot;: &quot;INTERVENTION&quot;,
+          &quot;content&quot;: &quot;Stent immédiat&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;INTERVENTION_ARM&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;type&quot;: &quot;COMPARATOR&quot;,
+          &quot;content&quot;: &quot;Stent différé&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;COMPARATOR_ARM&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;type&quot;: &quot;STUDY_DESIGN&quot;,
+          &quot;content&quot;: &quot;Étude comparative prospective&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;type&quot;: &quot;IMAGING_MODALITY&quot;,
+          &quot;content&quot;: &quot;IRM cardiaque&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: pourcentage de lésions microvasculaires de la masse VG à 3 minutes après injection&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;type&quot;: &quot;ACQUISITION&quot;,
+          &quot;content&quot;: &quot;IRM entre J3 et J6 après IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T03&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [
+        {
+          &quot;key&quot;: &quot;comparison:intervention-vs-comparator&quot;,
+          &quot;type&quot;: &quot;COMPARES_WITH&quot;,
+          &quot;sourceKey&quot;: &quot;intervention&quot;,
+          &quot;targetKey&quot;: &quot;comparator&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;
+        }
+      ],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Pour la question scientifique maintenant : je voudrais comparer la viabilité myocardique après IDM entre une pose immédiate de stent et une pose différée. Ce serait une étude prospective comparative, avec le stent immédiat comme intervention et le différé comme comparateur.\nL&#x27;IRM cardiaque est prévue de J3 à J6 après l&#x27;IDM. En principal, la part de la masse VG occupée par les lésions microvasculaires, en pourcentage, trois minutes après injection.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;comparer la viabilité myocardique après IDM entre une pose immédiate de stent et une pose différée&quot;,
+          &quot;le stent immédiat comme intervention et le différé comme comparateur&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;après IDM&quot;,
+          &quot;de J3 à J6 après l&#x27;IDM&quot;,
+          &quot;trois minutes après injection&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander plusieurs propositions scientifiques applicables au Project actuel.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;A02-T04&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;À partir de ce qu&#x27;on a maintenant, proposez-moi plusieurs pistes scientifiques pour faire avancer ce projet.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander la justification de la deuxième proposition sans valider aucune piste.&quot;,
+      &quot;outcome&quot;: &quot;EXPLAIN&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [
+        &quot;A02-T04:proposal:2&quot;
+      ],
+      &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+      &quot;id&quot;: &quot;A02-T05&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;EXPLAIN&quot;
+      ],
+      &quot;userText&quot;: &quot;La deuxième de cette liste, qu&#x27;est-ce qui la justifie scientifiquement ? Je demande l&#x27;explication, je ne valide aucune de ces pistes à ce stade.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;je ne valide aucune de ces pistes à ce stade&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ajouter seulement une analyse exploratoire selon le territoire de IDM.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;type&quot;: &quot;ANALYSIS_SPECIFICATION&quot;,
+          &quot;content&quot;: &quot;Analyse exploratoire selon le territoire de IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T06&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;analysis&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je voudrais ajouter une analyse selon le territoire de l&#x27;infarctus. À titre exploratoire seulement, sans autre changement.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;sans autre changement&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Proposer de remplacer le critère principal par la FEVG à six mois; ne pas appliquer avant revue.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal proposé: FEVG à six mois après IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;followup6&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Évaluation à six mois après IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T07&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T07:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;followup6&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T07:followup6&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;endpoint&quot;,
+          &quot;followup6&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;endpoint&quot;,
+          &quot;followup6&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;endpoint&quot;: &quot;A02-T07:endpoint&quot;,
+          &quot;followup6&quot;: &quot;A02-T07:followup6&quot;
+        },
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;endpoint&quot;,
+            &quot;changedAttributes&quot;: {},
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: false
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Autre possibilité que je vous soumets : remplacer le principal actuel par la FEVG six mois après l&#x27;IDM, avec une évaluation à ce moment-là. Montrez-moi ce que donnerait cette modification avant de l&#x27;appliquer.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;remplacer le principal actuel par la FEVG&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;six mois après l&#x27;IDM&quot;,
+          &quot;une évaluation à ce moment-là&quot;,
+          &quot;avant de l&#x27;appliquer&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Refuser ce changement du critère principal et sa nouvelle visite associée.&quot;,
+      &quot;outcome&quot;: &quot;REFUSE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;A02-T08&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;REJECT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T01:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;REFUSE&quot;
+      ],
+      &quot;userText&quot;: &quot;Non finalement, je refuse le remplacement par la FEVG et l&#x27;évaluation à six mois qui va avec. Gardons la version déjà retenue.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;je refuse le remplacement par la FEVG et l&#x27;évaluation à six mois qui va avec&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;l&#x27;évaluation à six mois&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Restreindre à IDM avec sus-décalage de ST, en conservant âge et exclusions déjà adoptés.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;type&quot;: &quot;POPULATION&quot;,
+          &quot;content&quot;: &quot;Adultes de 35 à 85 ans après premier IDM reconnu avec sus-décalage de ST&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;ageMin&quot;: 35,
+            &quot;ageMax&quot;: 85,
+            &quot;condition&quot;: &quot;premier STEMI reconnu&quot;
+          }
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T09&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T09:population&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;population&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T09:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T09:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T01:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;population&quot;,
+            &quot;changedAttributes&quot;: {
+              &quot;condition&quot;: {
+                &quot;before&quot;: &quot;premier IDM reconnu&quot;,
+                &quot;proposed&quot;: &quot;premier STEMI reconnu&quot;
+              }
+            },
+            &quot;preservedAttributes&quot;: {
+              &quot;ageMin&quot;: 35,
+              &quot;ageMax&quot;: 85
+            },
+            &quot;afterReviewApplies&quot;: true
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Pour le recrutement je voudrais maintenant nous limiter aux infarctus avec sus-décalage de ST. Toujours un premier épisode reconnu chez les 35-85 ans ; les exclusions déjà posées restent les mêmes.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;Toujours un premier épisode reconnu&quot;,
+          &quot;les exclusions déjà posées&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Rappeler que les dispositifs implantés ne sont que des exemples, sans transformer cela en exclusion universelle.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [
+        &quot;exclusion&quot;
+      ],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;id&quot;: &quot;A02-T10&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T09:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T09:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T09:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T09:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;Je reviens juste sur les implants : quand j&#x27;en donnais des exemples, ce n&#x27;était pas pour exclure tout patient qui en porte un. L&#x27;appréciation de la contre-indication IRM reste individuelle.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ce n&#x27;était pas pour exclure tout patient qui en porte un&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;quand j&#x27;en donnais des exemples&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Modifier seulement la borne supérieure âge donnée dix tours plus tôt: 80 ans; conserver borne inférieure 35 ans et primo-STEMI.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;type&quot;: &quot;POPULATION&quot;,
+          &quot;content&quot;: &quot;Adultes de 35 à 80 ans après premier IDM reconnu avec sus-décalage de ST&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;ageMin&quot;: 35,
+            &quot;ageMax&quot;: 80,
+            &quot;condition&quot;: &quot;premier STEMI reconnu&quot;
+          }
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T11&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T09:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T11:population&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;population&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T11:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T09:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;population&quot;,
+            &quot;changedAttributes&quot;: {
+              &quot;ageMax&quot;: {
+                &quot;before&quot;: 85,
+                &quot;proposed&quot;: 80
+              }
+            },
+            &quot;preservedAttributes&quot;: {
+              &quot;ageMin&quot;: 35,
+              &quot;condition&quot;: &quot;premier STEMI reconnu&quot;
+            },
+            &quot;afterReviewApplies&quot;: true
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je m&#x27;aperçois que la limite haute donnée au début est trop large pour ce que je veux. Je propose 80 ans à la place de 85. La limite basse reste 35 ans, et il s&#x27;agit toujours du premier STEMI reconnu.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;80 ans à la place de 85&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;donnée au début&quot;,
+          &quot;toujours du premier STEMI reconnu&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Faire expliciter ce qui a changé dans la population, et ce qui est resté identique.&quot;,
+      &quot;outcome&quot;: &quot;EXPLAIN&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [
+        &quot;population&quot;
+      ],
+      &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+      &quot;id&quot;: &quot;A02-T12&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T11:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T11:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;EXPLAIN&quot;
+      ],
+      &quot;userText&quot;: &quot;Pouvez-vous m&#x27;expliquer exactement ce qui a changé dans la population au fil de ces corrections, et ce qui n&#x27;a pas bougé ?&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ce qui n&#x27;a pas bougé&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;ce qui a changé dans la population au fil de ces corrections, et ce qui n&#x27;a pas bougé&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;au fil de ces corrections&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Relire la version adoptée puis réouvrir la session existante pour vérifier population, endpoint et exclusions.&quot;,
+      &quot;outcome&quot;: &quot;PRESERVE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;REOPEN_EXISTING_SESSION&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT&quot;,
+          &quot;capabilityPolicy&quot;: &quot;EXISTING_CAPABILITY_ONLY&quot;,
+          &quot;assertions&quot;: [
+            &quot;SAME_PROJECT_ID&quot;,
+            &quot;SAME_PROJECT_VERSION&quot;,
+            &quot;SAME_ADOPTED_SEMANTICS&quot;,
+            &quot;NO_CANDIDATE_AUTOADOPTION&quot;
+          ],
+          &quot;ifUnavailable&quot;: &quot;PRODUCT_GAP_NOT_EVALUABLE&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T13&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T11:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T11:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PRESERVE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je veux relire ce qui est retenu, puis rouvrir cette même session. Vérifions que je retrouve la population, le critère principal et les exclusions dans leur version validée.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;relire ce qui est retenu, puis rouvrir cette même session&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander la projection documentaire disponible de cette version du projet; conserver ses limites de complétude.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;GENERATE_CURRENT_DOCUMENT_PROJECTION&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT&quot;,
+          &quot;capabilityPolicy&quot;: &quot;EXISTING_CAPABILITY_ONLY&quot;,
+          &quot;assertions&quot;: [
+            &quot;CURRENT_PROJECT_ID_VERSION_DIGEST&quot;,
+            &quot;LATEST_ADOPTED_SEMANTICS&quot;,
+            &quot;NO_REJECTED_CANDIDATE&quot;,
+            &quot;NO_UNSUPPORTED_COMPLETENESS_CLAIM&quot;
+          ],
+          &quot;ifUnavailable&quot;: &quot;PRODUCT_GAP_NOT_EVALUABLE&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;A02-T14&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T11:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T11:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;Pouvez-vous me sortir le document disponible à partir de cette version du projet ? Les rubriques encore incomplètes doivent rester visibles comme telles, sans compléter les trous par supposition.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;sans compléter les trous par supposition&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;Les rubriques encore incomplètes&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Après reprise, demander les prochaines pistes sans redemander âge et critère déjà adoptés.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;A02-T15&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T11:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;exclusion&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T01:exclusion&quot;
+        },
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;modality&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:modality&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;acquisition&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T03:acquisition&quot;
+        },
+        {
+          &quot;key&quot;: &quot;analysis&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A02-T06:analysis&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;stratégie de randomisation non spécifiée&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;capacité documentaire à vérifier&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A02-T11:population&quot;,
+          &quot;A02-T01:exclusion&quot;,
+          &quot;A02-T03:objective&quot;,
+          &quot;A02-T03:intervention&quot;,
+          &quot;A02-T03:comparator&quot;,
+          &quot;A02-T03:design&quot;,
+          &quot;A02-T03:modality&quot;,
+          &quot;A02-T03:endpoint&quot;,
+          &quot;A02-T03:acquisition&quot;,
+          &quot;A02-T06:analysis&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A02-T07:endpoint&quot;,
+          &quot;A02-T07:followup6&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;population&quot;,
+          &quot;exclusion&quot;,
+          &quot;objective&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;modality&quot;,
+          &quot;endpoint&quot;,
+          &quot;acquisition&quot;,
+          &quot;analysis&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;population&quot;: &quot;A02-T11:population&quot;,
+          &quot;exclusion&quot;: &quot;A02-T01:exclusion&quot;,
+          &quot;objective&quot;: &quot;A02-T03:objective&quot;,
+          &quot;intervention&quot;: &quot;A02-T03:intervention&quot;,
+          &quot;comparator&quot;: &quot;A02-T03:comparator&quot;,
+          &quot;design&quot;: &quot;A02-T03:design&quot;,
+          &quot;modality&quot;: &quot;A02-T03:modality&quot;,
+          &quot;endpoint&quot;: &quot;A02-T03:endpoint&quot;,
+          &quot;acquisition&quot;: &quot;A02-T03:acquisition&quot;,
+          &quot;analysis&quot;: &quot;A02-T06:analysis&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;Maintenant que nous avons repris, quelles pistes scientifiques examiner ensuite ? Appuyez-vous sur l&#x27;âge et le critère déjà retenus, ne me les redemandez pas.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ne me les redemandez pas&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;Maintenant que nous avons repris&quot;,
+          &quot;le critère déjà retenu&quot;
+        ]
+      }
+    }
+  ],
+  &quot;semanticPreconditions&quot;: &quot;Fresh independent session; no adopted Project injected; all states arise through listed user turns and explicit review.&quot;,
+  &quot;turnCount&quot;: 15,
+  &quot;factReferenceConvention&quot;: &quot;Scenario-turn:key identifies the semanticDelta fact on that exact turn. currentMeaningByKey is an oracle expectation only, never fixture Project state.&quot;
+}</pre></html>

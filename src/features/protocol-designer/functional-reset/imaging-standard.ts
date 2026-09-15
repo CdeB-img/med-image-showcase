@@ -127,7 +127,7 @@ export const buildStandardImagingPresentation = (
     : options.length === 1
       ? "La modalité déjà présente dans le projet ne suffit pas à définir l’acquisition, la qualité, la comparabilité ou la faisabilité."
       : "Le besoin d’imagerie est identifié, mais le contexte ne permet pas encore une spécialisation défendable.";
-  const plainText = [
+  const plainText = result.scopeExplanation ?? [
     introduction,
     ...options.map((option) => [
       option.modalityLabel,
@@ -142,10 +142,12 @@ export const buildStandardImagingPresentation = (
   return {
     presentationId: `imaging-standard-presentation:${logicalDigest({ result: result.resultId, digest: result.resultDigest })}`,
     resultRef: result.resultId,
-    title: options.length ? "Stratégie d’imagerie à discuter" : "Spécialisation Imaging à préciser",
-    introduction,
-    options,
-    unresolvedQuestions,
+    title: result.scopeExplanation ? "Acquisition à qualifier" : options.length ? "Stratégie d’imagerie à discuter" : "Spécialisation Imaging à préciser",
+    // The native scoped abstention is the visible service response. A retained
+    // modality without a qualified acquisition is not a proposed alternative.
+    introduction: result.scopeExplanation ?? introduction,
+    options: result.scopeExplanation ? [] : options,
+    unresolvedQuestions: result.scopeExplanation ? [] : unresolvedQuestions,
     commonRequirements,
     downstreamHandoffs,
     plainText,
@@ -212,7 +214,7 @@ export const dispatchImagingFromQuery = (input: {
     purpose: input.navigation.currentAction!.reason,
     sourceNeed: {
       id: input.navigation.currentAction!.navigationNeedRefs[0]!,
-      purpose: input.navigation.currentAction!.reason,
+      purpose: input.navigation.requestedService?.sourceText ?? input.navigation.currentAction!.reason,
     },
     startedAt: input.startedAt,
     completedAt: input.completedAt,

@@ -1,0 +1,97 @@
+{
+  "rootLintErrors": 51,
+  "affectedFilesErrors": 0,
+  "files": [
+    {
+      "path": "experiments/.venv/lib/python3.12/site-packages/stitch/labextension/static/lib_widget_js.95d2bcb5bd8752e1e16a.js",
+      "errors": 2,
+      "sha256": "049268c50f00f63eed9ca7aa23508a806e41304e66cd0a78c1dad016b197f000",
+      "attribution": "OUTSIDE_SCOPE_IGNORED_EXPERIMENT_TOOLCHAIN"
+    },
+    {
+      "path": "experiments/.venv/share/jupyter/labextensions/@guidance-ai/stitch/static/lib_widget_js.95d2bcb5bd8752e1e16a.js",
+      "errors": 2,
+      "sha256": "049268c50f00f63eed9ca7aa23508a806e41304e66cd0a78c1dad016b197f000",
+      "attribution": "OUTSIDE_SCOPE_IGNORED_EXPERIMENT_TOOLCHAIN"
+    },
+    {
+      "path": "experiments/.venv/share/jupyter/labextensions/@jupyter-widgets/jupyterlab-manager/static/lib_index_js.56f37fb50492d0d63a45.js",
+      "errors": 3,
+      "sha256": "58b5a35431bb99452059dec1a6f92071f277069285430cef0ca2fa118fce4067",
+      "attribution": "OUTSIDE_SCOPE_IGNORED_EXPERIMENT_TOOLCHAIN"
+    },
+    {
+      "path": "experiments/.venv/share/jupyter/labextensions/@jupyter-widgets/jupyterlab-manager/static/vendors-node_modules_base64-js_index_js-node_modules_sanitize-html_index_js.c79fc2bcc3f69676beda.js",
+      "errors": 3,
+      "sha256": "3b8b52a666a7b45573fdf018f24822a78767b7fe9bf1893bdda72e8723686f71",
+      "attribution": "OUTSIDE_SCOPE_IGNORED_EXPERIMENT_TOOLCHAIN"
+    },
+    {
+      "path": "experiments/.venv/share/jupyter/labextensions/@jupyter-widgets/jupyterlab-manager/static/vendors-node_modules_jquery_dist_jquery_js.3afdf979a9caffdf15a7.js",
+      "errors": 1,
+      "sha256": "5397e4818e85213012990bd837f32de182a9f2290304cf20771c7f914b3eb72d",
+      "attribution": "OUTSIDE_SCOPE_IGNORED_EXPERIMENT_TOOLCHAIN"
+    },
+    {
+      "path": "experiments/engine-lab/tasks/hybrid-runtime-prototype/audit/sem_audit_l_runner.ts",
+      "errors": 3,
+      "sha256": "02cf5a1c18c529731d727e856d7c7df39bb37c59ddeac136645da8be739e011b",
+      "attribution": "TRACKED_BASELINE_UNCHANGED"
+    },
+    {
+      "path": "experiments/semantic-engine-comparison/common_contract_ablation_02/sem_pair_runner.ts",
+      "errors": 5,
+      "sha256": "625f0f0306aa2fe3628c994dd01dd0da65ab36f52cf5aff973c5d4584ba90d23",
+      "attribution": "TRACKED_BASELINE_UNCHANGED"
+    },
+    {
+      "path": "experiments/semantic-engine-comparison/interactive_overnight/sem_runner.ts",
+      "errors": 4,
+      "sha256": "8a83265946832ca0c189f5f5e21dfd5c76023b1ab6262f9b09deb7e76b62be89",
+      "attribution": "TRACKED_BASELINE_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/canary-dry-run.ts",
+      "errors": 1,
+      "sha256": "9974c65ab04b04a81a191ead207161d184183776cb54b9c548f1334b776e359e",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-autonomous-adversarial-stabilization-01/critical-review-probes/wave1-critical-probes.ts",
+      "errors": 1,
+      "sha256": "3e643d802943830b05d4d4ab85a0236f291346baecc0e238b580bc9b88c4da56",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-live-provider-long-horizon-canary-01r/replay-and-accounting.ts",
+      "errors": 5,
+      "sha256": "cb7a78a41312c6926c988d8de0dffd59a7bb85047e05b70233dc20e1efac8df2",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-pass3a-gemini-dev-conversation-qualification-01/run-live.ts",
+      "errors": 9,
+      "sha256": "bce35af2a11f6bdab6fe5cc5ad83da281423c4710664f29100952026d608de1b",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-pass3a-targeted-gemini-replay-after-cc01-cc05-01/finalize.ts",
+      "errors": 3,
+      "sha256": "52ffb81f9827362e53df6680fd69d66eaef7abc1904c51ec888866efb8f4b3fa",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-pass3a-targeted-gemini-replay-after-cc01-cc05-01/run-live.ts",
+      "errors": 5,
+      "sha256": "304d3a5d5d843441b72596d9771fa6b06ec6e6eb12c6e1c41af58ac7fed29411",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    },
+    {
+      "path": "validation/protocol-designer-v1-pass3a-targeted-gemini-replay-after-residual-repair-02/run-live.ts",
+      "errors": 4,
+      "sha256": "a00b684d40d64d4084c231d82988bee531736820d0befde8a71bd6d8440756ea",
+      "attribution": "PREEXISTING_UNTRACKED_UNCHANGED"
+    }
+  ],
+  "policy": "Preserve historical experiment and prior-campaign artifacts; no unrelated lint cleanup."
+}

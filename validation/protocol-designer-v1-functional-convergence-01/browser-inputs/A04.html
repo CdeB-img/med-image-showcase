@@ -1,0 +1,3123 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Corpus figé A04</title><h1>Comparaison de lectures appariées et correction partielle de mesure</h1><form method="post" action="/__offline_campaign/active-turn" target="active-receipt"><input type="hidden" name="scenarioId" value="A04"><label>Tour figé <select name="turnId"><option value="A04-T01">A04-T01</option><option value="A04-T02">A04-T02</option><option value="A04-T03">A04-T03</option><option value="A04-T04">A04-T04</option><option value="A04-T05">A04-T05</option><option value="A04-T06">A04-T06</option><option value="A04-T07">A04-T07</option><option value="A04-T08">A04-T08</option><option value="A04-T09">A04-T09</option><option value="A04-T10">A04-T10</option><option value="A04-T11">A04-T11</option><option value="A04-T12">A04-T12</option><option value="A04-T13">A04-T13</option><option value="A04-T14">A04-T14</option><option value="A04-T15">A04-T15</option></select></label><button>Activer le tour</button></form><iframe name="active-receipt" title="Activation"></iframe><form method="post" action="/__functional_validation/receipt" target="observation-receipt"><label>Observation du contrôle<textarea name="observation"></textarea></label><button>Enregistrer observation</button></form><iframe name="observation-receipt" title="Reçu observation"></iframe><pre>{
+  &quot;id&quot;: &quot;A04&quot;,
+  &quot;family&quot;: &quot;A&quot;,
+  &quot;domain&quot;: &quot;Imagerie cardiaque / IDM&quot;,
+  &quot;title&quot;: &quot;Comparaison de lectures appariées et correction partielle de mesure&quot;,
+  &quot;baselineUnknown&quot;: [
+    &quot;effectif images non fixé&quot;,
+    &quot;métrique accord à choisir&quot;,
+    &quot;ordre des lectures non fixé&quot;
+  ],
+  &quot;coverageTags&quot;: [
+    &quot;PAIRED_NONINTERVENTIONAL_IMAGING&quot;,
+    &quot;OLD_PROPOSAL&quot;,
+    &quot;E_RETURN_10_TURNS&quot;,
+    &quot;ENDPOINT_UNIT_PATCH&quot;
+  ],
+  &quot;realBrowserPriority&quot;: false,
+  &quot;turns&quot;: [
+    {
+      &quot;intent&quot;: &quot;Concevoir une comparaison de deux méthodes de segmentation sur les mêmes IRM post-IDM.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;type&quot;: &quot;OBJECTIVE&quot;,
+          &quot;content&quot;: &quot;Comparer deux méthodes de segmentation des lésions microvasculaires sur les mêmes IRM post-IDM&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;type&quot;: &quot;POPULATION&quot;,
+          &quot;content&quot;: &quot;Jeu de IRM adultes post-IDM, chaque examen lu par deux méthodes&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;type&quot;: &quot;INTERVENTION&quot;,
+          &quot;content&quot;: &quot;Segmentation manuelle&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;type&quot;: &quot;COMPARATOR&quot;,
+          &quot;content&quot;: &quot;Segmentation semi-automatique&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;type&quot;: &quot;STUDY_DESIGN&quot;,
+          &quot;content&quot;: &quot;Étude méthodologique appariée; mêmes examens pour deux méthodes&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: différence de volume segmenté des lésions microvasculaires en millilitres&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;metric&quot;: &quot;différence&quot;,
+            &quot;measure&quot;: &quot;volume lésions microvasculaires&quot;,
+            &quot;unit&quot;: &quot;mL&quot;
+          },
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;type&quot;: &quot;PROJECT_INFORMATION&quot;,
+          &quot;content&quot;: &quot;Images acquises trois minutes après injection&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A04-T01&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [
+        {
+          &quot;key&quot;: &quot;comparison:intervention-vs-comparator&quot;,
+          &quot;type&quot;: &quot;COMPARES_WITH&quot;,
+          &quot;sourceKey&quot;: &quot;intervention&quot;,
+          &quot;targetKey&quot;: &quot;comparator&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;
+        }
+      ],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {},
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je voudrais monter une étude de méthode sur des IRM d&#x27;adultes après IDM : comparer la segmentation manuelle des lésions microvasculaires à une segmentation semi-automatique. Les deux méthodes portent sur chaque même examen, donc il s&#x27;agit bien de données appariées. Les images ont été acquises trois minutes après injection.\nJe propose comme critère principal la différence de volume des lésions segmentées entre les méthodes, exprimée en millilitres.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;comparer la segmentation manuelle des lésions microvasculaires à une segmentation semi-automatique&quot;,
+          &quot;la différence de volume des lésions segmentées entre les méthodes&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;après IDM&quot;,
+          &quot;trois minutes après injection&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ajouter une seconde lecture après quatre semaines par les mêmes lecteurs.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Seconde lecture des mêmes IRM par les mêmes lecteurs après quatre semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A04-T02&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;reread&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;reread&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Pour la relecture, je propose que les mêmes lecteurs reprennent ces mêmes IRM quatre semaines après leur première lecture.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;quatre semaines après leur première lecture&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Confirmer explicitement la candidate actuellement présentée et seulement celle-ci.&quot;,
+      &quot;outcome&quot;: &quot;CONFIRM&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;A04-T03&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;USER_INPUT&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CONFIRM&quot;
+      ],
+      &quot;userText&quot;: &quot;Oui, cette seconde lecture comme présentée me convient, je la confirme.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander plusieurs mesures possibles de accord adaptées au caractère apparié.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;A04-T04&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;Quelles mesures d&#x27;accord pourraient convenir ici ? Propose-moi plusieurs possibilités qui respectent le fait qu&#x27;on a les mêmes examens dans les deux méthodes.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;pourraient convenir ici&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;les mêmes examens dans les deux méthodes&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander pourquoi corrélation et accord répondent à des questions différentes, sans choisir une métrique.&quot;,
+      &quot;outcome&quot;: &quot;EXPLAIN&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+      &quot;id&quot;: &quot;A04-T05&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;EXPLAIN&quot;
+      ],
+      &quot;userText&quot;: &quot;J&#x27;ai besoin de comprendre pourquoi une corrélation et un accord ne répondent pas à la même question. Peux-tu me l&#x27;expliquer avant qu&#x27;on choisisse une métrique ?&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ne répondent pas à la même question&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;une corrélation et un accord ne répondent pas à la même question&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;avant qu&#x27;on choisisse une métrique&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ajouter durée de segmentation comme critère secondaire.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère secondaire: durée de segmentation par examen&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A04-T06&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;duration&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Autre mesure à ajouter : le temps passé à segmenter chaque examen. Je le mettrais en critère secondaire.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Suggérer que la méthode automatique pourrait être meilleure, en conservant le statut hypothèse.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;id&quot;: &quot;A04-T07&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;J&#x27;aurais tendance à penser que l&#x27;automatisation pourrait donner de meilleurs résultats que le manuel. C&#x27;est une intuition, pas quelque chose qu&#x27;on a démontré.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;pas quelque chose qu&#x27;on a démontré&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;J&#x27;aurais tendance à penser&quot;,
+          &quot;pourrait donner de meilleurs résultats&quot;,
+          &quot;C&#x27;est une intuition&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;de meilleurs résultats que le manuel&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander une alternative méthodologique et pas simplement une reformulation de explication précédente.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;ALTERNATIVES_AFTER_EXPLANATION&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;A04-T08&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;ALTERNATIVES_AFTER_EXPLANATION&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;D&#x27;accord pour l&#x27;explication. Maintenant propose-moi une autre approche méthodologique, j&#x27;ai besoin d&#x27;une alternative, pas de la même explication formulée autrement.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;pas de la même explication formulée autrement&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;une autre approche méthodologique&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;Maintenant&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Proposer de raccourcir le délai de relecture à une semaine.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Seconde lecture des mêmes IRM par les mêmes lecteurs après une semaine&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;A04-T09&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T09:reread&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;reread&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;reread&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;reread&quot;: &quot;A04-T09:reread&quot;
+        },
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;reread&quot;,
+            &quot;changedAttributes&quot;: {},
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: false
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je soumets une correction du délai de relecture : une semaine au lieu de quatre, avec les mêmes lecteurs et les mêmes images.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;une semaine au lieu de quatre&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;délai de relecture : une semaine au lieu de quatre&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Refuser la candidate actuelle; conserver toutes les décisions adoptées antérieurement.&quot;,
+      &quot;outcome&quot;: &quot;REFUSE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;A04-T10&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;REJECT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T01:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;REFUSE&quot;
+      ],
+      &quot;userText&quot;: &quot;Non, je refuse ce raccourcissement. On en reste aux dispositions déjà adoptées.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;je refuse ce raccourcissement&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;déjà adoptées&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Modifier seulement unité du critère initial vers pourcentage de masse VG, en conservant différence interméthodes et caractère apparié.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: différence entre méthodes du pourcentage de masse VG représenté par les lésions microvasculaires&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;metric&quot;: &quot;différence entre méthodes&quot;,
+            &quot;measure&quot;: &quot;lésions microvasculaires&quot;,
+            &quot;unit&quot;: &quot;% masse VG&quot;
+          },
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;A04-T11&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T11:endpoint&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;endpoint&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T11:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T01:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;endpoint&quot;,
+            &quot;changedAttributes&quot;: {
+              &quot;metric&quot;: {
+                &quot;before&quot;: &quot;différence&quot;,
+                &quot;proposed&quot;: &quot;différence entre méthodes&quot;
+              },
+              &quot;measure&quot;: {
+                &quot;before&quot;: &quot;volume lésions microvasculaires&quot;,
+                &quot;proposed&quot;: &quot;lésions microvasculaires&quot;
+              },
+              &quot;unit&quot;: {
+                &quot;before&quot;: &quot;mL&quot;,
+                &quot;proposed&quot;: &quot;% masse VG&quot;
+              }
+            },
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: true
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je reviens au principal du début. Je voudrais exprimer les lésions en pourcentage de la masse VG plutôt qu&#x27;en mL, puis prendre la différence entre les deux méthodes. On garde ce rôle de critère principal et la comparaison appariée sur les mêmes examens ; seule l&#x27;expression de la mesure change.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;en pourcentage de la masse VG plutôt qu&#x27;en mL&quot;,
+          &quot;la différence entre les deux méthodes&quot;,
+          &quot;la comparaison appariée sur les mêmes examens&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;au principal du début&quot;,
+          &quot;puis prendre la différence&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander confirmation explicative que le délai de relecture reste quatre semaines, sans nouvelle adoption.&quot;,
+      &quot;outcome&quot;: &quot;EXPLAIN&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [
+        &quot;reread&quot;
+      ],
+      &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+      &quot;id&quot;: &quot;A04-T12&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T11:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T11:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;EXPLAIN&quot;
+      ],
+      &quot;userText&quot;: &quot;Juste pour vérifier ma compréhension : pour la relecture, nous sommes donc toujours à quatre semaines ? Rappelle-moi ce qui est retenu, sans modifier quoi que ce soit.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;sans modifier quoi que ce soit&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;pour la relecture, nous sommes donc toujours à quatre semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Revenir explicitement à la deuxième proposition du tour 4 et demander sa sélection sur la version normalisée actuelle.&quot;,
+      &quot;outcome&quot;: &quot;SELECT_OLD_PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;selection&quot;: {
+        &quot;sourceTurn&quot;: 4,
+        &quot;ordinal&quot;: 2,
+        &quot;requireVisibleStableReference&quot;: true,
+        &quot;revalidateAgainstCurrentProject&quot;: true
+      },
+      &quot;purpose&quot;: &quot;SELECT_REFERENCED_PROPOSAL&quot;,
+      &quot;id&quot;: &quot;A04-T13&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T11:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;SELECT_PREVIOUS_VISIBLE_PROPOSAL&quot;,
+          &quot;sourceTurn&quot;: 4,
+          &quot;ordinal&quot;: 2,
+          &quot;timing&quot;: &quot;AS_REFERENCE_RESOLUTION_ONLY_IF_UI_REQUIRES&quot;,
+          &quot;required&quot;: true,
+          &quot;ifUnavailable&quot;: &quot;OBSERVED_LIMITATION_NOT_PASS&quot;
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXACT_SELECTED_VISIBLE_PROPOSAL&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY&quot;,
+        &quot;freshness&quot;: &quot;REVALIDATE_ON_CURRENT_PROJECT&quot;,
+        &quot;missingOrAmbiguousReference&quot;: &quot;CLARIFY_OR_REPORT_REFERENCE_UNAVAILABLE_NEVER_INVENT&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;SELECT_REFERENCED_PROPOSAL&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T11:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;$selectedVisibleProposal&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;$selectedVisibleProposal&quot;: &quot;A04-T04:proposal:2&quot;
+        },
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;SELECT_OLD_PROPOSAL&quot;,
+        &quot;CLARIFY_IF_REFERENCE_UNAVAILABLE_OR_OBSOLETE&quot;
+      ],
+      &quot;ambiguityPolicy&quot;: {
+        &quot;sourceReferenceMustBeActuallyVisible&quot;: true,
+        &quot;ordinalAloneIsNotGlobalIdentity&quot;: true,
+        &quot;revalidationAgainstCurrentProjectRequired&quot;: true,
+        &quot;missingReferenceMustBeReported&quot;: true,
+        &quot;projectWrite&quot;: &quot;FORBIDDEN&quot;
+      },
+      &quot;userText&quot;: &quot;Je choisis la deuxième de la première liste de mesures d&#x27;accord que tu m&#x27;avais donnée, avant l&#x27;explication corrélation/accord. Reprends cette proposition précise et vérifie son application avec la mesure maintenant exprimée en pourcentage de masse VG, puis présente-la à nouveau pour revue. Si tu ne peux pas identifier la proposition d&#x27;origine, signale-le.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ne peux pas identifier la proposition d&#x27;origine&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [
+          &quot;Si tu ne peux pas identifier la proposition d&#x27;origine, signale-le&quot;
+        ],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;avant l&#x27;explication corrélation/accord&quot;,
+          &quot;maintenant exprimée en pourcentage de masse VG&quot;,
+          &quot;puis présente-la à nouveau pour revue&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ne pas adopter cette proposition ancienne après relecture; préserver la différence normalisée déjà adoptée.&quot;,
+      &quot;outcome&quot;: &quot;REFUSE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;A04-T14&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T11:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;REJECT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T11:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;REFUSE&quot;
+      ],
+      &quot;userText&quot;: &quot;À la relecture, je préfère refuser cette proposition ancienne. La différence entre méthodes rapportée à la masse VG, déjà adoptée, reste telle quelle.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;refuser cette proposition ancienne&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;La différence entre méthodes rapportée à la masse VG&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;À la relecture&quot;,
+          &quot;déjà adoptée&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander les besoins méthodologiques encore ouverts, sans déclarer la métrique accord décidée.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;A04-T15&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T11:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;timing&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T01:timing&quot;
+        },
+        {
+          &quot;key&quot;: &quot;reread&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T02:reread&quot;
+        },
+        {
+          &quot;key&quot;: &quot;duration&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;A04-T06:duration&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif images non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;métrique accord à choisir&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;ordre des lectures non fixé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;A04-T01:objective&quot;,
+          &quot;A04-T01:population&quot;,
+          &quot;A04-T01:intervention&quot;,
+          &quot;A04-T01:comparator&quot;,
+          &quot;A04-T01:design&quot;,
+          &quot;A04-T11:endpoint&quot;,
+          &quot;A04-T01:timing&quot;,
+          &quot;A04-T02:reread&quot;,
+          &quot;A04-T06:duration&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;A04-T09:reread&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;timing&quot;,
+          &quot;reread&quot;,
+          &quot;duration&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;A04-T01:objective&quot;,
+          &quot;population&quot;: &quot;A04-T01:population&quot;,
+          &quot;intervention&quot;: &quot;A04-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;A04-T01:comparator&quot;,
+          &quot;design&quot;: &quot;A04-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;A04-T11:endpoint&quot;,
+          &quot;timing&quot;: &quot;A04-T01:timing&quot;,
+          &quot;reread&quot;: &quot;A04-T02:reread&quot;,
+          &quot;duration&quot;: &quot;A04-T06:duration&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;Quels points méthodologiques restent à traiter et quelles pistes proposes-tu pour y répondre ? Pour la métrique d&#x27;accord, le choix reste ouvert.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;Pour la métrique d&#x27;accord, le choix reste ouvert&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    }
+  ],
+  &quot;semanticPreconditions&quot;: &quot;Fresh independent session; no adopted Project injected; all states arise through listed user turns and explicit review.&quot;,
+  &quot;turnCount&quot;: 15,
+  &quot;factReferenceConvention&quot;: &quot;Scenario-turn:key identifies the semanticDelta fact on that exact turn. currentMeaningByKey is an oracle expectation only, never fixture Project state.&quot;
+}</pre></html>

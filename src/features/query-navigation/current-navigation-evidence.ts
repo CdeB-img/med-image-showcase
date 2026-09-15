@@ -20,6 +20,7 @@ import type {
 } from "./current-turn-navigation.js";
 import type { GovernedRealizationContent, GovernedVisibleObligation } from "./governed-conversation-realization.js";
 import type { CurrentProjectImpactProjection } from "./current-project-context.js";
+import { canonicalFrenchTemporalUnit } from "../research-project-construction/temporal-presentation.js";
 
 /** Explicit consumer scope, not a recency rule and not a new result store. */
 export type CurrentNavigationOwnerResultRef = Readonly<{
@@ -117,12 +118,13 @@ const candidateReferentContent = (record: Readonly<RetainedContributionCandidate
   }));
 };
 
-/** Pure lifecycle projection: no transcript, no recency-only merge, no scientific interpretation. */
+/** Lifecycle and explicit review-selection projection; recency is never a selection. */
 export const buildBoundedConversationReferentContext = (input: {
   retained: readonly RetainedContributionCandidate[];
   currentProject: Readonly<ResearchProjectOwnerProjection> | null;
   conversationId: string;
   runtimeTurns: readonly Readonly<{ turnId: string; role: "USER" | "NOXIA"; content: string }>[];
+  selectedReviewRef?: string | null;
 }): BoundedConversationReferentContext => {
   const expectedBase = input.currentProject ? {
     projectId: input.currentProject.projectId,
@@ -142,11 +144,25 @@ export const buildBoundedConversationReferentContext = (input: {
     resolution: "AMBIGUOUS", candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
     reason: "MULTIPLE_CURRENT_NON_ADOPTED_CANDIDATES", projectWriteAuthorized: false,
   });
-  const record = eligible[0];
+  const record = eligible.find(record => input.selectedReviewRef === undefined || record.candidateRef === input.selectedReviewRef);
   if (record) return Object.freeze({
     resolution: "UNIQUE_CURRENT", candidateRef: record.candidateRef, sourceTurnRef: record.sourceTurnRef,
     sourceDigest: record.sourceDigest, content: Object.freeze(candidateReferentContent(record)),
-    reason: "EXACT_CURRENT_RETAINED_CANDIDATE_BINDING", projectWriteAuthorized: false,
+    ...(input.selectedReviewRef ? { decisionScope: Object.freeze({
+      selectedReviewRef: input.selectedReviewRef,
+      presented: record.downstreamState === "PRESENTED" && Boolean(record.presentedAt),
+      changedObjectRefs: Object.freeze(unique(record.candidate.canonicalChangeSet.objectChanges.map(change => change.objectId))),
+      candidateTexts: Object.freeze(record.candidate.canonicalChangeSet.objectChanges
+        .flatMap(change => change.candidate ? [change.candidate.content] : [])),
+      candidateKinds: Object.freeze(unique([
+        ...record.candidate.canonicalChangeSet.objectChanges.flatMap(change => change.candidate ? [change.candidate.objectType] : []),
+        ...(record.candidate.canonicalChangeSet.temporalQualificationChanges.length ? ["TEMPORAL_QUALIFICATION"] : []),
+      ])),
+      sourceText: input.runtimeTurns.find(turn => turn.turnId === record.sourceTurnRef)!.content,
+      adoptedTexts: Object.freeze(input.currentProject?.sections.flatMap(section => section.elements.map(item => item.content)) ?? []),
+    }) } : {}),
+    reason: input.selectedReviewRef ? "EXACT_PRESENTED_REVIEW_SELECTION_BINDING" : "EXACT_CURRENT_RETAINED_CANDIDATE_BINDING",
+    projectWriteAuthorized: false,
   });
   const nonCurrentExists = input.retained.some((record) => record.actuality !== "CURRENT" || Boolean(record.humanDecision));
   return Object.freeze({
@@ -223,9 +239,183 @@ const candidateDecision = (clauses: readonly string[]): "CONFIRM" | "REFUSE" | n
   return decisions.size === 1 ? [...decisions][0]! : null;
 };
 
+// Normalize only quantities and inflection for reference comparison. This is
+// not a scientific interpretation: unproved descriptors still require review.
+const decisionQuantityWords = (() => {
+  const small = ["zero", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize"];
+  const french = (n: number): string => {
+    if (n < 17) return small[n]!;
+    if (n < 20) return `dix ${small[n - 10]}`;
+    if (n < 70) {
+      const tens = ["", "", "vingt", "trente", "quarante", "cinquante", "soixante"][Math.floor(n / 10)];
+      return `${tens}${n % 10 === 1 ? " et un" : n % 10 ? ` ${small[n % 10]}` : ""}`;
+    }
+    if (n < 80) return `soixante${n === 71 ? " et" : ""} ${french(n - 60)}`;
+    return n === 80 ? "quatre vingts" : `quatre vingt ${french(n - 80)}`;
+  };
+  return [...Array.from({ length: 100 }, (_, n) => [french(n), String(n)] as const), ["quatre vingt", "80"] as const]
+    .sort((left, right) => right[0].length - left[0].length);
+})();
+const decisionWords = (source: string) => {
+  let text = source.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR")
+    .replace(/(\d)[.,](\d)/gu, "$1decimal$2")
+    .replace(/[-−]\s*(\d)/gu, "moins$1").replace(/\+\s*(\d)/gu, "plus$1")
+    .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  for (const [words, value] of decisionQuantityWords) {
+    // Articles are not quantities. An isolated un/une is deliberately left
+    // lexical; explicit digits remain exact.
+    if (words === "un") continue;
+    text = text.replace(new RegExp(`\\b${words}\\b`, "gu"), value);
+  }
+  for (const [unit, multiplier] of [["cents?", 100], ["mille", 1000], ["millions?", 1000000]] as const) {
+    text = text.replace(new RegExp(`\\b(?:(\\d+) )?${unit}(?: (\\d+))?\\b`, "gu"),
+      (_match, factor: string | undefined, remainder: string | undefined) => String(Number(factor ?? 1) * multiplier + Number(remainder ?? 0)));
+  }
+  return text.split(/\s+/u).filter(Boolean).map(word => word.replace(/ement$/u, "").replace(/(?:ees|es|e|s)$/u, ""));
+};
+const decisionReferenceGrounded = (reference: string, scope: NonNullable<BoundedConversationReferentContext["decisionScope"]>) => {
+  const candidateWords = new Set(decisionWords(scope.candidateTexts.join(" ")));
+  const grammar = new Set(decisionWords("ce cet cette ces le la les l de du des d un une a au aux en et pour par sur son sa ses me m nous tu vous il elle je qui que qu vient viens venez venir tel telle comme exactement bien uniquement seulement courant actuelle presente presentee presenter affiche affiches afficher propose proposee proposer etre convient conviennent va avec candidate contribution proposition ajout modification changement remplacement retrait passage deplacement correction restriction raccourcissement ensemble etat celle celui ca cela la"));
+  // Vocabulary is licensed by native candidate kinds or explicit units, not
+  // by arbitrary words in the original request (which can include old values).
+  const temporal = scope.candidateKinds.includes("TEMPORAL_QUALIFICATION")
+    || scope.candidateTexts.some(text => (text.match(/\p{L}+/gu) ?? []).some(word => canonicalFrenchTemporalUnit(word)));
+  const labels = new Set(decisionWords([
+    ...(temporal ? ["calendrier moment creneau"] : []),
+    ...(scope.candidateKinds.includes("CANONICAL_VARIABLE") ? ["variable", /\bcovariable\b/iu.test(scope.sourceText) ? "covariable" : ""] : []),
+    ...(scope.candidateKinds.includes("ENDPOINT") ? ["critere mesure"] : []),
+    ...(scope.candidateTexts.some(text => /\bCelsius\b|°\s*C\b/u.test(text)) ? ["temperature"] : []),
+    // A participant count may be rendered as a count of persons. License the
+    // human's count label only when that label occurs in its own source and
+    // the native candidate explicitly describes a human sample size. Numeric
+    // qualifiers still have to match the candidate, never an old source value.
+    ...(scope.candidateTexts.some(text => /\beffectif\b.*\bpersonnes?\b/iu.test(text))
+      && /\b(?:nombre|effectif)\s+de\s+participants?\b/iu.test(scope.sourceText) ? ["participant"] : []),
+    // A source-introduced object name is a reference label, not all the facts
+    // of that source. Old quantities and unselected examples remain excluded.
+    ...[...scope.sourceText.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase()
+      .matchAll(/\b(?:propose|proposer|soumettre|soumets|ajouter|ajoute)\s+(?:le|la|un|une|l')\s*(\p{L}+)\b/gu)]
+      .filter(match => !/\b(?:pas|jamais|sans|ne)\s*$/u.test(scope.sourceText.slice(Math.max(0, match.index! - 12), match.index!).toLowerCase()))
+      .map(match => match[1]!),
+  ].join(" ")));
+  const descriptors = decisionWords(reference).filter(word => !grammar.has(word));
+  return descriptors.every(word => /\d/u.test(word) ? candidateWords.has(word)
+    : candidateWords.has(word) || labels.has(word)
+      || word.length >= 6 && [...candidateWords].some(candidate => candidate.startsWith(word)
+        && /^(?:i|ir|li|lir|l|ant|ante)$/u.test(candidate.slice(word.length))));
+};
+
+/**
+ * A broader act can be resolved only against the actual selected review.
+ * This stage binds a deictic whole-candidate reference; it does not interpret
+ * scientific facts or infer consent from an isolated decision verb.
+ */
+const contextualCandidateDecision = (
+  clauses: readonly string[], context: BoundedConversationReferentContext,
+): "CONFIRM" | "REFUSE" | "CLARIFY" | null => {
+  const text = clauses.join(" ").normalize("NFD").replace(/\p{M}/gu, "");
+  if (/["«»“”]/u.test(text)) return null;
+  // A bare act can use the existing grammar only after the caller proves a
+  // unique, presented review. It does not make the newest pending card unique.
+  if (clauses.length === 1 && /^(?:je|nous) (?:confirme|confirmons|valide|validons|accepte|acceptons|refuse|refusons|rejette|rejetons)[.!;]?$/u.test(text)) return null;
+  // These are selection/new-material acts. Their existing owner must resolve
+  // them; a pending review is not permission to adopt a different proposition.
+  if (/\b(?:je|nous) (?:retiens|retenons) (?:la question|l'hypothese|l'option|la strategie)\s+\d+\b/u.test(text)
+    || /\b(?:une?|de|des) nouvelle?s? (?:proposition|contribution)s?\s*:/u.test(text)
+    || /^(?:je|nous) (?:rejette|rejetons|refuse|refusons) toutes? (?:ces|les) (?:options|propositions|alternatives)[.!;]?$/u.test(text)) return null;
+  const actPattern = /(?:^|[,;:]\s*|\bet\s+)(?:(?:je|nous)\s+|j')(?:(ne|n')\s*)?(?:(la|le|les|l')\s*)?(confirme|confirmons|valide|validons|accepte|acceptons|adopte|adoptons|refuse|refusons|rejette|rejetons|retiens|retenons|prefere refuser)\b/gu;
+  const acts = clauses.flatMap((clause, index) => {
+    const value = clause.normalize("NFD").replace(/\p{M}/gu, "")
+      .replace(/^(non[, ]+)?retirons\b/u, "$1nous refusons");
+    return [...value.matchAll(actPattern)].map(match => ({ index, value, match }));
+  });
+  if (!acts.length) return null;
+  if (acts.every(({ value, match }) => /^\s+qu[e']\b/u.test(value.slice(match.index! + match[0].length)))) return null;
+  const onlyRefusal = acts.every(({ match }) => /refus|rejet/u.test(match[3]) || Boolean(match[1]) && /retiens|retenons/u.test(match[3]));
+  for (let index = 0; index < clauses.length; index++) {
+    if (acts.some(act => act.index === index)) continue;
+    const value = clauses[index].normalize("NFD").replace(/\p{M}/gu, "");
+    const preservation = /\b(?:gardons|garde|gardez|conserve|conservons|conservez|restons|reste|restent|demeure|demeurent|ne remet pas en cause)\b/u.test(value)
+      || /\btoujours\b/u.test(value) && /\b(?:pas|inconnu|inconnue|non choisi)\b/u.test(value);
+    if (preservation) {
+      const genericUnchanged = /^(?:le reste|le projet|les autres elements) (?:reste|restent|demeure|demeurent) inchangee?s?[.!]?$/u.test(value);
+      // Retention accompanying a refusal cannot modify Project. A conflicting
+      // quantity still needs clarification. A named retention accompanying an
+      // adoption is a separate scope restriction, not blanket consent.
+      if (!onlyRefusal && !genericUnchanged) return "CLARIFY";
+      const adopted = new Set(decisionWords(context.decisionScope?.adoptedTexts.join(" ") ?? ""));
+      if (decisionWords(value).some(word => /\d/u.test(word) && !adopted.has(word))) return "CLARIFY";
+      continue;
+    }
+    // Independent payload must still reach the reversible owner corridor.
+    if (!preservation) {
+      // A stated retention of the adopted state belongs to the decision scope.
+      // Unproved retention is clarified, never silently discarded as payload.
+      if (/\b(?:gardons|restons|reste|restent|demeure|demeurent|conserve|conservons|conservez|retirons|toujours|ne remet pas en cause)\b/u.test(value)) return "CLARIFY";
+      return null;
+    }
+  }
+  // Questions, examples, conditions and partial decisions never acquire the
+  // authority of a complete current-candidate confirmation through this path.
+  if (/\?|\b(?:si|supposons|imaginons|exemple|dirais|dirions|peut-etre|eventuellement|sauf|excepte|hormis|partiellement|a condition)\b/u.test(text)) return "CLARIFY";
+  if (/\b(?:sans adopter|sans adoption|pas de decision|aucune autorisation|retire mon accord|annule)\b/u.test(text)) return "CLARIFY";
+  if (/\b(?:ancien(?:ne)?|precedent(?:e)?|premier(?:e)?|deuxieme|troisieme)\b/u.test(acts.map(act => act.value).join(" "))
+    && !/\b(?:comme|tel(?:le)? que) presentee?\b/u.test(text)) return "CLARIFY";
+  const scope = context.decisionScope;
+  if (context.resolution !== "UNIQUE_CURRENT" || !context.candidateRef || !context.sourceTurnRef || !context.sourceDigest
+    || !scope?.presented || scope.selectedReviewRef !== context.candidateRef) return "CLARIFY";
+  const decisions = new Set<"CONFIRM" | "REFUSE">();
+  for (const { value, match } of acts) {
+    const verb = match[3];
+    const negativeRetention = /^(?:retiens|retenons)$/u.test(verb) && Boolean(match[1]);
+    if (match[1] && !negativeRetention) return "CLARIFY";
+    const decision = /refus|rejet/u.test(verb) || negativeRetention ? "REFUSE" : "CONFIRM";
+    let tail = value.slice(match.index! + match[0].length).replace(/[.!;]+$/u, "").trim();
+    if (negativeRetention) {
+      if (!/^pas\b/u.test(tail)) return "CLARIFY";
+      tail = tail.replace(/^pas\s*/u, "");
+    } else if (/^(?:pas|jamais|plus)\b/u.test(tail)) return "CLARIFY";
+    const prefix = value.slice(0, match.index!).trim();
+    const neutral = /^(?:(?:oui|non|finalement|c'est bien ca|cette fois|a la relecture|apres relecture|apres reflexion|apres examen|en revanche|donc|alors|bien|exactement)[,: ]*)*$/u.test(prefix);
+    const antecedent = prefix.replace(/^(?:oui|non)[, ]+/u, "").replace(/[, ]+$/u, "");
+    const deicticAntecedent = /^(?:ce|cet|cette)\b/u.test(antecedent) && Boolean(match[2]);
+    if (!neutral && !deicticAntecedent) return "CLARIFY";
+    const restricted = /^(?:uniquement|seulement)\s+/u.test(tail);
+    tail = tail.replace(/^(?:uniquement|seulement)\s+/u, "");
+    const reference = tail || (deicticAntecedent ? antecedent : "");
+    if (!reference && !match[2]) return "CLARIFY";
+    if (reference && !/^(?:ce|cet|cette|la|le|l')(?=\s|\p{L})/u.test(reference)) return "CLARIFY";
+    if (/\b(?:mais|remplace|modifie|corrige|ajoute|change|une partie|uniquement|seulement)\b/u.test(reference)) return "CLARIFY";
+    const presentationPointer = /\b(?:presentee?|affichee?|proposee?|presenter|afficher|proposer)\b/u.test(reference)
+      && /\b(?:viens|venez|vient|comme|tel|telle|que)\b/u.test(reference);
+    const wholeChange = /^(?:ce|cet|cette|la|le|l')\s*(?:candidate|contribution|proposition|ajout|modification|changement|remplacement|retrait|passage|deplacement|correction|raccourcissement)\b/u.test(reference)
+      || !scope.adoptedTexts.length && /^(?:ce|cet|cette|la|le|l')\s*(?:projet|plan|etude|essai|benchmark)\b/u.test(reference);
+    if (!decisionReferenceGrounded(reference, scope)) return "CLARIFY";
+    // A named part of a multi-object candidate cannot authorize its siblings.
+    // A single-object scope still requires the explicit displayed-review link
+    // when the human limits their approval with "uniquement" / "seulement".
+    if (restricted && (scope.changedObjectRefs.length !== 1 || !presentationPointer && !wholeChange)) return "CLARIFY";
+    if (!wholeChange && scope.changedObjectRefs.length > 1) {
+      const referenceWords = new Set(decisionWords(reference));
+      // Every changed object must participate in a named, non-whole decision.
+      // A shared grammatical word is not evidence of scope coverage.
+      if (!scope.candidateTexts.every(candidate => decisionWords(candidate)
+        .some(word => word.length > 3 && referenceWords.has(word)))) return "CLARIFY";
+    }
+    if (!presentationPointer && !wholeChange && scope.changedObjectRefs.length !== 1) return "CLARIFY";
+    decisions.add(decision);
+  }
+  return decisions.size === 1 ? [...decisions][0]! : "CLARIFY";
+};
+
+const requestsPastProposalReference = (text: string) => !/["«»“”]/u.test(text)
+  && (/\b(?:je (?:selectionne|choisis)|c'est celle-la que je selectionne|nous (?:selectionnons|choisissons)|reprenons)\b/u.test(text)
+    && /\b(?:premiere|premier|deuxieme|troisieme|ancienne?|precedent|precedente|historique|liste|reference)\b/u.test(text)
+    || /\balternatives? a (?:cette|la|une) (?:premiere|deuxieme|troisieme|ancienne)\b/u.test(text));
+
 const requestsAssistedProposal = (clause: string) => {
   if (/["«»“”]|\b(?:exemple|supposons|imaginons|si)\b/u.test(clause)) return false;
-  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|hypothèses?|approches?|choix|ce qu[' ]il manque|what is missing)\b/u.test(clause);
+  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|solutions?|hypothèses?|approches?|choix|ce qu[' ]il manque|what is missing)\b/u.test(clause);
   const imperative = clause.match(/(?:^|[,;:]\s*|\b(?:puis|ensuite|maintenant|alors)\s+)((?:fais|faites|donne|donnez|propose|proposez|suggère|suggérez|présente|présentez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer|suggérer|présenter)|suggest(?: me)?)\b/u);
   // A negative constraint on adoption is not negation of the proposal request.
   const negated = imperative && /^\s+(?:pas|jamais|aucune?s?)\b/u.test(clause.slice(imperative.index! + imperative[0].length));
@@ -238,6 +428,7 @@ const requestsAssistedProposal = (clause: string) => {
   if (question && proposalObject && !negativeQuestion && (
     /\b(?:proposes?|proposez|proposerais|proposeriez|suggères?|suggérez|suggérerais|suggéreriez|vois|voyez|verrais|verriez)[- ](?:tu|vous)\b/u.test(question)
     || /\b(?:peut|pourrait)[- ]on\s+(?:proposer|envisager|examiner|explorer)\b/u.test(question)
+    || /\b(?:examiner|envisager|explorer)(?:\s+(?:ensuite|maintenant))?\s*$/u.test(question)
   )) return true;
   return /^(?:qu[' ]est-ce que|que)\s+(?:tu|vous)\s+(?:me\s+)?(?:proposerais|proposeriez|proposes|proposez|suggères|suggérez)\b/u.test(clause)
     || /^(?:tu|vous)\s+(?:vois|voyez|envisages|envisagez)\s+(?:d[' ]autres|des|plusieurs)\s+/u.test(clause) && proposalObject
@@ -259,7 +450,19 @@ export const selectBoundedConversationInteraction = (input: {
   const normalized = input.sourceText.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
     .toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
   const clauses = interactionClauses(normalized);
-  const decision = candidateDecision(clauses);
+  if (requestsPastProposalReference(normalized.normalize("NFD").replace(/\p{M}/gu, ""))) return Object.freeze({
+    kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "PAST_PROPOSAL_REFERENCE",
+  });
+  const contextualDecision = contextualCandidateDecision(clauses, input.referentContext);
+  if (input.referentContext.decisionScope && !input.referentContext.decisionScope.presented
+    && (contextualDecision || candidateDecision(clauses))) return Object.freeze({
+    kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE",
+  });
+  const decision = contextualDecision === "CLARIFY" ? input.referentContext.decisionScope ? null : candidateDecision(clauses)
+    : contextualDecision ?? candidateDecision(clauses);
+  if (!decision && contextualDecision === "CLARIFY") return Object.freeze({
+    kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE",
+  });
   if (decision && (input.referentContext.resolution !== "UNIQUE_CURRENT"
     || !input.referentContext.candidateRef || !input.referentContext.sourceTurnRef || !input.referentContext.sourceDigest)) {
     return Object.freeze({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]) });
@@ -289,6 +492,61 @@ export const selectBoundedConversationInteraction = (input: {
     evidenceRefs: Object.freeze([]),
   });
   return undefined;
+};
+
+export const requestsScientificExplanation = (raw: string) => {
+  const text = raw.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/[’']/gu, " ");
+  if (/\b(?:redaction|formulation|tournure|francais|mots)\b/u.test(text)
+    && /\b(?:juste|seulement)\b/u.test(text) && !/\b(?:explique|expliquez|pourquoi)\b/u.test(text)) return false;
+  // An invitation to discuss is a current request. A participle or a reference
+  // to what was discussed previously does not create another Knowledge call.
+  return /\b(?:pourquoi|explique\w*|distinguer|difference|arguments|qu est ce qui|compren\w*|comprends?|parlons|discutons|discutez|hypothese de discussion)\b/u.test(text)
+    || /\b(?:je|nous) (?:voudrais|voudrions|souhaite|souhaitons|veux|voulons) (?:en )?(?:parler|discuter)\b/u.test(text);
+};
+
+export const requestsOwnerProposalExplanation = (raw: string) => requestsScientificExplanation(raw)
+  && /\b(?:premier\w*|deuxieme|troisieme|proposition\w*|alternatives?|ces hypotheses|cette hypothese)\b/u
+    .test(raw.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR"));
+
+/** A reference to what is displayed now cannot resolve through an older owner card. */
+export const requiresCurrentOwnerPresentation = (raw: string) => requestsOwnerProposalExplanation(raw)
+  || /\b(?:ces (?:options|propositions|alternatives)|(?:tu viens|vous venez) (?:de|d') (?:donner|afficher|presenter|proposer)|(?:tu viens|vous venez) d'(?:afficher))\b/u
+    .test(raw.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/[’]/gu, "'"));
+
+/** Read-only Project/lifecycle projection. A user's recall is not authority. */
+export const buildCurrentProjectDecisionReadback = (input: {
+  raw: string;
+  project: Readonly<ResearchProjectOwnerProjection>;
+  retained: readonly RetainedContributionCandidate[];
+}): { text: string; sourceRefs: string[] } | null => {
+  const text = input.raw.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR");
+  if (!/\b(?:rappelle\w*|redire|retenu\w*|statut|ce qui a change|n a pas bouge|restes? inchanges?|toujours|delais? est vise|par rapport a quoi)\b/u.test(text)) return null;
+  const sections = /\b(?:population|age|exclusion|renal)\w*/u.test(text) ? ["POPULATION"]
+    : /\b(?:composite|deces|critere)\w*/u.test(text) ? ["MEASUREMENTS"]
+      : /\b(?:randomisation|unite)\w*/u.test(text) ? ["DESIGN", "POPULATION"]
+        : /\b(?:semaine|delai|tardive|relecture|injection|infarctus)\w*/u.test(text) ? ["TEMPORALITY", "IMAGING", "MEASUREMENTS", "ANALYSIS"] : [];
+  const relevant = input.project.sections.filter((section) => !sections.length || sections.includes(section.sectionId));
+  const current = relevant.flatMap((section) => section.elements.map((element) => ({
+    ref: element.elementId, text: `${section.label} : ${element.content}`,
+  })));
+  const history = input.retained.filter((record) => record.humanDecision
+    && (record.baseProject?.projectId === input.project.projectId || record.baseProject === null))
+    .flatMap((record) => {
+      const items = record.candidate.humanReviewProjection.sections.flatMap((section) => section.items)
+        .filter((item) => !sections.length || Boolean(item.projectSectionId && sections.includes(item.projectSectionId)))
+        .map((item) => item.content);
+      return items.length ? [{ ref: record.humanDecision!.decisionId,
+        text: `${record.humanDecision!.status === "ADOPTED" ? "Confirmation historique (ne remplace pas l’état courant ci-dessus)" : "Proposition refusée, sans adoption"} : ${items.join(" ; ")}` }] : [];
+    });
+  return {
+    text: ["État effectivement retenu dans la version courante du projet :",
+      ...current.map((item) => `– ${item.text}`),
+      history.length ? "Historique des décisions explicites pertinentes :" : null,
+      ...history.map((item) => `– ${item.text}`),
+      "Les informations absentes restent inconnues. Ce rappel n’applique aucune modification et ne transforme pas une proposition discutée en décision.",
+    ].filter(Boolean).join("\n"),
+    sourceRefs: [input.project.versionId, input.project.projectDigest, ...current.map((item) => item.ref), ...history.map((item) => item.ref)],
+  };
 };
 
 const snapshotReasons = (entry: Readonly<ProductOwnerResultLedgerEntry>, snapshot: Readonly<ProjectContextSnapshot>) => {

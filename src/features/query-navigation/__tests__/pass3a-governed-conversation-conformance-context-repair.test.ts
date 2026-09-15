@@ -300,11 +300,13 @@ describe("PASS3A CC03 — bounded referent context", () => {
       }
       for (const sourceText of [
         "Nous confirmons cette contribution. Nous observerons aussi la pression.",
-        "Je confirme cette proposition sauf son titre.",
-        "Si nécessaire, je refuse cette proposition.",
         "L'exemple est « je refuse cette proposition ».",
         "Je confirme que le prestataire est absent.",
       ]) expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext })).toBeUndefined();
+      for (const sourceText of ["Je confirme cette proposition sauf son titre.", "Si nécessaire, je refuse cette proposition."]) {
+        expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext }))
+          .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", clarificationReason: "DECISION_SCOPE" });
+      }
     }
     expect(selectBoundedConversationInteraction({ sourceText: "Je confirme cette contribution.", correctionMode: true, referentContext: context }))
       .toMatchObject({ kind: "ACKNOWLEDGE_USER_DIRECTION" });
@@ -336,9 +338,10 @@ describe("PASS3A CC03 — bounded referent context", () => {
       "Si les données changent, quelles possibilités pourrait-on explorer ?",
       "L'exemple est « présentez-moi différentes possibilités ».",
       "Supposons : proposez plusieurs façons de procéder.",
-      "Je confirme cette proposition uniquement pour son titre.",
       "Quelles propositions avons-nous déjà rejetées ?",
     ]) expect(classify(sourceText), sourceText).toBeUndefined();
+    expect(classify("Je confirme cette proposition uniquement pour son titre."))
+      .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", clarificationReason: "DECISION_SCOPE" });
   });
 });
 

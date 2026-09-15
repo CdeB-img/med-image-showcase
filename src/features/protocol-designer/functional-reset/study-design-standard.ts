@@ -136,6 +136,7 @@ export const buildStandardStudyDesignPresentation = (
       option.mainLimitation ? `Limite principale : ${option.mainLimitation}` : null,
     ].filter(Boolean).join("\n")),
     majorTradeoff ? `Arbitrage principal :\n${majorTradeoff}` : null,
+    informationNeed?.reason ?? null,
     informationNeed?.question ?? null,
   ].filter((value): value is string => Boolean(value)).join("\n\n");
   return {
@@ -332,6 +333,11 @@ export const dispatchStudyDesignFromQuery = (input: {
     ledger: input.ownerResultLedger,
     callerRef: input.navigation.currentAction!.selectedActionId,
     purpose: input.navigation.currentAction!.reason,
+    ...(input.navigation.requestedService ? { selectedNeed: {
+      sourceTurnRef: input.navigation.requestedService.sourceTurnRef,
+      purpose: input.navigation.requestedService.sourceText,
+      focusSectionIds: input.navigation.requestedService.focusSectionIds,
+    } } : {}),
     startedAt: input.startedAt,
     completedAt: input.completedAt,
     trace,

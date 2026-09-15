@@ -68,6 +68,50 @@ const sectionValues = (presentation: ReturnType<typeof buildStandardProtocolPres
   .find((section) => section.sectionId === sectionId)?.entries.map((entry) => entry.value) ?? [];
 
 describe("P1-DOC-01 — canonical Project to existing short Protocol", () => {
+  it("projects current general context literally, with its epistemic status and without classifying it as a design", () => {
+    const makeContext = (content: string, previous?: ResearchProjectOwnerProjection) => behaviorContribution({
+      contributionId: previous ? "contribution:context:v2" : "contribution:context:v1",
+      previousContributionId: previous?.contributionRef,
+      turns: [turn],
+      candidateObjects: [
+        behaviorItem({
+          itemId: previous ? "context:sites:v2" : "context:sites",
+          semanticIdentity: "context:sites",
+          proposedType: "PROJECT_INFORMATION", content, turnId: turn.turnId,
+          previousItemIds: previous ? ["context:sites"] : [],
+        }),
+        item("context:remote", "PROJECT_INFORMATION", "Le recueil distant est envisagé", null, "ASSUMED"),
+        item("context:funding", "PROJECT_INFORMATION", "Le financement reste à préciser", null, "UNKNOWN"),
+      ],
+    });
+    const initial = adoptBehaviorContribution(makeContext("Neuf sites envisagés"), genericProject(), 2);
+    const project = adoptBehaviorContribution(makeContext("Sept sites confirmés", initial), initial, 3);
+    const before = JSON.stringify(project);
+    const source = projectDocumentSourceFromFunctionalProject(project, handoffFor(project));
+    const node = source.impactGraph.nodes.find((value) => value.nodeId === "context:sites");
+    expect(node).toMatchObject({ canonicalType: "PROJECT_INFORMATION", label: "Sept sites confirmés" });
+    expect(source.multicenterAssessment.centerCount).toBeNull();
+
+    const projection = refreshFunctionalResetDocumentPortfolio({
+      project, handoffDecision: handoffFor(project), requestedAt: AT, generateProtocol: true,
+    }).projections.at(-1)!;
+    const presentation = buildStandardProtocolPresentation(projection);
+    const context = presentation.sections.find((section) => section.sectionId === "design")!.entries;
+    expect(context).toEqual(expect.arrayContaining([
+      expect.objectContaining({ label: "Contexte du projet (adopté)", value: "Sept sites confirmés" }),
+      expect.objectContaining({ label: "Contexte du projet (candidat)", value: "Le recueil distant est envisagé" }),
+      expect.objectContaining({ label: "Contexte du projet (inconnu)", value: "Le financement reste à préciser" }),
+    ]));
+    expect(JSON.stringify(projection.sections)).toContain(node!.versionRef);
+    const html = renderProjection(projection, "HTML").content;
+    expect(html).toContain("Sept sites confirmés");
+    expect(html).toContain("Le recueil distant est envisagé");
+    expect(html).not.toContain("Neuf sites envisagés");
+    expect(JSON.stringify(presentation)).not.toContain("Neuf sites envisagés");
+    expect(projection.source).toMatchObject({ projectVersion: project.versionId, projectDigest: project.projectDigest });
+    expect(JSON.stringify(project)).toBe(before);
+  });
+
   it("preserves canonical identities and semantic categories without inventing legacy roles", () => {
     const project = genericProject();
     const before = JSON.stringify(project);

@@ -48,6 +48,7 @@ export const invokeStudyDesignForProjectSnapshot = (input: {
   ledger: Readonly<ProductOwnerResultLedger>;
   callerRef: string;
   purpose: string;
+  selectedNeed?: StudyDesignRuntimeInput["selectedNeed"];
   startedAt: string;
   completedAt: string;
   retainedAt?: string;
@@ -59,6 +60,7 @@ export const invokeStudyDesignForProjectSnapshot = (input: {
     const invocation = invokeStudyDesignOwnerFromSnapshot({
       projectSnapshot: input.projectSnapshot,
       purpose: input.purpose,
+      selectedNeed: input.selectedNeed,
       startedAt: input.startedAt,
       completedAt: input.completedAt,
       runtime: input.runtime,

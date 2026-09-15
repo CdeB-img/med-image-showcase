@@ -177,7 +177,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(after.project?.projectDigest).toBe(project.projectDigest);
     expect(after.documents.projections).toEqual(documents.projections);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
-    expect(after.runtimeTurns).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(before.runtimeTurns.length).map(turn => turn.role)).toEqual(["USER", "NOXIA"]);
+    expect(after.entries.at(-2)).toMatchObject({ role: "USER", content: after.runtimeTurns.at(-2)?.content });
+    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: after.runtimeTurns.at(-1)?.content });
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
     expect(after.pendingContribution).toBeNull();
     expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: "Voici la version actuelle du protocole." });
@@ -214,7 +217,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(p1.humanDecisions.filter((decision) => decision.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")).toHaveLength(1);
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
-    expect(after.runtimeTurns).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(before.runtimeTurns.length).map(turn => turn.role)).toEqual(["USER", "NOXIA"]);
+    expect(after.entries.at(-2)).toMatchObject({ role: "USER", content: after.runtimeTurns.at(-2)?.content });
+    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: after.runtimeTurns.at(-1)?.content });
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
   });
 
@@ -244,7 +250,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(p2.source.projectVersion).toBe(currentProject.versionId);
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
-    expect(after.runtimeTurns).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(before.runtimeTurns.length).map(turn => turn.role)).toEqual(["USER", "NOXIA"]);
+    expect(after.entries.at(-2)).toMatchObject({ role: "USER", content: after.runtimeTurns.at(-2)?.content });
+    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: after.runtimeTurns.at(-1)?.content });
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
   });
 
@@ -261,7 +270,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(after.project).toBeNull();
     expect(after.queryNavigation).toBeNull();
     expect(after.documents.projections).toEqual([]);
-    expect(after.runtimeTurns).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
+    expect(after.runtimeTurns.slice(before.runtimeTurns.length).map(turn => turn.role)).toEqual(["USER", "NOXIA"]);
+    expect(after.entries.at(-2)).toMatchObject({ role: "USER", content: after.runtimeTurns.at(-2)?.content });
+    expect(after.entries.at(-1)).toMatchObject({ role: "NOXIA", content: after.runtimeTurns.at(-1)?.content });
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
   });
 

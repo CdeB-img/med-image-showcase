@@ -66,9 +66,11 @@ export type StandardScientificThinkingInteraction = {
   sourceProjectDigest: string;
   presentationTurnRef: string;
   presentedCandidateDigests?: readonly string[];
+  presentedCandidateRefs?: readonly string[];
   selectionAnchor?: Readonly<{
     ownerResultRef: string;
     presentationTurnRef: string;
+    presentedCandidateRefs?: readonly string[];
     traceRunId: string | null;
   }>;
   traceRunId: string | null;
@@ -186,7 +188,7 @@ export const buildStandardScientificThinkingPresentation = (
       ? "Voici des hypothèses scientifiques candidates à discuter à partir des éléments confirmés du projet. Aucune n’est privilégiée ni adoptée."
       : availableCandidates.length
         ? "Avec les éléments actuellement disponibles, je n’ai pas d’hypothèse supplémentaire défendable à ajouter aux propositions déjà présentées."
-        : "Je ne peux pas proposer ici d’hypothèse supplémentaire défendable : aucune justification scientifique distincte n’est établie dans les éléments examinés. Reformuler une hypothèse déjà confirmée ne constitue pas une nouvelle proposition.";
+        : "Je ne peux pas proposer ici d’hypothèse supplémentaire défendable : aucune justification scientifique distincte n’est établie dans les éléments examinés. Reformuler les éléments déjà confirmés ne constitue pas une nouvelle proposition.";
     const plainText = [
       introduction,
       ...candidates.map((candidate) => [
@@ -446,6 +448,7 @@ export const dispatchScientificThinkingFromQuery = (input: {
     ? {
       ownerResultRef: previousCandidateContext.ownerResultRef,
       presentationTurnRef: previousCandidateContext.presentationTurnRef,
+      presentedCandidateRefs: previousCandidateContext.presentedCandidateRefs,
       traceRunId: previousCandidateContext.traceRunId,
     } : null;
   trace?.append({
@@ -487,6 +490,9 @@ export const dispatchScientificThinkingFromQuery = (input: {
     presentationTurnRef: requestedOperation && !presentation.candidates.length
       && previousInteraction?.ownerResultRef === retainedResult.resultId
       ? previousInteraction.presentationTurnRef : input.presentationTurnRef,
+    presentedCandidateRefs: requestedOperation && !presentation.candidates.length
+      && previousInteraction?.ownerResultRef === retainedResult.resultId
+      ? previousInteraction.presentedCandidateRefs ?? [] : presentation.candidates.map(candidate => candidate.candidateRef),
     ...(requestedOperation ? { presentedCandidateDigests: unique([
       ...presentedCandidateDigests, ...presentation.candidates.map(scientificCandidateDigest),
     ]) } : {}),
@@ -525,6 +531,7 @@ const candidateIndexes = (raw: string, label: string, count: number) => {
 export const resolveScientificThinkingConversation = (input: {
   raw: string;
   output: Readonly<ScientificThinkingOutput>;
+  presentedCandidateRefs?: readonly string[];
 }): ScientificThinkingConversationResolution => {
   const interaction = selectBoundedConversationInteraction({
     sourceText: input.raw,
@@ -538,9 +545,34 @@ export const resolveScientificThinkingConversation = (input: {
   // Local owner handling consumes the whole turn. Quoted speech or a separate
   // assertion must remain available to the application/QRY rather than being
   // silently discarded while discussing or selecting a native proposal.
-  if (/["«»“”]/u.test(input.raw)
-    || input.raw.split(/[.!?;\n]+/u).filter((clause) => clause.trim()).length !== 1) return { kind: "FALLTHROUGH" };
-  const value = folded(input.raw);
+  if (/["«»“”]/u.test(input.raw)) return { kind: "FALLTHROUGH" };
+  const clauses = input.raw.split(/[.!?;\n]+/u).filter((clause) => clause.trim());
+  const first = folded(clauses[0] ?? "");
+  const explanationOnly = clauses.slice(1).every((clause) => /^(?:(?:je|nous) (?:demande|demandons|veux|voulons|voudrais|souhaite) (?:l explication|comprendre)[^.;]*|(?:je|nous) ne (?:valide|validons|choisis|choisissons|prends|prenons)[^.;]*|explique(?:z)?(?: moi)?[^.;]*sans (?:changer|modifier|adopter)[^.;]*)$/u.test(folded(clause)));
+  const ordinal = /\b(premiere|premier|deuxieme|troisieme)\b/u.exec(first)?.[1];
+  if (input.presentedCandidateRefs?.length && ordinal && explanationOnly
+    && /\b(?:pourquoi|justifie|explique(?:r|z)?|apporte|interet)\b/u.test(first)
+    && !/\b(?:ancienne|avant|precedente|je reviens)\b/u.test(first)) {
+    const index = ordinal === "deuxieme" ? 1 : ordinal === "troisieme" ? 2 : 0;
+    const candidateRef = input.presentedCandidateRefs[index];
+    const candidate = candidateRef ? selectedCandidate(input.output, candidateRef) : null;
+    if (candidate) return { kind: "DISCUSS", response: [
+      `Proposition ${index + 1} de la liste présentée : ${candidate.text}`,
+      `Rôle dans le raisonnement : ${candidate.rationale}`,
+      "Cette proposition sert à examiner une possibilité et ses conditions d’observation ; elle ne démontre pas qu’elle est vraie.",
+      candidate.support === "SUPPORTED" ? "Les appuis disponibles restent limités à ceux du résultat source."
+        : "Aucun appui documentaire qualifié ne permet ici d’en établir la supériorité ou la validité externe.",
+      "Cette explication ne sélectionne ni n’adopte la proposition ; le projet reste inchangé.",
+    ].join("\n") };
+  }
+  const reviewOnlyClause = (clause: string) => {
+    const text = folded(clause);
+    const check = /^(?:verifie|verifiez) (?:qu elle|qu il|que cette proposition) (?:correspond|convient|s applique) (?:toujours |encore )?(?:au projet actuel|a la version actuelle|au projet courant)(?: et (?:presente|presentez) (?:la|le) pour (?:revue|relecture|examen))?$/u;
+    const noAdoption = /^(?:(?:ce choix|cette selection)(?: dans la liste)? ne vaut pas (?:adoption|confirmation)|(?:sans|aucune) (?:adoption|confirmation)(?: (?:automatique|definitive))?)$/u;
+    return check.test(text) || noAdoption.test(text);
+  };
+  if (clauses.length > 1 && !clauses.slice(1).every(reviewOnlyClause)) return { kind: "FALLTHROUGH" };
+  const value = folded(clauses[0] ?? "");
   if (/^(?:je ne sais pas(?: encore)?|pas encore|plus tard|a discuter)$/.test(value)) return {
     kind: "DEFER",
     response: "Aucune décision n’est nécessaire maintenant. Les propositions restent discutables et le Research Project demeure inchangé.",
@@ -554,13 +586,22 @@ export const resolveScientificThinkingConversation = (input: {
     || /^(?:retenir|choisir|selectionner|adopter)\b/.test(value));
   if (selectionIntent) {
     const command = value.match(/^(?:(?:oui|finalement|apres (?:relecture|reflexion))\s+)?(?:(?:je\s+(?:choisis|retiens|selectionne|adopte)|nous\s+(?:choisissons|retenons|selectionnons|adoptons))|retenir|choisir|selectionner|adopter)\s+/u);
-    const referenceText = command ? value.slice(command[0].length).replace(/\s+(?:pour revue|comme candidate|sans adoption)$/u, "") : "";
+    const referenceText = command ? value.slice(command[0].length).replace(/\s+(?:pour (?:revue|examen|relecture|l examiner)|comme candidate|sans adoption)$/u, "") : "";
     const groups = [
       { label: "hypothese", values: input.output.hypotheses.map((candidate) => candidate.hypothesisId) },
       { label: "question", values: input.output.questions.map((candidate) => candidate.questionId) },
       { label: "modele", values: input.output.scientificModels.map((candidate) => candidate.modelId) },
-    ];
+    ].map(group => ({ ...group, values: input.presentedCandidateRefs === undefined ? group.values
+      : input.presentedCandidateRefs.filter(ref => group.values.includes(ref)) }));
     const indexed = groups.flatMap((group) => candidateIndexes(input.raw, group.label, Number.POSITIVE_INFINITY).map((index) => group.values[index]));
+    const displayedList = /^(?:la|le) (premiere|premier|deuxieme|troisieme)(?: proposition| option| alternative)? de la liste (?:que (?:tu viens|vous venez) d afficher|actuellement affichee|courante)$/u.exec(referenceText);
+    if (displayedList) {
+      const availableGroups = groups.filter(group => group.values.length > 0);
+      if (availableGroups.length !== 1) return { kind: "FALLTHROUGH" };
+      const index = ({ premiere: 0, premier: 0, deuxieme: 1, troisieme: 2 } as const)[displayedList[1] as "premiere" | "premier" | "deuxieme" | "troisieme"];
+      const candidateRef = availableGroups[0]!.values[index];
+      return candidateRef ? { kind: "SELECT_CANDIDATE", candidateRef } : { kind: "FALLTHROUGH" };
+    }
     if (indexed.length > 1) return { kind: "FALLTHROUGH" };
     if (indexed.length === 1) {
       const completeReference = /^(?:(?:l|la|le)\s+)?(?:(?:hypothese|question|modele)\s+(?:numero\s+)?[123]|(?:premiere|premier|deuxieme|troisieme)\s+(?:hypothese|question|modele))$/u.test(referenceText);
@@ -570,7 +611,8 @@ export const resolveScientificThinkingConversation = (input: {
       ...input.output.hypotheses.map((candidate) => ({ ref: candidate.hypothesisId, text: candidate.text })),
       ...input.output.scientificModels.map((candidate) => ({ ref: candidate.modelId, text: candidate.text }))];
     // A shared scientific word cannot establish the identity of a selection.
-    const mentioned = all.filter((candidate) => referenceText === folded(candidate.text));
+    const mentioned = all.filter((candidate) => referenceText === folded(candidate.text)
+      && (input.presentedCandidateRefs === undefined || input.presentedCandidateRefs.includes(candidate.ref)));
     if (mentioned.length === 1) return { kind: "SELECT_CANDIDATE", candidateRef: mentioned[0]!.ref };
     return { kind: "FALLTHROUGH" };
   }

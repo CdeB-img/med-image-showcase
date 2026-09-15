@@ -92,14 +92,16 @@ export const buildStandardBiostatisticsPresentation = (
     assumptions: unique(method.assumptions),
     tradeOffs: unique(method.tradeOffs),
   }));
-  const informationNeeds = unique(result.informationNeeds.map((item) => item.informationNeeded));
+  const informationNeeds = unique(result.informationNeeds
+    .filter((item) => item.targetOwner !== "DATA_MANAGEMENT")
+    .map((item) => `${item.informationNeeded} — ${item.scientificReason}`));
   const limitations = unique(result.limitations.filter((item) => !/AnalysisExecution|AnalysisResult|Project/i.test(item)));
   const introduction = options.length > 1
     ? "Plusieurs stratégies analytiques restent défendables. Elles sont conservées comme alternatives : aucune n’est sélectionnée ni ajoutée au projet."
     : options.length === 1
       ? "Une stratégie analytique est cohérente avec la structure actuellement adoptée, mais son modèle exact et ses hypothèses restent à qualifier."
       : "Le contexte ne permet pas encore de construire une stratégie analytique crédible sans redéfinir en aval la question, l’endpoint ou les variables.";
-  const plainText = [
+  const plainText = result.scopeExplanation ?? [
     introduction,
     ...options.map((option, index) => [
       `${options.length > 1 ? `Option ${index + 1} — ` : ""}${option.label}`,
@@ -118,9 +120,12 @@ export const buildStandardBiostatisticsPresentation = (
     presentationId: `biostatistics-standard-presentation:${logicalDigest({ result: result.resultId, digest: result.resultDigest })}`,
     resultRef: result.resultId,
     title: options.length ? "Stratégie analytique à discuter" : "Analyse à préciser",
-    introduction,
+    introduction: result.scopeExplanation ?? introduction,
     options,
-    informationNeeds,
+    // The scoped native explanation already specifies the usable next action.
+    // Other downstream needs remain in the native result, not a competing
+    // questionnaire about sample size or data management in this discussion.
+    informationNeeds: result.scopeExplanation ? [] : informationNeeds,
     limitations,
     plainText,
   };
@@ -190,7 +195,7 @@ export const dispatchBiostatisticsFromQuery = (input: {
     purpose: input.navigation.currentAction!.reason,
     selectedNeed: {
       needRef: input.navigation.currentAction!.navigationNeedRefs[0]!,
-      purpose: input.navigation.currentAction!.reason,
+      purpose: input.navigation.requestedService?.sourceText ?? input.navigation.currentAction!.reason,
       affectedDecisionRefs: input.navigation.currentAction!.affectedDecisionRefs,
       affectedBranchRefs: input.navigation.currentAction!.affectedBranchRefs,
       owner: "QUERY_NAVIGATION",

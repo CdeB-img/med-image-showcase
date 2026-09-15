@@ -140,6 +140,21 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     expect(runtime.request).not.toHaveBeenCalled();
   });
 
+  it("renders the scoped Knowledge limitation rather than unrelated corpus clarification prompts", async () => {
+    persistScenario({ project: true, query: true });
+    renderDemo();
+    const before = stored();
+    submit("Pourquoi ce compromis d’aveugle serait-il préférable dans notre étude ?");
+    const after = await waitForKnowledge();
+    const response = await screen.findByTestId("product-understand-knowledge-response");
+    expect(within(response).getByText(/procédures concrètes et leur faisabilité/)).toBeVisible();
+    expect(within(response).getByText(/Le cadre effectivement retenu/)).toBeVisible();
+    expect(within(response).queryByText("Quel phénomène scientifique voulez-vous principalement expliquer ou mesurer ?")).toBeNull();
+    expect(within(response).getByText(/^Sources \(/)).toBeInTheDocument();
+    expect(JSON.stringify(after.project)).toBe(JSON.stringify(before.project));
+    expect(runtime.request).not.toHaveBeenCalled();
+  });
+
   it("05 routes pending-QRY-only + Case B through Knowledge and preserves the pending QRY", async () => {
     persistScenario({ project: false, query: true });
     renderDemo();

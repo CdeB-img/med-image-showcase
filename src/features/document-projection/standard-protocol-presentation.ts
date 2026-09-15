@@ -58,6 +58,7 @@ export type StandardProtocolPresentation = {
 };
 
 type ProjectedFact = {
+  commitment: string;
   label: string;
   value: string;
 };
@@ -101,9 +102,9 @@ const visibleLanguage = (value: string) => value
   .trim();
 
 const parseFact = (raw: string): ProjectedFact | null => {
-  const match = raw.match(/^(?:Confirmé|Adopté|Candidat|Exigence|Inconnu|Limite|Contradiction|Rejeté)\s+—\s+(.+?)\s*:\s*(.*)$/i);
-  return match?.[1] && match[2] !== undefined
-    ? { label: match[1].trim(), value: match[2].trim() }
+  const match = raw.match(/^(Confirmé|Adopté|Candidat|Exigence|Inconnu|Limite|Contradiction|Rejeté)\s+—\s+(.+?)\s*:\s*(.*)$/i);
+  return match?.[2] && match[3] !== undefined
+    ? { commitment: match[1]!, label: match[2].trim(), value: match[3].trim() }
     : null;
 };
 
@@ -194,11 +195,16 @@ const populationEntries = (sections: DocumentSectionInstance[]) => {
   return unique(values, (value) => normalizedKey(`${value.label ?? ""}:${value.value}`));
 };
 
-const designEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
-  "design",
-  factsFrom(sections, ["study-design"]),
-  /Plan adopté|Caractéristique de design confirmée/i,
-);
+const designEntries = (sections: DocumentSectionInstance[]) => {
+  const facts = factsFrom(sections, ["study-design"]);
+  return [
+    ...simpleFacts("design", facts, /Plan adopté|Caractéristique de design confirmée/i),
+    ...facts.filter((fact) => fact.label === "Contexte du projet").map((fact) => entry(
+      "design", "LABELED_VALUE", fact.value,
+      `${fact.label} (${fact.commitment.toLocaleLowerCase("fr-FR")})`,
+    )),
+  ];
+};
 
 const groupEntries = (sections: DocumentSectionInstance[], role: "EXPOSURE" | "COMPARATOR", sectionId: "intervention" | "comparator") => {
   const facts = factsFrom(sections, ["groups-comparators"]);

@@ -32,6 +32,16 @@ export type BoundedConversationReferentContext = Readonly<{
   sourceTurnRef: string | null;
   sourceDigest: string | null;
   content: readonly GovernedRealizationContent[];
+  /** Local, derived review evidence. It never grants an HTTP caller a decision. */
+  decisionScope?: Readonly<{
+    selectedReviewRef: string;
+    presented: boolean;
+    changedObjectRefs: readonly string[];
+    candidateTexts: readonly string[];
+    candidateKinds: readonly string[];
+    sourceText: string;
+    adoptedTexts: readonly string[];
+  }>;
   reason: string;
   projectWriteAuthorized: false;
 }>;
@@ -45,6 +55,7 @@ export type BoundedConversationInteraction = Readonly<{
     | "USER_CONFIRMS_CURRENT_CANDIDATE"
     | "USER_REFUSES_CURRENT_CANDIDATE";
   evidenceRefs: readonly string[];
+  clarificationReason?: "DECISION_SCOPE" | "PAST_PROPOSAL_REFERENCE";
 }>;
 
 export type CurrentInformationNeedScope = Readonly<{

@@ -78,7 +78,7 @@ const snapshotIsValid = (snapshot: Readonly<ProjectContextSnapshot>) => {
     && logicalDigest(material) === snapshotDigest;
 };
 
-export const buildStudyDesignRuntimeInput = (snapshot: Readonly<ProjectContextSnapshot>): Readonly<StudyDesignRuntimeInput> => {
+export const buildStudyDesignRuntimeInput = (snapshot: Readonly<ProjectContextSnapshot>, selectedNeed?: StudyDesignRuntimeInput["selectedNeed"]): Readonly<StudyDesignRuntimeInput> => {
   if (!snapshotIsValid(snapshot)) throw new Error("STUDY_DESIGN_PROJECT_SNAPSHOT_INVALID");
   const designKnowns = snapshot.objects
     .filter((item) => DESIGN_OBJECT_TYPES.has(item.type) && ["KNOWN", "ASSUMED"].includes(item.epistemicState))
@@ -120,6 +120,7 @@ export const buildStudyDesignRuntimeInput = (snapshot: Readonly<ProjectContextSn
     sourceProvenanceRefs,
     designKnowns,
     designUnknowns,
+    ...(selectedNeed ? { selectedNeed: clone(selectedNeed) } : {}),
     projectWriteAuthorized: false,
   }) as Readonly<StudyDesignRuntimeInput>;
 };
@@ -396,6 +397,7 @@ export const executeStudyDesignRuntime = (
     projectDigest: input.projectDigest,
     snapshotDigest: input.projectSnapshot.snapshotDigest,
     runtimeVersion: STUDY_DESIGN_RUNTIME_VERSION,
+    ...(input.selectedNeed ? { selectedNeed: input.selectedNeed } : {}),
   })}`;
   const normalizedText = normalizeScientificText(input.designKnowns.map((item) => `${item.scientificRole ?? ""} ${item.content}`).join(" ")).toLocaleLowerCase("fr-FR");
   const availableData = input.designKnowns.some((item) => /données? (existantes?|historiques?)|base existante|déjà acquises?/i.test(item.content));
@@ -416,7 +418,7 @@ export const executeStudyDesignRuntime = (
   const fallbackEvidenceRefs = evidenceRefs.length ? evidenceRefs : input.sourceProvenanceRefs.slice(0, 1);
 
   let seeds: Array<LegacyStudyDesignReasoningSeed | ReturnType<typeof ambispectiveSeed> | ReturnType<typeof interventionalSeed>> = [];
-  if (sufficient) {
+  if (sufficient && !input.selectedNeed?.focusSectionIds.includes("POPULATION")) {
     seeds = buildLegacyStudyDesignReasoningSeeds({ text: normalizedText, hasAvailableData: availableData });
     if (!signals.prospective) {
       seeds = seeds.filter((seed) => !seed.family.startsWith("PROSPECTIVE_"));
@@ -499,6 +501,33 @@ export const executeStudyDesignRuntime = (
     ...(signals.comparative && !comparatorKnown ? [informationNeed({ proposalId, code: "COMPARATOR_REQUIRED", question: "Quel comparateur ou quelle structure de comparaison est scientifiquement justifié ?", reason: "L’intention comparative est présente mais le comparateur reste inconnu.", targetOwner: "RESEARCH_PROJECT", path: "FUTURE_QRY_HANDOFF", sourceRefs: fallbackEvidenceRefs })] : []),
     ...input.designUnknowns.map((unknown) => informationNeed({ proposalId, code: unknown.issueRef, question: unknown.reason, reason: `Inconnue Project conservée (${unknown.kind}).`, targetOwner: "RESEARCH_PROJECT", path: "HUMAN_REVIEW", sourceRefs: unknown.sourceRefs })),
   ];
+  if (input.selectedNeed) {
+    // A local family-of-design capability must not masquerade as a catalogue
+    // of recruitment criteria or as a solution to a narrower design problem.
+    const populationScope = input.selectedNeed.focusSectionIds.includes("POPULATION");
+    const context = input.designKnowns.filter((item) => (populationScope
+      ? ["POPULATION", "ELIGIBILITY_CRITERION", "CONSTRAINT"]
+      : ["OBJECTIVE", "STUDY_DESIGN", "GROUP", "VISIT", "CONSTRAINT"]).includes(item.type));
+    const boundedNeed = informationNeed({
+      proposalId, code: "REQUESTED_DESIGN_SCOPE", targetOwner: "RESEARCH_PROJECT", path: "FUTURE_QRY_HANDOFF",
+      sourceRefs: unique([input.selectedNeed.sourceTurnRef, ...context.map((item) => item.versionRef)]),
+      reason: [
+        `Demande examinée : ${input.selectedNeed.purpose}`,
+        context.length ? `Cadre confirmé : ${context.map((item) => item.content).join(" ; ")}.` : "Le cadre utile à cette demande n’est pas suffisamment explicité.",
+        populationScope
+          ? "Les critères déjà retenus sont conservés. Les données de faisabilité et les justifications d’éligibilité disponibles ici ne permettent pas de défendre de nouveaux seuils ou exclusions."
+          : options.length
+            ? "Les familles de plan ci-dessus ne constituent pas une qualification exhaustive des alternatives méthodologiques demandées."
+            : "La capacité locale distingue des familles de plan ; elle ne dispose pas d’une justification suffisante pour proposer des alternatives spécifiques à ce problème. L’objectif déjà formulé n’est pas à redonner.",
+      ].join("\n"),
+      question: populationScope
+        ? "Pour examiner une modification du recrutement, pouvez-vous apporter la contrainte de faisabilité ou la justification d’un critère que vous souhaitez comparer aux critères actuels ? Nous pourrons en examiner la portée sans modifier la population."
+        : "Pour poursuivre, indiquez la contrainte du plan à mettre en balance avec une autre option, ou apportez une méthode avec sa justification. Les unités, comparaisons et délais déjà retenus resteront la base de cet examen.",
+    });
+    // Retain all native diagnostics, but lead the conversation with the actual
+    // requested scope, not a missing formal question already expressed as goal.
+    informationNeeds.unshift(boundedNeed);
+  }
   const tradeOffs = options.length > 1 ? [{
     tradeOffId: `study-design-tradeoff:${logicalDigest({ proposalId, options: options.map((option) => option.optionId) })}`,
     optionRefs: options.map((option) => option.optionId),

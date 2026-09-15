@@ -1,0 +1,12 @@
+{
+  "at": "2026-09-15T04:43:51.749363+00:00",
+  "LIVE_01R_REPLAY": "PASS",
+  "rawRedReproductionField": "FAIL_OR_REPAIRED",
+  "meaning": "The old failure is not reproduced. Positive assertions cover useful alternatives, bounded reuse and pending review without adoption. Raw historical field preserved.",
+  "recordedResponses": 5,
+  "exactRequests": 5,
+  "bridgeExchanges": 3,
+  "realProviderCalls": 0,
+  "testReport": "qualification/recorded-live-prefix-final-closure-test.json",
+  "testReportSha256": "e6dd597778ccf451d08e42d5a644f13f7fe30ea04b740b94dea127cb6f197114"
+}

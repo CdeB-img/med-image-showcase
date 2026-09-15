@@ -10,7 +10,10 @@ import {
 } from "@/features/protocol-designer/intake/journey";
 import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
 import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
-import { selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
+import { buildCurrentProjectDecisionReadback, requestsOwnerProposalExplanation, requestsScientificExplanation, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
+import { resolveRequestedScientificScope } from "@/features/query-navigation/functional-reset-progression";
+import type { ResearchProjectOwnerProjection } from "@/features/research-project-construction";
+import type { RetainedContributionCandidate } from "./contribution-lifecycle";
 import {
   INTAKE_SCHEMA_VERSION,
   type ConfidenceLevel,
@@ -73,6 +76,8 @@ export type ProductUnderstandInteraction = {
   projectWrites: 0;
   protocolProjections: 0;
   externalCalls: 0;
+  responsibilityOwner?: "KNOWLEDGE" | "QUERY_NAVIGATION" | "RESEARCH_PROJECT";
+  sourceRefs?: readonly string[];
 };
 
 export type ProductUnderstandKnowledgePresentation = {
@@ -187,6 +192,10 @@ export const recognizeCurrentProjectDirection = (
  */
 export const recognizeProductDocumentAction = (value: string): ProductDocumentAction | null => {
   const command = comparableProductCommand(value);
+  const firstSentence = comparableProductCommand(value.split(/(?<=[.!?])\s+/u)[0] ?? value);
+  const currentProjectionRequest = /^(?:(?:pouvez vous|peux tu)\s+)?(?:me\s+)?(?:sortir|regenerer|produire|preparer|afficher|regenerez|regenere|produisez|produis|preparez|prepare|sortez|sors)(?:\s+(?:moi|nous))?\s+(?:le|la|un|une)\s+(?:version documentaire|document|protocole)\b/u.test(firstSentence);
+  if (currentProjectionRequest && /\b(?:courantes?|courants?|actuelles?|actuels?|cette version|disponibles?)\b/u.test(command)
+    && !/\b(?:remplacez?|corrigez?|modifiez?|ajoutez?)\b/u.test(command)) return "REGENERATE_PROTOCOL";
   const politePrefix = "(?:(?:ok|d accord|merci)\\s+)?";
   const politeSuffix = "(?:\\s+s il (?:te|vous) plait)?";
   const protocolResource = "(?:(?:le|la|l)\\s+)?(?:protocole(?:\\s+(?:partiel|de travail))?|apercu(?:\\s+du protocole)?)";
@@ -527,9 +536,37 @@ export const executeProductUnderstandInteraction = (input: {
   raw: string;
   decision: ProductEntryRoutingDecision;
   createdAt: string;
+  currentProject?: Readonly<ResearchProjectOwnerProjection> | null;
+  retained?: readonly RetainedContributionCandidate[];
 }): ProductUnderstandInteraction => {
-  if (input.decision.domainGate !== "IN_SCOPE" || input.decision.routeIntent !== "UNDERSTAND") {
+  if (!input.currentProject && (input.decision.domainGate !== "IN_SCOPE" || input.decision.routeIntent !== "UNDERSTAND")) {
     throw new Error("PRODUCT_UNDERSTAND_ROUTE_REQUIRED");
+  }
+  const project = input.currentProject;
+  const raw = comparableProductCommand(input.raw);
+  const localResponse = (assistantReply: string, responsibilityOwner: "QUERY_NAVIGATION" | "RESEARCH_PROJECT", sourceRefs: readonly string[]): ProductUnderstandInteraction => ({
+    status: "SUCCESS", assistantReply, responsibilityOwner, sourceRefs, presentation: null,
+    knowledgeResultRef: null, knowledgeResultDigest: null, projectWrites: 0, protocolProjections: 0, externalCalls: 0,
+  });
+  if (project) {
+    if (/^(?:non pas ca|pas ca)$/u.test(raw) || /\b(?:celle la|celui la|on parle bien de la meme)\b/u.test(raw)) {
+      return localResponse("Le référent n’est pas suffisamment identifié. Précisez le libellé de la proposition ou l’élément dont vous parlez ; je ne peux pas choisir entre plusieurs objets sur cette seule indication. Aucune sélection, adoption ni modification du projet n’a eu lieu.", "QUERY_NAVIGATION", [input.decision.sourceTurnRef, project.versionId]);
+    }
+    const readback = buildCurrentProjectDecisionReadback({ raw: input.raw, project, retained: input.retained ?? [] });
+    if (readback && (requestsScientificExplanation(input.raw) || input.raw.includes("?") || /\b(?:rappelle|redire|statut)\w*/u.test(raw))) {
+      return localResponse(readback.text, "RESEARCH_PROJECT", readback.sourceRefs);
+    }
+    if (requestsOwnerProposalExplanation(input.raw)) {
+      return localResponse("La proposition visée n’a pas pu être reliée à une option présentée et à son résultat source. Je ne peux pas lui attribuer une justification par rapprochement avec une autre liste. Rappelez son libellé ou citez le passage à expliquer ; nous pourrons distinguer son intérêt, ses limites et son statut historique. Aucune proposition n’est sélectionnée et le projet reste inchangé.", "QUERY_NAVIGATION", [input.decision.sourceTurnRef, project.versionId]);
+    }
+    if (!requestsScientificExplanation(input.raw) && !input.raw.includes("?")) {
+      const ambiguous = /^(?:non pas ca|pas ca)$/u.test(raw)
+        || /\b(?:celle la|celui la|on parle bien de la meme)\b/u.test(raw);
+      return localResponse(ambiguous
+        ? "Le référent n’est pas suffisamment identifié. Précisez le libellé de la proposition ou l’élément dont vous parlez : je ne peux pas choisir entre plusieurs objets sur la seule indication « celle-là ». Aucune sélection, adoption ni modification du projet n’a eu lieu."
+        : `Votre commentaire est conservé comme contribution à la discussion : « ${input.raw} »\nIl n’est pas traité comme une décision scientifique. Les exemples restent des illustrations, les intuitions des hypothèses et les remarques de rédaction ne changent pas le contenu adopté. Le projet courant est conservé ; vous pouvez préciser le point à discuter ou soumettre une modification distincte pour revue.`,
+      "QUERY_NAVIGATION", [input.decision.sourceTurnRef, project.versionId]);
+    }
   }
   const execution = executeKnowledgeEngineForPresentation({
     originalQuestion: input.raw,
@@ -540,6 +577,7 @@ export const executeProductUnderstandInteraction = (input: {
     externalSearchPolicy: "EXTERNAL_FORBIDDEN",
     createdAt: input.createdAt,
     payloadRef: input.decision.sourceTurnRef,
+    ...(project ? { researchProjectId: project.projectId, researchProjectVersion: project.versionId, researchProjectDigest: project.projectDigest } : {}),
   });
   if (!execution.result) {
     return {
@@ -554,6 +592,46 @@ export const executeProductUnderstandInteraction = (input: {
     };
   }
   const projection = projectUnderstandResult(execution.result);
+  if (project && !projection.answerStatements.some((statement) => statement.role === "DIRECT_ANSWER"
+    && (statement.support.knowledgeItemRefs.length || statement.support.sourceRefs.length))) {
+    const scope = resolveRequestedScientificScope(input.raw);
+    const focus = scope.sectionId === "QUESTION" ? ["QUESTION", "DESIGN", "MEASUREMENTS", "TEMPORALITY"]
+      : [...scope.focusSectionIds, "INTERVENTION", "COMPARATOR"];
+    const context = project.sections.filter((section) => focus.includes(section.sectionId))
+      .flatMap((section) => section.elements.map((element) => `${section.label} : ${element.content}`));
+    const next = scope.owner === "BIOSTATISTICS"
+      ? "Pour examiner cette question, il faut une justification méthodologique applicable à la cible d’analyse et aux unités du projet. Vous pouvez apporter une méthode ou un passage de référence à confronter à l’échelle des mesures, à leur dépendance et aux hypothèses d’interprétation ; aucun chiffre, modèle ou effet n’est déduit de l’absence de preuve."
+      : scope.owner === "STUDY_DESIGN"
+        ? "Pour examiner ce compromis, il faut documenter les procédures concrètes et leur faisabilité : rôle des intervenants, informations auxquelles ils ont accès, organisation du suivi et contraintes. Un passage méthodologique ou une description de ces procédures permettra de distinguer une difficulté réelle d’une simple hypothèse. Le plan déjà retenu n’est pas remis en cause par cette demande d’explication."
+        : scope.owner === "OBSERVABILITY_MEASUREMENT" || scope.owner === "IMAGING"
+          ? "La prochaine étape utile est de confronter les définitions opérationnelles et leurs domaines de validité à une référence applicable. Apportez le passage ou la documentation à examiner : le critère, la méthode de mesure et la règle d’interprétation devront rester distingués, sans choisir un instrument ni un seuil par défaut."
+          : "Pour avancer, apportez la définition ou la justification méthodologique que vous souhaitez examiner, ou précisez le lien dont vous voulez discuter. Nous pourrons en vérifier la portée par rapport aux objectifs, mesures et contraintes ci-dessus. Une intuition ou une association rapportée ne devient pas une conclusion démontrée par cette explication.";
+    const paragraphs = [
+      `Je ne dispose pas ici d’un appui documentaire applicable pour fournir une explication étayée de la question : « ${input.raw} »`,
+      context.length ? `Le cadre effectivement retenu est :\n${context.map((value) => `– ${value}`).join("\n")}` : "Les éléments nécessaires ne sont pas tous définis dans le projet.",
+      next, "La limite porte sur les connaissances disponibles pour cette réponse. Aucune recherche externe ni modification du projet n’a été réalisée.",
+    ];
+    const assistantReply = paragraphs.join("\n\n");
+    // Standard consumes the structured presentation, not assistantReply. Both
+    // views must carry this same scoped limitation; generic corpus prompts must
+    // not replace it. The native result, evidence and diagnostics stay intact.
+    const scopedProjection: UnderstandProjection = {
+      ...projection, answer: assistantReply, requestSummary: "", boundedConclusion: "", clarifications: [],
+      answerStatements: paragraphs.map((text, index) => ({
+        statementId: `${execution.result!.resultId}:project-scope:${index}`,
+        role: index === 0 ? "KNOWLEDGE_GAP" : index === 1 ? "SUPPORTING_CONTEXT" : "SCIENTIFIC_BOUNDARY",
+        text,
+        support: { knowledgeItemRefs: [], sourceRefs: [], locatorRefs: [], contradictionRefs: [], limitationRefs: [],
+          gapRefs: [...new Set(projection.answerStatements.flatMap(statement => statement.support.gapRefs))],
+          coverageRefs: projection.coverage.map(item => item.id) },
+      })),
+    };
+    return { status: "PARTIAL", responsibilityOwner: "KNOWLEDGE", assistantReply,
+      presentation: knowledgePresentation(execution.result, scopedProjection), knowledgeResultRef: execution.result.resultId,
+      knowledgeResultDigest: execution.result.resultDigest, projectWrites: 0, protocolProjections: 0, externalCalls: 0,
+      sourceRefs: [input.decision.sourceTurnRef, project.versionId, project.projectDigest, execution.result.resultId],
+    };
+  }
   return {
     status: execution.status,
     assistantReply: readableKnowledgeReply(projection),

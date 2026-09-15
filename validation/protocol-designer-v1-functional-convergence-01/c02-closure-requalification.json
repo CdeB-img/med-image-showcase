@@ -1,0 +1,2210 @@
+{
+  "at": "2026-09-15T04:39:49.379303+00:00",
+  "status": "PASS_C02_FINAL_REQUALIFICATION",
+  "historicalCP2": "c02-gate.json",
+  "countReferenceResidual": "B02-T07 initially clarified unnecessarily. Final source now binds its human sample-size label; prior evidence retained.",
+  "counts": {
+    "CONFIRM": {
+      "PASS_DECISION_RECORDED": 16
+    },
+    "REFUSE": {
+      "PASS_DECISION_RECORDED": 15,
+      "PASS_CLARIFICATION_REQUIRED": 8
+    },
+    "SELECT_OLD_PROPOSAL": {
+      "PASS_CLARIFICATION_REQUIRED": 8
+    }
+  },
+  "wrongAdoption": 0,
+  "cases": [
+    {
+      "requestId": "A01-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme cette modification-là, celle que tu viens de présenter.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Pose immédiate du stent » et « Pose différée du stent » pour le critère principal « Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à 3 minutes après injection » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:e5fede7b-6cf4-44a6-b1de-f8d55ec03d05",
+      "candidateRef": "persistent-project-contribution:ke1-14a41f65f8b7dde1",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-18f3c63e58b5e50a",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:11:48.281Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-14a41f65f8b7dde1",
+          "persistent-delta-item:ke1-c7c0e10da27c02c9",
+          "variable",
+          "persistent-delta-item:ke1-b5484d4c2bc3a3e0",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-14a41f65f8b7dde1",
+          "ke1-94e57ee4e8723d30",
+          "turn:b1045350-943e-4538-9091-681e0d31e3cf",
+          "turn:e5fede7b-6cf4-44a6-b1de-f8d55ec03d05"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:1",
+        "projectDigest": "ke1-4e1fd3c0e943bab4",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:2",
+        "projectDigest": "ke1-4038116b8ad455a7",
+        "revision": 2
+      },
+      "evidence": "final_closure/A01/2026-09-15T04-11-47-661Z-36117/turns.jsonl#A01-T03",
+      "sha256": "ac612c43ca0323ca99548325bd50309011861efe75c69725354333f99bc26570"
+    },
+    {
+      "requestId": "A01-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je ne retiens pas cette proposition de suivi. On conserve ce qui était déjà validé.",
+      "reply": "",
+      "userTurnRef": "turn:76dac678-a13e-4546-9777-d3ae9e2e05e0",
+      "candidateRef": "persistent-project-contribution:ke1-4e6c64e5e8a85519",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-9deecdfed25d26da",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:11:50.265Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-4e6c64e5e8a85519",
+          "followup6"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-4e6c64e5e8a85519",
+          "ke1-8e808ef8d343217c",
+          "turn:6bc6d5d0-b6d6-4b3c-acaa-9b5734cdf570",
+          "turn:76dac678-a13e-4546-9777-d3ae9e2e05e0"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:3",
+        "projectDigest": "ke1-7076bb2b1de78697",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:3",
+        "projectDigest": "ke1-7076bb2b1de78697",
+        "revision": 3
+      },
+      "evidence": "final_closure/A01/2026-09-15T04-11-47-661Z-36117/turns.jsonl#A01-T08",
+      "sha256": "ac612c43ca0323ca99548325bd50309011861efe75c69725354333f99bc26570"
+    },
+    {
+      "requestId": "A01-T12",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "C'est bien ça, je valide uniquement le déplacement du créneau IRM que tu viens de m'afficher.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Pose immédiate du stent » et « Pose différée du stent » pour le critère principal « Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à 3 minutes après injection » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:667746b6-256a-4629-8372-77923b170f95",
+      "candidateRef": "persistent-project-contribution:ke1-51dc840ab60a4f56",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-2ba3dbe02a49a9f4",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:11:52.220Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-51dc840ab60a4f56",
+          "persistent-delta-item:ke1-4ccb069f62b32463",
+          "acquisition"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-51dc840ab60a4f56",
+          "ke1-84e47367c493af0b",
+          "turn:2af17bc7-9b91-446e-b9da-275014708a81",
+          "turn:667746b6-256a-4629-8372-77923b170f95"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:4",
+        "projectDigest": "ke1-e17cc4b9df8f74bd",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5",
+        "projectDigest": "ke1-ca4df6e754934bc3",
+        "revision": 5
+      },
+      "evidence": "final_closure/A01/2026-09-15T04-11-47-661Z-36117/turns.jsonl#A01-T12",
+      "sha256": "ac612c43ca0323ca99548325bd50309011861efe75c69725354333f99bc26570"
+    },
+    {
+      "requestId": "A01-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je sélectionne la première de tes propositions sur la population, dans la liste donnée avant ma question sur le double aveugle. Vérifie qu'elle convient encore au projet avec le calendrier corrigé ; si oui, présente-la pour relecture. Si tu ne retrouves pas cette proposition précise, dis-le au lieu d'en prendre une autre.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:a4b63896-59a4-469b-9bc1-ae7b7245e0e2",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5",
+        "projectDigest": "ke1-ca4df6e754934bc3",
+        "revision": 5
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5",
+        "projectDigest": "ke1-ca4df6e754934bc3",
+        "revision": 5
+      },
+      "evidence": "final_closure/A01/2026-09-15T04-11-47-661Z-36117/turns.jsonl#A01-T14",
+      "sha256": "ac612c43ca0323ca99548325bd50309011861efe75c69725354333f99bc26570"
+    },
+    {
+      "requestId": "A01-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Après relecture, non, je refuse cette ancienne proposition. L'IRM à J4-J7 et le suivi clinique à douze mois restent bien retenus.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:1e10c3f1-8b6a-4e9b-ac4f-bdf5871abf87",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5",
+        "projectDigest": "ke1-ca4df6e754934bc3",
+        "revision": 5
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project",
+        "versionId": "protocol-designer-session:75bbd6ac-f480-42e8-8f1f-e7fe22ccbf10:research-project:version:5",
+        "projectDigest": "ke1-ca4df6e754934bc3",
+        "revision": 5
+      },
+      "evidence": "final_closure/A01/2026-09-15T04-11-47-661Z-36117/turns.jsonl#A01-T15",
+      "sha256": "ac612c43ca0323ca99548325bd50309011861efe75c69725354333f99bc26570"
+    },
+    {
+      "requestId": "A02-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non finalement, je refuse le remplacement par la FEVG et l'évaluation à six mois qui va avec. Gardons la version déjà retenue.",
+      "reply": "",
+      "userTurnRef": "turn:be2b409f-e5c4-4554-bf73-bfb515ab5489",
+      "candidateRef": "persistent-project-contribution:ke1-59810cc3e541284f",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-209dc281faca0e95",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:11:56.864Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-59810cc3e541284f",
+          "persistent-delta-item:ke1-7a2055780584a0b4",
+          "endpoint",
+          "followup6"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-59810cc3e541284f",
+          "ke1-203c4048e7b5408c",
+          "turn:6ec4e663-2a89-4e9c-bcb0-9f5917693120",
+          "turn:be2b409f-e5c4-4554-bf73-bfb515ab5489"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project",
+        "versionId": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project:version:3",
+        "projectDigest": "ke1-810eb00648e32a22",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project",
+        "versionId": "protocol-designer-session:0ac8aa2b-4001-4fc4-aea7-f766e89c97bd:research-project:version:3",
+        "projectDigest": "ke1-810eb00648e32a22",
+        "revision": 3
+      },
+      "evidence": "final_closure/A02/2026-09-15T04-11-54-647Z-36117/turns.jsonl#A02-T08",
+      "sha256": "e6f372e587dbcd34771f667f36061a391a4ad89a706693d7147ab83204d3da54"
+    },
+    {
+      "requestId": "A03-T07",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, j'adopte cette visite telle que tu viens de la présenter.",
+      "reply": "Projet mis à jour.\nÀ ce stade, plusieurs hypothèses restent compatibles avec le projet. Aucune n’est privilégiée ni adoptée.\n\nQuestion 1\nExiste-t-il une association entre Adultes après premier IDM reconnu et Cohorte observationnelle prospective chez Adultes après premier IDM reconnu, après IDM ?\nL’intuition relationnelle est reformulée comme une question réfutable, sans la considérer comme démontrée.\n\nHypothèse 1\nLa relation formulée dans « Existe-t-il une association entre Adultes après premier IDM reconnu et Cohorte observationnelle prospective chez Adultes après premier IDM reconnu, après IDM  » est observable dans le contexte précisé.\nPour la confronter : La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.\n\nHypothèse 2\nUne explication concurrente ou l’absence de relation peut rendre compte des observations attendues.\nPour la confronter : Une observation incompatible avec l’hypothèse principale doit rester possible.\n\nPoints à préciser\n– Connaissance non résolue : acquisition\n– Connaissance non résolue : contrast\n– Connaissance non résolue : design\n– Connaissance non résolue : edema\n– Connaissance non résolue : endpoint\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation.",
+      "userTurnRef": "turn:eadafa74-d5d7-47ff-b2fc-8f9e6151105c",
+      "candidateRef": "persistent-project-contribution:ke1-7de9a59b9dd5f927",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-e6836a81fab6c19d",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:03.045Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-7de9a59b9dd5f927",
+          "visit12"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-7de9a59b9dd5f927",
+          "ke1-3ca36c046f9ee0a0",
+          "turn:8b898345-e279-4a62-9b91-0a3c35418a15",
+          "turn:eadafa74-d5d7-47ff-b2fc-8f9e6151105c"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project",
+        "versionId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:2",
+        "projectDigest": "ke1-9d0f689234271f86",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project",
+        "versionId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:3",
+        "projectDigest": "ke1-dc8a2f392f28a0bd",
+        "revision": 3
+      },
+      "evidence": "final_closure/A03/2026-09-15T04-12-01-157Z-36117/turns.jsonl#A03-T07",
+      "sha256": "1d713b80928404532b2d342fd395cb620c7104205d9729a14377a2bd218772d0"
+    },
+    {
+      "requestId": "A03-T09",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je ne retiens pas l'analyse avec seuil. Le reste de ce qui a été validé reste en place.",
+      "reply": "",
+      "userTurnRef": "turn:6b2602cd-9943-4f9f-a7cc-b76b51acb5e4",
+      "candidateRef": "persistent-project-contribution:ke1-f00ca861f8b8630d",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-dd06927d542414a9",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:04.060Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-f00ca861f8b8630d",
+          "threshold-analysis"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-f00ca861f8b8630d",
+          "ke1-3b3d1255e14c3171",
+          "turn:fdd76a41-4a7c-4923-a76a-01cd2e87aa27",
+          "turn:6b2602cd-9943-4f9f-a7cc-b76b51acb5e4"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project",
+        "versionId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:3",
+        "projectDigest": "ke1-dc8a2f392f28a0bd",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project",
+        "versionId": "protocol-designer-session:cfcf83b2-31c8-4094-a4ee-f6d6151e91ab:research-project:version:3",
+        "projectDigest": "ke1-dc8a2f392f28a0bd",
+        "revision": 3
+      },
+      "evidence": "final_closure/A03/2026-09-15T04-12-01-157Z-36117/turns.jsonl#A03-T09",
+      "sha256": "1d713b80928404532b2d342fd395cb620c7104205d9729a14377a2bd218772d0"
+    },
+    {
+      "requestId": "A04-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, cette seconde lecture comme présentée me convient, je la confirme.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Segmentation manuelle » et « Segmentation semi-automatique » pour le critère principal « Critère principal: différence de volume segmenté des lésions microvasculaires en millilitres » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:c27ca4b9-8850-408b-8617-01bfc2b2081e",
+      "candidateRef": "persistent-project-contribution:ke1-8ad53b91ed3f3435",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-d2411246b7939832",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:09.805Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-8ad53b91ed3f3435",
+          "reread"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-8ad53b91ed3f3435",
+          "ke1-1f70f2d158c7670d",
+          "turn:c2b1ce58-a0f4-4aa6-b94d-a39104e4c7e3",
+          "turn:c27ca4b9-8850-408b-8617-01bfc2b2081e"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:1",
+        "projectDigest": "ke1-81388884784fc6e8",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:2",
+        "projectDigest": "ke1-272b315f4589a693",
+        "revision": 2
+      },
+      "evidence": "final_closure/A04/2026-09-15T04-12-09-243Z-36117/turns.jsonl#A04-T03",
+      "sha256": "bd24db1ad188df25f6fc93274b6a10a33a23ee6727d03112fa5f8a510062bd1c"
+    },
+    {
+      "requestId": "A04-T10",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse ce raccourcissement. On en reste aux dispositions déjà adoptées.",
+      "reply": "",
+      "userTurnRef": "turn:ac141e1d-ef4d-4a65-b55a-d7ff772f7402",
+      "candidateRef": "persistent-project-contribution:ke1-cb2bc9845a5107b0",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-f96f2db1bbc61bf5",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:12.138Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-cb2bc9845a5107b0",
+          "persistent-delta-item:ke1-58ed3b11955e2995",
+          "reread"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-cb2bc9845a5107b0",
+          "ke1-d609e53b97cc3c77",
+          "turn:7ff1925e-02a0-4e42-8641-0b16617f2d86",
+          "turn:ac141e1d-ef4d-4a65-b55a-d7ff772f7402"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:3",
+        "projectDigest": "ke1-2ba27a5908f57535",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:3",
+        "projectDigest": "ke1-2ba27a5908f57535",
+        "revision": 3
+      },
+      "evidence": "final_closure/A04/2026-09-15T04-12-09-243Z-36117/turns.jsonl#A04-T10",
+      "sha256": "bd24db1ad188df25f6fc93274b6a10a33a23ee6727d03112fa5f8a510062bd1c"
+    },
+    {
+      "requestId": "A04-T13",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je choisis la deuxième de la première liste de mesures d'accord que tu m'avais donnée, avant l'explication corrélation/accord. Reprends cette proposition précise et vérifie son application avec la mesure maintenant exprimée en pourcentage de masse VG, puis présente-la à nouveau pour revue. Si tu ne peux pas identifier la proposition d'origine, signale-le.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:489274b4-25d4-441d-9ad5-83f34afdc1f9",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:4",
+        "projectDigest": "ke1-ca1e3dc598b4ab79",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:4",
+        "projectDigest": "ke1-ca1e3dc598b4ab79",
+        "revision": 4
+      },
+      "evidence": "final_closure/A04/2026-09-15T04-12-09-243Z-36117/turns.jsonl#A04-T13",
+      "sha256": "bd24db1ad188df25f6fc93274b6a10a33a23ee6727d03112fa5f8a510062bd1c"
+    },
+    {
+      "requestId": "A04-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "À la relecture, je préfère refuser cette proposition ancienne. La différence entre méthodes rapportée à la masse VG, déjà adoptée, reste telle quelle.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:30f9c37e-4700-4f3c-a333-35cf17a98f5a",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:4",
+        "projectDigest": "ke1-ca1e3dc598b4ab79",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project",
+        "versionId": "protocol-designer-session:a8035899-970f-4e3b-8f65-2ba7a176cc51:research-project:version:4",
+        "projectDigest": "ke1-ca1e3dc598b4ab79",
+        "revision": 4
+      },
+      "evidence": "final_closure/A04/2026-09-15T04-12-09-243Z-36117/turns.jsonl#A04-T14",
+      "sha256": "bd24db1ad188df25f6fc93274b6a10a33a23ee6727d03112fa5f8a510062bd1c"
+    },
+    {
+      "requestId": "B01-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme l'ajout que tu viens de présenter pour les hypoglycémies sévères.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Suivi infirmier coordonné » et « Suivi habituel » pour le critère principal « Critère principal: variation HbA1c entre inclusion et 24 semaines » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:65d6ae29-613c-45dd-a0dc-b158c866850c",
+      "candidateRef": "persistent-project-contribution:ke1-4a4454d20242e59e",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-8959cd13f4c09157",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:14.267Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-4a4454d20242e59e",
+          "hypoglycemia"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-4a4454d20242e59e",
+          "ke1-44fedef82363b3cc",
+          "turn:39cf7246-fcfa-48ee-806b-713f92b5690a",
+          "turn:65d6ae29-613c-45dd-a0dc-b158c866850c"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:1",
+        "projectDigest": "ke1-4a9735cfd83dd6fb",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:2",
+        "projectDigest": "ke1-646646bc637160d0",
+        "revision": 2
+      },
+      "evidence": "final_closure/B01/2026-09-15T04-12-13-983Z-36117/turns.jsonl#B01-T03",
+      "sha256": "5fc902573cc551292656cbad6db967d711d6ba7f7122bf652ecb7daf0b362601"
+    },
+    {
+      "requestId": "B01-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse ce passage à trente-six semaines. Nous restons à vingt-quatre pour la visite et le principal.",
+      "reply": "",
+      "userTurnRef": "turn:7e78caf9-0eb2-4365-b8d1-9720012c921d",
+      "candidateRef": "persistent-project-contribution:ke1-291248e556f49021",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-f71b72af302fb35b",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:15.322Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-291248e556f49021",
+          "persistent-delta-item:ke1-b7ff313035fcd1ac",
+          "endpoint",
+          "persistent-delta-item:ke1-2e8858064ef8c462",
+          "visit"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-291248e556f49021",
+          "ke1-053d28f645c07b6a",
+          "turn:adc48973-2111-4ffa-a77e-8113e450b37b",
+          "turn:7e78caf9-0eb2-4365-b8d1-9720012c921d"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:3",
+        "projectDigest": "ke1-2a26c02c79a4a998",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:3",
+        "projectDigest": "ke1-2a26c02c79a4a998",
+        "revision": 3
+      },
+      "evidence": "final_closure/B01/2026-09-15T04-12-13-983Z-36117/turns.jsonl#B01-T08",
+      "sha256": "5fc902573cc551292656cbad6db967d711d6ba7f7122bf652ecb7daf0b362601"
+    },
+    {
+      "requestId": "B01-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Cette fois oui : je valide cette modification, visite et critère principal à trente-six semaines.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Suivi infirmier coordonné » et « Suivi habituel » pour le critère principal « Critère principal: variation HbA1c entre inclusion et 36 semaines » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:94a98e72-d241-4079-99c5-73db4c92983b",
+      "candidateRef": "persistent-project-contribution:ke1-77342c31a8e2aaf5",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-c2d97a44cca37068",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:15.798Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-77342c31a8e2aaf5",
+          "persistent-delta-item:ke1-f3c4b886a81a992a",
+          "endpoint",
+          "persistent-delta-item:ke1-64ac0270b18d85d4",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-77342c31a8e2aaf5",
+          "ke1-b6d61efb7a7d0937",
+          "turn:c84fbfd2-01c1-40c8-8c45-f9a094b4630a",
+          "turn:94a98e72-d241-4079-99c5-73db4c92983b"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:4"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:3",
+        "projectDigest": "ke1-2a26c02c79a4a998",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project",
+        "versionId": "protocol-designer-session:69f2afe5-7b23-4062-964c-ba8fa36d02f3:research-project:version:4",
+        "projectDigest": "ke1-db2799b627329692",
+        "revision": 4
+      },
+      "evidence": "final_closure/B01/2026-09-15T04-12-13-983Z-36117/turns.jsonl#B01-T11",
+      "sha256": "5fc902573cc551292656cbad6db967d711d6ba7f7122bf652ecb7daf0b362601"
+    },
+    {
+      "requestId": "B02-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, retirons cette proposition de 150 participants. Je ne la retiens pas ; cela ne remet pas en cause la cohorte ni les critères déjà validés.",
+      "reply": "",
+      "userTurnRef": "turn:2b9acf65-c15e-4533-bd88-f4b06937d84c",
+      "candidateRef": "persistent-project-contribution:ke1-04c3a55ea9aace62",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-fd2ef25701f5c1bb",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:18.697Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-04c3a55ea9aace62"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-04c3a55ea9aace62",
+          "ke1-9024a13cee490f30",
+          "turn:88e467d8-e5a7-412a-afad-9a6317df81a2",
+          "turn:2b9acf65-c15e-4533-bd88-f4b06937d84c"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project",
+        "versionId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:2",
+        "projectDigest": "ke1-93e948a74954a7fb",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project",
+        "versionId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:2",
+        "projectDigest": "ke1-93e948a74954a7fb",
+        "revision": 2
+      },
+      "evidence": "final_closure/B02/2026-09-15T04-12-17-775Z-36117/turns.jsonl#B02-T07",
+      "sha256": "fdd6d80afe12b714147528696b54277084804b458243daa14914af161404c5d9"
+    },
+    {
+      "requestId": "B02-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse ce déplacement à dix-huit mois. Conservez toutes les décisions antérieures.",
+      "reply": "",
+      "userTurnRef": "turn:38858fc7-c1a8-4928-b9e2-7f0ab3ca2d18",
+      "candidateRef": "persistent-project-contribution:ke1-6636ec75a0075f41",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-88664c94762dc588",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:20.797Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-6636ec75a0075f41",
+          "persistent-delta-item:ke1-bea508e3054fd317",
+          "endpoint",
+          "persistent-delta-item:ke1-2985aae136ec2b0d",
+          "visit"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-6636ec75a0075f41",
+          "ke1-c217ca8674ee24ca",
+          "turn:77de12e7-bb35-420d-b635-61e9423557b1",
+          "turn:38858fc7-c1a8-4928-b9e2-7f0ab3ca2d18"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:4"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project",
+        "versionId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:4",
+        "projectDigest": "ke1-d03b9e085631b1c4",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project",
+        "versionId": "protocol-designer-session:24230e83-a17e-4f23-9462-c90e1cc2d1a3:research-project:version:4",
+        "projectDigest": "ke1-d03b9e085631b1c4",
+        "revision": 4
+      },
+      "evidence": "final_closure/B02/2026-09-15T04-12-17-775Z-36117/turns.jsonl#B02-T14",
+      "sha256": "fdd6d80afe12b714147528696b54277084804b458243daa14914af161404c5d9"
+    },
+    {
+      "requestId": "B03-T07",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme cette covariable exactement comme tu viens de la présenter.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Programme éducatif sommeil » et « Information usuelle » pour le critère principal « Critère principal: variation sévérité des symptômes de insomnie à six semaines; instrument précis non choisi » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:6e3abd06-a00c-4464-8ef7-b17fffc13692",
+      "candidateRef": "persistent-project-contribution:ke1-8a530e9b1711ff8f",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-97a5c1ff2245d173",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:22.151Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-8a530e9b1711ff8f"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-8a530e9b1711ff8f",
+          "ke1-74bfbd7c38db47c8",
+          "turn:d80b8075-b231-4759-92c1-e6c9155d3d2c",
+          "turn:6e3abd06-a00c-4464-8ef7-b17fffc13692"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:2",
+        "projectDigest": "ke1-2c3264d9f6199c3d",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:3",
+        "projectDigest": "ke1-c92e89f5af20a829",
+        "revision": 3
+      },
+      "evidence": "final_closure/B03/2026-09-15T04-12-21-183Z-36117/turns.jsonl#B03-T07",
+      "sha256": "d66976891c8287a850f59f9959cf8d903e2c70ba225644e16885c8641ae47bb7"
+    },
+    {
+      "requestId": "B03-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je valide la modification que tu m'affiches, le passage à huit semaines.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Programme éducatif sommeil » et « Information usuelle » pour le critère principal « Critère principal: variation sévérité des symptômes de insomnie à huit semaines; instrument précis non choisi » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:442f1ef1-3650-4c0e-ba3f-d37acb871ae2",
+      "candidateRef": "persistent-project-contribution:ke1-704490c97b45fb7d",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-38aab75895fa3004",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:23.176Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-704490c97b45fb7d",
+          "persistent-delta-item:ke1-4a1fe90bbbab15ef",
+          "endpoint",
+          "persistent-delta-item:ke1-65e086573d7937db",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-704490c97b45fb7d",
+          "ke1-da78344bb9c39aff",
+          "turn:ac434d8c-d838-4558-bd7a-10d6996d888d",
+          "turn:442f1ef1-3650-4c0e-ba3f-d37acb871ae2"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:3",
+        "projectDigest": "ke1-c92e89f5af20a829",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "evidence": "final_closure/B03/2026-09-15T04-12-21-183Z-36117/turns.jsonl#B03-T11",
+      "sha256": "d66976891c8287a850f59f9959cf8d903e2c70ba225644e16885c8641ae47bb7"
+    },
+    {
+      "requestId": "B03-T13",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, cette restriction aux nuits permanentes, je la refuse. Nous gardons l'ensemble des horaires postés.",
+      "reply": "",
+      "userTurnRef": "turn:2e25ba12-1949-44a9-ad7a-5a1a75bff02e",
+      "candidateRef": "persistent-project-contribution:ke1-42d23756e62d6262",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-2209911dc51aa591",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:23.875Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-42d23756e62d6262",
+          "persistent-delta-item:ke1-e2c2a19d56f71fd9",
+          "population"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-42d23756e62d6262",
+          "ke1-2e5597dbd61641f7",
+          "turn:8157fee0-2cba-43a1-ba69-95f314e4f636",
+          "turn:2e25ba12-1949-44a9-ad7a-5a1a75bff02e"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "evidence": "final_closure/B03/2026-09-15T04-12-21-183Z-36117/turns.jsonl#B03-T13",
+      "sha256": "d66976891c8287a850f59f9959cf8d903e2c70ba225644e16885c8641ae47bb7"
+    },
+    {
+      "requestId": "B03-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Reprenons la deuxième des alternatives pour mesurer les symptômes, dans la liste d'avant mon passage à huit semaines. C'est celle-là que je sélectionne pour examen. Vérifie qu'elle convient à la version actuelle puis présente-moi la proposition correspondante ; si tu ne retrouves pas la référence précise, dis-le.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:6b364d15-60bf-4a93-8daf-6c6f3acdf8c1",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "evidence": "final_closure/B03/2026-09-15T04-12-21-183Z-36117/turns.jsonl#B03-T14",
+      "sha256": "d66976891c8287a850f59f9959cf8d903e2c70ba225644e16885c8641ae47bb7"
+    },
+    {
+      "requestId": "B03-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Après lecture, je refuse cette proposition de mesure. L'instrument reste à choisir, et le suivi reste à huit semaines.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:01320839-5289-4312-b6c2-0b869508f046",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project",
+        "versionId": "protocol-designer-session:44b806ff-ab56-4ed9-b0ce-295d2f3c0a85:research-project:version:4",
+        "projectDigest": "ke1-aee653b7631c1863",
+        "revision": 4
+      },
+      "evidence": "final_closure/B03/2026-09-15T04-12-21-183Z-36117/turns.jsonl#B03-T15",
+      "sha256": "d66976891c8287a850f59f9959cf8d903e2c70ba225644e16885c8641ae47bb7"
+    },
+    {
+      "requestId": "B04-T03",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, j'adopte ce recueil distinct des décès tel que tu viens de le présenter.",
+      "reply": "Projet mis à jour.\nÀ ce stade, plusieurs hypothèses restent compatibles avec le projet. Aucune n’est privilégiée ni adoptée.\n\nQuestion 1\nExiste-t-il une association entre Adultes de 65 à 90 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus et Cohorte observationnelle prospective chez Adultes de 65 à 90 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus, après sortie ?\nL’intuition relationnelle est reformulée comme une question réfutable, sans la considérer comme démontrée.\n\nHypothèse 1\nLa relation formulée dans « Existe-t-il une association entre Adultes de 65 à 90 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus et Cohorte observationnelle prospective chez Adultes de 65 à 90 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus, après sortie  » est observable dans le contexte précisé.\nPour la confronter : La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.\n\nHypothèse 2\nUne explication concurrente ou l’absence de relation peut rendre compte des observations attendues.\nPour la confronter : Une observation incompatible avec l’hypothèse principale doit rester possible.\n\nPoints à préciser\n– Connaissance non résolue : death\n– Connaissance non résolue : design\n– Connaissance non résolue : endpoint\n– Connaissance non résolue : objective\n– Connaissance non résolue : population\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation.",
+      "userTurnRef": "turn:bfc72ed2-0b3c-4070-9fb6-3d925fceb11b",
+      "candidateRef": "persistent-project-contribution:ke1-2fb53f6a7a785da6",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-804a37ac505159e8",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:24.608Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-2fb53f6a7a785da6",
+          "death"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-2fb53f6a7a785da6",
+          "ke1-e3e9aa8084000f54",
+          "turn:25cde535-11a0-4c3a-8fe0-aa2dda2762ca",
+          "turn:bfc72ed2-0b3c-4070-9fb6-3d925fceb11b"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:1",
+        "projectDigest": "ke1-e3145d20e86e38d4",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:2",
+        "projectDigest": "ke1-c515ffee64d6cfca",
+        "revision": 2
+      },
+      "evidence": "final_closure/B04/2026-09-15T04-12-24-363Z-36117/turns.jsonl#B04-T03",
+      "sha256": "b56c3552bd6a413d4ca14bb6849c7a16ebb57ce99196254cacfb3b90583210fe"
+    },
+    {
+      "requestId": "B04-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse le composite en principal. On reste sur la réhospitalisation non programmée seule pour le critère principal.",
+      "reply": "",
+      "userTurnRef": "turn:713be7eb-7f6f-4318-8ad5-70131d9b7e91",
+      "candidateRef": "persistent-project-contribution:ke1-1bfd7362e8dd2016",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-b93b5a3fd1a917b3",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:25.196Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-1bfd7362e8dd2016",
+          "persistent-delta-item:ke1-0d5dc5062b8c1152",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-1bfd7362e8dd2016",
+          "ke1-5edd28331ce4cf97",
+          "turn:433d0efa-ac42-48fe-a16c-22e7e69ac216",
+          "turn:713be7eb-7f6f-4318-8ad5-70131d9b7e91"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:2",
+        "projectDigest": "ke1-c515ffee64d6cfca",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:2",
+        "projectDigest": "ke1-c515ffee64d6cfca",
+        "revision": 2
+      },
+      "evidence": "final_closure/B04/2026-09-15T04-12-24-363Z-36117/turns.jsonl#B04-T07",
+      "sha256": "b56c3552bd6a413d4ca14bb6849c7a16ebb57ce99196254cacfb3b90583210fe"
+    },
+    {
+      "requestId": "B04-T13",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme ce recueil supplémentaire que tu viens de présenter.",
+      "reply": "Projet mis à jour.\nÀ ce stade, plusieurs hypothèses restent compatibles avec le projet. Aucune n’est privilégiée ni adoptée.\n\nQuestion 1\nExiste-t-il une association entre Adultes de 65 à 85 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus et Analyses descriptives selon nombre de maladies chroniques et âge chez Adultes de 65 à 85 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus, après sortie ?\nL’intuition relationnelle est reformulée comme une question réfutable, sans la considérer comme démontrée.\n\nHypothèse 1\nLa relation formulée dans « Existe-t-il une association entre Adultes de 65 à 85 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus et Analyses descriptives selon nombre de maladies chroniques et âge chez Adultes de 65 à 85 ans avec au moins deux maladies chroniques, sortant vivants de hospitalisation; soins palliatifs exclus, après sortie  » est observable dans le contexte précisé.\nPour la confronter : La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.\n\nHypothèse 2\nUne explication concurrente ou l’absence de relation peut rendre compte des observations attendues.\nPour la confronter : Une observation incompatible avec l’hypothèse principale doit rester possible.\n\nPoints à préciser\n– Connaissance non résolue : analysis\n– Connaissance non résolue : death\n– Connaissance non résolue : design\n– Connaissance non résolue : endpoint\n– Connaissance non résolue : objective\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation.",
+      "userTurnRef": "turn:91779a12-acd0-4217-9603-8a187060a517",
+      "candidateRef": "persistent-project-contribution:ke1-c68437776f96909b",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-809555a341f1d2a7",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:27.108Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c68437776f96909b",
+          "visit90"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c68437776f96909b",
+          "ke1-2fce4ca5cb7fb929",
+          "turn:cb9a8678-eb99-4fc2-ad65-131e9abb42fd",
+          "turn:91779a12-acd0-4217-9603-8a187060a517"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:5"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:4",
+        "projectDigest": "ke1-3a35fd2951ff1f45",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project",
+        "versionId": "protocol-designer-session:1e47399d-c923-4eef-ae6b-956decc50521:research-project:version:5",
+        "projectDigest": "ke1-c527093ddba69cf9",
+        "revision": 5
+      },
+      "evidence": "final_closure/B04/2026-09-15T04-12-24-363Z-36117/turns.jsonl#B04-T13",
+      "sha256": "b56c3552bd6a413d4ca14bb6849c7a16ebb57ce99196254cacfb3b90583210fe"
+    },
+    {
+      "requestId": "C01-T03",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je ne retiens pas la mesure de rugosité. Le reste du projet validé est conservé.",
+      "reply": "",
+      "userTurnRef": "turn:add63255-2ca0-4d58-b48c-d9c9b1e8d837",
+      "candidateRef": "persistent-project-contribution:ke1-72e0dc65053322b1",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-94018d69fc0b8d7d",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:28.365Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-72e0dc65053322b1"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-72e0dc65053322b1",
+          "ke1-984b937dcbb0bb09",
+          "turn:1847ee54-49e8-470b-9b0d-47042b4ca9f5",
+          "turn:add63255-2ca0-4d58-b48c-d9c9b1e8d837"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project:version:1"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project",
+        "versionId": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project:version:1",
+        "projectDigest": "ke1-4c7b6d5b15dcca9f",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project",
+        "versionId": "protocol-designer-session:ab830665-2243-44d8-9c88-65f500b1ff8b:research-project:version:1",
+        "projectDigest": "ke1-4c7b6d5b15dcca9f",
+        "revision": 1
+      },
+      "evidence": "final_closure/C01/2026-09-15T04-12-28-113Z-36117/turns.jsonl#C01-T03",
+      "sha256": "3bb509269379c1d244715215290473f1d83603d1ac2f4d7e01317833d8eff27d"
+    },
+    {
+      "requestId": "C02-T05",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je valide cet ajout sur l'absorption d'azote, tel qu'il vient d'être présenté.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Fertilisation organique » et « Fertilisation minérale » pour le critère principal « Critère principal: rendement grain par parcelle à récolte prévue cent dix jours après semis » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:1985710c-a31e-484f-9a2a-c21bcbcbd307",
+      "candidateRef": "persistent-project-contribution:ke1-eeded66da967df41",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-acdc9f7949303845",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:32.681Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-eeded66da967df41",
+          "nitrogen"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-eeded66da967df41",
+          "ke1-754fab2c6616d458",
+          "turn:a51c97eb-b18c-4757-9170-aad44e82b424",
+          "turn:1985710c-a31e-484f-9a2a-c21bcbcbd307"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:2",
+        "projectDigest": "ke1-338983b8bfc29154",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:3",
+        "projectDigest": "ke1-da07395b8066163f",
+        "revision": 3
+      },
+      "evidence": "final_closure/C02/2026-09-15T04-12-32-062Z-36117/turns.jsonl#C02-T05",
+      "sha256": "7089f5c027247fb54e70d2eb651823c6abbfc0460d3d42bcaf69b93b5ba45ee7"
+    },
+    {
+      "requestId": "C02-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse cette proposition des deux niveaux. Gardons les décisions déjà retenues.",
+      "reply": "",
+      "userTurnRef": "turn:82f034b5-3a00-47c8-b738-63729c786236",
+      "candidateRef": "persistent-project-contribution:ke1-a6d3f216b2478f8a",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-4bf5ece34d7b0b37",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:33.112Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-a6d3f216b2478f8a"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-a6d3f216b2478f8a",
+          "ke1-1791a48f320be643",
+          "turn:1be4c01e-159f-415e-9fe9-708775b00218",
+          "turn:82f034b5-3a00-47c8-b738-63729c786236"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:3",
+        "projectDigest": "ke1-da07395b8066163f",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:3",
+        "projectDigest": "ke1-da07395b8066163f",
+        "revision": 3
+      },
+      "evidence": "final_closure/C02/2026-09-15T04-12-32-062Z-36117/turns.jsonl#C02-T07",
+      "sha256": "7089f5c027247fb54e70d2eb651823c6abbfc0460d3d42bcaf69b93b5ba45ee7"
+    },
+    {
+      "requestId": "C02-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme cette modification du calendrier et du moment de mesure du principal.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Fertilisation organique » et « Fertilisation minérale » pour le critère principal « Critère principal: rendement grain par parcelle à récolte prévue cent vingt jours après semis » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:fce425ed-4004-4381-add7-ebda654a35a1",
+      "candidateRef": "persistent-project-contribution:ke1-0e57c48125c27f25",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-a7f455f9237ca9d5",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:34.109Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-0e57c48125c27f25",
+          "persistent-delta-item:ke1-ed769232654f7956",
+          "endpoint",
+          "persistent-delta-item:ke1-270b06daa04ad46e",
+          "harvest"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-0e57c48125c27f25",
+          "ke1-a6764411b5399a95",
+          "turn:9b3b3b29-91cf-493f-946d-ce3376704822",
+          "turn:fce425ed-4004-4381-add7-ebda654a35a1"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:5"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:4",
+        "projectDigest": "ke1-f84adeb64601021a",
+        "revision": 4
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:5",
+        "projectDigest": "ke1-10401221bfadd5c5",
+        "revision": 5
+      },
+      "evidence": "final_closure/C02/2026-09-15T04-12-32-062Z-36117/turns.jsonl#C02-T11",
+      "sha256": "7089f5c027247fb54e70d2eb651823c6abbfc0460d3d42bcaf69b93b5ba45ee7"
+    },
+    {
+      "requestId": "C02-T14",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je sélectionne la deuxième proposition de la liste que tu viens d'afficher, pour l'examiner. Vérifie qu'elle correspond toujours au projet actuel et présente-la pour revue ; ce choix dans la liste ne vaut pas adoption.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:fe1bc656-a15f-4b2b-b2ee-928124c35669",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:6",
+        "projectDigest": "ke1-1e37faae7cf9bcfa",
+        "revision": 6
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:6",
+        "projectDigest": "ke1-1e37faae7cf9bcfa",
+        "revision": 6
+      },
+      "evidence": "final_closure/C02/2026-09-15T04-12-32-062Z-36117/turns.jsonl#C02-T14",
+      "sha256": "7089f5c027247fb54e70d2eb651823c6abbfc0460d3d42bcaf69b93b5ba45ee7"
+    },
+    {
+      "requestId": "C02-T15",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Non, après examen, je refuse cette proposition. On reste à six blocs, la récolte à 120 jours après semis, et le régime hydrique reste inconnu.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:44065d68-f2ad-4863-94d4-7e6fd27641d3",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:6",
+        "projectDigest": "ke1-1e37faae7cf9bcfa",
+        "revision": 6
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project",
+        "versionId": "protocol-designer-session:5029b43d-e51b-4877-9be7-1093da6a06ec:research-project:version:6",
+        "projectDigest": "ke1-1e37faae7cf9bcfa",
+        "revision": 6
+      },
+      "evidence": "final_closure/C02/2026-09-15T04-12-32-062Z-36117/turns.jsonl#C02-T15",
+      "sha256": "7089f5c027247fb54e70d2eb651823c6abbfc0460d3d42bcaf69b93b5ba45ee7"
+    },
+    {
+      "requestId": "C03-T08",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse cet ajout sur la turbidité. Les décisions déjà validées restent conservées.",
+      "reply": "",
+      "userTurnRef": "turn:15e6de55-2b59-49c4-bfa2-d678911f308c",
+      "candidateRef": "persistent-project-contribution:ke1-b6cf82644f849078",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-9b57f2271178f233",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:37.434Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-b6cf82644f849078"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-b6cf82644f849078",
+          "ke1-058c0bf2b20e73ee",
+          "turn:7a1b5bc6-1a14-4060-9600-aa9feb565f01",
+          "turn:15e6de55-2b59-49c4-bfa2-d678911f308c"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:3",
+        "projectDigest": "ke1-25a9d5599c4c1f85",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:3",
+        "projectDigest": "ke1-25a9d5599c4c1f85",
+        "revision": 3
+      },
+      "evidence": "final_closure/C03/2026-09-15T04-12-36-066Z-36117/turns.jsonl#C03-T08",
+      "sha256": "564b449f9c5b8b2a6e2d7affc51670020ce4524e5cfbf7ab07a595e551954955"
+    },
+    {
+      "requestId": "C03-T12",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Reprenons la première proposition de votre première liste, celle d'avant mon changement de la richesse spécifique vers un indice. Je la sélectionne pour examen : retrouvez la référence exacte et vérifiez qu'elle convient encore avec trois ans de suivi, puis présentez-la pour revue. Si la référence manque, signalez-le.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:b630e947-8e16-477e-87ff-4c2023f477a4",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:5",
+        "projectDigest": "ke1-a3a2da2104db2e75",
+        "revision": 5
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:5",
+        "projectDigest": "ke1-a3a2da2104db2e75",
+        "revision": 5
+      },
+      "evidence": "final_closure/C03/2026-09-15T04-12-36-066Z-36117/turns.jsonl#C03-T12",
+      "sha256": "564b449f9c5b8b2a6e2d7affc51670020ce4524e5cfbf7ab07a595e551954955"
+    },
+    {
+      "requestId": "C03-T13",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Après examen, je refuse cette proposition. Gardons tout ce qui était adopté auparavant.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:fc12ca10-1e27-4ac3-910d-aa7c512847df",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:5",
+        "projectDigest": "ke1-a3a2da2104db2e75",
+        "revision": 5
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project",
+        "versionId": "protocol-designer-session:6a8bfe71-f8d9-43d6-82cc-f57daf6c9b78:research-project:version:5",
+        "projectDigest": "ke1-a3a2da2104db2e75",
+        "revision": 5
+      },
+      "evidence": "final_closure/C03/2026-09-15T04-12-36-066Z-36117/turns.jsonl#C03-T13",
+      "sha256": "564b449f9c5b8b2a6e2d7affc51670020ce4524e5cfbf7ab07a595e551954955"
+    },
+    {
+      "requestId": "D01-T02",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme ce benchmark tel que vous venez de le présenter.",
+      "reply": "Projet créé.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Moteur de recherche A » et « Moteur de recherche B » pour le critère principal « Critère principal: latence au quatre-vingt-quinzième percentile en millisecondes » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:4e9a0af3-45dc-4286-9d8a-5d36bce91edd",
+      "candidateRef": "persistent-project-contribution:ke1-10f1effefbef33c2",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-23a1c97503c000a1",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:39.770Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-10f1effefbef33c2",
+          "objective",
+          "population",
+          "design",
+          "intervention",
+          "comparator",
+          "endpoint"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-10f1effefbef33c2",
+          "ke1-82ecb7c13e682995",
+          "turn:fc7f63b1-064a-4cf4-8aa1-698c784be6d6",
+          "turn:4e9a0af3-45dc-4286-9d8a-5d36bce91edd"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1"
+      },
+      "projectBefore": null,
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1",
+        "projectDigest": "ke1-9e8d3a1642d7c652",
+        "revision": 1
+      },
+      "evidence": "final_closure/D01/2026-09-15T04-12-39-699Z-36117/turns.jsonl#D01-T02",
+      "sha256": "c105ef12151c22d3a4afcb536b29c386e6a2e3d94edee630ccd1702112c0e126"
+    },
+    {
+      "requestId": "D01-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse uniquement cet ajout du rappel documentaire. Le benchmark reste tel qu'il a été validé.",
+      "reply": "",
+      "userTurnRef": "turn:045cdf28-acee-4798-a6a7-58bfcf8cd4b9",
+      "candidateRef": "persistent-project-contribution:ke1-c10206446ede0480",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-3220b309518dbad5",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:40.273Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-c10206446ede0480"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-c10206446ede0480",
+          "ke1-53b8e1c0b02b864c",
+          "turn:53e1a6b9-8697-4a25-a87a-91e76c5fa8e0",
+          "turn:045cdf28-acee-4798-a6a7-58bfcf8cd4b9"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1",
+        "projectDigest": "ke1-9e8d3a1642d7c652",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1",
+        "projectDigest": "ke1-9e8d3a1642d7c652",
+        "revision": 1
+      },
+      "evidence": "final_closure/D01/2026-09-15T04-12-39-699Z-36117/turns.jsonl#D01-T07",
+      "sha256": "c105ef12151c22d3a4afcb536b29c386e6a2e3d94edee630ccd1702112c0e126"
+    },
+    {
+      "requestId": "D01-T09",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme cet ajout du taux de réponses correctes.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Moteur de recherche A » et « Moteur de recherche B » pour le critère principal « Critère principal: latence au quatre-vingt-quinzième percentile en millisecondes » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:d84d9816-00ba-4449-b241-8ca48960b6f2",
+      "candidateRef": "persistent-project-contribution:ke1-027a26e28c262456",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-71418503f33365f7",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:40.491Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-027a26e28c262456"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-027a26e28c262456",
+          "ke1-29698bbf07f7baf3",
+          "turn:c42f1c49-878c-4cd6-9111-171dc525d345",
+          "turn:d84d9816-00ba-4449-b241-8ca48960b6f2"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:1",
+        "projectDigest": "ke1-9e8d3a1642d7c652",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:2",
+        "projectDigest": "ke1-5f20a438f6e8043c",
+        "revision": 2
+      },
+      "evidence": "final_closure/D01/2026-09-15T04-12-39-699Z-36117/turns.jsonl#D01-T09",
+      "sha256": "c105ef12151c22d3a4afcb536b29c386e6a2e3d94edee630ccd1702112c0e126"
+    },
+    {
+      "requestId": "D01-T12",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je sélectionne la deuxième proposition de la toute première liste, celle qui précédait ma demande d'explication de la première. Retrouvez bien cette proposition précise dans ce qui a été affiché et vérifiez-la avec le principal au 99e percentile avant de me la soumettre pour revue. Si vous ne pouvez pas retrouver la référence, dites-le.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:3f831b31-1667-4747-a2a8-b67c58223547",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:3",
+        "projectDigest": "ke1-048d4dc5969aa8f1",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:3",
+        "projectDigest": "ke1-048d4dc5969aa8f1",
+        "revision": 3
+      },
+      "evidence": "final_closure/D01/2026-09-15T04-12-39-699Z-36117/turns.jsonl#D01-T12",
+      "sha256": "c105ef12151c22d3a4afcb536b29c386e6a2e3d94edee630ccd1702112c0e126"
+    },
+    {
+      "requestId": "D01-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je refuse cette proposition après votre explication. Le taux de réponses correctes, lui, reste bien la mesure secondaire déjà adoptée.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:b8b15248-deec-4ba1-b0c1-e24a463e8b9a",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:3",
+        "projectDigest": "ke1-048d4dc5969aa8f1",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project",
+        "versionId": "protocol-designer-session:0e9e2e8d-f640-4e3b-ae24-cc8dd59990d1:research-project:version:3",
+        "projectDigest": "ke1-048d4dc5969aa8f1",
+        "revision": 3
+      },
+      "evidence": "final_closure/D01/2026-09-15T04-12-39-699Z-36117/turns.jsonl#D01-T14",
+      "sha256": "c105ef12151c22d3a4afcb536b29c386e6a2e3d94edee630ccd1702112c0e126"
+    },
+    {
+      "requestId": "E01-T07",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse cette mesure intermédiaire. Conservons les éléments qui étaient déjà retenus.",
+      "reply": "",
+      "userTurnRef": "turn:0537542d-7038-4124-b09a-f16a0bf7e298",
+      "candidateRef": "persistent-project-contribution:ke1-2de82af2395248ce",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-8d8ecc9213ae83b6",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:43.124Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-2de82af2395248ce",
+          "visit15"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-2de82af2395248ce",
+          "ke1-4106c2a70dd187f3",
+          "turn:30229d0b-18e0-4f6b-bcc0-89394f0c51c2",
+          "turn:0537542d-7038-4124-b09a-f16a0bf7e298"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:2"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project",
+        "versionId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:2",
+        "projectDigest": "ke1-1f77c9c148ad81cd",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project",
+        "versionId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:2",
+        "projectDigest": "ke1-1f77c9c148ad81cd",
+        "revision": 2
+      },
+      "evidence": "final_closure/E01/2026-09-15T04-12-42-196Z-36117/turns.jsonl#E01-T07",
+      "sha256": "cb2e991a67f324de18745622a9f4de5b024ad17317ca40e8233102458e9c092a"
+    },
+    {
+      "requestId": "E01-T12",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme la correction de température qui vient d'être présentée.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Traitement de semences A » et « Traitement de semences B » pour le critère principal « Critère principal: biomasse sèche par plant au jour 30 après semis » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:558cdd10-ba11-45b3-8502-3f00fe266955",
+      "candidateRef": "persistent-project-contribution:ke1-69cff33e6b80ec62",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-db8f922d9f9f2ab1",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:43.980Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-69cff33e6b80ec62",
+          "conditions"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-69cff33e6b80ec62",
+          "ke1-34fce832a4e4eede",
+          "turn:aa37f8c2-c171-458e-a14c-99070506f6a0",
+          "turn:558cdd10-ba11-45b3-8502-3f00fe266955"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project",
+        "versionId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:2",
+        "projectDigest": "ke1-1f77c9c148ad81cd",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project",
+        "versionId": "protocol-designer-session:5906cee6-920a-4e19-a4db-8054a389a14c:research-project:version:3",
+        "projectDigest": "ke1-61893cd7867c3a63",
+        "revision": 3
+      },
+      "evidence": "final_closure/E01/2026-09-15T04-12-42-196Z-36117/turns.jsonl#E01-T12",
+      "sha256": "cb2e991a67f324de18745622a9f4de5b024ad17317ca40e8233102458e9c092a"
+    },
+    {
+      "requestId": "F01-T08",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je précise : je sélectionne seulement la deuxième proposition de la liste donnée quand j'ai demandé des options d'instrument ou de critères. Retrouvez cette référence exacte et présentez-la pour revue sur le projet actuel. Si elle n'est pas identifiable, dites-le ; je ne vous demande pas de deviner.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:801e2035-1cde-40f3-8bfc-e64d6c0af3f9",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project",
+        "versionId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project:version:3",
+        "projectDigest": "ke1-b5e6756546075789",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project",
+        "versionId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project:version:3",
+        "projectDigest": "ke1-b5e6756546075789",
+        "revision": 3
+      },
+      "evidence": "final_closure/F01/2026-09-15T04-12-45-436Z-36117/turns.jsonl#F01-T08",
+      "sha256": "c3bef31bd21de43e90004625beb41bc53bc4af54564c57822721771887c8e284"
+    },
+    {
+      "requestId": "F01-T09",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Non finalement, je refuse cette proposition. Nous n'avons toujours pas choisi l'instrument pour la fatigue.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:42884ad4-f2df-4437-953b-f30bf4ccb315",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project",
+        "versionId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project:version:3",
+        "projectDigest": "ke1-b5e6756546075789",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project",
+        "versionId": "protocol-designer-session:90f256d1-bcdb-4689-8786-e3f28ce79a6a:research-project:version:3",
+        "projectDigest": "ke1-b5e6756546075789",
+        "revision": 3
+      },
+      "evidence": "final_closure/F01/2026-09-15T04-12-45-436Z-36117/turns.jsonl#F01-T09",
+      "sha256": "c3bef31bd21de43e90004625beb41bc53bc4af54564c57822721771887c8e284"
+    },
+    {
+      "requestId": "F02-T06",
+      "userAct": "REFUSE",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Refus lié à une seule candidate et au message humain; Project adopté inchangé.",
+      "input": "Non, je refuse cette restriction. Les débutants et les expérimentés restent tous inclus.",
+      "reply": "",
+      "userTurnRef": "turn:f7998420-3256-4844-852a-8981e00f6fa7",
+      "candidateRef": "persistent-project-contribution:ke1-bf9349873459bf0b",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-ad8e9f4c535a0848",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "REJECTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:49.919Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-bf9349873459bf0b",
+          "persistent-delta-item:ke1-6d86fcbbaeb5bf77",
+          "population"
+        ],
+        "reason": "L’utilisateur a refusé la proposition dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-bf9349873459bf0b",
+          "ke1-01d3e84d0eb06151",
+          "turn:7cdaf2a3-05d6-45f1-8648-b8a180b3b818",
+          "turn:f7998420-3256-4844-852a-8981e00f6fa7"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:1"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:1",
+        "projectDigest": "ke1-9d1f857f1b2a9efb",
+        "revision": 1
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:1",
+        "projectDigest": "ke1-9d1f857f1b2a9efb",
+        "revision": 1
+      },
+      "evidence": "final_closure/F02/2026-09-15T04-12-49-338Z-36117/turns.jsonl#F02-T06",
+      "sha256": "0144b4e5742ab53b5c0c9cd648ce79f11e3892f22145d266bf5f945b3bd70a4f"
+    },
+    {
+      "requestId": "F02-T11",
+      "userAct": "CONFIRM",
+      "verdict": "PASS_DECISION_RECORDED",
+      "reason": "Une seule candidate explicitement confirmée; provenance du véritable message humain et version Project vérifiées.",
+      "input": "Oui, je confirme ce passage à douze semaines tel que tu viens de le présenter.",
+      "reply": "Projet mis à jour.\nÀ partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Formation interactive » et « Formation documentaire » pour le critère principal « Critère principal: variation score de performance pédagogique à douze semaines; instrument non choisi » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption.",
+      "userTurnRef": "turn:9e76c53e-b4ea-4e7e-8145-a112fb05dc14",
+      "candidateRef": "persistent-project-contribution:ke1-e8401844c78b9150",
+      "decision": {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-b4ab5e0cb9ab1288",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:CURRENT_RESEARCHER",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-09-15T04:12:50.862Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-e8401844c78b9150",
+          "persistent-delta-item:ke1-dfdde13e0bfd25a2",
+          "endpoint",
+          "persistent-delta-item:ke1-0d87ecdbfebae50f",
+          "visit"
+        ],
+        "reason": "L’utilisateur a explicitement confirmé la candidate courante dans son message.",
+        "provenance": [
+          "persistent-project-contribution:ke1-e8401844c78b9150",
+          "ke1-d60b8d55fd745039",
+          "turn:a14dbbb7-e642-4497-9d92-ccf5048284a9",
+          "turn:9e76c53e-b4ea-4e7e-8145-a112fb05dc14"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3"
+      },
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:2",
+        "projectDigest": "ke1-d61b25458ecf1dd9",
+        "revision": 2
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3",
+        "projectDigest": "ke1-50fd18714d1925c5",
+        "revision": 3
+      },
+      "evidence": "final_closure/F02/2026-09-15T04-12-49-338Z-36117/turns.jsonl#F02-T11",
+      "sha256": "0144b4e5742ab53b5c0c9cd648ce79f11e3892f22145d266bf5f945b3bd70a4f"
+    },
+    {
+      "requestId": "F02-T13",
+      "userAct": "SELECT_OLD_PROPOSAL",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Après cette reprise, je sélectionne la première proposition de ta toute première liste, celle que tu avais donnée juste après la présentation de l'essai. Retrouve sa référence dans l'historique puis vérifie sa pertinence sur la version actuelle avant de la présenter pour revue. Si tu ne l'identifies pas, signale-le.",
+      "reply": "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé.",
+      "userTurnRef": "turn:8051f8c0-ad01-4aa9-a289-714c575e6b95",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3",
+        "projectDigest": "ke1-50fd18714d1925c5",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3",
+        "projectDigest": "ke1-50fd18714d1925c5",
+        "revision": 3
+      },
+      "evidence": "final_closure/F02/2026-09-15T04-12-49-338Z-36117/turns.jsonl#F02-T13",
+      "sha256": "0144b4e5742ab53b5c0c9cd648ce79f11e3892f22145d266bf5f945b3bd70a4f"
+    },
+    {
+      "requestId": "F02-T14",
+      "userAct": "REFUSE",
+      "verdict": "PASS_CLARIFICATION_REQUIRED",
+      "reason": "Option antérieure non produite, indisponible ou non résolue dans cette trajectoire; clarification explicite sans substitution ni écriture.",
+      "input": "Je refuse cette proposition ancienne. En revanche les douze semaines et les correcteurs masqués au groupe de formation restent tels qu'adoptés.",
+      "reply": "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet.",
+      "userTurnRef": "turn:cf27e0a2-8fa6-483b-99f4-4576fb6fbbb3",
+      "candidateRef": null,
+      "decision": null,
+      "projectBefore": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3",
+        "projectDigest": "ke1-50fd18714d1925c5",
+        "revision": 3
+      },
+      "projectAfterInput": {
+        "projectId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project",
+        "versionId": "protocol-designer-session:5419d697-bf2f-4cd5-9d51-3d48c9657c4c:research-project:version:3",
+        "projectDigest": "ke1-50fd18714d1925c5",
+        "revision": 3
+      },
+      "evidence": "final_closure/F02/2026-09-15T04-12-49-338Z-36117/turns.jsonl#F02-T14",
+      "sha256": "0144b4e5742ab53b5c0c9cd648ce79f11e3892f22145d266bf5f945b3bd70a4f"
+    }
+  ],
+  "realProviderCalls": 0
+}

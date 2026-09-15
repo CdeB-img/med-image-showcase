@@ -216,6 +216,7 @@ export type ImagingDesignResult = {
   inputVersion: typeof IMAGING_STUDY_DESIGNER_VERSION;
   resultId: string;
   resultDigest: string;
+  scopeExplanation?: string;
   status: "STRATEGY_CANDIDATES" | "CLARIFICATION_REQUIRED" | "REFUSED" | "RETURN_TO_SCIENTIFIC_THINKING";
   projectionNotice: "RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE";
   sourceProject?: ImagingDesignInput["sourceProject"];
@@ -493,6 +494,7 @@ const resultRequiredKeys = [
 ] as const;
 
 export const imagingDesignResultSchema = z.object({
+  scopeExplanation: z.string().optional(),
   contractVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), inputVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), resultId: z.string(), resultDigest: z.string(),
   status: z.enum(["STRATEGY_CANDIDATES", "CLARIFICATION_REQUIRED", "REFUSED", "RETURN_TO_SCIENTIFIC_THINKING"]),
   projectionNotice: z.literal("RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE"),

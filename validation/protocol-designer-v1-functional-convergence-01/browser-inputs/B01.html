@@ -1,0 +1,3208 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Corpus figé B01</title><h1>Essai infirmier, critères multiples et révision temporelle cohérente</h1><form method="post" action="/__offline_campaign/active-turn" target="active-receipt"><input type="hidden" name="scenarioId" value="B01"><label>Tour figé <select name="turnId"><option value="B01-T01">B01-T01</option><option value="B01-T02">B01-T02</option><option value="B01-T03">B01-T03</option><option value="B01-T04">B01-T04</option><option value="B01-T05">B01-T05</option><option value="B01-T06">B01-T06</option><option value="B01-T07">B01-T07</option><option value="B01-T08">B01-T08</option><option value="B01-T09">B01-T09</option><option value="B01-T10">B01-T10</option><option value="B01-T11">B01-T11</option><option value="B01-T12">B01-T12</option><option value="B01-T13">B01-T13</option><option value="B01-T14">B01-T14</option><option value="B01-T15">B01-T15</option></select></label><button>Activer le tour</button></form><iframe name="active-receipt" title="Activation"></iframe><form method="post" action="/__functional_validation/receipt" target="observation-receipt"><label>Observation du contrôle<textarea name="observation"></textarea></label><button>Enregistrer observation</button></form><iframe name="observation-receipt" title="Reçu observation"></iframe><pre>{
+  &quot;id&quot;: &quot;B01&quot;,
+  &quot;family&quot;: &quot;B&quot;,
+  &quot;domain&quot;: &quot;Clinique non imagerie / diabète&quot;,
+  &quot;title&quot;: &quot;Essai infirmier, critères multiples et révision temporelle cohérente&quot;,
+  &quot;baselineUnknown&quot;: [
+    &quot;effectif non fixé&quot;,
+    &quot;nombre définitif de centres inconnu initialement&quot;,
+    &quot;dimensionnement non calculé&quot;
+  ],
+  &quot;coverageTags&quot;: [
+    &quot;INTERVENTIONAL_NONIMAGING&quot;,
+    &quot;ENDPOINT_VISIT_CONSISTENCY&quot;,
+    &quot;REJECTION_THEN_CHANGE_OF_MIND&quot;,
+    &quot;SESSION_RESTORE&quot;,
+    &quot;DOCUMENT_CURRENT&quot;
+  ],
+  &quot;realBrowserPriority&quot;: true,
+  &quot;turns&quot;: [
+    {
+      &quot;intent&quot;: &quot;Définir essai ouvert randomisé, intervention, comparateur et endpoint principal à vingt-quatre semaines.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;type&quot;: &quot;OBJECTIVE&quot;,
+          &quot;content&quot;: &quot;Comparer suivi infirmier coordonné et suivi habituel sur contrôle glycémique&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;type&quot;: &quot;POPULATION&quot;,
+          &quot;content&quot;: &quot;Adultes avec diabète de type 2&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;type&quot;: &quot;INTERVENTION&quot;,
+          &quot;content&quot;: &quot;Suivi infirmier coordonné&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;INTERVENTION_ARM&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;type&quot;: &quot;COMPARATOR&quot;,
+          &quot;content&quot;: &quot;Suivi habituel&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {},
+          &quot;studyRole&quot;: &quot;COMPARATOR_ARM&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;type&quot;: &quot;STUDY_DESIGN&quot;,
+          &quot;content&quot;: &quot;Essai randomisé ouvert&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: variation HbA1c entre inclusion et 24 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;measure&quot;: &quot;variation HbA1c&quot;,
+            &quot;baseline&quot;: &quot;inclusion&quot;,
+            &quot;followup&quot;: 24,
+            &quot;unit&quot;: &quot;semaines&quot;
+          },
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        },
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Visite de évaluation principale à 24 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T01&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [
+        {
+          &quot;key&quot;: &quot;comparison:intervention-vs-comparator&quot;,
+          &quot;type&quot;: &quot;COMPARES_WITH&quot;,
+          &quot;sourceKey&quot;: &quot;intervention&quot;,
+          &quot;targetKey&quot;: &quot;comparator&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;
+        }
+      ],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {},
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je prépare un essai chez des adultes ayant un diabète de type 2. L&#x27;objectif serait de comparer l&#x27;effet d&#x27;un suivi infirmier coordonné à celui du suivi habituel sur le contrôle glycémique. Essai randomisé, ouvert, avec le suivi infirmier dans le bras intervention et le suivi habituel en comparaison.\nLe principal serait le changement d&#x27;HbA1c entre l&#x27;inclusion et 24 semaines ; la visite d&#x27;évaluation principale se ferait à 24 semaines.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;comparer l&#x27;effet d&#x27;un suivi infirmier coordonné à celui du suivi habituel&quot;,
+          &quot;le suivi infirmier dans le bras intervention et le suivi habituel en comparaison&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;entre l&#x27;inclusion et 24 semaines&quot;,
+          &quot;la visite d&#x27;évaluation principale se ferait à 24 semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ajouter hypoglycémies sévères comme critère secondaire de sécurité.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère secondaire de sécurité: hypoglycémies sévères&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T02&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;hypoglycemia&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Côté sécurité, je propose d&#x27;ajouter les hypoglycémies sévères comme critère secondaire.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Confirmer explicitement la candidate actuellement présentée et seulement celle-ci.&quot;,
+      &quot;outcome&quot;: &quot;CONFIRM&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;B01-T03&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;USER_INPUT&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CONFIRM&quot;
+      ],
+      &quot;userText&quot;: &quot;Oui, je confirme l&#x27;ajout que tu viens de présenter pour les hypoglycémies sévères.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander plusieurs propositions scientifiques applicables au Project actuel.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;B01-T04&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;Avec cette base, propose-moi plusieurs pistes scientifiques pertinentes pour la suite du travail.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Ajouter caractère multicentrique mais conserver quatre centres comme hypothèse non confirmée.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;ADD&quot;,
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;type&quot;: &quot;PROJECT_INFORMATION&quot;,
+          &quot;content&quot;: &quot;Étude multicentrique; quatre centres envisagés, nombre définitif non confirmé&quot;,
+          &quot;epistemicState&quot;: &quot;UNKNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T05&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;CANDIDATE_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;centers&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;UNCERTAINTY_NOT_PROMOTED_TO_FACT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Ce sera multicentrique. Nous envisageons quatre centres, mais ce chiffre n&#x27;est pas confirmé : le nombre final reste à déterminer.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ce chiffre n&#x27;est pas confirmé&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;Nous envisageons quatre centres&quot;,
+          &quot;le nombre final reste à déterminer&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Discuter la précision attendue sans inventer un effectif ni prétendre avoir calculé la puissance.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;id&quot;: &quot;B01-T06&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;Parlons de la précision qu&#x27;on peut espérer obtenir. Nous n&#x27;avons ni effectif fixé ni calcul de puissance à ce stade, donc je voudrais discuter des éléments nécessaires sans inventer de chiffre.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;Nous n&#x27;avons ni effectif fixé ni calcul de puissance à ce stade&quot;,
+          &quot;sans inventer de chiffre&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;Nous n&#x27;avons ni effectif fixé ni calcul de puissance à ce stade&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Proposer un déplacement de visite et endpoint à trente-six semaines.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Visite de évaluation principale à 36 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: variation HbA1c entre inclusion et 36 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;measure&quot;: &quot;variation HbA1c&quot;,
+            &quot;baseline&quot;: &quot;inclusion&quot;,
+            &quot;followup&quot;: 36,
+            &quot;unit&quot;: &quot;semaines&quot;
+          },
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T07&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T07:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T07:endpoint&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;visit&quot;,
+          &quot;endpoint&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;visit&quot;,
+          &quot;endpoint&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;visit&quot;: &quot;B01-T07:visit&quot;,
+          &quot;endpoint&quot;: &quot;B01-T07:endpoint&quot;
+        },
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;visit&quot;,
+            &quot;changedAttributes&quot;: {},
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: false
+          },
+          {
+            &quot;key&quot;: &quot;endpoint&quot;,
+            &quot;changedAttributes&quot;: {
+              &quot;followup&quot;: {
+                &quot;before&quot;: 24,
+                &quot;proposed&quot;: 36
+              }
+            },
+            &quot;preservedAttributes&quot;: {
+              &quot;measure&quot;: &quot;variation HbA1c&quot;,
+              &quot;baseline&quot;: &quot;inclusion&quot;,
+              &quot;unit&quot;: &quot;semaines&quot;
+            },
+            &quot;afterReviewApplies&quot;: false
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Je propose un suivi plus long : déplacer la visite principale à 36 semaines et mesurer la variation d&#x27;HbA1c de l&#x27;inclusion à 36 semaines pour le principal. Les deux iraient ensemble.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;un suivi plus long&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;la visite principale à 36 semaines&quot;,
+          &quot;de l&#x27;inclusion à 36 semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Refuser ce premier changement temporel; conserver vingt-quatre semaines.&quot;,
+      &quot;outcome&quot;: &quot;REFUSE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;B01-T08&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;REJECT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;REFUSE&quot;
+      ],
+      &quot;userText&quot;: &quot;Non, je refuse ce passage à trente-six semaines. Nous restons à vingt-quatre pour la visite et le principal.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;je refuse ce passage à trente-six semaines&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;ce passage à trente-six semaines&quot;,
+          &quot;à vingt-quatre pour la visite et le principal&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander pourquoi on pourrait préférer un suivi plus long sans en faire une décision.&quot;,
+      &quot;outcome&quot;: &quot;EXPLAIN&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+      &quot;id&quot;: &quot;B01-T09&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;EXPLAIN_REFERENCED_CONTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;EXPLAIN&quot;
+      ],
+      &quot;userText&quot;: &quot;Sur le fond, pourquoi pourrait-on préférer un suivi plus long ? Je veux comprendre les arguments, ça ne signifie pas que j&#x27;en décide maintenant.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;ça ne signifie pas que j&#x27;en décide maintenant&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;pourrait-on préférer un suivi plus long&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;un suivi plus long&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: []
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Changer ensuite effectivement de préférence et soumettre trente-six semaines pour endpoint et visite simultanément.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;type&quot;: &quot;VISIT&quot;,
+          &quot;content&quot;: &quot;Visite de évaluation principale à 36 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        },
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;type&quot;: &quot;ENDPOINT&quot;,
+          &quot;content&quot;: &quot;Critère principal: variation HbA1c entre inclusion et 36 semaines&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {
+            &quot;measure&quot;: &quot;variation HbA1c&quot;,
+            &quot;baseline&quot;: &quot;inclusion&quot;,
+            &quot;followup&quot;: 36,
+            &quot;unit&quot;: &quot;semaines&quot;
+          },
+          &quot;studyRole&quot;: &quot;PRIMARY_ENDPOINT&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T10&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:endpoint&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;visit&quot;,
+          &quot;endpoint&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T01:endpoint&quot;,
+          &quot;B01-T01:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [
+          &quot;visit&quot;,
+          &quot;endpoint&quot;
+        ],
+        &quot;expectedPendingMeaningByKey&quot;: {
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;
+        },
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T01:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T01:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;visit&quot;,
+            &quot;changedAttributes&quot;: {},
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: false
+          },
+          {
+            &quot;key&quot;: &quot;endpoint&quot;,
+            &quot;changedAttributes&quot;: {
+              &quot;followup&quot;: {
+                &quot;before&quot;: 24,
+                &quot;proposed&quot;: 36
+              }
+            },
+            &quot;preservedAttributes&quot;: {
+              &quot;measure&quot;: &quot;variation HbA1c&quot;,
+              &quot;baseline&quot;: &quot;inclusion&quot;,
+              &quot;unit&quot;: &quot;semaines&quot;
+            },
+            &quot;afterReviewApplies&quot;: false
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;Après réflexion, ma préférence a changé. Je vous soumets maintenant une visite principale à 36 semaines, avec l&#x27;évolution de l&#x27;HbA1c entre inclusion et 36 semaines comme critère principal. C&#x27;est bien l&#x27;ensemble de cette modification que je souhaite examiner.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;Après réflexion&quot;,
+          &quot;une visite principale à 36 semaines&quot;,
+          &quot;entre inclusion et 36 semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Confirmer explicitement la candidate actuellement présentée et seulement celle-ci.&quot;,
+      &quot;outcome&quot;: &quot;CONFIRM&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;id&quot;: &quot;B01-T11&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;nombre définitif de centres inconnu initialement&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;USER_INPUT&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T10:endpoint&quot;,
+          &quot;B01-T10:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T05:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [
+          &quot;centers&quot;
+        ],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CONFIRM&quot;
+      ],
+      &quot;userText&quot;: &quot;Cette fois oui : je valide cette modification, visite et critère principal à trente-six semaines.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;à trente-six semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Préciser finalement trois centres confirmés, en remplacement des quatre envisagés.&quot;,
+      &quot;outcome&quot;: &quot;CANDIDATE&quot;,
+      &quot;semanticDelta&quot;: [
+        {
+          &quot;operation&quot;: &quot;REPLACE&quot;,
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;type&quot;: &quot;PROJECT_INFORMATION&quot;,
+          &quot;content&quot;: &quot;Étude multicentrique dans trois centres confirmés&quot;,
+          &quot;epistemicState&quot;: &quot;KNOWN&quot;,
+          &quot;attributes&quot;: {}
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T12&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;PENDING_USER_STATED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T12:centers&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED_UNCERTAINTY&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T05:centers&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: true,
+        &quot;scope&quot;: &quot;CURRENT_VISIBLE_CANDIDATE_ONLY&quot;,
+        &quot;uiControl&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+        &quot;authorizationPhase&quot;: &quot;POST_INPUT_HUMAN_REVIEW&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;ADOPT_PENDING&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;ADVANCE_ONCE_PER_ACCEPTED_CANONICAL_DECISION_ONLY&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;CONFIRM_CANDIDATE&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT_AND_VISIBLE_SEMANTIC_REVIEW&quot;,
+          &quot;required&quot;: true
+        }
+      ],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;EXPLICIT_USER_MEANING&quot;,
+        &quot;state&quot;: &quot;CANDIDATE_ONLY_BEFORE_REVIEW&quot;,
+        &quot;facts&quot;: [
+          &quot;centers&quot;
+        ]
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;PARTIAL_CORRECTION_PRESERVES_UNCHANGED_PROPERTIES&quot;,
+        &quot;OLD_DECISION_REVISIT_TARGETS_CURRENT_VERSION&quot;,
+        &quot;PROJECT_CHANGE_INVALIDATES_DEPENDENT_RESULT&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T10:endpoint&quot;,
+          &quot;B01-T10:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T12:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T05:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;attributeChecks&quot;: [
+          {
+            &quot;key&quot;: &quot;centers&quot;,
+            &quot;changedAttributes&quot;: {},
+            &quot;preservedAttributes&quot;: {},
+            &quot;afterReviewApplies&quot;: true
+          }
+        ],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;CANDIDATE&quot;
+      ],
+      &quot;userText&quot;: &quot;J&#x27;ai la précision pour les centres : il y en a finalement trois de confirmés. Je propose de remplacer les quatre centres envisagés par ces trois centres, l&#x27;étude restant multicentrique.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;les quatre centres envisagés&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;remplacer les quatre centres envisagés par ces trois centres&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;finalement trois de confirmés&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Relire puis rouvrir la session; retrouver trois centres, trente-six semaines et critère secondaire de sécurité.&quot;,
+      &quot;outcome&quot;: &quot;PRESERVE&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;REOPEN_EXISTING_SESSION&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT&quot;,
+          &quot;capabilityPolicy&quot;: &quot;EXISTING_CAPABILITY_ONLY&quot;,
+          &quot;assertions&quot;: [
+            &quot;SAME_PROJECT_ID&quot;,
+            &quot;SAME_PROJECT_VERSION&quot;,
+            &quot;SAME_ADOPTED_SEMANTICS&quot;,
+            &quot;NO_CANDIDATE_AUTOADOPTION&quot;
+          ],
+          &quot;ifUnavailable&quot;: &quot;PRODUCT_GAP_NOT_EVALUABLE&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T13&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T12:centers&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T10:endpoint&quot;,
+          &quot;B01-T10:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T12:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PRESERVE&quot;
+      ],
+      &quot;userText&quot;: &quot;Relisons l&#x27;état retenu, puis rouvrons la même session. Je veux y retrouver les trois centres, l&#x27;évaluation à trente-six semaines et les hypoglycémies sévères en secondaire de sécurité.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;Relisons l&#x27;état retenu, puis rouvrons la même session&quot;,
+          &quot;l&#x27;évaluation à trente-six semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander une projection documentaire courante reflétant trente-six semaines et trois centres, sans contenu administratif inventé.&quot;,
+      &quot;outcome&quot;: &quot;DISCUSS&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;references&quot;: [],
+      &quot;genuineAmbiguity&quot;: false,
+      &quot;uiActions&quot;: [
+        {
+          &quot;kind&quot;: &quot;GENERATE_CURRENT_DOCUMENT_PROJECTION&quot;,
+          &quot;timing&quot;: &quot;AFTER_INPUT&quot;,
+          &quot;capabilityPolicy&quot;: &quot;EXISTING_CAPABILITY_ONLY&quot;,
+          &quot;assertions&quot;: [
+            &quot;CURRENT_PROJECT_ID_VERSION_DIGEST&quot;,
+            &quot;LATEST_ADOPTED_SEMANTICS&quot;,
+            &quot;NO_REJECTED_CANDIDATE&quot;,
+            &quot;NO_UNSUPPORTED_COMPLETENESS_CLAIM&quot;
+          ],
+          &quot;ifUnavailable&quot;: &quot;PRODUCT_GAP_NOT_EVALUABLE&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;B01-T14&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T12:centers&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;NO_NEW_SCIENTIFIC_COMMITMENT&quot;,
+        &quot;state&quot;: &quot;PRESERVE_OR_RESOLVE_CURRENT_LIFECYCLE_AS_DECLARED&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;DISCUSSION_NOT_CONFUSED_WITH_PROJECT_CORRECTION&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;purpose&quot;: &quot;CURRENT_CONVERSATIONAL_INTENT&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T10:endpoint&quot;,
+          &quot;B01-T10:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T12:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;DISCUSS&quot;
+      ],
+      &quot;userText&quot;: &quot;Préparez la version documentaire disponible à partir du projet actuel, avec les trois centres et les trente-six semaines. Laissez ce qui manque dans les éléments administratifs en l&#x27;état, sans inventer pour donner l&#x27;impression que tout est complet.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;sans inventer pour donner l&#x27;impression que tout est complet&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [
+          &quot;ce qui manque dans les éléments administratifs&quot;
+        ],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;les trente-six semaines&quot;
+        ]
+      }
+    },
+    {
+      &quot;intent&quot;: &quot;Demander une alternative analytique depuis le Project actuel sans redemander nombre de centres ou durée.&quot;,
+      &quot;outcome&quot;: &quot;PROPOSAL&quot;,
+      &quot;semanticDelta&quot;: [],
+      &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+      &quot;references&quot;: [],
+      &quot;id&quot;: &quot;B01-T15&quot;,
+      &quot;known&quot;: [
+        {
+          &quot;key&quot;: &quot;objective&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:objective&quot;
+        },
+        {
+          &quot;key&quot;: &quot;population&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:population&quot;
+        },
+        {
+          &quot;key&quot;: &quot;intervention&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:intervention&quot;
+        },
+        {
+          &quot;key&quot;: &quot;comparator&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:comparator&quot;
+        },
+        {
+          &quot;key&quot;: &quot;design&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T01:design&quot;
+        },
+        {
+          &quot;key&quot;: &quot;endpoint&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:endpoint&quot;
+        },
+        {
+          &quot;key&quot;: &quot;visit&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T10:visit&quot;
+        },
+        {
+          &quot;key&quot;: &quot;hypoglycemia&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T02:hypoglycemia&quot;
+        },
+        {
+          &quot;key&quot;: &quot;centers&quot;,
+          &quot;status&quot;: &quot;ADOPTED&quot;,
+          &quot;meaningRef&quot;: &quot;B01-T12:centers&quot;
+        }
+      ],
+      &quot;unknown&quot;: [
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;effectif non fixé&quot;
+        },
+        {
+          &quot;status&quot;: &quot;UNRESOLVED_CONTEXT&quot;,
+          &quot;meaning&quot;: &quot;dimensionnement non calculé&quot;
+        }
+      ],
+      &quot;humanDecision&quot;: {
+        &quot;authorized&quot;: false,
+        &quot;scope&quot;: &quot;NO_ADOPTION_AUTHORIZED&quot;,
+        &quot;uiControl&quot;: null,
+        &quot;authorizationPhase&quot;: &quot;NONE&quot;
+      },
+      &quot;expectedProjectEffect&quot;: {
+        &quot;afterInput&quot;: &quot;NO_WRITE&quot;,
+        &quot;afterUi&quot;: &quot;NO_WRITE&quot;,
+        &quot;preserveUntargeted&quot;: true,
+        &quot;projectIdentity&quot;: &quot;UNCHANGED_IF_ALREADY_CREATED&quot;,
+        &quot;versionRule&quot;: &quot;IDENTICAL_ADOPTED_VERSION&quot;,
+        &quot;targetResolution&quot;: &quot;CURRENT_STABLE_ID_AND_VERSION_FROM_REAL_REQUEST_NOT_FIXTURE_PROJECT&quot;
+      },
+      &quot;uiActions&quot;: [],
+      &quot;expectedCandidateSemantics&quot;: {
+        &quot;source&quot;: &quot;SPECIALIZED_SCIENTIFIC_OWNER&quot;,
+        &quot;state&quot;: &quot;PROPOSAL_OR_CANDIDATE_ONLY_NOT_ADOPTED&quot;,
+        &quot;semanticRequirement&quot;: &quot;At least relevant choices tied to current adopted facts, preserving unresolved limits; no claim that all options scientifically validated.&quot;
+      },
+      &quot;invariants&quot;: [
+        &quot;NO_PROJECT_WRITE_BEFORE_HUMAN_DECISION&quot;,
+        &quot;REFUSAL_PRESERVES_CURRENT_PROJECT&quot;,
+        &quot;CURRENT_PROJECT_DRIVES_QRY&quot;,
+        &quot;UNKNOWN_PRESERVATION&quot;,
+        &quot;PROVENANCE_PRESERVATION&quot;,
+        &quot;EXPLICIT_PROPOSAL_REMAINS_CANDIDATE&quot;,
+        &quot;SAME_OWNER_DIFFERENT_PURPOSE_NOT_BLINDLY_REUSED&quot;,
+        &quot;RESOLVED_NEED_NOT_GENERICALLY_REASKED&quot;
+      ],
+      &quot;expectedQRY&quot;: {
+        &quot;projectBasis&quot;: &quot;LATEST_ADOPTED_PROJECT&quot;,
+        &quot;candidateIsNotProject&quot;: true,
+        &quot;noGenericReaskOfKnownKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;purpose&quot;: &quot;NEW_PROPOSALS&quot;,
+        &quot;ownerBoundary&quot;: &quot;QRY_DECIDES_NEXT_ACTION_SPECIALIZED_OWNERS_CONTRIBUTE_HOW_DOES_NOT_DECIDE&quot;
+      },
+      &quot;semanticRelations&quot;: [],
+      &quot;temporalQualifications&quot;: [],
+      &quot;expectedVariableOccasions&quot;: [],
+      &quot;goldChecks&quot;: {
+        &quot;phase&quot;: &quot;AFTER_INPUT_AND_DECLARED_UI_ACTIONS&quot;,
+        &quot;mustContainCurrent&quot;: [
+          &quot;B01-T01:objective&quot;,
+          &quot;B01-T01:population&quot;,
+          &quot;B01-T01:intervention&quot;,
+          &quot;B01-T01:comparator&quot;,
+          &quot;B01-T01:design&quot;,
+          &quot;B01-T10:endpoint&quot;,
+          &quot;B01-T10:visit&quot;,
+          &quot;B01-T02:hypoglycemia&quot;,
+          &quot;B01-T12:centers&quot;
+        ],
+        &quot;mustNotContainCurrent&quot;: [
+          &quot;B01-T07:visit&quot;,
+          &quot;B01-T07:endpoint&quot;
+        ],
+        &quot;currentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedCurrentKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;expectedPendingKeys&quot;: [],
+        &quot;expectedPendingMeaningByKey&quot;: {},
+        &quot;unknownKeys&quot;: [],
+        &quot;conserveKeys&quot;: [
+          &quot;objective&quot;,
+          &quot;population&quot;,
+          &quot;intervention&quot;,
+          &quot;comparator&quot;,
+          &quot;design&quot;,
+          &quot;endpoint&quot;,
+          &quot;visit&quot;,
+          &quot;hypoglycemia&quot;,
+          &quot;centers&quot;
+        ],
+        &quot;beforeReviewCurrentMeaningByKey&quot;: {
+          &quot;objective&quot;: &quot;B01-T01:objective&quot;,
+          &quot;population&quot;: &quot;B01-T01:population&quot;,
+          &quot;intervention&quot;: &quot;B01-T01:intervention&quot;,
+          &quot;comparator&quot;: &quot;B01-T01:comparator&quot;,
+          &quot;design&quot;: &quot;B01-T01:design&quot;,
+          &quot;endpoint&quot;: &quot;B01-T10:endpoint&quot;,
+          &quot;visit&quot;: &quot;B01-T10:visit&quot;,
+          &quot;hypoglycemia&quot;: &quot;B01-T02:hypoglycemia&quot;,
+          &quot;centers&quot;: &quot;B01-T12:centers&quot;
+        },
+        &quot;expectedRelationKeys&quot;: [
+          &quot;comparison:intervention-vs-comparator&quot;
+        ],
+        &quot;expectedVariableOccasionKeys&quot;: [],
+        &quot;expectedTemporalQualificationKeys&quot;: []
+      },
+      &quot;allowedOutcomes&quot;: [
+        &quot;PROPOSAL&quot;
+      ],
+      &quot;userText&quot;: &quot;Proposez-moi une alternative pour l&#x27;analyse, en repartant de ce qui est retenu maintenant. Le nombre de centres et la durée figurent déjà dans le projet, inutile de me les redemander.&quot;,
+      &quot;languageInvariantEvidence&quot;: {
+        &quot;NEGATION&quot;: [
+          &quot;inutile de me les redemander&quot;
+        ],
+        &quot;UNCERTAINTY&quot;: [],
+        &quot;CONDITIONALITY&quot;: [],
+        &quot;COMPARISON&quot;: [
+          &quot;une alternative pour l&#x27;analyse&quot;
+        ],
+        &quot;TEMPORAL_RELATION&quot;: [
+          &quot;ce qui est retenu maintenant&quot;,
+          &quot;figurent déjà dans le projet&quot;
+        ]
+      }
+    }
+  ],
+  &quot;semanticPreconditions&quot;: &quot;Fresh independent session; no adopted Project injected; all states arise through listed user turns and explicit review.&quot;,
+  &quot;turnCount&quot;: 15,
+  &quot;factReferenceConvention&quot;: &quot;Scenario-turn:key identifies the semanticDelta fact on that exact turn. currentMeaningByKey is an oracle expectation only, never fixture Project state.&quot;
+}</pre></html>

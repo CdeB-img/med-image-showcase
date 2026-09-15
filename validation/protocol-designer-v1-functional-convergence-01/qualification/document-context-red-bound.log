@@ -1,0 +1,54 @@
+
+ RUN  v3.2.4 /Users/charles/Documents/Projets/NOXIA/noxia-dev
+
+ × src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts > P1-DOC-01 — canonical Project to existing short Protocol > projects current general context literally, with its epistemic status and without classifying it as a design 83ms
+   → expected [ { …(4) } ] to deeply equal ArrayContaining{…}
+ ✓ src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts > P1-DOC-01 — canonical Project to existing short Protocol > preserves canonical identities and semantic categories without inventing legacy roles 4ms
+ ✓ src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts > P1-DOC-01 — canonical Project to existing short Protocol > executes PROTOCOL:SHORT and keeps Standard/HTML semantic parity 45ms
+ ✓ src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts > P1-DOC-01 — canonical Project to existing short Protocol > preserves the old projection, marks it stale, and regenerates from the exact next Project version 102ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts > P1-DOC-01 — canonical Project to existing short Protocol > projects current general context literally, with its epistemic status and without classifying it as a design
+AssertionError: expected [ { …(4) } ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   ObjectContaining {
+-     "label": "Contexte du projet (adopté)",
+-     "value": "Sept sites confirmés",
+-   },
+-   ObjectContaining {
+-     "label": "Contexte du projet (candidat)",
+-     "value": "Le recueil distant est envisagé",
+-   },
+-   ObjectContaining {
+-     "label": "Contexte du projet (inconnu)",
+-     "value": "Le financement reste à préciser",
++ [
++   {
++     "entryId": "design::cohorte prospective observationnelle",
++     "kind": "PARAGRAPH",
++     "label": null,
++     "value": "Cohorte prospective observationnelle.",
+    },
+  ]
+
+ ❯ src/features/document-projection/__tests__/p1-doc-01-short-protocol-fidelity.test.ts:100:21
+     98|     const presentation = buildStandardProtocolPresentation(projection);
+     99|     const context = presentation.sections.find((section) => section.se…
+    100|     expect(context).toEqual(expect.arrayContaining([
+       |                     ^
+    101|       expect.objectContaining({ label: "Contexte du projet (adopté)", …
+    102|       expect.objectContaining({ label: "Contexte du projet (candidat)"…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  06:00:45
+   Duration  1.46s (transform 547ms, setup 22ms, collect 836ms, tests 234ms, environment 126ms, prepare 31ms)
+

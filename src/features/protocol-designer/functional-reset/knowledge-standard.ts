@@ -240,7 +240,13 @@ export const dispatchKnowledgePrerequisiteFromQuery = (input: {
     title: sufficient ? "Éléments documentaires qualifiés" : "Éléments documentaires insuffisants",
     plainText: sufficient
       ? "Knowledge a préparé un paquet documentaire borné pour le propriétaire scientifique concerné. Les sources, limites et incertitudes restent visibles ; aucune décision de Project n’est prise."
-      : "Knowledge n’a pas trouvé de contenu section-indexé suffisant pour ce besoin. Le propriétaire scientifique n’est pas invoqué comme si une preuve existait ; le besoin revient à QRY.",
+      : [
+        `Je ne dispose pas d’un contenu documentaire suffisamment qualifié pour répondre à cette demande : ${input.navigation.requestedService?.sourceText ?? action.purpose}`,
+        `Le projet courant retient : ${input.project.sections.filter((section) => (input.navigation.requestedService?.focusSectionIds ?? ["MEASUREMENTS"]).includes(section.sectionId)).flatMap((section) => section.elements.map((element) => element.content)).join(" ; ") || "la définition reste à préciser"}.`,
+        action.targetOwner === "OBSERVABILITY_MEASUREMENT"
+          ? "Je ne peux donc pas départager des instruments ou déclarer leur validité dans cette population. Pour avancer, apportez la documentation d’un instrument ou précisez le construit à mesurer, puis nous pourrons examiner son domaine de validation, les conditions de recueil et ses limites. Aucun appareil, critère supplémentaire ou instrument n’est adopté."
+          : "Une source applicable à ce besoin est nécessaire avant de conclure. Vous pouvez apporter cette source pour en examiner l’applicabilité ; les inconnues restent ouvertes.",
+      ].join("\n\n"),
   };
   return Object.freeze({
     action,

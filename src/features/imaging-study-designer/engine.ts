@@ -553,7 +553,15 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
       projectWriteAuthorized: false as const,
     }] : []),
   ];
+  const scopeExplanation = input.sourceProject && !acquisitionStrategies.length ? [
+    `Demande examinée : ${input.sourceOwnerLineage?.find((item) => item.sourceOwner === "RESEARCH_PROJECT")?.purpose ?? input.originalExpression}`,
+    `Le cadre courant conserve : ${uniqueSorted([...input.outcomesDeclared, ...input.methodPreferences, ...input.temporalContext.filter((value) => !value.includes("|"))]).join(" ; ")}.`,
+    "Je ne dispose pas d’une chaîne mesure–acquisition suffisamment qualifiée pour proposer des alternatives d’imagerie défendables. Les critères et délais déjà retenus ne sont pas à redonner.",
+    "Pour avancer, apportez la justification d’une stratégie d’acquisition ou la contrainte de qualité/comparabilité que vous souhaitez mettre en balance. Il faudra vérifier son applicabilité au critère et au calendrier actuels, sans inventer de séquence, de paramètre technique ni de preuve de faisabilité.",
+    "Aucune alternative d’acquisition n’est adoptée et le projet reste inchangé.",
+  ].join("\n\n") : undefined;
   const resultMaterial = {
+    ...(scopeExplanation ? { scopeExplanation } : {}),
     inputRef: input.inputId, status, phenomena, biomarkerCandidates, modalityCandidates, acquisitionStrategies, equipmentAssessment, timingStrategy,
     harmonizationStrategy, qualityStrategy, nonEvaluabilityRules, imageAnalysisStrategy, imagingVariables, endpointContributions, alternatives,
     decisionsRequired, adaptiveQuestions, changes, impacts, graph, refusal,
@@ -573,6 +581,7 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
     confirmedChanges: changes.filter((item) => item.status === "CONFIRMED"),
   }).slice(0, 12)}`;
   const result: ImagingDesignResult = {
+    ...(scopeExplanation ? { scopeExplanation } : {}),
     contractVersion: IMAGING_STUDY_DESIGNER_VERSION,
     inputVersion: IMAGING_STUDY_DESIGNER_VERSION,
     resultId,

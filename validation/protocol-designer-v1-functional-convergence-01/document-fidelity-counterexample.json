@@ -1,0 +1,15 @@
+{
+  "detectedAt": "2026-09-15T03:59:05.176636+00:00",
+  "boundary": "CURRENT_CANONICAL_PROJECT_INFORMATION_TO_DOC_FACTS",
+  "owner": "document-projection/contracts.ts",
+  "examples": [
+    "A02-T14 exclusions absent",
+    "B01-T14 three confirmed centers absent"
+  ],
+  "sourceCurrentProject": true,
+  "newProviderCalls": 0,
+  "verdict": "DOCUMENT_FIDELITY_FAIL_BEFORE_REPAIR",
+  "browserGate": "PENDING",
+  "preservedEvidence": "browser-pre-document-repair-evidence",
+  "scope": "Literal current context only; no type inference or administrative feature"
+}

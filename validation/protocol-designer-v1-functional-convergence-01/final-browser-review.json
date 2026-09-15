@@ -1,0 +1,766 @@
+{
+  "at": "2026-09-15T04:39:49.678097+00:00",
+  "status": "PASS",
+  "functionalPass": 5,
+  "conversations": 5,
+  "retainedTurns": 75,
+  "realReopens": 5,
+  "observations": 80,
+  "cases": [
+    {
+      "scenario": "A01",
+      "verdict": "FUNCTIONAL_PASS",
+      "reason": "Version 5: normalisation du principal, population 35–85, exemple pacemaker individuel, IRM J4–J7 distincte de trois minutes après injection, suivi douze mois; six mois refusé. Study Design/Knowledge/Imaging dans le scope ou abstention justifiée.",
+      "turns": [
+        {
+          "requestId": "A01-T01",
+          "input": "Je travaille sur la viabilité du myocarde après un IDM. L'idée est de comparer deux groupes : stent posé immédiatement dans le groupe intervention, pose différée dans le groupe comparateur. Un double aveugle serait souhaitable, mais je ne sais pas encore s'il est réalisable.\nOn prévoit une IRM cardiaque entre le troisième et le sixième jour après l'infarctus. Le principal serait la taille des lésions microvasculaires, en valeur absolue, mesurée 3 minutes après l'injection. Il y aura aussi la cinétique segmentaire, le strain, T1 et T2. J'ai écrit précoce et tardif dans mes notes, le sens de ces termes reste à préciser. Pour l'effectif, rien de fixé à ce stade.",
+          "review": "PASS: stent immédiat/différé, double aveugle souhaité non établi, IRM J3–J6 après IDM et mesure à trois minutes après injection distinctes; inconnues non complétées.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A01-T01.json",
+          "sha256": "9b599a6f511be46c6301d39b4cff3c0bf15f832adcda1a8d37ded2f52c59f882"
+        },
+        {
+          "requestId": "A01-T02",
+          "input": "Petite correction sur la mesure : je voudrais exprimer ces lésions en pourcentage de la masse du VG, au lieu d'une taille absolue. Juste ça. Ce serait toujours le critère principal, à trois minutes après injection.",
+          "review": "PASS avant décision: expression en pourcentage proposée pour mesure et endpoint; rôle principal et trois minutes préservés, aucune confirmation UI ajoutée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T02.json",
+          "sha256": "f5bff7047bff89e9e43e0ebcd9a61f5e140b6ddf9f5cdda3ea42955a8a148662"
+        },
+        {
+          "requestId": "A01-T03",
+          "input": "Oui, je confirme cette modification-là, celle que tu viens de présenter.",
+          "review": "PASS: référent de la candidate visible résolu et changement normalisé adopté; Project version 2, trois minutes inchangées.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T03.json",
+          "sha256": "33284c464250bbc51692399e778b8214265948c8aa5a55f53c9459aeef423744"
+        },
+        {
+          "requestId": "A01-T04",
+          "input": "Pour la population, ce serait du tout venant de 35 à 85 ans, à l'occasion du premier IDM reconnu. Reconnu, car un ancien infarctus silencieux reste possible. On écarterait les antécédents coronariens connus ainsi que les vraies contre-indications à l'IRM. Je pense par ex aux pacemakers, mais il faudrait regarder de quoi il s'agit : en citer un ne veut pas dire exclure systématiquement tous les porteurs.",
+          "review": "PASS: primo-IDM reconnu 35–85 ans, antécédent silencieux possible; exclusions ciblées et pacemaker illustratif à qualifier conservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A01-T04.json",
+          "sha256": "7320c3a05e55f05d3adb6e3596c6d9847ce374d02770813e287a041a15113fa1"
+        },
+        {
+          "requestId": "A01-T05",
+          "input": "Sur cette population, donne-moi plusieurs pistes pour travailler les critères et les limites du recrutement. J'aimerais avoir des options à examiner.",
+          "review": "PASS_BOUNDED_ABSTENTION: Study Design traite recrutement/éligibilité dans la population actuelle, demande faisabilité/justification, aucun seuil arbitraire ni hypothèse hors sujet.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T05.json",
+          "sha256": "b46e0380d92f2dc35751e88c1f89dfd2861d26a4be377f0ad73b4cc4723bda24"
+        },
+        {
+          "requestId": "A01-T06",
+          "input": "Pourquoi le double aveugle serait-il compliqué dans cette comparaison ? Je veux comprendre la difficulté, je ne suis pas en train de renoncer à l'aveugle ou à une randomisation.",
+          "review": "PASS_BOUNDED_ABSTENTION: limitation Knowledge visible au bon scope; aveugle souhaité/faisabilité inconnue distingués, procédures/rôles demandés, aucune renonciation inventée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T06.json",
+          "sha256": "cd4b194ff7fdca36118c4529188b56c9e9985e9e35d9df2d3390192b6d7ccf98"
+        },
+        {
+          "requestId": "A01-T07",
+          "input": "On pourrait envisager une consultation de suivi à six mois. Je reste hésitant sur ce délai, je ne sais pas si c'est le bon moment cliniquement.",
+          "review": "PASS avant décision: suivi six mois envisagé, délai incertain et non adopté.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T07.json",
+          "sha256": "0e4d896c8fce986a5075fd7cdb0898d7a02c561caef386731609482393587d8e"
+        },
+        {
+          "requestId": "A01-T08",
+          "input": "Non, je ne retiens pas cette proposition de suivi. On conserve ce qui était déjà validé.",
+          "review": "PASS: refus explicite lié à la candidate de suivi, statut visible refusé; Project version 3 conservé.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T08.json",
+          "sha256": "20bd6a90b098ddbd28a405bafdc61247a4ffdb1d01354bb5d827467517e0c39e"
+        },
+        {
+          "requestId": "A01-T09",
+          "input": "Je propose plutôt une visite clinique douze mois après l'IDM. On y évaluerait les événements cardiovasculaires, comme critère secondaire.",
+          "review": "PASS: nouvelle visite douze mois et événements cardiovasculaires secondaires adoptés; suivi six mois demeure refusé.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A01-T09.json",
+          "sha256": "7eafd9e5d17b864a1f268d296424e15a6f52f5d3fa4d2f5e6e9370c12a0f8bde"
+        },
+        {
+          "requestId": "A01-T10",
+          "input": "Je reviens à ta liste de pistes sur la population : pourquoi avais-tu mis la deuxième ? Explique-moi son intérêt ; je ne la choisis pas pour le moment.",
+          "review": "PASS_CLARIFICATION_REQUIRED: T05 ne produisait aucune liste de recrutement; impossible de justifier la deuxième option, sans référence substituée ni adoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T10.json",
+          "sha256": "d33b43a45393b7763c31be99f181e65646b2c545e6ff87c3e0a9e6beb9305b5d"
+        },
+        {
+          "requestId": "A01-T11",
+          "input": "En relisant mon premier message, il y a le calendrier de l'IRM à corriger : ce serait J4 à J7 après l'IDM, au lieu de J3 à J6. Je parle du jour de l'examen ; les trois minutes après l'injection et les critères retenus restent tels quels.",
+          "review": "PASS avant décision: fenêtre IRM J3–J6→J4–J7 après IDM, trois minutes après injection et critères préservés; aucune confirmation ajoutée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T11.json",
+          "sha256": "0bf3eeed72c436dbccdd0c481059b9f7a57c564a0689b9702acdb3486fca8911"
+        },
+        {
+          "requestId": "A01-T12",
+          "input": "C'est bien ça, je valide uniquement le déplacement du créneau IRM que tu viens de m'afficher.",
+          "review": "PASS: confirmation limitée au créneau IRM, Project version 5; principal et trois minutes après injection préservés.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T12.json",
+          "sha256": "e152d9ab9ef9e8e02da412ce2f52cd1cb282b3b809eb9ec54bd990158340b5f7"
+        },
+        {
+          "requestId": "A01-T13",
+          "input": "Avec ce créneau IRM corrigé, quelles autres options proposerais-tu ? Repars de cette version pour examiner des alternatives, pas simplement de la liste précédente.",
+          "review": "PASS_BOUNDED_ABSTENTION: Imaging utilise J4–J7 après IDM et trois minutes après injection, expose la qualification manquante et la contrainte/documentation utile; aucune option générique de modalité.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T13.json",
+          "sha256": "9d5504224e0273eeea7d80796ef5ba1c648583935861fa9a0e3ee2d4e6eebea5"
+        },
+        {
+          "requestId": "A01-T14",
+          "input": "Je sélectionne la première de tes propositions sur la population, dans la liste donnée avant ma question sur le double aveugle. Vérifie qu'elle convient encore au projet avec le calendrier corrigé ; si oui, présente-la pour relecture. Si tu ne retrouves pas cette proposition précise, dis-le au lieu d'en prendre une autre.",
+          "review": "PASS_CLARIFICATION_REQUIRED selon mission: pas de première option produite à T05; référence non résolue signalée, aucune autre candidate choisie. Sélection ancienne non démontrée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T14.json",
+          "sha256": "cd7485d3e481e2a4bde72164d86980735fdd3fb5794c185d397bf3ca5d5efe94"
+        },
+        {
+          "requestId": "A01-T15",
+          "input": "Après relecture, non, je refuse cette ancienne proposition. L'IRM à J4-J7 et le suivi clinique à douze mois restent bien retenus.",
+          "review": "PASS_CLARIFICATION_REQUIRED: aucune ancienne option candidate produite; IRM J4–J7 et suivi douze mois conservent leur adoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A01-T15.json",
+          "sha256": "1525b44f70a2453601b6c4732e9320caf160914a92e810985bd2ba5f0f3c9490"
+        }
+      ],
+      "reopen": {
+        "visibleProjectIdentical": true,
+        "path": "final-browser-evidence/observations/A01-REOPEN.json",
+        "sha256": "2d1cc6a301ad478ee1bb7037d5369dc4d9bcd8826577e5ba33c5b72bfd0df73e"
+      },
+      "httpRequests": 9,
+      "observedProjectIds": [
+        "protocol-designer-session:bff995cb-d0f3-42e3-83a6-c78906fd364a:research-project"
+      ],
+      "finalVisibleProject": "RESEARCH PROJECT\n\nMon projet\nVersion 5\nAvancement indicatif\n45 %\n\nComplétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.\n\n10 décisions confirmées · 1 point matériel ouvert\n\nQuestion scientifique\n0 %\nObjectifs\n50 %\nHypothèses\n0 %\nPopulation\n50 %\nDesign\n25 %\nIntervention / exposition\n100 %\nComparateur\n100 %\nCritères / endpoints\n75 %\nImagerie / méthodes / mesures\n50 %\nPrélèvements / échantillons\n0 %\nTemporalité / visites\n75 %\nDonnées / variables\n0 %\nAnalyses\n0 %\nContraintes / faisabilité\n25 %\nÉtat du projet\n\nDernière version confirmée par vous\n\n9 rubriques avec des éléments confirmés.\n\n1 rubrique reste à préciser.\n\n1 changement confirmé dans cette version.\n\nVoir les derniers changements confirmés\nQuestion scientifique\n\nÀ définir\n\nObjectifs\nÉvaluer la viabilité myocardique après IDM selon la stratégie de stent immédiat ou différé\nHypothèses\n\nÀ définir\n\nPopulation\nPrimo-IDM reconnu, de 35 à 85 ans; un antécédent silencieux demeure possible\nDesign\nComparaison de deux groupes; double aveugle souhaité, faisabilité non établie\nIntervention / exposition\nPose immédiate du stent\nComparateur\nPose différée du stent\nCritères / endpoints\nPrincipal :Critère principal: pourcentage de la masse VG représenté par les lésions microvasculaires à 3 minutes après injection\nÉvénements cardiovasculaires au suivi clinique de 12 mois; critère secondaire\nImagerie / méthodes / mesures\nIRM cardiaque\nPourcentage de la masse VG représenté par les lésions microvasculaires\nIRM cardiaque entre J4 et J7 après IDM\nPrélèvements / échantillons\n\nÀ définir\n\nTemporalité / visites\nSuivi clinique à 12 mois après IDM\nentre J4 et J7 (4 à 7 jours) après IDM — référentiel à relier au projet\nà 3 minutes après injection — référentiel à relier au projet\nDonnées / variables\n\nÀ définir\n\nAnalyses\n\nÀ définir\n\nContraintes / faisabilité\nCinétique segmentaire, strain et T1/T2 prévus; sens de précoce et tardif à préciser\nRecrutement tout venant dans la population définie; exclusion des antécédents coronariens connus et contre-indications effectives à IRM; pacemaker cité comme exemple à qualifier, sans exclusion générale automatique\nDocuments / Livrables de l’étude\nProtocole complet\nMISSING_DECISION\nSynopsis\nPARTIAL\nSchedule of Activities\nREADY\nCRF\nPARTIAL\nData Dictionary\nPARTIAL\nData Management Plan\nPARTIAL\nExport EDC\nPARTIAL\nStatistical Analysis Plan\nMISSING_DECISION\nDocuments réglementaires / éthiques\nPROFILE_REQUIRED\nGuide Imaging / Core Lab\nPARTIAL\nOuvrir les livrables de l’étude\n\nProtocole\n\nNon généré\n\nDisponible à la demande depuis la version confirmée du Research Project.\n\nSouhaitez-vous créer un premier aperçu du protocole de travail ?\n\nCréer l’aperçu"
+    },
+    {
+      "scenario": "A02",
+      "verdict": "FUNCTIONAL_PASS",
+      "reason": "Version 5: population 35–80 premier STEMI, exclusions individuelles, IRM J3–J6, principal normalisé; FEVG/six mois refusé. Deuxième hypothèse présentée expliquée sans adoption. Document courant et exclusions visibles.",
+      "turns": [
+        {
+          "requestId": "A02-T01",
+          "input": "Je commence par qui on peut recruter : des adultes de 35 à 85 ans après un premier infarctus reconnu. On exclurait les contre-indications réelles à l'IRM cardiaque. Les dispositifs implantés sont des exemples à regarder individuellement, pas une liste d'exclusions automatiques.",
+          "review": "PASS: 35–85 ans, premier IDM reconnu; dispositifs implantés à qualifier individuellement, sans exclusion automatique.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A02-T01.json",
+          "sha256": "f351f0d12738f5aa51d33ccc78469c6681bc3c300415bc69706fac9bba987607"
+        },
+        {
+          "requestId": "A02-T02",
+          "input": "J'ai commencé par les patients parce que le recrutement est déjà préparé de mon côté. C'est juste l'ordre dans lequel je vous présente les choses, n'en déduisez pas encore la question scientifique.",
+          "review": "PASS_USEFUL_CONTRIBUTION: ordre de présentation reconnu comme commentaire; pas de question scientifique déduite.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T02.json",
+          "sha256": "c867680f6aedd6f4614daa02fcf83e60953ed1c31a8e7d417e7e1f85c9bfed6f"
+        },
+        {
+          "requestId": "A02-T03",
+          "input": "Pour la question scientifique maintenant : je voudrais comparer la viabilité myocardique après IDM entre une pose immédiate de stent et une pose différée. Ce serait une étude prospective comparative, avec le stent immédiat comme intervention et le différé comme comparateur.\nL'IRM cardiaque est prévue de J3 à J6 après l'IDM. En principal, la part de la masse VG occupée par les lésions microvasculaires, en pourcentage, trois minutes après injection.",
+          "review": "PASS: comparaison stent immédiat/différé, IRM J3–J6 après IDM et mesure du principal à trois minutes après injection distinctes; population initiale conservée.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A02-T03.json",
+          "sha256": "eabfc82d3a755422d5c4a2ea965ee1529bc1f22ec2fb5c438a268894610c6b5d"
+        },
+        {
+          "requestId": "A02-T04",
+          "input": "À partir de ce qu'on a maintenant, proposez-moi plusieurs pistes scientifiques pour faire avancer ce projet.",
+          "review": "PASS_USEFUL_CONTRIBUTION: deux hypothèses concurrentes liées au principal normalisé courant, candidates, sans direction privilégiée ni preuve inventée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T04.json",
+          "sha256": "aca67d5120e8a91f810759defe61136dbb51ea450bf86f119ead290e6a8503c7"
+        },
+        {
+          "requestId": "A02-T05",
+          "input": "La deuxième de cette liste, qu'est-ce qui la justifie scientifiquement ? Je demande l'explication, je ne valide aucune de ces pistes à ce stade.",
+          "review": "PASS_USEFUL_CONTRIBUTION: deuxième hypothèse identifiée, rôle et limite expliqués; absence de différence distincte de l’équivalence, sans adoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T05.json",
+          "sha256": "5c5dbc68f5ea4e080aacbcfc67db7d4548a93e678b2e2d9fa691eba9426b43e0"
+        },
+        {
+          "requestId": "A02-T06",
+          "input": "Je voudrais ajouter une analyse selon le territoire de l'infarctus. À titre exploratoire seulement, sans autre changement.",
+          "review": "PASS: seule analyse exploratoire selon le territoire ajoutée; principal, temporalité et population conservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A02-T06.json",
+          "sha256": "1e2155f51fe655bd1ff1c70f09e1a911723dc87ebfe2a0cda32f30b21d807602"
+        },
+        {
+          "requestId": "A02-T07",
+          "input": "Autre possibilité que je vous soumets : remplacer le principal actuel par la FEVG six mois après l'IDM, avec une évaluation à ce moment-là. Montrez-moi ce que donnerait cette modification avant de l'appliquer.",
+          "review": "PASS avant décision: remplacement proposé par FEVG à six mois, non appliqué; aucune confirmation UI dans le scénario.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T07.json",
+          "sha256": "bd8b3de3d7ac662620e9f137bc35951bda7e0ebd11c78d138230f60b5fdf3034"
+        },
+        {
+          "requestId": "A02-T08",
+          "input": "Non finalement, je refuse le remplacement par la FEVG et l'évaluation à six mois qui va avec. Gardons la version déjà retenue.",
+          "review": "PASS: candidate FEVG/six mois visiblement refusée; principal microvasculaire et Project version 3 conservés.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T08.json",
+          "sha256": "47b1a579e46e99f3648635afc7c738248807cee83f2ca6f602f21a5d5b45d095"
+        },
+        {
+          "requestId": "A02-T09",
+          "input": "Pour le recrutement je voudrais maintenant nous limiter aux infarctus avec sus-décalage de ST. Toujours un premier épisode reconnu chez les 35-85 ans ; les exclusions déjà posées restent les mêmes.",
+          "review": "PASS: population restreinte au premier STEMI reconnu, 35–85 ans; exclusions et autres éléments conservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A02-T09.json",
+          "sha256": "cf5bfb68821d879512c9040a077af010d1e02e4274646190c76618413cb91991"
+        },
+        {
+          "requestId": "A02-T10",
+          "input": "Je reviens juste sur les implants : quand j'en donnais des exemples, ce n'était pas pour exclure tout patient qui en porte un. L'appréciation de la contre-indication IRM reste individuelle.",
+          "review": "PASS_USEFUL_CONTRIBUTION: rappel sur les implants conservé comme exemple, sans exclusion générale ni modification.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T10.json",
+          "sha256": "52fb0c2403e12a01daf069e3334bbfaeff55996f3a14abd792c62fc2fa58a5a1"
+        },
+        {
+          "requestId": "A02-T11",
+          "input": "Je m'aperçois que la limite haute donnée au début est trop large pour ce que je veux. Je propose 80 ans à la place de 85. La limite basse reste 35 ans, et il s'agit toujours du premier STEMI reconnu.",
+          "review": "PASS: seule borne haute 85→80 ans, borne basse 35 et premier STEMI reconnus conservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A02-T11.json",
+          "sha256": "e37b5c50a03b68591fa0d44fcad70c8cd2dbd6ac078f7a8ecd463108d03d96f6"
+        },
+        {
+          "requestId": "A02-T12",
+          "input": "Pouvez-vous m'expliquer exactement ce qui a changé dans la population au fil de ces corrections, et ce qui n'a pas bougé ?",
+          "review": "PASS_USEFUL_CONTRIBUTION: état courant 35–80 STEMI distingué des confirmations historiques à 35–85, sans réadoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T12.json",
+          "sha256": "121757102c0d83364607c096eb251370828195b1e517371f1e899a0a94c159df"
+        },
+        {
+          "requestId": "A02-T13",
+          "input": "Je veux relire ce qui est retenu, puis rouvrir cette même session. Vérifions que je retrouve la population, le critère principal et les exclusions dans leur version validée.",
+          "review": "PASS persistance: panneau complet strictement identique, version 5, population/principal/exclusions conservés.",
+          "uiActions": [
+            "CLOSE_TAB_AND_REOPEN"
+          ],
+          "path": "final-browser-evidence/observations/A02-T13.json",
+          "sha256": "b42a85158c91dd09f5ebf38cfb6f4068ccaaa310ecc5e1383672b9a458add0eb"
+        },
+        {
+          "requestId": "A02-T14",
+          "input": "Pouvez-vous me sortir le document disponible à partir de cette version du projet ? Les rubriques encore incomplètes doivent rester visibles comme telles, sans compléter les trous par supposition.",
+          "review": "PASS_DOCUMENT_FIDELITY: version 5, 35–80 STEMI, exclusions individuelles, IRM J3–J6, principal normalisé à trois minutes et analyse exploratoire visibles; FEVG/six mois et 85 ans absents.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T14.json",
+          "sha256": "e15eee07cb2ed03c4054357ed6c6838b6cafff8de164a6cac305a7bcee0ff61d"
+        },
+        {
+          "requestId": "A02-T15",
+          "input": "Maintenant que nous avons repris, quelles pistes scientifiques examiner ensuite ? Appuyez-vous sur l'âge et le critère déjà retenus, ne me les redemandez pas.",
+          "review": "PASS_USEFUL_CONTRIBUTION borné: hypothèses candidates sur le principal courant après reopen/document, sans retour aux 85 ans ni à FEVG/six mois; aucune prétention de nouveauté ou preuve. Limitation méthodologique générique encore visible.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A02-T15.json",
+          "sha256": "9eaae920cd787a97434fea208fe54ea0aecff254e1cf4173f81bd9723c56ef86"
+        }
+      ],
+      "reopen": {
+        "visibleProjectIdentical": true,
+        "path": "final-browser-evidence/observations/A02-REOPEN.json",
+        "sha256": "e8b6d3c8df685e9ca0540406a4de0fde89ed74806a7e2c89d7ad0dc24b3a7291"
+      },
+      "httpRequests": 11,
+      "observedProjectIds": [
+        "protocol-designer-session:bd81c13d-de4c-4591-97dd-839f6b891f67:research-project"
+      ],
+      "finalVisibleProject": "RESEARCH PROJECT\n\nMon projet\nVersion 5\nAvancement indicatif\n60 %\n\nComplétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.\n\n10 décisions confirmées · 5 points matériels ouverts\n\nQuestion scientifique\n0 %\nObjectifs\n50 %\nHypothèses\n0 %\nPopulation\n50 %\nDesign\n100 %\nIntervention / exposition\n100 %\nComparateur\n100 %\nCritères / endpoints\n75 %\nImagerie / méthodes / mesures\n75 %\nPrélèvements / échantillons\n0 %\nTemporalité / visites\n0 %\nDonnées / variables\n0 %\nAnalyses\n75 %\nContraintes / faisabilité\n100 %\n\nProchaine décision utile\n\nLe prochain point le plus utile à préciser concerne la question scientifique.\n\nÉtat du projet\n\nDernière version confirmée par vous\n\n8 rubriques avec des éléments confirmés.\n\n2 rubriques restent à préciser.\n\n1 changement confirmé dans cette version.\n\nVoir les derniers changements confirmés\nQuestion scientifique\n\nÀ définir\n\nObjectifs\nComparer la viabilité myocardique selon stent immédiat ou différé après IDM\nHypothèses\n\nÀ définir\n\nPopulation\nAdultes de 35 à 80 ans après premier IDM reconnu avec sus-décalage de ST\nDesign\nÉtude comparative prospective\nIntervention / exposition\nStent immédiat\nComparateur\nStent différé\nCritères / endpoints\nPrincipal :Critère principal: pourcentage de lésions microvasculaires de la masse VG à 3 minutes après injection\nImagerie / méthodes / mesures\nIRM cardiaque\nIRM entre J3 et J6 après IDM\nPrélèvements / échantillons\n\nÀ définir\n\nTemporalité / visites\n\nÀ définir\n\nDonnées / variables\n\nÀ définir\n\nAnalyses\nAnalyse exploratoire selon le territoire de IDM\nContraintes / faisabilité\nExclusion des contre-indications effectives à IRM cardiaque; exemples de dispositifs implantés à qualifier individuellement\nDocuments / Livrables de l’étude\nProtocole complet\nMISSING_DECISION\nSynopsis\nPARTIAL\nSchedule of Activities\nMISSING_DECISION\nCRF\nMISSING_DECISION\nData Dictionary\nMISSING_DECISION\nData Management Plan\nMISSING_DECISION\nExport EDC\nMISSING_DECISION\nStatistical Analysis Plan\nPARTIAL\nDocuments réglementaires / éthiques\nPROFILE_REQUIRED\nGuide Imaging / Core Lab\nPARTIAL\nOuvrir les livrables de l’étude\n\nProtocole\n\nNon généré\n\nDisponible à la demande depuis la version confirmée du Research Project.\n\nSouhaitez-vous créer un premier aperçu du protocole de travail ?\n\nCréer l’aperçu"
+    },
+    {
+      "scenario": "A04",
+      "verdict": "FUNCTIONAL_PASS",
+      "reason": "Version 4: mêmes examens et lecteurs, appariement conservé, principal normalisé et durée de segmentation secondaire, relecture quatre semaines; une semaine refusée. Accord traité par Biostatistics, méthode non qualifiée explicitée.",
+      "turns": [
+        {
+          "requestId": "A04-T01",
+          "input": "Je voudrais monter une étude de méthode sur des IRM d'adultes après IDM : comparer la segmentation manuelle des lésions microvasculaires à une segmentation semi-automatique. Les deux méthodes portent sur chaque même examen, donc il s'agit bien de données appariées. Les images ont été acquises trois minutes après injection.\nJe propose comme critère principal la différence de volume des lésions segmentées entre les méthodes, exprimée en millilitres.",
+          "review": "PASS: mêmes IRM post-IDM, segmentation manuelle/semi-automatique appariées, principal en ml, acquisition à trois minutes après injection.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A04-T01.json",
+          "sha256": "755a417d615014d0f374336f0b1a9e25d2214d6b9da396a76004da16f9cac6f7"
+        },
+        {
+          "requestId": "A04-T02",
+          "input": "Pour la relecture, je propose que les mêmes lecteurs reprennent ces mêmes IRM quatre semaines après leur première lecture.",
+          "review": "PASS avant décision: relecture des mêmes IRM par les mêmes lecteurs à quatre semaines, non appliquée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T02.json",
+          "sha256": "a1509de5479e981595ecea8b468c93cb816be920a86d85f1a41c2e5172cd738e"
+        },
+        {
+          "requestId": "A04-T03",
+          "input": "Oui, cette seconde lecture comme présentée me convient, je la confirme.",
+          "review": "PASS: confirmation naturelle ciblant la seconde lecture, Project version 2, quatre semaines retenues.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T03.json",
+          "sha256": "2dc409e6e08d5c5a197d40b90a106c6aba2d09e4748ebc644700de64e8e50764"
+        },
+        {
+          "requestId": "A04-T04",
+          "input": "Quelles mesures d'accord pourraient convenir ici ? Propose-moi plusieurs possibilités qui respectent le fait qu'on a les mêmes examens dans les deux méthodes.",
+          "review": "PASS_BOUNDED_ABSTENTION: service Biostatistics d’accord, appariement et mêmes examens explicites; usage/écart acceptable demandés, aucune métrique ou indépendance inventée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T04.json",
+          "sha256": "f51f071a7f8ec38c9e00f25859a52bff366931420107e74d87a142daaaa52c9a"
+        },
+        {
+          "requestId": "A04-T05",
+          "input": "J'ai besoin de comprendre pourquoi une corrélation et un accord ne répondent pas à la même question. Peux-tu me l'expliquer avant qu'on choisisse une métrique ?",
+          "review": "PASS_BOUNDED_ABSTENTION: distinction demandée reconnue dans le contexte apparié, justification méthodologique manquante et prochaine action explicites; explication étayée non démontrée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T05.json",
+          "sha256": "96585ab0fc207dc146ae1a78f1a0b947b4c11ab9baaae5d5c921f336ba8b0dcf"
+        },
+        {
+          "requestId": "A04-T06",
+          "input": "Autre mesure à ajouter : le temps passé à segmenter chaque examen. Je le mettrais en critère secondaire.",
+          "review": "PASS: durée de segmentation par examen ajoutée comme secondaire, sans changement du principal ou de l’appariement.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A04-T06.json",
+          "sha256": "ced9c0f9c8a8ee12969241c407f24613f7759b2006e7dc57bd36160fe7a98a77"
+        },
+        {
+          "requestId": "A04-T07",
+          "input": "J'aurais tendance à penser que l'automatisation pourrait donner de meilleurs résultats que le manuel. C'est une intuition, pas quelque chose qu'on a démontré.",
+          "review": "PASS_USEFUL_CONTRIBUTION: intuition de supériorité de l’automatisation non promue en résultat ou décision.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T07.json",
+          "sha256": "ad9e605c4991f1a3ab92d185059fe6e2a38c8d08159c2bfde641107de4d56ff9"
+        },
+        {
+          "requestId": "A04-T08",
+          "input": "D'accord pour l'explication. Maintenant propose-moi une autre approche méthodologique, j'ai besoin d'une alternative, pas de la même explication formulée autrement.",
+          "review": "PASS_BOUNDED_ABSTENTION: Study Design répond à une alternative méthodologique sur plan apparié/quatre semaines, explique sa limite et demande le compromis à examiner; « d’accord » non confondu avec mesure d’accord.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T08.json",
+          "sha256": "2bc3a2fcc99206b50b338aec724c08b3434eaac4fdf4d02bb7d5f56294306066"
+        },
+        {
+          "requestId": "A04-T09",
+          "input": "Je soumets une correction du délai de relecture : une semaine au lieu de quatre, avec les mêmes lecteurs et les mêmes images.",
+          "review": "PASS avant décision: une semaine proposée pour la seconde lecture, mêmes lecteurs/images; aucune adoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T09.json",
+          "sha256": "aa2304f343296799ed5266f063ce593c436a218e0b2d3cc0577c4073483bd024"
+        },
+        {
+          "requestId": "A04-T10",
+          "input": "Non, je refuse ce raccourcissement. On en reste aux dispositions déjà adoptées.",
+          "review": "PASS: raccourcissement visiblement refusé; quatre semaines et version 3 conservées.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T10.json",
+          "sha256": "ccdca63bd1fb2d588572ad4da9cd970a02a4727570d8efc331a7a777badf2793"
+        },
+        {
+          "requestId": "A04-T11",
+          "input": "Je reviens au principal du début. Je voudrais exprimer les lésions en pourcentage de la masse VG plutôt qu'en mL, puis prendre la différence entre les deux méthodes. On garde ce rôle de critère principal et la comparaison appariée sur les mêmes examens ; seule l'expression de la mesure change.",
+          "review": "PASS: différence de pourcentage de masse VG remplace les ml; principal et comparaison appariée préservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/A04-T11.json",
+          "sha256": "4693b67bb01eb0294410dc1208a31a7eb9bb7be24ad628bd65586b5e6ccfbcf7"
+        },
+        {
+          "requestId": "A04-T12",
+          "input": "Juste pour vérifier ma compréhension : pour la relecture, nous sommes donc toujours à quatre semaines ? Rappelle-moi ce qui est retenu, sans modifier quoi que ce soit.",
+          "review": "PASS_USEFUL_CONTRIBUTION: relecture courante à quatre semaines; une semaine apparaît seulement comme proposition refusée, principal normalisé courant.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T12.json",
+          "sha256": "a256d7d1d24f22b814349afeb54b16c4c4a2d8d3f5d8a8d7e6874599fad79784"
+        },
+        {
+          "requestId": "A04-T13",
+          "input": "Je choisis la deuxième de la première liste de mesures d'accord que tu m'avais donnée, avant l'explication corrélation/accord. Reprends cette proposition précise et vérifie son application avec la mesure maintenant exprimée en pourcentage de masse VG, puis présente-la à nouveau pour revue. Si tu ne peux pas identifier la proposition d'origine, signale-le.",
+          "review": "PASS_CLARIFICATION_REQUIRED selon mission: T04 était une abstention, donc aucune deuxième métrique identifiable; sélection ancienne non démontrée, aucune substitution ni adoption.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T13.json",
+          "sha256": "ba91bedb630d08d652cc7128c968a946d6153aee81eb012191bc1e08969bb5d4"
+        },
+        {
+          "requestId": "A04-T14",
+          "input": "À la relecture, je préfère refuser cette proposition ancienne. La différence entre méthodes rapportée à la masse VG, déjà adoptée, reste telle quelle.",
+          "review": "PASS_CLARIFICATION_REQUIRED: aucun ancien candidat produit/sélectionné aux tours précédents; principal adopté et version 4 inchangés.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T14.json",
+          "sha256": "2b349776f1a3549885a522efc064faa7d3726fa1f1280135803faf5e9f2570bf"
+        },
+        {
+          "requestId": "A04-T15",
+          "input": "Quels points méthodologiques restent à traiter et quelles pistes proposes-tu pour y répondre ? Pour la métrique d'accord, le choix reste ouvert.",
+          "review": "PASS_BOUNDED_ABSTENTION: Biostatistics garde principal en pourcentage, secondaire durée et appariement; métrique non qualifiée et usage/écart acceptable explicités.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/A04-T15.json",
+          "sha256": "120d66536df5013aa61ae8141602835ea87194966b0cd7dd99cb357f69ff0acc"
+        }
+      ],
+      "reopen": {
+        "visibleProjectIdentical": true,
+        "path": "final-browser-evidence/observations/A04-REOPEN.json",
+        "sha256": "e9bc7c02c1911c95ddd0ab067d05081cbdbe74d313f3fb5027076b99abf39141"
+      },
+      "httpRequests": 10,
+      "observedProjectIds": [
+        "protocol-designer-session:c5793d70-e3d3-4189-be9f-950f99bedbbd:research-project"
+      ],
+      "finalVisibleProject": "RESEARCH PROJECT\n\nMon projet\nVersion 4\nAvancement indicatif\n55 %\n\nComplétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.\n\n9 décisions confirmées · 1 point matériel ouvert\n\nQuestion scientifique\n0 %\nObjectifs\n50 %\nHypothèses\n0 %\nPopulation\n50 %\nDesign\n100 %\nIntervention / exposition\n100 %\nComparateur\n100 %\nCritères / endpoints\n75 %\nImagerie / méthodes / mesures\n0 %\nPrélèvements / échantillons\n0 %\nTemporalité / visites\n75 %\nDonnées / variables\n0 %\nAnalyses\n0 %\nContraintes / faisabilité\n100 %\nÉtat du projet\n\nDernière version confirmée par vous\n\n8 rubriques avec des éléments confirmés.\n\n2 rubriques restent à préciser.\n\n1 changement confirmé dans cette version.\n\nVoir les derniers changements confirmés\nQuestion scientifique\n\nÀ définir\n\nObjectifs\nComparer deux méthodes de segmentation des lésions microvasculaires sur les mêmes IRM post-IDM\nHypothèses\n\nÀ définir\n\nPopulation\nJeu de IRM adultes post-IDM, chaque examen lu par deux méthodes\nDesign\nÉtude méthodologique appariée; mêmes examens pour deux méthodes\nIntervention / exposition\nSegmentation manuelle\nComparateur\nSegmentation semi-automatique\nCritères / endpoints\nCritère secondaire: durée de segmentation par examen\nPrincipal :Critère principal: différence entre méthodes du pourcentage de masse VG représenté par les lésions microvasculaires\nImagerie / méthodes / mesures\n\nÀ définir\n\nPrélèvements / échantillons\n\nÀ définir\n\nTemporalité / visites\nSeconde lecture des mêmes IRM par les mêmes lecteurs après quatre semaines\nDonnées / variables\n\nÀ définir\n\nAnalyses\n\nÀ définir\n\nContraintes / faisabilité\nImages acquises trois minutes après injection\nDocuments / Livrables de l’étude\nProtocole complet\nMISSING_DECISION\nSynopsis\nPARTIAL\nSchedule of Activities\nMISSING_DECISION\nCRF\nMISSING_DECISION\nData Dictionary\nMISSING_DECISION\nData Management Plan\nMISSING_DECISION\nExport EDC\nMISSING_DECISION\nStatistical Analysis Plan\nMISSING_DECISION\nDocuments réglementaires / éthiques\nPROFILE_REQUIRED\nGuide Imaging / Core Lab\nNOT_APPLICABLE\nOuvrir les livrables de l’étude\n\nProtocole\n\nNon généré\n\nDisponible à la demande depuis la version confirmée du Research Project.\n\nSouhaitez-vous créer un premier aperçu du protocole de travail ?\n\nCréer l’aperçu"
+    },
+    {
+      "scenario": "B01",
+      "verdict": "FUNCTIONAL_PASS",
+      "reason": "Version 5: essai ouvert, secondaire sécurité, trois centres confirmés, principal et visite à 36 semaines après nouvelle confirmation distincte du refus précédent. Document courant et analyse bornée cohérents.",
+      "turns": [
+        {
+          "requestId": "B01-T01",
+          "input": "Je prépare un essai chez des adultes ayant un diabète de type 2. L'objectif serait de comparer l'effet d'un suivi infirmier coordonné à celui du suivi habituel sur le contrôle glycémique. Essai randomisé, ouvert, avec le suivi infirmier dans le bras intervention et le suivi habituel en comparaison.\nLe principal serait le changement d'HbA1c entre l'inclusion et 24 semaines ; la visite d'évaluation principale se ferait à 24 semaines.",
+          "review": "PASS: essai randomisé ouvert, diabète type 2, suivi infirmier/habituel, HbA1c et visite à 24 semaines fidèles avant confirmation.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/B01-T01.json",
+          "sha256": "93fedf67d13b5ac43a2acf2e32397f51c2a2aad63ea8a3c26a7ece1041ed9a70"
+        },
+        {
+          "requestId": "B01-T02",
+          "input": "Côté sécurité, je propose d'ajouter les hypoglycémies sévères comme critère secondaire.",
+          "review": "PASS avant décision: hypoglycémies sévères proposées comme secondaire; aucun geste de confirmation ajouté au scénario.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T02.json",
+          "sha256": "cf41102a02696fbb5ee0fcbb0cd9dba95d950286361946e1af3a50e10608c0e6"
+        },
+        {
+          "requestId": "B01-T03",
+          "input": "Oui, je confirme l'ajout que tu viens de présenter pour les hypoglycémies sévères.",
+          "review": "PASS: confirmation naturelle liée au secondaire; Project version 2; la question suggérée reste candidate.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T03.json",
+          "sha256": "3ae04510dee420b169b2a7d6126a74aa876c3004e4303d5b6d92449f0ec78912"
+        },
+        {
+          "requestId": "B01-T04",
+          "input": "Avec cette base, propose-moi plusieurs pistes scientifiques pertinentes pour la suite du travail.",
+          "review": "PASS_USEFUL_CONTRIBUTION: hypothèses concurrentes sur la comparaison et HbA1c à 24 semaines, incertitude et absence de preuve explicites; aucun nombre de centres encore adopté à ce tour.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T04.json",
+          "sha256": "54622acda2ac64c467b4d607ae56122c401de98e273ff2541bc3b5f51948e0c8"
+        },
+        {
+          "requestId": "B01-T05",
+          "input": "Ce sera multicentrique. Nous envisageons quatre centres, mais ce chiffre n'est pas confirmé : le nombre final reste à déterminer.",
+          "review": "PASS: multicentrique, quatre centres seulement envisagés; nombre final explicitement non confirmé.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/B01-T05.json",
+          "sha256": "9388e8f9f4d392d6f33e0c445440a6d59af4eed79d752a0f928f74a25cdc8800"
+        },
+        {
+          "requestId": "B01-T06",
+          "input": "Parlons de la précision qu'on peut espérer obtenir. Nous n'avons ni effectif fixé ni calcul de puissance à ce stade, donc je voudrais discuter des éléments nécessaires sans inventer de chiffre.",
+          "review": "PASS_BOUNDED_ABSTENTION: données méthodologiques de précision requises dans le Project à 24 semaines; aucune taille, puissance ni effet inventés.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T06.json",
+          "sha256": "2e6f2b0652cedb9e3053bf59b776c5e61e1624a00186e65d1f915e0d3928d541"
+        },
+        {
+          "requestId": "B01-T07",
+          "input": "Je propose un suivi plus long : déplacer la visite principale à 36 semaines et mesurer la variation d'HbA1c de l'inclusion à 36 semaines pour le principal. Les deux iraient ensemble.",
+          "review": "PASS avant décision: principal et visite proposés ensemble à 36 semaines, version 3 conservée; aucun clic de confirmation ajouté.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T07.json",
+          "sha256": "f233e50c9b04f564e5935c50322a2d30ef336f466a127c10fe1b3f88e682538a"
+        },
+        {
+          "requestId": "B01-T08",
+          "input": "Non, je refuse ce passage à trente-six semaines. Nous restons à vingt-quatre pour la visite et le principal.",
+          "review": "PASS: statut visible « Proposition refusée. Le Research Project est inchangé. »; principal et visite restent à 24 semaines.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T08.json",
+          "sha256": "f024ab2ba087d1f204f34d932e60607f8263db72ea1c366169a4592c3a39ef72"
+        },
+        {
+          "requestId": "B01-T09",
+          "input": "Sur le fond, pourquoi pourrait-on préférer un suivi plus long ? Je veux comprendre les arguments, ça ne signifie pas que j'en décide maintenant.",
+          "review": "PASS_BOUNDED_ABSTENTION: discussion de durée dans le contexte à 24 semaines, besoin documentaire explicite; aucun retour automatique sur le refus.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T09.json",
+          "sha256": "7bc6a262d50d4b394c22ca7ecac8e2965c1fa7dc4124bfc2ff1b2984bf97660e"
+        },
+        {
+          "requestId": "B01-T10",
+          "input": "Après réflexion, ma préférence a changé. Je vous soumets maintenant une visite principale à 36 semaines, avec l'évolution de l'HbA1c entre inclusion et 36 semaines comme critère principal. C'est bien l'ensemble de cette modification que je souhaite examiner.",
+          "review": "PASS avant décision: nouvelle candidate couplant visite et principal à 36 semaines; ancien refus ne vaut pas rejet définitif de cette nouvelle proposition.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T10.json",
+          "sha256": "9c36799525968f5c9bb9e64abb4f84276194fc43b8bb5c5e6d25c8733166a097"
+        },
+        {
+          "requestId": "B01-T11",
+          "input": "Cette fois oui : je valide cette modification, visite et critère principal à trente-six semaines.",
+          "review": "PASS: confirmation naturelle de la candidate courante, visite et HbA1c à 36 semaines appliqués ensemble, version 4.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T11.json",
+          "sha256": "f1d95301d01b9b46f0bcb53296e465c02f6836f3191a6a68e90373b0592df6db"
+        },
+        {
+          "requestId": "B01-T12",
+          "input": "J'ai la précision pour les centres : il y en a finalement trois de confirmés. Je propose de remplacer les quatre centres envisagés par ces trois centres, l'étude restant multicentrique.",
+          "review": "PASS: le contexte courant remplace les quatre centres envisagés par trois confirmés; caractère multicentrique conservé. La carte décrit retrait et remplacement séparément.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/B01-T12.json",
+          "sha256": "51ef1697915fb07be3c43b80e095fbfa43d3a2387fa0cd87a3cd6666bd14ea87"
+        },
+        {
+          "requestId": "B01-T13",
+          "input": "Relisons l'état retenu, puis rouvrons la même session. Je veux y retrouver les trois centres, l'évaluation à trente-six semaines et les hypoglycémies sévères en secondaire de sécurité.",
+          "review": "PASS persistance: panneau Project complet strictement identique après fermeture/réouverture; version 5, trois centres, 36 semaines, sécurité secondaire.",
+          "uiActions": [
+            "CLOSE_TAB_AND_REOPEN"
+          ],
+          "path": "final-browser-evidence/observations/B01-T13.json",
+          "sha256": "4bddf7d03fe3e0445f59fa9893e596a68437e1cf152ea1b46eb6a18152f9e58d"
+        },
+        {
+          "requestId": "B01-T14",
+          "input": "Préparez la version documentaire disponible à partir du projet actuel, avec les trois centres et les trente-six semaines. Laissez ce qui manque dans les éléments administratifs en l'état, sans inventer pour donner l'impression que tout est complet.",
+          "review": "PASS_DOCUMENT_FIDELITY: version 5, trois centres confirmés et principal/visite à 36 semaines visibles; quatre centres et 24 semaines absents du document; inconnues explicites.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T14.json",
+          "sha256": "d7babb96a9ea1fb5001025f704fa1aba3ba3e7aaac67b872c0915101f2122a98"
+        },
+        {
+          "requestId": "B01-T15",
+          "input": "Proposez-moi une alternative pour l'analyse, en repartant de ce qui est retenu maintenant. Le nombre de centres et la durée figurent déjà dans le projet, inutile de me les redemander.",
+          "review": "PASS_BOUNDED_ABSTENTION: Biostatistics examine le principal actuel à 36 semaines; cible/unité/lien mesure-endpoint à qualifier, aucun modèle inventé ni centres/durée redemandés.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/B01-T15.json",
+          "sha256": "14efcacd8b6874b1dcca5a63d8a12a3e29c255d6e6b7fda57693ec96198ec489"
+        }
+      ],
+      "reopen": {
+        "visibleProjectIdentical": true,
+        "path": "final-browser-evidence/observations/B01-REOPEN.json",
+        "sha256": "d1db52885f742e098812aba37101423011394e57c167825b33520f20e63e968a"
+      },
+      "httpRequests": 10,
+      "observedProjectIds": [
+        "protocol-designer-session:6732ac74-742e-43ef-98c9-75d43ca0821f:research-project"
+      ],
+      "finalVisibleProject": "RESEARCH PROJECT\n\nMon projet\nVersion 5\nAvancement indicatif\n55 %\n\nComplétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.\n\n9 décisions confirmées · 8 points matériels ouverts\n\nQuestion scientifique\n0 %\nObjectifs\n50 %\nHypothèses\n0 %\nPopulation\n50 %\nDesign\n100 %\nIntervention / exposition\n100 %\nComparateur\n100 %\nCritères / endpoints\n75 %\nImagerie / méthodes / mesures\n0 %\nPrélèvements / échantillons\n0 %\nTemporalité / visites\n75 %\nDonnées / variables\n0 %\nAnalyses\n0 %\nContraintes / faisabilité\n100 %\n\nProchaine décision utile\n\nLe prochain point le plus utile à préciser concerne la question scientifique.\n\nÉtat du projet\n\nDernière version confirmée par vous\n\n8 rubriques avec des éléments confirmés.\n\n2 rubriques restent à préciser.\n\n1 changement confirmé dans cette version.\n\nVoir les derniers changements confirmés\nQuestion scientifique\n\nÀ définir\n\nObjectifs\nComparer suivi infirmier coordonné et suivi habituel sur contrôle glycémique\nHypothèses\n\nÀ définir\n\nPopulation\nAdultes avec diabète de type 2\nDesign\nEssai randomisé ouvert\nIntervention / exposition\nSuivi infirmier coordonné\nComparateur\nSuivi habituel\nCritères / endpoints\nCritère secondaire de sécurité: hypoglycémies sévères\nPrincipal :Critère principal: variation HbA1c entre inclusion et 36 semaines\nImagerie / méthodes / mesures\n\nÀ définir\n\nPrélèvements / échantillons\n\nÀ définir\n\nTemporalité / visites\nVisite de évaluation principale à 36 semaines\nDonnées / variables\n\nÀ définir\n\nAnalyses\n\nÀ définir\n\nContraintes / faisabilité\nÉtude multicentrique dans trois centres confirmés\nDocuments / Livrables de l’étude\nProtocole complet\nMISSING_DECISION\nSynopsis\nPARTIAL\nSchedule of Activities\nMISSING_DECISION\nCRF\nMISSING_DECISION\nData Dictionary\nMISSING_DECISION\nData Management Plan\nMISSING_DECISION\nExport EDC\nMISSING_DECISION\nStatistical Analysis Plan\nMISSING_DECISION\nDocuments réglementaires / éthiques\nPROFILE_REQUIRED\nGuide Imaging / Core Lab\nNOT_APPLICABLE\nOuvrir les livrables de l’étude\n\nProtocole\n\nNon généré\n\nDisponible à la demande depuis la version confirmée du Research Project.\n\nSouhaitez-vous créer un premier aperçu du protocole de travail ?\n\nCréer l’aperçu"
+    },
+    {
+      "scenario": "F01",
+      "verdict": "FUNCTIONAL_PASS",
+      "reason": "Version 5: cohorte adulte, exclusion des mineurs, fatigue à seize semaines, 150 adultes seulement envisagés et instrument inconnu. Références ambiguës clarifiées; conservation après discussion correctement reconnue.",
+      "turns": [
+        {
+          "requestId": "F01-T01",
+          "input": "Je voudrais décrire l'évolution de la fatigue chez des adultes vivant avec une maladie chronique stable. Ce serait une cohorte prospective observationnelle, avec un premier suivi prévu sur douze semaines. Pour le moment le critère principal et le nombre de participants restent à préciser.",
+          "review": "PASS: cohorte adulte avec maladie chronique stable et douze semaines; instrument, principal et effectif initialement non fixés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/F01-T01.json",
+          "sha256": "d942a47d2bec957d6ffef532b3ccdb67e76b9d1dc8098fabf61c8537e936f3d0"
+        },
+        {
+          "requestId": "F01-T02",
+          "input": "On pourrait regarder la fatigue, ou le manque d'énergie, les douleurs peut-être... enfin, par exemple. Je pensais à quelque chose qui... je ne sais pas encore.",
+          "review": "PASS: exemples et incertitudes conservés sans ajout au Project.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T02.json",
+          "sha256": "e4b6be7dc7336a812893e2562900f5c04facf3b2f95eb794fdc13c025940eab9"
+        },
+        {
+          "requestId": "F01-T03",
+          "input": "Pour le principal, je propose de retenir l'évolution de la fatigue à douze semaines. L'instrument précis, je ne l'ai pas choisi.",
+          "review": "PASS de la décision: principal fatigue à douze semaines, instrument non choisi; relance générique distincte de la revue correcte.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/F01-T03.json",
+          "sha256": "c40d21bc5ebbaa63af0c01f1e3bb066b43f6189477a517d908412e0521d210a9"
+        },
+        {
+          "requestId": "F01-T04",
+          "input": "Non, pas ça.",
+          "review": "PASS_CLARIFICATION_REQUIRED: référent absent, aucune décision déduite de la seule négation.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T04.json",
+          "sha256": "e9522d581edbe135908770360bfed474cff6440d43e18899f872a373acbfb6d1"
+        },
+        {
+          "requestId": "F01-T05",
+          "input": "Il faut préciser qu'on n'inclut pas les mineurs. La population reste adulte ; c'est une exclusion à ajouter, je ne rejette pas l'étude.",
+          "review": "PASS: exclusion des mineurs ajoutée, population adulte maintenue; négation non confondue avec refus de l’étude.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/F01-T05.json",
+          "sha256": "d47de30ddcf94ff6a70bcd86cb22bbf7a4e9bd559504c06b3f2ee2d4971552f4"
+        },
+        {
+          "requestId": "F01-T06",
+          "input": "Donnez-moi plusieurs propositions distinctes pour l'instrument ou les critères. Je voudrais voir différentes options.",
+          "review": "PASS_BOUNDED_ABSTENTION: instrument non qualifié, principal courant cité, construit/documentation demandés; aucune fausse option.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T06.json",
+          "sha256": "f8bd6b02ca7a202c4a2c0902d1fc36b7615adb64415805d2ddbe769d990221b7"
+        },
+        {
+          "requestId": "F01-T07",
+          "input": "Entre les deux premières, c'est celle-là que j'avais en tête. On parle bien de la même ?",
+          "review": "PASS_CLARIFICATION_REQUIRED: « celle-là » ne désigne aucune option qualifiée produite.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T07.json",
+          "sha256": "979574a3f50386578fbb694079af990002524b28e3df6ad339f8d0fe5611aa0f"
+        },
+        {
+          "requestId": "F01-T08",
+          "input": "Je précise : je sélectionne seulement la deuxième proposition de la liste donnée quand j'ai demandé des options d'instrument ou de critères. Retrouvez cette référence exacte et présentez-la pour revue sur le projet actuel. Si elle n'est pas identifiable, dites-le ; je ne vous demande pas de deviner.",
+          "review": "PASS_CLARIFICATION_REQUIRED selon mission: aucune deuxième option disponible à T06; pas de substitution, sélection ancienne non démontrée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T08.json",
+          "sha256": "8b37a6064f74ff77fbc53a2e87985db168bab3a375b53f0be73bc4bbb6b3b547"
+        },
+        {
+          "requestId": "F01-T09",
+          "input": "Non finalement, je refuse cette proposition. Nous n'avons toujours pas choisi l'instrument pour la fatigue.",
+          "review": "PASS_CLARIFICATION_REQUIRED: absence de candidat instrument, aucune écriture; inconnu maintenu.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T09.json",
+          "sha256": "e36bea4acc7e0a468676c6c05ec91e008b49ef2bbd35540641c5664bd792dc00"
+        },
+        {
+          "requestId": "F01-T10",
+          "input": "Pour l'effectif, 150 adultes serait une possibilité. Je propose de noter ce chiffre comme envisagé : je ne sais pas encore si le recrutement est faisable, et le dimensionnement n'est pas confirmé.",
+          "review": "PASS: information hypothétique 150 adultes envisagés adoptée comme telle, faisabilité/dimensionnement non confirmés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/F01-T10.json",
+          "sha256": "aa88eac89a839305e92bc91a5d9905469fd27bbc79770e7487dbb361309786ab"
+        },
+        {
+          "requestId": "F01-T11",
+          "input": "Je voudrais passer le suivi principal de douze à seize semaines. On mesurerait donc l'évolution de la fatigue en principal à seize semaines, avec toujours l'instrument à décider. Les 150 participants restent une hypothèse non confirmée.",
+          "review": "PASS: principal et suivi à seize semaines, instrument inconnu et effectif hypothétique conservés.",
+          "uiActions": [
+            "CONFIRM_CANDIDATE_AFTER_VISIBLE_SEMANTIC_REVIEW"
+          ],
+          "path": "final-browser-evidence/observations/F01-T11.json",
+          "sha256": "7a527b4a5374af919e54718dc09a95b450545e0b52c7326a0b9e12206df6e2a3"
+        },
+        {
+          "requestId": "F01-T12",
+          "input": "Cette phrase est mal écrite en français, elle est lourde et on ne comprend pas bien la tournure. Je critique seulement la rédaction, je ne demande pas une correction scientifique.",
+          "review": "PASS: commentaire rédactionnel sans correction scientifique ni modification du Project.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T12.json",
+          "sha256": "80a81a1feadcceaf549fbf69cff187ef9a8199b7a1cf2d0fc60409f2cadd786d"
+        },
+        {
+          "requestId": "F01-T13",
+          "input": "Expliquez-moi la différence entre une hypothèse causale et un résultat observationnel dans ce contexte. Il ne s'agit pas d'affirmer une efficacité.",
+          "review": "PASS_BOUNDED_ABSTENTION: manque documentaire explicite, cohorte observationnelle et seize semaines courantes; aucune efficacité ou causalité établie.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T13.json",
+          "sha256": "3bb95bf246ad38179581a9754ed582c46b72ab8046d2d1e19f4b56d4f8647fc7"
+        },
+        {
+          "requestId": "F01-T14",
+          "input": "Je conserve le projet tel qu'il a été adopté. Je n'ajoute pas les pistes dont nous venons de discuter.",
+          "review": "PASS après correction: référence à la discussion passée reconnue comme commentaire/conservation; aucune réponse Knowledge, Project version 5 inchangé.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T14.json",
+          "sha256": "72613df4c3b51ea2173ad0bfb473535f670638452adc8f131a6e7573901195a9"
+        },
+        {
+          "requestId": "F01-T15",
+          "input": "Quelles autres propositions pouvez-vous faire maintenant ? Gardez bien en tête que l'effectif n'est pas confirmé et que l'instrument reste à choisir.",
+          "review": "PASS_BOUNDED_ABSTENTION: principal courant seize semaines, instrument non qualifié, documentation/construit requis; aucune option inventée.",
+          "uiActions": [],
+          "path": "final-browser-evidence/observations/F01-T15.json",
+          "sha256": "314c04f2419d0bb64df3de830d09bc189a3a9ac31c05d3fce44c7b670adc7c3a"
+        }
+      ],
+      "reopen": {
+        "visibleProjectIdentical": true,
+        "path": "final-browser-evidence/observations/F01-REOPEN.json",
+        "sha256": "ca2b9fdefc0a02c34f5870c9188a4a8c57dd44b053b67027b35f5ff32e8821d6"
+      },
+      "httpRequests": 12,
+      "observedProjectIds": [
+        "protocol-designer-session:a15244ed-c87b-40e4-bd23-5ef38f8b5700:research-project"
+      ],
+      "finalVisibleProject": "RESEARCH PROJECT\n\nMon projet\nVersion 5\nAvancement indicatif\n25 %\n\nComplétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.\n\n5 décisions confirmées · 1 point matériel ouvert\n\nQuestion scientifique\n0 %\nObjectifs\n50 %\nHypothèses\n0 %\nPopulation\n50 %\nDesign\n100 %\nIntervention / exposition\n0 %\nComparateur\n0 %\nCritères / endpoints\n25 %\nImagerie / méthodes / mesures\n0 %\nPrélèvements / échantillons\n0 %\nTemporalité / visites\n75 %\nDonnées / variables\n0 %\nAnalyses\n0 %\nContraintes / faisabilité\n50 %\nÉtat du projet\n\nDernière version confirmée par vous\n\n6 rubriques avec des éléments confirmés.\n\n4 rubriques restent à préciser.\n\n2 changements confirmés dans cette version.\n\nVoir les derniers changements confirmés\nQuestion scientifique\n\nÀ définir\n\nObjectifs\nDécrire évolution fatigue chez adultes vivant avec maladie chronique\nHypothèses\n\nÀ définir\n\nPopulation\nAdultes vivant avec maladie chronique stable\nDesign\nCohorte observationnelle prospective\nIntervention / exposition\n\nÀ définir\n\nComparateur\n\nÀ définir\n\nCritères / endpoints\nPrincipal :Critère principal: évolution fatigue à seize semaines; instrument précis non décidé\nImagerie / méthodes / mesures\n\nÀ définir\n\nPrélèvements / échantillons\n\nÀ définir\n\nTemporalité / visites\nSuivi principal prévu seize semaines\nDonnées / variables\n\nÀ définir\n\nAnalyses\n\nÀ définir\n\nContraintes / faisabilité\nExclusion explicite des mineurs; population adulte maintenue\nEffectif de 150 adultes envisagé; recrutement possible et dimensionnement non confirmés\nDocuments / Livrables de l’étude\nProtocole complet\nMISSING_DECISION\nSynopsis\nPARTIAL\nSchedule of Activities\nMISSING_DECISION\nCRF\nMISSING_DECISION\nData Dictionary\nMISSING_DECISION\nData Management Plan\nMISSING_DECISION\nExport EDC\nMISSING_DECISION\nStatistical Analysis Plan\nMISSING_DECISION\nDocuments réglementaires / éthiques\nPROFILE_REQUIRED\nGuide Imaging / Core Lab\nNOT_APPLICABLE\nOuvrir les livrables de l’étude\n\nProtocole\n\nNon généré\n\nDisponible à la demande depuis la version confirmée du Research Project.\n\nSouhaitez-vous créer un premier aperçu du protocole de travail ?\n\nCréer l’aperçu"
+    }
+  ],
+  "documents": [
+    {
+      "scenario": "A02",
+      "visibleText": "Retour à la conversation\n\nPROTOCOLE DE TRAVAIL\n\nPROTOCOLE DE TRAVAIL\n\nAperçu produit à partir du Research Project version 5.\n\nTélécharger le protocole (.html)\n\nVersion de travail en lecture seule.\n\nElle reprend uniquement les informations projetées par la chaîne documentaire actuelle. Elle ne constitue ni un protocole final ni une validation scientifique ou réglementaire.\n\nTitre de travail\n\nÀ préciser.\n\nQuestion scientifique\n\nÀ préciser.\n\nObjectifs\nComparer la viabilité myocardique selon stent immédiat ou différé après IDM\nHypothèses\n\nÀ préciser.\n\nPopulation\n\nAdultes de 35 à 80 ans après premier IDM reconnu avec sus-décalage de ST.\n\nDesign\n\nÉtude comparative prospective.\n\nContexte du projet (adopté)\nExclusion des contre-indications effectives à IRM cardiaque; exemples de dispositifs implantés à qualifier individuellement\nIntervention\n\nStent immédiat.\n\nComparateur\n\nStent différé.\n\nImagerie\n\nIRM cardiaque.\n\nIRM entre J3 et J6 après IDM.\n\nPrélèvements / échantillons\n\nÀ préciser.\n\nCritères d’évaluation\nCritère principal: pourcentage de lésions microvasculaires de la masse VG à 3 minutes après injection\nMesures\nCritère principal: pourcentage de lésions microvasculaires de la masse VG à 3 minutes après injection\nTemporalité\n\nÀ préciser.\n\nAnalyse\n\nAnalyse exploratoire selon le territoire de IDM.\n\nLimites et éléments à préciser\n\nÀ préciser.\n\nPoints restant à préciser\nQuestion scientifique\nTemporalité\nPlan d’analyse statistique",
+      "path": "final-browser-evidence/observations/A02-T14.json",
+      "sha256": "e15eee07cb2ed03c4054357ed6c6838b6cafff8de164a6cac305a7bcee0ff61d"
+    },
+    {
+      "scenario": "B01",
+      "visibleText": "Retour à la conversation\n\nPROTOCOLE DE TRAVAIL\n\nPROTOCOLE DE TRAVAIL\n\nAperçu produit à partir du Research Project version 5.\n\nTélécharger le protocole (.html)\n\nVersion de travail en lecture seule.\n\nElle reprend uniquement les informations projetées par la chaîne documentaire actuelle. Elle ne constitue ni un protocole final ni une validation scientifique ou réglementaire.\n\nTitre de travail\n\nÀ préciser.\n\nQuestion scientifique\n\nÀ préciser.\n\nObjectifs\nComparer suivi infirmier coordonné et suivi habituel sur contrôle glycémique\nHypothèses\n\nÀ préciser.\n\nPopulation\n\nAdultes avec diabète de type 2.\n\nDesign\n\nEssai randomisé ouvert.\n\nContexte du projet (adopté)\nÉtude multicentrique dans trois centres confirmés\nIntervention\n\nSuivi infirmier coordonné.\n\nComparateur\n\nSuivi habituel.\n\nImagerie\n\nÀ préciser.\n\nPrélèvements / échantillons\n\nÀ préciser.\n\nCritères d’évaluation\nCritère secondaire de sécurité: hypoglycémies sévères\nCritère principal: variation HbA1c entre inclusion et 36 semaines\nMesures\nCritère secondaire de sécurité: hypoglycémies sévères\nCritère principal: variation HbA1c entre inclusion et 36 semaines\nTemporalité\n\nVisite — Visite de évaluation principale à 36 semaines.\n\nAnalyse\n\nÀ préciser.\n\nLimites et éléments à préciser\n\nÀ préciser.\n\nPoints restant à préciser\nQuestion scientifique\nImagerie\nPlan d’analyse statistique",
+      "path": "final-browser-evidence/observations/B01-T14.json",
+      "sha256": "d7babb96a9ea1fb5001025f704fa1aba3ba3e7aaac67b872c0915101f2122a98"
+    }
+  ],
+  "sourceFreeze": "final-browser-source-freeze.json",
+  "sourceUnchanged": true,
+  "httpEvidence": {
+    "path": "final-browser-evidence/browser-http-exchanges.jsonl",
+    "sha256": "cbfcf589d2bc12fad932cf68c61e2159ca95ce04ab17ef90ea09e54cc803d6c2",
+    "requests": 52,
+    "syntheticProviderResponses": 99,
+    "realProviderCalls": 0
+  },
+  "limits": [
+    "DOM observations establish visible semantic state and version after reopening; exact canonical identities and digests are additionally verified in runtime replay, not inferred from hidden browser state.",
+    "Unavailable historical options are clarified; successful selection is not claimed for these trajectories.",
+    "Generic progression prompts can remain awkward next to correct candidate reviews; scientific competence is not inferred from bounded abstention."
+  ]
+}

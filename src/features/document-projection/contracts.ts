@@ -114,10 +114,13 @@ const protocolSections: SectionDefinition[] = [
   }),
   section({
     sectionId: "study-design", title: "Plan d’étude", order: 6, intent: "JUSTIFY", pattern: "SYNTHESIS",
-    sourcePaths: ["studyDesignCandidates", "selectedStudyDesignCandidate", "multicenterAssessment"], requiredObjectKinds: [], optionalObjectKinds: ["StudyDesign"], dependencyTypes: ["STUDY_DESIGN_DECISION"], specializedEngine: null,
+    sourcePaths: ["studyDesignCandidates", "selectedStudyDesignCandidate", "multicenterAssessment", "impactGraph.nodes"], requiredObjectKinds: [], optionalObjectKinds: ["StudyDesign", "PROJECT_INFORMATION"], dependencyTypes: ["STUDY_DESIGN_DECISION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ partialWhenPendingDecisions: true }),
     facts: [
       fact("impactGraph.nodes[]", "Caractéristique de design confirmée", "{{label}}", "StudyDesign", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "STUDY_DESIGN" }),
+      // Keep general context literal; the document must not infer a specialized
+      // scientific type from information that Project has not classified.
+      fact("impactGraph.nodes[]", "Contexte du projet", "{{label}}", "PROJECT_INFORMATION", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "PROJECT_INFORMATION" }),
       fact("studyDesignCandidates[]", "Plan adopté", "{{label}} — {{whyItAnswersQuestion}}", "StudyDesign", commitment("ADOPTED"), "designId", { kind: "ITEM_EQUALS_ROOT", path: "designId", rootPath: "selectedStudyDesignCandidate.designId" }),
       fact("studyDesignCandidates[]", "Alternative candidate", "{{label}} — {{whyItAnswersQuestion}}", "StudyDesign", commitment("CANDIDATE"), "designId", { kind: "ITEM_NOT_EQUALS_ROOT", path: "designId", rootPath: "selectedStudyDesignCandidate.designId" }),
       fact("multicenterAssessment", "Caractéristique de design confirmée", "{{declaredMode}}", "StudyDesign", commitment("CONFIRMED"), undefined, { kind: "ITEM_FIELD_NOT_EQUALS", path: "declaredMode", value: "__EMPTY__" }),

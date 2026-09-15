@@ -32,6 +32,7 @@ export type StudyDesignRuntimeInput = {
   sourceProvenanceRefs: readonly string[];
   designKnowns: readonly StudyDesignKnown[];
   designUnknowns: readonly StudyDesignUnknown[];
+  selectedNeed?: { sourceTurnRef: string; purpose: string; focusSectionIds: readonly string[] };
   projectWriteAuthorized: false;
 };
 

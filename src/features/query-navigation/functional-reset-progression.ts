@@ -79,6 +79,33 @@ export type FunctionalResetQuestionWordingProposal = {
 
 export type FunctionalResetRequestedAction = "ASSISTED_PROPOSAL";
 
+/** A requested service is a QRY scope, not a new scientific object or owner. */
+export const resolveRequestedScientificScope = (raw: string) => {
+  const text = raw.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/^\s*d['’ ]accord\b/gu, "");
+  const scope = (owner: string, capabilityRef: string, sectionId: ResearchProjectSectionId,
+    facet: string, focusSectionIds: ResearchProjectSectionId[] = [sectionId], explicit = true) => ({
+    owner, capabilityRef, sectionId, facet, focusSectionIds, explicit,
+  });
+  if (/\b(?:analys\w*|statist\w*|accord|appari\w*|precision|puissance|confusion|comparer les niveaux|distinguer deces|evenements? concurrents?|repetitions? de mesure)\b/u.test(text)) {
+    return scope("BIOSTATISTICS", "BIOSTATISTICS_PLANNING", "ANALYSIS", "ANALYSIS_OBJECTIVE", ["ANALYSIS", "MEASUREMENTS", "DESIGN"]);
+  }
+  if (/\b(?:recrut\w*|eligibil\w*|inclusion|exclusion|population)\b/u.test(text)) {
+    return scope("STUDY_DESIGN", "STUDY_DESIGN_COHERENCE", "DESIGN", "DESIGN_FRAME", ["POPULATION", "DESIGN"]);
+  }
+  if (/\b(?:instrument\w*|mesurer|mesures?|metrique\w*|symptomes?)\b/u.test(text)
+    && !/\b(?:pistes scientifiques|randomisation)\b/u.test(text)) {
+    return scope("OBSERVABILITY_MEASUREMENT", "OBSERVABILITY_QUALIFICATION", "MEASUREMENTS", "MEASUREMENT_SET");
+  }
+  if (/\b(?:irm|imagerie|acquisition|sequence)\b/u.test(text)) {
+    return scope("IMAGING", "IMAGING_STUDY_DESIGN", "IMAGING", "IMAGING_ROLE", ["IMAGING", "TEMPORALITY", "MEASUREMENTS"]);
+  }
+  if (/\b(?:methodolog\w*|plan d|blocs?|regime hydrique|effets? de position|aveugle)\b/u.test(text)) {
+    return scope("STUDY_DESIGN", "STUDY_DESIGN_COHERENCE", "DESIGN", "DESIGN_FRAME");
+  }
+  return scope("SCIENTIFIC_THINKING", "SCIENTIFIC_THINKING_PROPOSAL", "QUESTION", "QUESTION_FORMULATION", ["QUESTION"],
+    /\b(?:hypothes\w*|pistes? scientifiques?|questions? scientifiques?)\b/u.test(text));
+};
+
 export type FunctionalResetStandardQuestion = {
   questionId: string;
   selectedActionRef: string;
@@ -103,6 +130,7 @@ export type FunctionalResetQueryNavigation = {
   sourceStateDigest: string;
   currentEvidenceDigest?: string;
   requestedAction?: FunctionalResetRequestedAction;
+  requestedService?: ReturnType<typeof resolveRequestedScientificScope> & { sourceTurnRef: string; sourceText: string };
   status: "QUESTION_READY" | "OWNER_ACTION_READY" | "NO_USEFUL_QUESTION";
   selection: NavigationSelection;
   memory: QueryNavigationMemory;
@@ -656,6 +684,7 @@ const ASSISTED_PROPOSAL_CAPABILITIES = new Set([
   "STUDY_DESIGN_COHERENCE",
   "IMAGING_STUDY_DESIGN",
   "BIOSTATISTICS_PLANNING",
+  "OBSERVABILITY_QUALIFICATION",
 ]);
 
 const assistedProposalCandidates = (candidates: NextActionCandidate[]) => candidates.filter((candidate) =>
@@ -703,6 +732,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
   dataOwnerState?: Readonly<FunctionalResetDataOwnerState> | null;
   currentNavigationEvidence?: Readonly<CurrentNavigationEvidence> | null;
   requestedAction?: FunctionalResetRequestedAction;
+  requestedServiceInput?: { sourceTurnRef: string; sourceText: string };
 }): FunctionalResetQueryNavigation => {
   if (!input.requestedAction && !input.forceRebuild && input.previous
     && !input.previous.requestedAction
@@ -738,6 +768,29 @@ export const buildFunctionalResetQueryNavigation = (input: {
   const sourceState = evidence ? {
     ...structuredClone(evidence.sourceState), currentEvidenceDigest: evidence.contextDigest,
   } : buildFunctionalResetQuerySourceState(input.project, input.dataOwnerState);
+  const requestedScope = input.requestedServiceInput ? resolveRequestedScientificScope(input.requestedServiceInput.sourceText) : null;
+  // An unspecified proposal request keeps the existing QRY prioritization.
+  // Only an explicit scientific scope may replace that selected responsibility.
+  const requestedService = input.requestedAction && input.requestedServiceInput && requestedScope?.explicit
+    ? { ...requestedScope, ...input.requestedServiceInput } : undefined;
+  if (requestedService) {
+    // A user request may concern an already documented dimension. It is an
+    // explicit navigation need, never evidence that the Project became unknown.
+    sourceState.governedNeeds = [...(sourceState.governedNeeds ?? []), {
+      needId: makeQueryNavigationId("qry-requested-service", { ...requestedService, project: input.project.projectDigest }),
+      sourceRef: requestedService.sourceTurnRef, sourceType: "DOMAIN_READINESS", sourceVersion: input.project.versionId,
+      sourceObjectKind: "ExplicitScientificServiceRequest", owner: requestedService.owner,
+      informationIntent: requestedService.sourceText,
+      affectedDecisionRefs: [`project-section:${requestedService.sectionId}`],
+      affectedBranchRefs: [`project-facet:${requestedService.sectionId}:${requestedService.facet}`],
+      blocking: "NON_BLOCKING", actionability: "DOMAIN_OWNER_ACTION", status: "OPEN",
+      availableFromOwner: requestedService.owner, knownOptions: [],
+      provenance: { sourceRefs: [requestedService.sourceTurnRef, input.project.versionId], owner: "QUERY_NAVIGATION",
+        evidence: [requestedService.sourceText], limitations: ["REQUESTED_SERVICE_NOT_A_SCIENTIFIC_DECISION"] },
+      limitations: ["OWNER_MUST_QUALIFY_CAPABILITY_AND_PRESERVE_UNKNOWN"],
+      projectionOnly: true, sourceOfTruth: false, projectWriteAuthorized: false,
+    }];
+  }
   const unresolvedContext = buildQueryNavigationContext({
     projectRef: input.project.projectId,
     projectVersion: input.project.versionId,
@@ -775,11 +828,13 @@ export const buildFunctionalResetQueryNavigation = (input: {
       ? { ...candidate, eligibility: "INELIGIBLE" as const,
         eligibilityReasons: [...candidate.eligibilityReasons, "MATERIAL_INFORMATION_IMPACT_NOT_STRUCTURED_BY_OWNER"] }
       : candidate);
-  const groupedCandidates = evidence ? individualCandidates : groupCandidatesByScientificDimension(
+  const requestedCandidates = requestedService ? individualCandidates.filter((candidate) => candidate.sourceRefs.includes(requestedService.sourceTurnRef))
+    .map((candidate) => ({ ...candidate, capabilityRef: requestedService.capabilityRef })) : null;
+  const groupedCandidates = requestedCandidates ?? (evidence ? individualCandidates : groupCandidatesByScientificDimension(
     input.project,
     individualCandidates,
     input.documentBlockers ?? [],
-  );
+  ));
   const immediatelyAvailableCandidates = candidatesOutsideImmediateDeferral(groupedCandidates, memory);
   const selectionCandidates = input.requestedAction === "ASSISTED_PROPOSAL"
     ? assistedProposalCandidates(immediatelyAvailableCandidates)
@@ -804,6 +859,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
     status: "NO_USEFUL_QUESTION",
     ...(input.requestedAction ? { requestedAction: input.requestedAction } : {}),
+    ...(requestedService ? { requestedService } : {}),
     selection,
     memory,
     currentAction: null,
@@ -849,6 +905,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
       sourceStateDigest: context.sourceStateDigest,
       status: "OWNER_ACTION_READY",
       ...(input.requestedAction ? { requestedAction: input.requestedAction } : {}),
+      ...(requestedService ? { requestedService } : {}),
       ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
       selection,
       memory,

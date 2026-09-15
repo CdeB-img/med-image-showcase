@@ -274,9 +274,12 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const projectBefore = JSON.stringify(before.project);
 
     submit("je voudrais parler de la population");
-    expect(await screen.findByText(/Bien sûr. Parlons de la population/)).toBeInTheDocument();
+    expect(await screen.findByTestId("product-understand-knowledge-response")).toBeInTheDocument();
     const after = stored();
-    expect(after.entries.at(-1).content).toContain("Parlons de la population");
+    expect(after.entries.at(-1).content).toContain("je voudrais parler de la population");
+    expect(after.entries.at(-1).content).toContain("appui documentaire");
+    expect(after.entries.at(-1).content).toContain("cadre effectivement retenu");
+    expect(after.entries.at(-1).knowledgePresentation.resultRef).toMatch(/^knowledge-result:/);
     expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
     expect(JSON.stringify(after.project)).toBe(projectBefore);
     expect(after.pendingContribution).toBeNull();

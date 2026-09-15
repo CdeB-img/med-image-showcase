@@ -1,0 +1,98 @@
+{
+  "at": "2026-09-15T04:39:49.678097+00:00",
+  "sourceFreeze": "final-browser-source-freeze.json",
+  "sourceUnchanged": true,
+  "fullSuite": {
+    "exitCode": 0,
+    "seconds": 28.76,
+    "testFiles": 274,
+    "passed": 4207,
+    "failed": 0,
+    "pending": 12,
+    "todo": 1,
+    "success": true,
+    "sourceUnchanged": true,
+    "providerCalls": 0,
+    "unhandled": 0,
+    "unhandledEvidence": "Vitest success=true, exit=0, no ignore-unhandled setting; raw report and log retained",
+    "report": "qualification/full-suite-final-closure.json",
+    "sha256": "f7c709dd51c00e9936c95555437308e949a22262cd34705604bb5fe25095cca8"
+  },
+  "TypeScript": "PASS_APP_API_SERVER_AND_CONFIGURATION_GATES",
+  "build": "PASS",
+  "buildLog": "qualification/build-final-closure.log",
+  "affectedLint": {
+    "errors": 0,
+    "warnings": 0,
+    "files": 31
+  },
+  "rootLint": {
+    "errors": 51,
+    "warnings": 36,
+    "attribution": "Unchanged prior files; excluded from repair scope, not globally green"
+  },
+  "soaksABC": [
+    {
+      "test": "V1 long-horizon representative Standard runtime harness replays the IDM/IRM family for 15 meaningful Standard turns from turn 1",
+      "status": "passed"
+    },
+    {
+      "test": "V1 long-horizon representative Standard runtime harness replays a non-imaging clinical family for 15 meaningful Standard turns from turn 1",
+      "status": "passed"
+    },
+    {
+      "test": "V1 long-horizon representative Standard runtime harness replays a non-medical experimental family for 15 meaningful Standard turns from turn 1",
+      "status": "passed"
+    }
+  ],
+  "strongReuseProperties": [
+    {
+      "test": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_01 — a different purpose cannot reuse the same fresh owner result as equivalent",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_02 — semantically equivalent requests retain compatible owner reuse",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_03 — a genuinely confirmed Project change invalidates the dependent result",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_04 — requesting, discussing, refusing and selecting proposals never adopts Project",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_05 — repeated requests return a bounded exhaustion explanation without invented novelty",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_01 — a different purpose cannot reuse the same fresh owner result as equivalent",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_02 — semantically equivalent requests retain compatible owner reuse",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_03 — a genuinely confirmed Project change invalidates the dependent result",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_04 — requesting, discussing, refusing and selecting proposals never adopts Project",
+      "status": "passed"
+    },
+    {
+      "test": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_05 — repeated requests return a bounded exhaustion explanation without invented novelty",
+      "status": "passed"
+    }
+  ],
+  "live01R": {
+    "LIVE_01R_T05_OFFLINE_REPRODUCTION": "FAIL_OR_REPAIRED",
+    "providerCalls": 0,
+    "recordedResponsesUsed": 5,
+    "browserHttpCalls": 3,
+    "projectUnchanged": true
+  },
+  "NEW_PROVIDER_CALLS": 0
+}
