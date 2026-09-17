@@ -191,7 +191,7 @@ it("primary review is compact while exact source, IDs, statuses and complete pro
   render(<ContributionReview contribution={contribution} candidate={candidate} status="PENDING" detailedUnderstanding={<p>Compréhension de travail complète</p>}
     onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />);
   expect(screen.queryByTestId("review-audit-detail")).toBeNull(); expect(screen.queryByText("Compréhension de travail complète")).toBeNull();
-  expect(screen.getByText("À enregistrer dans le projet")).toBeVisible();
+  expect(screen.getByText("Compréhension de travail")).toBeVisible();
   const details = screen.getByTestId("functional-review-details") as HTMLDetailsElement;
   details.open = true; fireEvent(details, new Event("toggle"));
   await waitFor(() => expect(screen.getByTestId("review-audit-detail")).toBeVisible());
@@ -236,7 +236,7 @@ it("actual Standard fibrosis trajectory keeps review, binding, evidence and pers
   let ui = mount();
   const settle = async (count: number) => { await waitFor(() => expect(outputs).toHaveLength(count)); await waitFor(() => expect(screen.getByRole("textbox")).not.toBeDisabled()); };
   send(T1); await settle(1); await waitFor(() => expect(latest.pendingContribution).not.toBeNull());
-  expect(latest.project).toBeNull(); expect(screen.getByText("À enregistrer dans le projet")).toBeVisible();
+  expect(latest.project).toBeNull(); expect(screen.getByText("Compréhension de travail")).toBeVisible();
   fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" })); await waitFor(() => expect(latest.project?.revision).toBe(1));
   const version1 = latest.project!.versionId;
   send("et ensuite ?"); await settle(2); expect(latest.pendingContribution).toBeNull(); expect(latest.project!.versionId).toBe(version1);

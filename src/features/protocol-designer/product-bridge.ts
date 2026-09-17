@@ -1,4 +1,5 @@
 import { z } from "zod";
+export type { StudyProposalComposition } from "../scientific-thinking/contextual-study-proposal.js";
 import { z as deltaZ } from "zod/v4";
 import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
@@ -975,6 +976,8 @@ export type ProductBridgeRequest = {
   boundedReferentContext?: import("../query-navigation/current-turn-navigation.js").BoundedConversationReferentContext;
   /** Read-only scientific discussion from the existing retained contribution lifecycle. */
   scientificDiscussionContext?: import("./functional-reset/contribution-discussion-context.js").ScientificDiscussionContext;
+  /** Read-only composition shown in the current UX, never canonical input. */
+  studyProposalContext?: import("../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition;
   boundedInteraction?: import("../query-navigation/current-turn-navigation.js").BoundedConversationInteraction;
   /** User-owned presentation preference only; never a scientific instruction or Project fact. */
   conversationPresentation?: Readonly<{ responseLength: "CONCISE" }>;

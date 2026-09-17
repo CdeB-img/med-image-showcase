@@ -9,6 +9,8 @@ import type { ContextualReasoningRequest } from "./contextual-reasoning.js";
 import { classifyNaturalConversationActs, readNaturalCandidateDecision } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
 import { hasLongitudinalDesignEvidence } from "../study-design/design-reasoning.js";
 import { prepareConversationalDimensioning } from "../data-analysis-planning/dimensioning-calculator.js";
+import { STUDY_PROPOSAL_MANDATE, contextualStudyProposalSchema } from "./contextual-study-proposal.js";
+import { rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
 
 // C2 collaborator mandate, with native text and a general epistemic discipline.
 // This Scientific Thinking capability has no Project mutation dependency.
@@ -31,6 +33,7 @@ Réponds directement en texte natif, sans enveloppe JSON, contrat auxiliaire, la
 export const prepareScientificCollaboratorConversation = (
   request: Omit<ProductBridgeRequest, "apiVersion">,
   owners?: ContextualReasoningRequest | null,
+  proposalMandate?: Readonly<{ qryAction: string; ownerContextRef: string | null; recomputation?: ReturnType<typeof import("../protocol-designer/functional-reset/study-proposal-standard.js").planStudyProposalRecomputation> }> | null,
 ) => {
   const latest = [...request.conversation.turns].reverse().find(turn => turn.role === "USER");
   if (!latest) throw new Error("SCIENTIFIC_CONVERSATION_USER_MISSING");
@@ -115,6 +118,17 @@ export const prepareScientificCollaboratorConversation = (
     visibleConversation: conversation,
     adoptedProject: project,
     currentDiscussion,
+    currentStudyProposal: (() => {
+      const composition = rehydrateStudyProposal(request.studyProposalContext, request.currentProject);
+      if (!composition || composition.state !== "CURRENT") return null;
+      return { status: "PROPOSALS_NEVER_CANONICAL" as const, proposalRef: composition.proposalRef, digest: composition.digest,
+        sourceProject: composition.sourceProject, adoptedAtomRefs: composition.adoptedAtomRefs,
+        unavailableOptionRefs: composition.unavailableOptionRefs, dispositions: composition.dispositions ?? [],
+        atoms: composition.proposal.atoms, arbitrations: composition.proposal.arbitrations,
+        dimensioning: composition.dimensioning };
+    })(),
+    ...(proposalMandate?.recomputation ? { studyProposalRecomputation: proposalMandate.recomputation,
+      previousStudyProposal: request.studyProposalContext?.proposal ?? null } : {}),
     explicitConstraints: { source: "USER_STATEMENTS_ONLY", statements: conversation.filter(t => t.role === "USER" && t.content !== null),
       currentCorrectionOrRefusalOverridesOlderDiscussion: true },
     knowledge: { resultRef: knowledge.resultId, assertions, documentaryStatements: statements, evidence,
@@ -136,10 +150,12 @@ export const prepareScientificCollaboratorConversation = (
       studyDesign: { status: "DISCUSSION_SIGNALS_NOT_ADOPTED", signals: owners.studyDesign.signals },
     } : null,
     conversationPreferences: request.conversationPresentation ?? null,
+    ...(proposalMandate ? { studyProposalMandate: proposalMandate,
+      proposalAreas: ["QUESTION", "OBJECTIVES", "DESIGN", "POPULATION", "ELIGIBILITY", "RECRUITMENT", "EXPOSURE", "MEASUREMENTS", "TIMING", "DESCRIPTION", "CONFOUNDERS", "ENDPOINTS", "ANALYSIS", "DIMENSIONING", "BIASES", "PRACTICAL"] } : {}),
   };
   const context = JSON.stringify(packet);
   return Object.freeze({ owner: "SCIENTIFIC_THINKING" as const, context, contextDigest: logicalDigest(packet),
-    sourceTurnRef: latest.turnId, projectWriteAuthorized: false as const });
+    sourceTurnRef: latest.turnId, proposalEnabled: Boolean(proposalMandate), projectWriteAuthorized: false as const });
 };
 export type ScientificCollaboratorConversationRequest = ReturnType<typeof prepareScientificCollaboratorConversation>;
 
@@ -151,6 +167,7 @@ export const guardScientificCollaboratorLiteratureReply = (request: ScientificCo
     knowledge: { sources: Array<{ sourceId: string; title?: string; locator?: string | null }> };
     statisticalAssessment?: ReturnType<typeof prepareConversationalDimensioning>;
     visibleConversation?: Array<{ role: string; content: string | null }>;
+    currentStudyProposal?: { dimensioning: import("./contextual-study-proposal.js").StudyProposalComposition["dimensioning"] } | null;
   };
   const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR");
   const sentences = fold(reply).split(/(?<=[.!?])\s+|\n+/u);
@@ -182,6 +199,9 @@ export const guardScientificCollaboratorLiteratureReply = (request: ScientificCo
         && packet.visibleConversation?.some(turn => turn.role === "USER" && turn.content !== null
           && fold(turn.content).includes(count[0]!));
       if (reportedUserCount) return false; // Feasibility input, not a powered result.
+      const currentCandidateCalculation = packet.currentStudyProposal?.dimensioning.some(s => s.calculation
+        && !count[2] && Number(count[1]) === (count[4] ? s.calculation.totalSampleSize : s.calculation.recruitedPerStratum));
+      if (currentCandidateCalculation) return false;
       return Boolean(count[2]) || !calculation
         || Number(count[1]) !== (count[4] ? calculation.totalSampleSize : calculation.adjustedPerGroup)
         || count[3] === "tranche";
@@ -204,9 +224,27 @@ export type ScientificConversationReceipt = Readonly<{
   contextDigest: string;
   projectWrites: 0;
   projectWriteAuthorized: false;
+  studyProposal?: import("./contextual-study-proposal.js").StudyProposalComposition;
+  studyProposalStatus?: "AVAILABLE" | "MISSING" | "NOT_REQUESTED";
 }>;
+export const scientificCollaboratorInstruction = (request: ScientificCollaboratorConversationRequest) => request.proposalEnabled
+  ? SCIENTIFIC_COLLABORATOR_INSTRUCTION.replace("Réponds directement en texte natif, sans enveloppe JSON, contrat auxiliaire, labels internes, préambule administratif ni synthèse complète répétée.", "La réponse visible reste du texte naturel ; les candidats internes restent non adoptés.")
+    .replace("N’invente aucune donnée, valeur, seuil, effectif, timing, décision ou préférence utilisateur.", "N'invente aucune donnée constatée, preuve, décision ou préférence utilisateur. Les paramètres et temporalités proposés restent des hypothèses de travail explicitement non adoptées, avec provenance et limites.")
+    .replace("La capacité existante compare deux moyennes de groupes indépendants à allocation égale par approximation normale ; elle ne dimensionne pas implicitement plusieurs tranches, une tendance, une régression ou une analyse omnibus.", "Le calculateur existant prend désormais aussi en charge les scénarios F de régression linéaire et d'ANOVA à groupes équilibrés. Aucun scénario numérique ou hypothèse de modèle n'est adopté implicitement.")
+    + "\n" + STUDY_PROPOSAL_MANDATE + `\ncontextDigest=${request.contextDigest}`
+  : JSON.parse(request.context).currentStudyProposal
+    ? SCIENTIFIC_COLLABORATOR_INSTRUCTION.replace("La capacité existante compare deux moyennes de groupes indépendants à allocation égale par approximation normale ; elle ne dimensionne pas implicitement plusieurs tranches, une tendance, une régression ou une analyse omnibus.", "Les scénarios déterministes de currentStudyProposal.dimensioning prennent en charge l'ANOVA et la régression linéaire, avec leurs hypothèses, allocations et limites explicites. Utilise ces calculs actuels pour expliquer les conséquences des choix confirmés ; les effectifs et hypothèses restent proposés, jamais adoptés implicitement. N'annonce aucun autre effectif calculé.")
+    : SCIENTIFIC_COLLABORATOR_INSTRUCTION;
+
+export const readScientificCollaboratorReply = (request: ScientificCollaboratorConversationRequest, raw: string) => {
+  if (!request.proposalEnabled) return { reply: raw, proposal: null };
+  // A missing auxiliary carrier remains observable, never fabricated.
+  if (!raw.trimStart().startsWith("{")) return { reply: raw, proposal: null };
+  const parsed = contextualStudyProposalSchema.parse(JSON.parse(raw));
+  return { reply: parsed.reply, proposal: parsed };
+};
 export const buildScientificCollaboratorPayload = (request: ScientificCollaboratorConversationRequest) => ({
-  systemInstruction: { parts: [{ text: SCIENTIFIC_COLLABORATOR_INSTRUCTION }] },
+  systemInstruction: { parts: [{ text: scientificCollaboratorInstruction(request) }] },
   contents: [{ role: "user", parts: [{ text: request.context }] }],
-  generationConfig: { maxOutputTokens: 2200, responseMimeType: "text/plain" },
+  generationConfig: { maxOutputTokens: request.proposalEnabled ? 12000 : 2200, responseMimeType: request.proposalEnabled ? "application/json" : "text/plain" },
 });

@@ -184,7 +184,8 @@ export const recognizeCurrentProjectDirection = (
     || new RegExp(`^(?:(?:finalement|en fait)\\s+)?(?:(?:(?:c est|d accord|ok|garde)\\b.{0,120}\\bmais)\\s+)?${editVerb}\\b`, "u").test(command)
     || new RegExp(`\\b(?:je|nous|on)\\s+${editVerb}\\b`, "u").test(command);
   const boundedPreference = /\b(?:je|nous)\s+(?:prefererais|prefererions)\s+(?:plutot\s+)?(?:[a-z]\s*[+-]?\s*\d+|[-+]?\d+(?:[.,]\d+)?(?:\s*[%°a-z]+)?)(?:\b|$)/u.test(command);
-  return replacement || boundedPreference ? "MODIFY_EXISTING_PROJECT_OBJECT" : "NONE";
+  const deliberateRevision = !interrogative && /\b(?:finalement|au lieu de|desormais)\b.{0,120}\b(?:je|nous|on)\s+(?:veux|voulons|souhaite|souhaitons|garde|gardons|prefere|preferons)\b/u.test(command);
+  return replacement || boundedPreference || deliberateRevision ? "MODIFY_EXISTING_PROJECT_OBJECT" : "NONE";
 };
 
 /**

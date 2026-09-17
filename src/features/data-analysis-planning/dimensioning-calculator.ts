@@ -1,5 +1,124 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 
+/** Prospective scenarios owned by BIOSTATISTICS. f is Cohen's f for ANOVA;
+ * fSquared is the incremental explained/unexplained variance for regression.
+ * Quotas do not turn a regression into an omnibus comparison. */
+export type FDimensioningInput = {
+  method: "ONE_WAY_ANOVA" | "LINEAR_REGRESSION";
+  alpha: number; power: number; effectSize: number;
+  groups: number; testedPredictors: number; totalPredictors: number;
+  allocation: "BALANCED_GROUPS" | "UNSTRATIFIED" | "BALANCED_QUOTAS";
+  quotaStrata: number;
+  anticipatedNonEvaluableRate: number;
+  visits: "SINGLE" | "REPEATED";
+  nonEvaluableReasons: string[];
+  assumptions: Array<{ parameter: string; value: number; provenance: "PROVISIONAL_ASSUMPTION" | "USER_ASSUMPTION" | "EVIDENCE_SUPPORTED_PROPOSAL"; sourceRef: string }>;
+};
+
+// Lanczos log-gamma and continued-fraction incomplete beta. Numerical work is
+// deliberately local to the existing calculator, with no provider dependency.
+const logGamma = (z: number): number => {
+  const coefficients = [676.5203681218851, -1259.1392167224028, 771.3234287776531,
+    -176.6150291621406, 12.507343278686905, -0.13857109526572012, 9.984369578019572e-6, 1.5056327351493116e-7];
+  if (z < 0.5) return Math.log(Math.PI) - Math.log(Math.sin(Math.PI * z)) - logGamma(1 - z);
+  z -= 1; let x = 0.9999999999998099;
+  coefficients.forEach((c, i) => { x += c / (z + i + 1); });
+  const t = z + 7.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+};
+const betaFraction = (a: number, b: number, x: number) => {
+  const floor = 1e-300;
+  const protect = (v: number) => Math.abs(v) < floor ? floor : v;
+  let c = 1, d = 1 / protect(1 - (a + b) * x / (a + 1)), h = d;
+  for (let m = 1; m <= 1000; m += 1) {
+    const m2 = 2 * m;
+    for (const aa of [m * (b - m) * x / ((a + m2 - 1) * (a + m2)),
+      -(a + m) * (a + b + m) * x / ((a + m2) * (a + m2 + 1))]) {
+      d = 1 / protect(1 + aa * d); c = protect(1 + aa / c);
+      const delta = d * c; h *= delta;
+      if (aa < 0 && Math.abs(delta - 1) < 3e-14) return h;
+    }
+  }
+  throw new Error("DIMENSIONING_BETA_DID_NOT_CONVERGE");
+};
+const regularizedBeta = (x: number, a: number, b: number): number => {
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const front = Math.exp(logGamma(a + b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log1p(-x));
+  return x < (a + 1) / (a + b + 2) ? front * betaFraction(a, b, x) / a
+    : 1 - front * betaFraction(b, a, 1 - x) / b;
+};
+export const prospectiveFPower = (n: number, input: Pick<FDimensioningInput, "method" | "groups" | "testedPredictors" | "totalPredictors" | "alpha" | "effectSize">) => {
+  const numeratorDf = input.method === "ONE_WAY_ANOVA" ? input.groups - 1 : input.testedPredictors;
+  const denominatorDf = input.method === "ONE_WAY_ANOVA" ? n - input.groups : n - input.totalPredictors - 1;
+  if (numeratorDf <= 0 || denominatorDf <= 0) throw new Error("DIMENSIONING_DEGREES_OF_FREEDOM_INVALID");
+  // Critical central F quantile in its beta coordinate; this coordinate remains
+  // unchanged in every Poisson term of the noncentral distribution.
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 80; i += 1) {
+    const mid = (lo + hi) / 2;
+    if (regularizedBeta(mid, numeratorDf / 2, denominatorDf / 2) < 1 - input.alpha) lo = mid; else hi = mid;
+  }
+  const x = (lo + hi) / 2;
+  const lambda = n * (input.method === "ONE_WAY_ANOVA" ? input.effectSize ** 2 : input.effectSize);
+  const mean = lambda / 2;
+  if (!Number.isFinite(mean) || mean > 10000) throw new Error("DIMENSIONING_NUMERICAL_SCOPE_EXCEEDED");
+  if (mean === 0) return input.alpha;
+  // Start at the Poisson mode to avoid exp(-lambda/2) underflow.
+  const mode = Math.floor(mean), weight = Math.exp(-mean + mode * Math.log(mean) - logGamma(mode + 1));
+  const tail = (j: number) => regularizedBeta(1 - x, denominatorDf / 2, numeratorDf / 2 + j);
+  let power = weight * tail(mode), mass = weight, down = weight, up = weight;
+  for (let step = 1; step <= 2000; step += 1) {
+    if (step <= mode) { down *= (mode - step + 1) / mean; power += down * tail(mode - step); mass += down; }
+    up *= mean / (mode + step); power += up * tail(mode + step); mass += up;
+    if (step > Math.sqrt(mean) * 10 + 10 && up < 1e-15 && (step > mode || down < 1e-15)) break;
+  }
+  if (Math.abs(mass - 1) > 1e-10) throw new Error("DIMENSIONING_POISSON_DID_NOT_CONVERGE");
+  return Math.max(0, Math.min(1, power));
+};
+
+export const calculateFDimensioning = (input: FDimensioningInput) => {
+  if (![input.alpha, input.power, input.effectSize, input.anticipatedNonEvaluableRate].every(Number.isFinite)
+    || input.alpha <= 0 || input.alpha >= 0.5 || input.power <= input.alpha || input.power >= 1
+    || input.effectSize <= 0 || input.anticipatedNonEvaluableRate < 0 || input.anticipatedNonEvaluableRate >= 1)
+    throw new Error("DIMENSIONING_PARAMETERS_INVALID");
+  if (![input.groups, input.testedPredictors, input.totalPredictors, input.quotaStrata].every(Number.isSafeInteger)
+    || input.groups < 2 || input.groups > 100 || input.testedPredictors < 1 || input.totalPredictors < input.testedPredictors
+    || input.totalPredictors > 100 || input.quotaStrata < 1 || input.quotaStrata > 100)
+    throw new Error("DIMENSIONING_MODEL_INVALID");
+  if (input.method === "ONE_WAY_ANOVA" && input.allocation !== "BALANCED_GROUPS"
+    || input.method === "LINEAR_REGRESSION" && input.allocation === "BALANCED_GROUPS") throw new Error("DIMENSIONING_ALLOCATION_INVALID");
+  if (input.visits === "SINGLE" && input.nonEvaluableReasons.some(r => /LOST_TO_FOLLOW_UP|perte.*suivi/iu.test(r)))
+    throw new Error("DIMENSIONING_SINGLE_VISIT_NOT_LOST_TO_FOLLOW_UP");
+  if (input.anticipatedNonEvaluableRate > 0 && !input.nonEvaluableReasons.length) throw new Error("DIMENSIONING_NON_EVALUABLE_REASONS_REQUIRED");
+  const parameters: Record<string, number> = { alpha: input.alpha, power: input.power, effectSize: input.effectSize,
+    anticipatedNonEvaluableRate: input.anticipatedNonEvaluableRate };
+  for (const [parameter, value] of Object.entries(parameters)) {
+    const assumption = input.assumptions.find(a => a.parameter === parameter);
+    if (!assumption?.sourceRef.trim() || assumption.value !== value) throw new Error(`DIMENSIONING_ASSUMPTION_REQUIRED:${parameter}`);
+  }
+  const strata = input.allocation === "BALANCED_GROUPS" ? input.groups : input.allocation === "BALANCED_QUOTAS" ? input.quotaStrata : 1;
+  const minimum = (input.method === "ONE_WAY_ANOVA" ? input.groups + 1 : input.totalPredictors + 2);
+  let lo = Math.ceil(minimum / strata), hi = lo;
+  while (prospectiveFPower(hi * strata, input) < input.power) {
+    hi *= 2;
+    if (hi * strata > 1000000) throw new Error("DIMENSIONING_SAMPLE_SIZE_SCOPE_EXCEEDED");
+  }
+  while (lo < hi) { const mid = Math.floor((lo + hi) / 2); if (prospectiveFPower(mid * strata, input) >= input.power) hi = mid; else lo = mid + 1; }
+  const evaluableTotal = lo * strata, recruitedPerStratum = Math.ceil(lo / (1 - input.anticipatedNonEvaluableRate));
+  if (!Number.isSafeInteger(recruitedPerStratum * strata)) throw new Error("DIMENSIONING_RECRUITMENT_SCOPE_EXCEEDED");
+  return Object.freeze({ owner: "BIOSTATISTICS" as const, calculationId: `dimensioning:${logicalDigest(input)}`,
+    methodVersion: "NONCENTRAL_F_1", methodIdentity: input.method,
+    effectSizeMeaning: input.method === "ONE_WAY_ANOVA" ? "COHEN_F" : "INCREMENTAL_COHEN_F_SQUARED",
+    inputs: structuredClone(input), evaluableTotal, evaluablePerStratum: lo, recruitedPerStratum,
+    totalSampleSize: recruitedPerStratum * strata, strata, achievedPower: prospectiveFPower(evaluableTotal, input),
+    allocation: input.allocation, roundingPolicy: "CEILING_WITHIN_EACH_GROUP_OR_QUOTA_AFTER_NON_EVALUABILITY",
+    status: "CALCULATED_SCENARIO_NOT_PROJECT_DECISION", projectWriteAuthorized: false as const,
+    limitations: ["Independent observations; normal errors; common residual variance; prespecified F test.",
+      "No guarantee for nonlinearity, unequal variances, clustering, missing-not-at-random or multiplicity.",
+      "Numerical hypotheses are not literature evidence, recruitment decisions or Project adoption."] });
+};
+export type FDimensioningCandidate = ReturnType<typeof calculateFDimensioning>;
+
 export const TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION = "1.0.0" as const;
 export const TWO_GROUP_CONTINUOUS_DIMENSIONING_METHOD = "TWO_GROUP_CONTINUOUS_NORMAL_APPROXIMATION_EQUAL_ALLOCATION" as const;
 

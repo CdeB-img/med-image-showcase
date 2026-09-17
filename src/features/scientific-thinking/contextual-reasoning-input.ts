@@ -12,6 +12,7 @@ export const prepareStandardContextualReasoningRequest = (input: {
   contribution: ScientificInterpretationContributionEnvelope;
   turns: readonly ScientificInterpretationTurn[];
   sessionId: string;
+  candidateRecomputation?: boolean;
 }) => {
   const projection = projectScientificContributionToV1IfAllowed(input.contribution).projection;
   if (!projection) return null;
@@ -19,7 +20,7 @@ export const prepareStandardContextualReasoningRequest = (input: {
   // an isolated administrative visit/occurrence receipt keeps its existing path.
   const scientificTypes = new Set(["SCIENTIFIC_INTENT", "SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS", "PHENOMENON",
     "SCIENTIFIC_OBJECT", "CONDITION", "CLINICAL_CONDITION", "POPULATION", "IMAGING_MODALITY", "IMAGING_METHOD", "EXPOSURE"]);
-  if (!input.contribution.scientificContent.candidateObjects.some(item => scientificTypes.has(item.proposedType))) return null;
+  if (!input.candidateRecomputation && !input.contribution.scientificContent.candidateObjects.some(item => scientificTypes.has(item.proposedType))) return null;
   const latest = [...input.turns].reverse().find(t => t.role === "USER");
   if (!latest || input.contribution.source.originalRequest !== latest.content) throw new Error("ST_CONTEXT_INPUT_NOT_CURRENT");
   const { validatedIntent: intent, scientificSessionContext: context } = projection;

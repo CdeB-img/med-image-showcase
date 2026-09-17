@@ -1,4 +1,5 @@
 import { decodeSessionStorage } from "./session-storage-codec";
+import { rehydrateStudyProposal } from "./study-proposal-standard";
 import type {
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
@@ -212,6 +213,8 @@ export type ProductBridgeTrace = {
 };
 
 export type FunctionalResetSession = {
+  /** Optional UX/runtime composition; never an additional Project aggregate. */
+  studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
   contractVersion: "2.0.0";
@@ -456,6 +459,7 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
     }
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
+      studyProposal: rehydrateStudyProposal(session.studyProposal, session.project),
       retainedContributionCandidates: session.retainedContributionCandidates ?? [],
       observabilityInteraction: session.observabilityInteraction ?? null,
       imagingInteraction: session.imagingInteraction ?? null,

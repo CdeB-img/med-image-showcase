@@ -1,8 +1,10 @@
+import { rehydrateStudyProposal, planStudyProposalRecomputation, assertScopedStudyProposalRecomputation, completeStudyProposalRecomputation } from "../src/features/protocol-designer/functional-reset/study-proposal-standard.js";
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
-import { buildCurrentTurnNavigation } from "../src/features/query-navigation/current-turn-navigation.js";
+import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../src/features/query-navigation/current-turn-navigation.js";
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
-import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, SCIENTIFIC_COLLABORATOR_INSTRUCTION, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
+import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, scientificCollaboratorInstruction, readScientificCollaboratorReply, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
+import { hasSufficientStudyIntent, acceptContextualStudyProposal } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -421,10 +423,17 @@ export const executeProtocolDesignerBridge = async (input: {
   let governedRealization: ReturnType<typeof realizeGovernedConversation> | undefined;
   let howRequestedAt: string | null = null;
   let scientificConversation: ScientificConversationReceipt | undefined;
+  let nativeScientificReply: string | null = null;
+  const assistantTurnRef = `noxia-turn:${crypto.randomUUID()}`;
   let scientificGuardReply: string | null = null;
   try {
     const preparedCandidate = persistentExtraction.contribution
       ? prepareResearchProjectContributionCandidate(persistentExtraction.contribution, request.currentProject) : null;
+    const previousProposal = rehydrateStudyProposal(request.studyProposalContext, request.currentProject);
+    const recomputation = previousProposal && persistentExtraction.validation?.valid === true
+      && persistentExtraction.contribution?.scientificContent.candidateObjects.length
+      ? planStudyProposalRecomputation(previousProposal, persistentExtraction.contribution) : null;
+    const proposalEligible = Boolean(recomputation) || persistentExtraction.validation?.valid === true && hasSufficientStudyIntent(persistentExtraction.contribution);
     currentTurnNavigation = buildCurrentTurnNavigation({
       sourceTurnRef: latestUser.turnId,
       sourceText: request.languageBoundary?.turnProjections.find((turn) => turn.turnId === latestUser.turnId)?.frenchWorkingText ?? latestUser.content,
@@ -435,6 +444,7 @@ export const executeProtocolDesignerBridge = async (input: {
       boundedReferentContext: request.boundedReferentContext,
       boundedInteraction: request.boundedInteraction,
       requestKind: request.requestKind,
+      substantiveProposalEligible: proposalEligible,
     });
     const reviewableInitialCandidate = request.requestKind !== "POST_ADOPTION_QRY_CONTINUATION"
       && request.currentProject === null
@@ -447,13 +457,16 @@ export const executeProtocolDesignerBridge = async (input: {
       || ["CLARIFY_CANDIDATE_REFERENCE", "USER_CONFIRMS_CURRENT_CANDIDATE", "USER_REFUSES_CURRENT_CANDIDATE"]
         .includes(request.boundedInteraction?.kind ?? "");
     if (!requiresGovernedLifecycle && !canaryExtractionStopped) {
-      const owners = reviewableInitialCandidate && persistentExtraction.contribution
+      const owners = (!recomputation && reviewableInitialCandidate || recomputation?.affectedOwners.includes("IMAGING")) && persistentExtraction.contribution
         ? prepareStandardContextualReasoningRequest({ contribution: persistentExtraction.contribution,
-          turns: request.conversation.turns, sessionId: observationContext.sessionId ?? request.conversation.conversationId }) : null;
-      const collaborator = prepareScientificCollaboratorConversation(request, owners?.request);
+          turns: request.conversation.turns, candidateRecomputation: Boolean(recomputation), sessionId: observationContext.sessionId ?? request.conversation.conversationId }) : null;
+      const collaborator = prepareScientificCollaboratorConversation(request, owners?.request,
+        proposalEligible
+          ? { ...(recomputation ? { recomputation } : {}), qryAction: currentTurnNavigation.selection.selected?.actionCategory ?? "BUILD_OR_REVISE_OBJECT",
+            ownerContextRef: owners?.request.requestRef ?? null } : null);
       scientificConversation = { owner: "SCIENTIFIC_THINKING", responseOwner: "DETERMINISTIC", outcome: "DETERMINISTIC_FALLBACK",
         fallbackReason: "PROVIDER_UNAVAILABLE", contextDigest: collaborator.contextDigest,
-        providerInput: { systemInstruction: SCIENTIFIC_COLLABORATOR_INSTRUCTION, context: collaborator.context },
+        providerInput: { systemInstruction: scientificCollaboratorInstruction(collaborator), context: collaborator.context },
         projectWrites: 0, projectWriteAuthorized: false };
       try {
         if (input.apiKey?.trim()) {
@@ -463,8 +476,40 @@ export const executeProtocolDesignerBridge = async (input: {
           conversation = await executeNaturalConversation({ ...request, scientificCollaboratorRequest: collaborator },
             input.apiKey, input.fetchImpl, conversationModel, { context: observationContext,
               purpose: "CONVERSATION_REALIZATION", reasoningEffort: null, retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
-          scientificConversation = { ...scientificConversation, responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null };
-          const guarded = guardScientificCollaboratorLiteratureReply(collaborator, conversation.value);
+          const realized = readScientificCollaboratorReply(collaborator, conversation.value);
+          const guarded = guardScientificCollaboratorLiteratureReply(collaborator, realized.reply);
+          let studyProposal;
+          if (guarded.accepted && realized.proposal) {
+            const packet = JSON.parse(collaborator.context);
+            const applicableEvidenceRefs = [
+              ...packet.knowledge.assertions.flatMap((a: { stableId: string; revision: string }) => [a.stableId, a.revision]),
+              ...packet.knowledge.documentaryStatements.map((s: { statementId: string }) => s.statementId),
+              ...packet.knowledge.evidence.map((e: { evidenceId: string }) => e.evidenceId),
+              ...packet.knowledge.sources.map((s: { sourceId: string }) => s.sourceId)].filter(Boolean);
+            if (previousProposal && recomputation && persistentExtraction.contribution) assertScopedStudyProposalRecomputation(previousProposal, realized.proposal, persistentExtraction.contribution);
+            studyProposal = acceptContextualStudyProposal(realized.proposal, { ...(recomputation ? {
+              scopedAtomRefs: [...recomputation.affectedAtomRefs, ...realized.proposal.atoms.filter(a => a.userChangeRefs?.length || a.dependsOn.some(r => recomputation.affectedAtomRefs.includes(r))).map(a => a.ref)],
+              previousOwnerReceipts: previousProposal!.ownerReceipts } : {}), contextDigest: collaborator.contextDigest,
+              sourceTurnRef: collaborator.sourceTurnRef, sourceResponseRef: assistantTurnRef,
+              sourceProject: request.currentProject ? { projectId: request.currentProject.projectId,
+                versionId: request.currentProject.versionId, projectDigest: request.currentProject.projectDigest } : null,
+              applicableEvidenceRefs, sourceText: latestUser.content, ownerContext: owners?.request,
+              userAssumptions: packet.statisticalAssessment.assumptions.filter((a: { origin: string }) => a.origin === "USER_DECLARED_ASSUMPTION")
+                .map((a: { parameter: string; value: number; sourceTurnRef: string }) => ({
+                  parameter: a.parameter === "twoSidedAlpha" ? "alpha" : a.parameter,
+                  value: a.value, sourceRef: `${a.sourceTurnRef}:${a.parameter}` })) });
+            if (previousProposal && recomputation && persistentExtraction.contribution) studyProposal = completeStudyProposalRecomputation(previousProposal, studyProposal, persistentExtraction.contribution);
+            studyProposal = { ...studyProposal, qrySelection: selectStudyProposalArbitrations({ composition: studyProposal, navigation: currentTurnNavigation }) };
+            for (const text of [...realized.proposal.atoms.flatMap(a => [a.content, a.rationale]),
+              ...realized.proposal.arbitrations.flatMap(a => [a.rationale, ...a.options.flatMap(o => [o.label, o.benefits, o.limits, o.consequences])]),
+              realized.proposal.recruitmentNotice, realized.proposal.participantQuestionnaireIntroduction]) {
+              if (!guardScientificCollaboratorLiteratureReply(collaborator, text).accepted) throw new Error("STUDY_PROPOSAL_UNSUPPORTED_ATTRIBUTION");
+            }
+          }
+          nativeScientificReply = realized.reply;
+          scientificConversation = { ...scientificConversation, responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null,
+            studyProposalStatus: studyProposal ? "AVAILABLE" : collaborator.proposalEnabled ? "MISSING" : "NOT_REQUESTED",
+            ...(studyProposal ? { studyProposal } : {}) };
           if (!guarded.accepted) {
             scientificGuardReply = guarded.visibleReply;
             scientificConversation = { ...scientificConversation, responseOwner: "DETERMINISTIC",
@@ -529,8 +574,8 @@ export const executeProtocolDesignerBridge = async (input: {
     message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.", provider: null,
   };
   const assistantReply = scientificGuardReply ?? (scientificConversation?.responseOwner === "LLM"
-    ? conversation!.value : governedRealization?.assistantReply ?? "");
-  const assistantTurn = { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA" as const, content: assistantReply, createdAt };
+    ? nativeScientificReply ?? conversation!.value : governedRealization?.assistantReply ?? "");
+  const assistantTurn = { turnId: assistantTurnRef, role: "NOXIA" as const, content: assistantReply, createdAt };
   return {
     status: 200,
     body: {

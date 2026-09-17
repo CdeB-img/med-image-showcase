@@ -24,7 +24,7 @@ import type {
 import type { GovernedRealizationContent, GovernedVisibleObligation } from "./governed-conversation-realization.js";
 import type { CurrentProjectImpactProjection } from "./current-project-context.js";
 import { canonicalFrenchTemporalUnit } from "../research-project-construction/temporal-presentation.js";
-import { isOnlyConversationStyleFeedback, isUnqualifiedWholeCandidateDecisionWithStyleFeedback, readNaturalCandidateDecision } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
+import { classifyNaturalConversationActs, isOnlyConversationStyleFeedback, isUnqualifiedWholeCandidateDecisionWithStyleFeedback, readNaturalCandidateDecision } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
 
 /** Explicit consumer scope, not a recency rule and not a new result store. */
 export type CurrentNavigationOwnerResultRef = Readonly<{
@@ -486,6 +486,11 @@ const naturalDecisionInteraction = (source: string, context: BoundedConversation
   const scopedRefusal = /^je retire (.+?),? le reste reste comme avant[.!]?$/u.exec(text);
   if (!act && !partial && !optionSelection && !partition && !scopedRefusal) return undefined;
   if (act && /^qu[e']\b/u.test(act.remainder)) return undefined;
+  // A refusal followed by new scientific information is a correction to
+  // interpret, never a whole-candidate refusal or an ambiguous yes/no click.
+  if (act?.act === "REFUSE" && act.qualified && classifyNaturalConversationActs(source).includes("NEW_INFORMATION")) {
+    return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: Object.freeze([]) });
+  }
   const clarify = (clarificationText: string): BoundedConversationInteraction => Object.freeze({
     kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE", clarificationText,
   });

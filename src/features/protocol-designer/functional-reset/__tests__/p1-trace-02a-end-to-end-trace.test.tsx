@@ -231,7 +231,7 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    await screen.findByRole("heading", { name: "À enregistrer dans le projet" });
+    await screen.findByRole("heading", { name: "Compréhension de travail" });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();

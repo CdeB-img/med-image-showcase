@@ -6,6 +6,7 @@ import { buildQueryNavigationContext } from "./adapters.js";
 import { makeQueryNavigationId } from "./canonical.js";
 import type { NextActionCandidate, QueryNavigationSourceState } from "./contracts.js";
 import { PD009_ACTION_LABELS } from "./contracts.js";
+import type { StudyProposalComposition } from "../scientific-thinking/contextual-study-proposal.js";
 import { selectNextAction } from "./engine.js";
 import { buildGovernedConversationEnvelope, buildGovernedConversationLocalFallback } from "./governed-conversation-realization.js";
 import type {
@@ -135,6 +136,50 @@ export const currentCandidateSelectedScopeEvidence = (input: {
   };
 };
 
+/** Candidate arbitrations compete in the existing PD-009 selector. Missing
+ * fields are not action candidates when reversible options are already viable. */
+export const selectStudyProposalArbitrations = (input: {
+  composition: StudyProposalComposition;
+  navigation: ReturnType<typeof buildCurrentTurnNavigation>;
+}) => {
+  const template = input.navigation.selection.candidates[0];
+  if (!template) throw new Error("QRY_STUDY_PROPOSAL_CONTEXT_REQUIRED");
+  const candidates: NextActionCandidate[] = input.composition.proposal.arbitrations.map(arbitration => ({
+    ...template, candidateId: arbitration.ref, actionCategory: "REQUEST_HUMAN_DECISION",
+    actionLabel: PD009_ACTION_LABELS.REQUEST_HUMAN_DECISION,
+    targetRef: input.composition.proposalRef, sourceRefs: [input.composition.proposalRef, input.composition.digest, arbitration.ref],
+    knownOptionRefs: arbitration.options.filter(o => !input.composition.unavailableOptionRefs.includes(o.ref)
+      && !o.atomRefs.every(r => input.composition.adoptedAtomRefs.includes(r))).map(o => o.ref),
+    navigationNeedRefs: [], affectedDecisionRefs: [arbitration.ref], affectedBranchRefs: arbitration.affectedBranches,
+    eligibility: input.composition.state !== "CURRENT" || arbitration.options.every(o =>
+      input.composition.unavailableOptionRefs.includes(o.ref) || o.atomRefs.every(r => input.composition.adoptedAtomRefs.includes(r))) ? "INELIGIBLE" : "ELIGIBLE",
+    eligibilityReasons: ["VISIBLE_OPTIONS_AVAILABLE_BEFORE_CLARIFICATION"],
+    informationValue: { ...template.informationValue, discrimination: arbitration.material ? "SEPARATES_ACTIVE_OPTIONS" : "NO_DECISION_EFFECT",
+      impactScope: arbitration.affectedBranches.length > 1 ? "CROSS_BRANCH" : "LOCAL",
+      irreversibility: arbitration.reversible ? "LOW" : "HIGH", reducibility: "AVAILABLE_NOW" },
+    explanation: arbitration.rationale,
+    impacts: [{ impactId: `proposal-impact:${arbitration.ref}`, candidateRef: arbitration.ref, branchRefs: arbitration.affectedBranches,
+      decisionRefs: [arbitration.ref], gateRefs: [], kind: "DOWNSTREAM", consequence: arbitration.rationale }],
+  }));
+  // A changed primary model with no supported calculation is material to both
+  // analysis and recruitment. It competes through the existing PD-009 selector.
+  for (const scenario of input.composition.dimensioning.filter(s => s.role === "PRIMARY" && s.status === "BLOCKED")) {
+    const source = input.composition.proposal.dimensioningScenarios.find(s => s.ref === scenario.ref)!;
+    candidates.push({ ...template, candidateId: `dimensioning-review:${scenario.ref}`, actionCategory: "BUILD_OR_REVISE_OBJECT",
+      actionLabel: PD009_ACTION_LABELS.BUILD_OR_REVISE_OBJECT, owner: "BIOSTATISTICS", targetRef: source.analysisAtomRef ?? scenario.ref,
+      sourceRefs: [input.composition.proposalRef, input.composition.digest, scenario.ref], knownOptionRefs: [], navigationNeedRefs: [],
+      affectedDecisionRefs: [source.analysisAtomRef ?? scenario.ref], affectedBranchRefs: ["ANALYSIS", "DIMENSIONING", "RECRUITMENT"],
+      eligibility: input.composition.state === "CURRENT" ? "ELIGIBLE" : "INELIGIBLE", eligibilityReasons: ["PRIMARY_MODEL_REQUIRES_COMPATIBLE_DIMENSIONING"],
+      informationValue: { ...template.informationValue, blocking: "BLOCKS_CURRENT_BRANCH", discrimination: "MAY_CHANGE_DECISION",
+        impactScope: "CROSS_BRANCH", reducibility: "AVAILABLE_NOW", irreversibility: "LOW" },
+      explanation: "Le modèle d’analyse proposé nécessite un dimensionnement compatible avant de retenir un effectif.",
+      impacts: [{ impactId: `dimensioning-review:${scenario.ref}`, candidateRef: scenario.ref, decisionRefs: [source.analysisAtomRef ?? scenario.ref],
+        branchRefs: ["ANALYSIS", "DIMENSIONING", "RECRUITMENT"], gateRefs: [], kind: "DOWNSTREAM", consequence: scenario.reason ?? "Calcul incompatible" }],
+    });
+  }
+  return selectNextAction(input.navigation.selection.context, candidates);
+};
+
 const emptyState = (): QueryNavigationSourceState => ({
   projectUnknowns: [], projectAmbiguities: [], projectContradictions: [], dataNeeds: [],
   planningDecisionRequirements: [], validationFindings: [], validationHumanReviews: [],
@@ -158,6 +203,7 @@ export const buildCurrentTurnNavigation = (input: {
   boundedReferentContext?: BoundedConversationReferentContext;
   boundedInteraction?: BoundedConversationInteraction;
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
+  substantiveProposalEligible?: boolean;
 }) => {
   const candidate = input.validation?.valid && !input.validation.blocks.length
     && input.candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION"
@@ -229,7 +275,9 @@ export const buildCurrentTurnNavigation = (input: {
   const isAsk = !candidate && Boolean(legacyGovernedAsk);
   const selectedInformationNeedRef = isAsk
     ? governed?.selected.navigationNeedRefs[0] ?? input.preProjectNavigation?.selectedInformationNeedRef ?? null : null;
-  const purpose = candidate
+  const purpose = input.substantiveProposalEligible && candidate
+    ? "Construire une stratégie de travail substantielle, réversible et non adoptée, avec alternatives et impacts ; produire les aperçus candidats possibles avant de demander les informations encore absentes. Réserver les questions aux arbitrages qui changent réellement les branches."
+    : candidate
     ? objectives.length
       ? `Proposer une structuration réversible des questions et objectifs explicitement représentés : ${content.map((item) => item.text).join(" ; ")}. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.`
       : relations.length
@@ -280,6 +328,9 @@ export const buildCurrentTurnNavigation = (input: {
     candidate, selected: native, informationNeedScopes: currentActionToConsider?.informationNeedScopes ?? [],
   }) : { affected: [], unknownScopeRefs: [], projectWriteAuthorized: false as const, needResolutionDeclared: false as const };
   const excludedNativeReasons: string[] = [];
+  if (input.substantiveProposalEligible && candidate && native?.actionCategory === "CLARIFY_BY_ADAPTIVE_EXCHANGE") {
+    excludedNativeReasons.push("SUFFICIENT_INTENT_PROPOSE_REVERSIBLE_OPTIONS_BEFORE_INTAKE");
+  }
   if (native?.actionCategory === "CLARIFY_BY_ADAPTIVE_EXCHANGE") {
     if (currentCandidateScopeEvidence.affected.length) excludedNativeReasons.push("CURRENT_CANDIDATE_AFFECTS_SELECTED_SCOPE_REQUIRES_REVIEW");
     if ([native.targetRef, ...native.navigationNeedRefs].some((ref) => alreadyProvidedInformationRefs.includes(ref))) excludedNativeReasons.push("INFORMATION_ALREADY_EXPLICITLY_PROVIDED");

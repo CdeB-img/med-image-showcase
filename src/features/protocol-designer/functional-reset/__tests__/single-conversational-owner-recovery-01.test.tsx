@@ -72,7 +72,8 @@ const attachTransport = (requests: ProductBridgeRequest[], replies: string[]) =>
         return new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC_N1", model: "gpt-5.6-terra", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(anchored) }] }] }));
       }
       const payload = JSON.parse(String(init!.body));
-      expect(payload.generationConfig.responseMimeType).toBe("text/plain");
+      const context = JSON.parse(payload.contents[0].parts[0].text);
+      expect(payload.generationConfig.responseMimeType).toBe(context.studyProposalMandate ? "application/json" : "text/plain");
       return nativeResponse(reply);
     });
     const result = await executeProtocolDesignerBridge({ body: { ...r, apiVersion: "1.0.0" }, apiKey: "LOCAL_SYNTHETIC", openAiApiKey: "LOCAL_SYNTHETIC",

@@ -84,6 +84,10 @@ import {
   recordFunctionalResetQueryResponse,
 } from "@/features/query-navigation";
 import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
+import StudyProposalReview from "./StudyProposalReview";
+import { buildStudyProposalSelectionContribution, selectedStudyProposalAtoms, propagateStudyProposalDecision, propagateFreeformStudyProposalDecision, requireStudyProposalReview, assertStudyProposalCurrent, projectStudyProposalDisposition } from "./study-proposal-standard";
+import { deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
+import type { StudyProposalComposition } from "../product-bridge";
 import {
   retainValidatedContributionCandidate,
   retainUndecidedContributionScope,
@@ -1936,6 +1940,7 @@ export default function ProtocolDesignerWorkspace({
         gatewayState: preparedGateway.state,
         onProviderCallRecords,
       };
+      const proposalCorrection = Boolean(session.studyProposal && recognizeCurrentProjectDirection(preparedInput.workingText, true) === "MODIFY_EXISTING_PROJECT_OBJECT");
       const currentProjectDirection = correctionMode && session.project
         ? "MODIFY_EXISTING_PROJECT_OBJECT"
         : recognizeCurrentProjectDirection(preparedInput.workingText, session.project !== null);
@@ -1953,7 +1958,7 @@ export default function ProtocolDesignerWorkspace({
         selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
       });
       const boundedInteraction = selectBoundedConversationInteraction({
-        sourceText: preparedInput.workingText, correctionMode: correctionMode || Boolean(continuedTurn), referentContext: boundedReferentContext,
+        sourceText: preparedInput.workingText, correctionMode: correctionMode || proposalCorrection || Boolean(continuedTurn), referentContext: boundedReferentContext,
       });
       const visibleProposalDecision = readNaturalCandidateDecision(preparedInput.workingText);
       const adoptsVisibleProposal = Boolean(boundedReferentContext.visibleProposal
@@ -2026,7 +2031,7 @@ export default function ProtocolDesignerWorkspace({
         previousContext,
         forceUnderstand: asksForExplanationOrRephrase,
         currentProjectAvailable: session.project !== null,
-        explicitCorrectionMode: correctionMode || Boolean(continuedTurn) || Boolean(boundedInteraction?.correctionChangeRefs?.length),
+        explicitCorrectionMode: correctionMode || proposalCorrection || Boolean(continuedTurn) || Boolean(boundedInteraction?.correctionChangeRefs?.length),
         adoptsVisibleProposal,
       });
       let entryTraceLedger = recordConversationLanguageGatewayTrace({
@@ -2382,6 +2387,7 @@ export default function ProtocolDesignerWorkspace({
         ...(preProjectNavigation ? { preProjectNavigation } : {}),
         boundedReferentContext,
         scientificDiscussionContext,
+        ...(session.studyProposal ? { studyProposalContext: session.studyProposal } : {}),
         ...(boundedInteraction ? { boundedInteraction } : {}),
         ...(session.conversationPreferences?.responseLength === "CONCISE"
           ? { conversationPresentation: { responseLength: "CONCISE" as const } }
@@ -2412,7 +2418,7 @@ export default function ProtocolDesignerWorkspace({
       // recency. Both identities remain retained; this turn presents its receipt.
       const contribution = extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-      const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      const effectiveCandidate = (!response.scientificConversation?.studyProposal || response.scientificConversation.studyProposal.recomputation) && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
       const scientificThinkingIntervention = !response.scientificConversation && !session.project && effectiveCandidate && contribution
         ? buildPreProjectScientificThinkingIntervention({
           contribution,
@@ -2446,9 +2452,9 @@ export default function ProtocolDesignerWorkspace({
         ...(!enrichedPreProjectNavigation && response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
       };
       const providerContext = response.scientificConversation?.providerInput.context ?? naturalConversationContext(realizedBridgeRequest);
-      if (effectiveCandidate && contribution) {
+      if (candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" && contribution) {
         const retained = retainValidatedContributionCandidate({
-          retained: [], contribution, candidate: effectiveCandidate,
+          retained: [], contribution, candidate,
           validation: response.persistentExtraction.validation,
           validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1",
           sourceTurnRef: userTurn.turnId, baseProject: session.project,
@@ -2735,6 +2741,8 @@ export default function ProtocolDesignerWorkspace({
         pendingMixedUserTurnRef: continuedTurn ? null : current.pendingMixedUserTurnRef,
         runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
         pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
+        studyProposal: response.scientificConversation?.studyProposal ?? (effectiveCandidate && current.studyProposal
+          ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal),
         retainedContributionCandidates: current.retainedContributionCandidates,
         entries: [...current.entries, ...responseEntries],
         bridgeTraces: [...current.bridgeTraces, {
@@ -2997,18 +3005,28 @@ export default function ProtocolDesignerWorkspace({
   const confirmContribution = async (
     contributionId: string,
     naturalDecision?: NaturalContributionDecisionContext,
+    proposalSelection?: Readonly<{ composition: StudyProposalComposition; selectedOptions: readonly string[]; selectedAtoms: readonly string[];
+      expectedDigest: string; contribution: ScientificInterpretationContributionEnvelope; candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> }>,
   ) => {
     if (busy && !naturalDecision) return false;
     if (confirmationInFlightRef.current === contributionId) return false;
-    const contribution = session.pendingContribution;
+    const contribution = proposalSelection?.contribution ?? session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return false;
-    if (!contributionHasAcknowledgedPresentation(contributionId)) return false;
+    if (proposalSelection) {
+      if (session.studyProposal?.digest !== proposalSelection.expectedDigest || proposalSelection.composition.digest !== proposalSelection.expectedDigest) return false;
+      assertStudyProposalCurrent(proposalSelection.composition, latestSessionRef.current.project);
+    } else if (!contributionHasAcknowledgedPresentation(contributionId)) return false;
     const now = new Date().toISOString();
     confirmationInFlightRef.current = contributionId;
     setBusyMessage("J’enregistre les éléments confirmés…");
     setBusy(true);
     try {
-      const reviewEntry = session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
+      const reviewEntry = proposalSelection ? { kind: "REVIEW" as const, candidate: proposalSelection.candidate, contribution,
+        traceRunId: session.bridgeTraces.find(trace => trace.turnId === proposalSelection.composition.sourceTurnRef)?.traceRunId ?? null } : session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
+      const retainedBeforeDecision = proposalSelection && naturalDecision ? markContributionCandidatePresented({
+        retained: retainOwnerReviewedCandidate(session, contribution, proposalSelection.candidate, naturalDecision.userTurn, reviewEntry?.kind === "REVIEW" ? reviewEntry.traceRunId ?? null : null),
+        candidateRef: contributionId, presentedAt: now,
+      }) : session.retainedContributionCandidates ?? [];
       const project = confirmResearchProjectContribution({
         contribution,
         current: session.project,
@@ -3027,7 +3045,7 @@ export default function ProtocolDesignerWorkspace({
           : undefined,
       });
       const settledRefs = [...(naturalDecision?.selectedChangeRefs ?? []), ...(naturalDecision?.refusedChangeRefs ?? []), ...(naturalDecision?.correctionChangeRefs ?? [])];
-      const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === contributionId);
+      const originalRecord = retainedBeforeDecision.find(record => record.candidateRef === contributionId);
       const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
         record: originalRecord, currentBefore: session.project, currentAfter: project, settledChangeRefs: settledRefs,
         decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
@@ -3087,10 +3105,14 @@ export default function ProtocolDesignerWorkspace({
         queryNavigation,
         documents,
       });
+      const updatedStudyProposal = proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
+        selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn)
+        : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution, naturalDecision?.userTurn) : session.studyProposal;
       setSession((current) => ({
         ...current,
         project,
         queryNavigation,
+        studyProposal: updatedStudyProposal,
         studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
           ? {
             ...current.studyDesignInteraction,
@@ -3156,7 +3178,7 @@ export default function ProtocolDesignerWorkspace({
         pendingContribution: remainder?.contribution ?? null,
         pendingMixedUserTurnRef: naturalDecision?.prepareRemainingTurn ? naturalDecision.userTurn.turnId : null,
         retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
-          retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId,
+          retained: proposalSelection ? retainedBeforeDecision : current.retainedContributionCandidates ?? [], candidateRef: contributionId,
           decision: project.confirmationDecision,
         }), ...(remainder ? [remainder] : [])],
         runtimeTurns: naturalDecision
@@ -3238,6 +3260,57 @@ export default function ProtocolDesignerWorkspace({
     return false;
   };
 
+  const validateStudyProposal = async (selectedOptions: readonly string[], selectedAtoms: readonly string[], expectedDigest: string) => {
+    const composition = session.studyProposal;
+    if (busy || !composition || composition.digest !== expectedDigest) return;
+    try {
+      const now = new Date().toISOString();
+      const selectedRefs = selectedStudyProposalAtoms(composition, selectedOptions, selectedAtoms);
+      const labels = composition.proposal.atoms.filter(a => selectedRefs.includes(a.ref)).map(a => a.content);
+      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: `Je valide les propositions sélectionnées : ${labels.join(" ; ")}`, createdAt: now };
+      const proposalTurn = session.runtimeTurns.find(t => t.role === "NOXIA" && t.turnId === composition.sourceResponseRef);
+      if (!proposalTurn) throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_NOT_FOUND");
+      const contribution = buildStudyProposalSelectionContribution({ composition, selectedOptionRefs: selectedOptions, selectedAtomRefs: selectedAtoms,
+        project: session.project, projectId: session.projectId, conversationId: session.conversationId, proposalTurn, selectionTurn: userTurn, createdAt: now });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
+      await confirmContribution(contribution.identity.contributionId, { userTurn, originalText: userTurn.content,
+        gatewayState: session.conversationLanguageGateway, traceLedger: session.scientificExecutionTraceLedger,
+        stylePreference: null, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs },
+      { composition, selectedOptions, selectedAtoms, expectedDigest, contribution, candidate });
+    } catch (error) {
+      const message = error instanceof Error && error.message === "STUDY_PROPOSAL_DEPENDENCY_NOT_SELECTED"
+        ? "Une proposition sélectionnée dépend d'un autre choix. Sélectionnez ce choix ou discutez une alternative ; rien n'a été enregistré."
+        : "Ces choix n'ont pas pu être enregistrés. Les propositions et le projet confirmé sont conservés.";
+      setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: message, createdAt: new Date().toISOString() }] }));
+    }
+  };
+
+  const disposeStudyProposal = (status: "REJECTED" | "DEFERRED", selectedOptions: readonly string[], selectedAtoms: readonly string[], digest: string) => {
+    const composition = session.studyProposal;
+    if (busy || !composition || composition.digest !== digest) return;
+    try {
+      const now = new Date().toISOString();
+      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: `${status === "REJECTED" ? "Je refuse" : "Je diffère"} uniquement les propositions sélectionnées.`, createdAt: now };
+      const proposalTurn = session.runtimeTurns.find(t => t.role === "NOXIA" && t.turnId === composition.sourceResponseRef);
+      if (!proposalTurn) throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_NOT_FOUND");
+      const atomRefs = selectedStudyProposalAtoms(composition, selectedOptions, selectedAtoms);
+      const contribution = buildStudyProposalSelectionContribution({ composition, selectedOptionRefs: selectedOptions, selectedAtomRefs: selectedAtoms,
+        project: session.project, projectId: session.projectId, conversationId: session.conversationId, proposalTurn, selectionTurn: userTurn, createdAt: now, disposition: status });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
+      const common = { contribution, current: session.project, authority: session.projectAuthority, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs, reviewedProjection: candidate.humanReviewProjection };
+      const decision = status === "REJECTED" ? rejectResearchProjectContribution({ ...common, rejectedAt: now, rejectionSourceRefs: [userTurn.turnId] })
+        : deferResearchProjectContribution({ ...common, deferredAt: now });
+      const feedback = status === "REJECTED" ? "Les propositions sélectionnées ne sont pas retenues. Le projet confirmé est inchangé." : "Les propositions sélectionnées sont différées. Le projet confirmé est inchangé.";
+      setSession(current => ({ ...current, studyProposal: projectStudyProposalDisposition(composition, decision, atomRefs, selectedOptions),
+        retainedContributionCandidates: recordContributionCandidateHumanDecision({ retained: markContributionCandidatePresented({
+          retained: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, null), candidateRef: contribution.identity.contributionId, presentedAt: now }),
+        candidateRef: contribution.identity.contributionId, decision }),
+        runtimeTurns: [...current.runtimeTurns, userTurn, { turnId: createTurnId(), role: "NOXIA", content: feedback, createdAt: now }],
+        entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: userTurn.content, createdAt: now },
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now }], updatedAt: now }));
+    } catch { setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: "Cette décision n'a pas été enregistrée. Le projet et les propositions sont conservés.", createdAt: new Date().toISOString() }] })); }
+  };
+
   const rejectContribution = (
     contributionId: string,
     naturalDecision?: NaturalContributionDecisionContext,
@@ -3285,6 +3358,8 @@ export default function ProtocolDesignerWorkspace({
         };
         return {
         ...current,
+        studyProposal: current.studyProposal?.recomputation?.contributionRef === contributionId
+          ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal,
         pendingContribution: remainder?.contribution ?? null,
         retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
           retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId, decision,
@@ -3921,7 +3996,9 @@ export default function ProtocolDesignerWorkspace({
                 decisionPartition={entry.decisionPartition}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
                 disabled={busy}
-                detailedUnderstanding={entry.decision?.targets.some(ref => entry.candidate?.humanReviewProjection.coveredChangeRefs.includes(ref)) ? undefined : <UnderstandingReviewCard
+                detailedUnderstanding={session.studyProposal?.recomputation?.contributionRef === entry.contribution.identity.contributionId
+                  && entry.status === "PENDING" ? <StudyProposalReview composition={session.studyProposal} project={session.project}
+                    readOnly onValidate={() => undefined} onDiscuss={() => undefined} /> : entry.decision?.targets.some(ref => entry.candidate?.humanReviewProjection.coveredChangeRefs.includes(ref)) ? undefined : <UnderstandingReviewCard
                   contribution={entry.contribution}
                   status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
                   onConfirm={() => undefined}
@@ -4041,6 +4118,9 @@ export default function ProtocolDesignerWorkspace({
             <div ref={endRef} />
           </div>
 
+          {session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
+            composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
+            onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}
             <label htmlFor="protocol-designer-message" className="sr-only">Votre message</label>

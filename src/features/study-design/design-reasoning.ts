@@ -104,3 +104,14 @@ export const acceptContextualStudyDesignProposals = (context: ReturnType<typeof 
   if (context.owner !== 'STUDY_DESIGN' || !context.contextRef || proposals.some(p => p.owner !== 'STUDY_DESIGN')) throw new Error('STUDY_DESIGN_CONTEXTUAL_HANDOFF_INVALID');
   return Object.freeze({owner:'STUDY_DESIGN' as const,contextRef:context.contextRef,proposalRefs:proposals.map(p=>p.ref),projectWrites:0 as const});
 };
+
+/** Extension of the existing pre-adoption competence: concrete, reversible
+ * strategy candidates on the shared collaborator generation. Not a design
+ * freeze or a scientific validation of provider output. */
+export const acceptStudyStrategyCandidates = (context: ReturnType<typeof buildContextualStudyDesignCompetence>,
+  atoms: readonly import("../scientific-thinking/contextual-study-proposal.js").StudyProposalAtom[]) => {
+  const areas = new Set(["DESIGN", "POPULATION", "ELIGIBILITY", "RECRUITMENT", "EXPOSURE", "TIMING", "BIASES", "PRACTICAL"]);
+  if (context.owner !== "STUDY_DESIGN" || atoms.some(a => a.owner !== "STUDY_DESIGN" || !areas.has(a.area))) throw new Error("STUDY_DESIGN_STRATEGY_HANDOFF_INVALID");
+  return { owner: "STUDY_DESIGN" as const, contextRef: context.contextRef, atomRefs: atoms.map(a => a.ref),
+    status: "CANDIDATES_NOT_ADOPTED" as const, projectWrites: 0 as const };
+};

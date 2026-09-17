@@ -1730,6 +1730,28 @@ export const rejectResearchProjectContribution = (input: {
  * It does not freeze or mutate the adopted Project; the consumer adapter may only use it
  * to satisfy the historical PRJ-001 document handoff contract for this immutable snapshot.
  */
+/** Defer only the presented native candidate scope. No canonical write. */
+export const deferResearchProjectContribution = (input: {
+  contribution: Readonly<ScientificInterpretationContributionEnvelope>;
+  current: Readonly<ResearchProjectOwnerProjection> | null;
+  authority: ResearchProjectOwnerAuthority; deferredAt: string;
+  selectedChangeRefs: readonly string[]; reviewedProjection: HumanReviewProjection;
+}): HumanDecisionEnvelope => {
+  const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
+  if (validateHumanReviewProjectionCoverage(candidate.canonicalChangeSet, input.reviewedProjection).status !== "COMPLETE") throw new Error("REVIEW_PROJECTION_INCOMPLETE");
+  scopedContributionChanges(candidate, input.selectedChangeRefs, input.current);
+  const decision = engageHumanDecision(createHumanDecisionCandidate({
+    decisionId: `project-contribution-deferred:${logicalDigest({ ref: candidate.contributionRef, scope: input.selectedChangeRefs })}`,
+    gateId: "PRJ-CONTRIBUTION-INTAKE", scope: ["RESEARCH_PROJECT", "USER_CONFIRMED_PROJECT_INFORMATION"],
+    targets: [candidate.contributionRef, ...input.selectedChangeRefs],
+    reason: "Les propositions sélectionnées sont différées ; le Project est inchangé.",
+    provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs],
+    engineSource: "RESEARCH_PROJECT", projectVersion: input.current?.versionId ?? null,
+  }), { status: "DEFERRED", actor: input.authority.actorRef, mandate: input.authority.mandateRef, timestamp: input.deferredAt });
+  if (decision.status !== "DEFERRED") throw new Error("PRJ_CONTRIBUTION_DEFERRAL_AUTHORITY_REQUIRED");
+  return decision;
+};
+
 export const authorizeResearchProjectDocumentHandoff = (input: {
   project: ResearchProjectOwnerProjection;
   authority: ResearchProjectOwnerAuthority;

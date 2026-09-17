@@ -33,7 +33,7 @@ const submit = (content: string) => {
 };
 
 const waitForProposal = () => screen.findByRole("heading", {
-  name: "À enregistrer dans le projet",
+  name: "Compréhension de travail",
 });
 
 const confirm = async () => {

@@ -1,5 +1,5 @@
-import { logicalDigest, uniqueSorted } from "@/features/knowledge-engine/canonical";
-import type { ProjectChange, ProjectChangeEvent, ProjectImpact, ProjectImpactState } from "./types";
+import { logicalDigest, uniqueSorted } from "../knowledge-engine/canonical.js";
+import type { ProjectChange, ProjectChangeEvent, ProjectImpact, ProjectImpactState } from "./types.js";
 
 export type ProjectChangeRequest = {
   eventType: ProjectChangeEvent;

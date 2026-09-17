@@ -17,3 +17,14 @@ export const acceptImagingContextualProposals = (input: {
   return Object.freeze({ owner: "IMAGING" as const, inputRef: input.context.input.inputId,
     resultRef: input.context.result.resultId, proposalRefs: input.proposals.map(p => p.ref), projectWrites: 0 as const });
 };
+
+export const acceptImagingStudyStrategyCandidates = (input: {
+  context: null | Readonly<{ input: ImagingDesignInput; result: ImagingDesignResult }>;
+  atoms: readonly import("../scientific-thinking/contextual-study-proposal.js").StudyProposalAtom[];
+}) => {
+  if (!input.context || input.context.result.provenance.inputRef !== input.context.input.inputId
+    || input.context.result.projectWriteAuthorized || input.context.result.candidateIsAdopted
+    || input.atoms.some(a => a.owner !== "IMAGING" || !["MEASUREMENTS", "ENDPOINTS"].includes(a.area))) throw new Error("IMAGING_STRATEGY_HANDOFF_INVALID");
+  return { owner: "IMAGING" as const, contextRef: input.context.result.resultId, atomRefs: input.atoms.map(a => a.ref),
+    status: "CANDIDATES_NOT_ADOPTED" as const, projectWrites: 0 as const };
+};

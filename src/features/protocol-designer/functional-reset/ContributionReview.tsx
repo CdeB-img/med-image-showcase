@@ -163,7 +163,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
 
   return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
     <h3 id={`review-${contribution.identity.contributionId}`} className="text-base font-semibold">
-      {isUpdate ? "Modifications à enregistrer" : "À enregistrer dans le projet"}
+      Compréhension de travail
     </h3>
     {sourceCoverage.partialComprehensionWarning && <section
       className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm" data-testid="source-coverage-review"
