@@ -1,5 +1,5 @@
-import type { ApplicabilityState, GovernedDocumentaryStatement, KnowledgeRequest, RuntimeAssertion } from "./types";
-import { modalitiesAreCompatible } from "./modality";
+import type { ApplicabilityState, GovernedDocumentaryStatement, KnowledgeRequest, RuntimeAssertion } from "./types.js";
+import { modalitiesAreCompatible } from "./modality.js";
 
 type ApplicabilityDecision = { state: ApplicabilityState; reasons: string[] };
 

@@ -1,4 +1,4 @@
-import type { AdapterResult, KnowledgeProviderDefinition, KnowledgeRequest, QueryPlan } from "../types";
+import type { AdapterResult, KnowledgeProviderDefinition, KnowledgeRequest, QueryPlan } from "../types.js";
 
 export type CorpusAdapterInput = {
   request: KnowledgeRequest;

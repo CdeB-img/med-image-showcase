@@ -1478,6 +1478,88 @@ export const prepareResearchProjectContributionCandidate = (
   };
 };
 
+/** Native dependency components, derived from the already validated review. */
+export const contributionDecisionScopeGroups = (candidate: ResearchProjectContributionCandidate, current: ResearchProjectOwnerProjection | null = null): string[][] => {
+  const c = candidate.canonicalChangeSet;
+  const state = current ? ensureCanonicalProjectState(current) : null;
+  const groups = candidate.humanReviewProjection.coveredChangeRefs.map(ref => [ref]);
+  const join = (refs: string[]) => {
+    const touching = groups.filter(group => group.some(ref => refs.includes(ref)));
+    if (touching.length < 2) return;
+    const merged = [...new Set(touching.flat())];
+    for (const group of touching) groups.splice(groups.indexOf(group), 1);
+    groups.push(merged);
+  };
+  const objectRefs = (ids: string[]) => c.objectChanges.filter(change => ids.includes(change.objectId)).map(change => change.changeRef);
+  for (const change of c.relationChanges) {
+    const value = change.candidate ?? state?.relations.find(item => item.relationVersionId === change.previousVersionRef);
+    if (value) join([change.changeRef, ...objectRefs([value.sourceObjectRef, value.targetObjectRef])]);
+  }
+  for (const change of c.temporalQualificationChanges) {
+    const value = change.candidate ?? state?.temporalQualifications.find(item => item.qualificationVersionId === change.previousVersionRef);
+    if (value) join([change.changeRef, ...objectRefs([value.subjectProjectRef, value.anchor.reference.status === "KNOWN" ? value.anchor.reference.referenceProjectRef : ""])]);
+  }
+  for (const change of c.expectedVariableOccasionChanges) {
+    const value = change.candidate ?? state?.expectedVariableOccasions.find(item => item.occasionVersionId === change.previousVersionRef);
+    if (value) join([change.changeRef, ...objectRefs([value.variableProjectRef, value.studyUnitOrGroupRef ?? "", value.anchor.reference.status === "KNOWN" ? value.anchor.reference.referenceProjectRef : ""])]);
+  }
+  return groups;
+};
+
+const scopedContributionChanges = (candidate: ResearchProjectContributionCandidate, refs: readonly string[], current: ResearchProjectOwnerProjection | null = null) => {
+  const selected = new Set(refs);
+  const coverage = candidate.humanReviewProjection.coveredChangeRefs;
+  if (!selected.size || selected.size !== refs.length || [...selected].some(ref => !coverage.includes(ref))
+    || contributionDecisionScopeGroups(candidate, current).some(group => group.some(ref => selected.has(ref)) && !group.every(ref => selected.has(ref)))) {
+    throw new Error("PRJ_PARTIAL_DECISION_SCOPE_REQUIRES_SEPARABLE_REVIEWED_CHANGES");
+  }
+  const c = candidate.canonicalChangeSet;
+  const state = current ? ensureCanonicalProjectState(current) : null;
+  const removed = c.objectChanges.filter(change => selected.has(change.changeRef) && change.operation === "REMOVE").map(change => change.objectId);
+  if (state && (state.relations.some(item => item.actuality === "CURRENT" && (removed.includes(item.sourceObjectRef) || removed.includes(item.targetObjectRef))
+      && !c.relationChanges.some(change => selected.has(change.changeRef) && change.operation === "REMOVE" && change.relationId === item.relationId))
+    || state.temporalQualifications.some(item => item.actuality === "CURRENT" && (removed.includes(item.subjectProjectRef)
+      || item.anchor.reference.status === "KNOWN" && removed.includes(item.anchor.reference.referenceProjectRef))
+      && !c.temporalQualificationChanges.some(change => selected.has(change.changeRef) && change.operation === "REMOVE" && change.qualificationId === item.qualificationId))
+    || state.expectedVariableOccasions.some(item => item.actuality === "CURRENT" && (removed.includes(item.variableProjectRef) || removed.includes(item.studyUnitOrGroupRef ?? "")
+      || item.anchor.reference.status === "KNOWN" && removed.includes(item.anchor.reference.referenceProjectRef))
+      && !c.expectedVariableOccasionChanges.some(change => selected.has(change.changeRef) && change.operation === "REMOVE" && change.occasionId === item.occasionId)))) {
+    throw new Error("PRJ_PARTIAL_REMOVE_REQUIRES_REVIEWED_DEPENDENCY_REMOVAL");
+  }
+  return { ...c, objectChanges: c.objectChanges.filter(change => selected.has(change.changeRef)),
+    relationChanges: c.relationChanges.filter(change => selected.has(change.changeRef)),
+    temporalQualificationChanges: c.temporalQualificationChanges.filter(change => selected.has(change.changeRef)),
+    expectedVariableOccasionChanges: c.expectedVariableOccasionChanges.filter(change => selected.has(change.changeRef)),
+    legacyTemporalChanges: c.legacyTemporalChanges.filter(change => selected.has(change.changeRef)) };
+};
+
+/** Project a proven native review subset; never extract or invent science. */
+export const scopeResearchProjectContribution = (input: {
+  contribution: ScientificInterpretationContributionEnvelope;
+  current: ResearchProjectOwnerProjection | null;
+  changeRefs: readonly string[];
+  reasonRef: string;
+}): ScientificInterpretationContributionEnvelope => {
+  const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
+  const c = scopedContributionChanges(candidate, input.changeRefs, input.current);
+  const itemRefs = new Set([...c.objectChanges, ...c.legacyTemporalChanges].flatMap(change => change.candidate?.sourceItemRefs ?? []));
+  for (const change of candidate.changeSet.changes) if (input.changeRefs.includes(change.changeId)) for (const ref of change.sourceObjectRefs) itemRefs.add(ref);
+  const scientificContent = { ...input.contribution.scientificContent, normalizedUnderstanding: null };
+  for (const key of ["explicitStatements", "candidateObjects", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "openDecisions", "clarificationNeeds"] as const) {
+    scientificContent[key] = scientificContent[key].filter(item => itemRefs.has(item.itemId));
+  }
+  scientificContent.candidateRelations = scientificContent.candidateRelations.filter(item => c.relationChanges.some(change => change.relationId === item.relationId));
+  scientificContent.temporalQualifications = scientificContent.temporalQualifications?.filter(item => c.temporalQualificationChanges.some(change => change.qualificationId === item.qualificationId));
+  scientificContent.expectedVariableOccasions = scientificContent.expectedVariableOccasions?.filter(item => c.expectedVariableOccasionChanges.some(change => change.occasionId === item.occasionId));
+  const contributionId = `scoped-contribution:${logicalDigest({ parent: input.contribution.identity.contributionId,
+    scope: input.changeRefs, base: input.current?.versionId ?? null, reasonRef: input.reasonRef })}`;
+  return { ...input.contribution, identity: { ...input.contribution.identity, contributionId,
+    previousContributionId: input.contribution.identity.contributionId,
+    contributionDigest: logicalDigest({ contributionId, scientificContent }) }, scientificContent,
+    source: { ...input.contribution.source, sourceRefs: [...new Set([...input.contribution.source.sourceRefs,
+      input.contribution.identity.contributionId, input.reasonRef])] } };
+};
+
 export const confirmResearchProjectContribution = (input: {
   contribution: ScientificInterpretationContributionEnvelope;
   current: ResearchProjectOwnerProjection | null;
@@ -1487,6 +1569,8 @@ export const confirmResearchProjectContribution = (input: {
   reviewedProjection?: HumanReviewProjection;
   confirmationReason?: string;
   confirmationSourceRefs?: readonly string[];
+  /** Explicit human partition of an already presented, separable native review. */
+  selectedChangeRefs?: readonly string[];
 }): ResearchProjectOwnerProjection => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
   if (candidate.changeSet.effectiveChangeCount === 0 && candidate.canonicalChangeSet.status === "NO_NET_CHANGE") {
@@ -1499,13 +1583,28 @@ export const confirmResearchProjectContribution = (input: {
   const reviewedProjection = input.reviewedProjection ?? candidate.humanReviewProjection;
   const reviewCoverage = validateHumanReviewProjectionCoverage(candidate.canonicalChangeSet, reviewedProjection);
   if (reviewCoverage.status !== "COMPLETE") throw new Error("REVIEW_PROJECTION_INCOMPLETE");
+  let canonicalChangeSet = candidate.canonicalChangeSet;
+  let changeSet = candidate.changeSet;
+  let sectionTemplate = candidate.proposedSections;
+  if (input.selectedChangeRefs) {
+    if (!input.reviewedProjection) throw new Error("REVIEW_PROJECTION_INCOMPLETE");
+    canonicalChangeSet = scopedContributionChanges(candidate, input.selectedChangeRefs, input.current);
+    const sourceRefs = new Set([...canonicalChangeSet.objectChanges, ...canonicalChangeSet.legacyTemporalChanges]
+      .flatMap(change => change.candidate?.sourceItemRefs ?? []));
+    const changes = changeSet.changes.filter(change => input.selectedChangeRefs!.includes(change.changeId)
+      || change.sourceObjectRefs.length && change.sourceObjectRefs.every(ref => sourceRefs.has(ref)));
+    changeSet = { ...changeSet, changes, effectiveChangeCount: changes.filter(change => change.operation !== "NO_CHANGE").length };
+    // Never carry unselected QUESTION fallbacks or section completeness into
+    // the canonical projection. Start from the existing adopted sections.
+    sectionTemplate = applyContributionProjectChangeSet(changeSet, input.contribution, input.current);
+  }
   const revision = (input.current?.revision ?? 0) + 1;
   const versionId = `${input.projectId}:version:${revision}`;
   const pendingDecision = createHumanDecisionCandidate({
     decisionId: `project-contribution-decision:${logicalDigest({ projectId: input.projectId, contributionRef: candidate.contributionRef, revision })}`,
     gateId: "PRJ-CONTRIBUTION-INTAKE",
     scope: ["RESEARCH_PROJECT", "USER_CONFIRMED_PROJECT_INFORMATION"],
-    targets: [candidate.contributionRef, ...candidate.changeSet.changes
+    targets: [candidate.contributionRef, ...(input.selectedChangeRefs ?? []), ...changeSet.changes
       .filter((change) => change.operation !== "NO_CHANGE")
       .flatMap((change) => change.sourceObjectRefs)],
     reason: "Confirmation explicite de la Contribution comme information de travail du Research Project, sans promotion d’objet scientifique V2.",
@@ -1530,7 +1629,7 @@ export const confirmResearchProjectContribution = (input: {
 
   const canonicalState = applyCanonicalProjectChangeSet({
     current: input.current ? ensureCanonicalProjectState(input.current) : null,
-    changeSet: candidate.canonicalChangeSet,
+    changeSet: canonicalChangeSet,
     projectId: input.projectId,
     versionId,
     revision,
@@ -1538,14 +1637,21 @@ export const confirmResearchProjectContribution = (input: {
     decision: confirmationDecision,
     decidedAt: input.confirmedAt,
   });
-  const projectedSections = projectSectionsFromCanonicalState(canonicalState, candidate.proposedSections);
+  const projectedSections = projectSectionsFromCanonicalState(canonicalState, sectionTemplate);
+  const selectedItemRefs = new Set(canonicalChangeSet.objectChanges.flatMap(change => change.candidate?.sourceItemRefs ?? []));
+  const responsibilities = input.selectedChangeRefs ? candidate.specializedResponsibilities.map(responsibility => {
+    const sourceItemIds = responsibility.sourceItemIds.filter(ref => selectedItemRefs.has(ref));
+    return sourceItemIds.length ? { ...responsibility, sourceItemIds }
+      : input.current?.specializedResponsibilities.find(previous => previous.owner === responsibility.owner)
+        ?? { ...responsibility, state: "NOT_TRIGGERED" as const, sourceItemIds: [] };
+  }) : candidate.specializedResponsibilities;
 
   const projectDigest = logicalDigest({
     projectId: input.projectId,
     versionId,
     previousVersionId: input.current?.versionId ?? null,
     contributionDigest: candidate.contributionDigest,
-    changeSet: candidate.changeSet,
+    changeSet,
     canonicalState,
     sections: projectedSections,
     decisionId: confirmationDecision.decisionId,
@@ -1571,8 +1677,8 @@ export const confirmResearchProjectContribution = (input: {
     confirmationDecision,
     llmProjectWrites: 0,
     sections: projectedSections,
-    specializedResponsibilities: candidate.specializedResponsibilities,
-    appliedChangeSet: candidate.changeSet,
+    specializedResponsibilities: responsibilities,
+    appliedChangeSet: changeSet,
     canonicalState,
   };
 };
@@ -1583,8 +1689,14 @@ export const rejectResearchProjectContribution = (input: {
   authority: ResearchProjectOwnerAuthority;
   rejectedAt: string;
   rejectionSourceRefs?: readonly string[];
+  selectedChangeRefs?: readonly string[];
+  reviewedProjection?: HumanReviewProjection;
 }): HumanDecisionEnvelope => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
+  if (input.selectedChangeRefs) {
+    if (!input.reviewedProjection || validateHumanReviewProjectionCoverage(candidate.canonicalChangeSet, input.reviewedProjection).status !== "COMPLETE") throw new Error("REVIEW_PROJECTION_INCOMPLETE");
+    scopedContributionChanges(candidate, input.selectedChangeRefs, input.current);
+  }
   const pendingDecision = createHumanDecisionCandidate({
     decisionId: `project-contribution-decision:${logicalDigest({
       contributionRef: candidate.contributionRef,
@@ -1593,8 +1705,8 @@ export const rejectResearchProjectContribution = (input: {
     })}`,
     gateId: "PRJ-CONTRIBUTION-INTAKE",
     scope: ["RESEARCH_PROJECT", "USER_CONFIRMED_PROJECT_INFORMATION"],
-    targets: [candidate.contributionRef, ...candidate.changeSet.changes
-      .filter((change) => change.operation !== "NO_CHANGE")
+    targets: [candidate.contributionRef, ...(input.selectedChangeRefs ?? []), ...candidate.changeSet.changes
+      .filter((change) => change.operation !== "NO_CHANGE" && (!input.selectedChangeRefs || input.selectedChangeRefs.includes(change.changeId)))
       .flatMap((change) => change.sourceObjectRefs)],
     reason: "Rejet explicite de la Contribution candidate. Le Research Project reste inchangé.",
     provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs,
@@ -1606,7 +1718,7 @@ export const rejectResearchProjectContribution = (input: {
     status: "REJECTED",
     actor: input.authority.actorRef,
     mandate: input.authority.mandateRef,
-    reason: "L’utilisateur a refusé la proposition dans la session de travail courante.",
+    reason: input.selectedChangeRefs ? `Refus partiel explicite des changements ${input.selectedChangeRefs.join(", ")}. Les autres propositions ne sont pas refusées.` : "L’utilisateur a refusé la proposition dans la session de travail courante.",
     timestamp: input.rejectedAt,
   });
   if (decision.status !== "REJECTED") throw new Error("PRJ_CONTRIBUTION_REJECTION_AUTHORITY_REQUIRED");

@@ -114,7 +114,7 @@ export type ScientificContributionRelation = {
 export type ScientificTemporalAnchorCandidate = {
   kind: "TIMEPOINT" | "RELATIVE_EVENT" | "WINDOW" | "INTERVAL";
   direction: "BEFORE" | "AT" | "AFTER" | "UNKNOWN";
-  unit: string;
+  unit: string | null;
   offset: number | null;
   lowerBound: number | null;
   upperBound: number | null;

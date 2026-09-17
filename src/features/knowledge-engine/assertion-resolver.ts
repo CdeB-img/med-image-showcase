@@ -1,6 +1,6 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
-import { isApplicable } from "./applicability";
-import type { RuntimeAssertion } from "./types";
+import { logicalDigest, uniqueSorted } from "./canonical.js";
+import { isApplicable } from "./applicability.js";
+import type { RuntimeAssertion } from "./types.js";
 
 export type AssertionResolution = {
   applicableAssertions: RuntimeAssertion[];

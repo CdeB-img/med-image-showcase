@@ -1,7 +1,7 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
-import { modalitiesAreCompatible } from "./modality";
-import { isComparativeSemanticRelation } from "./relation-semantics";
-import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, RuntimeAssertion, RuntimeConflict } from "./types";
+import { logicalDigest, uniqueSorted } from "./canonical.js";
+import { modalitiesAreCompatible } from "./modality.js";
+import { isComparativeSemanticRelation } from "./relation-semantics.js";
+import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, RuntimeAssertion, RuntimeConflict } from "./types.js";
 
 const modalityMatches = (assertion: RuntimeAssertion, modality?: string) => {
   if (!modality || !assertion.modality) return true;

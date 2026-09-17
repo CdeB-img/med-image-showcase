@@ -93,7 +93,7 @@ export type CanonicalTemporalAnchorValue = {
   valueType: "TEMPORAL_ANCHOR_VALUE";
   kind: CanonicalTemporalAnchorKind;
   direction: CanonicalTemporalDirection;
-  unit: string;
+  unit: string | null;
   offset: number | null;
   lowerBound: number | null;
   upperBound: number | null;
@@ -878,15 +878,29 @@ export const buildCanonicalProjectChangeSet = (input: {
   });
 };
 
-const anchorValidationError = (
-  anchor: CanonicalTemporalAnchorValue,
-  knownObjectRefs: Set<string>,
+/** Shared structural guard; event ordering without a quantity is a PD-003 relative anchor. */
+export const temporalAnchorStructureError = (
+  anchor: Omit<CanonicalTemporalAnchorValue, "valueType" | "provenance">,
 ) => {
-  if (!anchor.unit.trim()) return "TEMPORAL_ANCHOR_UNIT_REQUIRED";
+  if (anchor.unit === null) {
+    if (anchor.kind !== "RELATIVE_EVENT" || anchor.offset !== null || anchor.lowerBound !== null
+      || anchor.upperBound !== null || anchor.tolerance !== null
+      || (anchor.reference.status === "UNKNOWN" && anchor.relativeEventLabel !== null)
+      || (anchor.reference.status === "EXPLICIT" && !anchor.relativeEventLabel?.trim())) return "TEMPORAL_ANCHOR_QUALITATIVE_INVALID";
+  } else if (!anchor.unit?.trim()) return "TEMPORAL_ANCHOR_UNIT_REQUIRED";
   if ((anchor.kind === "WINDOW" || anchor.kind === "INTERVAL")
     && (!Number.isFinite(anchor.lowerBound) || !Number.isFinite(anchor.upperBound)
       || anchor.lowerBound! > anchor.upperBound!)) return "TEMPORAL_ANCHOR_BOUNDS_INVALID";
   if (anchor.kind === "TIMEPOINT" && !Number.isFinite(anchor.offset)) return "TEMPORAL_ANCHOR_OFFSET_REQUIRED";
+  return null;
+};
+
+const anchorValidationError = (
+  anchor: CanonicalTemporalAnchorValue,
+  knownObjectRefs: Set<string>,
+) => {
+  const structureError = temporalAnchorStructureError(anchor);
+  if (structureError) return structureError;
   if (anchor.reference.status === "KNOWN" && !knownObjectRefs.has(anchor.reference.referenceProjectRef)) {
     return "TEMPORAL_REFERENCE_NOT_FOUND";
   }

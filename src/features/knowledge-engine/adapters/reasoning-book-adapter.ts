@@ -1,7 +1,7 @@
-import { DEMONSTRATOR_SCENARIOS } from "@/features/protocol-designer/fixtures";
-import { logicalDigest, uniqueSorted } from "../canonical";
-import type { AdapterResult, GovernedDocumentaryStatement, RuntimeSource } from "../types";
-import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter";
+import { DEMONSTRATOR_SCENARIOS } from "../../protocol-designer/fixtures.js";
+import { logicalDigest, uniqueSorted } from "../canonical.js";
+import type { AdapterResult, GovernedDocumentaryStatement, RuntimeSource } from "../types.js";
+import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter.js";
 
 const scenarioByProvider = {
   "rb-003": DEMONSTRATOR_SCENARIOS.find((item) => item.reasoningBook.id === "RB-003")!,

@@ -1,9 +1,9 @@
-import emptyProviderAdapter from "./empty-provider-adapter";
-import knowledgeGraphAdapter from "./knowledge-graph-adapter";
-import p4rAdapter from "./p4r-adapter";
-import p5Adapter from "./p5-adapter";
-import reasoningBookAdapter from "./reasoning-book-adapter";
-import referenceCorpusAdapter from "./reference-corpus-adapter";
+import emptyProviderAdapter from "./empty-provider-adapter.js";
+import knowledgeGraphAdapter from "./knowledge-graph-adapter.js";
+import p4rAdapter from "./p4r-adapter.js";
+import p5Adapter from "./p5-adapter.js";
+import reasoningBookAdapter from "./reasoning-book-adapter.js";
+import referenceCorpusAdapter from "./reference-corpus-adapter.js";
 
 export const KNOWLEDGE_ADAPTERS = Object.freeze([
   emptyProviderAdapter,

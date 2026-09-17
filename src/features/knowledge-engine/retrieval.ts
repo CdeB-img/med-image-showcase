@@ -1,6 +1,6 @@
-import { KNOWLEDGE_ADAPTERS } from "./adapters";
-import { KNOWLEDGE_PROVIDER_REGISTRY, getKnowledgeProvider } from "./provider-registry";
-import type { AdapterResult, KnowledgeRequest, ProviderExecution, QueryPlan } from "./types";
+import { KNOWLEDGE_ADAPTERS } from "./adapters/index.js";
+import { KNOWLEDGE_PROVIDER_REGISTRY, getKnowledgeProvider } from "./provider-registry.js";
+import type { AdapterResult, KnowledgeRequest, ProviderExecution, QueryPlan } from "./types.js";
 
 export type RetrievalResult = {
   adapterResults: AdapterResult[];

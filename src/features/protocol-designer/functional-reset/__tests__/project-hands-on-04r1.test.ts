@@ -198,7 +198,7 @@ describe("PROJECT-HANDS-ON-04R1 — source-grounded temporal references", () => 
       evaluatePersistentDelta: true,
     };
     const anchorSchema = buildPersistentDeltaPayload(request).tools[0]!.functionDeclarations[0]!
-      .parametersJsonSchema.properties.temporalQualifications.items.properties.anchor.anyOf[0] as {
+      .parametersJsonSchema.properties.temporalQualifications.items.anyOf[0].properties.anchor.anyOf[0] as unknown as {
         properties: { relativeEventLabel: { description: string } };
         required: readonly string[];
       };

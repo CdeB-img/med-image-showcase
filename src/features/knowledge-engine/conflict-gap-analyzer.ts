@@ -1,7 +1,7 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
-import { canonicalModality } from "./modality";
-import { isComparativeSemanticRelation } from "./relation-semantics";
-import type { CoverageStatus, KnowledgeGap, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, ReferenceSourceSnapshot, RuntimeAssertion, RuntimeConflict } from "./types";
+import { logicalDigest, uniqueSorted } from "./canonical.js";
+import { canonicalModality } from "./modality.js";
+import { isComparativeSemanticRelation } from "./relation-semantics.js";
+import type { CoverageStatus, KnowledgeGap, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, ReferenceSourceSnapshot, RuntimeAssertion, RuntimeConflict } from "./types.js";
 
 const assertionPropositionKey = (assertion: RuntimeAssertion) => logicalDigest({ concepts: assertion.conceptIds, atomicContent: assertion.atomicContent });
 

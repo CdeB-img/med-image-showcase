@@ -1,6 +1,6 @@
-import { logicalDigest } from "./canonical";
-import { REFERENCE_CORPUS_CURRENT_METADATA, REFERENCE_CORPUS_RUNTIME_DIGEST, REFERENCE_CORPUS_REGISTRY_REF } from "./reference-corpus";
-import type { KnowledgeProviderDefinition } from "./types";
+import { logicalDigest } from "./canonical.js";
+import { REFERENCE_CORPUS_CURRENT_METADATA, REFERENCE_CORPUS_RUNTIME_DIGEST, REFERENCE_CORPUS_REGISTRY_REF } from "./reference-corpus.js";
+import type { KnowledgeProviderDefinition } from "./types.js";
 
 type ProviderInput = Omit<KnowledgeProviderDefinition,
   "id" | "type" | "domains" | "capabilities" | "contextDimensions" | "granularity" | "provenanceSupport" | "limitations"

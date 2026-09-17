@@ -303,7 +303,8 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     });
     const payload = buildPersistentDeltaPayload({ ...requestFor(raw), currentProject: project });
     const declaration = payload.tools[0].functionDeclarations[0].parametersJsonSchema;
-    expect(declaration.required).toEqual(["changes", "relations", "temporalQualifications", "expectedVariableOccasions"]);
+    // Input defaults are shared with the local parser, without a fake wire guarantee.
+    expect(declaration.required ?? []).toEqual([]);
     expect(declaration.properties.temporalQualifications).toBeDefined();
     expect(JSON.stringify(declaration.properties.temporalQualifications)).not.toContain("targetSectionId");
   });
@@ -416,13 +417,18 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
       targetSectionId: "POPULATION",
       targetProjectRef: age.elementId,
       content: "Âge maximal : 80 ans",
+      candidateRef: "candidate:age-max-80",
+      proposedType: "ELIGIBILITY_CRITERION",
+      polarity: "AFFIRMED",
+      epistemicStatus: "EXPLICIT_USER_STATED",
+      epistemicState: "KNOWN",
+      assertionKind: "USER_STATED",
+      evidenceRefs: [],
     }] };
+    const { sourceAnchorId: _anchor, ...expectedFields } = exactProviderArgs.changes[0];
     const expectedMaterializedChange = {
-      operation: "REPLACE",
+      ...expectedFields,
       sourceText: "Finalement jusqu'à 80 ans.",
-      targetSectionId: "POPULATION",
-      targetProjectRef: age.elementId,
-      content: "Âge maximal : 80 ans",
     };
     const fetchImpl = mockBridgeProviderFetch({
       geminiText: "Je comprends que vous souhaitez porter la borne d'âge à 80 ans. Cette modification restera une proposition jusqu'à votre confirmation.",

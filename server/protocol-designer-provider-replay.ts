@@ -11,6 +11,22 @@ import {
   campaignBudgetPolicy, validateCanaryCampaignPolicy, type CanaryCampaignPolicy,
 } from "./protocol-designer-canary-policy.js";
 
+// Validation consumers share campaign accounting without extending the
+// scientific Product Bridge observability contract or its provider purposes.
+type ProductCallMetadata = NonNullable<ProviderObservedRequestInit["noxiaProviderObservation"]>;
+export type CanaryProviderRequestInit = RequestInit & {
+  noxiaProviderObservation?: Omit<ProductCallMetadata, "purpose"> & {
+    purpose: ProductCallMetadata["purpose"] | "USER_PROXY_GENERATION";
+  };
+};
+const canaryPurposeModels = Object.freeze({
+  LANGUAGE_PROJECTION: "gpt-5.6-luna",
+  PERSISTENT_DELTA: "gpt-5.6-terra",
+  CONVERSATION_REALIZATION: "gemini-3.5-flash-lite",
+  SCIENTIFIC_THINKING_PROPOSAL: "gemini-3.5-flash-lite",
+  USER_PROXY_GENERATION: "gpt-5.6-luna",
+});
+
 // DEV transport evidence only. Scientific state and provider selection stay with
 // their existing owners; the existing atomic evidence store owns persistence.
 const digest = (value: unknown) => createHash("sha256").update(stableStringify(value)).digest("hex");
@@ -49,7 +65,7 @@ const requestIdentity = (input: Parameters<typeof fetch>[0], init?: RequestInit,
   return { endpoint: `${url.origin}${url.pathname}`, method: "POST", body: safeBody(init.body, secrets) };
 };
 type RequestIdentity = ReturnType<typeof requestIdentity>;
-const withCanaryServiceTier = (request: RequestIdentity, init?: RequestInit): RequestInit | undefined => {
+export const withCanaryServiceTier = (request: RequestIdentity, init?: RequestInit): RequestInit | undefined => {
   if (request.endpoint !== "https://api.openai.com/v1/responses") return init;
   const payload = JSON.parse(init!.body as string);
   // Execution/billing policy only. Never inherit auto/priority from the provider
@@ -242,13 +258,14 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
         || digest(exchange.request) !== exchange.requestDigest) throw new Error("binding");
       if (!campaignPolicy && sessionId !== null && sessionId !== admission.sessionId) throw new Error("session");
       if (campaignPolicy) {
-        const metadata = exchange.callMetadata as ProviderObservedRequestInit["noxiaProviderObservation"];
+        const metadata = exchange.callMetadata as CanaryProviderRequestInit["noxiaProviderObservation"];
         const context = metadata?.context;
         if (!context || !admission.sessionId || !admission.conversationId
           || context.sessionId !== admission.sessionId || context.conversationId !== admission.conversationId
           || !context.turnId || !context.clientRequestId || metadata.retryIndex !== 0 || metadata.retryReason !== null
           || admission.logicalCallId !== digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose])
-          || !campaignPolicy.allowedProviderModels.includes(exchange.modelRequested ?? "")) throw new Error("session provenance");
+          || !campaignPolicy.allowedProviderModels.includes(exchange.modelRequested ?? "")
+          || canaryPurposeModels[metadata.purpose] !== exchange.modelRequested) throw new Error("session provenance");
         if (sessions.has(admission.sessionId) && sessions.get(admission.sessionId) !== admission.conversationId) throw new Error("conversation identity");
         sessions.set(admission.sessionId, admission.conversationId);
         if (sessions.size > campaignPolicy.maxSessions) throw new Error("session limit");
@@ -320,7 +337,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       throw new CanaryAdmissionError("CANARY_POLICY_REQUIRED_NO_NORMAL_FALLBACK");
     }
     const request = requestIdentity(input, init, options.secrets);
-    const callMetadata = (init as ProviderObservedRequestInit | undefined)?.noxiaProviderObservation ?? null;
+    const callMetadata = (init as CanaryProviderRequestInit | undefined)?.noxiaProviderObservation ?? null;
     const payload = JSON.parse(request.body) as { model?: string; reasoning?: { effort?: string } };
     const started = Date.now();
     const exchange: Exchange = {
@@ -399,7 +416,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       let request = requestIdentity(input, init, options.secrets);
       init = withCanaryServiceTier(request, init);
       request = requestIdentity(input, init, options.secrets);
-      const metadata = (init as ProviderObservedRequestInit | undefined)?.noxiaProviderObservation;
+      const metadata = (init as CanaryProviderRequestInit | undefined)?.noxiaProviderObservation;
       const context = metadata?.context;
       if (!metadata || metadata.retryIndex !== 0 || metadata.retryReason !== null
         || !context?.sessionId || !context.turnId || !context.clientRequestId) {
@@ -432,7 +449,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       const budget = campaignBudgetPolicy(campaignPolicy);
       const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);
       if (admission !== "ADMITTED" || !bound) throw new CanaryAdmissionError(admission);
-      const expectedModel = { LANGUAGE_PROJECTION: "gpt-5.6-luna", PERSISTENT_DELTA: "gpt-5.6-terra", CONVERSATION_REALIZATION: "gemini-3.5-flash-lite" }[metadata.purpose];
+      const expectedModel = canaryPurposeModels[metadata.purpose];
       if (bound.model !== expectedModel) throw new CanaryAdmissionError("CANARY_PROVIDER_MODEL_PURPOSE_MISMATCH");
       if (campaignPolicy) {
         if (!campaignPolicy.allowedProviderModels.includes(bound.model)) throw new CanaryAdmissionError("CANARY_PROVIDER_NOT_IN_CAMPAIGN_POLICY");
@@ -496,8 +513,8 @@ export const createProtocolDesignerReplayFetch = (options: {
     if (exchange.canaryAdmission?.campaignPolicy || options.scope) {
       if (!options.scope || exchange.canaryAdmission?.campaignId !== options.scope.campaignId
         || exchange.canaryAdmission?.sessionId !== options.scope.sessionId
-        || ((init as ProviderObservedRequestInit | undefined)?.noxiaProviderObservation
-          && (init as ProviderObservedRequestInit).noxiaProviderObservation!.context.sessionId !== options.scope.sessionId)) {
+        || ((init as CanaryProviderRequestInit | undefined)?.noxiaProviderObservation
+          && (init as CanaryProviderRequestInit).noxiaProviderObservation!.context.sessionId !== options.scope.sessionId)) {
         throw new Error("PROVIDER_REPLAY_SESSION_SCOPE_MISMATCH");
       }
     }

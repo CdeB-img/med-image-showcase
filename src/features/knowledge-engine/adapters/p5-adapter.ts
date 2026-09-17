@@ -1,10 +1,10 @@
-import { multidomainAssertionRevisions, multidomainEvidenceLinks } from "@/knowledge-graph/scientific-multidomain/assertions.mjs";
-import { multidomainSourceRevisions } from "@/knowledge-graph/scientific-multidomain/sources.mjs";
-import { multidomainContradictionAssessments } from "@/knowledge-graph/scientific-multidomain/contradictions.mjs";
-import { uniqueSorted } from "../canonical";
-import type { AdapterResult } from "../types";
-import { baseAssertion, normalizeEvidenceLink, normalizeSource, representationDigest, type ExternalAssertionRecord, type ExternalEvidenceRecord, type ExternalSourceRecord } from "./adapter-utils";
-import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter";
+import { multidomainAssertionRevisions, multidomainEvidenceLinks } from "../../../knowledge-graph/scientific-multidomain/assertions.mjs";
+import { multidomainSourceRevisions } from "../../../knowledge-graph/scientific-multidomain/sources.mjs";
+import { multidomainContradictionAssessments } from "../../../knowledge-graph/scientific-multidomain/contradictions.mjs";
+import { uniqueSorted } from "../canonical.js";
+import type { AdapterResult } from "../types.js";
+import { baseAssertion, normalizeEvidenceLink, normalizeSource, representationDigest, type ExternalAssertionRecord, type ExternalEvidenceRecord, type ExternalSourceRecord } from "./adapter-utils.js";
+import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter.js";
 
 type ExternalConflictRecord = { contradictionId: string; assertionRevisionIds: string[]; finalClassification: string; rationale: string };
 const p5Assertions = multidomainAssertionRevisions as ExternalAssertionRecord[];

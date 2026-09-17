@@ -1,6 +1,6 @@
-import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
-import { modalitiesAreCompatible } from "./modality";
-import { structuredSemanticRelation } from "./relation-semantics";
+import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical.js";
+import { modalitiesAreCompatible } from "./modality.js";
+import { structuredSemanticRelation } from "./relation-semantics.js";
 import type {
   CoverageStatus,
   GovernedDocumentaryStatement,
@@ -13,7 +13,7 @@ import type {
   RuntimeKnowledgeConclusion,
   RuntimeKnowledgeResponseState,
   RuntimeKnowledgeSynthesis,
-} from "./types";
+} from "./types.js";
 
 type SynthesisContext = {
   coverageStatus: CoverageStatus;

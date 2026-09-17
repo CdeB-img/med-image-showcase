@@ -5,6 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "strict": false,
     "noEmit": true,
     "verbatimModuleSyntax": true

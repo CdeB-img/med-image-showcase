@@ -1,4 +1,4 @@
-import { comparableScientificText } from "./canonical";
+import { comparableScientificText } from "./canonical.js";
 
 const aliases: Record<string, string> = {
   ct: "CT",

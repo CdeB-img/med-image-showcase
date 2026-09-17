@@ -87,9 +87,12 @@ import {
 import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import {
   retainValidatedContributionCandidate,
+  retainUndecidedContributionScope,
   markContributionCandidatePresented,
+  markContributionCandidateNonCurrent,
   recordContributionDownstreamFailure,
   recordContributionCandidateHumanDecision,
+  buildScientificDiscussionContext,
   type RetainedContributionCandidate,
 } from "./contribution-lifecycle";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
@@ -134,6 +137,14 @@ import {
   routeProductEntry,
   type ProductDocumentAction,
 } from "./product-entry-routing";
+import {
+  buildCandidateScientificChallenge,
+  buildConciseAdoptionReply,
+  classifyNaturalConversationActs,
+  detectConversationStylePreference,
+  isProjectStateQuestion,
+  type ConversationStylePreference,
+} from "./natural-conversation-policy";
 import {
   appendFunctionalResetProviderCallRecords,
   clearFunctionalResetSession,
@@ -456,6 +467,11 @@ type NaturalContributionDecisionContext = Readonly<{
   originalText: string;
   gatewayState: ConversationLanguageGatewayState;
   traceLedger: FunctionalResetSession["scientificExecutionTraceLedger"];
+  stylePreference: ConversationStylePreference | null;
+  selectedChangeRefs?: readonly string[];
+  refusedChangeRefs?: readonly string[];
+  correctionChangeRefs?: readonly string[];
+  prepareRemainingTurn?: boolean;
 }>;
 
 const normalizePreparedUserInput = (input: string | PreparedGatewayUserInput) => typeof input === "string"
@@ -971,6 +987,7 @@ export default function ProtocolDesignerWorkspace({
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const confirmationInFlightRef = useRef<string | null>(null);
+  const mixedTurnInFlightRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (onSessionChange) onSessionChange(session);
@@ -1883,15 +1900,16 @@ export default function ProtocolDesignerWorkspace({
     event.preventDefault();
     await submitText(draft.trim());
   };
-  const submitText = async (content: string) => {
+  const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
     const now = new Date().toISOString();
+    if (continuedTurn) setSession(current => ({ ...current, pendingMixedUserTurnRef: null }));
     setDraft("");
     setCorrectionMode(false);
     setBusyMessage(session.project ? "Je vérifie les éléments déjà fournis…" : "Je structure votre projet…");
     setBusy(true);
-    const turnId = createTurnId();
-    const traceRunId = createProductTraceRunId(session.sessionId, turnId);
+    const turnId = continuedTurn?.turnId ?? createTurnId();
+    const traceRunId = createProductTraceRunId(session.sessionId, continuedTurn ? `${turnId}:mixed-preparation` : turnId);
     let preparedGatewaySnapshot: Awaited<ReturnType<typeof prepareMultilingualUserTurn>> | null = null;
     let retainedThisTurn: RetainedContributionCandidate | null = null;
     let contextualActionPresentation: StandardConversationActionGroupPresentation | null = null;
@@ -1902,7 +1920,10 @@ export default function ProtocolDesignerWorkspace({
     const onProviderCallRecords = (records: readonly ProviderCallRecord[]) => { observedProviderCalls.push(...records); };
     let downstreamStage = "CONFORMANCE";
     try {
-      const preparedGateway = await prepareMultilingualUserTurn({ session, turnId, originalText: content, onProviderCallRecords });
+      const originalGatewayTurn = continuedTurn && session.conversationLanguageGateway.turns.find(turn => turn.turnId === continuedTurn.turnId);
+      const preparedGateway = originalGatewayTurn
+        ? { turn: originalGatewayTurn, state: session.conversationLanguageGateway, providerCalls: 0 as const, providerCallRecords: [] }
+        : await prepareMultilingualUserTurn({ session, turnId, originalText: content, onProviderCallRecords });
       preparedGatewaySnapshot = preparedGateway;
       const preparedInput: PreparedGatewayUserInput = {
         originalText: content,
@@ -1916,15 +1937,21 @@ export default function ProtocolDesignerWorkspace({
       const currentProjectDirection = correctionMode && session.project
         ? "MODIFY_EXISTING_PROJECT_OBJECT"
         : recognizeCurrentProjectDirection(preparedInput.workingText, session.project !== null);
-      const userTurn: ScientificInterpretationTurn = { turnId, role: "USER", content, createdAt: now };
-      const runtimeTurns = [...session.runtimeTurns, userTurn];
+      const userTurn: ScientificInterpretationTurn = continuedTurn ?? { turnId, role: "USER", content, createdAt: now };
+      const runtimeTurns = continuedTurn ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
       const boundedReferentContext = buildBoundedConversationReferentContext({
+        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
+        conversationId: session.conversationId, runtimeTurns,
+        selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
+        requestingTurnRef: userTurn.turnId,
+      });
+      const scientificDiscussionContext = buildScientificDiscussionContext({
         retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
         conversationId: session.conversationId, runtimeTurns,
         selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
       });
       const boundedInteraction = selectBoundedConversationInteraction({
-        sourceText: preparedInput.workingText, correctionMode, referentContext: boundedReferentContext,
+        sourceText: preparedInput.workingText, correctionMode: correctionMode || Boolean(continuedTurn), referentContext: boundedReferentContext,
       });
       // Explicit Project direction outranks an owner-driven continuation. The
       // router only recognizes the operation; extraction and PRJ validation
@@ -1956,6 +1983,11 @@ export default function ProtocolDesignerWorkspace({
           userTurn,
           originalText: content,
           gatewayState: preparedGateway.state,
+          stylePreference: detectConversationStylePreference(preparedInput.workingText),
+          selectedChangeRefs: boundedInteraction.selectedChangeRefs,
+          refusedChangeRefs: boundedInteraction.refusedChangeRefs,
+          correctionChangeRefs: boundedInteraction.correctionChangeRefs,
+          prepareRemainingTurn: boundedInteraction.prepareRemainingTurn,
           traceLedger: recordConversationLanguageGatewayTrace({
             ledger: session.scientificExecutionTraceLedger,
             traceRunId,
@@ -1984,7 +2016,7 @@ export default function ProtocolDesignerWorkspace({
         previousContext,
         forceUnderstand: asksForExplanationOrRephrase,
         currentProjectAvailable: session.project !== null,
-        explicitCorrectionMode: correctionMode,
+        explicitCorrectionMode: correctionMode || Boolean(continuedTurn) || Boolean(boundedInteraction?.correctionChangeRefs?.length),
       });
       let entryTraceLedger = recordConversationLanguageGatewayTrace({
         ledger: session.scientificExecutionTraceLedger,
@@ -2010,13 +2042,14 @@ export default function ProtocolDesignerWorkspace({
       const withUser: FunctionalResetSession = {
         ...session,
         openDocumentProjectionId: null,
+        pendingMixedUserTurnRef: null,
         queryNavigation,
         runtimeTurns,
         conversationLanguageGateway: preparedGateway.state,
         scientificExecutionTraceLedger: entryTraceLedger,
         entries: [
           ...session.entries,
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now },
+          ...(!continuedTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : []),
         ],
         updatedAt: now,
       };
@@ -2106,17 +2139,21 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
-      if (entryRouting.currentProjectDirection === "PRESERVE_EXISTING_PROJECT"
+      const naturalConversationActs = classifyNaturalConversationActs(preparedInput.workingText);
+      if ((entryRouting.currentProjectDirection === "PRESERVE_EXISTING_PROJECT"
+        && !isProjectStateQuestion(preparedInput.workingText)
+        && !naturalConversationActs.includes("NEW_INFORMATION")
+        && !naturalConversationActs.includes("CLARIFICATION_RESPONSE"))
         || boundedInteraction?.kind === "CLARIFY_CANDIDATE_REFERENCE") {
         const answeredAt = new Date().toISOString();
         const assistantReply = boundedInteraction?.kind === "CLARIFY_CANDIDATE_REFERENCE"
-          ? boundedInteraction.clarificationReason === "PAST_PROPOSAL_REFERENCE"
-            ? "La référence à cette proposition n’a pas pu être liée à une option identifiée et applicable à la version actuelle du projet. Indiquez son libellé exact, ou précisez la liste et l’option à reprendre pour revue. Je ne sélectionne aucune autre proposition à sa place ; le projet reste inchangé."
+          ? boundedInteraction.clarificationText ?? (boundedInteraction.clarificationReason === "PAST_PROPOSAL_REFERENCE"
+            ? "Quelle option souhaitez-vous reprendre ? Précisez son libellé ou son numéro dans la liste concernée."
             : boundedInteraction.clarificationReason === "DECISION_SCOPE"
-              ? "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet."
+              ? "Quels éléments confirmez-vous, et lesquels souhaitez-vous modifier ou refuser ?"
               : boundedReferentContext.resolution === "AMBIGUOUS"
-            ? "Plusieurs propositions peuvent être visées. Précisez celle que vous souhaitez confirmer ou refuser, ou utilisez sa carte de validation. Votre décision n’a pas été appliquée ; le projet reste inchangé."
-            : "Aucune proposition n’est liée de manière univoque à cette décision. La proposition visée doit être identifiée et vérifiée dans la version actuelle du projet avant confirmation ou refus. Aucune décision n’a été appliquée."
+            ? "Quelle proposition souhaitez-vous confirmer ou refuser ?"
+            : "Quelle proposition souhaitez-vous confirmer ou refuser ?")
           : "D’accord. Le projet courant reste inchangé.";
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
@@ -2209,10 +2246,8 @@ export default function ProtocolDesignerWorkspace({
       };
       const directProposalNavigation = !entryRouting.projectConstructionEligible
         ? requestedProposalNavigation() : null;
-      if (directProposalNavigation) {
-        delegateAssistedProposal(directProposalNavigation, entryTraceLedger);
-        return;
-      }
+      // Assisted owner actions remain available through QRY; free discussion
+      // now reaches the existing Bridge Scientific Thinking conversation.
 
       const answerReadOnlyInteraction = async (completedBridge?: Awaited<ReturnType<typeof requestProtocolDesignerBridge>>) => {
         const knowledge = executeProductUnderstandInteraction({ raw: preparedInput.workingText, decision: entryRouting, createdAt: now,
@@ -2271,11 +2306,11 @@ export default function ProtocolDesignerWorkspace({
           updatedAt: answeredAt,
         }));
       };
-      if (!entryRouting.projectConstructionEligible
-        && (session.project || (entryRouting.routeIntent === "UNDERSTAND" && !boundedInteraction))) {
+      if (session.project && isProjectStateQuestion(preparedInput.workingText)) {
         await answerReadOnlyInteraction();
         return;
       }
+      // Scientific discussion is not conditional on a Knowledge match.
 
       const preProjectNavigation = session.project
         ? undefined
@@ -2333,7 +2368,11 @@ export default function ProtocolDesignerWorkspace({
         }) } : {}),
         ...(preProjectNavigation ? { preProjectNavigation } : {}),
         boundedReferentContext,
+        scientificDiscussionContext,
         ...(boundedInteraction ? { boundedInteraction } : {}),
+        ...(session.conversationPreferences?.responseLength === "CONCISE"
+          ? { conversationPresentation: { responseLength: "CONCISE" as const } }
+          : {}),
         languageBoundary: languageBoundaryFor(preparedGateway.state),
         // Routing governs Project eligibility. Conversation-only turns remain
         // usable, but cannot trigger persistent extraction.
@@ -2361,17 +2400,21 @@ export default function ProtocolDesignerWorkspace({
       const contribution = extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
       const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
-      const scientificThinkingIntervention = !session.project && effectiveCandidate && contribution
+      const scientificThinkingIntervention = !response.scientificConversation && !session.project && effectiveCandidate && contribution
         ? buildPreProjectScientificThinkingIntervention({
           contribution,
           sessionId: session.sessionId,
           sourceJourney: entryRouting.routeIntent === "DOCUMENT" ? "FORMALIZE_IDEA" : entryRouting.routeIntent,
+          reasoning: response.contextualReasoning,
+          conversationTurns: bridgeRequest.conversation.turns,
         })
         : null;
-      const enrichedPreProjectNavigation = preProjectNavigation && scientificThinkingIntervention?.navigationContribution
+      const enrichedPreProjectNavigation = preProjectNavigation && scientificThinkingIntervention?.navigationContributions.length
         ? buildPreProjectNavigationDecision({
           routing: entryRouting,
-          scientificContribution: scientificThinkingIntervention.navigationContribution,
+          scientificContributions: scientificThinkingIntervention.navigationContributions,
+          contextualUnderstanding: scientificThinkingIntervention.contextualUnderstanding,
+          sourceText: content,
         })
         : null;
       const selectedPreProjectNavigation = enrichedPreProjectNavigation ?? (preProjectNavigation && response.currentTurnNavigation ? {
@@ -2389,7 +2432,7 @@ export default function ProtocolDesignerWorkspace({
         ...(selectedPreProjectNavigation ? { preProjectNavigation: selectedPreProjectNavigation } : {}),
         ...(!enrichedPreProjectNavigation && response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
       };
-      const providerContext = naturalConversationContext(realizedBridgeRequest);
+      const providerContext = response.scientificConversation?.providerInput.context ?? naturalConversationContext(realizedBridgeRequest);
       if (effectiveCandidate && contribution) {
         const retained = retainValidatedContributionCandidate({
           retained: [], contribution, candidate: effectiveCandidate,
@@ -2426,6 +2469,22 @@ export default function ProtocolDesignerWorkspace({
           }));
         }
       }
+      if (retainedThisTurn && boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
+        && boundedInteraction.correctionChangeRefs?.length && boundedReferentContext.candidateRef) {
+        const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === boundedReferentContext.candidateRef);
+        if (originalRecord) {
+          const remainder = retainUndecidedContributionScope({ record: originalRecord, currentBefore: session.project,
+            currentAfter: session.project, settledChangeRefs: boundedInteraction.correctionChangeRefs,
+            decisionSourceRef: userTurn.turnId, retainedAt: receivedAt });
+          const remainderEntryId = remainder ? createConversationEntryId() : null;
+          setSession(current => ({ ...current, retainedContributionCandidates: [...markContributionCandidateNonCurrent({
+            retained: current.retainedContributionCandidates ?? [], candidateRef: originalRecord.candidateRef,
+            actuality: "SUPERSEDED", reasonRef: userTurn.turnId, recordedAt: receivedAt,
+          }), ...(remainder ? [remainder] : [])], entries: [...current.entries,
+            ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
+              contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: receivedAt }] : [])] }));
+        }
+      }
       const explicitCurrentProjectChange = entryRouting.currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
         || entryRouting.currentProjectDirection === "ADD_PROJECT_OBJECT";
       if (session.project && retainedThisTurn && !explicitCurrentProjectChange) {
@@ -2454,7 +2513,7 @@ export default function ProtocolDesignerWorkspace({
           contextualActionPresentation = buildStandardConversationActionGroup({ impact, navigation: queryNavigation });
         }
       }
-      if (!enrichedPreProjectNavigation && (response.currentTurnNavigation || response.conversationFailure)) {
+      if (!response.scientificConversation && !enrichedPreProjectNavigation && (response.currentTurnNavigation || response.conversationFailure)) {
         const nativeTrace = recordGovernedConversationTrace({
           ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
           sourceDigest: logicalDigest(content), observedAt: receivedAt,
@@ -2479,11 +2538,11 @@ export default function ProtocolDesignerWorkspace({
       // A mixed statement/request first traverses extraction. Only a successful
       // empty delta may resume the same proposal purpose; a candidate, blocked
       // extraction or technical failure must retain its own lifecycle.
-      const deferredProposalNavigation = response.persistentExtraction.status === "NO_CHANGE"
+      const deferredProposalNavigation = !response.scientificConversation && response.persistentExtraction.status === "NO_CHANGE"
         && !contribution && !candidate && !response.conversationFailure
         ? requestedProposalNavigation() : null;
       if (deferredProposalNavigation) queryNavigation = deferredProposalNavigation;
-      if (!deferredProposalNavigation && session.project && !explicitCurrentProjectChange
+      if (!response.scientificConversation && !deferredProposalNavigation && session.project && !explicitCurrentProjectChange
         && response.persistentExtraction.status === "NO_CHANGE" && !contribution && !candidate
         && !response.conversationFailure) {
         // Product Entry's deferred path shares the same read-only owner as its
@@ -2497,7 +2556,7 @@ export default function ProtocolDesignerWorkspace({
         sourceTurnRef: userTurn.turnId,
         explicitDimensions: entryRouting.explicitScientificDimensions,
       });
-      const preProjectRealization = !enrichedPreProjectNavigation && response.governedRealization ? {
+      const preProjectRealization = response.scientificConversation ? null : !enrichedPreProjectNavigation && response.governedRealization ? {
         ...response.governedRealization,
         provider: response.governedRealization.providerReplyAccepted ? response.observability.provider : "NONE",
         model: response.governedRealization.providerReplyAccepted ? response.observability.model : "LOCAL_WHAT_REALIZATION",
@@ -2516,9 +2575,15 @@ export default function ProtocolDesignerWorkspace({
           structuredUnderstanding,
         })
         : null;
-      const canonicalAssistantReply = validatedCandidateDegradedPath
+      const candidateScientificChallenge = !response.scientificConversation && effectiveCandidate
+        ? buildCandidateScientificChallenge(effectiveCandidate)
+        : null;
+      const baseCanonicalAssistantReply = validatedCandidateDegradedPath
         ? VALIDATED_CANDIDATE_DEGRADED_REPLY
         : preProjectRealization?.assistantReply ?? response.assistantReply;
+      const canonicalAssistantReply = candidateScientificChallenge
+        ? `${baseCanonicalAssistantReply}\n\n${candidateScientificChallenge}`
+        : baseCanonicalAssistantReply;
       const canonicalAssistantTurn = { ...response.assistantTurn, content: canonicalAssistantReply };
       downstreamStage = "LOCALIZATION";
       const localized = await localizeCanonicalFrenchResponse({
@@ -2532,27 +2597,40 @@ export default function ProtocolDesignerWorkspace({
       });
       assertSubmissionContextCurrent();
       const visibleAssistantReply = localized.response.localizedResponse;
-      const standaloneAssistantReplyVisible = !deferredProposalNavigation
+      const standaloneAssistantReplyVisible = Boolean(response.scientificConversation) || !deferredProposalNavigation
         && !(explicitCurrentProjectChange && effectiveCandidate && contribution);
       downstreamStage = "PRESENTATION";
-      const preProjectTrace = response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
+      if (response.scientificConversation) governedRealizationOutcome = {
+        contract: "SCIENTIFIC_TRACE_REALIZATION_OUTCOME", contractVersion: "1.0.0",
+        declarationSource: "STRUCTURED_COMPONENT_OUTPUT",
+        attemptedProvider: response.observability.conversationCalls === 1 ? response.observability.provider : "NONE",
+        providerResponseReceived: response.observability.conversationResponseReceived === true,
+        providerResponseAccepted: response.scientificConversation.responseOwner === "LLM",
+        providerRejectionReason: response.scientificConversation.fallbackReason ?? "NONE",
+        effectiveExecutor: response.scientificConversation.responseOwner === "LLM" ? "GEMINI_CONVERSATION_MODEL" : "LOCAL_DETERMINISTIC_REALIZATION",
+        fallbackReason: response.scientificConversation.fallbackReason ?? "NONE",
+      };
+      const preProjectTrace = !response.scientificConversation && response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
         sessionId: session.sessionId,
         sourceTurnRef: userTurn.turnId,
         traceRunId,
         sourceText: content,
         routing: entryRouting,
-        request: realizedBridgeRequest,
+        request: response.scientificConversation ? {
+          ...realizedBridgeRequest, preProjectNavigation: undefined, governedRealization: undefined,
+          conversation: { ...realizedBridgeRequest.conversation, interactionContext: undefined },
+        } : realizedBridgeRequest,
         providerBoundary: {
-          systemInstruction: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
+          systemInstruction: response.scientificConversation?.providerInput.systemInstruction ?? NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
           context: providerContext,
           assistantReply: canonicalAssistantReply,
-          provider: preProjectRealization?.provider ?? response.observability.provider,
-          model: preProjectRealization?.model ?? response.observability.model,
-          formulationOwner: preProjectRealization?.executor === "LOCAL_DETERMINISTIC_REALIZATION"
+          provider: response.scientificConversation?.responseOwner === "DETERMINISTIC" ? "NONE" : preProjectRealization?.provider ?? response.observability.provider,
+          model: response.scientificConversation?.responseOwner === "DETERMINISTIC" ? "LOCAL_WHAT_REALIZATION" : preProjectRealization?.model ?? response.observability.model,
+          formulationOwner: response.scientificConversation?.responseOwner === "DETERMINISTIC" || preProjectRealization?.executor === "LOCAL_DETERMINISTIC_REALIZATION"
             ? "LOCAL_RUNTIME"
             : undefined,
           visibleStructuredUnderstandingDimensionRefs: structuredUnderstanding?.representedDimensionRefs,
-          ...(preProjectRealization ? {
+          ...(response.scientificConversation ? { realizationOutcome: governedRealizationOutcome } : preProjectRealization ? {
             realizationOutcome: buildPreProjectTraceRealizationOutcome({
               attemptedProvider: response.observability.provider,
               providerReply: response.assistantReply,
@@ -2605,15 +2683,7 @@ export default function ProtocolDesignerWorkspace({
         response: localized.response,
         observedAt: receivedAt,
       });
-      setSession((current) => {
-        return {
-        ...current,
-        queryNavigation,
-        runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
-        pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
-        retainedContributionCandidates: current.retainedContributionCandidates,
-        entries: [
-          ...current.entries,
+      const responseEntries: FunctionalResetSession["entries"] = [
           ...(standaloneAssistantReplyVisible ? [{
             entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
             content: visibleAssistantReply, createdAt: receivedAt,
@@ -2644,7 +2714,16 @@ export default function ProtocolDesignerWorkspace({
             content: failureMessage,
             createdAt: receivedAt,
           }] : []),
-        ],
+      ];
+      setSession((current) => {
+        return {
+        ...current,
+        queryNavigation,
+        pendingMixedUserTurnRef: continuedTurn ? null : current.pendingMixedUserTurnRef,
+        runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
+        pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
+        retainedContributionCandidates: current.retainedContributionCandidates,
+        entries: [...current.entries, ...responseEntries],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: userTurn.turnId,
           traceRunId,
@@ -2884,6 +2963,17 @@ export default function ProtocolDesignerWorkspace({
     });
   };
 
+  useEffect(() => {
+    const ref = session.pendingMixedUserTurnRef;
+    if (!ref || busy || mixedTurnInFlightRef.current === ref) return;
+    const turn = session.runtimeTurns.find(turn => turn.turnId === ref && turn.role === "USER");
+    if (!turn) return;
+    mixedTurnInFlightRef.current = ref;
+    void submitText(turn.content, turn).finally(() => { mixedTurnInFlightRef.current = null; });
+    // The persisted reference resumes once; normal renders must not restart it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session.pendingMixedUserTurnRef, busy]);
+
   const contributionHasAcknowledgedPresentation = (contributionId: string) => {
     const record = session.retainedContributionCandidates?.find((candidate) => candidate.candidateRef === contributionId);
     // This bounded guard does not change older review flows without a lifecycle receipt.
@@ -2914,13 +3004,23 @@ export default function ProtocolDesignerWorkspace({
         authority: session.projectAuthority,
         confirmedAt: now,
         confirmationReason: naturalDecision
-          ? "L’utilisateur a explicitement confirmé la candidate courante dans son message."
+          ? naturalDecision.selectedChangeRefs
+            ? `Décision partielle : changements confirmés ${naturalDecision.selectedChangeRefs.join(", ")} ; changements refusés ${(naturalDecision.refusedChangeRefs ?? []).join(", ")}.`
+            : "L’utilisateur a explicitement confirmé la candidate courante dans son message."
           : undefined,
         confirmationSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
+        selectedChangeRefs: naturalDecision?.selectedChangeRefs,
         reviewedProjection: reviewEntry?.kind === "REVIEW"
           ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection
           : undefined,
       });
+      const settledRefs = [...(naturalDecision?.selectedChangeRefs ?? []), ...(naturalDecision?.refusedChangeRefs ?? []), ...(naturalDecision?.correctionChangeRefs ?? [])];
+      const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === contributionId);
+      const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
+        record: originalRecord, currentBefore: session.project, currentAfter: project, settledChangeRefs: settledRefs,
+        decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
+      }) : null;
+      const remainderEntryId = remainder ? createConversationEntryId() : null;
       let documents;
       let documentWarning = false;
       try {
@@ -2941,7 +3041,15 @@ export default function ProtocolDesignerWorkspace({
         recordedAt: now,
         dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
       }) });
-      const feedback = session.project ? "Projet mis à jour." : "Projet créé.";
+      const feedback = naturalDecision?.selectedChangeRefs
+        ? naturalDecision.correctionChangeRefs?.length
+          ? "Les éléments confirmés sont enregistrés. Le critère reste à préciser : quelle formulation souhaitez-vous retenir ?"
+          : "Les éléments confirmés sont enregistrés. Les éléments refusés ne sont pas retenus."
+        : buildConciseAdoptionReply({
+        project,
+        projectExisted: Boolean(session.project),
+        stylePreference: naturalDecision?.stylePreference ?? null,
+      });
       const confirmationTurn: ScientificInterpretationTurn = {
         turnId: createTurnId(),
         role: "NOXIA",
@@ -3033,18 +3141,23 @@ export default function ProtocolDesignerWorkspace({
           : current.dataManagementInteraction,
         documents,
         currentContribution: contribution,
-        pendingContribution: null,
-        retainedContributionCandidates: recordContributionCandidateHumanDecision({
+        pendingContribution: remainder?.contribution ?? null,
+        pendingMixedUserTurnRef: naturalDecision?.prepareRemainingTurn ? naturalDecision.userTurn.turnId : null,
+        retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
           retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId,
           decision: project.confirmationDecision,
-        }),
+        }), ...(remainder ? [remainder] : [])],
         runtimeTurns: naturalDecision
           ? [...current.runtimeTurns, naturalDecision.userTurn, confirmationTurn]
           : runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
-            ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision }
+            ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision,
+              ...(naturalDecision?.selectedChangeRefs ? { decisionPartition: { refused: naturalDecision.refusedChangeRefs ?? [], corrected: naturalDecision.correctionChangeRefs ?? [],
+                pending: originalRecord?.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !settledRefs.includes(ref)) ?? [] } } : {}) }
             : entry),
+          ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
+            contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
           ...(naturalDecision ? [{
             entryId: createConversationEntryId(),
             kind: "TEXT" as const,
@@ -3060,16 +3173,19 @@ export default function ProtocolDesignerWorkspace({
           : trace),
         scientificExecutionTraceLedger,
         conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
+        conversationPreferences: naturalDecision?.stylePreference
+          ? { responseLength: naturalDecision.stylePreference.responseLength, source: naturalDecision.stylePreference.source }
+          : current.conversationPreferences,
         updatedAt: now,
       }));
 
-      if ((shouldMediatePostAdoptionQuery(queryNavigation)
+      if (!naturalDecision?.stylePreference && !naturalDecision?.prepareRemainingTurn && !naturalDecision?.selectedChangeRefs && ((shouldMediatePostAdoptionQuery(queryNavigation)
         && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion)
         || isCanonicalStudyDataQueryDispatch(queryNavigation)
         || isDataManagementQueryDispatch(queryNavigation)
         || isObservabilityQueryDispatch(queryNavigation)
         || isRegulatoryQueryDispatch(queryNavigation)
-        || isProductKnowledgePrerequisiteDispatch(queryNavigation)) {
+        || isProductKnowledgePrerequisiteDispatch(queryNavigation))) {
         continuationScheduled = true;
         setPostAdoptionContinuationJob({
           sessionId: session.sessionId,
@@ -3144,7 +3260,16 @@ export default function ProtocolDesignerWorkspace({
         authority: session.projectAuthority,
         rejectedAt: now,
         rejectionSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
+        selectedChangeRefs: naturalDecision?.selectedChangeRefs,
+        reviewedProjection: session.entries.find(entry => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId)?.kind === "REVIEW"
+          ? prepareResearchProjectContributionCandidate(contribution, session.project).humanReviewProjection : undefined,
       });
+      const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === contributionId);
+      const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
+        record: originalRecord, currentBefore: session.project, currentAfter: session.project,
+        settledChangeRefs: naturalDecision.selectedChangeRefs, decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
+      }) : null;
+      const remainderEntryId = remainder ? createConversationEntryId() : null;
       setSession((current) => {
         const reviewEntry = current.entries.find((entry) => entry.kind === "REVIEW"
           && entry.contribution.identity.contributionId === contributionId);
@@ -3160,12 +3285,16 @@ export default function ProtocolDesignerWorkspace({
           decision,
           project: current.project,
         });
+        const rejectionReply = naturalDecision?.selectedChangeRefs ? "Les éléments refusés ne sont pas retenus. Les autres propositions restent en attente ; le projet confirmé est inchangé." : "Proposition refusée. Le projet confirmé reste inchangé.";
+        const rejectionTurn: ScientificInterpretationTurn = {
+          turnId: createTurnId(), role: "NOXIA", content: rejectionReply, createdAt: now,
+        };
         return {
         ...current,
-        pendingContribution: null,
-        retainedContributionCandidates: recordContributionCandidateHumanDecision({
+        pendingContribution: remainder?.contribution ?? null,
+        retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
           retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId, decision,
-        }),
+        }), ...(remainder ? [remainder] : [])],
         studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
           ? {
             ...current.studyDesignInteraction,
@@ -3206,14 +3335,23 @@ export default function ProtocolDesignerWorkspace({
             pendingContributionRef: null,
           }
           : current.biostatisticsInteraction,
-        runtimeTurns: naturalDecision ? [...current.runtimeTurns, naturalDecision.userTurn] : current.runtimeTurns,
+        runtimeTurns: naturalDecision
+          ? [...current.runtimeTurns, naturalDecision.userTurn, rejectionTurn]
+          : current.runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
-            ? { ...entry, status: "REJECTED" as const, decision }
+            ? { ...entry, status: "REJECTED" as const, decision,
+              ...(naturalDecision?.selectedChangeRefs ? { decisionPartition: { refused: naturalDecision.selectedChangeRefs, corrected: [],
+                pending: originalRecord?.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !naturalDecision.selectedChangeRefs!.includes(ref)) ?? [] } } : {}) }
             : entry),
+          ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
+            contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
           ...(naturalDecision ? [{
             entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const,
             content: naturalDecision.originalText, createdAt: naturalDecision.userTurn.createdAt,
+          }, {
+            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
+            content: rejectionReply, createdAt: now,
           }] : []),
         ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
@@ -3221,6 +3359,9 @@ export default function ProtocolDesignerWorkspace({
           : trace),
         scientificExecutionTraceLedger,
         conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
+        conversationPreferences: naturalDecision?.stylePreference
+          ? { responseLength: naturalDecision.stylePreference.responseLength, source: naturalDecision.stylePreference.source }
+          : current.conversationPreferences,
         updatedAt: now,
       };
       });
@@ -3782,9 +3923,11 @@ export default function ProtocolDesignerWorkspace({
                 )}
                 currentProject={projectExistedForReview(index) ? session.project : null}
                 status={entry.status}
+                reviewDecision={entry.decision}
+                decisionPartition={entry.decisionPartition}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
                 disabled={busy}
-                detailedUnderstanding={<UnderstandingReviewCard
+                detailedUnderstanding={entry.decision?.targets.some(ref => entry.candidate?.humanReviewProjection.coveredChangeRefs.includes(ref)) ? undefined : <UnderstandingReviewCard
                   contribution={entry.contribution}
                   status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
                   onConfirm={() => undefined}

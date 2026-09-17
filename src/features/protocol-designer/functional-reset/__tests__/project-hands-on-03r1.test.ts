@@ -297,7 +297,7 @@ describe("PROJECT-HANDS-ON-03R1 — provider typing and literal provenance", () 
     const descriptions = [
       schema.properties.changes.items.properties.sourceAnchorId.description,
       schema.properties.relations.items.properties.sourceAnchorId.description,
-      schema.properties.temporalQualifications.items.properties.sourceAnchorId.description,
+      schema.properties.temporalQualifications.items.anyOf[0].properties.sourceAnchorId.description,
       schema.properties.expectedVariableOccasions.items.properties.sourceAnchorId.description,
     ];
     descriptions.forEach((description) => expect(description).toContain("exact anchorId"));

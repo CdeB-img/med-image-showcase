@@ -1,3 +1,6 @@
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import type { ContextualScientificProposal } from "../scientific-thinking/contextual-understanding.js";
+
 export type LegacyStudyDesignFamily =
   | "CROSS_SECTIONAL_OBSERVATIONAL"
   | "PROSPECTIVE_LONGITUDINAL_COHORT"
@@ -72,4 +75,18 @@ export const buildLegacyStudyDesignReasoningSeeds = (input: {
   if (signals.comparative && !signals.validation) add("COMPARATIVE_OBSERVATIONAL", "Étude observationnelle comparative", "La Question comporte des groupes, expositions ou stratégies à comparer sans intervention automatiquement imposée.", "Estimer une différence ou association entre groupes scientifiquement justifiés.", ["La comparabilité initiale et la confusion doivent être examinées."], ["Biais de sélection", "Confusion"], ["Définition défendable des groupes"], ["comparaison déclarée"]);
   if (!candidates.length || (!signals.longitudinal && !signals.prognostic && !signals.validation && !signals.retrospective)) add("CROSS_SECTIONAL_OBSERVATIONAL", "Étude observationnelle transversale minimale", "Une mesure unique peut suffire à décrire ou examiner l’association demandée lorsque la Question n’impose ni suivi ni intervention.", "Décrire la distribution ou une association au temps scientifique retenu.", ["Aucune évolution temporelle ou relation pronostique ne peut être établie."], ["Biais de sélection", "Biais de mesure"], ["Population et mesure définissables au même temps"], ["absence de nécessité temporelle démontrée"]);
   return candidates.sort((left, right) => left.family.localeCompare(right.family));
+};
+
+/** Existing Study Design competence before adoption: coherence and feasible
+ * collection, never selection of a goal, randomization, endpoint or Project write. */
+export const buildContextualStudyDesignCompetence = (sourceText: string) => Object.freeze({
+  owner: 'STUDY_DESIGN' as const,
+  contextRef: `STUDY-DESIGN-CONTEXT:${logicalDigest(sourceText)}`,
+  signals: detectStudyDesignSignals(sourceText, false),
+  instruction: "Contribution Study Design demandée : dimensions de cohérence et faisabilité selon l'architecture explicitement décrite. Respecter rétrospectif, pré/post, comparatif, longitudinal et ressources. Ne pas redemander leur existence lorsqu'elle est exprimée. Comparaison ne signifie pas randomisation. Ne fixer aucun groupe, objectif, critère ni effectif. Proposer seulement des dimensions méthodologiques avec owner STUDY_DESIGN, statut candidat, valeurs inconnues.",
+  projectWrites: 0 as const,
+});
+export const acceptContextualStudyDesignProposals = (context: ReturnType<typeof buildContextualStudyDesignCompetence>, proposals: readonly ContextualScientificProposal[]) => {
+  if (context.owner !== 'STUDY_DESIGN' || !context.contextRef || proposals.some(p => p.owner !== 'STUDY_DESIGN')) throw new Error('STUDY_DESIGN_CONTEXTUAL_HANDOFF_INVALID');
+  return Object.freeze({owner:'STUDY_DESIGN' as const,contextRef:context.contextRef,proposalRefs:proposals.map(p=>p.ref),projectWrites:0 as const});
 };

@@ -1,5 +1,5 @@
-import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
-import type { KnowledgeContextPackage, KnowledgeRequest, PrivacyClass } from "./types";
+import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical.js";
+import type { KnowledgeContextPackage, KnowledgeRequest, PrivacyClass } from "./types.js";
 
 // A possessive marks ownership, not a patient: bind it to a personal referent.
 // These are sensitive referent classes, never exceptions for research wording.

@@ -1,6 +1,6 @@
-import { logicalDigest } from "./canonical";
-import { LLM_POLICY_VERSION, classifyLlmOperation, type LlmOperation } from "./llm-policy";
-import { KNOWLEDGE_ENGINE_VERSION, type KnowledgeTrace, type KnowledgeTraceEvent } from "./types";
+import { logicalDigest } from "./canonical.js";
+import { LLM_POLICY_VERSION, classifyLlmOperation, type LlmOperation } from "./llm-policy.js";
+import { KNOWLEDGE_ENGINE_VERSION, type KnowledgeTrace, type KnowledgeTraceEvent } from "./types.js";
 
 export class KnowledgeTraceBuilder {
   private readonly events: KnowledgeTraceEvent[] = [];

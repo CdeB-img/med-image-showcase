@@ -1,5 +1,5 @@
-import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
-import { KNOWLEDGE_ENGINE_VERSION, type ContextDimension, type ContextDimensionName, type KnowledgeContextPackage, type KnowledgePurpose } from "./types";
+import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical.js";
+import { KNOWLEDGE_ENGINE_VERSION, type ContextDimension, type ContextDimensionName, type KnowledgeContextPackage, type KnowledgePurpose } from "./types.js";
 
 export type KnowledgeContextInput = Partial<Record<ContextDimensionName, string | string[] | null>> & {
   unknowns?: string[];

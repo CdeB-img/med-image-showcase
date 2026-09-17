@@ -1,19 +1,19 @@
-import { applyApplicability, isApplicable } from "./applicability";
-import { resolveAssertions } from "./assertion-resolver";
-import { analyzeConflicts, analyzeGaps, determineCoverage } from "./conflict-gap-analyzer";
-import { buildCoverageMap } from "./coverage-map";
-import { extractScientificObjectTerms, resolveConcepts } from "./concept-resolver";
-import { createKnowledgeRequest, parseKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request";
-import { comparableScientificText } from "./canonical";
-import { createKnowledgeResult } from "./knowledge-result";
-import { minimizeKnowledgeContext } from "./privacy";
-import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry";
-import { createQueryPlan } from "./query-planner";
-import { retrieveKnowledge } from "./retrieval";
-import { synthesizeKnowledge } from "./synthesizer";
-import { buildScientificQuestionSpecificity } from "./specificity";
-import { KnowledgeTraceBuilder } from "./trace";
-import type { KnowledgeRequest, KnowledgeResult } from "./types";
+import { applyApplicability, isApplicable } from "./applicability.js";
+import { resolveAssertions } from "./assertion-resolver.js";
+import { analyzeConflicts, analyzeGaps, determineCoverage } from "./conflict-gap-analyzer.js";
+import { buildCoverageMap } from "./coverage-map.js";
+import { extractScientificObjectTerms, resolveConcepts } from "./concept-resolver.js";
+import { createKnowledgeRequest, parseKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request.js";
+import { comparableScientificText } from "./canonical.js";
+import { createKnowledgeResult } from "./knowledge-result.js";
+import { minimizeKnowledgeContext } from "./privacy.js";
+import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry.js";
+import { createQueryPlan } from "./query-planner.js";
+import { retrieveKnowledge } from "./retrieval.js";
+import { synthesizeKnowledge } from "./synthesizer.js";
+import { buildScientificQuestionSpecificity } from "./specificity.js";
+import { KnowledgeTraceBuilder } from "./trace.js";
+import type { KnowledgeRequest, KnowledgeResult } from "./types.js";
 
 export type ExecuteKnowledgeInput = Omit<KnowledgeRequestInput, "scientificObjectTerms"> & {
   scientificObjectTerms?: KnowledgeRequestInput["scientificObjectTerms"];

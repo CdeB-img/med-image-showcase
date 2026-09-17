@@ -1,5 +1,6 @@
-import { Component, useState, type ReactNode } from "react";
+import { Component, useMemo, useState, type ReactNode } from "react";
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+import { projectActionableSourceCoverage } from "../actionable-source-coverage";
 import {
   ensureCanonicalProjectState,
   presentCanonicalTemporalAnchor,
@@ -15,6 +16,8 @@ type Props = {
   candidate: ResearchProjectContributionCandidate;
   currentProject?: ResearchProjectOwnerProjection | null;
   status: "PENDING" | "CONFIRMED" | "REJECTED";
+  reviewDecision?: Readonly<{ status: string; targets: readonly string[] }> | null;
+  decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>;
   actionable?: boolean;
   disabled?: boolean;
   detailedUnderstanding?: ReactNode;
@@ -139,14 +142,23 @@ const preservedProjectPropertiesForReview = (
     .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
 };
 
-export default function ContributionReview({ contribution, candidate, currentProject, status, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const sections = candidate.humanReviewProjection.sections;
   const changeCount = candidate.humanReviewProjection.coveredChangeRefs.length;
+  const confirmedChanges = candidate.humanReviewProjection.coveredChangeRefs.filter(ref => reviewDecision?.targets.includes(ref));
+  const partialDecision = Boolean(decisionPartition) || status === "CONFIRMED" && reviewDecision?.status === "ADOPTED"
+    && confirmedChanges.length > 0 && confirmedChanges.length < changeCount;
+  const decisionLabel = (item: HumanReviewProjectionItem) => decisionPartition?.pending.includes(item.changeRef) ? "En attente"
+    : decisionPartition?.corrected.includes(item.changeRef) ? "À modifier"
+    : decisionPartition?.refused.includes(item.changeRef) || reviewDecision?.status === "REJECTED" ? "Non retenu"
+    : confirmedChanges.includes(item.changeRef) ? "Confirmé" : "Non retenu";
   const openPoints = candidate.humanReviewProjection.openPoints;
   const summaryRows = initialSummaryRows(candidate);
   const issueItems = activeIssueItems(contribution);
+  const sourceCoverage = useMemo(() => projectActionableSourceCoverage(contribution), [contribution]);
+  const coverageIssues = sourceCoverage.actionableItems;
   const preservedProperties = status === "PENDING"
     ? preservedProjectPropertiesForReview(candidate, currentProject)
     : [];
@@ -160,9 +172,34 @@ export default function ContributionReview({ contribution, candidate, currentPro
       ? "Voici les changements repérés dans votre dernier message. Ils ne seront appliqués qu’après votre confirmation."
       : "Cette proposition reste modifiable. Vous pouvez la confirmer ou décrire librement ce que vous souhaitez changer."}</p>
 
-    {issueItems.some((item) => item.epistemicBoundary.epistemicStatus === "UNREPRESENTED_SOURCE_SPAN") && <p
+    {sourceCoverage.partialComprehensionWarning && <p
       role="status" className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm"
     >Compréhension partielle : certains passages restent à vérifier. Confirmer cette proposition ne confirme que les éléments structurés affichés.</p>}
+
+    {coverageIssues.length > 0 && <section className="mt-3 rounded-xl border border-amber-500/40 p-3" data-testid="source-coverage-review">
+      <h4 className="text-sm font-semibold">Passages à vérifier ({coverageIssues.length})</h4>
+      <ul className="mt-2 space-y-3 text-sm">{coverageIssues.map(group => <li key={group.id}>
+        <p className="font-medium">{group.label}</p>
+        <p className="mt-1">{group.dispositions.length > 1 ? group.sourceContext : group.dispositions[0].sourceSpan}</p>
+        <details className="mt-1 text-muted-foreground" data-testid="source-coverage-group-detail">
+          <summary className="cursor-pointer">Source et représentation</summary>
+          <p className="mt-1">{group.sourceContext}</p>
+          <ul className="mt-1 list-disc pl-5">{group.dispositions.map(item => <li key={item.diagnosticId}>
+            <p>{item.sourceSpan}</p>
+            {item.semanticEvidence.length ? `Représentation : ${item.semanticEvidence.join(" · ")}` : "Aucune représentation démontrée dans cette proposition."}
+          </li>)}</ul>
+        </details>
+      </li>)}</ul>
+    </section>}
+
+    {sourceCoverage.dispositions.length > 0 && <details className="mt-3 text-sm text-muted-foreground" data-testid="source-coverage-audit">
+      <summary className="cursor-pointer">Détail de la couverture des passages</summary>
+      <ul className="mt-2 list-disc pl-5">{sourceCoverage.dispositions.map(item => <li key={item.diagnosticId}>
+        <span>{item.sourceSpan}</span> — <code>{item.classification}</code>
+        {item.semanticEvidence.length > 0 && <p>{item.semanticEvidence.join(" · ")}</p>}
+        <p>{item.diagnosticId} · {item.sourceRefs.join(" · ")} · {item.candidateRefs.join(" · ")}</p>
+      </li>)}</ul>
+    </details>}
 
     {isUpdate && issueItems.length > 0 && <section className="mt-3 rounded-xl border border-amber-500/40 p-3">
       <h4 className="text-sm font-semibold">À clarifier</h4>
@@ -172,7 +209,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
     {!isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-initial-review-summary">
       {summaryRows.map((row) => <div key={row.id} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold">{row.label}</dt>
-        <dd className="text-sm leading-relaxed">{row.items.map(summaryItemContent).join(" · ")}</dd>
+        <dd className="text-sm leading-relaxed">{row.items.map(item => `${summaryItemContent(item)}${partialDecision ? ` — ${decisionLabel(item)}` : ""}`).join(" · ")}</dd>
       </div>)}
       {issueItems.length > 0 && <div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold text-amber-800 dark:text-amber-200">À clarifier</dt>
@@ -185,6 +222,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
         <h4 className="text-sm font-semibold">{section.label}</h4>
         <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
           <span className="block">{item.content}</span>
+          {partialDecision && <span className="text-xs text-muted-foreground">{decisionLabel(item)}</span>}
           {(item.statusLabel || item.specificationLabel) && <span className="mt-1 flex flex-wrap gap-1">
             {item.statusLabel && <span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
             {item.specificationLabel && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{item.specificationLabel}</span>}
@@ -215,6 +253,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
             <h4 className="text-sm font-semibold">{section.label}</h4>
             <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
               <span className="block">{item.content}</span>
+              {partialDecision && <span className="text-xs text-muted-foreground">{decisionLabel(item)}</span>}
               {(item.statusLabel || item.specificationLabel) && <span className="mt-1 flex flex-wrap gap-1">
                 {item.statusLabel && <span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
                 {item.specificationLabel && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{item.specificationLabel}</span>}
@@ -236,8 +275,8 @@ export default function ContributionReview({ contribution, candidate, currentPro
       <button type="button" disabled={disabled} onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
       <button type="button" disabled={disabled} onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
     </div> : status === "CONFIRMED"
-      ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
-      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le projet est inchangé.</p>}
+      ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{partialDecision ? "Décision partielle : seuls les éléments confirmés sont enregistrés." : isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
+      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">{partialDecision ? "Refus partiel enregistré. Les autres propositions restent en attente ; le projet est inchangé." : "Proposition refusée. Le projet est inchangé."}</p>}
   </section>;
 }
 

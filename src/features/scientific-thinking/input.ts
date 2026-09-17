@@ -1,7 +1,7 @@
-import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
-import type { KnowledgeResult } from "@/features/knowledge-engine/types";
-import { INTERPRETED_FIELD_KEYS, type InterpretedFieldKey, type RoutingIntent, type ValidatedScientificIntent } from "@/features/protocol-designer/intake/types";
-import { SCIENTIFIC_THINKING_ENGINE_VERSION, type KnowledgeSupport, type ScientificThinkingInput } from "./types";
+import { logicalDigest, normalizeScientificText, uniqueSorted } from "../knowledge-engine/canonical.js";
+import type { KnowledgeResult } from "../knowledge-engine/types.js";
+import { INTERPRETED_FIELD_KEYS, type InterpretedFieldKey, type RoutingIntent, type ValidatedScientificIntent } from "../protocol-designer/intake/types.js";
+import { SCIENTIFIC_THINKING_ENGINE_VERSION, type KnowledgeSupport, type ScientificThinkingInput } from "./types.js";
 
 const asValues = (intent: ValidatedScientificIntent, key: InterpretedFieldKey): string[] => {
   const review = intent.reviews[key];

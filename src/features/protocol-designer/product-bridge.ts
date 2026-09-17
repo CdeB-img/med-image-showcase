@@ -1,9 +1,13 @@
 import { z } from "zod";
+import { z as deltaZ } from "zod/v4";
 import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
+import { buildScientificCollaboratorPayload } from "../scientific-thinking/scientific-collaborator-conversation.js";
+import { buildContextualReasoningProviderPayload } from "../scientific-thinking/contextual-reasoning.js";
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
-import { representExplicitScientificDimensions } from "./functional-reset/pre-project-intent.js";
+import { evaluatePersistentSourceCoverage, sourceCoverageFindings } from "./persistent-source-coverage.js";
+import { validateScientificDiscussionContext } from "./functional-reset/contribution-discussion-context.js";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -19,6 +23,7 @@ import {
   buildProjectContextSnapshot,
   canonicalProjectObjectType,
   ensureCanonicalProjectState,
+  temporalAnchorStructureError,
   type CanonicalProjectObjectType,
 } from "../research-project-construction/canonical-project-backbone.js";
 
@@ -302,6 +307,9 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
       : request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
       ? "Tâche actuelle : le Project vient d'être adopté. Formule uniquement la continuation naturelle courte du besoin QRY fourni ; ne récapitule pas le Project et ne choisis pas un autre besoin."
       : "Tâche actuelle : répondre naturellement au dernier message du chercheur.",
+    request.conversationPresentation?.responseLength === "CONCISE"
+      ? "Préférence explicite du chercheur : réponse très concise. Donne l’essentiel en une à trois phrases et au plus une question."
+      : null,
     "Contexte de travail utile :",
     project
       ? `Research Project adopté (lecture seule), version ${project.revision} :\n${project.sections.map((section) => {
@@ -328,7 +336,9 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
   return lines.filter((line): line is string => Boolean(line)).join("\n\n");
 };
 
-export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.governedRealization
+export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.scientificCollaboratorRequest
+  ? buildScientificCollaboratorPayload(request.scientificCollaboratorRequest) : request.contextualReasoningRequest
+  ? buildContextualReasoningProviderPayload(request.contextualReasoningRequest) : request.governedRealization
   ? buildGovernedConversationProviderPayload(request.governedRealization) : ({
   systemInstruction: { parts: [{ text: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION }] },
   contents: [{ role: "user", parts: [{ text: naturalConversationContext(request) }] }],
@@ -414,124 +424,157 @@ export const PROJECT_SECTION_IDS = [
   "ANALYSIS",
 ] as const satisfies readonly ResearchProjectSectionId[];
 
-export const persistentProjectDeltaChangeSchema = z.object({
-  operation: z.enum(["ADD", "REMOVE", "REPLACE"]),
-  sourceText: z.string().min(1).max(4_000),
-  targetSectionId: z.enum(PROJECT_SECTION_IDS).optional(),
-  targetProjectRef: z.string().min(1).nullable().optional(),
-  content: z.string().min(1).max(4_000),
-  candidateRef: z.string().min(1).max(300).optional(),
-  semanticIdentity: z.string().min(1).max(300).nullable().optional(),
+/** Technical envelope for one complete candidate changeset; overflow rejects the whole output. */
+export const PERSISTENT_DELTA_MAX_CHANGES = 64;
+
+export const persistentProjectDeltaChangeSchema = deltaZ.object({
+  operation: deltaZ.enum(["ADD", "REMOVE", "REPLACE"]),
+  sourceText: deltaZ.string().min(1).max(4_000),
+  targetSectionId: deltaZ.enum(PROJECT_SECTION_IDS).optional(),
+  targetProjectRef: deltaZ.string().min(1).nullable().optional(),
+  content: deltaZ.string().min(1).max(4_000),
+  candidateRef: deltaZ.string().min(1).max(300).optional(),
+  semanticIdentity: deltaZ.string().min(1).max(300).nullable().optional(),
   // Keep historical Level-3 payloads readable locally; the live provider is
   // bounded to PERSISTENT_PROJECT_OBJECT_TYPES by its function declaration.
-  proposedType: z.string().min(1).max(120).optional(),
-  polarity: z.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]).optional(),
+  proposedType: deltaZ.string().min(1).max(120).optional(),
+  polarity: deltaZ.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]).optional(),
   // Keep historical Level-3 owner payloads readable locally. The live Gemini
   // boundary is separately checked against PERSISTENT_PROJECT_STUDY_ROLES.
-  studyRole: z.string().min(1).max(120).nullable().optional(),
-  epistemicStatus: z.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]).optional(),
-  epistemicState: z.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
-  assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]).optional(),
-  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
-  evidenceRefs: z.array(z.string().min(1).max(500)).max(20).optional(),
+  studyRole: deltaZ.string().min(1).max(120).nullable().optional(),
+  epistemicStatus: deltaZ.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]).optional(),
+  epistemicState: deltaZ.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
+  assertionKind: deltaZ.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]).optional(),
+  proposalSourceText: deltaZ.string().min(1).max(4_000).nullable().optional(),
+  evidenceRefs: deltaZ.array(deltaZ.string().min(1).max(500)).max(20).optional(),
 }).strict();
 
-export const persistentProjectRelationSchema = z.object({
-  relationRef: z.string().min(1).max(300),
-  sourceText: z.string().min(1).max(4_000),
-  relationType: z.string().min(1).max(120),
-  sourceObjectRef: z.string().min(1).max(300),
-  targetObjectRef: z.string().min(1).max(300),
-  polarity: z.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]),
-  epistemicStatus: z.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]),
-  epistemicState: z.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
-  assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
-  evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
+export const persistentProjectRelationSchema = deltaZ.object({
+  relationRef: deltaZ.string().min(1).max(300),
+  sourceText: deltaZ.string().min(1).max(4_000),
+  relationType: deltaZ.string().min(1).max(120),
+  sourceObjectRef: deltaZ.string().min(1).max(300),
+  targetObjectRef: deltaZ.string().min(1).max(300),
+  polarity: deltaZ.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]),
+  epistemicStatus: deltaZ.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]),
+  epistemicState: deltaZ.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
+  assertionKind: deltaZ.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
+  proposalSourceText: deltaZ.string().min(1).max(4_000).nullable().optional(),
+  evidenceRefs: deltaZ.array(deltaZ.string().min(1).max(500)).max(20),
 }).strict();
 
-export const persistentTemporalAnchorSchema = z.object({
-  kind: z.enum(["TIMEPOINT", "RELATIVE_EVENT", "WINDOW", "INTERVAL"]),
-  direction: z.enum(["BEFORE", "AT", "AFTER", "UNKNOWN"]),
-  unit: z.string().min(1).max(40),
-  offset: z.number().finite().nullable(),
-  lowerBound: z.number().finite().nullable(),
-  upperBound: z.number().finite().nullable(),
-  relativeEventLabel: z.string().min(1).max(300).nullable(),
-  tolerance: z.object({
-    lower: z.number().finite().nullable(),
-    upper: z.number().finite().nullable(),
-    unit: z.string().min(1).max(40),
+export const persistentTemporalAnchorSchema = deltaZ.object({
+  kind: deltaZ.enum(["TIMEPOINT", "RELATIVE_EVENT", "WINDOW", "INTERVAL"]),
+  direction: deltaZ.enum(["BEFORE", "AT", "AFTER", "UNKNOWN"]),
+  unit: deltaZ.string().min(1).max(40).nullable(),
+  offset: deltaZ.number().finite().nullable(),
+  lowerBound: deltaZ.number().finite().nullable(),
+  upperBound: deltaZ.number().finite().nullable(),
+  relativeEventLabel: deltaZ.string().min(1).max(300).nullable(),
+  tolerance: deltaZ.object({
+    lower: deltaZ.number().finite().nullable(),
+    upper: deltaZ.number().finite().nullable(),
+    unit: deltaZ.string().min(1).max(40),
   }).strict().nullable(),
-  reference: z.discriminatedUnion("status", [
-    z.object({ status: z.literal("KNOWN"), referenceProjectRef: z.string().min(1).max(300) }).strict(),
-    z.object({ status: z.literal("EXPLICIT"), bindingStatus: z.literal("PROJECT_REF_UNRESOLVED") }).strict(),
-    z.object({ status: z.literal("UNKNOWN"), unresolvedReason: z.enum(["REFERENCE_EVENT_NOT_SUPPLIED", "REFERENCE_EVENT_AMBIGUOUS"]) }).strict(),
+  reference: deltaZ.discriminatedUnion("status", [
+    deltaZ.object({ status: deltaZ.literal("KNOWN"), referenceProjectRef: deltaZ.string().min(1).max(300) }).strict(),
+    deltaZ.object({ status: deltaZ.literal("EXPLICIT"), bindingStatus: deltaZ.literal("PROJECT_REF_UNRESOLVED") }).strict(),
+    deltaZ.object({ status: deltaZ.literal("UNKNOWN"), unresolvedReason: deltaZ.enum(["REFERENCE_EVENT_NOT_SUPPLIED", "REFERENCE_EVENT_AMBIGUOUS"]) }).strict(),
   ]),
 }).strict();
 
-export const persistentTemporalQualificationSchema = z.object({
-  operation: z.enum(["ADD", "REMOVE", "REPLACE"]),
-  qualificationId: z.string().min(1).max(300),
-  sourceText: z.string().min(1).max(4_000),
-  subjectProjectRef: z.string().min(1).max(300),
-  temporalRole: z.enum(["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"]),
+export const persistentTemporalQualificationSchema = deltaZ.object({
+  operation: deltaZ.enum(["ADD", "REMOVE", "REPLACE"]),
+  qualificationId: deltaZ.string().min(1).max(300),
+  sourceText: deltaZ.string().min(1).max(4_000),
+  subjectProjectRef: deltaZ.string().min(1).max(300),
+  temporalRole: deltaZ.enum(["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"]),
   anchor: persistentTemporalAnchorSchema.nullable(),
-  assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
-  evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
+  assertionKind: deltaZ.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
+  proposalSourceText: deltaZ.string().min(1).max(4_000).nullable().optional(),
+  evidenceRefs: deltaZ.array(deltaZ.string().min(1).max(500)).max(20),
 }).strict();
 
-export const persistentExpectedVariableOccasionSchema = z.object({
-  operation: z.enum(["ADD", "REMOVE", "REPLACE"]),
-  occasionId: z.string().min(1).max(300),
-  sourceText: z.string().min(1).max(4_000),
-  variableProjectRef: z.string().min(1).max(300),
+export const persistentExpectedVariableOccasionSchema = deltaZ.object({
+  operation: deltaZ.enum(["ADD", "REMOVE", "REPLACE"]),
+  occasionId: deltaZ.string().min(1).max(300),
+  sourceText: deltaZ.string().min(1).max(4_000),
+  variableProjectRef: deltaZ.string().min(1).max(300),
   anchor: persistentTemporalAnchorSchema.nullable(),
-  studyUnitOrGroupRef: z.string().min(1).max(300).nullable().optional(),
-  applicableContext: z.string().min(1).max(1_000).nullable().optional(),
-  assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
-  evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
+  studyUnitOrGroupRef: deltaZ.string().min(1).max(300).nullable().optional(),
+  applicableContext: deltaZ.string().min(1).max(1_000).nullable().optional(),
+  assertionKind: deltaZ.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
+  proposalSourceText: deltaZ.string().min(1).max(4_000).nullable().optional(),
+  evidenceRefs: deltaZ.array(deltaZ.string().min(1).max(500)).max(20),
 }).strict();
 
-export const persistentProjectDeltaSchema = z.object({
-  changes: z.array(persistentProjectDeltaChangeSchema).max(20).default([]),
-  relations: z.array(persistentProjectRelationSchema).max(30).default([]),
-  temporalQualifications: z.array(persistentTemporalQualificationSchema).max(20).default([]),
-  expectedVariableOccasions: z.array(persistentExpectedVariableOccasionSchema).max(30).default([]),
+export const persistentProjectDeltaSchema = deltaZ.object({
+  changes: deltaZ.array(persistentProjectDeltaChangeSchema).max(PERSISTENT_DELTA_MAX_CHANGES).default([]),
+  relations: deltaZ.array(persistentProjectRelationSchema).max(30).default([]),
+  temporalQualifications: deltaZ.array(persistentTemporalQualificationSchema).max(20).default([]),
+  expectedVariableOccasions: deltaZ.array(persistentExpectedVariableOccasionSchema).max(30).default([]),
 }).strict();
 
 const persistentSourceAnchoredChangeSchema = persistentProjectDeltaChangeSchema
   .omit({ sourceText: true })
-  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .extend({
+    sourceAnchorId: deltaZ.string().min(1).max(300),
+    proposedType: deltaZ.enum(PERSISTENT_PROJECT_OBJECT_TYPES),
+    studyRole: deltaZ.enum(PERSISTENT_PROJECT_STUDY_ROLES).nullable().optional(),
+    targetProjectRef: deltaZ.string().min(1).optional(),
+  })
+  .required({ candidateRef: true, polarity: true, epistemicStatus: true, epistemicState: true, assertionKind: true, evidenceRefs: true })
   .strict();
 
 const persistentSourceAnchoredRelationSchema = persistentProjectRelationSchema
   .omit({ sourceText: true })
-  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .extend({ sourceAnchorId: deltaZ.string().min(1).max(300), relationType: deltaZ.enum(PERSISTENT_PROJECT_RELATION_TYPES) })
+  .required({ epistemicState: true })
   .strict();
 
-const persistentSourceAnchoredTemporalQualificationSchema = persistentTemporalQualificationSchema
+const persistentSourceAnchoredTemporalQualificationBase = persistentTemporalQualificationSchema
   .omit({ sourceText: true })
-  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .extend({ sourceAnchorId: deltaZ.string().min(1).max(300) })
   .strict();
+
+const persistentSourceAnchoredTemporalQualificationSchema = deltaZ.discriminatedUnion("operation", [
+  persistentSourceAnchoredTemporalQualificationBase.extend({ operation: deltaZ.literal("ADD"), qualificationId: deltaZ.string().min(1).max(300).optional() }),
+  persistentSourceAnchoredTemporalQualificationBase.extend({ operation: deltaZ.literal("REPLACE") }),
+  persistentSourceAnchoredTemporalQualificationBase.extend({ operation: deltaZ.literal("REMOVE") }),
+]);
 
 const persistentSourceAnchoredExpectedVariableOccasionSchema = persistentExpectedVariableOccasionSchema
   .omit({ sourceText: true })
-  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .extend({ sourceAnchorId: deltaZ.string().min(1).max(300) })
   .strict();
 
 /**
  * Live provider/wire shape. sourceAnchorId is implementation metadata; it is
  * not a PD-003 object and never becomes Project truth by itself.
  */
-export const persistentSourceAnchoredDeltaSchema = z.object({
-  changes: z.array(persistentSourceAnchoredChangeSchema).max(20).default([]),
-  relations: z.array(persistentSourceAnchoredRelationSchema).max(30).default([]),
-  temporalQualifications: z.array(persistentSourceAnchoredTemporalQualificationSchema).max(20).default([]),
-  expectedVariableOccasions: z.array(persistentSourceAnchoredExpectedVariableOccasionSchema).max(30).default([]),
+export const persistentSourceAnchoredDeltaSchema = deltaZ.object({
+  changes: deltaZ.array(persistentSourceAnchoredChangeSchema).max(PERSISTENT_DELTA_MAX_CHANGES).default([]),
+  relations: deltaZ.array(persistentSourceAnchoredRelationSchema).max(30).default([]),
+  temporalQualifications: deltaZ.array(persistentSourceAnchoredTemporalQualificationSchema).max(20).default([]),
+  expectedVariableOccasions: deltaZ.array(persistentSourceAnchoredExpectedVariableOccasionSchema).max(30).default([]),
 }).strict();
+
+export type PersistentProviderJsonSchema = {
+  [key: string]: unknown;
+  properties?: Record<string, PersistentProviderJsonSchema>;
+  items?: PersistentProviderJsonSchema;
+  anyOf?: PersistentProviderJsonSchema[];
+  required?: string[];
+  description?: string;
+};
+
+/** Both live transports consume the JSON projection of the actual input parser. */
+export const buildPersistentProviderJsonSchema = (): PersistentProviderJsonSchema => {
+  const { $schema: _dialect, ...schema } = deltaZ.toJSONSchema(persistentSourceAnchoredDeltaSchema, {
+    io: "input", target: "draft-7", reused: "inline", unrepresentable: "throw",
+  });
+  return schema as PersistentProviderJsonSchema;
+};
 
 export type PersistentSourceAnchor = {
   anchorId: string;
@@ -631,6 +674,35 @@ export type PersistentSourceMaterialization = {
   value: PersistentProjectDeltaWireCandidate | null;
   blocks: string[];
   selections: Array<{ path: string; sourceAnchorId: string; sourceText: string }>;
+  normalizations: Array<{ path: string; reason: string; from: unknown; to: unknown }>;
+};
+
+const transportRecord = (value: unknown): Record<string, unknown> | null => (
+  typeof value === "object" && value !== null && !Array.isArray(value) ? value as Record<string, unknown> : null
+);
+
+/** Explicit compatibility for recorded unquantified event anchors, never a numeric inference. */
+const normalizePersistentTransport = (value: unknown) => {
+  const normalizations: PersistentSourceMaterialization["normalizations"] = [];
+  const root = transportRecord(value);
+  if (!root) return { value, normalizations };
+  const normalized = { ...root };
+  for (const key of ["temporalQualifications", "expectedVariableOccasions"] as const) {
+    if (!Array.isArray(root[key])) continue;
+    normalized[key] = root[key].map((item: unknown, index: number) => {
+      const entry = transportRecord(item);
+      const anchor = transportRecord(entry?.anchor);
+      const reference = transportRecord(anchor?.reference);
+      if (anchor?.kind !== "RELATIVE_EVENT" || anchor.unit !== ""
+        || anchor.offset !== null || anchor.lowerBound !== null || anchor.upperBound !== null || anchor.tolerance !== null
+        || !(reference?.status === "KNOWN"
+          || (reference?.status === "EXPLICIT" && typeof anchor.relativeEventLabel === "string" && anchor.relativeEventLabel.trim())
+          || (reference?.status === "UNKNOWN" && anchor.relativeEventLabel === null))) return item;
+      normalizations.push({ path: `${key}.${index}.anchor.unit`, reason: "LEGACY_UNQUANTIFIED_EVENT_UNIT_TO_NULL", from: "", to: null });
+      return { ...entry, anchor: { ...anchor, unit: null } };
+    });
+  }
+  return { value: normalized, normalizations };
 };
 
 export const materializePersistentSourceAnchors = (input: {
@@ -638,12 +710,15 @@ export const materializePersistentSourceAnchors = (input: {
   catalog: PersistentSourceCatalog;
   currentUserTurn: { turnId: string; content: string };
 }): PersistentSourceMaterialization => {
-  const parsed = persistentSourceAnchoredDeltaSchema.safeParse(input.value);
+  const normalized = normalizePersistentTransport(input.value);
+  const normalizations = normalized.normalizations;
+  const parsed = persistentSourceAnchoredDeltaSchema.safeParse(normalized.value);
   if (!parsed.success) return {
     valid: false,
     value: null,
     blocks: parsed.error.issues.map((issue) => `SOURCE_ANCHOR_PROVIDER_SCHEMA:${issue.path.join(".")}:${issue.code}`),
     selections: [],
+    normalizations,
   };
 
   const blocks: string[] = [];
@@ -706,15 +781,21 @@ export const materializePersistentSourceAnchors = (input: {
     ...relation,
     sourceText: resolve(`relation:${index}`, sourceAnchorId) ?? "",
   }));
-  const temporalQualifications = parsed.data.temporalQualifications.map(({ sourceAnchorId, ...qualification }, index) => ({
-    ...qualification,
-    sourceText: resolve(`temporalQualification:${index}`, sourceAnchorId) ?? "",
-  }));
+  const temporalQualifications = parsed.data.temporalQualifications.map(({ sourceAnchorId, ...qualification }, index) => {
+    const qualificationId = qualification.qualificationId ?? `persistent-temporal-qualification:${logicalDigest({
+      turnId: input.currentUserTurn.turnId, sourceAnchorId, subjectProjectRef: qualification.subjectProjectRef,
+      temporalRole: qualification.temporalRole, anchor: qualification.anchor,
+    })}`;
+    if (qualification.qualificationId === undefined) normalizations.push({
+      path: `temporalQualifications.${index}.qualificationId`, reason: "LOCAL_ADD_QUALIFICATION_ID", from: null, to: qualificationId,
+    });
+    return { ...qualification, qualificationId, sourceText: resolve(`temporalQualification:${index}`, sourceAnchorId) ?? "" };
+  });
   const expectedVariableOccasions = parsed.data.expectedVariableOccasions.map(({ sourceAnchorId, ...occasion }, index) => ({
     ...occasion,
     sourceText: resolve(`expectedVariableOccasion:${index}`, sourceAnchorId) ?? "",
   }));
-  if (blocks.length) return { valid: false, value: null, blocks, selections };
+  if (blocks.length) return { valid: false, value: null, blocks, selections, normalizations };
 
   const materialized = persistentProjectDeltaSchema.safeParse({ changes, relations, temporalQualifications, expectedVariableOccasions });
   if (!materialized.success) return {
@@ -722,8 +803,9 @@ export const materializePersistentSourceAnchors = (input: {
     value: null,
     blocks: materialized.error.issues.map((issue) => `SOURCE_ANCHOR_MATERIALIZATION:${issue.path.join(".")}:${issue.code}`),
     selections,
+    normalizations,
   };
-  return { valid: true, value: materialized.data, blocks: [], selections };
+  return { valid: true, value: materialized.data, blocks: [], selections, normalizations };
 };
 
 const TEXTUAL_NULL_SENTINELS = new Set(["null", "none", "n/a", "undefined"]);
@@ -740,7 +822,7 @@ export type PersistentProviderContractValidation = {
  * or scientific repair.
  */
 export const validatePersistentProviderContract = (value: unknown): PersistentProviderContractValidation => {
-  const anchored = persistentSourceAnchoredDeltaSchema.safeParse(value);
+  const anchored = persistentSourceAnchoredDeltaSchema.safeParse(normalizePersistentTransport(value).value);
   const historical = persistentProjectDeltaSchema.safeParse(value);
   if (!anchored.success && !historical.success) return {
     valid: false,
@@ -793,11 +875,11 @@ export const validatePersistentProviderContract = (value: unknown): PersistentPr
   return { valid: blocks.length === 0, blocks };
 };
 
-export type PersistentProjectDeltaChange = z.infer<typeof persistentProjectDeltaChangeSchema>;
-export type PersistentProjectRelation = z.infer<typeof persistentProjectRelationSchema>;
-export type PersistentTemporalQualification = z.infer<typeof persistentTemporalQualificationSchema>;
-export type PersistentExpectedVariableOccasion = z.infer<typeof persistentExpectedVariableOccasionSchema>;
-export type PersistentProjectDeltaWireCandidate = z.infer<typeof persistentProjectDeltaSchema>;
+export type PersistentProjectDeltaChange = deltaZ.infer<typeof persistentProjectDeltaChangeSchema>;
+export type PersistentProjectRelation = deltaZ.infer<typeof persistentProjectRelationSchema>;
+export type PersistentTemporalQualification = deltaZ.infer<typeof persistentTemporalQualificationSchema>;
+export type PersistentExpectedVariableOccasion = deltaZ.infer<typeof persistentExpectedVariableOccasionSchema>;
+export type PersistentProjectDeltaWireCandidate = deltaZ.infer<typeof persistentProjectDeltaSchema>;
 export type PersistentProjectDeltaCandidate = {
   contract: typeof PERSISTENT_PROJECT_DELTA_CONTRACT;
   contractVersion: "0.4.0";
@@ -881,10 +963,18 @@ export type ProductBridgeRequest = {
   languageBoundary?: ProductBridgeLanguageBoundary;
   /** Server-owned bounded HOW input, never accepted from unvalidated HTTP input. */
   governedRealization?: import("../query-navigation/governed-conversation-realization.js").GovernedConversationEnvelope;
+  /** Server-owned ST proposal operation on the existing conversation provider. */
+  /** Server-owned native-text Scientific Thinking conversation; no write permission. */
+  scientificCollaboratorRequest?: import("../scientific-thinking/scientific-collaborator-conversation.js").ScientificCollaboratorConversationRequest;
+  contextualReasoningRequest?: import("../scientific-thinking/contextual-reasoning.js").ContextualReasoningRequest;
   currentNavigation?: import("../query-navigation/current-turn-navigation.js").CurrentGovernedNavigationInput;
   /** Client-projected, lifecycle-bound context; never a transcript or a second context owner. */
   boundedReferentContext?: import("../query-navigation/current-turn-navigation.js").BoundedConversationReferentContext;
+  /** Read-only scientific discussion from the existing retained contribution lifecycle. */
+  scientificDiscussionContext?: import("./functional-reset/contribution-discussion-context.js").ScientificDiscussionContext;
   boundedInteraction?: import("../query-navigation/current-turn-navigation.js").BoundedConversationInteraction;
+  /** User-owned presentation preference only; never a scientific instruction or Project fact. */
+  conversationPresentation?: Readonly<{ responseLength: "CONCISE" }>;
   /** Technical correlation only. It never contributes to scientific routing or provider content. */
   observabilityContext?: ProviderCallObservationContext;
 };
@@ -893,6 +983,8 @@ export type ProductBridgeResponse = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
   assistantReply: string;
   assistantTurn: ScientificInterpretationTurn;
+  scientificConversation?: import("../scientific-thinking/scientific-collaborator-conversation.js").ScientificConversationReceipt;
+  contextualReasoning?: import("../scientific-thinking/contextual-reasoning.js").ContextualReasoningReceipt;
   currentTurnNavigation?: ReturnType<typeof import("../query-navigation/current-turn-navigation.js").buildCurrentTurnNavigation>;
   governedRealization?: ReturnType<typeof import("../query-navigation/governed-conversation-realization.js").realizeGovernedConversation>;
   stageTimestamps?: { extractionCompletedAt: string; howRequestedAt: string | null; howCompletedAt: string };
@@ -961,6 +1053,33 @@ export type ProductBridgeResponse = {
 };
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/\s+/g, " ").trim();
+
+/**
+ * A selected list-label anchor can name a cohort whose explicit declaration
+ * precedes it in the same user turn. Only a uniquely located, exactly named
+ * entry inside that declaration's contiguous list supplies this context.
+ * Unrelated population words elsewhere in the turn are not evidence.
+ */
+const populationNamedInSourceEnumeration = (raw: string, change: PersistentProjectDeltaChange): boolean => {
+  const entryPattern = /^\s*((?:[-*•]|\d+[.)])\s*([^:;\n]+?)\s*:)/u;
+  const selected = entryPattern.exec(change.sourceText);
+  if (!selected || normalized(selected[1]) !== normalized(change.sourceText)
+    || raw.indexOf(change.sourceText) !== raw.lastIndexOf(change.sourceText)) return false;
+  const contentLabel = normalized(change.content).replace(/^(?:cohorte|population|cohort)\s+/u, "");
+  if (contentLabel !== normalized(selected[2])) return false;
+
+  let insideEnumeration = false;
+  for (const line of raw.split(/\r?\n/u)) {
+    const entry = entryPattern.exec(line);
+    if (!entry) {
+      insideEnumeration = /\b(?:cohortes?|populations?|cohorts?)\b[^.!?]*:\s*$/iu.test(line)
+        && !/\b(?:aucune?s?|sans|pas|not|no)\b/iu.test(line);
+      continue;
+    }
+    if (insideEnumeration && normalized(entry[1]) === normalized(selected[1])) return true;
+  }
+  return false;
+};
 
 /**
  * Extracts only explicit, deterministic temporal literals. This is not a
@@ -1090,7 +1209,7 @@ export const validatePersistentProjectDelta = (
   rawUserTurn: string,
   project: ResearchProjectOwnerProjection | null,
   conversation?: ScientificInterpretationConversation,
-): { wireCandidate: z.infer<typeof persistentProjectDeltaSchema> | null; candidate: PersistentProjectDeltaCandidate | null; validation: PersistentDeltaValidation } => {
+): { wireCandidate: deltaZ.infer<typeof persistentProjectDeltaSchema> | null; candidate: PersistentProjectDeltaCandidate | null; validation: PersistentDeltaValidation } => {
   const parsed = persistentProjectDeltaSchema.safeParse(value);
   if (!parsed.success) return {
     wireCandidate: null,
@@ -1153,6 +1272,21 @@ export const validatePersistentProjectDelta = (
         return;
       }
       candidateRefs.add(change.candidateRef);
+    }
+    const proposedCanonicalType = canonicalProjectObjectType({
+      proposedType: change.proposedType ?? null,
+      studyRole: change.studyRole ?? null,
+    });
+    if (change.operation === "ADD" && proposedCanonicalType === "POPULATION") {
+      const populationExplicitlyNamed = /\b(?:population|patients?|participants?|sujets?|adultes?|enfants?|nouveau[- ]nes?|cohorte|personnes?)\b/iu.test(change.sourceText);
+      const sameSourceCarriesCondition = parsed.data.changes.some((other) => other !== change
+        && other.sourceText === change.sourceText
+        && canonicalProjectObjectType({ proposedType: other.proposedType ?? null, studyRole: other.studyRole ?? null }) === "CONDITION");
+      if (!populationExplicitlyNamed && sameSourceCarriesCondition
+        && !populationNamedInSourceEnumeration(rawUserTurn, change)) {
+        noOps.push(`${prefix}:CONDITION_CONTEXT_NOT_POPULATION`);
+        return;
+      }
     }
     if (change.operation === "ADD") {
       const identityTemporalValues = new Set([
@@ -1305,18 +1439,16 @@ export const validatePersistentProjectDelta = (
   const currentTemporalQualifications = canonicalState?.temporalQualifications.filter((item) => item.actuality === "CURRENT") ?? [];
   const currentExpectedOccasions = canonicalState?.expectedVariableOccasions.filter((item) => item.actuality === "CURRENT") ?? [];
 
-  const validateAnchor = (anchor: z.infer<typeof persistentTemporalAnchorSchema> | null, prefix: string) => {
+  const validateAnchor = (anchor: deltaZ.infer<typeof persistentTemporalAnchorSchema> | null, prefix: string) => {
     if (!anchor) {
       blocks.push(`${prefix}:TEMPORAL_ANCHOR_REQUIRED`);
       return false;
     }
-    if ((anchor.kind === "WINDOW" || anchor.kind === "INTERVAL")
-      && (anchor.lowerBound === null || anchor.upperBound === null || anchor.lowerBound > anchor.upperBound)) {
-      blocks.push(`${prefix}:TEMPORAL_ANCHOR_BOUNDS_INVALID`);
-      return false;
-    }
-    if (anchor.kind === "TIMEPOINT" && anchor.offset === null) {
-      blocks.push(`${prefix}:TEMPORAL_ANCHOR_OFFSET_REQUIRED`);
+    // The parsed schema requires every nullable field; non-strict null mode
+    // incorrectly infers these fields as optional in the TypeScript type.
+    const structureError = temporalAnchorStructureError(anchor as Parameters<typeof temporalAnchorStructureError>[0]);
+    if (structureError) {
+      blocks.push(`${prefix}:${structureError}`);
       return false;
     }
     if (anchor.reference.status === "KNOWN" && !knownObjectType.has(anchor.reference.referenceProjectRef)) {
@@ -1520,7 +1652,7 @@ const contributionTemporalAnchor = (
   anchor: PersistentTemporalQualification["anchor"] | PersistentExpectedVariableOccasion["anchor"],
 ): ScientificTemporalAnchorCandidate | null => {
   if (!anchor) return null;
-  if (!anchor.kind || !anchor.direction || !anchor.unit || anchor.offset === undefined
+  if (!anchor.kind || !anchor.direction || anchor.unit === undefined || anchor.offset === undefined
     || anchor.lowerBound === undefined || anchor.upperBound === undefined
     || anchor.relativeEventLabel === undefined || anchor.tolerance === undefined || !anchor.reference?.status) {
     throw new Error("PERSISTENT_TEMPORAL_ANCHOR_NOT_NORMALIZED");
@@ -1575,43 +1707,20 @@ export const contributionFromPersistentDelta = (input: {
   const temporalElements = items.filter((item, index) => input.candidate.changes[index]?.targetSectionId === "TEMPORALITY"
     || /TEMPORAL|TIMING|TIMEPOINT|WINDOW|VISIT/i.test(item.proposedType ?? ""));
   const correctionsAndSupersessions = items.filter((_, index) => input.candidate.changes[index]?.operation !== "ADD");
-  // Source provenance is not a proof of semantic completeness. In particular,
-  // selecting even one sentence may omit facts inside it. Only an explicit
-  // rendering of the whole span discharges this conservative coverage notice.
-  // Reuse explicit spans and the non-adopting clarification channel; no second
-  // extraction, inferred Project object, or rejection of a usable partial delta.
-  const normalizedCoverageText = (text: string) => text.normalize("NFKC").toLocaleLowerCase("fr-FR")
-    .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-  const sourceItems = [
-    ...input.candidate.changes, ...input.candidate.relations,
-    ...input.candidate.temporalQualifications, ...input.candidate.expectedVariableOccasions,
-  ];
-  const clarificationNeeds: ScientificContributionItem[] = representExplicitScientificDimensions({
-    raw: lastUserTurn.content, sourceTurnRef: lastUserTurn.turnId,
-  }).filter((dimension) => {
-    const span = normalizedCoverageText(dimension.sourceText);
-    return !sourceItems.some((item) => {
-      const content = "content" in item ? normalizedCoverageText(item.content) : "";
-      return content.length > 0 && content.includes(span);
-    });
-  }).map((dimension) => ({
-    itemId: `${dimension.dimensionRef}:unrepresented`, semanticIdentity: null,
-    proposedType: null,
-    content: `Interprétation complète du passage à vérifier : « ${dimension.sourceText} »`,
-    polarity: null, studyRole: null, confidence: null,
-    epistemicBoundary: {
-      ownership: "NOXIA", epistemicState: "UNKNOWN", epistemicStatus: "UNREPRESENTED_SOURCE_SPAN",
-      adoptionStatus: "NOT_ADOPTABLE", originType: "DETERMINISTIC_SOURCE_COVERAGE",
-      activeState: true, sourceTurnIds: [lastUserTurn.turnId], sourceText: dimension.sourceText,
-    },
-  }));
+  const coverage = evaluatePersistentSourceCoverage({ candidate: input.candidate,
+    raw: lastUserTurn.content, sourceTurnRef: lastUserTurn.turnId });
+  const coverageFindings = sourceCoverageFindings(coverage);
+  // Missing extraction evidence is an extraction diagnostic, not a request
+  // that the user repeat an explicit fact. Existing candidate ambiguities
+  // remain unchanged in their own collection and review channel.
+  const clarificationNeeds: ScientificContributionItem[] = [];
   const contributionId = `persistent-project-contribution:${logicalDigest({
     conversationId: input.conversation.conversationId,
     turnId: lastUserTurn.turnId,
     changes: input.candidate.changes,
     baseProject: input.currentProject?.versionId ?? null,
   })}`;
-  const contributionDigest = logicalDigest({ contributionId, candidate: input.candidate, items, clarificationNeeds });
+  const contributionDigest = logicalDigest({ contributionId, candidate: input.candidate, items, clarificationNeeds, coverageFindings });
   return {
     contract: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
     contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
@@ -1699,7 +1808,8 @@ export const contributionFromPersistentDelta = (input: {
       qualificationOwnerRequired: null,
       mappingLimitations: [],
     })),
-    audit: { deterministicFindings: [], semanticAuditFindings: [], unresolvedFindings: [] },
+    audit: { deterministicFindings: coverageFindings, semanticAuditFindings: [],
+      unresolvedFindings: coverageFindings.filter(finding => finding.status === "OPEN") },
     decisionBoundary: {
       decisionRequired: true,
       decisionEnvelopeRef: null,
@@ -1809,6 +1919,9 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
           && scope.affectedBranchRefs.every((ref: unknown) => typeof ref === "string" && navigation.selected.affectedBranchRefs.includes(ref))))) return null;
     } catch { return null; }
   }
+  if (record.scientificDiscussionContext !== undefined && !validateScientificDiscussionContext(record.scientificDiscussionContext, {
+    conversationId: record.conversation.conversationId, runtimeTurns: record.conversation.turns, currentProject: record.currentProject,
+  })) return null;
   if (record.boundedReferentContext) {
     const context = record.boundedReferentContext;
     const source = context.sourceTurnRef
@@ -1835,5 +1948,5 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
       || (interaction.kind === "EXPLAIN_REFERENCED_CONTENT" && !record.boundedReferentContext)) return null;
   }
   // HTTP callers cannot inject the server's post-validation realization envelope.
-  return { ...record, governedRealization: undefined } as ProductBridgeRequest;
+  return { ...record, governedRealization: undefined, contextualReasoningRequest: undefined, scientificCollaboratorRequest: undefined } as ProductBridgeRequest;
 };

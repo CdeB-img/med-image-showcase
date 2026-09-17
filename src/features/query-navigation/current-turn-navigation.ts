@@ -41,6 +41,12 @@ export type BoundedConversationReferentContext = Readonly<{
     candidateKinds: readonly string[];
     sourceText: string;
     adoptedTexts: readonly string[];
+    /** Exact native review items; no inferred ordinal or hidden Project label. */
+    reviewItems?: readonly Readonly<{ changeRef: string; content: string; objectType?: string; scientificRole?: string | null }>[];
+    scopeGroups?: readonly (readonly string[])[];
+    objectOnlyScope?: boolean;
+    independentAddScope?: boolean;
+    numberedPoints?: readonly Readonly<{ ordinal: number; changeRefs: readonly string[]; sourceTurnRef: string }>[];
   }>;
   reason: string;
   projectWriteAuthorized: false;
@@ -56,6 +62,13 @@ export type BoundedConversationInteraction = Readonly<{
     | "USER_REFUSES_CURRENT_CANDIDATE";
   evidenceRefs: readonly string[];
   clarificationReason?: "DECISION_SCOPE" | "PAST_PROPOSAL_REFERENCE";
+  clarificationText?: string;
+  /** Local binding evidence, never a provider/HTTP authorization. */
+  selectedChangeRefs?: readonly string[];
+  refusedChangeRefs?: readonly string[];
+  /** Original turn is processed by the existing bridge after the bounded decision. */
+  prepareRemainingTurn?: boolean;
+  correctionChangeRefs?: readonly string[];
 }>;
 
 export type CurrentInformationNeedScope = Readonly<{

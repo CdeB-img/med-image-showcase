@@ -1,5 +1,5 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
-import type { AdapterResult, CoverageMap, CoverageStatus, GovernedDocumentaryStatement, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis, ScientificQuestionSpecificity } from "./types";
+import { logicalDigest, uniqueSorted } from "./canonical.js";
+import type { AdapterResult, CoverageMap, CoverageStatus, GovernedDocumentaryStatement, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis, ScientificQuestionSpecificity } from "./types.js";
 
 const dedupeBy = <T>(values: T[], key: (value: T) => string) => [...new Map(values.map((value) => [key(value), value])).values()].sort((left, right) => key(left).localeCompare(key(right)));
 

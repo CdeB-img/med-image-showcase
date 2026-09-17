@@ -1,5 +1,5 @@
-import { logicalDigest, uniqueSorted } from "../canonical";
-import type { RuntimeAssertion, RuntimeEvidenceLink, RuntimeSource } from "../types";
+import { logicalDigest, uniqueSorted } from "../canonical.js";
+import type { RuntimeAssertion, RuntimeEvidenceLink, RuntimeSource } from "../types.js";
 
 export type ExternalAssertionRecord = {
   stableId?: string;

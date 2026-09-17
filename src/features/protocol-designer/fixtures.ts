@@ -1,4 +1,4 @@
-import type { DemonstratorScenario, IntentChoice } from "./types";
+import type { DemonstratorScenario, IntentChoice } from "./types.js";
 
 export const INTENT_CHOICES: IntentChoice[] = [
   { id: "understand", label: "Comprendre", explanation: "Clarifier les construits et leurs dépendances." },

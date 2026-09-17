@@ -1,3 +1,5 @@
+import { contributionDecisionScopeGroups } from "../research-project-construction/contribution-owner-boundary.js";
+import { requestsAssistedProposal } from "./conversation-proposal-request.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import {
   buildProjectContextSnapshot,
@@ -11,6 +13,7 @@ import {
   type ProductOwnerResultLedgerEntry,
 } from "../protocol-designer/product-owner-result-ledger.js";
 import type { RetainedContributionCandidate } from "../protocol-designer/functional-reset/contribution-lifecycle.js";
+import { buildScientificDiscussionContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 import type { StudyDesignProposalContribution } from "../study-design/contracts.js";
 import type { NavigationNeed, QueryNavigationSourceState } from "./contracts.js";
 import { makeQueryNavigationId, queryNavigationDigest } from "./canonical.js";
@@ -21,6 +24,7 @@ import type {
 import type { GovernedRealizationContent, GovernedVisibleObligation } from "./governed-conversation-realization.js";
 import type { CurrentProjectImpactProjection } from "./current-project-context.js";
 import { canonicalFrenchTemporalUnit } from "../research-project-construction/temporal-presentation.js";
+import { isOnlyConversationStyleFeedback, isUnqualifiedWholeCandidateDecisionWithStyleFeedback, readNaturalCandidateDecision } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
 
 /** Explicit consumer scope, not a recency rule and not a new result store. */
 export type CurrentNavigationOwnerResultRef = Readonly<{
@@ -125,16 +129,48 @@ export const buildBoundedConversationReferentContext = (input: {
   conversationId: string;
   runtimeTurns: readonly Readonly<{ turnId: string; role: "USER" | "NOXIA"; content: string }>[];
   selectedReviewRef?: string | null;
+  requestingTurnRef?: string;
 }): BoundedConversationReferentContext => {
   const expectedBase = input.currentProject ? {
     projectId: input.currentProject.projectId,
     versionId: input.currentProject.versionId,
     projectDigest: input.currentProject.projectDigest,
   } : null;
+  // Current refusal/correction is the act to handle, not a prior disposition.
+  // Only earlier human turns can make a formerly presented payload obsolete.
+  const historyTurns = input.runtimeTurns.filter(turn => turn.turnId !== input.requestingTurnRef);
+  const discussion = buildScientificDiscussionContext({ ...input, runtimeTurns: historyTurns });
+  if (discussion.boundary !== "COMPLETE") return Object.freeze({
+    resolution: "NONE", candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+    reason: "DISCUSSION_DECISION_SCOPE_UNAVAILABLE", projectWriteAuthorized: false,
+  });
+  const closedCandidates = new Set(discussion.history.filter(item => {
+    const candidate = input.retained.find(record => record.candidateRef === item.element.candidateRef);
+    const reason = discussion.sources.find(source => source.ref === item.reasonSourceRef);
+    return candidate && reason && historyTurns.findIndex(turn => turn.turnId === reason.turnRef)
+      > historyTurns.findIndex(turn => turn.turnId === candidate.sourceTurnRef);
+  }).map(item => item.element.candidateRef));
+  for (const record of input.retained) {
+    const sourceIndex = historyTurns.findIndex(turn => turn.turnId === record.sourceTurnRef);
+    if (sourceIndex < 0) continue;
+    for (const turn of historyTurns.slice(sourceIndex + 1).filter(turn => turn.role === "USER")) {
+      const scopedTime = turn.content.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase()
+        .match(/^(?:le |la |l')(\p{L}+(?: \p{L}+){0,3}) est (?:a )?([jma]\+?\d+)\b/u);
+      if (!scopedTime) continue;
+      const matches = record.candidate.humanReviewProjection.sections.flatMap(section => section.items).filter(item =>
+        item.content.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().includes(scopedTime[1]!));
+      if (matches.length === 1) {
+        const times = matches[0]!.content.toLowerCase().match(/\b[jma]\+?\d+\b/gu) ?? [];
+        if (times.length === 1 && times[0] !== scopedTime[2]) closedCandidates.add(record.candidateRef);
+      }
+    }
+  }
   const eligible = input.retained.filter((record) => {
     const source = input.runtimeTurns.find((turn) => turn.role === "USER" && turn.turnId === record.sourceTurnRef);
     return record.actuality === "CURRENT" && !record.humanDecision
+      && !closedCandidates.has(record.candidateRef)
       && record.validation.valid && !record.validation.blocks.length
+      && record.dependencyBindings.every(binding => binding.actuality === "CURRENT")
       && record.contribution.source.conversationId === input.conversationId
       && source && logicalDigest(source.content) === record.sourceDigest
       && same(record.baseProject, expectedBase)
@@ -145,11 +181,17 @@ export const buildBoundedConversationReferentContext = (input: {
     reason: "MULTIPLE_CURRENT_NON_ADOPTED_CANDIDATES", projectWriteAuthorized: false,
   });
   const record = eligible.find(record => input.selectedReviewRef === undefined || record.candidateRef === input.selectedReviewRef);
+  const numberedPoints = record ? input.runtimeTurns.slice(input.runtimeTurns.findIndex(turn => turn.turnId === record.sourceTurnRef) + 1)
+    .filter(turn => turn.role === "NOXIA").flatMap(turn => [...turn.content.matchAll(/(?:^|\n)\s*(\d+)[.)]\s*([^\n]+)/gu)].flatMap(match => {
+      const matches = record.candidate.humanReviewProjection.sections.flatMap(section => section.items)
+        .filter(item => item.content.replace(/^\+\s*/u, "").trim() === match[2]!.trim());
+      return matches.length === 1 ? [{ ordinal: Number(match[1]), changeRefs: [matches[0]!.changeRef], sourceTurnRef: turn.turnId }] : [];
+    })) : [];
   if (record) return Object.freeze({
     resolution: "UNIQUE_CURRENT", candidateRef: record.candidateRef, sourceTurnRef: record.sourceTurnRef,
     sourceDigest: record.sourceDigest, content: Object.freeze(candidateReferentContent(record)),
-    ...(input.selectedReviewRef ? { decisionScope: Object.freeze({
-      selectedReviewRef: input.selectedReviewRef,
+    decisionScope: Object.freeze({
+      selectedReviewRef: record.candidateRef,
       presented: record.downstreamState === "PRESENTED" && Boolean(record.presentedAt),
       changedObjectRefs: Object.freeze(unique(record.candidate.canonicalChangeSet.objectChanges.map(change => change.objectId))),
       candidateTexts: Object.freeze(record.candidate.canonicalChangeSet.objectChanges
@@ -160,11 +202,19 @@ export const buildBoundedConversationReferentContext = (input: {
       ])),
       sourceText: input.runtimeTurns.find(turn => turn.turnId === record.sourceTurnRef)!.content,
       adoptedTexts: Object.freeze(input.currentProject?.sections.flatMap(section => section.elements.map(item => item.content)) ?? []),
-    }) } : {}),
+      reviewItems: Object.freeze(record.candidate.humanReviewProjection.sections.flatMap(section => section.items)),
+      numberedPoints: Object.freeze(numberedPoints),
+      scopeGroups: Object.freeze(contributionDecisionScopeGroups(record.candidate, input.currentProject)),
+      independentAddScope: record.candidate.canonicalChangeSet.objectChanges.every(change => change.operation === "ADD"),
+      objectOnlyScope: !record.candidate.canonicalChangeSet.relationChanges.length
+        && !record.candidate.canonicalChangeSet.temporalQualificationChanges.length
+        && !record.candidate.canonicalChangeSet.expectedVariableOccasionChanges.length
+        && !record.candidate.canonicalChangeSet.legacyTemporalChanges.length,
+    }),
     reason: input.selectedReviewRef ? "EXACT_PRESENTED_REVIEW_SELECTION_BINDING" : "EXACT_CURRENT_RETAINED_CANDIDATE_BINDING",
     projectWriteAuthorized: false,
   });
-  const nonCurrentExists = input.retained.some((record) => record.actuality !== "CURRENT" || Boolean(record.humanDecision));
+  const nonCurrentExists = input.retained.some((record) => record.actuality !== "CURRENT" || Boolean(record.humanDecision) || closedCandidates.has(record.candidateRef));
   return Object.freeze({
     resolution: nonCurrentExists ? "STALE_OR_SUPERSEDED" : "NONE",
     candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
@@ -321,6 +371,7 @@ const contextualCandidateDecision = (
   // These are selection/new-material acts. Their existing owner must resolve
   // them; a pending review is not permission to adopt a different proposition.
   if (/\b(?:je|nous) (?:retiens|retenons) (?:la question|l'hypothese|l'option|la strategie)\s+\d+\b/u.test(text)
+    || /\b(?:je|nous) (?:retiens|retenons)\b.{0,50}\bcomme (?:objectif|critere|endpoint|hypothese|design|population|analyse|mesure|visite)\b/u.test(text)
     || /\b(?:une?|de|des) nouvelle?s? (?:proposition|contribution)s?\s*:/u.test(text)
     || /^(?:je|nous) (?:rejette|rejetons|refuse|refusons) toutes? (?:ces|les) (?:options|propositions|alternatives)[.!;]?$/u.test(text)) return null;
   const actPattern = /(?:^|[,;:]\s*|\bet\s+)(?:(?:je|nous)\s+|j')(?:(ne|n')\s*)?(?:(la|le|les|l')\s*)?(confirme|confirmons|valide|validons|accepte|acceptons|adopte|adoptons|refuse|refusons|rejette|rejetons|retiens|retenons|prefere refuser)\b/gu;
@@ -388,7 +439,7 @@ const contextualCandidateDecision = (
     if (/\b(?:mais|remplace|modifie|corrige|ajoute|change|une partie|uniquement|seulement)\b/u.test(reference)) return "CLARIFY";
     const presentationPointer = /\b(?:presentee?|affichee?|proposee?|presenter|afficher|proposer)\b/u.test(reference)
       && /\b(?:viens|venez|vient|comme|tel|telle|que)\b/u.test(reference);
-    const wholeChange = /^(?:ce|cet|cette|la|le|l')\s*(?:candidate|contribution|proposition|ajout|modification|changement|remplacement|retrait|passage|deplacement|correction|raccourcissement)\b/u.test(reference)
+    const wholeChange = /^(?:ce|cet|cette|la|le|l')\s*(?:candidate|contribution|proposition|ajout|modification|changement|remplacement|retrait|passage|deplacement|correction|raccourcissement)(?:-la)?(?=$|[\s,.!?])/u.test(reference)
       || !scope.adoptedTexts.length && /^(?:ce|cet|cette|la|le|l')\s*(?:projet|plan|etude|essai|benchmark)\b/u.test(reference);
     if (!decisionReferenceGrounded(reference, scope)) return "CLARIFY";
     // A named part of a multi-object candidate cannot authorize its siblings.
@@ -413,30 +464,115 @@ const requestsPastProposalReference = (text: string) => !/["«»“”]/u.test(t
     && /\b(?:premiere|premier|deuxieme|troisieme|ancienne?|precedent|precedente|historique|liste|reference)\b/u.test(text)
     || /\balternatives? a (?:cette|la|une) (?:premiere|deuxieme|troisieme|ancienne)\b/u.test(text));
 
-const requestsAssistedProposal = (clause: string) => {
-  if (/["«»“”]|\b(?:exemple|supposons|imaginons|si)\b/u.test(clause)) return false;
-  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|solutions?|hypothèses?|approches?|choix|ce qu[' ]il manque|what is missing)\b/u.test(clause);
-  const imperative = clause.match(/(?:^|[,;:]\s*|\b(?:puis|ensuite|maintenant|alors)\s+)((?:fais|faites|donne|donnez|propose|proposez|suggère|suggérez|présente|présentez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer|suggérer|présenter)|suggest(?: me)?)\b/u);
-  // A negative constraint on adoption is not negation of the proposal request.
-  const negated = imperative && /^\s+(?:pas|jamais|aucune?s?)\b/u.test(clause.slice(imperative.index! + imperative[0].length));
-  if (imperative && !negated && (proposalObject || /^(?:proposez?|suggère|suggérez|suggest)\b/u.test(imperative[1]))) return true;
-  if (proposalObject && /^(?:tu|vous)\s+(?:peux|pouvez|pourrais|pourriez)\s+(?:me\s+)?(?:proposer|suggérer|présenter)\b/u.test(clause)) return true;
-  // Interrogative requests may follow a contextual preamble. Their proposal
-  // purpose does not authorize adoption or remove another clause's payload.
-  const question = /(?:^|[,;:]\s*|\bet\s+)(quelles?\s+[^.!?]+)[?]?$/u.exec(clause)?.[1];
-  const negativeQuestion = question && /\b(?:ne|n')\s*(?:\p{L}+\s+){0,3}(?:propos\p{L}*|sugg\p{L}*|voi\p{L}*|verr\p{L}*|peu\p{L}*|pouv\p{L}*|pourr\p{L}*)/u.test(question);
-  if (question && proposalObject && !negativeQuestion && (
-    /\b(?:proposes?|proposez|proposerais|proposeriez|suggères?|suggérez|suggérerais|suggéreriez|vois|voyez|verrais|verriez)[- ](?:tu|vous)\b/u.test(question)
-    || /\b(?:peut|pourrait)[- ]on\s+(?:proposer|envisager|examiner|explorer)\b/u.test(question)
-    || /\b(?:examiner|envisager|explorer)(?:\s+(?:ensuite|maintenant))?\s*$/u.test(question)
-  )) return true;
-  return /^(?:qu[' ]est-ce que|que)\s+(?:tu|vous)\s+(?:me\s+)?(?:proposerais|proposeriez|proposes|proposez|suggères|suggérez)\b/u.test(clause)
-    || /^(?:tu|vous)\s+(?:vois|voyez|envisages|envisagez)\s+(?:d[' ]autres|des|plusieurs)\s+/u.test(clause) && proposalObject
-    || /^quelles?\b/u.test(clause) && proposalObject && !negativeQuestion && (
-      /\b(?:proposes?|proposez|proposer|suggères?|suggérez|suggérer)\b/u.test(clause)
-      || /\b(?:peux|pouvez|pourrais|pourriez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|présenter)\b/u.test(clause)
-      || /\b(?:seraient|sont|te semblent|vous semblent)\s+(?:(?:les plus|encore|scientifiquement)\s+)?(?:intéressantes?|possibles?|pertinentes?|envisageables?|utiles?)\b/u.test(clause));
+const naturalDecisionInteraction = (source: string, context: BoundedConversationReferentContext): BoundedConversationInteraction | undefined => {
+  const text = source.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase()
+    .replace(/[\u2018\u2019]/gu, "'").replace(/\s+/gu, " ").trim();
+  const act = readNaturalCandidateDecision(source);
+  const partial = /^(?:oui pour .+ mais (?:pas|non) (?:pour )?.+|(?:le )?premier(?: point)? oui[,; ]+(?:le )?(?:deuxieme|second)(?: point)? non)[.!]?$/u.test(text);
+  const optionSelection = /^(?:la premiere|le premier|les deux)[.!]?$/u.test(text);
+  const partition = /^oui pour (.+) mais je changerais (.+?)[.!]?$/u.exec(text)
+    ?? /^(.+?) oui[,; ]+(.+?) non[.!]?$/u.exec(text)
+    ?? /^garde (.+?) mais pas (.+?)[.!]?$/u.exec(text);
+  const scopedRefusal = /^je retire (.+?),? le reste reste comme avant[.!]?$/u.exec(text);
+  if (!act && !partial && !optionSelection && !partition && !scopedRefusal) return undefined;
+  if (act && /^qu[e']\b/u.test(act.remainder)) return undefined;
+  const clarify = (clarificationText: string): BoundedConversationInteraction => Object.freeze({
+    kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE", clarificationText,
+  });
+  const scope = context.decisionScope;
+  if (context.resolution !== "UNIQUE_CURRENT" || !context.candidateRef || !context.sourceTurnRef || !context.sourceDigest
+    || !scope?.presented || scope.selectedReviewRef !== context.candidateRef) {
+    return clarify(context.resolution === "AMBIGUOUS" ? "Quelle proposition souhaitez-vous confirmer ou refuser ?" : "Quelle proposition souhaitez-vous reprendre pour confirmation ?");
+  }
+  const evidenceRefs = Object.freeze([context.candidateRef, context.sourceTurnRef]);
+  if (optionSelection) {
+    const points = scope.numberedPoints ?? [];
+    const first = points.filter(point => point.ordinal === 1);
+    const second = points.filter(point => point.ordinal === 2);
+    if (first.length !== 1 || second.length !== 1) return clarify("Quels sont les deux points parmi lesquels vous choisissez ?");
+    const both = [...first[0]!.changeRefs, ...second[0]!.changeRefs];
+    const all = scope.reviewItems?.map(item => item.changeRef) ?? [];
+    if (text.startsWith("les deux") && all.length === both.length && all.every(ref => both.includes(ref))) {
+      return Object.freeze({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs });
+    }
+    // Choosing an alternative is not consent to its unselected siblings. The
+    // existing corridor prepares the selected proposal for its native review.
+    return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: Object.freeze([...evidenceRefs, ...first[0]!.changeRefs]) });
+  }
+  const numbered = (ordinal: number) => {
+    const matches = scope.numberedPoints?.filter(point => point.ordinal === ordinal) ?? [];
+    return matches.length === 1 ? matches[0]!.changeRefs : [];
+  };
+  const bind = (raw: string) => {
+    const label = raw.replace(/[.!]+$/u, "").replace(/^(?:le |la |l')/u, "").trim();
+    if (/^premier(?:e)?(?: point)?$/u.test(label)) return numbered(1);
+    if (/^(?:deuxieme|second(?:e)?)(?: point)?$/u.test(label)) return numbered(2);
+    const type = label === "population" ? "POPULATION" : label === "critere principal" ? "ENDPOINT" : null;
+    if (type) return scope.reviewItems?.filter(item => item.objectType === type
+      && (type !== "ENDPOINT" || /PRIMARY|PRINCIPAL/u.test(item.scientificRole ?? ""))).map(item => item.changeRef) ?? [];
+    const token = label === "calendrier" ? /\b(?:j\+?\d+|m\d+|suivi|calendrier)\b/u
+      : label === "irm" ? /\birm\b/u : label === "prelevement" ? /\bprelevement\b/u
+      : label === "analyse avec seuil" ? /\b(?:analyse|seuil)\b.*\bseuil\b|\banalyse avec seuil\b/u : null;
+    return token ? scope.reviewItems?.filter(item => token.test(item.content.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase())).map(item => item.changeRef) ?? [] : [];
+  };
+  if (partial || partition || scopedRefusal) {
+    const named = /^oui pour (.+) mais (?:pas|non) (?:pour )?(.+?)[.!]?$/u.exec(text);
+    const selected = scopedRefusal ? [] : named ? bind(named[1]!) : partition ? bind(partition[1]!) : numbered(1);
+    const refused = scopedRefusal ? bind(scopedRefusal[1]!) : named ? bind(named[2]!) : partition ? bind(partition[2]!) : numbered(2);
+    const correction = Boolean(partition && /mais je changerais/u.test(text));
+    const separable = (refs: readonly string[]) => (scope.scopeGroups ?? []).every(group => !group.some(ref => refs.includes(ref)) || group.every(ref => refs.includes(ref)));
+    if ((!scopedRefusal && !selected.length) || !refused.length || selected.some(ref => refused.includes(ref))
+      || !scope.scopeGroups || !separable(selected) || !separable(refused)) {
+      return clarify("Quels éléments présentés souhaitez-vous retenir ou modifier séparément ?");
+    }
+    return Object.freeze({ kind: scopedRefusal ? "USER_REFUSES_CURRENT_CANDIDATE" : "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs,
+      selectedChangeRefs: Object.freeze(scopedRefusal ? [...refused] : [...selected]),
+      ...(correction ? { correctionChangeRefs: Object.freeze([...refused]) } : scopedRefusal ? {} : { refusedChangeRefs: Object.freeze([...refused]) }) });
+  }
+  // Only an unqualified confirmation followed by an explicit addition splits
+  // adoption from preparation. A 'yes, but' correction never adopts first.
+  const addition = /^(.*?)\s*,?\s+et\s+(?:(?:on|nous)\s+)?(?:ajoute|ajoutons|ajouter)\b/u.exec(text);
+  if (addition && readNaturalCandidateDecision(addition[1]!.replace(/[, ]+$/u, ""))?.qualified === false
+    && act?.act === "CONFIRM") return Object.freeze({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs, prepareRemainingTurn: true });
+  if (!act) return undefined;
+  if (!act.qualified) return Object.freeze({ kind: act.act === "CONFIRM" ? "USER_CONFIRMS_CURRENT_CANDIDATE" : "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs });
+  if (act.act === "REFUSE" && /^on garde l'ancien (?:critere|objectif)[.!]?$/u.test(act.remainder)
+    && scope.adoptedTexts.length) return Object.freeze({ kind: "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs });
+  const feedback = act.remainder.replace(/^(?:mais|meme si)[, ]*/u, "");
+  if (isOnlyConversationStyleFeedback(feedback)) return Object.freeze({
+    kind: act.act === "CONFIRM" ? "USER_CONFIRMS_CURRENT_CANDIDATE" : "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs,
+  });
+  const literalScience = (value: string) => decisionWords(value)
+    .filter(word => !new Set(["le", "la", "l", "de", "d", "du", "des", "en", "comme"]).has(word)).join(" ");
+  const clauses = interactionClauses(text);
+  const currentRestatement = clauses.every(clause => {
+    const clauseAct = readNaturalCandidateDecision(clause);
+    if (!clauseAct || clauseAct.act !== "CONFIRM") return false;
+    if (!clauseAct.qualified) return true;
+    const restatement = clauseAct.remainder.replace(/^(?:le projet avec cette formulation|cette formulation)[, ]*/u, "");
+    if (!/^en gardant\s/u.test(restatement)) return false;
+    return restatement.replace(/^en gardant\s+/u, "").split(/\s+et\s+/u).every(part => {
+      const literal = literalScience(part);
+      return literal.length > 8 && scope.candidateTexts.some(candidate => literalScience(candidate) === literal);
+    });
+  });
+  if (currentRestatement) return Object.freeze({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs });
+  if (/\ben gardant\b/u.test(act.remainder)) return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs });
+  // Material qualifiers go through the existing candidate corridor. In
+  // particular, a 'yes, but' never confirms the old value before correction.
+  if (/^(?:mais|et)\b/u.test(act.remainder)) {
+    const temporalCorrection = /^mais (?:finalement )?(?:a )?[jma]\+?\d+(?: et pas [jma]\+?\d+)?$/u.test(act.remainder);
+    const targets = temporalCorrection ? scope.reviewItems?.filter(item => /\b[jma]\+?\d+\b/iu.test(item.content)) ?? [] : [];
+    if (temporalCorrection && targets.length !== 1) return clarify("Quel temps de mesure souhaitez-vous remplacer par cette nouvelle valeur ?");
+    return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs,
+      ...(targets.length === 1 ? { correctionChangeRefs: Object.freeze([targets[0]!.changeRef]) } : {}) });
+  }
+  // Named scopes and restatements retain the existing conservative grounding
+  // rules below rather than acquiring whole-candidate authority from 'yes'.
+  return undefined;
 };
+
+
 
 /** Bounded interaction acts; no scientific target or Project state is inferred. */
 export const selectBoundedConversationInteraction = (input: {
@@ -450,9 +586,38 @@ export const selectBoundedConversationInteraction = (input: {
   const normalized = input.sourceText.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
     .toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
   const clauses = interactionClauses(normalized);
+  if (/^(?:ok|d'accord)(?:[, ]+(?:je vois|j'ai compris|merci))?[.!]?$/u.test(normalized)) return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: Object.freeze([]) });
   if (requestsPastProposalReference(normalized.normalize("NFD").replace(/\p{M}/gu, ""))) return Object.freeze({
     kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "PAST_PROPOSAL_REFERENCE",
   });
+  const naturalDecision = naturalDecisionInteraction(input.sourceText, input.referentContext);
+  if (naturalDecision) return naturalDecision;
+  const scopedTime = normalized.normalize("NFD").replace(/\p{M}/gu, "")
+    .match(/^(?:le |la |l')(\p{L}+(?: \p{L}+){0,3}) est (?:a )?[jma]\+?\d+\b/u);
+  if (scopedTime && input.referentContext.resolution === "UNIQUE_CURRENT" && input.referentContext.decisionScope?.presented) {
+    const matches = input.referentContext.decisionScope.reviewItems?.filter(item =>
+      item.content.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().includes(scopedTime[1]!)) ?? [];
+    if (matches.length === 1) return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION",
+      evidenceRefs: Object.freeze([input.referentContext.candidateRef!, input.referentContext.sourceTurnRef!, matches[0]!.changeRef]),
+      correctionChangeRefs: Object.freeze([matches[0]!.changeRef]) });
+  }
+  const decisionWithStyleFeedback = isUnqualifiedWholeCandidateDecisionWithStyleFeedback(input.sourceText);
+  if (decisionWithStyleFeedback) {
+    const scope = input.referentContext.decisionScope;
+    if (input.referentContext.resolution !== "UNIQUE_CURRENT"
+      || !input.referentContext.candidateRef || !input.referentContext.sourceTurnRef
+      || !input.referentContext.sourceDigest || !scope?.presented
+      || scope.selectedReviewRef !== input.referentContext.candidateRef) {
+      return Object.freeze({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE" });
+    }
+    const evidenceRefs = Object.freeze([input.referentContext.candidateRef, input.referentContext.sourceTurnRef]);
+    return Object.freeze({
+      kind: decisionWithStyleFeedback === "CONFIRM"
+        ? "USER_CONFIRMS_CURRENT_CANDIDATE" as const
+        : "USER_REFUSES_CURRENT_CANDIDATE" as const,
+      evidenceRefs,
+    });
+  }
   const contextualDecision = contextualCandidateDecision(clauses, input.referentContext);
   if (input.referentContext.decisionScope && !input.referentContext.decisionScope.presented
     && (contextualDecision || candidateDecision(clauses))) return Object.freeze({

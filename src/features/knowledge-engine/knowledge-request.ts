@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
-import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./context-package";
-import { classifySensitivity } from "./privacy";
+import { logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical.js";
+import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./context-package.js";
+import { classifySensitivity } from "./privacy.js";
 import { KNOWLEDGE_RELATION_MAX_LENGTH, SCIENTIFIC_OBJECT_ORIGINAL_TERM_MAX_LENGTH } from "./scientific-object-boundary.js";
-import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ReferenceKnowledgeNeed, type ScientificObjectRef } from "./types";
-import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
+import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ReferenceKnowledgeNeed, type ScientificObjectRef } from "./types.js";
+import { hasExplicitComparisonRequest } from "../../lib/scientific-request-language.js";
 
 const scientificObjectSchema = z.object({
   objectId: z.string().min(1).max(200),

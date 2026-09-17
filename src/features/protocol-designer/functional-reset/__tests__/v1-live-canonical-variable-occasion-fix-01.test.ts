@@ -210,12 +210,24 @@ describe("V1 LIVE — canonical variable / expected occasion boundary", () => {
       .toBe("ENDPOINT");
   });
 
-  it("accepts the exact captured first Terra output and reaches initial Standard review without HOW", async () => {
+  it("accepts the exact captured first Terra output and reaches review with bounded ST proposal, without HOW", async () => {
     const request = requestFor();
     const liveOutput = capturedLiveProviderOutput(request);
     const endpoints: string[] = [];
-    const fetchImpl = vi.fn(async (url: string | URL | Request) => {
+    const fetchImpl = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
       endpoints.push(String(url));
+      if (String(url).startsWith("https://generativelanguage.googleapis.com/")) {
+        // Transport-only LOCAL_SYNTHETIC proposal receipt. Historical Terra
+        // output below remains byte-for-byte unchanged; no quality oracle.
+        const payload = JSON.parse(String(init?.body));
+        const source = JSON.parse(payload.contents[0].parts[0].text).request;
+        return new Response(JSON.stringify({ responseId: "LOCAL_SYNTHETIC_ST_EMPTY_CONTROL",
+          candidates: [{ content: { parts: [{ text: JSON.stringify({
+            contract: "SCIENTIFIC_THINKING_CONTEXTUAL_PROPOSALS_1",
+            requestRef: source.requestRef, contextDigest: source.contextDigest,
+            candidates: [], facts: [], questions: [], projectWriteAuthorized: false, candidateIsAdopted: false,
+          }) }] } }] }), { status: 200, headers: { "content-type": "application/json" } });
+      }
       if (!String(url).startsWith("https://api.openai.com/v1/responses")) {
         throw new Error(`TEST_FORBIDS_NON_EXTRACTION_PROVIDER:${String(url)}`);
       }
@@ -238,7 +250,8 @@ describe("V1 LIVE — canonical variable / expected occasion boundary", () => {
     const response = result.body as ProductBridgeResponse;
 
     expect(result.status).toBe(200);
-    expect(endpoints).toHaveLength(1);
+    expect(endpoints).toHaveLength(2);
+    expect(response.contextualReasoning?.owner).toBe("SCIENTIFIC_THINKING");
     expect(response.persistentExtraction).toMatchObject({
       status: "CANDIDATE",
       recovery: null,
@@ -247,8 +260,8 @@ describe("V1 LIVE — canonical variable / expected occasion boundary", () => {
     });
     expect(response.observability).toMatchObject({
       extractionAttempts: 1,
-      conversationCalls: 0,
-      calls: 1,
+      conversationCalls: 1,
+      calls: 2,
       projectWrites: 0,
     });
     const review = prepareResearchProjectContributionCandidate(response.persistentExtraction.contribution!, null);

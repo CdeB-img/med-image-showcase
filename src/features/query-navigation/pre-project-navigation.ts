@@ -1,8 +1,10 @@
 import type { ProductEntryRoutingDecision } from "@/features/protocol-designer/functional-reset/product-entry-routing";
 import { buildQueryNavigationContext } from "./adapters";
 import { makeQueryNavigationId } from "./canonical";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
 import type { NavigationSelection, QueryNavigationSourceState } from "./contracts";
 import { selectNextAction } from "./engine";
+import type { ContextualScientificUnderstanding } from "../scientific-thinking/contextual-understanding.js";
 
 export const PRE_PROJECT_QUERY_NAVIGATION_CONTRACT = "PRE_PROJECT_QUERY_NAVIGATION" as const;
 export const PRE_PROJECT_QUERY_NAVIGATION_VERSION = "1.0.0" as const;
@@ -31,6 +33,7 @@ export type PreProjectNavigationDecision = Readonly<{
   projectWriteAuthorized: false;
   projectAdoptionAuthorized: false;
   scientificDecisionAuthorized: false;
+  contextualUnderstanding?: Readonly<ContextualScientificUnderstanding>;
 }>;
 
 export type PreProjectRealizationResult = Readonly<{
@@ -64,6 +67,7 @@ export type PreProjectScientificNavigationContribution = Readonly<{
   affectedDecisionRefs: readonly string[];
   affectedBranchRefs: readonly string[];
   knownOptions: readonly string[];
+  blocking?: "BLOCKS_CURRENT_BRANCH" | "NON_BLOCKING";
 }>;
 
 const normalized = (value: string) => value
@@ -104,7 +108,7 @@ const knownOptionsFrom = (value: string): string[] => {
 const buildSourceState = (
   routing: Readonly<ProductEntryRoutingDecision>,
   ambiguity: ReturnType<typeof declaredAmbiguity>,
-  scientificContribution?: Readonly<PreProjectScientificNavigationContribution> | null,
+  scientificContributions: readonly Readonly<PreProjectScientificNavigationContribution>[] = [],
 ): QueryNavigationSourceState => {
   const state = emptySourceState();
   if (ambiguity) state.projectAmbiguities = [{
@@ -116,7 +120,7 @@ const buildSourceState = (
       branchRefs: [`pre-project-branch:${ambiguity.dimensionRef}`],
       knownOptions: knownOptionsFrom(ambiguity.sourceText),
     }];
-  if (scientificContribution) state.governedNeeds = [{
+  state.governedNeeds = scientificContributions.map(scientificContribution => ({
     needId: scientificContribution.informationNeedRef,
     sourceRef: scientificContribution.sourceRef,
     sourceType: "SCIENTIFIC_THINKING_CANDIDATE",
@@ -126,7 +130,7 @@ const buildSourceState = (
     informationIntent: scientificContribution.informationNeed,
     affectedDecisionRefs: [...scientificContribution.affectedDecisionRefs],
     affectedBranchRefs: [...scientificContribution.affectedBranchRefs],
-    blocking: "BLOCKS_CURRENT_BRANCH",
+    blocking: scientificContribution.blocking ?? "BLOCKS_CURRENT_BRANCH",
     actionability: "USER_ANSWERABLE",
     status: "OPEN",
     availableFromOwner: null,
@@ -138,23 +142,35 @@ const buildSourceState = (
       limitations: ["SCIENTIFIC_THINKING_CANDIDATE_NOT_PROJECT_TRUTH"],
     },
     limitations: ["SCIENTIFIC_THINKING_CANDIDATE_NOT_PROJECT_TRUTH"],
-    projectionOnly: true,
-    sourceOfTruth: false,
-    projectWriteAuthorized: false,
-  }];
+    projectionOnly: true as const,
+    sourceOfTruth: false as const,
+    projectWriteAuthorized: false as const,
+  }));
   return state;
 };
 
 export const buildPreProjectNavigationDecision = (input: {
   routing: Readonly<ProductEntryRoutingDecision>;
   scientificContribution?: Readonly<PreProjectScientificNavigationContribution> | null;
+  scientificContributions?: readonly Readonly<PreProjectScientificNavigationContribution>[];
+  contextualUnderstanding?: Readonly<ContextualScientificUnderstanding>;
+  sourceText?: string;
 }): PreProjectNavigationDecision => {
+  if (input.contextualUnderstanding && (!input.contextualUnderstanding.explicitContent
+    .some(content => content.ref === input.routing.sourceTurnRef)
+    || input.contextualUnderstanding.sourceProject.researchProjectId !== null
+    || !input.sourceText || input.contextualUnderstanding.sourceDigest !== logicalDigest(input.sourceText)
+    || input.contextualUnderstanding.projectWriteAuthorized !== false
+    || input.contextualUnderstanding.candidateIsAdopted !== false)) {
+    throw new Error("QRY_CONTEXTUAL_SOURCE_BINDING_INVALID");
+  }
   const ambiguity = declaredAmbiguity(input.routing);
   const providedRefs = input.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef);
   const context = buildQueryNavigationContext({
     projectRef: `pre-project:${input.routing.sourceTurnRef}`,
     projectVersion: "PRE_PROJECT_NOT_ADOPTED",
-    sourceState: buildSourceState(input.routing, ambiguity, input.scientificContribution),
+    sourceState: buildSourceState(input.routing, ambiguity, input.scientificContributions
+      ?? (input.scientificContribution ? [input.scientificContribution] : [])),
     currentUsageRef: "PRE_PROJECT_NATURAL_CONVERSATION",
     sufficiencyEvidenceRefs: ambiguity ? [] : providedRefs,
     limitations: [
@@ -213,6 +229,7 @@ export const buildPreProjectNavigationDecision = (input: {
     projectWriteAuthorized: false,
     projectAdoptionAuthorized: false,
     scientificDecisionAuthorized: false,
+    ...(input.contextualUnderstanding ? { contextualUnderstanding: input.contextualUnderstanding } : {}),
   });
 };
 
@@ -300,6 +317,16 @@ const deterministicQuestion = (decision: PreProjectNavigationDecision) => {
   return `Pour lever uniquement l’ambiguïté susceptible de modifier la structure du projet : ${need} ?`;
 };
 
+const contextualPreamble = (decision: Readonly<PreProjectNavigationDecision>) => {
+  const dimensions = decision.contextualUnderstanding?.visibleImplications ?? [];
+  if (!dimensions.length) return "";
+  const design = dimensions.filter(dimension => dimension.stage !== "REPORTING").map(dimension => dimension.dimension);
+  const reporting = dimensions.filter(dimension => dimension.stage === "REPORTING").map(dimension => dimension.dimension);
+  return [design.length ? `À considérer selon l’objectif : ${design.join(" ; ")}.` : null,
+    reporting.length ? `Pour décrire l’étude : ${reporting.join(" ; ")}.` : null,
+    "Ces éléments restent à préciser ; aucun choix n’est fixé."].filter(Boolean).join(" ");
+};
+
 /**
  * Realizes HOW under the QRY decision. It performs no provider call. A supplied
  * provider wording is accepted only when it conforms to the selected action
@@ -316,7 +343,7 @@ export const realizePreProjectNavigationDecision = (input: {
   const proposalConformance = input.decision.action === "ASK_QUESTION"
     ? null
     : providerProposalConformance(input.decision, providerReply, input.structuredUnderstanding);
-  const providerConforms = Boolean(providerReply) && (input.decision.action === "ASK_QUESTION"
+  const providerConforms = Boolean(providerReply) && !input.decision.contextualUnderstanding && (input.decision.action === "ASK_QUESTION"
     ? providerQuestionConforms(input.decision, providerReply)
     : proposalConformance?.conforms === true);
   const representedDimensionRefs = proposalConformance?.representedDimensionRefs ?? [];
@@ -334,9 +361,9 @@ export const realizePreProjectNavigationDecision = (input: {
     projectWriteAuthorized: false,
   });
   return Object.freeze({
-    assistantReply: input.decision.action === "ASK_QUESTION"
+    assistantReply: [contextualPreamble(input.decision), input.decision.action === "ASK_QUESTION"
       ? deterministicQuestion(input.decision)
-      : deterministicProposal(input.decision),
+      : deterministicProposal(input.decision)].filter(Boolean).join("\n\n"),
     executor: "LOCAL_DETERMINISTIC_REALIZATION",
     provider: "NONE",
     model: "QRY_PRE_PROJECT_REALIZATION_1.0.0",

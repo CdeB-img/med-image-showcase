@@ -1,5 +1,5 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import type { ImagingDecisionGraph, ImagingDesignInput, ImagingDesignResult } from "./types";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import type { ImagingDecisionGraph, ImagingDesignInput, ImagingDesignResult } from "./types.js";
 
 type GraphMaterial = Pick<ImagingDesignResult,
   "phenomena" | "biomarkerCandidates" | "modalityCandidates" | "acquisitionStrategies" | "qualityStrategy" |

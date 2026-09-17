@@ -1,6 +1,6 @@
-import { REFERENCE_CORPUS_RUNTIME_DIGEST, queryReferenceCorpus } from "../reference-corpus";
-import type { AdapterResult } from "../types";
-import type { CorpusAdapter } from "./corpus-adapter";
+import { REFERENCE_CORPUS_RUNTIME_DIGEST, queryReferenceCorpus } from "../reference-corpus.js";
+import type { AdapterResult } from "../types.js";
+import type { CorpusAdapter } from "./corpus-adapter.js";
 
 const referenceCorpusAdapter: CorpusAdapter = {
   adapterId: "reference-corpus-adapter-v1",

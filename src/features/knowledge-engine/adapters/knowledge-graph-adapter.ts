@@ -1,7 +1,7 @@
-import { entities, relations } from "@/knowledge-graph/catalog.mjs";
-import { logicalDigest, uniqueSorted } from "../canonical";
-import type { AdapterResult } from "../types";
-import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter";
+import { entities, relations } from "../../../knowledge-graph/catalog.mjs";
+import { logicalDigest, uniqueSorted } from "../canonical.js";
+import type { AdapterResult } from "../types.js";
+import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter.js";
 
 type GraphEntity = { entityId: string };
 type GraphRelation = { relationId: string; sourceId: string; targetId: string };

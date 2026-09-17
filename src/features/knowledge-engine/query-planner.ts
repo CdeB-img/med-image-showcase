@@ -1,7 +1,7 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
-import { isPatientLevelExpression } from "./privacy";
-import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry";
-import type { ConceptResolution, KnowledgeRequest, ProviderSelection, QueryBranch, QueryPlan } from "./types";
+import { logicalDigest, uniqueSorted } from "./canonical.js";
+import { isPatientLevelExpression } from "./privacy.js";
+import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry.js";
+import type { ConceptResolution, KnowledgeRequest, ProviderSelection, QueryBranch, QueryPlan } from "./types.js";
 
 const nonRoutingConcept = (conceptId: string) => !conceptId.startsWith("modality:") && !conceptId.startsWith("context:") && !conceptId.startsWith("unknown:");
 

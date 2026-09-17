@@ -1,5 +1,5 @@
-import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
-import type { KnowledgeRequest, QueryPlan, ScientificQuestionSpecificity } from "./types";
+import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical.js";
+import type { KnowledgeRequest, QueryPlan, ScientificQuestionSpecificity } from "./types.js";
 
 const valuesFor = (request: KnowledgeRequest, name: string) => request.context.dimensions.find((item) => item.name === name)?.values ?? [];
 

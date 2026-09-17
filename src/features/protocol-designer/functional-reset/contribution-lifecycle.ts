@@ -1,12 +1,15 @@
 import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import {
   prepareResearchProjectContributionCandidate,
+  scopeResearchProjectContribution,
   type ResearchProjectContributionCandidate,
 } from "../../research-project-construction/contribution-owner-boundary.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "../../scientific-interpretation/contracts.js";
 import type { HumanDecisionEnvelope } from "../human-decision.js";
 import type { PersistentDeltaValidation } from "../product-bridge.js";
+export { buildScientificDiscussionContext } from "./contribution-discussion-context.js";
+export type { ScientificDiscussionContext } from "./contribution-discussion-context.js";
 
 // Session-consumer lifecycle only. These records never become Project objects,
 // never perform adoption, and never schedule a provider or an extraction.
@@ -169,6 +172,8 @@ export const recordContributionCandidateHumanDecision = (input: {
   decision: HumanDecisionEnvelope;
 }): readonly RetainedContributionCandidate[] => updateCandidate(input.retained, input.candidateRef, (record) => {
   if (!record.presentedAt || record.downstreamState !== "PRESENTED") throw new Error("UNSEEN_CANDIDATE_HAS_NO_HUMAN_DECISION");
+  if (record.actuality !== "CURRENT" || record.humanDecision
+    || record.dependencyBindings.some(binding => binding.actuality !== "CURRENT")) throw new Error("NON_CURRENT_OR_DECIDED_CANDIDATE_HAS_NO_NEW_HUMAN_DECISION");
   if (!["ADOPTED", "REJECTED", "DEFERRED"].includes(input.decision.status)
     || !input.decision.actor || !input.decision.mandate || !input.decision.timestamp
     || !input.decision.targets.includes(record.candidateRef)) throw new Error("HUMAN_DECISION_BINDING_REQUIRED");
@@ -280,4 +285,30 @@ export const resumeContributionCandidateDownstreamProcessing = (input:
     reasons: [],
     resumeStage: evaluated.resumeStage,
   };
+};
+
+/** Preserve undecided native review changes after a scoped human decision. */
+export const retainUndecidedContributionScope = (input: {
+  record: RetainedContributionCandidate;
+  currentBefore: ResearchProjectOwnerProjection | null;
+  currentAfter: ResearchProjectOwnerProjection | null;
+  settledChangeRefs: readonly string[];
+  decisionSourceRef: string;
+  retainedAt: string;
+}): RetainedContributionCandidate | null => {
+  const remaining = input.record.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !input.settledChangeRefs.includes(ref));
+  if (!remaining.length) return null;
+  if (input.record.dependencyBindings.length && input.currentBefore?.versionId !== input.currentAfter?.versionId) {
+    throw new Error("UNDECIDED_SCOPE_DEPENDENCIES_REQUIRE_REVALIDATION");
+  }
+  const contribution = scopeResearchProjectContribution({ contribution: input.record.contribution,
+    current: input.currentBefore, changeRefs: remaining, reasonRef: input.decisionSourceRef });
+  const candidate = prepareResearchProjectContributionCandidate(contribution, input.currentAfter);
+  if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error("UNDECIDED_SCOPE_REQUIRES_NATIVE_REVIEW");
+  const retained = retainValidatedContributionCandidate({ retained: [], contribution, candidate,
+    validation: input.record.validation, validatorRef: `${input.record.validatorRef}:NATIVE_REVIEW_SUBSET`,
+    sourceTurnRef: input.record.sourceTurnRef, baseProject: input.currentAfter,
+    dependencyBindings: input.record.dependencyBindings, traceRunId: null, retainedAt: input.retainedAt });
+  if (!retained[0]) throw new Error("UNDECIDED_SCOPE_PROVENANCE_REQUIRED");
+  return retained[0];
 };

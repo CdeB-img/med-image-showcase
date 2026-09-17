@@ -581,7 +581,7 @@ describe("PROJECT-HANDS-ON-02 — Project fidelity contract", () => {
     };
     const declaration = buildPersistentDeltaPayload(request).tools[0].functionDeclarations[0].parametersJsonSchema;
     expect(declaration.properties.changes.items.properties.proposedType.enum).toEqual(PERSISTENT_PROJECT_OBJECT_TYPES);
-    expect(declaration.properties.temporalQualifications.items.properties.subjectProjectRef.description).toContain("candidateRef");
+    expect(declaration.properties.temporalQualifications.items.anyOf[0].properties.subjectProjectRef.description).toContain("candidateRef");
     expect(NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION).toContain("deux à cinq phrases");
     expect(NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION).toContain("une question principale");
   });

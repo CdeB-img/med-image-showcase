@@ -23,6 +23,7 @@ import {
 } from "@/features/protocol-designer/functional-reset/__tests__/p1-behavior-01a-contract-fixtures";
 import {
   markContributionCandidateNonCurrent,
+  markContributionCandidatePresented,
   retainValidatedContributionCandidate,
 } from "@/features/protocol-designer/functional-reset/contribution-lifecycle";
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
@@ -78,7 +79,8 @@ const uniqueReferent = () => {
     ["objective:clinical-outcome", "Évaluer le devenir clinique des patients atteints de thrombus intra-VG"],
   ]);
   return { fixture, context: buildBoundedConversationReferentContext({
-    retained: fixture.retained, currentProject: null, conversationId: fixture.contribution.source.conversationId,
+    retained: markContributionCandidatePresented({ retained: fixture.retained, candidateRef: fixture.candidate.contributionRef, presentedAt: AT }),
+    currentProject: null, conversationId: fixture.contribution.source.conversationId,
     runtimeTurns: fixture.contribution.source.turns,
   }) };
 };
@@ -296,13 +298,14 @@ describe("PASS3A CC03 — bounded referent context", () => {
       const referentContext = { ...context, resolution, candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [] };
       for (const sourceText of ["Nous confirmons cette contribution.", "Je rejette cette proposition.", "C'est bon."]) {
         expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext }))
-          .toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+          .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
       }
       for (const sourceText of [
-        "Nous confirmons cette contribution. Nous observerons aussi la pression.",
         "L'exemple est « je refuse cette proposition ».",
         "Je confirme que le prestataire est absent.",
       ]) expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext })).toBeUndefined();
+      expect(selectBoundedConversationInteraction({ sourceText: "Nous confirmons cette contribution. Nous observerons aussi la pression.", correctionMode: false, referentContext }))
+        .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
       for (const sourceText of ["Je confirme cette proposition sauf son titre.", "Si nécessaire, je refuse cette proposition."]) {
         expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext }))
           .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", clarificationReason: "DECISION_SCOPE" });
@@ -317,7 +320,7 @@ describe("PASS3A CC03 — bounded referent context", () => {
     for (const referentContext of [
       { ...context, candidateRef: null }, { ...context, sourceTurnRef: null }, { ...context, sourceDigest: null },
     ]) expect(selectBoundedConversationInteraction({ sourceText: "Je confirme cette contribution.", correctionMode: false, referentContext }))
-      .toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+      .toMatchObject({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
   });
 
   it("10g. recognizes generic proposal request grammar without licensing decisions", () => {

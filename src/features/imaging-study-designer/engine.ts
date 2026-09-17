@@ -1,5 +1,5 @@
-import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
-import { buildImagingDecisionGraph } from "./graph";
+import { logicalDigest, normalizeScientificText, uniqueSorted } from "../knowledge-engine/canonical.js";
+import { buildImagingDecisionGraph } from "./graph.js";
 import {
   IMAGING_STUDY_DESIGNER_VERSION,
   parseImagingDesignInput,
@@ -13,7 +13,7 @@ import {
   type ModalityCandidate,
   type PhenomenonCandidate,
   type SupportState,
-} from "./types";
+} from "./types.js";
 
 const allStatements = (input: ImagingDesignInput) => [...input.knowledge.assertions, ...input.knowledge.documentaryStatements];
 const statementsFor = (input: ImagingDesignInput, conceptId: string) => allStatements(input).filter((item) => item.conceptIds.includes(conceptId));

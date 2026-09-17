@@ -1,7 +1,11 @@
 import { logicalDigest } from "@/features/knowledge-engine";
+import type { ContextualReasoningReceipt } from "../../scientific-thinking/contextual-reasoning.js";
 import {
   buildScientificThinkingInput,
   executeScientificThinkingEngine,
+  prepareContextualScientificUnderstanding,
+  type ContextualScientificUnderstanding,
+  type ContextualScientificProposal,
   SCIENTIFIC_THINKING_ENGINE_VERSION,
   type ScientificModelCandidate,
   type ScientificThinkingOperation,
@@ -90,6 +94,8 @@ export type ScientificThinkingConversationResolution =
 
 export type PreProjectScientificThinkingIntervention = Readonly<{
   output: ScientificThinkingOutput;
+  contextualUnderstanding: ContextualScientificUnderstanding;
+  navigationContributions: readonly PreProjectScientificNavigationContribution[];
   navigationContribution: PreProjectScientificNavigationContribution | null;
   providerCalls: 0;
   projectWrites: 0;
@@ -102,6 +108,9 @@ export const buildPreProjectScientificThinkingIntervention = (input: {
   contribution: Readonly<ScientificInterpretationContributionEnvelope>;
   sessionId: string;
   sourceJourney: "UNDERSTAND" | "FORMALIZE_IDEA" | "DESIGN_STUDY";
+  contextualProposals?: readonly ContextualScientificProposal[];
+  reasoning?: ContextualReasoningReceipt;
+  conversationTurns?: readonly ScientificInterpretationTurn[];
 }): PreProjectScientificThinkingIntervention | null => {
   const result = projectScientificContributionToV1IfAllowed(input.contribution);
   if (!result.projection) return null;
@@ -110,7 +119,7 @@ export const buildPreProjectScientificThinkingIntervention = (input: {
     validatedIntent,
     scientificSessionContext.preservedScientificTerms,
     scientificSessionContext.detectedRelationships,
-    null,
+    input.reasoning?.knowledge ?? null,
     {
       sessionId: input.sessionId,
       contextVersion: scientificSessionContext.contextVersion,
@@ -118,6 +127,33 @@ export const buildPreProjectScientificThinkingIntervention = (input: {
     },
   );
   const output = executeScientificThinkingEngine(scientificInput);
+  const sourceTurn = [...input.contribution.source.turns].reverse().find(turn => turn.role === "USER");
+  if (!sourceTurn) return null;
+  const expertQuestions = input.reasoning?.questions.filter(question =>
+    !question.affectedBranches.includes("FINALITY") || !input.reasoning?.intentRefs.length).map(question => ({
+      questionId: question.ref, label: question.text, whyAsked: question.rationale,
+      decisionImpact: question.decisionImpact,
+      decisionBlock: question.affectedBranches.includes("FINALITY") ? "SCIENTIFIC_FINALITY" as const : "SCOPE" as const,
+      blocking: true, suggestedAnswers: [], acceptsFreeText: true as const, acceptsUnknown: true as const, answeredValue: null,
+    })) ?? [];
+  const contextualUnderstanding = prepareContextualScientificUnderstanding({ scientificInput,
+    source: { turnRef: sourceTurn.turnId, text: sourceTurn.content }, adaptiveQuestions: expertQuestions.length ? expertQuestions
+      : output.adaptiveQuestions.filter(q => !(input.reasoning?.intentRefs.length && q.decisionBlock === "SCIENTIFIC_FINALITY")),
+    proposals: input.contextualProposals, reasoning: input.reasoning,
+    sourceTurns: input.conversationTurns?.filter(t => t.role === "USER").map(t => ({ turnRef: t.turnId, text: t.content })),
+    contextRefs: input.contribution.scientificContent.candidateObjects.map(item => item.itemId) });
+  const navigationContributions = contextualUnderstanding.informationNeeds.map(candidate => ({
+    owner: "SCIENTIFIC_THINKING" as const, sourceRef: contextualUnderstanding.sourceRef,
+    sourceVersion: output.contractVersion, informationNeedRef: candidate.questionId,
+    informationNeed: candidate.label, whySelected: candidate.whyAsked, decisionImpact: candidate.decisionImpact,
+    affectedDecisionRefs: [`pre-project-decision:${candidate.decisionBlock.toLocaleLowerCase("en-US")}`],
+    affectedBranchRefs: input.reasoning?.questions.find(q => q.ref === candidate.questionId)?.affectedBranches.map(b => `pre-project-branch:${b.toLowerCase()}`)
+      ?? (candidate.decisionBlock === "SCIENTIFIC_FINALITY"
+      ? ["pre-project-branch:question", "pre-project-branch:measurement", "pre-project-branch:design"]
+      : [`pre-project-branch:${candidate.decisionBlock.toLocaleLowerCase("en-US")}`]),
+    knownOptions: candidate.suggestedAnswers.map(answer => answer.label),
+    blocking: candidate.blocking ? "BLOCKS_CURRENT_BRANCH" as const : "NON_BLOCKING" as const,
+  }));
   const question = output.adaptiveQuestions.find((candidate) =>
     candidate.questionId === "ST-AQ-OBJECTIVE-STRUCTURE"
     && candidate.blocking
@@ -134,7 +170,8 @@ export const buildPreProjectScientificThinkingIntervention = (input: {
     affectedBranchRefs: [`pre-project-branch:${question.decisionBlock.toLocaleLowerCase("en-US")}`],
     knownOptions: question.suggestedAnswers.map((answer) => answer.label),
   } satisfies PreProjectScientificNavigationContribution : null;
-  return Object.freeze({ output, navigationContribution, providerCalls: 0 as const, projectWrites: 0 as const });
+  return Object.freeze({ output, contextualUnderstanding, navigationContributions,
+    navigationContribution, providerCalls: 0 as const, projectWrites: 0 as const });
 };
 
 export const isScientificThinkingQueryDispatch = (navigation: Readonly<FunctionalResetQueryNavigation>) => {

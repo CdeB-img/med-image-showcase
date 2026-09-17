@@ -1,4 +1,4 @@
-import type { RuntimeKnowledgeConclusion } from "./types";
+import type { RuntimeKnowledgeConclusion } from "./types.js";
 
 export const structuredSemanticRelation = (value: unknown): RuntimeKnowledgeConclusion["semanticRelation"] => {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;

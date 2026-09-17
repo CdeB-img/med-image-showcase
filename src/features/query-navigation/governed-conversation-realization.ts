@@ -277,7 +277,7 @@ const containsProtectedLiteral = (text: string, literal: string) => {
 const escapePattern = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 
 /** Reuses RC04's measured-unit detector, never an isolated-symbol/domain dictionary. */
-const measuredQuantitySurfaces = (text: string): string[] => {
+export const measuredQuantitySurfaces = (text: string): string[] => {
   const units = evaluateLinguisticInvariants(text, text, [])
     .find((item) => item.invariant === "UNITS")?.sourceEvidence ?? [];
   if (!units.length) return [];

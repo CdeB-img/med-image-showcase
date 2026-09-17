@@ -1,9 +1,9 @@
-import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
-import { resolveGovernedConceptsFromProviderReferences } from "@/features/knowledge-engine/concept-resolver";
-import type { KnowledgeResult } from "@/features/knowledge-engine/types";
-import type { InterpretedFieldKey, ValidatedScientificIntent } from "@/features/protocol-designer/intake/types";
-import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
-import { IMAGING_STUDY_DESIGNER_VERSION, parseImagingDesignInput, type ImagingDesignInput, type ImagingKnowledgeStatement } from "./types";
+import { logicalDigest, normalizeScientificText, uniqueSorted } from "../knowledge-engine/canonical.js";
+import { resolveGovernedConceptsFromProviderReferences } from "../knowledge-engine/concept-resolver.js";
+import type { KnowledgeResult } from "../knowledge-engine/types.js";
+import type { InterpretedFieldKey, ValidatedScientificIntent } from "../protocol-designer/intake/types.js";
+import type { ScientificThinkingSession } from "../scientific-thinking/types.js";
+import { IMAGING_STUDY_DESIGNER_VERSION, parseImagingDesignInput, type ImagingDesignInput, type ImagingKnowledgeStatement } from "./types.js";
 
 const valuesFor = (intent: ValidatedScientificIntent, key: InterpretedFieldKey): string[] => {
   const review = intent.reviews[key];

@@ -1,4 +1,4 @@
-import type { LlmOperationClass } from "./types";
+import type { LlmOperationClass } from "./types.js";
 
 export const LLM_POLICY_VERSION = "KE-001-Q-v1.0" as const;
 

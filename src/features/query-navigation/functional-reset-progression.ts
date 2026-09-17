@@ -247,9 +247,8 @@ const facetsForProject = (project: Readonly<ResearchProjectOwnerProjection>): Ne
   const questionKnown = currentObjects.some((object) => object.objectType === "SCIENTIFIC_QUESTION");
   const objectiveKnown = currentObjects.some((object) => object.objectType === "OBJECTIVE");
   add("QUESTION", "QUESTION_FORMULATION", "Formuler ou préciser la question scientifique à partir de l’objectif adopté.", !objectiveKnown || questionKnown);
-
   const population = elements("POPULATION");
-  add("POPULATION", "POPULATION_DEFINITION", "Préciser la population clinique étudiée.", hasEvidence(population, /condition|disease|patholog|population definition/));
+  add("POPULATION", "POPULATION_DEFINITION", "Préciser la population clinique étudiée.", hasEvidence(population, /\bpopulation(?: definition)?\b/));
   add("POPULATION", "ELIGIBILITY", "Préciser la tranche d’âge ou les principaux critères d’éligibilité.", hasEvidence(population, /age|eligib|criterion|critere/));
   add("POPULATION", "INCLUSION", "Préciser les principaux critères d’inclusion.", hasEvidence(population, /inclusion|inclure|included/));
   add("POPULATION", "EXCLUSION", "Préciser les exclusions importantes ou contre-indications.", hasEvidence(population, /exclusion|exclure|contre.indication|contraindication/));

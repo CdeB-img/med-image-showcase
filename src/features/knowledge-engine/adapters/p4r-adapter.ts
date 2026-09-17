@@ -1,10 +1,10 @@
-import { consolidatedAssertionRevisions, consolidatedEvidenceLinks } from "@/knowledge-graph/scientific-consolidation/review.mjs";
-import { consolidatedSourceRevisions } from "@/knowledge-graph/scientific-consolidation/sources.mjs";
-import { p4rContradictionAssessments } from "@/knowledge-graph/scientific-consolidation/contradictions.mjs";
-import { uniqueSorted } from "../canonical";
-import type { AdapterResult } from "../types";
-import { baseAssertion, normalizeEvidenceLink, normalizeSource, representationDigest, type ExternalAssertionRecord, type ExternalEvidenceRecord, type ExternalSourceRecord } from "./adapter-utils";
-import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter";
+import { consolidatedAssertionRevisions, consolidatedEvidenceLinks } from "../../../knowledge-graph/scientific-consolidation/review.mjs";
+import { consolidatedSourceRevisions } from "../../../knowledge-graph/scientific-consolidation/sources.mjs";
+import { p4rContradictionAssessments } from "../../../knowledge-graph/scientific-consolidation/contradictions.mjs";
+import { uniqueSorted } from "../canonical.js";
+import type { AdapterResult } from "../types.js";
+import { baseAssertion, normalizeEvidenceLink, normalizeSource, representationDigest, type ExternalAssertionRecord, type ExternalEvidenceRecord, type ExternalSourceRecord } from "./adapter-utils.js";
+import type { CorpusAdapter, CorpusAdapterInput } from "./corpus-adapter.js";
 
 type ExternalConflictRecord = { contradictionId: string; assertionRevisionIds: string[]; finalClassification: string; rationale: string };
 const p4Assertions = consolidatedAssertionRevisions as ExternalAssertionRecord[];

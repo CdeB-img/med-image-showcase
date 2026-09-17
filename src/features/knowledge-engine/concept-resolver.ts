@@ -1,7 +1,7 @@
-import { entities } from "@/knowledge-graph/catalog.mjs";
-import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
-import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
-import type { ConceptResolution, KnowledgeRequest, ResolvedConcept, ResolvedConceptRelation, ScientificObjectRef } from "./types";
+import { entities } from "../../knowledge-graph/catalog.mjs";
+import { hasExplicitComparisonRequest } from "../../lib/scientific-request-language.js";
+import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical.js";
+import type { ConceptResolution, KnowledgeRequest, ResolvedConcept, ResolvedConceptRelation, ScientificObjectRef } from "./types.js";
 
 type ConceptRule = {
   conceptId: string;

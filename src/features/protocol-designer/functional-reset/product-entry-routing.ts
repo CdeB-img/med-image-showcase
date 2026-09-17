@@ -1,3 +1,4 @@
+import { hasExplicitConversationRequestMood } from "../../query-navigation/conversation-proposal-request.js";
 import {
   executeKnowledgeEngineForPresentation,
   isPatientLevelExpression,
@@ -14,6 +15,7 @@ import { buildCurrentProjectDecisionReadback, requestsOwnerProposalExplanation, 
 import { resolveRequestedScientificScope } from "@/features/query-navigation/functional-reset-progression";
 import type { ResearchProjectOwnerProjection } from "@/features/research-project-construction";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
+import { buildNaturalProjectStateReply } from "./natural-conversation-policy";
 import {
   INTAKE_SCHEMA_VERSION,
   type ConfidenceLevel,
@@ -272,10 +274,7 @@ const isConversationOnlyInput = (raw: string) => {
     const routing = deriveRoutingIntent(rawIntent(sentence));
     if (routing.nonConstructiveIntentExplicit && !routing.constructionIntentPresent) return true;
     const command = comparableProductCommand(sentence);
-    return sentence.trim().endsWith("?")
-      || /^(?:pourquoi|comment|quel(?:le)?s?|qui|que|quand|ou|combien|est ce|qu est ce)\b/u.test(command)
-      || /^(?:peux tu|pouvez vous|pourrais tu|pourriez vous|dois je|devons nous)\b/u.test(command)
-      || /^(?:explique(?:r|z)?|compare(?:r|z)?|decris|decrivez|decrire|reformule(?:r|z)?)\b/u.test(command);
+    return hasExplicitConversationRequestMood(sentence, command);
   };
   return sentences.length > 0 && sentences.every(questionOrRequest);
 };
@@ -552,8 +551,11 @@ export const executeProductUnderstandInteraction = (input: {
     if (/^(?:non pas ca|pas ca)$/u.test(raw) || /\b(?:celle la|celui la|on parle bien de la meme)\b/u.test(raw)) {
       return localResponse("Le référent n’est pas suffisamment identifié. Précisez le libellé de la proposition ou l’élément dont vous parlez ; je ne peux pas choisir entre plusieurs objets sur cette seule indication. Aucune sélection, adoption ni modification du projet n’a eu lieu.", "QUERY_NAVIGATION", [input.decision.sourceTurnRef, project.versionId]);
     }
-    const readback = buildCurrentProjectDecisionReadback({ raw: input.raw, project, retained: input.retained ?? [] });
-    if (readback && (requestsScientificExplanation(input.raw) || input.raw.includes("?") || /\b(?:rappelle|redire|statut)\w*/u.test(raw))) {
+    const naturalProjectStateReadback = buildNaturalProjectStateReply({ raw: input.raw, project });
+    const readback = naturalProjectStateReadback
+      ?? buildCurrentProjectDecisionReadback({ raw: input.raw, project, retained: input.retained ?? [] });
+    if (readback && (naturalProjectStateReadback || requestsScientificExplanation(input.raw)
+      || input.raw.includes("?") || /\b(?:rappelle|redire|statut)\w*/u.test(raw))) {
       return localResponse(readback.text, "RESEARCH_PROJECT", readback.sourceRefs);
     }
     if (requestsOwnerProposalExplanation(input.raw)) {

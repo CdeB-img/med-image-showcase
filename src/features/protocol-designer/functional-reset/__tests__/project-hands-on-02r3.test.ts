@@ -102,8 +102,9 @@ describe("PROJECT-HANDS-ON-02R3 — provider contract and epistemic axes", () =>
     expect(item.required).not.toContain("targetProjectRef");
     expect(item.required).not.toContain("studyRole");
     expect(item.properties.targetProjectRef.type).toBe("string");
-    expect(item.properties.studyRole.type).toEqual(["string", "null"]);
-    expect(item.properties.studyRole.enum).toEqual([...PERSISTENT_PROJECT_STUDY_ROLES, null]);
+    expect(item.properties.studyRole.anyOf).toMatchObject([
+      { type: "string", enum: [...PERSISTENT_PROJECT_STUDY_ROLES] }, { type: "null" },
+    ]);
     expect(validatePersistentProviderContract(candidate([
       change({ candidateRef: "candidate:no-role", proposedType: "SCIENTIFIC_OBJECT", content: "cible", studyRole: null }),
     ]))).toEqual({ valid: true, blocks: [] });

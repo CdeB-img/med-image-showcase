@@ -1,6 +1,8 @@
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
 import { buildCurrentTurnNavigation } from "../src/features/query-navigation/current-turn-navigation.js";
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
+import { prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
+import { prepareScientificCollaboratorConversation, SCIENTIFIC_COLLABORATOR_INSTRUCTION, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -227,7 +229,6 @@ export const executeProtocolDesignerBridge = async (input: {
   const latestUser = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
   if (!latestUser) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "USER_TURN_MISSING", message: "Message utilisateur manquant." } } };
   if (detectSensitiveData(latestUser.content).length) return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
-  if (!input.apiKey?.trim()) return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "GEMINI_API_KEY_MISSING", message: "Conversation momentanément indisponible." } } };
 
   const conversationModel = resolveGeminiConversationModel(input.geminiModel);
   const extractionModel = resolveOpenAIExtractionModel(input.openAiExtractionModel);
@@ -419,6 +420,7 @@ export const executeProtocolDesignerBridge = async (input: {
   let howCalls = 0;
   let governedRealization: ReturnType<typeof realizeGovernedConversation> | undefined;
   let howRequestedAt: string | null = null;
+  let scientificConversation: ScientificConversationReceipt | undefined;
   try {
     const preparedCandidate = persistentExtraction.contribution
       ? prepareResearchProjectContributionCandidate(persistentExtraction.contribution, request.currentProject) : null;
@@ -440,7 +442,35 @@ export const executeProtocolDesignerBridge = async (input: {
       && persistentExtraction.contribution !== null;
     const canaryExtractionStopped = input.providerAttemptPolicy === SINGLE_ATTEMPT_FAIL_CLOSED
       && persistentExtraction.called && persistentExtraction.validation?.valid !== true;
-    if (!reviewableInitialCandidate && !canaryExtractionStopped) {
+    const requiresGovernedLifecycle = request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      || ["CLARIFY_CANDIDATE_REFERENCE", "USER_CONFIRMS_CURRENT_CANDIDATE", "USER_REFUSES_CURRENT_CANDIDATE"]
+        .includes(request.boundedInteraction?.kind ?? "");
+    if (!requiresGovernedLifecycle && !canaryExtractionStopped) {
+      const owners = reviewableInitialCandidate && persistentExtraction.contribution
+        ? prepareStandardContextualReasoningRequest({ contribution: persistentExtraction.contribution,
+          turns: request.conversation.turns, sessionId: observationContext.sessionId ?? request.conversation.conversationId }) : null;
+      const collaborator = prepareScientificCollaboratorConversation(request, owners?.request);
+      scientificConversation = { owner: "SCIENTIFIC_THINKING", responseOwner: "DETERMINISTIC", outcome: "DETERMINISTIC_FALLBACK",
+        fallbackReason: "PROVIDER_UNAVAILABLE", contextDigest: collaborator.contextDigest,
+        providerInput: { systemInstruction: SCIENTIFIC_COLLABORATOR_INSTRUCTION, context: collaborator.context },
+        projectWrites: 0, projectWriteAuthorized: false };
+      try {
+        if (input.apiKey?.trim()) {
+          downstreamStage = "HOW";
+          howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
+          howCalls = 1;
+          conversation = await executeNaturalConversation({ ...request, scientificCollaboratorRequest: collaborator },
+            input.apiKey, input.fetchImpl, conversationModel, { context: observationContext,
+              purpose: "CONVERSATION_REALIZATION", reasoningEffort: null, retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
+          scientificConversation = { ...scientificConversation, responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null };
+        }
+      } catch (error) {
+        scientificConversation = { ...scientificConversation, fallbackReason: error instanceof ProductBridgeProviderError
+          ? error.providerStatus ?? "PROVIDER_FAILURE" : "TECHNICAL_FAILURE" };
+      }
+      if (scientificConversation.responseOwner === "DETERMINISTIC") governedRealization = realizeGovernedConversation({
+        envelope: currentTurnNavigation.envelope, providerReply: null, localWhatText: currentTurnNavigation.localWhatText });
+    } else if (!canaryExtractionStopped && input.apiKey?.trim()) {
       downstreamStage = "HOW";
       howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
       howCalls = 1;
@@ -487,11 +517,12 @@ export const executeProtocolDesignerBridge = async (input: {
       } };
     }
   }
-  if (howCalls > 0 && governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
+  if (howCalls > 0 && !scientificConversation && governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
     stage: "CONFORMANCE", code: governedRealization.conformance.diagnostics[0] ?? "HOW_CONFORMANCE_REJECTED",
     message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.", provider: null,
   };
-  const assistantReply = governedRealization?.assistantReply ?? "";
+  const assistantReply = scientificConversation?.responseOwner === "LLM"
+    ? conversation!.value : governedRealization?.assistantReply ?? "";
   const assistantTurn = { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA" as const, content: assistantReply, createdAt };
   return {
     status: 200,
@@ -499,6 +530,7 @@ export const executeProtocolDesignerBridge = async (input: {
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
       assistantReply,
       assistantTurn,
+      ...(scientificConversation ? { scientificConversation } : {}),
       conversationFailure,
       currentTurnNavigation,
       governedRealization,

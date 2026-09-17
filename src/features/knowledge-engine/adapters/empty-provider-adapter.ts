@@ -1,6 +1,6 @@
-import { logicalDigest } from "../canonical";
-import type { AdapterResult } from "../types";
-import type { CorpusAdapter } from "./corpus-adapter";
+import { logicalDigest } from "../canonical.js";
+import type { AdapterResult } from "../types.js";
+import type { CorpusAdapter } from "./corpus-adapter.js";
 
 const emptyProviderAdapter: CorpusAdapter = {
   adapterId: "empty-provider-adapter-v1",

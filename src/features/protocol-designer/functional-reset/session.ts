@@ -164,7 +164,7 @@ export type ConversationEntry =
   | { entryId: string; kind: "CDM_RESULT"; role: "NOXIA"; presentation: StandardCanonicalStudyDataPresentation; createdAt: string }
   | { entryId: string; kind: "DATA_MANAGEMENT_RESULT"; role: "NOXIA"; presentation: StandardDataManagementPresentation; createdAt: string }
   | { entryId: string; kind: "FOLLOW_UP_ACTIONS"; role: "NOXIA"; presentation: StandardConversationActionGroupPresentation; response: StandardConversationActionGroupResponse | null; createdAt: string }
-  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
+  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
 export type ProductBridgeTrace = {
@@ -227,6 +227,8 @@ export type FunctionalResetSession = {
   // Consumer processing is separate from scientific validation and human review.
   // Optional for existing v2 sessions; absent history is not reconstructed.
   retainedContributionCandidates?: readonly RetainedContributionCandidate[];
+  /** Exact already recorded USER turn awaiting the existing preparation corridor. */
+  pendingMixedUserTurnRef?: string | null;
   projectAuthority: ResearchProjectOwnerAuthority;
   project: ResearchProjectOwnerProjection | null;
   queryNavigation: FunctionalResetQueryNavigation | null;
@@ -240,6 +242,11 @@ export type FunctionalResetSession = {
   documents: FunctionalResetDocumentPortfolio;
   // Local workspace/document metadata only: never scientific extraction or an adopted Project object.
   workspace?: LocalProjectMetadata;
+  // Conversation presentation preference only. It cannot authorize or alter scientific Project content.
+  conversationPreferences?: Readonly<{
+    responseLength: "CONCISE";
+    source: "EXPLICIT_USER_FEEDBACK";
+  }>;
   openDocumentProjectionId: string | null;
   bridgeTraces: ProductBridgeTrace[];
   knowledgeOwnerLedger: Readonly<ProductKnowledgeOwnerLedger>;

@@ -1,18 +1,18 @@
 import { RollingSingleConcurrencyGate } from "./scientific-interpretation-provider.js";
 import { parseGovernedRealizationProviderOutput } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
+import { scientificDiscussionProviderContext } from "../src/features/protocol-designer/functional-reset/contribution-discussion-context.js";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
-  PERSISTENT_PROJECT_OBJECT_TYPES,
   PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT,
   PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION,
-  PERSISTENT_PROJECT_RELATION_TYPES,
-  PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
   buildNaturalConversationPayload,
   buildPersistentExtractionLanguageContract,
   buildPersistentSourceCatalog,
+  buildPersistentProviderJsonSchema,
+  type PersistentProviderJsonSchema,
   naturalConversationContext,
   relevantProjectContext,
   resolveGeminiConversationModel,
@@ -63,7 +63,7 @@ const geminiProviderTokenUsage = (usage?: GeminiUsage | null): ProviderTokenUsag
 }) : emptyProviderTokenUsage();
 
 type GeminiBody = {
-  candidates?: Array<{ content?: { parts?: Array<{ text?: unknown; functionCall?: { name?: unknown; args?: unknown } }> } }>;
+  candidates?: Array<{ content?: { parts?: Array<{ text?: unknown; thought?: boolean; functionCall?: { name?: unknown; args?: unknown } }> } }>;
   usageMetadata?: GeminiUsage;
   modelVersion?: string;
   responseId?: string;
@@ -93,66 +93,54 @@ export class ProductBridgeProviderError extends Error {
   }
 }
 
-const temporalAnchorJsonSchema = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    kind: { type: "string", enum: ["TIMEPOINT", "RELATIVE_EVENT", "WINDOW", "INTERVAL"] },
-    direction: { type: "string", enum: ["BEFORE", "AT", "AFTER", "UNKNOWN"] },
-    unit: { type: "string" },
-    offset: { anyOf: [{ type: "number" }, { type: "null" }] },
-    lowerBound: { anyOf: [{ type: "number" }, { type: "null" }] },
-    upperBound: { anyOf: [{ type: "number" }, { type: "null" }] },
-    relativeEventLabel: {
-      anyOf: [{ type: "string" }, { type: "null" }],
-      description: "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label for an event explicitly source-grounded or reconstructible from supplied conversation context; use EXPLICIT when its Project reference is not bound and KNOWN when referenceProjectRef binds it. Never invent a conventional zero, baseline or study event.",
-    },
-    tolerance: {
-      anyOf: [{
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          lower: { anyOf: [{ type: "number" }, { type: "null" }] },
-          upper: { anyOf: [{ type: "number" }, { type: "null" }] },
-          unit: { type: "string" },
-        },
-        required: ["lower", "upper", "unit"],
-      }, { type: "null" }],
-    },
-    reference: {
-      description: "Use KNOWN when a source-grounded event is bound to an exact Project or same-output candidate reference. Use EXPLICIT when the source unambiguously supplies the event but no Project/candidate reference represents it. Use UNKNOWN only when the event is absent or ambiguous.",
-      anyOf: [{
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          status: { type: "string", enum: ["KNOWN"] },
-          referenceProjectRef: {
-            type: "string",
-            description: "Exact stable Project object ID or same-output candidateRef for the source-grounded event that defines the temporal reference.",
-          },
-        },
-        required: ["status", "referenceProjectRef"],
-      }, {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          status: { type: "string", enum: ["EXPLICIT"] },
-          bindingStatus: { type: "string", enum: ["PROJECT_REF_UNRESOLVED"] },
-        },
-        required: ["status", "bindingStatus"],
-      }, {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          status: { type: "string", enum: ["UNKNOWN"] },
-          unresolvedReason: { type: "string", enum: ["REFERENCE_EVENT_NOT_SUPPLIED", "REFERENCE_EVENT_AMBIGUOUS"] },
-        },
-        required: ["status", "unresolvedReason"],
-      }],
-    },
-  },
-  required: ["kind", "direction", "unit", "offset", "lowerBound", "upperBound", "relativeEventLabel", "tolerance", "reference"],
-} as const;
+// Human-readable guidance only. Structural constraints are derived from the
+// exact anchored parser; this map does not own enums, required fields or bounds.
+const persistentProviderDescriptions: Readonly<Record<string, string>> = {
+  ".changes": "All atomic persistent object changes explicitly supported by the complete user turn. Do not collapse population criteria, study arms, objectives, modalities, acquisitions or data needs that have distinct identities.",
+  ".changes[].operation": "ADD creates a genuinely new scientific identity. REPLACE or REMOVE modifies one existing canonical Project object identified by targetProjectRef.",
+  ".changes[].sourceAnchorId": "Select one exact anchorId from the supplied current-user source catalog that semantically supports this ADD or authorizes this REPLACE/REMOVE. Use the FULL_TURN anchor when no narrower catalog fragment is sufficient. Never invent an ID and never use Project or assistant context as current-user evidence.",
+  ".changes[].targetProjectRef": "Optional. Exact stableId from the Project Context Snapshot objects inventory for the existing object being REPLACED or REMOVED. Omit for ADD. Never emit a textual null sentinel, label, section ID or invented ID, and never use it only to provide context for a new object.",
+  ".changes[].candidateRef": "New local reference for this proposed change; for ADD it must not reuse an existing Project stable ID.",
+  ".changes[].semanticIdentity": "Optional scientific identity. Preserve an existing identity for REPLACE; use a new identity for ADD. Omit when not established.",
+  ".changes[].proposedType": "Choose the scientific identity explicitly referenced, not a plausible downstream Project consequence. IMAGING_MODALITY is a named imaging modality/method family; it is never a CANONICAL_VARIABLE and is not automatically an ACQUISITION. ACQUISITION is a planned performance/collection event only when execution is established by the source; preserve the separate modality identity when both are established. CANONICAL_VARIABLE is a defined data quantity/category/output, never the modality producing it. DATA_NEED is information the Project needs. ANALYSIS_SPECIFICATION is an autonomous analytical specification with a purpose/question, inputs and a sufficiently established procedure; a mere mention of processing, segmentation, quantification or a method still to be defined is not enough. When explicit methodological context is too incomplete for a MeasurementDefinition or ANALYSIS_SPECIFICATION, use PROJECT_INFORMATION with epistemicState UNKNOWN to preserve the stated context, its link to the concerned quantity in content and the unresolved method without inventing details. MeasurementDefinition is not a type in this Project contract and must not be invented. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE and INTERVENTION distinct from COMPARATOR.",
+  ".changes[].content": "Concise semantic content for this object. This may be a canonical label, but it never replaces the selected source-anchor provenance.",
+  ".changes[].studyRole": "Optional source-grounded role, independent from proposedType. Omit when no role is established. Null is allowed only on REPLACE to clear an existing role. Never emit a textual null sentinel and never infer priority from mere mention.",
+  ".changes[].epistemicState": "PD-003 epistemic state, independent from linguistic provenance. Use UNKNOWN when explicit content has an unresolved scope or qualifier.",
+  ".changes[].proposalSourceText": "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL.",
+  ".relations[].sourceAnchorId": "Select one exact anchorId from the supplied current-user source catalog that semantically supports this relation. FULL_TURN is valid; never invent an ID.",
+  ".relations[].relationType": PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION,
+  ".relations[].sourceObjectRef": "Directed source endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation source signature. Never use a label, content, section ID or invented ID.",
+  ".relations[].targetObjectRef": "Directed target endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation target signature. Omit the optional relation when no compatible target exists; never reverse a signature or invent an ID.",
+  ".relations[].proposalSourceText": "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL.",
+  ".temporalQualifications": "All explicit typed temporal value changes carried by an existing object or by a candidateRef declared in changes of this same output. Never create a TEMPORAL_ANCHOR root object and never drop an explicit time because its reference event is unknown.",
+  ".temporalQualifications[].qualificationId": "Optional for ADD: the local materialization owner assigns a deterministic identity when omitted. Required exact existing qualification identity for REPLACE or REMOVE; preserve it.",
+  ".temporalQualifications[].sourceAnchorId": "Select one exact anchorId from the supplied current-user source catalog that semantically supports this temporal fact. FULL_TURN is valid; never invent an ID.",
+  ".temporalQualifications[].subjectProjectRef": "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role.",
+  ".temporalQualifications[].anchor.relativeEventLabel": "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label for an event explicitly source-grounded or reconstructible from supplied conversation context; use EXPLICIT when its Project reference is not bound and KNOWN when referenceProjectRef binds it. Never invent a conventional zero, baseline or study event.",
+  ".temporalQualifications[].anchor.reference": "Use KNOWN when a source-grounded event is bound to an exact Project or same-output candidate reference. Use EXPLICIT when the source unambiguously supplies the event but no Project/candidate reference represents it. Use UNKNOWN only when the event is absent or ambiguous.",
+  ".temporalQualifications[].anchor.reference.referenceProjectRef": "Exact stable Project object ID or same-output candidateRef for the source-grounded event that defines the temporal reference.",
+  ".temporalQualifications[].proposalSourceText": "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL.",
+  ".expectedVariableOccasions": "Expected occasions for one existing CANONICAL_VARIABLE; these are not observed values and do not duplicate the variable. A quantitative endpoint and its measured variable remain distinct objects: PRIMARY_ENDPOINT stays on ENDPOINT, while variableProjectRef must identify the CANONICAL_VARIABLE carrying the measured quantity.",
+  ".expectedVariableOccasions[].occasionId": "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE.",
+  ".expectedVariableOccasions[].sourceAnchorId": "Select one exact anchorId from the supplied current-user source catalog that semantically supports this expected occasion. FULL_TURN is valid; never invent an ID.",
+  ".expectedVariableOccasions[].variableProjectRef": "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output. Never reference an ENDPOINT, including the paired PRIMARY_ENDPOINT.",
+  ".expectedVariableOccasions[].anchor.relativeEventLabel": "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label for an event explicitly source-grounded or reconstructible from supplied conversation context; use EXPLICIT when its Project reference is not bound and KNOWN when referenceProjectRef binds it. Never invent a conventional zero, baseline or study event.",
+  ".expectedVariableOccasions[].anchor.reference": "Use KNOWN when a source-grounded event is bound to an exact Project or same-output candidate reference. Use EXPLICIT when the source unambiguously supplies the event but no Project/candidate reference represents it. Use UNKNOWN only when the event is absent or ambiguous.",
+  ".expectedVariableOccasions[].anchor.reference.referenceProjectRef": "Exact stable Project object ID or same-output candidateRef for the source-grounded event that defines the temporal reference.",
+  ".expectedVariableOccasions[].studyUnitOrGroupRef": "Optional stable Project or candidate-local group reference.",
+  ".expectedVariableOccasions[].applicableContext": "Optional bounded applicability context.",
+  ".expectedVariableOccasions[].proposalSourceText": "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL.",
+  ".temporalQualifications[].anchor.unit": "Required nullable field. Use null for an unquantified RELATIVE_EVENT (for example BEFORE reperfusion) with null offset/bounds/tolerance. Never invent a unit or offset. Quantified times and windows require a non-empty unit; never emit an empty string.",
+  ".expectedVariableOccasions[].anchor.unit": "Required nullable field. Use null for an unquantified RELATIVE_EVENT (for example BEFORE reperfusion) with null offset/bounds/tolerance. Never invent a unit or offset. Quantified times and windows require a non-empty unit; never emit an empty string."
+};
+
+const describePersistentProviderSchema = (schema: PersistentProviderJsonSchema, path = ""): PersistentProviderJsonSchema => ({
+  ...schema,
+  ...(persistentProviderDescriptions[path] ? { description: persistentProviderDescriptions[path] } : {}),
+  ...(schema.properties ? { properties: Object.fromEntries(Object.entries(schema.properties).map(([key, value]) => [key, describePersistentProviderSchema(value, `${path}.${key}`)])) } : {}),
+  ...(schema.items ? { items: describePersistentProviderSchema(schema.items, `${path}[]`) } : {}),
+  ...(schema.anyOf ? { anyOf: schema.anyOf.map((branch) => describePersistentProviderSchema(branch, path)) } : {}),
+});
 
 export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
   const userTurn = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
@@ -161,7 +149,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     : null;
   const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   const languageContract = buildPersistentExtractionLanguageContract(request.conversation.language);
-  const proposalContext = request.conversation.turns
+  const proposalContext = request.scientificDiscussionContext ? [] : request.conversation.turns
     .filter((turn) => turn.role === "NOXIA")
     .slice(-4)
     .map((turn) => ({ turnId: turn.turnId, content: turn.content }));
@@ -175,131 +163,15 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
       `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
       `CONTRAT MACHINE DES SIGNATURES RELATIONNELLES DU PROJECT (résous les types des deux références, puis respecte exactement une signature ; sinon omets la relation) :\n${JSON.stringify(PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT, null, 2)}`,
       `PROPOSITIONS NOXIA RÉCENTES (lecture seule ; utilisables uniquement si le dernier message les adopte explicitement) :\n${JSON.stringify(proposalContext, null, 2)}`,
+      ...(request.scientificDiscussionContext ? [
+        `CONTEXTE SCIENTIFIQUE DISCUTÉ — NON ADOPTÉ (projection bornée du lifecycle des contributions ; référents historiques distincts des sources utilisateur courantes) :\n${JSON.stringify(scientificDiscussionProviderContext(request.scientificDiscussionContext))}`,
+      ] : []),
       `RESEARCH PROJECT ADOPTÉ (lecture seule) :\n${JSON.stringify(relevantProjectContext(request.currentProject), null, 2)}`,
     ].join("\n\n") }] }],
     tools: [{ functionDeclarations: [{
       name: FUNCTION_NAME,
       description: "Propose every persistent scientific object, relation and temporal qualification grounded in the complete explicit user statement or explicit adoption; preserve multiple independent consequences from one turn and return empty lists only when there is no persistent consequence.",
-      parametersJsonSchema: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          changes: {
-            type: "array",
-            description: "All atomic persistent object changes explicitly supported by the complete user turn. Do not collapse population criteria, study arms, objectives, modalities, acquisitions or data needs that have distinct identities.",
-            items: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                operation: {
-                  type: "string",
-                  enum: ["ADD", "REMOVE", "REPLACE"],
-                  description: "ADD creates a genuinely new scientific identity. REPLACE or REMOVE modifies one existing canonical Project object identified by targetProjectRef.",
-                },
-                sourceAnchorId: {
-                  type: "string",
-                  description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this ADD or authorizes this REPLACE/REMOVE. Use the FULL_TURN anchor when no narrower catalog fragment is sufficient. Never invent an ID and never use Project or assistant context as current-user evidence.",
-                },
-                targetProjectRef: {
-                  type: "string",
-                  description: "Optional. Exact stableId from the Project Context Snapshot objects inventory for the existing object being REPLACED or REMOVED. Omit for ADD. Never emit a textual null sentinel, label, section ID or invented ID, and never use it only to provide context for a new object.",
-                },
-                candidateRef: { type: "string", description: "New local reference for this proposed change; for ADD it must not reuse an existing Project stable ID." },
-                semanticIdentity: { type: "string", description: "Optional scientific identity. Preserve an existing identity for REPLACE; use a new identity for ADD. Omit when not established." },
-                proposedType: {
-                  type: "string",
-                  enum: PERSISTENT_PROJECT_OBJECT_TYPES,
-                  description: "Choose the scientific identity explicitly referenced, not a plausible downstream Project consequence. IMAGING_MODALITY is a named imaging modality/method family; it is never a CANONICAL_VARIABLE and is not automatically an ACQUISITION. ACQUISITION is a planned performance/collection event only when execution is established by the source; preserve the separate modality identity when both are established. CANONICAL_VARIABLE is a defined data quantity/category/output, never the modality producing it. DATA_NEED is information the Project needs. ANALYSIS_SPECIFICATION is an autonomous analytical specification with a purpose/question, inputs and a sufficiently established procedure; a mere mention of processing, segmentation, quantification or a method still to be defined is not enough. When explicit methodological context is too incomplete for a MeasurementDefinition or ANALYSIS_SPECIFICATION, use PROJECT_INFORMATION with epistemicState UNKNOWN to preserve the stated context, its link to the concerned quantity in content and the unresolved method without inventing details. MeasurementDefinition is not a type in this Project contract and must not be invented. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE and INTERVENTION distinct from COMPARATOR.",
-                },
-                content: { type: "string", description: "Concise semantic content for this object. This may be a canonical label, but it never replaces the selected source-anchor provenance." },
-                polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
-                studyRole: {
-                  type: ["string", "null"],
-                  enum: [...PERSISTENT_PROJECT_STUDY_ROLES, null],
-                  description: "Optional source-grounded role, independent from proposedType. Omit when no role is established. Null is allowed only on REPLACE to clear an existing role. Never emit a textual null sentinel and never infer priority from mere mention.",
-                },
-                epistemicStatus: { type: "string", enum: ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"] },
-                epistemicState: {
-                  type: "string",
-                  enum: ["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"],
-                  description: "PD-003 epistemic state, independent from linguistic provenance. Use UNKNOWN when explicit content has an unresolved scope or qualifier.",
-                },
-                assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
-                evidenceRefs: { type: "array", items: { type: "string" } },
-              },
-              required: ["operation", "sourceAnchorId", "candidateRef", "proposedType", "content", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
-            },
-          },
-          relations: {
-            type: "array",
-            items: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                relationRef: { type: "string" },
-                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this relation. FULL_TURN is valid; never invent an ID." },
-                relationType: {
-                  type: "string",
-                  enum: PERSISTENT_PROJECT_RELATION_TYPES,
-                  description: PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION,
-                },
-                sourceObjectRef: { type: "string", description: "Directed source endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation source signature. Never use a label, content, section ID or invented ID." },
-                targetObjectRef: { type: "string", description: "Directed target endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation target signature. Omit the optional relation when no compatible target exists; never reverse a signature or invent an ID." },
-                polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
-                epistemicStatus: { type: "string", enum: ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"] },
-                epistemicState: { type: "string", enum: ["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"] },
-                assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
-                evidenceRefs: { type: "array", items: { type: "string" } },
-              },
-              required: ["relationRef", "sourceAnchorId", "relationType", "sourceObjectRef", "targetObjectRef", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
-            },
-          },
-          temporalQualifications: {
-            type: "array",
-            description: "All explicit typed temporal value changes carried by an existing object or by a candidateRef declared in changes of this same output. Never create a TEMPORAL_ANCHOR root object and never drop an explicit time because its reference event is unknown.",
-            items: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
-                qualificationId: { type: "string", description: "Stable qualification identity. Preserve it for REPLACE or REMOVE." },
-                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this temporal fact. FULL_TURN is valid; never invent an ID." },
-                subjectProjectRef: { type: "string", description: "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role." },
-                temporalRole: { type: "string", enum: ["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"] },
-                anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
-                assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
-                evidenceRefs: { type: "array", items: { type: "string" } },
-              },
-              required: ["operation", "qualificationId", "sourceAnchorId", "subjectProjectRef", "temporalRole", "anchor", "assertionKind", "evidenceRefs"],
-            },
-          },
-          expectedVariableOccasions: {
-            type: "array",
-            description: "Expected occasions for one existing CANONICAL_VARIABLE; these are not observed values and do not duplicate the variable. A quantitative endpoint and its measured variable remain distinct objects: PRIMARY_ENDPOINT stays on ENDPOINT, while variableProjectRef must identify the CANONICAL_VARIABLE carrying the measured quantity.",
-            items: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
-                occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
-                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this expected occasion. FULL_TURN is valid; never invent an ID." },
-                variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output. Never reference an ENDPOINT, including the paired PRIMARY_ENDPOINT." },
-                anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
-                studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },
-                applicableContext: { type: "string", description: "Optional bounded applicability context." },
-                assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
-                evidenceRefs: { type: "array", items: { type: "string" } },
-              },
-              required: ["operation", "occasionId", "sourceAnchorId", "variableProjectRef", "anchor", "assertionKind", "evidenceRefs"],
-            },
-          },
-        },
-        required: ["changes", "relations", "temporalQualifications", "expectedVariableOccasions"],
-      },
+      parametersJsonSchema: describePersistentProviderSchema(buildPersistentProviderJsonSchema()),
     }] }],
     toolConfig: { functionCallingConfig: { mode: "ANY", allowedFunctionNames: [FUNCTION_NAME] } },
   };
@@ -412,11 +284,15 @@ export const executeNaturalConversation = async (
     apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl,
     resolveGeminiConversationModel(model), instrumentation,
   );
-  const reply = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
+  const reply = request.scientificCollaboratorRequest
+    ? result.value.candidates?.map(candidate => (candidate.content?.parts ?? [])
+      .filter(part => part.thought !== true && typeof part.text === "string")
+      .map(part => part.text as string).join("").trim()).find(text => text.length > 0)
+    : result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.text)
     .find((value): value is string => typeof value === "string" && value.trim().length > 0)?.trim();
   if (!reply) throw new ProductBridgeProviderError("CONVERSATION", 200, "TEXT_RESPONSE_MISSING", "Gemini returned no visible conversational text.", result.responseId);
-  if (request.governedRealization) {
+  if (request.governedRealization && !request.contextualReasoningRequest && !request.scientificCollaboratorRequest) {
     const parsed = parseGovernedRealizationProviderOutput(reply);
     return { ...result, value: parsed?.assistantReply ?? reply, governedClaim: parsed?.claim ?? null };
   }

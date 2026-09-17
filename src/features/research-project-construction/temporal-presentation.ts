@@ -20,11 +20,12 @@ const TEMPORAL_UNIT_FORMS: Readonly<Record<FrenchTemporalUnit, readonly [string,
   MINUTE: ["minute", "minutes"],
 });
 
-export const canonicalFrenchTemporalUnit = (unit: string): FrenchTemporalUnit | null => (
-  TEMPORAL_UNIT_ALIASES[unit.trim().toLocaleUpperCase("fr-FR")] ?? null
+export const canonicalFrenchTemporalUnit = (unit: string | null): FrenchTemporalUnit | null => (
+  unit === null ? null : TEMPORAL_UNIT_ALIASES[unit.trim().toLocaleUpperCase("fr-FR")] ?? null
 );
 
-export const frenchTemporalQuantity = (unit: string, value: number) => {
+export const frenchTemporalQuantity = (unit: string | null, value: number) => {
+  if (unit === null) throw new Error("QUANTIFIED_TEMPORAL_UNIT_REQUIRED");
   const canonicalUnit = canonicalFrenchTemporalUnit(unit);
   if (!canonicalUnit) return `${value} ${unit.trim().toLocaleLowerCase("fr-FR")}`;
   const forms = TEMPORAL_UNIT_FORMS[canonicalUnit];

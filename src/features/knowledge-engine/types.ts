@@ -1,4 +1,4 @@
-import type { ExternalEvidenceSearchResult } from "./external-evidence/types";
+import type { ExternalEvidenceSearchResult } from "./external-evidence/types.js";
 
 export const KNOWLEDGE_ENGINE_VERSION = "1.2.1" as const;
 

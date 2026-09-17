@@ -1,10 +1,10 @@
-import referenceCorpusDocument from "../../../reference-corpus/reference-corpus-01/reference-corpus.json";
-import linkedStudySetsDocument from "../../../reference-corpus/reference-corpus-01/linked-study-sets.json";
-import ownerKnowledgeCoverageDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-coverage.json";
-import ownerKnowledgeNeedsDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-needs.json";
-import referenceDocumentIndex from "../../../reference-corpus/reference-knowledge-bridge-01/reference-document-index.json";
-import documentaryEvidenceClosureDocument from "../../../reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json";
-import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
+import referenceCorpusDocument from "../../../reference-corpus/reference-corpus-01/reference-corpus.json" with { type: "json" };
+import linkedStudySetsDocument from "../../../reference-corpus/reference-corpus-01/linked-study-sets.json" with { type: "json" };
+import ownerKnowledgeCoverageDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-coverage.json" with { type: "json" };
+import ownerKnowledgeNeedsDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-needs.json" with { type: "json" };
+import referenceDocumentIndex from "../../../reference-corpus/reference-knowledge-bridge-01/reference-document-index.json" with { type: "json" };
+import documentaryEvidenceClosureDocument from "../../../reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json" with { type: "json" };
+import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical.js";
 import type {
   KnowledgeRequest,
   ReferenceDocumentRelationship,
@@ -13,7 +13,7 @@ import type {
   ReferenceSourceAnchor,
   ReferenceSourceSnapshot,
   RuntimeSource,
-} from "./types";
+} from "./types.js";
 
 type Rc01Source = {
   SOURCE_ID: string;

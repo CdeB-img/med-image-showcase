@@ -51,7 +51,7 @@ const campaignIdValid = (value: unknown): value is string => typeof value === "s
 export const createCanaryCampaignPolicy = (input: Omit<CanaryCampaignPolicy, "policyDigest">): CanaryCampaignPolicy => {
   if (!object(input) || !keysOnly(input, ["campaignId", "maxSessions", "measuredSoftStopUsd", "absoluteHardBoundUsd", "singleAttemptPolicy", "allowedProviderModels", "createdAt"])
     || !campaignIdValid(input.campaignId) || !integer(input.maxSessions) || input.maxSessions < 1 || input.maxSessions > 5
-    || !Number.isFinite(input.measuredSoftStopUsd) || input.measuredSoftStopUsd <= 0 || input.measuredSoftStopUsd > 3
+    || !Number.isFinite(input.measuredSoftStopUsd) || input.measuredSoftStopUsd <= 0 || input.measuredSoftStopUsd > 4
     || !Number.isFinite(input.absoluteHardBoundUsd) || input.absoluteHardBoundUsd <= 0 || input.absoluteHardBoundUsd > 10
     || input.measuredSoftStopUsd > input.absoluteHardBoundUsd || input.singleAttemptPolicy !== SINGLE_ATTEMPT_FAIL_CLOSED
     || typeof input.createdAt !== "string" || !Number.isFinite(Date.parse(input.createdAt))
@@ -147,7 +147,7 @@ export const boundCanaryProviderCall = (endpoint: string, body: string): CanaryC
 export const canaryBudgetAdmission = (committedCostUsd: number, bound: CanaryCallBound | null, measuredCostUsd: number,
   budget: Readonly<{ absoluteHardCampaignBoundUsd: number; measuredCostSoftStopUsd: number }> = CANARY_BUDGET_POLICY) => {
   if (!Number.isFinite(budget.absoluteHardCampaignBoundUsd) || budget.absoluteHardCampaignBoundUsd <= 0 || budget.absoluteHardCampaignBoundUsd > 10
-    || !Number.isFinite(budget.measuredCostSoftStopUsd) || budget.measuredCostSoftStopUsd <= 0 || budget.measuredCostSoftStopUsd > 3
+    || !Number.isFinite(budget.measuredCostSoftStopUsd) || budget.measuredCostSoftStopUsd <= 0 || budget.measuredCostSoftStopUsd > 4
     || budget.measuredCostSoftStopUsd > budget.absoluteHardCampaignBoundUsd) return "DENIED_INVALID_BUDGET_POLICY";
   if (!Number.isFinite(committedCostUsd) || committedCostUsd < 0
     || !Number.isFinite(measuredCostUsd) || measuredCostUsd < 0 || measuredCostUsd > committedCostUsd) return "DENIED_UNKNOWN_CUMULATIVE_COST";

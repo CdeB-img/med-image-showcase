@@ -4,7 +4,7 @@ import type {
   KnowledgeContentOrigin,
   PrivacyClass,
   RuntimeEvidenceLink,
-} from "../types";
+} from "../types.js";
 
 export type ExternalProviderAvailability = "AVAILABLE" | "DEGRADED" | "UNAVAILABLE";
 
