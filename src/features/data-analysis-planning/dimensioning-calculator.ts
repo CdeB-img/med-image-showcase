@@ -1,7 +1,77 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
 
 export const TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION = "1.0.0" as const;
 export const TWO_GROUP_CONTINUOUS_DIMENSIONING_METHOD = "TWO_GROUP_CONTINUOUS_NORMAL_APPROXIMATION_EQUAL_ALLOCATION" as const;
+
+/** Conversation adapter to the existing bounded calculator, not an extractor
+ * or a Project decision. Only explicitly labelled numerical assumptions enter. */
+export const prepareConversationalDimensioning = (input: {
+  turns: readonly Readonly<{ turnRef: string; role: string; content: string | null }>[];
+  acceptedVisibleProposal?: Readonly<{ turnRef: string; content: string; decisionTurnRef: string }>;
+}) => {
+  const latest = [...input.turns].reverse().find(turn => turn.role === "USER");
+  const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  const userSources = input.turns.filter(turn => turn.role === "USER" && turn.content !== null)
+    .map(turn => ({ turnRef: turn.turnRef, content: turn.content!, origin: "USER_DECLARED_ASSUMPTION" as const, decisionTurnRef: null as string | null }));
+  const sources = [...userSources, ...(input.acceptedVisibleProposal ? [{ ...input.acceptedVisibleProposal,
+    origin: "MODEL_SUGGESTED_ASSUMPTION" as const }] : [])];
+  const requested = Boolean(latest?.content && /calcul|dimensionn|combien/u.test(fold(latest.content))
+    && sources.some(source => /effectif|sujets|participants|echantillon|puissance|\bsd\b|ecart.type/u.test(fold(source.content))))
+    || Boolean(input.acceptedVisibleProposal && /effectif|puissance|\bsd\b|ecart.type/u.test(fold(input.acceptedVisibleProposal.content)));
+  const specifications = [
+    ["difference", "(?:difference(?: cible)?|effet cible|delta)"],
+    ["commonStandardDeviation", "(?:sd|ecart[ -]type|dispersion)"],
+    ["twoSidedAlpha", "alpha(?: bilateral)?"],
+    ["power", "(?:puissance|power)"],
+    ["anticipatedNonEvaluableRate", "(?:non[ -]evaluabilite|taux(?: anticipe)? de non[ -]evaluables|pertes(?: de suivi)?|nonEvaluableRate)"],
+  ] as const;
+  const assumptions: Array<{ parameter: typeof specifications[number][0]; value: number; unit: string | null;
+    origin: "USER_DECLARED_ASSUMPTION" | "MODEL_SUGGESTED_ASSUMPTION"; sourceTurnRef: string;
+    sourceText: string; decisionTurnRef: string | null; status: "CALCULATION_INPUT_NOT_PROJECT_DECISION" }> = [];
+  const ambiguous: string[] = [];
+  for (const [parameter, label] of specifications) {
+    // The latest source with this labelled parameter is authoritative for this
+    // calculation scenario. Two values in the same source remain ambiguous.
+    for (const source of [...sources].reverse()) {
+      const matches = [...fold(source.content).matchAll(new RegExp(`\\b${label}\\s*(?:=|:|de|a)?\\s*([+-]?\\d+(?:[.,]\\d+)?)\\s*(%|points?|unites?)?(?![\\p{L}\\d]|[.,]\\d)`, "giu"))];
+      if (!matches.length) continue;
+      if (matches.length !== 1 || /^[–—-]\s*\d/u.test(fold(source.content).slice(matches[0]!.index! + matches[0]![0].length))) { ambiguous.push(parameter); break; }
+      const match = matches[0]!; let value = Number(match[1]!.replace(",", "."));
+      const proportion = ["twoSidedAlpha", "power", "anticipatedNonEvaluableRate"].includes(parameter);
+      if (proportion && match[2] === "%") value /= 100;
+      assumptions.push({ parameter, value, unit: match[2] ?? null, origin: source.origin,
+        sourceTurnRef: source.turnRef, sourceText: source.content.slice(match.index, match.index! + match[0].length).trim(),
+        decisionTurnRef: source.decisionTurnRef, status: "CALCULATION_INPUT_NOT_PROJECT_DECISION" });
+      break;
+    }
+  }
+  const missing: string[] = specifications.map(([parameter]) => parameter).filter(parameter => !assumptions.some(a => a.parameter === parameter));
+  const scoped = [...sources].reverse().find(source => /\b(?:\d+|deux|trois|quatre|six) groupes\b/u.test(fold(source.content)));
+  const scopeText = fold(scoped?.content ?? "");
+  const scopeSupported = /\b(?:deux|2) groupes independants\b/u.test(scopeText)
+    && !/\b(?:pas|sans) (?:deux|2) groupes\b/u.test(scopeText)
+    && /moyenn|(?:variable|critere|marqueur) continu/u.test(scopeText)
+    && /allocation egale|allocation 1\s*[:/]\s*1/u.test(scopeText);
+  if (!scopeSupported) missing.push("explicitSupportedTwoGroupComparison");
+  const differenceUnit = assumptions.find(a => a.parameter === "difference")?.unit;
+  const sdUnit = assumptions.find(a => a.parameter === "commonStandardDeviation")?.unit;
+  if (differenceUnit && sdUnit && differenceUnit.replace(/s$/u, "") !== sdUnit.replace(/s$/u, "")) ambiguous.push("incompatibleDifferenceAndDispersionUnits");
+  const base = { owner: "BIOSTATISTICS" as const, requested, assumptions, missingInputs: [...missing, ...ambiguous],
+    methodIdentity: TWO_GROUP_CONTINUOUS_DIMENSIONING_METHOD,
+    literatureDerivedAssumptions: [] as readonly string[], projectWriteAuthorized: false as const,
+    interpretation: "Numerical assumptions are calculation inputs, not scientific evidence or adopted Project decisions." };
+  if (!requested || missing.length || ambiguous.length) return { ...base,
+    status: !requested ? "NOT_REQUESTED" as const : "INPUTS_OR_SUPPORTED_METHOD_REQUIRED" as const, calculation: null };
+  const values = Object.fromEntries(assumptions.map(a => [a.parameter, a.value]));
+  const sourceRefs = Object.fromEntries(assumptions.map(a => [a.parameter, `${a.sourceTurnRef}:${a.parameter}`]));
+  try {
+    const calculation = calculateTwoGroupContinuousSampleSize({ ...values, sourceRefs } as TwoGroupContinuousDimensioningInput);
+    return { ...base, status: "CALCULATED_SCENARIO_NOT_PROJECT_DECISION" as const, calculation };
+  } catch (error) {
+    return { ...base, status: "INVALID_INPUTS" as const, calculation: null,
+      missingInputs: [...base.missingInputs, error instanceof Error ? error.message : "DIMENSIONING_INPUT_INVALID"] };
+  }
+};
 
 export type TwoGroupContinuousDimensioningInput = {
   difference: number;

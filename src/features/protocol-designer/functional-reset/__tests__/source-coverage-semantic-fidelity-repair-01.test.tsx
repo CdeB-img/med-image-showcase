@@ -161,7 +161,8 @@ describe("N5 — granular source coverage, separate from scientific truth and ad
     const prepared = prepareResearchProjectContributionCandidate(contribution, null);
     const markup = renderToStaticMarkup(<ContributionReview contribution={contribution} candidate={prepared} status="PENDING"
       onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
-    expect(markup).toContain("Passages à vérifier");
+    expect(markup).not.toContain("Passages à vérifier");
+    expect(markup).toContain("Compréhension partielle");
     expect(markup).toContain("Pas de PET.");
     expect(markup).not.toContain("À clarifier");
     expect(contribution.scientificContent.clarificationNeeds).toEqual([]);

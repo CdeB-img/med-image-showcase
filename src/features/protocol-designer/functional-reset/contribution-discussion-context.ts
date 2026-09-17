@@ -85,8 +85,8 @@ const replacementPairs = (source: string): { old: string; next: string; inverse:
   return pairs.filter((p, i) => pairs.findIndex(q => normal(q.old) === normal(p.old) && normal(q.next) === normal(p.next)) === i);
 };
 
-/** Only explicitly printed option labels are parsed; prose is never turned into
- * invented alternatives. The exact visible text remains its NOXIA provenance. */
+/** Project explicit labelled options or concrete native offers, preserving their
+ * visible NOXIA source. General explanations are not scientific candidates. */
 export const projectVisibleDiscussionOptions = (turn: Pick<ScientificInterpretationTurn, "turnId" | "content">): VisibleDiscussionOption[] => {
   let point: number | null = null;
   const result: VisibleDiscussionOption[] = [];
@@ -97,7 +97,23 @@ export const projectVisibleDiscussionOptions = (turn: Pick<ScientificInterpretat
     if (option) result.push({ ref: `visible-option:${turn.turnId}:${point ?? "root"}:${option[1]}`, pointOrdinal: point,
       optionOrdinal: Number(option[1]), content: line.trim(), sourceRef: `visible-source:${turn.turnId}`, status: "PROPOSED_NOT_ADOPTED" });
   }
-  return result;
+  if (result.length) return result;
+  // Reuse the visible-option projection for an explicit native offer. This is
+  // presentation evidence only: no scientific object or candidate is invented.
+  const offers = [...turn.content.matchAll(/\b(?:je (?:vous |te )?propose\b|(?:une?|la|le) [^.!?\n]{0,65} possible (?:serait|est)\b)/giu)];
+  if (!offers.length || /^(?:\s*)(?:par exemple|si\b|supposons\b)/iu.test(turn.content)) return [];
+  return offers.flatMap((offer, index) => {
+    const span = turn.content.slice(offer.index, offers[index + 1]?.index ?? turn.content.length).trim();
+    // An invitation to decide is not part of the scientific payload.
+    const content = span.replace(/\s*(?:Souhaitez-vous|Voulez-vous|Veux-tu|Voulez vous|Souhaitez vous)[\s\S]*$/iu, "").trim();
+    if (!content || content.length > 4_000) return [];
+    const alternatives = content.split(/\s+ou\s+/iu);
+    return alternatives.map((text, alternative) => ({
+      ref: `visible-option:${turn.turnId}:root:${index + 1}:${alternative + 1}`, pointOrdinal: null,
+      optionOrdinal: index + alternative + 1, content: text.trim(),
+      sourceRef: `visible-source:${turn.turnId}`, status: "PROPOSED_NOT_ADOPTED" as const,
+    }));
+  });
 };
 
 export const buildScientificDiscussionContext = (input: {

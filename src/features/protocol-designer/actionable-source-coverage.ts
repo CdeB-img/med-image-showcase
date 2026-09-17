@@ -349,5 +349,11 @@ export const projectActionableSourceCoverage = (contribution: ScientificInterpre
     const group = groups.get(id) ?? { id, label: labelFor(context), sourceContext: context, dispositions: [] };
     group.dispositions.push(disposition); groups.set(id, group);
   }
-  return { dispositions, actionableItems: [...groups.values()], partialComprehensionWarning: groups.size > 0 };
+  const materialItems = [...groups.values()].map(group => ({ ...group,
+    dispositions: group.dispositions.filter(item => ["TRUE_OMISSION", "PARTIAL_MATERIAL"].includes(item.classification)),
+  })).filter(group => group.dispositions.length > 0);
+  // UNKNOWN remains actionable in audit. It is neither proven coverage nor a
+  // demonstrated material omission and cannot alone label comprehension partial.
+  return { dispositions, actionableItems: [...groups.values()], materialItems,
+    partialComprehensionWarning: materialItems.length > 0 };
 };

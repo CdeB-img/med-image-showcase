@@ -32,6 +32,15 @@ export type BoundedConversationReferentContext = Readonly<{
   sourceTurnRef: string | null;
   sourceDigest: string | null;
   content: readonly GovernedRealizationContent[];
+  /** Projection of an actual visible offer, before its normal extraction/review. */
+  visibleProposal?: Readonly<{
+    sourceResponseRef: string;
+    displayDigest: string;
+    visibleText: string;
+    options: readonly import("../protocol-designer/functional-reset/contribution-discussion-context.js").VisibleDiscussionOption[];
+    structuredCandidateRef: null;
+    status: "PROPOSED_NOT_ADOPTED";
+  }>;
   /** Local, derived review evidence. It never grants an HTTP caller a decision. */
   decisionScope?: Readonly<{
     selectedReviewRef: string;

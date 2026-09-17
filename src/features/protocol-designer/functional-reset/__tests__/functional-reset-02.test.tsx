@@ -149,7 +149,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   it("FR02-P04/P05/P06/P08/P10/P11/P12/P13 — completes the colchicine product vertical", async () => {
     const firstRender = renderDemo();
     submit(COLCHICINE_INITIAL);
-    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
+    await screen.findByRole("heading", { name: "À enregistrer dans le projet" });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     const projectPanel = screen.getByTestId("functional-research-project");
@@ -166,7 +166,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(within(previewV1).getByRole("button", { name: "Retour à la conversation" }));
 
     submit(COLCHICINE_MODIFICATION);
-    await screen.findByText("J’ai compris deux modifications :");
+    await screen.findByText("Modifications à enregistrer");
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();

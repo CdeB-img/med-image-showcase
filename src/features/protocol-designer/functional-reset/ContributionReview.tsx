@@ -9,8 +9,6 @@ import {
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 
-const countInFrench = (count: number) => count === 1 ? "une modification" : count === 2 ? "deux modifications" : `${count} modifications`;
-
 type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
@@ -158,52 +156,22 @@ export default function ContributionReview({ contribution, candidate, currentPro
   const summaryRows = initialSummaryRows(candidate);
   const issueItems = activeIssueItems(contribution);
   const sourceCoverage = useMemo(() => projectActionableSourceCoverage(contribution), [contribution]);
-  const coverageIssues = sourceCoverage.actionableItems;
+  const coverageIssues = sourceCoverage.materialItems;
   const preservedProperties = status === "PENDING"
     ? preservedProjectPropertiesForReview(candidate, currentProject)
     : [];
 
   return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
-    <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">{isUpdate ? "Correction proposée" : "Synthèse de l’étude"}</p>
-    <h3 id={`review-${contribution.identity.contributionId}`} className="mt-2 text-xl font-semibold">
-      {isUpdate ? `J’ai compris ${countInFrench(changeCount)} :` : "Voici la structure essentielle à confirmer."}
+    <h3 id={`review-${contribution.identity.contributionId}`} className="text-base font-semibold">
+      {isUpdate ? "Modifications à enregistrer" : "À enregistrer dans le projet"}
     </h3>
-    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{isUpdate
-      ? "Voici les changements repérés dans votre dernier message. Ils ne seront appliqués qu’après votre confirmation."
-      : "Cette proposition reste modifiable. Vous pouvez la confirmer ou décrire librement ce que vous souhaitez changer."}</p>
-
-    {sourceCoverage.partialComprehensionWarning && <p
-      role="status" className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm"
-    >Compréhension partielle : certains passages restent à vérifier. Confirmer cette proposition ne confirme que les éléments structurés affichés.</p>}
-
-    {coverageIssues.length > 0 && <section className="mt-3 rounded-xl border border-amber-500/40 p-3" data-testid="source-coverage-review">
-      <h4 className="text-sm font-semibold">Passages à vérifier ({coverageIssues.length})</h4>
-      <ul className="mt-2 space-y-3 text-sm">{coverageIssues.map(group => <li key={group.id}>
-        <p className="font-medium">{group.label}</p>
-        <p className="mt-1">{group.dispositions.length > 1 ? group.sourceContext : group.dispositions[0].sourceSpan}</p>
-        <details className="mt-1 text-muted-foreground" data-testid="source-coverage-group-detail">
-          <summary className="cursor-pointer">Source et représentation</summary>
-          <p className="mt-1">{group.sourceContext}</p>
-          <ul className="mt-1 list-disc pl-5">{group.dispositions.map(item => <li key={item.diagnosticId}>
-            <p>{item.sourceSpan}</p>
-            {item.semanticEvidence.length ? `Représentation : ${item.semanticEvidence.join(" · ")}` : "Aucune représentation démontrée dans cette proposition."}
-          </li>)}</ul>
-        </details>
+    {sourceCoverage.partialComprehensionWarning && <section
+      className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm" data-testid="source-coverage-review"
+    >
+      <p role="status">Compréhension partielle : des éléments importants restent à préciser avant confirmation.</p>
+      <ul className="mt-2 space-y-1">{coverageIssues.map(group => <li key={group.id}>
+        <span className="font-medium">{group.label} : </span>{group.dispositions.map(item => item.sourceSpan).join(" · ")}
       </li>)}</ul>
-    </section>}
-
-    {sourceCoverage.dispositions.length > 0 && <details className="mt-3 text-sm text-muted-foreground" data-testid="source-coverage-audit">
-      <summary className="cursor-pointer">Détail de la couverture des passages</summary>
-      <ul className="mt-2 list-disc pl-5">{sourceCoverage.dispositions.map(item => <li key={item.diagnosticId}>
-        <span>{item.sourceSpan}</span> — <code>{item.classification}</code>
-        {item.semanticEvidence.length > 0 && <p>{item.semanticEvidence.join(" · ")}</p>}
-        <p>{item.diagnosticId} · {item.sourceRefs.join(" · ")} · {item.candidateRefs.join(" · ")}</p>
-      </li>)}</ul>
-    </details>}
-
-    {isUpdate && issueItems.length > 0 && <section className="mt-3 rounded-xl border border-amber-500/40 p-3">
-      <h4 className="text-sm font-semibold">À clarifier</h4>
-      <ul className="mt-2 list-disc pl-5 text-sm">{issueItems.map((item) => <li key={item.itemId}>{item.content}</li>)}</ul>
     </section>}
 
     {!isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-initial-review-summary">
@@ -217,56 +185,58 @@ export default function ContributionReview({ contribution, candidate, currentPro
       </div>}
     </dl>}
 
-    {isUpdate && <div className="mt-4 grid gap-3 sm:grid-cols-2">
-      {sections.map((section) => <section key={section.sectionRef} className="rounded-2xl border p-3">
-        <h4 className="text-sm font-semibold">{section.label}</h4>
-        <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
-          <span className="block">{item.content}</span>
-          {partialDecision && <span className="text-xs text-muted-foreground">{decisionLabel(item)}</span>}
-          {(item.statusLabel || item.specificationLabel) && <span className="mt-1 flex flex-wrap gap-1">
-            {item.statusLabel && <span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
-            {item.specificationLabel && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{item.specificationLabel}</span>}
-          </span>}
-        </li>)}</ul>
-      </section>)}
-    </div>}
-
-    {isUpdate && preservedProperties.length > 0 && <dl className="mt-3 divide-y rounded-2xl border border-dashed bg-background px-4" data-testid="standard-update-preserved-properties">
-      {preservedProperties.map((property) => <div key={property.id} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
-        <dt className="text-sm font-semibold">{property.label}</dt>
-        <dd className="text-sm leading-relaxed">{property.content}</dd>
+    {isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-update-review-summary">
+      {sections.map(section => <div key={section.sectionRef} className="grid gap-1 py-2 sm:grid-cols-[9rem_1fr]">
+        <dt className="text-sm font-semibold">{section.label}</dt>
+        <dd className="text-sm">{section.items.map(item => <p key={item.reviewItemRef}>
+          {summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}
+        </p>)}</dd>
       </div>)}
     </dl>}
 
-    {isUpdate && status === "PENDING" && <p className="mt-3 text-sm text-muted-foreground">Cette modification reste à confirmer ; le projet est inchangé.</p>}
-
-    {!isUpdate && <details
-      className="mt-4 rounded-2xl border border-dashed p-4"
-      data-testid="functional-review-details"
-      onToggle={(event) => setDetailsOpen(event.currentTarget.open)}
-    >
-      <summary className="cursor-pointer text-sm font-semibold">Voir les détails</summary>
-      {detailsOpen && <div className="mt-4 space-y-4">
+    <details className="mt-3 rounded-2xl border border-dashed p-3" data-testid="functional-review-details"
+      onToggle={event => setDetailsOpen(event.currentTarget.open)}>
+      <summary className="cursor-pointer text-sm font-medium">Voir les détails</summary>
+      {detailsOpen && <div className="mt-3 space-y-3" data-testid="review-audit-detail">
         {detailedUnderstanding}
-        <div className="grid gap-3 sm:grid-cols-2">
-          {sections.map((section) => <section key={section.sectionRef} className="rounded-2xl border p-3">
-            <h4 className="text-sm font-semibold">{section.label}</h4>
-            <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
-              <span className="block">{item.content}</span>
-              {partialDecision && <span className="text-xs text-muted-foreground">{decisionLabel(item)}</span>}
-              {(item.statusLabel || item.specificationLabel) && <span className="mt-1 flex flex-wrap gap-1">
-                {item.statusLabel && <span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
-                {item.specificationLabel && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{item.specificationLabel}</span>}
-              </span>}
-            </li>)}</ul>
-          </section>)}
-        </div>
-        {openPoints.length > 0 && <section className="rounded-2xl border border-dashed p-4" aria-labelledby={`open-${contribution.identity.contributionId}`}>
-          <h4 id={`open-${contribution.identity.contributionId}`} className="text-sm font-semibold">Points encore ouverts</h4>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">{openPoints.map((point) => <li key={point.openPointRef}>{point.content}</li>)}</ul>
+        <section className="text-sm" data-testid="review-original-source">
+          <h4 className="font-semibold">Message d’origine</h4>
+          <p className="whitespace-pre-wrap">{contribution.source.originalRequest}</p>
+        </section>
+        <details className="text-sm" data-testid="review-provenance-detail">
+          <summary className="cursor-pointer">Provenance et références</summary>
+          <pre className="mt-2 max-h-96 overflow-auto whitespace-pre-wrap text-xs">{JSON.stringify({
+            contribution, changeSet: candidate.changeSet, humanReviewProjection: candidate.humanReviewProjection,
+          }, null, 2)}</pre>
+        </details>
+        <div className="grid gap-3 sm:grid-cols-2">{sections.map(section => <section key={section.sectionRef} className="rounded-xl border p-3">
+          <h4 className="text-sm font-semibold">{section.label}</h4>
+          <ul className="mt-2 space-y-1 text-sm">{section.items.map(item => <li key={item.reviewItemRef}>
+            <p>{item.content}</p>
+            {partialDecision && <span>{decisionLabel(item)}</span>}
+            <p className="text-xs text-muted-foreground">{[item.statusLabel, item.specificationLabel].filter(Boolean).join(" · ")}</p>
+            <p className="text-xs text-muted-foreground">{item.reviewItemRef} · {item.changeRef}</p>
+          </li>)}</ul>
+        </section>)}</div>
+        {sourceCoverage.dispositions.length > 0 && <section className="text-sm" data-testid="source-coverage-audit">
+          <h4 className="font-semibold">Source et représentation</h4>
+          <ul className="mt-2 space-y-2">{sourceCoverage.dispositions.map(item => <li key={item.diagnosticId}>
+            <p>{item.sourceSpan}</p><code>{item.classification}</code>
+            {item.semanticEvidence.length > 0 && <p>{item.semanticEvidence.join(" · ")}</p>}
+            <p className="text-xs text-muted-foreground">{item.diagnosticId} · {item.sourceRefs.join(" · ")} · {item.candidateRefs.join(" · ")}</p>
+          </li>)}</ul>
+        </section>}
+        {issueItems.length > 0 && <section className="text-sm"><h4 className="font-semibold">À clarifier</h4>
+          <ul>{issueItems.map(item => <li key={item.itemId}>{item.content}</li>)}</ul>
+        </section>}
+        {preservedProperties.length > 0 && <dl className="text-sm" data-testid="review-preserved-properties">
+          {preservedProperties.map(property => <div key={property.id}><dt>{property.label}</dt><dd>{property.content}</dd></div>)}
+        </dl>}
+        {openPoints.length > 0 && <section className="text-sm" aria-label="Points encore ouverts"><h4 className="font-semibold">Points encore ouverts</h4>
+          <ul>{openPoints.map(point => <li key={point.openPointRef}>{point.content}</li>)}</ul>
         </section>}
       </div>}
-    </details>}
+    </details>
 
     {status === "PENDING" && !actionable
       ? <p role="status" className="mt-5 text-sm text-muted-foreground">Proposition conservée dans l’historique, non sélectionnée pour une décision dans ce tour.</p>

@@ -13,7 +13,7 @@ import {
   type ProductOwnerResultLedgerEntry,
 } from "../protocol-designer/product-owner-result-ledger.js";
 import type { RetainedContributionCandidate } from "../protocol-designer/functional-reset/contribution-lifecycle.js";
-import { buildScientificDiscussionContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
+import { buildScientificDiscussionContext, projectVisibleDiscussionOptions } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 import type { StudyDesignProposalContribution } from "../study-design/contracts.js";
 import type { NavigationNeed, QueryNavigationSourceState } from "./contracts.js";
 import { makeQueryNavigationId, queryNavigationDigest } from "./canonical.js";
@@ -215,6 +215,16 @@ export const buildBoundedConversationReferentContext = (input: {
     projectWriteAuthorized: false,
   });
   const nonCurrentExists = input.retained.some((record) => record.actuality !== "CURRENT" || Boolean(record.humanDecision) || closedCandidates.has(record.candidateRef));
+  const visibleResponse = historyTurns.at(-1);
+  const visibleOptions = visibleResponse?.role === "NOXIA" ? projectVisibleDiscussionOptions(visibleResponse) : [];
+  if (visibleResponse && visibleOptions.length) return Object.freeze({
+    // A visible native proposal is not yet a validated structured candidate.
+    resolution: "NONE" as const, candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+    visibleProposal: Object.freeze({ sourceResponseRef: visibleResponse.turnId,
+      displayDigest: logicalDigest(visibleResponse.content), visibleText: visibleResponse.content,
+      options: Object.freeze(visibleOptions), structuredCandidateRef: null, status: "PROPOSED_NOT_ADOPTED" as const }),
+    reason: "EXACT_VISIBLE_OFFER_REQUIRES_NORMAL_EXTRACTION_AND_HUMAN_REVIEW", projectWriteAuthorized: false as const,
+  });
   return Object.freeze({
     resolution: nonCurrentExists ? "STALE_OR_SUPERSEDED" : "NONE",
     candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
@@ -480,6 +490,13 @@ const naturalDecisionInteraction = (source: string, context: BoundedConversation
     kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]), clarificationReason: "DECISION_SCOPE", clarificationText,
   });
   const scope = context.decisionScope;
+  if (context.visibleProposal && act) {
+    if (act.act === "CONFIRM" && !act.qualified && context.visibleProposal.options.length !== 1) return clarify("Quelle option souhaitez-vous retenir parmi celles proposées ?");
+    return Object.freeze({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: Object.freeze([
+      context.visibleProposal.sourceResponseRef, context.visibleProposal.displayDigest,
+      ...context.visibleProposal.options.map(option => option.ref),
+    ]) });
+  }
   if (context.resolution !== "UNIQUE_CURRENT" || !context.candidateRef || !context.sourceTurnRef || !context.sourceDigest
     || !scope?.presented || scope.selectedReviewRef !== context.candidateRef) {
     return clarify(context.resolution === "AMBIGUOUS" ? "Quelle proposition souhaitez-vous confirmer ou refuser ?" : "Quelle proposition souhaitez-vous reprendre pour confirmation ?");

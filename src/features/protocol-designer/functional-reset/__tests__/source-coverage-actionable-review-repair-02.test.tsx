@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { render as renderUi, fireEvent } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { evaluatePersistentSourceCoverage, sourceCoverageFindings } from "../../persistent-source-coverage";
@@ -44,6 +45,14 @@ const records: { id: string; contribution: ScientificInterpretationContributionE
 const render = (c: ScientificInterpretationContributionEnvelope) => renderToStaticMarkup(<ContributionReview contribution={c}
   candidate={prepareResearchProjectContributionCandidate(c, null)} status="PENDING" onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
 
+const renderAudit = (c: ScientificInterpretationContributionEnvelope) => {
+  const ui = renderUi(<ContributionReview contribution={c} candidate={prepareResearchProjectContributionCandidate(c, null)} status="PENDING"
+    onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
+  const details = ui.getByTestId("functional-review-details") as HTMLDetailsElement;
+  details.open = true; fireEvent(details, new Event("toggle"));
+  const markup = ui.getByTestId("review-audit-detail").outerHTML;
+  ui.unmount(); return markup;
+};
 describe("N5b — actionable coverage, immutable candidate and complete audit", () => {
   it("keeps the missing upper age bound material", () => {
     const raw = "âge 18–80";
@@ -197,7 +206,9 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     expect(group.dispositions.map(item => item.sourceSpan)).toEqual(expect.arrayContaining([
       "il pourra accéder à des données anonymisées", "selon le protocole", "les autorisations", "la gouvernance du projet."]));
     expect(group.dispositions.every(item => item.actionable)).toBe(true);
-    expect(render(record.contribution)).toContain("source-coverage-group-detail");
+    expect(render(record.contribution)).not.toContain("source-coverage-audit");
+    const audit = renderAudit(record.contribution);
+    for (const item of group.dispositions) expect(audit).toContain(item.sourceSpan);
   });
   it("does not turn the RHU T9 methodological request into a Project omission", () => {
     const c = records.find(record => record.id === "RHU-T09")!.contribution;
@@ -218,7 +229,9 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     const markup = render(c);
     expect(markup).not.toContain("Compréhension partielle");
     expect(markup).not.toContain('data-testid="source-coverage-review"');
-    expect(markup).toContain('data-testid="source-coverage-audit"');
-    expect(markup).toContain("CMRO2 devront être validés");
+    expect(markup).not.toContain('data-testid="source-coverage-audit"');
+    const audit = renderAudit(c);
+    expect(audit).toContain('data-testid="source-coverage-audit"');
+    expect(audit).toContain("CMRO2 devront être validés");
   });
 });

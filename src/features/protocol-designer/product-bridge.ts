@@ -8,7 +8,7 @@ import { buildContextualReasoningProviderPayload } from "../scientific-thinking/
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { evaluatePersistentSourceCoverage, sourceCoverageFindings } from "./persistent-source-coverage.js";
-import { validateScientificDiscussionContext } from "./functional-reset/contribution-discussion-context.js";
+import { projectVisibleDiscussionOptions, validateScientificDiscussionContext } from "./functional-reset/contribution-discussion-context.js";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -1947,6 +1947,19 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
         || !source || logicalDigest(source.content) !== context.sourceDigest || !context.content.length))
       || (context.resolution !== "UNIQUE_CURRENT" && (context.candidateRef !== null || context.sourceTurnRef !== null
         || context.sourceDigest !== null || context.content.length))) return null;
+    if (context.visibleProposal !== undefined) {
+      const proposal = context.visibleProposal;
+      const last = record.conversation.turns.at(-1);
+      const visible = record.conversation.turns.at(-2);
+      // A visible offer is evidence for a reversible extraction, never a
+      // structured candidate. Bind it to the exact current displayed response.
+      if (!proposal || last?.role !== "USER" || visible?.role !== "NOXIA"
+        || context.resolution !== "NONE" || proposal.structuredCandidateRef !== null
+        || proposal.status !== "PROPOSED_NOT_ADOPTED" || proposal.sourceResponseRef !== visible.turnId
+        || proposal.visibleText !== visible.content || proposal.displayDigest !== logicalDigest(visible.content)
+        || !Array.isArray(proposal.options) || !proposal.options.length
+        || logicalDigest(proposal.options) !== logicalDigest(projectVisibleDiscussionOptions(visible))) return null;
+    }
   }
   if (record.boundedInteraction) {
     const interaction = record.boundedInteraction;

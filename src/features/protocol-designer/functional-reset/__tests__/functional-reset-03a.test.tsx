@@ -33,7 +33,7 @@ const submit = (content: string) => {
 };
 
 const waitForProposal = () => screen.findByRole("heading", {
-  name: "Voici la structure essentielle à confirmer.",
+  name: "À enregistrer dans le projet",
 });
 
 const confirm = async () => {
@@ -140,7 +140,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const versionOne = storedSession().project!.versionId;
 
     submit(COLCHICINE_03A_MODIFICATION);
-    await screen.findByText("J’ai compris deux modifications :");
+    await screen.findByText("Modifications à enregistrer");
     await confirm();
 
     const project = storedSession().project!;
@@ -157,7 +157,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await confirm();
 
     submit(COLCHICINE_03A_MODIFICATION);
-    const heading = await screen.findByText("J’ai compris deux modifications :");
+    const heading = await screen.findByText("Modifications à enregistrer");
     const proposal = heading.closest("section")!;
     expect(within(proposal).getByText("Population")).toBeInTheDocument();
     expect(within(proposal).getByText("Temporalité")).toBeInTheDocument();

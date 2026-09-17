@@ -144,6 +144,7 @@ import {
   isProjectStateQuestion,
   isUserFeedbackOnAssistantOutput,
   isExternalEvidenceRequest,
+  readNaturalCandidateDecision,
   type ConversationStylePreference,
 } from "./natural-conversation-policy";
 import {
@@ -1954,6 +1955,12 @@ export default function ProtocolDesignerWorkspace({
       const boundedInteraction = selectBoundedConversationInteraction({
         sourceText: preparedInput.workingText, correctionMode: correctionMode || Boolean(continuedTurn), referentContext: boundedReferentContext,
       });
+      const visibleProposalDecision = readNaturalCandidateDecision(preparedInput.workingText);
+      const adoptsVisibleProposal = Boolean(boundedReferentContext.visibleProposal
+        && boundedReferentContext.visibleProposal.options.length === 1
+        && visibleProposalDecision?.act === "CONFIRM" && !visibleProposalDecision.qualified
+        && boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
+        && boundedInteraction.evidenceRefs.includes(boundedReferentContext.visibleProposal.options[0]!.ref));
       // Explicit Project direction outranks an owner-driven continuation. The
       // router only recognizes the operation; extraction and PRJ validation
       // still resolve the stable scientific target and prepare the candidate.
@@ -2020,6 +2027,7 @@ export default function ProtocolDesignerWorkspace({
         forceUnderstand: asksForExplanationOrRephrase,
         currentProjectAvailable: session.project !== null,
         explicitCorrectionMode: correctionMode || Boolean(continuedTurn) || Boolean(boundedInteraction?.correctionChangeRefs?.length),
+        adoptsVisibleProposal,
       });
       let entryTraceLedger = recordConversationLanguageGatewayTrace({
         ledger: session.scientificExecutionTraceLedger,

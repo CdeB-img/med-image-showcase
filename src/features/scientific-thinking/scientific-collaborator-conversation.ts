@@ -6,8 +6,9 @@ import { buildProjectContextSnapshot } from "../research-project-construction/ca
 import { scientificDiscussionProviderContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 import type { ProductBridgeRequest } from "../protocol-designer/product-bridge.js";
 import type { ContextualReasoningRequest } from "./contextual-reasoning.js";
-import { classifyNaturalConversationActs } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
+import { classifyNaturalConversationActs, readNaturalCandidateDecision } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
 import { hasLongitudinalDesignEvidence } from "../study-design/design-reasoning.js";
+import { prepareConversationalDimensioning } from "../data-analysis-planning/dimensioning-calculator.js";
 
 // C2 collaborator mandate, with native text and a general epistemic discipline.
 // This Scientific Thinking capability has no Project mutation dependency.
@@ -23,6 +24,8 @@ Un USER_FEEDBACK_ON_ASSISTANT_OUTPUT concerne ta réponse : réponds d’abord �
 Le mot « évolution » ne prouve pas un suivi longitudinal. Comparer des sujets différents par âge avec une mesure par sujet se lit raisonnablement comme transversal, en interprétation réversible. Le longitudinal exige un design déclaré ou des observations répétées des mêmes unités dans le temps.
 Une procédure faite pour standardiser ou limiter un biais est une procédure avec justification méthodologique, pas une hypothèse de recherche. Distingue « je fais X pour limiter Y », « mon hypothèse est que X réduit Y » et « je veux tester si X réduit Y ». Tu peux discuter la validité de la justification sans inventer une hypothèse à adopter.
 Pour une EXTERNAL_EVIDENCE_REQUEST, réponds à la demande de littérature. Cite uniquement des sources identifiables réellement présentes dans le Knowledge applicable, avec leur provenance et leurs limites ; une source générale ne démontre pas les pratiques d’une étude particulière. Sans source correspondante récupérée, dis que les études et leurs choix précis restent à vérifier. La connaissance générale autorise une option méthodologique à discuter, jamais l’assertion que des études l’ont effectivement utilisée. Ne donne pas de noms d’études, références ou tranches attribuées à la littérature de mémoire. Aucune recherche externe n’a été exécutée par ce chemin ; n’en revendique pas une ni ne promets sa disponibilité.
+Une proposition engageable doit exprimer un choix concret, identifiable, en distinguant les options alternatives. Les explications, exemples et possibilités générales ne sont pas des décisions. Un acquiescement à une proposition visible demande sa préparation dans le lifecycle humain existant, pas sa réécriture par le chercheur ni une adoption que tu aurais effectuée.
+Pour l’effectif, distingue une hypothèse numérique proposée, sa provenance documentaire éventuelle et un résultat mathématique. N’appelle pas une SD, une différence cible ou un effectif « classique », « habituel » ou « publié » sans source applicable identifiable. Tu peux proposer un scénario numérique explicitement hypothétique, qui reste non adopté. Utilise exclusivement le résultat du calculateur déterministe fourni dans statisticalAssessment pour annoncer un effectif calculé ; ne fais pas de calcul mental ni d’estimation non justifiée. Si les inputs ou la méthode ne sont pas disponibles, explique ce qui manque. La capacité existante compare deux moyennes de groupes indépendants à allocation égale par approximation normale ; elle ne dimensionne pas implicitement plusieurs tranches, une tendance, une régression ou une analyse omnibus.
 Réponds directement en texte natif, sans enveloppe JSON, contrat auxiliaire, labels internes, préambule administratif ni synthèse complète répétée. Respecte la préférence de concision lorsqu’elle est fournie.`;
 
 export const prepareScientificCollaboratorConversation = (
@@ -91,9 +94,24 @@ export const prepareScientificCollaboratorConversation = (
     value: currentInterpretation ?? adoptedInterpretation ?? previousInterpretation ?? "UNKNOWN",
     status: "CONVERSATIONAL_ASSUMPTION", reversible: true,
   };
+  const visibleProposal = request.boundedReferentContext?.visibleProposal;
+  const decision = readNaturalCandidateDecision(workingText(latest));
+  const statisticalAssessment = prepareConversationalDimensioning({ turns: conversation,
+    ...(visibleProposal?.options.length === 1 && decision?.act === "CONFIRM" && !decision.qualified
+      ? { acceptedVisibleProposal: { turnRef: visibleProposal.sourceResponseRef,
+        content: visibleProposal.options[0]!.content, decisionTurnRef: latest.turnId } } : {}) });
+  // Keep calculation semantics and provenance in model context; technical
+  // write-control flags remain in the deterministic owner receipt only.
+  const { owner: _statsOwner, projectWriteAuthorized: _statsWrite, ...statisticalContext } = statisticalAssessment;
+  const calculationContext = statisticalAssessment.calculation ? (() => {
+    const { projectWriteAuthorized: _calculationWrite, ...calculation } = statisticalAssessment.calculation;
+    return calculation;
+  })() : null;
   const packet = {
     currentMessage: { turnRef: latest.turnId, text: workingText(latest), provenance: "USER_STATED", acts: currentActs },
     currentDesignInterpretation,
+    statisticalAssessment: { ...statisticalContext, calculation: calculationContext },
+    visibleProposalDecisionContext: visibleProposal ?? null,
     visibleConversation: conversation,
     adoptedProject: project,
     currentDiscussion,
@@ -102,7 +120,8 @@ export const prepareScientificCollaboratorConversation = (
     knowledge: { resultRef: knowledge.resultId, assertions, documentaryStatements: statements, evidence,
       sources: knowledge.sources.filter(s => sourceIds.has(s.sourceId)), limitations: knowledge.limitations,
       evidenceAvailable: assertions.length + statements.length > 0,
-      literaturePolicy: "ATTRIBUTE_ONLY_TO_RETRIEVED_APPLICABLE_SOURCES; OTHERWISE_GENERAL_REASONING_WITH_EXPLICIT_VERIFICATION_LIMIT" },
+      literaturePolicy: "ATTRIBUTE_ONLY_TO_RETRIEVED_APPLICABLE_SOURCES; OTHERWISE_GENERAL_REASONING_WITH_EXPLICIT_VERIFICATION_LIMIT",
+      externalResearchStatus: currentActs.includes("EXTERNAL_EVIDENCE_REQUEST") && !sourceIds.size ? "EXTERNAL_RESEARCH_REQUIRED_NOT_EXECUTED" : "INTERNAL_KNOWLEDGE_ONLY" },
     domainContext: owners ? {
       imaging: owners.imaging ? { status: "PROPOSALS_NOT_ADOPTED",
         phenomena: owners.imaging.result.phenomena.map(p => ({ ref: p.phenomenonId, label: p.label,
@@ -128,21 +147,53 @@ export type ScientificCollaboratorConversationRequest = ReturnType<typeof prepar
  * literature attribution without a citation to an identifiable supplied source.
  * Keep the rejection reason observable; never retry to hide rejection. */
 export const guardScientificCollaboratorLiteratureReply = (request: ScientificCollaboratorConversationRequest, reply: string) => {
-  const packet = JSON.parse(request.context) as { knowledge: { sources: Array<{ sourceId: string; title?: string; locator?: string | null }> } };
-  const folded = reply.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR");
-  const unsupportedAttribution = folded.split(/(?<=[.!?])\s+|\n+/u).some(sentence => {
-    const literature = /\b(?:etudes?|litterature|publications?|articles?|registres?|cohortes?)\b/u.test(sentence);
-    const assertion = /\b(?:utilis\w*|adopt\w*|emplo\w*|chois\w*|choix|ont (?:fait|choisi|montre)|montr\w*|demontr\w*|rapport\w*|repart\w*|inclu\w*)\b/u.test(sentence);
+  const packet = JSON.parse(request.context) as {
+    knowledge: { sources: Array<{ sourceId: string; title?: string; locator?: string | null }> };
+    statisticalAssessment?: ReturnType<typeof prepareConversationalDimensioning>;
+    visibleConversation?: Array<{ role: string; content: string | null }>;
+  };
+  const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR");
+  const sentences = fold(reply).split(/(?<=[.!?])\s+|\n+/u);
+  const cited = (sentence: string) => packet.knowledge.sources.some(source => [source.sourceId, source.title, source.locator]
+    .filter((ref): ref is string => typeof ref === "string" && ref.length >= 6)
+    .some(ref => sentence.includes(fold(ref))));
+  const unsupportedAttribution = sentences.some(sentence => {
+    const literature = /\b(?:etudes?|litterature|publications?|articles?|registres?|cohortes?|les autres equipes|d.autres equipes)\b/u.test(sentence)
+      && !/\b(?:votre|notre|ton) etude\b/u.test(sentence);
+    const assertion = /\b(?:utilis\w*|adopt\w*|emplo\w*|chois\w*|choix|ret(?:ien|en)\w*|privilegi\w*|pratiqu\w*|ont (?:fait|choisi|montre)|montr\w*|demontr\w*|rapport\w*|repart\w*|inclu\w*|stratifi\w*|conclu\w*|indiqu\w*|sugger\w*|confirm\w*|constat\w*)\b/u.test(sentence) || /\b(?:selon|d.apres) (?:la litterature|les etudes|les publications)\b/u.test(sentence);
     const unverified = /\b(?:a verifier|doit etre verifie|doivent etre verifie|non verifie|sans source|pas de source|aucune source|ne peux pas|ne peut pas|je ne sais pas|pourraient?|peut etre|il faudrait|hypothetique)\w*\b/u.test(sentence);
-    const cited = packet.knowledge.sources.some(source => [source.sourceId, source.title, source.locator]
-      .filter((ref): ref is string => typeof ref === "string" && ref.length >= 6)
-      .some(ref => sentence.includes(ref.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR"))));
-    return literature && assertion && !unverified && !cited && !sentence.trim().endsWith("?");
+    return literature && assertion && !unverified && !cited(sentence) && !sentence.trim().endsWith("?");
   });
-  return unsupportedAttribution ? {
-    accepted: false, reason: "UNSOURCED_LITERATURE_CLAIM",
-    visibleReply: "Je ne dispose pas ici de source identifiable pour vérifier les études comparables et leurs choix précis. La réponse proposée ne peut donc pas être présentée comme un état vérifié de la littérature. Ces choix restent à vérifier ; des options méthodologiques générales peuvent être discutées séparément.",
-  } : { accepted: true, reason: null, visibleReply: reply };
+  if (unsupportedAttribution) return { accepted: false, reason: "UNSOURCED_LITERATURE_CLAIM",
+    visibleReply: "Je ne dispose pas ici de source identifiable pour vérifier les études comparables et leurs choix précis. Une vérification bibliographique est nécessaire. Des options méthodologiques générales restent discutables, sans les attribuer à ces études." };
+  const assessment = packet.statisticalAssessment;
+  const calculation = assessment?.calculation;
+  const unsupportedAssumption = sentences.some(sentence => {
+    const statisticalParameter = /\b(?:sd|ecart.type|dispersion|difference cible|effet cible|variation cible)\b/u.test(sentence) && /\d/u.test(sentence);
+    const hypothetical = /hypothetique|pour illustrer|supposons|a titre d.exemple|si l.on|si on|a verifier/u.test(sentence);
+    const declared = assessment?.assumptions.some(a => sentence.includes(fold(a.sourceText)));
+    return statisticalParameter && !hypothetical && !declared && !cited(sentence);
+  });
+  const ungroundedResult = sentences.some(sentence => {
+    const counts = [...sentence.matchAll(/(\d+)(?:\s*[–—-]\s*(\d+))?\s*(?:participants?|sujets?)\s*(?:par (groupe|tranche)|au (total))/gu)];
+    return counts.some(count => {
+      const reportedUserCount = /\b(?:vous (?:avez|indiquez|prevoyez|disposez)|effectif (?:annonce|disponible|prevu))\b/u.test(sentence)
+        && !/\b(?:calcul|suffi|necessaire|requis|recommand)\w*/u.test(sentence)
+        && packet.visibleConversation?.some(turn => turn.role === "USER" && turn.content !== null
+          && fold(turn.content).includes(count[0]!));
+      if (reportedUserCount) return false; // Feasibility input, not a powered result.
+      return Boolean(count[2]) || !calculation
+        || Number(count[1]) !== (count[4] ? calculation.totalSampleSize : calculation.adjustedPerGroup)
+        || count[3] === "tranche";
+    });
+  });
+  if (unsupportedAssumption || ungroundedResult) {
+    const visibleReply = calculation
+      ? `Le calcul déterministe donne ${calculation.adjustedPerGroup} sujets par groupe, soit ${calculation.totalSampleSize} au total. Formule : ${calculation.formula}. Inputs : différence=${calculation.inputs.difference}, SD=${calculation.inputs.commonStandardDeviation}, alpha bilatéral=${calculation.inputs.twoSidedAlpha}, puissance=${calculation.inputs.power}, non-évaluabilité=${calculation.inputs.anticipatedNonEvaluableRate}. Ce scénario compare deux moyennes de groupes indépendants à allocation égale ; ses hypothèses ne constituent ni une preuve bibliographique ni une décision enregistrée.`
+      : "Ces valeurs numériques ne disposent pas ici d’une provenance vérifiée ni d’un calcul d’effectif complet. Un scénario hypothétique peut être discuté, mais différence cible, dispersion, alpha, puissance, non-évaluabilité et méthode doivent être explicités avant d’annoncer un effectif calculé.";
+    return { accepted: false, reason: unsupportedAssumption ? "UNVERIFIED_STATISTICAL_ASSUMPTION" : "UNSUPPORTED_SAMPLE_SIZE_RESULT", visibleReply };
+  }
+  return { accepted: true, reason: null, visibleReply: reply };
 };
 export type ScientificConversationReceipt = Readonly<{
   owner: "SCIENTIFIC_THINKING";

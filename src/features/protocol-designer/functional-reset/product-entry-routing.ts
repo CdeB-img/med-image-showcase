@@ -340,6 +340,8 @@ export const routeProductEntry = (input: {
   forceUnderstand?: boolean;
   currentProjectAvailable?: boolean;
   explicitCorrectionMode?: boolean;
+  /** Local exact visible-offer binding; never an adoption or write permission. */
+  adoptsVisibleProposal?: boolean;
 }): ProductEntryRoutingDecision => {
   const intent = rawIntent(input.raw);
   const baseRouting = deriveRoutingIntent(intent);
@@ -409,7 +411,8 @@ export const routeProductEntry = (input: {
   // material. The existing extractor decides whether any persistent delta is
   // supported, including returning an empty delta. Validators and Human Review
   // remain mandatory; this admission does not assert a construction finality.
-  const conversationOnly = input.explicitCorrectionMode !== true && isConversationOnlyInput(input.raw);
+  const conversationOnly = input.adoptsVisibleProposal !== true
+    && input.explicitCorrectionMode !== true && isConversationOnlyInput(input.raw);
   const reversibleEvaluationEligible = !conversationOnly
     && /[\p{L}\p{N}]/u.test(input.raw);
   const projectConstructionEligible = domainGate === "IN_SCOPE"

@@ -32,7 +32,8 @@ export const isUserFeedbackOnAssistantOutput = (raw: string) => {
 
 export const isExternalEvidenceRequest = (raw: string) => {
   const text = folded(raw);
-  const literature = /\b(?:etudes?|litterature|publications?|articles?|sources?|references?|cohortes?)\b/u.test(text);
+  const literature = /\b(?:etudes?|litterature|publications?|articles?|sources?|references?|cohortes?)\b/u.test(text)
+    || /\b(?:les autres|d autres) equipes\b/u.test(text);
   const request = /\?|\b(?:y a\s*-?\s*t\s*-?\s*il|existe\w*|quels?|quelles?|chercher|rechercher|trouve\w*|montre\w*|verifi\w*)\b/u.test(text);
   return literature && request;
 };
