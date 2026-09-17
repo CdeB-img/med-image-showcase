@@ -2,7 +2,7 @@ import { detectSensitiveData } from "../src/features/protocol-designer/intake/pr
 import { buildCurrentTurnNavigation } from "../src/features/query-navigation/current-turn-navigation.js";
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
-import { prepareScientificCollaboratorConversation, SCIENTIFIC_COLLABORATOR_INSTRUCTION, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
+import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, SCIENTIFIC_COLLABORATOR_INSTRUCTION, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -421,6 +421,7 @@ export const executeProtocolDesignerBridge = async (input: {
   let governedRealization: ReturnType<typeof realizeGovernedConversation> | undefined;
   let howRequestedAt: string | null = null;
   let scientificConversation: ScientificConversationReceipt | undefined;
+  let scientificGuardReply: string | null = null;
   try {
     const preparedCandidate = persistentExtraction.contribution
       ? prepareResearchProjectContributionCandidate(persistentExtraction.contribution, request.currentProject) : null;
@@ -463,12 +464,18 @@ export const executeProtocolDesignerBridge = async (input: {
             input.apiKey, input.fetchImpl, conversationModel, { context: observationContext,
               purpose: "CONVERSATION_REALIZATION", reasoningEffort: null, retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
           scientificConversation = { ...scientificConversation, responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null };
+          const guarded = guardScientificCollaboratorLiteratureReply(collaborator, conversation.value);
+          if (!guarded.accepted) {
+            scientificGuardReply = guarded.visibleReply;
+            scientificConversation = { ...scientificConversation, responseOwner: "DETERMINISTIC",
+              outcome: "DETERMINISTIC_FALLBACK", fallbackReason: guarded.reason };
+          }
         }
       } catch (error) {
         scientificConversation = { ...scientificConversation, fallbackReason: error instanceof ProductBridgeProviderError
           ? error.providerStatus ?? "PROVIDER_FAILURE" : "TECHNICAL_FAILURE" };
       }
-      if (scientificConversation.responseOwner === "DETERMINISTIC") governedRealization = realizeGovernedConversation({
+      if (scientificConversation.responseOwner === "DETERMINISTIC" && scientificGuardReply === null) governedRealization = realizeGovernedConversation({
         envelope: currentTurnNavigation.envelope, providerReply: null, localWhatText: currentTurnNavigation.localWhatText });
     } else if (!canaryExtractionStopped && input.apiKey?.trim()) {
       downstreamStage = "HOW";
@@ -521,8 +528,8 @@ export const executeProtocolDesignerBridge = async (input: {
     stage: "CONFORMANCE", code: governedRealization.conformance.diagnostics[0] ?? "HOW_CONFORMANCE_REJECTED",
     message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.", provider: null,
   };
-  const assistantReply = scientificConversation?.responseOwner === "LLM"
-    ? conversation!.value : governedRealization?.assistantReply ?? "";
+  const assistantReply = scientificGuardReply ?? (scientificConversation?.responseOwner === "LLM"
+    ? conversation!.value : governedRealization?.assistantReply ?? "");
   const assistantTurn = { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA" as const, content: assistantReply, createdAt };
   return {
     status: 200,

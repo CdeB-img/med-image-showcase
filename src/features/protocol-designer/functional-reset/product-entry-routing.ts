@@ -15,7 +15,7 @@ import { buildCurrentProjectDecisionReadback, requestsOwnerProposalExplanation, 
 import { resolveRequestedScientificScope } from "@/features/query-navigation/functional-reset-progression";
 import type { ResearchProjectOwnerProjection } from "@/features/research-project-construction";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
-import { buildNaturalProjectStateReply } from "./natural-conversation-policy";
+import { buildNaturalProjectStateReply, isUserFeedbackOnAssistantOutput } from "./natural-conversation-policy";
 import {
   INTAKE_SCHEMA_VERSION,
   type ConfidenceLevel,
@@ -263,6 +263,8 @@ const isConversationOnlyInput = (raw: string) => {
     },
   });
   const questionOrRequest = (sentence: string): boolean => {
+    // Check each clause: feedback cannot swallow a separate user assertion.
+    if (isUserFeedbackOnAssistantOutput(sentence) && !/[,;]|\b(?:mais|puis)\b|\bet\s+(?!quoi\b)/iu.test(sentence)) return true;
     // A request cannot consume unclassified material on either side of a
     // clause boundary. Ambiguous list fragments may therefore reach reversible
     // extraction, which can return NO_CHANGE; admission never authorizes a write.

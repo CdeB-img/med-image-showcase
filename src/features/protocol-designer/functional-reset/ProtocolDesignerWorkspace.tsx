@@ -2,7 +2,6 @@ import { isFunctionalDocumentProjectionCurrent } from "@/features/document-proje
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   buildBoundedConversationReferentContext,
-  requestsOwnerProposalExplanation,
   requiresCurrentOwnerPresentation,
   requestsScientificExplanation,
   buildCurrentNavigationEvidence,
@@ -143,6 +142,8 @@ import {
   classifyNaturalConversationActs,
   detectConversationStylePreference,
   isProjectStateQuestion,
+  isUserFeedbackOnAssistantOutput,
+  isExternalEvidenceRequest,
   type ConversationStylePreference,
 } from "./natural-conversation-policy";
 import {
@@ -1959,7 +1960,9 @@ export default function ProtocolDesignerWorkspace({
       // Resolve current candidate decisions and QRY-owned purposes first. An
       // active scientific result is not authority to consume another act.
       if (currentProjectDirection === "NONE"
-        && (!requestsScientificExplanation(preparedInput.workingText) || requestsOwnerProposalExplanation(preparedInput.workingText))
+        && !requestsScientificExplanation(preparedInput.workingText)
+        && !isUserFeedbackOnAssistantOutput(preparedInput.workingText)
+        && !isExternalEvidenceRequest(preparedInput.workingText)
         && (!boundedInteraction
         || boundedInteraction.kind === "EXPLAIN_REFERENCED_CONTENT"
         || boundedInteraction.clarificationReason === "PAST_PROPOSAL_REFERENCE")) {
@@ -2306,7 +2309,9 @@ export default function ProtocolDesignerWorkspace({
           updatedAt: answeredAt,
         }));
       };
-      if (session.project && isProjectStateQuestion(preparedInput.workingText)) {
+      if (session.project && isProjectStateQuestion(preparedInput.workingText)
+        && !isUserFeedbackOnAssistantOutput(preparedInput.workingText)
+        && !isExternalEvidenceRequest(preparedInput.workingText)) {
         await answerReadOnlyInteraction();
         return;
       }
@@ -2992,9 +2997,8 @@ export default function ProtocolDesignerWorkspace({
     if (!contributionHasAcknowledgedPresentation(contributionId)) return false;
     const now = new Date().toISOString();
     confirmationInFlightRef.current = contributionId;
-    setBusyMessage("Je prépare la prochaine décision utile…");
+    setBusyMessage("J’enregistre les éléments confirmés…");
     setBusy(true);
-    let continuationScheduled = false;
     try {
       const reviewEntry = session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
       const project = confirmResearchProjectContribution({
@@ -3179,26 +3183,8 @@ export default function ProtocolDesignerWorkspace({
         updatedAt: now,
       }));
 
-      if (!naturalDecision?.stylePreference && !naturalDecision?.prepareRemainingTurn && !naturalDecision?.selectedChangeRefs && ((shouldMediatePostAdoptionQuery(queryNavigation)
-        && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion)
-        || isCanonicalStudyDataQueryDispatch(queryNavigation)
-        || isDataManagementQueryDispatch(queryNavigation)
-        || isObservabilityQueryDispatch(queryNavigation)
-        || isRegulatoryQueryDispatch(queryNavigation)
-        || isProductKnowledgePrerequisiteDispatch(queryNavigation))) {
-        continuationScheduled = true;
-        setPostAdoptionContinuationJob({
-          sessionId: session.sessionId,
-          conversationId: session.conversationId,
-          project,
-          queryNavigation,
-          ownerResultLedger: session.knowledgeOwnerLedger,
-          scientificExecutionTraceLedger,
-          runtimeTurns,
-          feedback,
-          traceRunId: correlatedTraceRunId ?? null,
-        });
-      }
+      // Project writes supply context; they never select another scientific
+      // speaker. QRY/owner results remain available for an explicit request.
     } catch {
       setSession((current) => {
         const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
@@ -3239,9 +3225,9 @@ export default function ProtocolDesignerWorkspace({
       });
     } finally {
       confirmationInFlightRef.current = null;
-      if (!continuationScheduled) setBusy(false);
+      setBusy(false);
     }
-    return continuationScheduled;
+    return false;
   };
 
   const rejectContribution = (

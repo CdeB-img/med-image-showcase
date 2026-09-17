@@ -3,6 +3,7 @@ import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
 import {
   selectBoundedConversationInteraction,
+  buildBoundedConversationReferentContext,
 } from "@/features/query-navigation/current-navigation-evidence";
 import type { BoundedConversationReferentContext } from "@/features/query-navigation/current-turn-navigation";
 import {
@@ -23,6 +24,7 @@ import {
   resolveScientificThinkingConversation,
   scientificThinkingInteractionMatchesCurrentProject,
 } from "../scientific-thinking-standard";
+import { retainValidatedContributionCandidate, markContributionCandidatePresented } from "../contribution-lifecycle";
 import {
   behaviorAuthority,
   behaviorContribution,
@@ -245,7 +247,18 @@ describe.each(DOMAINS)("Scientific proposal purpose — $id", (domain) => {
     expect(classify("je refuse", {
       ...NO_REFERENT, resolution: "UNIQUE_CURRENT", candidateRef: selection.identity.contributionId,
       sourceTurnRef: selectionTurn.turnId, sourceDigest: logicalDigest(selectionTurn.content),
-    })?.kind).toBe("USER_REFUSES_CURRENT_CANDIDATE");
+    })?.kind).toBe("CLARIFY_CANDIDATE_REFERENCE");
+    // Selection is not proof of presentation. Supply the real lifecycle
+    // evidence before testing a decision on this exact pending review.
+    const retained = markContributionCandidatePresented({ retained: retainValidatedContributionCandidate({
+      retained: [], contribution: selection, candidate: pending, validation: { valid: true, blocks: [] },
+      validatorRef: "LOCAL_SYNTHETIC_OWNER_SELECTION", sourceTurnRef: selectionTurn.turnId,
+      baseProject: project, dependencyBindings: [], traceRunId: null, retainedAt: AT,
+    }), candidateRef: selection.identity.contributionId, presentedAt: AT });
+    const referent = buildBoundedConversationReferentContext({ retained, currentProject: project,
+      conversationId: selection.source.conversationId, runtimeTurns: selection.source.turns,
+      selectedReviewRef: selection.identity.contributionId });
+    expect(classify("je refuse", referent)?.kind).toBe("USER_REFUSES_CURRENT_CANDIDATE");
     expect(resolveScientificThinkingConversation({ raw: "Je ne retiens pas l'hypothèse 1", output: proposal.output }).kind).not.toBe("SELECT_CANDIDATE");
     expect(buildProjectContextSnapshot({ project })).toEqual(snapshotBefore);
     expect(project).toEqual(before);

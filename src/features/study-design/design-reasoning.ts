@@ -32,10 +32,24 @@ export type StudyDesignSignals = {
 
 const includesAny = (text: string, patterns: RegExp[]) => patterns.some((pattern) => pattern.test(text));
 
+/** Age strata, evolution and variation do not establish repeated observations
+ * of the same study units. Negative design statements are not positive proof. */
+export const hasLongitudinalDesignEvidence = (source: string): boolean => {
+  const text = source.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR");
+  return text.split(/[.!?;\n]+/u).some(clause => {
+    if (/\b(?:pas|non|sans|aucun|aucune)\b.{0,35}\b(?:longitudinal|suivi|repete)\w*/u.test(clause)) return false;
+    return /\b(?:etude|design|approche|cohorte)\s+(?:(?:prospective|retrospective)\s+)?longitudinal\w*\b/u.test(clause)
+      || /\b(?:evolution|trajectoire|mesures?|suivi)\s+longitudinal\w*\b/u.test(clause)
+      || /\b(?:memes? (?:sujets?|patients?|participants?|volontaires?|animaux|unites?))\b.{0,100}\b(?:suiv\w*|plusieurs (?:visites|temps)|repete\w*)\b/u.test(clause)
+      || /\b(?:suiv\w*|repete\w*)\b.{0,100}\b(?:memes? (?:sujets?|patients?|participants?|volontaires?|animaux|unites?))\b/u.test(clause)
+      || /\b(?:mesures?|evaluations?|observations?) repete\w*\b.{0,70}\b(?:dans le temps|au cours du temps|au fil du temps|visites?|jours?|mois|annees?)\b/u.test(clause);
+  });
+};
+
 export const detectStudyDesignSignals = (text: string, hasAvailableData = false): StudyDesignSignals => ({
   validation: includesAny(text, [/validat/, /concord/, /compar\w* (deux|2) (méthod|mesur)/, /deux méthodes/, /reproductib/, /répétabil/]),
   prognostic: includesAny(text, [/pronosti/, /prédi\w*/, /événement futur/, /survie/, /risque de survenue/]),
-  longitudinal: includesAny(text, [/longitudinal/, /évolution/, /suivi/, /progression/, /variation/, /répét\w* mesure/]),
+  longitudinal: hasLongitudinalDesignEvidence(text),
   retrospective: includesAny(text, [/rétrospect/, /données existantes/, /base existante/, /déjà acquises/]) || hasAvailableData,
   prospective: includesAny(text, [/prospecti/, /recrut/, /à venir/, /futur/]),
   comparative: includesAny(text, [/compar/, /versus| vs /, /groupe/, /exposé/, /intervention/]),

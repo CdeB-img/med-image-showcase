@@ -9,6 +9,8 @@ export type ConversationStylePreference = Readonly<{
 export type NaturalConversationAct =
   | "SCIENTIFIC_DECISION_INTENT"
   | "STYLE_OR_DOCUMENTARY_FEEDBACK"
+  | "USER_FEEDBACK_ON_ASSISTANT_OUTPUT"
+  | "EXTERNAL_EVIDENCE_REQUEST"
   | "PROJECT_STATE_QUESTION"
   | "SCIENTIFIC_EXPLORATION"
   | "CLARIFICATION_RESPONSE"
@@ -17,6 +19,37 @@ export type NaturalConversationAct =
 const folded = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "")
   .toLocaleLowerCase("fr-FR").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
   .replace(/\s+/gu, " ").trim();
+
+/** Feedback concerns the assistant's output, not a new study object. Mixed
+ * turns remain mixed; this recognition grants no decision authority. */
+export const isUserFeedbackOnAssistantOutput = (raw: string) => {
+  const text = folded(raw);
+  return /\b(?:ta|ton|tes|votre|vos|ces|cette|cet|question|quetion|hypothese)\b.{0,90}\b(?:ne (?:veut|veulent) rien dire|incomprehensible|a cote de la plaque|on (?:ne )?comprend rien)\b/u.test(text)
+    || /\b(?:tu es|vous etes) a cote de la plaque\b/u.test(text)
+    || /\b(?:je viens de dire|je (?:te|vous) l'ai deja dit|arrete(?:z)? de me redemander)\b/u.test(text)
+    || /\bpourquoi (?:tu|vous)\b.{0,120}\b(?:parle\w*|demande\w*)\b.{0,140}\b(?:tout de suite apres|deja|encore)\b/u.test(text);
+};
+
+export const isExternalEvidenceRequest = (raw: string) => {
+  const text = folded(raw);
+  const literature = /\b(?:etudes?|litterature|publications?|articles?|sources?|references?|cohortes?)\b/u.test(text);
+  const request = /\?|\b(?:y a\s*-?\s*t\s*-?\s*il|existe\w*|quels?|quelles?|chercher|rechercher|trouve\w*|montre\w*|verifi\w*)\b/u.test(text);
+  return literature && request;
+};
+
+/** Conservative semantic contrast at the existing extraction boundary. An
+ * unclassified claim is left to extraction/review, never silently retyped. */
+export const classifyScientificStatementPurpose = (source: string, currentTurn = source): "PROCEDURE_RATIONALE" | "HYPOTHESIS_OR_QUESTION" | "UNDETERMINED" => {
+  const text = folded(source);
+  const explicitTest = /\b(?:mon|notre|l')\s*hypothese (?:est|serait)|\b(?:je|nous|on)\s+(?:(?:veux|voulons|souhaite|souhaitons|va|allons)\s+)?(?:tester|testons|teste|evaluer si|comparer si)\b/u;
+  if (explicitTest.test(text) && !/\b(?:ne|pas|aucune|sans)\b.{0,25}\b(?:hypothese|tester)\b/u.test(text)) return "HYPOTHESIS_OR_QUESTION";
+  const procedure = /\b(?:je fais|nous faisons|on fait|realise\w*|preleve\w*|collect\w*|mesur\w*|acquis\w*|standardis\w*)\b/u;
+  const rationale = /\b(?:pour|afin de|de cette facon|de cette maniere)\b/u;
+  if (procedure.test(text) && rationale.test(text) && !explicitTest.test(text)) return "PROCEDURE_RATIONALE";
+  if (/^de (?:cette facon|cette maniere)\b/u.test(text) && procedure.test(folded(currentTurn))
+    && !explicitTest.test(folded(currentTurn))) return "PROCEDURE_RATIONALE";
+  return "UNDETERMINED";
+};
 
 /** Detects a human act, never its target or authority. Binding belongs to QRY. */
 export const readNaturalCandidateDecision = (raw: string): Readonly<{
@@ -80,6 +113,8 @@ export const classifyNaturalConversationActs = (raw: string): readonly NaturalCo
     acts.add("NEW_INFORMATION");
   }
   if (detectConversationStylePreference(raw)) acts.add("STYLE_OR_DOCUMENTARY_FEEDBACK");
+  if (isUserFeedbackOnAssistantOutput(raw)) acts.add("USER_FEEDBACK_ON_ASSISTANT_OUTPUT");
+  if (isExternalEvidenceRequest(raw)) acts.add("EXTERNAL_EVIDENCE_REQUEST");
   if (isProjectStateQuestion(raw)) acts.add("PROJECT_STATE_QUESTION");
   if (/\b(?:pourquoi|explique|discut|quelles? (?:options|approches|pistes)|propose)\b/u.test(text)) acts.add("SCIENTIFIC_EXPLORATION");
   if (/\b(?:corrige|remplace|a la place|au lieu de|je precise|en fait)\b/u.test(text)) acts.add("CLARIFICATION_RESPONSE");
@@ -234,9 +269,8 @@ export const buildConciseAdoptionReply = (input: {
 }) => {
   const receipt = input.projectExisted ? "Projet mis à jour." : "Projet créé.";
   const style = input.stylePreference ? "Je ferai plus court." : null;
-  // The normal path already schedules the governed QRY continuation. Include
-  // its next material gap here only when explicit brevity feedback suppresses
-  // that longer continuation for this turn.
+  // A Project write produces only a receipt. An optional concise gap is kept
+  // for the existing explicit style preference, never a scientific monologue.
   const gap = input.stylePreference ? nextMaterialProjectGap(input.project)?.question ?? null : null;
   return [receipt, style, gap].filter(Boolean).join(" ");
 };

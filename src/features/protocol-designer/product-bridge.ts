@@ -3,6 +3,7 @@ import { z as deltaZ } from "zod/v4";
 import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
 import { buildScientificCollaboratorPayload } from "../scientific-thinking/scientific-collaborator-conversation.js";
+import { classifyScientificStatementPurpose } from "./functional-reset/natural-conversation-policy.js";
 import { buildContextualReasoningProviderPayload } from "../scientific-thinking/contextual-reasoning.js";
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
@@ -356,6 +357,8 @@ Une mention dans une question, une demande d'information, une hypothèse explora
 
 Pour chaque modification durable explicite, propose une opération minimale et un objet scientifique typé. Préserve les rôles, hypothèses, comparaisons, temporalités, négations et relations explicitement formulés.
 
+Une procédure et sa justification méthodologique ne sont pas une hypothèse de recherche. « Je fais X pour limiter Y » ou « X est réalisé juste avant Y pour standardiser la mesure » décrivent ACQUISITION/PROJECT_INFORMATION avec temporalité et rationale distinctes ; conserve la justification comme PROJECT_INFORMATION, jamais HYPOTHESIS par simple formulation causale ou promesse de précision. « Mon hypothèse est que X réduit Y » et « je veux tester si X réduit Y » établissent au contraire une hypothèse/question candidate. Lis l'acte et son objet ensemble, pas un mot-clé isolé. Une critique de NOXIA ne crée aucun objet ; un tour mixte conserve séparément les faits explicites et la demande d'explication/littérature sans adopter la réponse de NOXIA.
+
 Pour chaque change, relation, temporalQualification et expectedVariableOccasion, sélectionne un sourceAnchorId EXACT dans le catalogue borné du DERNIER MESSAGE UTILISATEUR. Tu choisis quel passage soutient sémantiquement la contribution ; NOXIA matérialise ensuite déterministement les caractères exacts du RAW. N'invente aucun identifiant d'ancrage et n'utilise jamais un texte du Project ou de NOXIA comme preuve utilisateur courante.
 
 Le catalogue contient toujours un ancrage FULL_TURN valide. Utilise-le uniquement lorsqu'aucun fragment plus précis ne soutient fidèlement la contribution. Lorsqu'un tour contient plusieurs changements indépendants, sélectionne pour chacun l'ancrage le plus étroit qui porte son identité et sa valeur ; ne réutilise pas FULL_TURN pour importer le contenu d'une autre proposition. Plusieurs contributions ne peuvent sélectionner le même ancrage large que si ce passage soutient réellement chacune d'elles. Pour une réponse elliptique résolue par le contexte, sélectionne l'ancrage du fragment utilisateur elliptique ; conserve séparément le référent contextuel et ne transforme jamais les mots du Project ou de NOXIA en fausse source utilisateur.
@@ -386,7 +389,7 @@ Une procédure de mesure ou une méthode de référence n'est jamais une INTERVE
 
 Lorsqu'une ACQUISITION représente explicitement une collecte de matériau ou d'échantillon, conserve le rôle structuré SAMPLE_COLLECTION et la section de projection BIOSPECIMENS. Ce rôle de projection ne transforme pas l'ACQUISITION runtime en objet canonique Biospecimen et ne permet d'inventer aucun détail de collecte, stockage, traitement ou analyse.
 
-Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des modalités, acquisitions, procédures d'analyse ou grandeurs mesurées. Conserve les deux extrémités explicites et COMPARES_WITH sans transformer une comparaison méthodologique en comparaison de bras. Une affirmation utilisateur sur la précision ou la performance d'une méthode peut être conservée comme HYPOTHESIS ou rationale Project ; elle ne devient jamais une preuve Knowledge ni une hypothèse statistique formelle non formulée.
+Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des modalités, acquisitions, procédures d'analyse ou grandeurs mesurées. Conserve les deux extrémités explicites et COMPARES_WITH sans transformer une comparaison méthodologique en comparaison de bras. Une justification utilisateur sur la précision ou la performance de la procédure qu'il prévoit reste une rationale PROJECT_INFORMATION ; elle ne devient HYPOTHESIS que si cette relation est réellement présentée comme hypothèse à examiner ou objet à tester. Elle ne devient jamais une preuve Knowledge ni une hypothèse statistique formelle non formulée.
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
 
@@ -1277,6 +1280,12 @@ export const validatePersistentProjectDelta = (
       proposedType: change.proposedType ?? null,
       studyRole: change.studyRole ?? null,
     });
+    if (change.operation !== "REMOVE" && proposedCanonicalType === "HYPOTHESIS"
+      && change.assertionKind === "USER_STATED"
+      && classifyScientificStatementPurpose(change.sourceText, rawUserTurn) === "PROCEDURE_RATIONALE") {
+      blocks.push(`${prefix}:PROCEDURE_RATIONALE_NOT_RESEARCH_HYPOTHESIS`);
+      return;
+    }
     if (change.operation === "ADD" && proposedCanonicalType === "POPULATION") {
       const populationExplicitlyNamed = /\b(?:population|patients?|participants?|sujets?|adultes?|enfants?|nouveau[- ]nes?|cohorte|personnes?)\b/iu.test(change.sourceText);
       const sameSourceCarriesCondition = parsed.data.changes.some((other) => other !== change

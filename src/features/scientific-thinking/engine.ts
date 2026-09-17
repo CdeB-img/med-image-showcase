@@ -277,7 +277,7 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
       questionId: "ST-Q-001",
       text: `Comment ${source.charAt(0).toLocaleLowerCase("fr-FR")}${source.slice(1).replace(/[.?!]+$/, "")} ?`,
       kind: "PRIMARY", testability: "TESTABLE_CANDIDATE", scope: "BALANCED", support,
-      rationale: "L’objectif longitudinal explicite est conservé comme une question candidate ; il n’est pas converti en opérande d’une association entre objets.",
+      rationale: "L’objectif explicite est conservé comme une question candidate ; sa formulation n’établit pas à elle seule un suivi longitudinal.",
       linkedAssumptionIds: [], sourceTerms: [source],
     });
   } else if (hasPrediction(source) && first) {
