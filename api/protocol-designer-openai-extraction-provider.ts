@@ -1,4 +1,5 @@
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
+import { prepareDrciGenerationBatches, validateRetainedDrciProtocol, validateRetainedDrciScope, type RetainedDrciProtocol, type DrciProjectBinding } from "../src/features/document-projection/drci-draft-contract.js";
 import {
   DEFAULT_OPENAI_EXTRACTION_MODEL,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
@@ -22,6 +23,7 @@ import {
   type LanguageProjectionUsage,
 } from "../src/features/protocol-designer/conversation-language-gateway.js";
 import { buildPersistentDeltaPayload, ProductBridgeProviderError } from "./protocol-designer-bridge-provider.js";
+import { COMPACT_TRANSACTION_INSTRUCTION, compactTransactionSchema, expandCompactTransaction, prepareCompactTransaction } from "../src/features/protocol-designer/transaction-compaction.js";
 import {
   emptyProviderTokenUsage,
   materializeProviderCallRecord,
@@ -35,6 +37,7 @@ export const OPENAI_RESPONSES_ENDPOINT = "https://api.openai.com/v1/responses";
 const FUNCTION_NAME = "propose_persistent_project_delta" as const;
 const MAX_OUTPUT_TOKENS = 8_000;
 const TIMEOUT_MS = 120_000;
+export const DOC_PROVIDER_TIMEOUT_MS = 300_000;
 
 export const OPENAI_STRICT_SCHEMA_HARDENING_DEBT = "OPEN" as const;
 
@@ -96,7 +99,7 @@ type OpenAIResponsesResult = Readonly<{
 }>;
 
 const callOpenAIResponses = async (input: {
-  stage: "PERSISTENT_DELTA" | "LANGUAGE_PROJECTION";
+  stage: "PERSISTENT_DELTA" | "LANGUAGE_PROJECTION" | "CONVERSATION" | "DOCUMENT_PROJECTION";
   apiKey: string;
   payload: unknown;
   fetchImpl: typeof fetch;
@@ -110,7 +113,7 @@ const callOpenAIResponses = async (input: {
     input.instrumentation.onRecord(materializeProviderCallRecord(record));
   };
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), input.stage === "DOCUMENT_PROJECTION" ? DOC_PROVIDER_TIMEOUT_MS : TIMEOUT_MS);
   let response: Response | undefined;
   let raw: string;
   try {
@@ -190,6 +193,52 @@ const callOpenAIResponses = async (input: {
     startedAt, completedAt: new Date().toISOString(),
   });
   return { body, httpStatus: response.status, latencyMs, requestId };
+};
+
+export const executeOpenAITerraConversation = async (
+  packet: { instruction: string; context: string },
+  apiKey: string,
+  fetchImpl: typeof fetch = fetch,
+  instrumentation?: ProviderCallAttemptInstrumentation,
+) => {
+  const payload = { model: "gpt-5.6-terra", instructions: packet.instruction,
+    input: packet.context, reasoning: { effort: "medium" }, max_output_tokens: MAX_OUTPUT_TOKENS,
+    store: false, service_tier: "default" };
+  const result = await callOpenAIResponses({ stage: "CONVERSATION", apiKey, payload,
+    fetchImpl, modelRequested: payload.model, instrumentation });
+  const value = responseOutputText(result.body).trim();
+  if (!value) throw new ProductBridgeProviderError("CONVERSATION", result.httpStatus,
+    "TEXT_RESPONSE_MISSING", "OpenAI returned no conversational text.", result.body.id ?? null, "OPENAI", result.requestId);
+  return { value, latencyMs: result.latencyMs, modelReturned: result.body.model ?? null,
+    usage: result.body.usage ?? null };
+};
+
+/** Document writing uses the same stateless Responses transport and recorder. */
+export const executeOpenAIDrciDraft = async (
+  packet: { context: string; instruction: string; projectBinding: DrciProjectBinding }, apiKey: string, fetchImpl: typeof fetch = fetch,
+  instrumentation?: ProviderCallAttemptInstrumentation,
+  retainedProtocol?: RetainedDrciProtocol | null,
+) => {
+  const batches = prepareDrciGenerationBatches(packet);
+  const retained = retainedProtocol ? validateRetainedDrciProtocol(packet, retainedProtocol) : null;
+  const remaining = retainedProtocol?.remainingScope ? validateRetainedDrciScope(packet, retainedProtocol.remainingScope, 1) : null;
+  const documents = [...retained?.documents ?? [], ...remaining?.documents ?? []]; const crfRows = [...remaining?.crfRows ?? []];
+  let latencyMs = 0; let modelReturned: string | null = null;
+  for (const batch of remaining ? [] : retained ? batches.slice(1) : batches) {
+    // Distinct physical DOC scopes, one human handoff/one final pack. Each
+    // scope must have its own existing ledger identity, never a retry identity.
+    const batchInstrumentation = instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
+      clientRequestId: `${instrumentation.context.clientRequestId}:doc-scope:${batch.requestScope}` } } : undefined;
+    const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
+      modelRequested: "gpt-5.6-terra", instrumentation: batchInstrumentation, payload: { model: "gpt-5.6-terra", instructions: batch.instruction,
+        input: batch.context, reasoning: { effort: "medium" }, max_output_tokens: 8000, store: false,
+        service_tier: "default", text: { format: { type: "json_object" } } } });
+    const value = batch.expand(JSON.parse(responseOutputText(result.body)));
+    documents.push(...value.documents); crfRows.push(...value.crfRows); latencyMs += result.latencyMs;
+    modelReturned = result.body.model ?? null;
+  }
+  return { value: { documents, crfRows }, latencyMs, modelReturned, calls: remaining ? 0 as const : retained ? 1 as const : 2 as const,
+    reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null };
 };
 
 export const buildOpenAILanguageProjectionPayload = (
@@ -292,13 +341,13 @@ export const buildOpenAIPersistentDeltaPayload = (
   const declaration = frozen.tools[0]!.functionDeclarations[0]!;
   return {
     model: resolveOpenAIExtractionModel(model),
-    instructions: frozen.systemInstruction.parts.map((part) => part.text).join(""),
-    input: frozen.contents.flatMap((content) => content.parts.map((part) => part.text)).join(""),
+    instructions: frozen.systemInstruction.parts.map((part) => part.text).join("") + (request.nativeConversationRecording ? `\n\n${COMPACT_TRANSACTION_INSTRUCTION}` : ""),
+    input: request.nativeConversationRecording ? prepareCompactTransaction(request).context : frozen.contents.flatMap((content) => content.parts.map((part) => part.text)).join(""),
     text: {
       format: {
         type: "json_schema",
         name: FUNCTION_NAME,
-        schema: declaration.parametersJsonSchema,
+        schema: request.nativeConversationRecording ? compactTransactionSchema() : declaration.parametersJsonSchema,
         strict: false,
       },
     },
@@ -354,6 +403,7 @@ export const executeOpenAIPersistentDelta = async (
     );
   }
 
+  const compact = request.nativeConversationRecording ? expandCompactTransaction(structuredArgs, request) : null;
   const structuredArgsDigest = logicalDigest(structuredArgsSerialized);
   const requestTurnRef = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER")?.turnId ?? "UNKNOWN_USER_TURN";
   const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
@@ -383,9 +433,10 @@ export const executeOpenAIPersistentDelta = async (
     structuredArgsExact: structuredArgs,
     structuredArgsSerialized,
     structuredArgsDigest,
+    ...(compact ? { compactPreparation: compact.evidence } : {}),
   };
   return {
-    value: { structuredArgs, providerArtifact },
+    value: { structuredArgs: compact?.value ?? structuredArgs, providerArtifact },
     latencyMs: response.latencyMs,
     httpStatus: response.httpStatus,
     responseId: body.id ?? null,

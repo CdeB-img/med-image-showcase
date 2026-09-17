@@ -3,7 +3,7 @@ export const PROVIDER_CALL_OBSERVABILITY_VERSION = "1.0.0" as const;
 export const PROVIDER_PRICING_SNAPSHOT_DATE = "2026-09-14" as const;
 
 export type ProtocolDesignerProvider = "OPENAI" | "GOOGLE_GEMINI";
-export type ProviderCallPurpose = "LANGUAGE_PROJECTION" | "PERSISTENT_DELTA" | "CONVERSATION_REALIZATION" | "SCIENTIFIC_THINKING_PROPOSAL";
+export type ProviderCallPurpose = "LANGUAGE_PROJECTION" | "PERSISTENT_DELTA" | "CONVERSATION_REALIZATION" | "SCIENTIFIC_THINKING_PROPOSAL" | "DOCUMENT_PROJECTION";
 
 export type ProviderCallObservationContext = Readonly<{
   sessionId: string | null;

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { ArrowLeft, Download, PackageOpen } from "lucide-react";
 import {
   downloadStudyDeliverableFile,
   downloadStudyPackage,
   type StudyDeliverablePortfolio,
   type StudyDeliverableStatus,
+  type StudyDeliverableFile,
 } from "@/features/document-projection";
 
 type Props = {
@@ -12,6 +14,7 @@ type Props = {
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
+  STALE: { label: "À actualiser", className: "bg-muted text-muted-foreground" },
   READY: { label: "Prêt", className: "bg-emerald-100 text-emerald-800" },
   PARTIAL: { label: "Partiel", className: "bg-amber-100 text-amber-900" },
   MISSING_DECISION: { label: "Décision requise", className: "bg-amber-100 text-amber-900" },
@@ -20,6 +23,8 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
 };
 
 export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props) {
+  const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
+  const [openTitle, setOpenTitle] = useState("");
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
   return <section
     aria-labelledby="study-deliverable-workspace-title"
@@ -49,6 +54,13 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props)
       </div>
     </header>
 
+    {portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
+    {openFile && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
+      <div className="mb-3 flex items-center justify-between gap-3"><h3 className="font-semibold">{openTitle}</h3>
+        <button type="button" className="min-h-10 rounded-lg border px-3 text-sm" onClick={() => setOpenFile(null)}>Fermer le document</button></div>
+      {openFile.format === "HTML" ? <iframe title={openTitle} sandbox="" srcDoc={openFile.content} className="h-[75vh] w-full rounded-xl border bg-white" />
+        : <pre className="max-h-[75vh] overflow-auto whitespace-pre-wrap text-sm">{openFile.content}</pre>}
+    </section>}
     <div className="grid gap-4 p-4 sm:p-6 xl:grid-cols-2">
       {portfolio.artifacts.map((artifact) => {
         const status = statusPresentation[artifact.status];
@@ -61,6 +73,8 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props)
             <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${status.className}`}>{status.label}</span>
           </div>
 
+          {artifact.files.length > 0 && <button type="button" className="mt-3 min-h-10 rounded-lg border px-3 text-sm font-semibold"
+            onClick={() => { setOpenTitle(artifact.name); setOpenFile(artifact.files.find(file => file.format === "HTML") ?? artifact.files[0]); }}>Ouvrir {artifact.name}</button>}
           {artifact.files.length > 0 && <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
             {artifact.files.map((file) => <button
               key={file.fileName}

@@ -213,6 +213,7 @@ export type ProductBridgeTrace = {
 };
 
 export type FunctionalResetSession = {
+  drciDraftPacks?: readonly import("../../document-projection/drci-draft-contract.js").DrciDraftPack[];
   /** Optional UX/runtime composition; never an additional Project aggregate. */
   studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   sourceLibrary?: ProjectSourceLibrary;

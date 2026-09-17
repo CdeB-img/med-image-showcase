@@ -84,7 +84,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
 
   const persist = useCallback((session: FunctionalResetSession) => {
     const saved = savedRef.current;
-    if (!saved || saved.session.sessionId !== session.sessionId) return;
+    if (!saved || saved.session.sessionId !== session.sessionId) return false;
     latestRef.current = session;
     try {
       const raw = saveProjectSession(window.localStorage, saved, session);
@@ -93,8 +93,10 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
       setActive(next);
       window.localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
       setError("");
+      return true;
     } catch (failure) {
       setError(`Enregistrement local impossible. Gardez cet écran ouvert : ${failure instanceof Error ? failure.message : String(failure)}`);
+      return false;
     }
   }, []);
 

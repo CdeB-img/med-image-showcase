@@ -1,10 +1,12 @@
 import { rehydrateStudyProposal, planStudyProposalRecomputation, assertScopedStudyProposalRecomputation, completeStudyProposalRecomputation } from "../src/features/protocol-designer/functional-reset/study-proposal-standard.js";
+import { prepareDrciDraftPack, materializeDrciDraftPack, type RetainedDrciProtocol } from "../src/features/document-projection/drci-draft-contract.js";
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../src/features/query-navigation/current-turn-navigation.js";
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
 import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, scientificCollaboratorInstruction, readScientificCollaboratorReply, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { hasSufficientStudyIntent, acceptContextualStudyProposal } from "../src/features/scientific-thinking/contextual-study-proposal.js";
+import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -31,6 +33,8 @@ import {
 import {
   executeOpenAILanguageProjection,
   executeOpenAIPersistentDelta,
+  executeOpenAITerraConversation,
+  executeOpenAIDrciDraft,
 } from "./protocol-designer-openai-extraction-provider.js";
 import {
   providerCallRequestObservability,
@@ -119,9 +123,13 @@ export const executeProtocolDesignerBridge = async (input: {
   openAiApiKey?: string | null;
   geminiModel?: string | null;
   openAiExtractionModel?: string | null;
+  /** Server-selected local candidate; default preserves the public runtime. */
+  chatRuntime?: "TERRA" | null;
   fetchImpl?: typeof fetch;
   now?: () => number;
   providerAttemptPolicy?: ProviderAttemptPolicy;
+  /** Server-owned retained provider evidence; never supplied by browser JSON. */
+  readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
   const providerCalls: ProviderCallRecord[] = [];
@@ -240,6 +248,52 @@ export const executeProtocolDesignerBridge = async (input: {
   });
 
   const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
+  if (request.documentDraftRequest !== undefined) {
+    if (input.chatRuntime !== "TERRA" || !request.currentProject || request.evaluatePersistentDelta || !request.documentDraftRequest)
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "DRCI_DRAFT_BOUNDARY_REQUIRED", message: "Une version adoptée et son autorisation documentaire sont requises." } } };
+    try {
+      if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
+      const packet = prepareDrciDraftPack(request.currentProject, request.documentDraftRequest);
+      const retained = await input.readRetainedDocumentProtocol?.(packet, observationContext);
+      const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
+        { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained);
+      const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: createdAt,
+        reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef });
+      const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
+      return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: reply,
+        assistantTurn: { turnId: `noxia-drci:${observationContext.clientRequestId}`, role: "NOXIA", content: reply, createdAt },
+        documentDraftPack: pack,
+        persistentExtraction: { called: false, status: "NOT_REQUESTED", failure: null, providerArtifact: null, wireCandidate: null,
+          candidate: null, validation: null, contribution: null },
+        observability: { provider: "OPENAI", model: "gpt-5.6-terra", conversationCalls: 0, extractionAttempts: 0,
+          conversationLatencyMs: generated.latencyMs, extractionLatencyMs: null, calls: generated.calls, projectWrites: 0,
+          ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
+    } catch (error) {
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: "DRCI_DRAFT_NOT_GENERATED", message: "La rédaction documentaire n'a pas abouti. Le projet et les versions antérieures sont conservés.",
+          details: [error instanceof ProductBridgeProviderError ? error.providerStatus : error instanceof Error ? error.message : "UNKNOWN"] },
+        observability: providerCallRequestObservability(providerCalls) } };
+    }
+  }
+  let terraConversation: Awaited<ReturnType<typeof executeOpenAITerraConversation>> | null = null;
+  let terraPacket: ReturnType<typeof prepareTerraConversation> | null = null;
+  let terraFailure: ProductBridgeResponse["conversationFailure"] = null;
+  if (input.chatRuntime === "TERRA") {
+    try {
+      if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
+      terraPacket = prepareTerraConversation(request);
+      terraConversation = await executeOpenAITerraConversation(terraPacket, input.openAiApiKey,
+        input.fetchImpl, { context: observationContext, purpose: "CONVERSATION_REALIZATION",
+          reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
+    } catch (error) {
+      terraFailure = { stage: "HOW", code: error instanceof ProductBridgeProviderError
+        ? error.providerStatus ?? "CONVERSATION_PROVIDER_FAILURE" : error instanceof Error ? error.message : "CONVERSATION_PROVIDER_FAILURE",
+        message: error instanceof Error && error.message === "CONVERSATION_MEMORY_LIMIT"
+          ? "Cette conversation dépasse la mémoire disponible. Son historique et le projet sont conservés."
+          : "La réponse conversationnelle n’a pas abouti. Votre message et le projet sont conservés.",
+        provider: error instanceof ProductBridgeProviderError ? safeProviderError(error) : null };
+    }
+  }
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {
     called: false,
     status: "NOT_REQUESTED",
@@ -256,17 +310,18 @@ export const executeProtocolDesignerBridge = async (input: {
   let extractionAttempts: 0 | 1 | 2 = 0;
   let recoveryContext: Omit<NonNullable<ProductBridgeResponse["persistentExtraction"]["recovery"]>, "outcome"> | null = null;
 
-  if (request.evaluatePersistentDelta) {
+  if (request.evaluatePersistentDelta && (input.chatRuntime !== "TERRA" || terraConversation)) {
     try {
       if (!input.openAiApiKey?.trim()) {
         throw new ProductBridgeProviderError(
           "PERSISTENT_DELTA", null, "OPENAI_API_KEY_MISSING", "Persistent extraction is unavailable.", null, "OPENAI",
         );
       }
+      const extractionRequest = input.chatRuntime === "TERRA" ? { ...request, nativeConversationRecording: true } : request;
       const executeAndValidateExtraction = async () => {
         extractionAttempts = extractionAttempts === 0 ? 1 : 2;
         const extracted = await executeOpenAIPersistentDelta(
-          request,
+          extractionRequest,
           input.openAiApiKey!,
           input.fetchImpl,
           extractionModel,
@@ -409,6 +464,30 @@ export const executeProtocolDesignerBridge = async (input: {
         recovery: null,
       };
     }
+  }
+
+  if (input.chatRuntime === "TERRA") {
+    const assistantReply = terraConversation?.value ?? terraFailure!.message;
+    return { status: 200, body: {
+      apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply,
+      assistantTurn: { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA", content: assistantReply, createdAt },
+      conversationFailure: terraFailure, persistentExtraction,
+      scientificConversation: terraConversation && terraPacket ? {
+        owner: "SCIENTIFIC_THINKING", responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null,
+        contextDigest: terraPacket.contextDigest,
+        providerInput: { systemInstruction: terraPacket.instruction, context: terraPacket.context },
+        projectWrites: 0, projectWriteAuthorized: false,
+      } : undefined,
+      observability: { provider: "OPENAI", model: "gpt-5.6-terra", conversationProvider: "OPENAI",
+        conversationModel: terraConversation?.modelReturned ?? "gpt-5.6-terra",
+        conversationLatencyMs: terraConversation?.latencyMs ?? 0, extractionLatencyMs,
+        extractionProvider: persistentExtraction.called ? "OPENAI" : null,
+        extractionModelRequested: persistentExtraction.called ? extractionModel : null,
+        extractionModelReturned, extractionUsage, extractionAttempts,
+        calls: providerCalls.length as 0 | 1 | 2 | 3, conversationCalls: providerCalls.some(call => call.purpose === "CONVERSATION_REALIZATION") ? 1 : 0,
+        conversationResponseReceived: Boolean(terraConversation), projectWrites: 0,
+        ...providerCallRequestObservability(providerCalls) },
+    } };
   }
 
   // A downstream conversation failure cannot erase a validated contribution.
@@ -657,6 +736,7 @@ export const handleProtocolDesignerBridge = async (
     openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
     geminiModel: environment.GEMINI_MODEL,
     openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
+    chatRuntime: environment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" ? "TERRA" : null,
     fetchImpl: providerFetch,
     now: dependencies.now,
     providerAttemptPolicy: dependencies.providerAttemptPolicy,

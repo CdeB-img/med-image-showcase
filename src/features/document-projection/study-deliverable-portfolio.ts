@@ -16,10 +16,11 @@ import type { DocumentProjection } from "./types";
 
 export const STUDY_DELIVERABLE_PORTFOLIO_VERSION = "1.0.0" as const;
 
-export type StudyDeliverableStatus = "READY" | "PARTIAL" | "MISSING_DECISION" | "NOT_APPLICABLE" | "PROFILE_REQUIRED";
+export type StudyDeliverableStatus = "READY" | "PARTIAL" | "MISSING_DECISION" | "NOT_APPLICABLE" | "PROFILE_REQUIRED" | "STALE";
 export type StudyDeliverableKind =
   | "PROTOCOL_FULL"
   | "PROTOCOL_SYNOPSIS"
+  | "RECRUITMENT"
   | "SCHEDULE_OF_ACTIVITIES"
   | "CRF"
   | "DATA_DICTIONARY"
@@ -40,6 +41,7 @@ export type StudyDeliverableArtifact = Readonly<{
   artifactId: string;
   artifactVersion: typeof STUDY_DELIVERABLE_PORTFOLIO_VERSION;
   kind: StudyDeliverableKind;
+  sourceProject?: Readonly<{ projectId: string; projectVersion: string; projectDigest: string }>;
   name: string;
   status: StudyDeliverableStatus;
   preview: string;
@@ -100,6 +102,7 @@ export type StudyDeliverableManifest = Readonly<{
     artifactId: string;
     artifactVersion: typeof STUDY_DELIVERABLE_PORTFOLIO_VERSION;
     kind: StudyDeliverableKind;
+    sourceProject?: Readonly<{ projectId: string; projectVersion: string; projectDigest: string }>;
     status: StudyDeliverableStatus;
     files: readonly Readonly<{ fileName: string; format: StudyDeliverableFile["format"]; mimeType: string }>[];
     sourceObjectRefs: readonly string[];

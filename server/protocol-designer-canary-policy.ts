@@ -40,6 +40,7 @@ export type CanaryCampaignPolicy = Readonly<{
   singleAttemptPolicy: typeof SINGLE_ATTEMPT_FAIL_CLOSED;
   allowedProviderModels: readonly string[];
   createdAt: string;
+  exactInputCounting?: Readonly<{ maxInputTokens: number; maxGenerationAttempts: number; maxTokenCountRequests: number; maxProviderHttpRequests: number }>;
   policyDigest: string;
 }>;
 export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
@@ -49,7 +50,7 @@ const campaignIdValid = (value: unknown): value is string => typeof value === "s
 /** Explicit local experimental envelope; these ceilings do not change the
  * historical canary or the normal product defaults. Never read browser data. */
 export const createCanaryCampaignPolicy = (input: Omit<CanaryCampaignPolicy, "policyDigest">): CanaryCampaignPolicy => {
-  if (!object(input) || !keysOnly(input, ["campaignId", "maxSessions", "measuredSoftStopUsd", "absoluteHardBoundUsd", "singleAttemptPolicy", "allowedProviderModels", "createdAt"])
+  if (!object(input) || !keysOnly(input, ["campaignId", "maxSessions", "measuredSoftStopUsd", "absoluteHardBoundUsd", "singleAttemptPolicy", "allowedProviderModels", "createdAt", "exactInputCounting"])
     || !campaignIdValid(input.campaignId) || !integer(input.maxSessions) || input.maxSessions < 1 || input.maxSessions > 5
     || !Number.isFinite(input.measuredSoftStopUsd) || input.measuredSoftStopUsd <= 0 || input.measuredSoftStopUsd > 4
     || !Number.isFinite(input.absoluteHardBoundUsd) || input.absoluteHardBoundUsd <= 0 || input.absoluteHardBoundUsd > 10
@@ -61,7 +62,19 @@ export const createCanaryCampaignPolicy = (input: Omit<CanaryCampaignPolicy, "po
     || !input.allowedProviderModels.every((model) => QUALIFIED_CAMPAIGN_MODELS.includes(model))) {
     throw new CanaryAdmissionError("CANARY_CAMPAIGN_POLICY_INVALID");
   }
-  const material = { ...input, allowedProviderModels: Object.freeze([...input.allowedProviderModels]) };
+  if (input.exactInputCounting !== undefined) {
+    const counting = input.exactInputCounting;
+    if (!object(counting) || !keysOnly(counting, ["maxInputTokens", "maxGenerationAttempts", "maxTokenCountRequests", "maxProviderHttpRequests"])
+      || !integer(counting.maxInputTokens) || counting.maxInputTokens < 1 || counting.maxInputTokens > 24_000
+      || !integer(counting.maxGenerationAttempts) || counting.maxGenerationAttempts < 1 || counting.maxGenerationAttempts > 64
+      || !integer(counting.maxTokenCountRequests) || counting.maxTokenCountRequests < 1 || counting.maxTokenCountRequests > 64
+      || !integer(counting.maxProviderHttpRequests) || counting.maxProviderHttpRequests < 2 || counting.maxProviderHttpRequests > 128
+      || input.absoluteHardBoundUsd > 5 || input.measuredSoftStopUsd > 3
+      || input.allowedProviderModels.length !== 1 || input.allowedProviderModels[0] !== "gpt-5.6-terra") {
+      throw new CanaryAdmissionError("CANARY_EXACT_COUNT_POLICY_INVALID");
+    }
+  }
+  const material = { ...input, ...(input.exactInputCounting ? { exactInputCounting: Object.freeze({ ...input.exactInputCounting }) } : {}), allowedProviderModels: Object.freeze([...input.allowedProviderModels]) };
   return Object.freeze({ ...material, policyDigest: policyHash(material) });
 };
 
@@ -84,7 +97,7 @@ export type CanaryCallBound = Readonly<{
   pricingSnapshotDate: string;
   inputTokenUpperBound: number;
   outputTokenUpperBound: number;
-  inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT";
+  inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT" | "PROVIDER_EXACT_INPUT_COUNT";
   outputBoundBasis: "REQUEST_MAX_OUTPUT_INCLUDES_REASONING" | "DOCUMENTED_MODEL_OUTPUT_LIMIT";
   maximumInputRatePerMillionUsd: number;
   maximumOutputRatePerMillionUsd: number;
@@ -95,7 +108,7 @@ export type CanaryCallBound = Readonly<{
  * No payload/model/prompt/effort is rewritten to force admission. Full-context
  * costing can deny a short Terra request: an exact input count is not invented.
  */
-export const boundCanaryProviderCall = (endpoint: string, body: string): CanaryCallBound | null => {
+export const boundCanaryProviderCall = (endpoint: string, body: string, countedInputTokens?: number): CanaryCallBound | null => {
   let payload: unknown;
   try { payload = JSON.parse(body); } catch { return null; }
   if (!object(payload)) return null;
@@ -131,16 +144,19 @@ export const boundCanaryProviderCall = (endpoint: string, body: string): CanaryC
   }
   // OpenAI long-context premiums apply to the FULL request above 272K input.
   // Worst input class is a cache write, never a discounted cache hit.
+  if (countedInputTokens !== undefined && (!openai || !integer(countedInputTokens) || countedInputTokens < 1 || countedInputTokens > limit.input)) return null;
+  const inputTokens = countedInputTokens ?? limit.input;
+  const longContext = openai && inputTokens > 272_000;
   const inputRate = Math.max(pricing.inputPerMillionUsd, pricing.cachedInputPerMillionUsd,
-    pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * (openai ? 2 : 1);
-  const outputRate = pricing.outputPerMillionUsd * (openai ? 1.5 : 1);
+    pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * (longContext ? 2 : 1);
+  const outputRate = pricing.outputPerMillionUsd * (longContext ? 1.5 : 1);
   return Object.freeze({
     model, provider: openai ? "OPENAI" : "GOOGLE_GEMINI", pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
-    inputTokenUpperBound: limit.input, outputTokenUpperBound: output,
-    inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT",
+    inputTokenUpperBound: inputTokens, outputTokenUpperBound: output,
+    inputBoundBasis: countedInputTokens === undefined ? "DOCUMENTED_MODEL_CONTEXT_LIMIT" : "PROVIDER_EXACT_INPUT_COUNT",
     outputBoundBasis: openai ? "REQUEST_MAX_OUTPUT_INCLUDES_REASONING" : "DOCUMENTED_MODEL_OUTPUT_LIMIT",
     maximumInputRatePerMillionUsd: inputRate, maximumOutputRatePerMillionUsd: outputRate,
-    upperBoundUsd: ceilUnits((limit.input * inputRate + output * outputRate) / 1_000_000) / unitsPerUsd,
+    upperBoundUsd: ceilUnits((inputTokens * inputRate + output * outputRate) / 1_000_000) / unitsPerUsd,
   });
 };
 

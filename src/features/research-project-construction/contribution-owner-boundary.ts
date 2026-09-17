@@ -510,8 +510,13 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
     .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
     .map((turn) => turn.content)
     .join(" "));
-  const ageSignal = /\bage\b/.test(identityAwareContext)
-    || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(foldedWithSeparators(itemIntrinsicContext(item)));
+  // A year is also a duration unit (cessation, disease history, exposure).
+  // Bind age to this item's identity/value, not any sibling criterion in the
+  // same source turn. A bare provider bound needs an explicit age source.
+  const ageWords = /\b(?:age|ages|agee?s?|aged)\b/;
+  const ageSignal = ageWords.test(identityAwareContext)
+    || /\b(?:adultes?|participants?|volontaires?|sujets?|patients?|enfants?)\s+de\s+\d{1,3}\b/.test(localContext)
+    || (/^\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)$/.test(localContext) && ageWords.test(sourceWithSeparators));
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
   const explicitRange = (value: string) => value.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
   const contextualAgeRange = (value: string) => value.match(/\b(?:tranche d['’ ]?age|age(?:s)?|agee?s?|aged|age range)\b[^\d]{0,48}(?:entre\s+)?(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–|et|and)\s*(\d{1,3}(?:[.,]\d+)?)(?:\s*(?:ans?|years?))?\b/);

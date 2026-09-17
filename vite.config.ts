@@ -4,12 +4,14 @@ import path from "path";
 import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
 import { createRecordedProtocolDesignerFetch } from "./server/protocol-designer-provider-replay";
 import { resolveCanaryExecution } from "./server/protocol-designer-canary-policy";
+import { readRetainedDrciProtocolEvidence } from "./server/protocol-designer-document-evidence";
 
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;
   openAiApiKey: string | null;
   geminiModel: string | null;
   openAiExtractionModel: string | null;
+  chatRuntime?: "TERRA" | null;
 }>;
 
 const configuredValue = (
@@ -26,6 +28,8 @@ export const resolveLocalProductBridgeConfiguration = (
   openAiApiKey: configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment),
   geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
   openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
+  ...( (processEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME ?? fileEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME) === "TERRA"
+    ? { chatRuntime: "TERRA" as const } : {}),
 });
 
 export const executeLocalProductBridgeRequest = (
@@ -89,6 +93,12 @@ export const localProductBridge = (
       const result = await executeLocalProductBridgeRequest(body, configuration,
         (input) => executeProtocolDesignerBridge({ ...input, fetchImpl: recordedFetch,
           ...(canary ? { providerAttemptPolicy: canary.attemptPolicy } : {}),
+          ...(canary?.campaignPolicy && configuration.chatRuntime === "TERRA" ? {
+            readRetainedDocumentProtocol: (packet, context) => readRetainedDrciProtocolEvidence({
+              root: path.join(evidenceRoot, `canary-${canary.campaignId}`), policy: canary.campaignPolicy!,
+              sessionId: context.sessionId, packet,
+            }),
+          } : {}),
         }));
       response.statusCode = canaryDenial ? 503 : result.status;
       response.setHeader("content-type", "application/json; charset=utf-8");

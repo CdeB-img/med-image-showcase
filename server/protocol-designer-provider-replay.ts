@@ -22,10 +22,33 @@ export type CanaryProviderRequestInit = RequestInit & {
 const canaryPurposeModels = Object.freeze({
   LANGUAGE_PROJECTION: "gpt-5.6-luna",
   PERSISTENT_DELTA: "gpt-5.6-terra",
+  DOCUMENT_PROJECTION: "gpt-5.6-terra",
   CONVERSATION_REALIZATION: "gemini-3.5-flash-lite",
   SCIENTIFIC_THINKING_PROPOSAL: "gemini-3.5-flash-lite",
   USER_PROXY_GENERATION: "gpt-5.6-luna",
 });
+
+const purposeModel = (purpose: keyof typeof canaryPurposeModels, policy?: CanaryCampaignPolicy) =>
+  policy?.exactInputCounting && purpose === "CONVERSATION_REALIZATION" ? "gpt-5.6-terra" : canaryPurposeModels[purpose];
+
+// Count only the input-affecting fields of the exact, stateless generation
+// request. The journal owns count provenance and money; this is not a transport.
+export const openAIInputCountRequest = (request: { endpoint: string; method: string; body: string }) => {
+  if (request.endpoint !== "https://api.openai.com/v1/responses" || !boundCanaryProviderCall(request.endpoint, request.body))
+    throw new CanaryAdmissionError("CANARY_INPUT_COUNT_PAYLOAD_UNQUALIFIED");
+  const payload = JSON.parse(request.body);
+  const input = Object.fromEntries(["model", "instructions", "input", "reasoning", "text"]
+    .filter((key) => payload[key] !== undefined).map((key) => [key, payload[key]]));
+  return { endpoint: "https://api.openai.com/v1/responses/input_tokens", method: "POST", body: JSON.stringify(input) };
+};
+const countedTokens = (response: Exchange["response"]) => {
+  if (!response || response.status < 200 || response.status >= 300) return null;
+  try {
+    const value = JSON.parse(response.body);
+    return value.object === "response.input_tokens" && Number.isSafeInteger(value.input_tokens) && value.input_tokens > 0
+      ? value.input_tokens as number : null;
+  } catch { return null; }
+};
 
 // DEV transport evidence only. Scientific state and provider selection stay with
 // their existing owners; the existing atomic evidence store owns persistence.
@@ -57,7 +80,7 @@ const safeBody = (text: string, secrets: readonly string[]) => {
 };
 const requestIdentity = (input: Parameters<typeof fetch>[0], init?: RequestInit, secrets: readonly string[] = []) => {
   const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
-  if (!(url.origin === "https://api.openai.com" && url.pathname === "/v1/responses")
+  if (!(url.origin === "https://api.openai.com" && ["/v1/responses", "/v1/responses/input_tokens"].includes(url.pathname))
     && !(url.origin === "https://generativelanguage.googleapis.com" && /^\/v1beta\/models\/[^/]+:generateContent$/.test(url.pathname))) {
     throw new Error("PROVIDER_EVIDENCE_ENDPOINT_NOT_ALLOWED");
   }
@@ -85,7 +108,9 @@ type CanaryAdmission = {
   campaignPolicy?: CanaryCampaignPolicy;
   conversationId?: string;
   projectId?: string | null;
+  tokenCountProof?: { requestDigest: string; inputTokens: number };
 };
+type CanaryCountAdmission = Omit<CanaryAdmission, "bound" | "tokenCountProof"> & { generationRequestDigest: string };
 
 const readJsonIfPresent = async (path: string): Promise<unknown | undefined> => {
   try { return JSON.parse(await readFile(path, "utf8")); }
@@ -178,7 +203,7 @@ const assertSessionNotInOtherCampaign = async (root: string, sessionId: string) 
         throw new CanaryAdmissionError("CANARY_SESSION_OWNERSHIP_EVIDENCE_CORRUPT");
       }
       referencedRawDigests.add(record.rawOutputDigest);
-      if (exchange.canaryAdmission?.sessionId === sessionId) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
+      if ((exchange.canaryAdmission ?? exchange.canaryCountAdmission)?.sessionId === sessionId) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
     }
     let rawFiles: string[];
     try { rawFiles = await readdir(join(otherRoot, "raw")); }
@@ -210,12 +235,13 @@ type Exchange = {
   response: { status: number; headers: Record<string, string>; body: string } | null;
   transportError: string | null;
   canaryAdmission?: CanaryAdmission;
+  canaryCountAdmission?: CanaryCountAdmission;
   canarySettlement?: ReturnType<typeof settleCanaryProviderCall>;
 };
 
 // The existing prepared/completed evidence is also the admission ledger. There
 // is no independent mutable cost counter that a new HTTP request could reset.
-const readCanaryState = async (root: string, campaignId: string, campaignPolicy?: CanaryCampaignPolicy) => {
+export const readCanaryState = async (root: string, campaignId: string, campaignPolicy?: CanaryCampaignPolicy) => {
   const budget = campaignBudgetPolicy(campaignPolicy);
   const sessions = new Map<string, string>();
   if (!campaignPolicy && await readJsonIfPresent(join(root, "campaign-policy.json")) !== undefined) {
@@ -231,12 +257,15 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
   try { journal = await readFile(join(root, "protocol-designer-exchanges.jsonl"), "utf8"); }
   catch (error) {
     if (!campaignPolicy && (error as NodeJS.ErrnoException).code === "ENOENT" && rawFiles.length === 0) {
-      return { committed: 0, measured: 0, sessionId: null, logicalIds: new Set<string>(), sessions };
+      return { committed: 0, measured: 0, sessionId: null, logicalIds: new Set<string>(), sessions, generationAttempts: 0, tokenCountRequests: 0, providerHttpRequests: 0 };
     }
     throw new CanaryAdmissionError("CANARY_LEDGER_UNREADABLE");
   }
   const prepared = new Map<string, Exchange>();
   const completed = new Set<string>();
+  const countProofs = new Map<string, { request: RequestIdentity; inputTokens: number; logicalCallId: string }>();
+  let generationAttempts = 0;
+  let tokenCountRequests = 0;
   const logicalIds = new Set<string>();
   const store = new FileScientificInterpretationEvidenceStore(root);
   let committed = 0;
@@ -250,7 +279,8 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
       if (!record || digest(record.payload) !== record.rawOutputDigest) throw new Error("integrity");
       rawDigests.add(record.rawOutputDigest);
       const exchange = record.payload as Exchange;
-      const admission = exchange.canaryAdmission;
+      const countAdmission = exchange.canaryCountAdmission;
+      const admission = exchange.canaryAdmission ?? countAdmission;
       if (exchange.kind !== recordKind || !admission || admission.campaignId !== campaignId
         || admission.policy !== SINGLE_ATTEMPT_FAIL_CLOSED || digest(admission.budgetPolicy) !== digest(budget)
         || digest(admission.campaignPolicy ?? null) !== digest(campaignPolicy ?? null)
@@ -263,9 +293,9 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
         if (!context || !admission.sessionId || !admission.conversationId
           || context.sessionId !== admission.sessionId || context.conversationId !== admission.conversationId
           || !context.turnId || !context.clientRequestId || metadata.retryIndex !== 0 || metadata.retryReason !== null
-          || admission.logicalCallId !== digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose])
+          || admission.logicalCallId !== digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose]) + (countAdmission ? ":count" : "")
           || !campaignPolicy.allowedProviderModels.includes(exchange.modelRequested ?? "")
-          || canaryPurposeModels[metadata.purpose] !== exchange.modelRequested) throw new Error("session provenance");
+          || purposeModel(metadata.purpose, campaignPolicy) !== exchange.modelRequested) throw new Error("session provenance");
         if (sessions.has(admission.sessionId) && sessions.get(admission.sessionId) !== admission.conversationId) throw new Error("conversation identity");
         sessions.set(admission.sessionId, admission.conversationId);
         if (sessions.size > campaignPolicy.maxSessions) throw new Error("session limit");
@@ -273,25 +303,51 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
       sessionId = admission.sessionId;
       if (entry.disposition === "REQUEST_PREPARED") {
         if (prepared.has(entry.operationId) || logicalIds.has(admission.logicalCallId)) throw new Error("duplicate");
-        const bound = boundCanaryProviderCall(exchange.request.endpoint, exchange.request.body);
-        if (digest(bound) !== digest(admission.bound) || admission.committedBeforeUsd !== committed
+        if (countAdmission) {
+          if (!campaignPolicy?.exactInputCounting || exchange.request.endpoint !== "https://api.openai.com/v1/responses/input_tokens"
+            || admission.committedBeforeUsd !== committed || admission.measuredBeforeUsd !== measured
+            || measured >= budget.measuredCostSoftStopUsd || committed >= budget.absoluteHardCampaignBoundUsd
+            || !/^[a-f0-9]{64}$/.test(countAdmission.generationRequestDigest)) throw new Error("count reservation");
+          tokenCountRequests++;
+        } else {
+        generationAttempts++;
+        const proof = exchange.canaryAdmission?.tokenCountProof;
+        const storedCount = countProofs.get(exchange.requestDigest);
+        if (campaignPolicy?.exactInputCounting && (!proof || !storedCount
+          || proof.inputTokens !== storedCount.inputTokens || proof.requestDigest !== digest(storedCount.request)
+          || storedCount.logicalCallId !== admission.logicalCallId + ":count"
+          || digest(openAIInputCountRequest(exchange.request)) !== proof.requestDigest
+          || proof.inputTokens > campaignPolicy.exactInputCounting.maxInputTokens)) throw new Error("count proof");
+        if (!campaignPolicy?.exactInputCounting && proof) throw new Error("unexpected count proof");
+        const bound = boundCanaryProviderCall(exchange.request.endpoint, exchange.request.body, proof?.inputTokens);
+        if (digest(bound) !== digest(exchange.canaryAdmission?.bound) || admission.committedBeforeUsd !== committed
           || admission.measuredBeforeUsd !== measured
           || canaryBudgetAdmission(committed, bound, measured, budget) !== "ADMITTED") throw new Error("reservation");
+        }
+        const caps = campaignPolicy?.exactInputCounting;
+        if (caps && (generationAttempts > caps.maxGenerationAttempts || tokenCountRequests > caps.maxTokenCountRequests
+          || generationAttempts + tokenCountRequests > caps.maxProviderHttpRequests)) throw new Error("HTTP limits");
         prepared.set(entry.operationId, exchange);
         logicalIds.add(admission.logicalCallId);
       } else if (entry.disposition === "COMPLETED") {
         const before = prepared.get(entry.operationId);
         if (!before || completed.has(entry.operationId) || before.requestDigest !== exchange.requestDigest
-          || digest(before.canaryAdmission) !== digest(admission)) throw new Error("completion");
+          || digest(before.canaryAdmission ?? before.canaryCountAdmission) !== digest(admission)) throw new Error("completion");
         if (exchange.transportError || !exchange.response || exchange.response.status < 200 || exchange.response.status >= 300) {
           throw new CanaryAdmissionError("CANARY_STOP_PREVIOUS_PROVIDER_FAILURE");
         }
-        const settlement = settleCanaryProviderCall(admission.bound, exchange.response.body);
+        if (countAdmission) {
+          const tokens = countedTokens(exchange.response);
+          if (tokens === null || countProofs.has(countAdmission.generationRequestDigest)) throw new CanaryAdmissionError("CANARY_COUNT_FAILED_OR_DUPLICATE");
+          countProofs.set(countAdmission.generationRequestDigest, { request: exchange.request, inputTokens: tokens, logicalCallId: admission.logicalCallId });
+        } else {
+        const settlement = settleCanaryProviderCall(exchange.canaryAdmission!.bound, exchange.response.body);
         if (!settlement || digest(settlement) !== digest(exchange.canarySettlement)) {
           throw new CanaryAdmissionError("CANARY_STOP_UNKNOWN_OR_UNBOUNDED_ACTUAL_COST");
         }
         committed = addCanaryCosts(committed, settlement.committedCostUpperBoundUsd);
         measured = addCanaryCosts(measured, settlement.measuredCostUsd);
+        }
         completed.add(entry.operationId);
       } else throw new Error("disposition");
     }
@@ -307,7 +363,7 @@ const readCanaryState = async (root: string, campaignId: string, campaignPolicy?
     if (error instanceof CanaryAdmissionError) throw error;
     throw new CanaryAdmissionError("CANARY_LEDGER_INTEGRITY_FAILURE");
   }
-  return { committed, measured, sessionId, logicalIds, sessions };
+  return { committed, measured, sessionId, logicalIds, sessions, generationAttempts, tokenCountRequests, providerHttpRequests: generationAttempts + tokenCountRequests };
 };
 
 export const createRecordedProtocolDesignerFetch = (options: {
@@ -332,8 +388,8 @@ export const createRecordedProtocolDesignerFetch = (options: {
   }
   const store = new FileScientificInterpretationEvidenceStore(options.root);
   let attemptIndex = 0;
-  const record = async (input: Parameters<typeof fetch>[0], init?: RequestInit, canaryAdmission?: CanaryAdmission) => {
-    if (!canaryAdmission && await readJsonIfPresent(join(options.root, "campaign-policy.json")) !== undefined) {
+  const record = async (input: Parameters<typeof fetch>[0], init?: RequestInit, canaryAdmission?: CanaryAdmission, canaryCountAdmission?: CanaryCountAdmission) => {
+    if (!canaryAdmission && !canaryCountAdmission && await readJsonIfPresent(join(options.root, "campaign-policy.json")) !== undefined) {
       throw new CanaryAdmissionError("CANARY_POLICY_REQUIRED_NO_NORMAL_FALLBACK");
     }
     const request = requestIdentity(input, init, options.secrets);
@@ -351,6 +407,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       reasoningEffort: payload.reasoning?.effort ?? null,
       latencyMs: 0, response: null, transportError: null,
       ...(canaryAdmission ? { canaryAdmission } : {}),
+      ...(canaryCountAdmission ? { canaryCountAdmission } : {}),
     };
     // A failed recording preflight blocks BEFORE a paid call. A prepared record
     // without completion is explicit evidence of an interrupted/failed capture.
@@ -445,12 +502,23 @@ export const createRecordedProtocolDesignerFetch = (options: {
       }
       const logicalCallId = digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose]);
       if (state.logicalIds.has(logicalCallId)) throw new CanaryAdmissionError("CANARY_LOGICAL_CALL_ALREADY_CONSUMED");
-      const bound = boundCanaryProviderCall(request.endpoint, request.body);
+      let bound = boundCanaryProviderCall(request.endpoint, request.body);
       const budget = campaignBudgetPolicy(campaignPolicy);
-      const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);
-      if (admission !== "ADMITTED" || !bound) throw new CanaryAdmissionError(admission);
-      const expectedModel = canaryPurposeModels[metadata.purpose];
+      if (!bound) throw new CanaryAdmissionError("DENIED_UNKNOWN_UPPER_BOUND");
+      const exact = campaignPolicy?.exactInputCounting;
+      const expectedModel = purposeModel(metadata.purpose, campaignPolicy);
       if (bound.model !== expectedModel) throw new CanaryAdmissionError("CANARY_PROVIDER_MODEL_PURPOSE_MISMATCH");
+      if (!exact) {
+        const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);
+        if (admission !== "ADMITTED") throw new CanaryAdmissionError(admission);
+      } else {
+        if (state.measured >= budget.measuredCostSoftStopUsd) throw new CanaryAdmissionError("DENIED_SOFT_STOP");
+        if (state.committed >= budget.absoluteHardCampaignBoundUsd) throw new CanaryAdmissionError("DENIED_HARD_BUDGET");
+        if (state.generationAttempts >= exact.maxGenerationAttempts || state.tokenCountRequests >= exact.maxTokenCountRequests
+          || state.providerHttpRequests + 2 > exact.maxProviderHttpRequests) throw new CanaryAdmissionError("CANARY_HTTP_LIMIT_REACHED");
+        if (state.logicalIds.has(logicalCallId + ":count")) throw new CanaryAdmissionError("CANARY_LOGICAL_COUNT_ALREADY_CONSUMED");
+        openAIInputCountRequest(request); // qualified shape before count dispatch
+      }
       if (campaignPolicy) {
         if (!campaignPolicy.allowedProviderModels.includes(bound.model)) throw new CanaryAdmissionError("CANARY_PROVIDER_NOT_IN_CAMPAIGN_POLICY");
         if (!state.sessions.has(context.sessionId)) {
@@ -477,10 +545,31 @@ export const createRecordedProtocolDesignerFetch = (options: {
           } else if (digest(existing) !== digest(expected)) throw new CanaryAdmissionError("CANARY_SESSION_ALREADY_BOUND");
         }
       }
+      let tokenCountProof: CanaryAdmission["tokenCountProof"];
+      if (exact) {
+        const countRequest = openAIInputCountRequest(request);
+        const response = await record(countRequest.endpoint, { ...init, body: countRequest.body }, undefined, {
+          policy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: options.canaryCampaignId!, sessionId: context.sessionId,
+          conversationId: context.conversationId!, logicalCallId: logicalCallId + ":count",
+          committedBeforeUsd: state.committed, measuredBeforeUsd: state.measured, budgetPolicy: budget,
+          campaignPolicy, generationRequestDigest: digest(request),
+        });
+        // Re-read durable completion before authorizing generation, including IO
+        // failures. A count response without its journal proof cannot pay a call.
+        await readCanaryState(options.root, options.canaryCampaignId!, campaignPolicy);
+        const tokens = countedTokens({ status: response.status, headers: {}, body: await response.text() });
+        if (tokens === null) throw new CanaryAdmissionError("CANARY_INPUT_COUNT_UNAVAILABLE");
+        if (tokens > exact.maxInputTokens) throw new CanaryAdmissionError("CONVERSATION_MEMORY_LIMIT");
+        bound = boundCanaryProviderCall(request.endpoint, request.body, tokens);
+        const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);
+        if (admission !== "ADMITTED" || !bound) throw new CanaryAdmissionError(admission);
+        tokenCountProof = { requestDigest: digest(countRequest), inputTokens: tokens };
+      }
       return await record(input, init, {
         policy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: options.canaryCampaignId!,
         sessionId: context.sessionId, logicalCallId, committedBeforeUsd: state.committed,
         measuredBeforeUsd: state.measured, budgetPolicy: budget, bound,
+        ...(tokenCountProof ? { tokenCountProof } : {}),
         ...(campaignPolicy ? { campaignPolicy, conversationId: context.conversationId!, projectId: options.projectId ?? null } : {}),
       });
     } catch (error) {

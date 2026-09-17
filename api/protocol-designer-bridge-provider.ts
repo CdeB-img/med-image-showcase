@@ -80,7 +80,7 @@ export type ProductBridgeProviderResult<T> = {
 
 export class ProductBridgeProviderError extends Error {
   constructor(
-    readonly stage: "CONVERSATION" | "PERSISTENT_DELTA" | "LANGUAGE_PROJECTION",
+    readonly stage: "CONVERSATION" | "PERSISTENT_DELTA" | "LANGUAGE_PROJECTION" | "DOCUMENT_PROJECTION",
     readonly httpStatus: number | null,
     readonly providerStatus: string | null,
     readonly providerMessage: string,
@@ -149,12 +149,14 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     : null;
   const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   const languageContract = buildPersistentExtractionLanguageContract(request.conversation.language);
-  const proposalContext = request.scientificDiscussionContext ? [] : request.conversation.turns
+  const proposalContext = request.scientificDiscussionContext && !request.nativeConversationRecording ? [] : request.conversation.turns
     .filter((turn) => turn.role === "NOXIA")
-    .slice(-4)
+    .slice(request.nativeConversationRecording ? 0 : -4)
     .map((turn) => ({ turnId: turn.turnId, content: turn.content }));
   return {
-    systemInstruction: { parts: [{ text: `${PERSISTENT_DELTA_SYSTEM_INSTRUCTION}\n\n${languageContract}` }] },
+    systemInstruction: { parts: [{ text: `${PERSISTENT_DELTA_SYSTEM_INSTRUCTION}\n\n${languageContract}${request.nativeConversationRecording ? `
+
+OPÉRATION DE PRÉPARATION D'UNE REVUE HUMAINE GROUPÉE : le dernier message peut désigner explicitement les choix des propositions précédentes, tels que corrigés par les messages utilisateur. Cette désignation référentielle n'est pas une simple demande de reformulation ni un oui ambigu : prépare les conséquences de ces choix pour la revue, sans les appliquer. Résous le périmètre à partir du récapitulatif NOXIA le plus récent et des corrections/refus utilisateur. Ne requiers pas que l'utilisateur recopie chaque choix. Pour chaque élément retenu, utilise assertionKind=USER_ADOPTED_PROPOSAL, proposalSourceText=citation exacte de la proposition NOXIA antérieure et sourceAnchorId=ancrage exact de l'assentiment courant. Les préférences non retenues, anciennes propositions remplacées et détails restant ouverts ne deviennent pas des faits adoptés. L'autorisation de préparation ne vaut jamais décision PRJ : toute sortie reste candidate jusqu'à la revue native. Une désignation absente ou ambiguë reste sans conséquence persistante.` : ""}` }] },
     contents: [{ role: "user", parts: [{ text: [
       `DERNIER MESSAGE UTILISATEUR (source de l'assertion ou de l'adoption) :\n${userTurn?.content ?? ""}`,
       workingProjection
@@ -162,6 +164,9 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
         : "AUCUNE PROJECTION LINGUISTIQUE DÉRIVÉE : le message original est déjà le texte de travail.",
       `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
       `CONTRAT MACHINE DES SIGNATURES RELATIONNELLES DU PROJECT (résous les types des deux références, puis respecte exactement une signature ; sinon omets la relation) :\n${JSON.stringify(PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT, null, 2)}`,
+      ...(request.nativeConversationRecording ? [
+        `DISCUSSION ORIGINALE DÉSIGNÉE POUR PRÉPARATION (lecture seule ; corrections/refus récents prévalent ; les sources utilisateur courantes restent exclusivement les ancrages du dernier message ; toute proposition NOXIA retenue doit garder assertionKind USER_ADOPTED_PROPOSAL, proposalSourceText exact et assentiment distinct) :\n${JSON.stringify(request.conversation.turns.filter(turn => turn.role === "USER" && turn.turnId !== userTurn?.turnId).map(turn => ({ turnId: turn.turnId, role: turn.role, content: turn.content })))}`,
+      ] : []),
       `PROPOSITIONS NOXIA RÉCENTES (lecture seule ; utilisables uniquement si le dernier message les adopte explicitement) :\n${JSON.stringify(proposalContext, null, 2)}`,
       ...(request.scientificDiscussionContext ? [
         `CONTEXTE SCIENTIFIQUE DISCUTÉ — NON ADOPTÉ (projection bornée du lifecycle des contributions ; référents historiques distincts des sources utilisateur courantes) :\n${JSON.stringify(scientificDiscussionProviderContext(request.scientificDiscussionContext))}`,

@@ -895,6 +895,7 @@ export type PersistentProjectDeltaCandidate = {
 };
 
 export type PersistentExtractionProviderArtifact = {
+  compactPreparation?: import("./transaction-compaction.js").CompactPreparationEvidence;
   artifactRef: string;
   requestTurnRef: string;
   executor?: string;
@@ -963,6 +964,9 @@ export type ProductBridgeRequest = {
   currentProject: ResearchProjectOwnerProjection | null;
   evaluatePersistentDelta: boolean;
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
+  documentDraftRequest?: import("../document-projection/drci-draft-contract.js").DrciDraftSource;
+  /** Server-only: native text proposals remain distinct from the user assent. */
+  nativeConversationRecording?: boolean;
   preProjectNavigation?: ProductBridgePreProjectNavigation;
   languageBoundary?: ProductBridgeLanguageBoundary;
   /** Server-owned bounded HOW input, never accepted from unvalidated HTTP input. */
@@ -987,6 +991,7 @@ export type ProductBridgeRequest = {
 
 export type ProductBridgeResponse = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
+  documentDraftPack?: import("../document-projection/drci-draft-contract.js").DrciDraftPack;
   assistantReply: string;
   assistantTurn: ScientificInterpretationTurn;
   scientificConversation?: import("../scientific-thinking/scientific-collaborator-conversation.js").ScientificConversationReceipt;
@@ -1026,9 +1031,9 @@ export type ProductBridgeResponse = {
     recovery?: PersistentExtractionRecovery | null;
   };
   observability: {
-    provider: "GOOGLE_GEMINI";
+    provider: "GOOGLE_GEMINI" | "OPENAI";
     model: string;
-    conversationProvider?: "GOOGLE_GEMINI";
+    conversationProvider?: "GOOGLE_GEMINI" | "OPENAI";
     conversationModel?: string;
     extractionProvider?: "OPENAI" | null;
     extractionModelRequested?: string | null;
@@ -1860,7 +1865,7 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || !record.conversation.turns.length
     || !record.conversation.turns.every((turn) => turn && typeof turn.turnId === "string"
       && ["USER", "NOXIA"].includes(turn.role)
-      && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= 4_000)) return null;
+      && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= (turn.role === "USER" ? 4_000 : 64_000))) return null;
   if (record.observabilityContext !== undefined) {
     const context = record.observabilityContext;
     if (typeof context.clientRequestId !== "string" || !context.clientRequestId.trim()
@@ -1973,5 +1978,5 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
       || (interaction.kind === "EXPLAIN_REFERENCED_CONTENT" && !record.boundedReferentContext)) return null;
   }
   // HTTP callers cannot inject the server's post-validation realization envelope.
-  return { ...record, governedRealization: undefined, contextualReasoningRequest: undefined, scientificCollaboratorRequest: undefined } as ProductBridgeRequest;
+  return { ...record, nativeConversationRecording: undefined, governedRealization: undefined, contextualReasoningRequest: undefined, scientificCollaboratorRequest: undefined } as ProductBridgeRequest;
 };

@@ -3,6 +3,7 @@ import type { ScientificInterpretationContributionEnvelope } from "@/features/sc
 import { projectActionableSourceCoverage } from "../actionable-source-coverage";
 import {
   ensureCanonicalProjectState,
+  contributionDecisionScopeGroups,
   presentCanonicalTemporalAnchor,
   type HumanReviewProjectionItem,
   type ResearchProjectContributionCandidate,
@@ -20,6 +21,7 @@ type Props = {
   disabled?: boolean;
   detailedUnderstanding?: ReactNode;
   onConfirm: () => void;
+  onConfirmScope?: (refs: readonly string[]) => void;
   onCorrect: () => void;
   onReject: () => void;
 };
@@ -29,7 +31,10 @@ const uniqueItems = <T extends { content: string }>(items: readonly T[]) => [...
 const primaryEndpoint = (item: HumanReviewProjectionItem) => item.objectType === "ENDPOINT"
   && /PRIMARY|PRINCIPAL/i.test(item.scientificRole ?? "");
 const summaryItemContent = (item: { content: string }) => {
-  const withoutOperation = item.content.replace(/^\+\s+/u, "");
+  // Keep the exact source witness in the detailed native review; the main
+  // summary presents the scientific value rather than the assent receipt.
+  const withoutOperation = item.content.replace(/^\+\s+/u, "")
+    .replace(/ — formulation d’origine :[\s\S]*$/u, "");
   const naturalRelation = withoutOperation.replace(/\s+—\s+comparaison avec\s+→\s+/iu, " en comparaison avec ");
   const typographicTiming = naturalRelation
     .replace(/\b(?:a|à)\s+(\d+(?:[.,]\d+)?)\s*min\b/iu, "à $1 min")
@@ -140,7 +145,11 @@ const preservedProjectPropertiesForReview = (
     .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
 };
 
-export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onConfirmScope, onCorrect, onReject }: Props) {
+  const scopeGroups = useMemo(() => contributionDecisionScopeGroups(candidate, currentProject ?? null), [candidate, currentProject]);
+  const [selectedGroups, setSelectedGroups] = useState<readonly string[] | null>(null);
+  const scopeItems = candidate.humanReviewProjection.sections.flatMap(section => section.items);
+
   const [detailsOpen, setDetailsOpen] = useState(false);
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const sections = candidate.humanReviewProjection.sections;
@@ -237,6 +246,21 @@ export default function ContributionReview({ contribution, candidate, currentPro
         </section>}
       </div>}
     </details>
+
+    {onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
+      <summary className="cursor-pointer text-sm font-medium">Choisir les éléments à enregistrer</summary>
+      <p className="mt-2 text-xs text-muted-foreground">Les éléments dépendants sont regroupés. Les éléments non sélectionnés restent en discussion.</p>
+      <div className="mt-2 space-y-2">{scopeGroups.map(group => {
+        const key = group.join("|");
+        const selected = selectedGroups ?? scopeGroups.map(item => item.join("|"));
+        const labels = scopeItems.filter(item => group.includes(item.changeRef)).map(item => summaryItemContent(item));
+        return <label key={key} className="flex items-start gap-2 text-sm"><input type="checkbox" disabled={disabled}
+          checked={selected.includes(key)} onChange={event => setSelectedGroups(event.target.checked ? [...selected, key] : selected.filter(item => item !== key))} />
+          <span>{[...new Set(labels)].join(" · ") || "Modification liée"}</span></label>;
+      })}</div>
+      <button type="button" disabled={disabled || selectedGroups?.length === 0} className="mt-3 min-h-10 rounded-lg border px-3 text-sm font-semibold"
+        onClick={() => onConfirmScope(scopeGroups.filter(group => (selectedGroups ?? scopeGroups.map(item => item.join("|"))).includes(group.join("|"))).flat())}>Enregistrer la sélection</button>
+    </details>}
 
     {status === "PENDING" && !actionable
       ? <p role="status" className="mt-5 text-sm text-muted-foreground">Proposition conservée dans l’historique, non sélectionnée pour une décision dans ce tour.</p>
