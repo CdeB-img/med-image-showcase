@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import ContributionReview from '../ContributionReview';
 import ProtocolDesignerWorkspace from '../ProtocolDesignerWorkspace';
@@ -36,7 +36,7 @@ describe('Referential understanding / compact review / continuous advancement �
   expect(packet.instruction).toContain('la série conserve un référentiel unique');
   expect(packet.instruction).toContain('ne tranche pas en déclarant un événement « principal »');
   expect(packet.instruction).toContain('Ne change ni ne complète un calendrier minimal absent');
-  expect(packet.instruction).toContain('prochaine étape à forte valeur');
+  expect(packet.instruction).toContain('prochaine décision à forte valeur');
   expect(packet.instruction).not.toMatch(/infarctus|reperfusion|chirurgie|réhospitalisation|Tor des/iu);
   expect(JSON.parse(packet.context).RECENT_CONVERSATION.at(-1).content).toBe(text);
   expect(JSON.parse(packet.context).TRANSACTION_REQUESTED).toBe(false);
@@ -56,7 +56,7 @@ describe('Referential understanding / compact review / continuous advancement �
   expect(JSON.stringify(data)).toBe(before);
   fireEvent.click(screen.getByTestId('functional-review-details'));
   expect(screen.getByRole('dialog')).toBeVisible();
-  expect(screen.getByTestId('review-full-scientific-delta').textContent).toContain('Mesure répétée');
+  expect(screen.queryByTestId('review-full-scientific-delta')).toBeNull();
   expect(screen.getByTestId('review-audit-detail').textContent).toContain('Message d’origine');
   expect(screen.getByTestId('review-audit-detail').textContent).toContain('référentiel à');
   expect(JSON.stringify(data)).toBe(before);
@@ -81,15 +81,15 @@ describe('Referential understanding / compact review / continuous advancement �
   const trigger=screen.getByRole('button',{name:'Voir mon projet'}); expect(trigger.className).not.toContain('lg:hidden');
   fireEvent.click(trigger);expect(screen.getByRole('heading',{name:'Propositions et points ouverts'})).toBeVisible();
   expect(screen.getByRole('heading',{name:'Propositions en discussion'})).toBeVisible();
-  expect(screen.queryByRole('button',{name:'Confirmer les choix et enregistrer'})).toBeNull();
+  expect(within(screen.getByRole('dialog')).queryByRole('button',{name:'Confirmer les choix et enregistrer'})).toBeNull();
   expect(session.project).toBeNull();
  });
- it('the compact card cannot adopt hidden choices; the full delta must be opened before confirmation', () => {
+ it('shows all scientific choices before confirmation without requiring the technical graph', () => {
   const data=fixture(),confirm=vi.fn();
   render(<ContributionReview {...data} status="PENDING" onConfirm={confirm} onCorrect={()=>undefined} onReject={()=>undefined}/>);
-  expect(screen.queryByRole('button',{name:'Confirmer les choix et enregistrer'})).toBeNull();
-  fireEvent.click(screen.getByRole('button',{name:'Voir les détails'}));expect(confirm).not.toHaveBeenCalled();
-  expect(screen.getByTestId('review-full-scientific-delta')).toBeVisible();
+  expect(screen.getByTestId('standard-initial-review-summary')).toHaveTextContent('Mesure répétée');
+  expect(confirm).not.toHaveBeenCalled();
+  expect(screen.queryByTestId('review-audit-detail')).toBeNull();
   fireEvent.click(screen.getByRole('button',{name:'Confirmer les choix et enregistrer'}));expect(confirm).toHaveBeenCalledTimes(1);
  });
  it('creation receipt states the adoption scope explicitly', () => {

@@ -12,6 +12,7 @@ export type LocalProductBridgeConfiguration = Readonly<{
   geminiModel: string | null;
   openAiExtractionModel: string | null;
   chatRuntime?: "TERRA" | null;
+  autonomousProjectBuild?: boolean;
 }>;
 
 const configuredValue = (
@@ -28,6 +29,8 @@ export const resolveLocalProductBridgeConfiguration = (
   openAiApiKey: configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment),
   geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
   openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
+  ...((processEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD ?? fileEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD) === "ON"
+    ? { autonomousProjectBuild: true } : {}),
   ...( (processEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME ?? fileEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME) === "TERRA"
     ? { chatRuntime: "TERRA" as const } : {}),
 });

@@ -13,6 +13,10 @@ import type { ContextualReasoningRequest } from "./contextual-reasoning.js";
 const text = z.string().trim().min(1).max(1600);
 const ref = z.string().trim().min(1).max(250);
 const refs = z.array(ref).max(60);
+export const studyDependencyQualificationSchema = z.object({
+  ref, kind: z.enum(["HARD_BLOCKING_DEPENDENCY", "SOFT_REFINEMENT_DEPENDENCY", "OPTIONAL_DETAIL"]),
+  rationale: text,
+}).strict();
 export const studyProposalAtomSchema = z.object({
   ref, semanticKey: ref, content: z.string().trim().min(1).max(600), rationale: text,
   targetType: z.enum(CANONICAL_PROJECT_OBJECT_TYPES),
@@ -20,6 +24,8 @@ export const studyProposalAtomSchema = z.object({
   area: z.enum(["QUESTION", "OBJECTIVES", "DESIGN", "POPULATION", "ELIGIBILITY", "RECRUITMENT", "EXPOSURE", "MEASUREMENTS", "TIMING", "DESCRIPTION", "CONFOUNDERS", "ENDPOINTS", "ANALYSIS", "DIMENSIONING", "BIASES", "PRACTICAL"]),
   status: z.enum(["NOXIA_PROPOSAL", "STRONG_CONTEXTUAL_INFERENCE", "PROVISIONAL_ASSUMPTION", "EVIDENCE_SUPPORTED_PROPOSAL", "OPEN_DECISION"]),
   evidenceRefs: refs, dependsOn: refs,
+  // Absent on historical candidates: every dependency remains hard by default.
+  dependencyQualifications: z.array(studyDependencyQualificationSchema).max(60).optional(),
   variableRoles: z.array(z.enum(["EXCLUSION_VARIABLE", "DESCRIPTIVE_VARIABLE", "ADJUSTMENT_COVARIATE", "STRATIFICATION_VARIABLE", "OUTCOME_VARIABLE", "EXPOSURE_VARIABLE"])).max(6),
   unit: z.string().max(100).nullable(),
   strataCount: z.number().int().min(2).max(100).nullable(),
@@ -57,8 +63,24 @@ export const contextualStudyProposalSchema = z.object({
   candidateIsAdopted: z.literal(false), projectWriteAuthorized: z.literal(false),
 }).strict();
 export type StudyProposalAtom = z.infer<typeof studyProposalAtomSchema>;
+export const hardStudyProposalDependencies = (atom: StudyProposalAtom) => atom.dependsOn.filter(r =>
+  !atom.dependencyQualifications?.some(q => q.ref === r && q.kind !== "HARD_BLOCKING_DEPENDENCY"));
 export type StudyArbitration = z.infer<typeof studyArbitrationSchema>;
 export type ContextualStudyProposal = z.infer<typeof contextualStudyProposalSchema>;
+/** An option activates a working branch; downstream refinements are not assent.
+ * Only explicitly qualified links permit this distinction. Legacy groups keep
+ * their original all-or-nothing scope, including any unresolved prerequisite. */
+export const studyProposalOptionDecisionRefs = (proposal: ContextualStudyProposal, option: StudyArbitration["options"][number]) =>
+  option.atomRefs.filter(ref => {
+    const detail = proposal.atoms.find(a => a.ref === ref)!;
+    if (detail.status !== "OPEN_DECISION" || !detail.dependencyQualifications) return true;
+    const autonomousParent = proposal.atoms.some(parent => option.atomRefs.includes(parent.ref)
+      && parent.status !== "OPEN_DECISION" && parent.dependencyQualifications
+      && !hardStudyProposalDependencies(parent).includes(ref)
+      && (detail.dependencyQualifications!.some(q => q.ref === parent.ref)
+        || parent.dependencyQualifications.some(q => q.ref === ref && q.kind !== "HARD_BLOCKING_DEPENDENCY")));
+    return !autonomousParent;
+  });
 export type ProposalProjectBinding = null | { projectId: string; versionId: string; projectDigest: string };
 export type StudyProposalComposition = Readonly<{
   proposalRef: string; digest: string; sourceTurnRef: string; sourceResponseRef: string;
@@ -109,6 +131,14 @@ export const calculateStudyProposalScenarios = (proposal: ContextualStudyProposa
 });
 };
 
+/** Existing normative owner scope, shared with consumers preparing native input. */
+export const studyProposalOwnerAreas = (owner: StudyProposalAtom["owner"]): readonly string[] => {
+  return owner === "SCIENTIFIC_THINKING" ? ["QUESTION", "OBJECTIVES"]
+      : owner === "STUDY_DESIGN" ? ["DESIGN", "POPULATION", "ELIGIBILITY", "RECRUITMENT", "EXPOSURE", "TIMING", "BIASES", "PRACTICAL"]
+      : owner === "BIOSTATISTICS" ? ["ANALYSIS", "DIMENSIONING", "CONFOUNDERS"]
+      : owner === "DATA_MANAGEMENT" ? ["DESCRIPTION"] : ["MEASUREMENTS", "ENDPOINTS"];
+};
+
 export const acceptContextualStudyProposal = (raw: unknown, input: {
   contextDigest: string; sourceTurnRef: string; sourceResponseRef: string; sourceProject: ProposalProjectBinding;
   applicableEvidenceRefs: readonly string[];
@@ -122,12 +152,14 @@ export const acceptContextualStudyProposal = (raw: unknown, input: {
   if (new Set(ids).size !== ids.length) throw new Error("STUDY_PROPOSAL_DUPLICATE_REF");
   const atoms = new Map(proposal.atoms.map(a => [a.ref, a]));
   for (const atom of proposal.atoms) {
-    const allowed = atom.owner === "SCIENTIFIC_THINKING" ? ["QUESTION", "OBJECTIVES"]
-      : atom.owner === "STUDY_DESIGN" ? ["DESIGN", "POPULATION", "ELIGIBILITY", "RECRUITMENT", "EXPOSURE", "TIMING", "BIASES", "PRACTICAL"]
-      : atom.owner === "BIOSTATISTICS" ? ["ANALYSIS", "DIMENSIONING", "CONFOUNDERS"]
-      : atom.owner === "DATA_MANAGEMENT" ? ["DESCRIPTION"] : ["MEASUREMENTS", "ENDPOINTS"];
+    const allowed = studyProposalOwnerAreas(atom.owner);
     if (!allowed.includes(atom.area)) throw new Error("STUDY_PROPOSAL_OWNER_SCOPE_INVALID");
     if (atom.dependsOn.some(r => !atoms.has(r) || r === atom.ref)) throw new Error("STUDY_PROPOSAL_DEPENDENCY_INVALID");
+    const qualifications = atom.dependencyQualifications;
+    if (new Set(atom.dependsOn).size !== atom.dependsOn.length || qualifications && (
+      new Set(qualifications.map(q => q.ref)).size !== qualifications.length
+      || qualifications.length !== atom.dependsOn.length
+      || qualifications.some(q => !atom.dependsOn.includes(q.ref)))) throw new Error("STUDY_PROPOSAL_DEPENDENCY_QUALIFICATION_INVALID");
     if (atom.evidenceRefs.some(r => !input.applicableEvidenceRefs.includes(r))
       || atom.status === "EVIDENCE_SUPPORTED_PROPOSAL" && !atom.evidenceRefs.length) throw new Error("STUDY_PROPOSAL_EVIDENCE_INVALID");
   }

@@ -42,8 +42,14 @@ export const acquireDocumentKnowledge = (session: FunctionalResetSession, record
   const project = session.project;
   if (!project) throw new Error("DOCUMENT_PROJECT_REQUIRED");
   const snapshot = buildProjectContextSnapshot({ project });
+  // Background sources address the adopted question and endpoint. Acquisition
+  // details remain in the full applicability context, rather than becoming an
+  // unrelated, potentially ambiguous second bibliographic question.
+  const scientificObjectRefs = snapshot.objects.filter((item) => item.epistemicState === "KNOWN" && item.polarity !== "NEGATED"
+    && ["SCIENTIFIC_QUESTION", "OBJECTIVE", "ENDPOINT", "CONDITION", "SCIENTIFIC_MODEL"].includes(item.type)).map((item) => item.stableId);
   const request = buildKnowledgeRequestFromCanonicalSnapshot({
     projectSnapshot: snapshot,
+    ...(scientificObjectRefs.length ? { scientificObjectRefs } : {}),
     // UNDERSTAND keeps population/pathology differences explicit limitations instead of silently claiming exact applicability.
     question: "Construire le contexte scientifique documenté du protocole à partir des notions validées dans le Research Project.",
     createdAt: recordedAt,

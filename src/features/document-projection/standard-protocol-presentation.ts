@@ -1,4 +1,4 @@
-import type { DocumentProjection, DocumentSectionInstance } from "./types";
+import type { DocumentProjection, DocumentSectionInstance } from "./types.js";
 
 export const STANDARD_PROTOCOL_PRESENTATION_BOUNDARY = "DOC_001_STANDARD_PROTOCOL_PRESENTATION" as const;
 

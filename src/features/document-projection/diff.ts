@@ -1,4 +1,4 @@
-import type { DocumentProjection, ProjectionChangeKind, ProjectionDiff, ProjectionSectionDiff, SectionDiffKind } from "./types";
+import type { DocumentProjection, ProjectionChangeKind, ProjectionDiff, ProjectionSectionDiff, SectionDiffKind } from "./types.js";
 
 const difference = (left: ReadonlyArray<string>, right: ReadonlyArray<string>) => left.filter((item) => !right.includes(item)).sort();
 

@@ -1,16 +1,20 @@
-import { logicalDigest, stableStringify } from "@/features/knowledge-engine/canonical";
-import { readableKnowledgeConclusion } from "@/features/knowledge-engine/understand-projection";
-import { sourceShortReference, type ProjectSource, type ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
-import type { RuntimeAssertion } from "@/features/knowledge-engine/types";
-import { diffProjections } from "./diff";
-import { buildStandardProtocolPresentation } from "./standard-protocol-presentation";
-import { buildScientificNarrative, type DocumentNarrativeProjectContext, type DocumentScientificNarrative } from "./scientific-narrative";
-import type { DocumentProjection, DocumentSectionInstance } from "./types";
+import { logicalDigest, stableStringify } from "../knowledge-engine/canonical.js";
+import { readableKnowledgeConclusion } from "../knowledge-engine/understand-projection.js";
+import { sourceShortReference, type ProjectSource, type ProjectSourceLibrary } from "../knowledge-engine/project-source-library.js";
+import type { RuntimeAssertion } from "../knowledge-engine/types.js";
+import { currentProjectScopedEvidence, projectScopedEvidenceLimits, sameEvidenceBinding, type EvidenceProjectBinding, type ProjectScopedEvidence, type ProjectScopedEvidenceInput } from "../knowledge-engine/project-scoped-evidence.js";
+import { diffProjections } from "./diff.js";
+import { buildStandardProtocolPresentation } from "./standard-protocol-presentation.js";
+import { buildScientificNarrative, type DocumentNarrativeProjectContext, type DocumentScientificNarrative } from "./scientific-narrative.js";
+import type { DocumentProjection, DocumentSectionInstance } from "./types.js";
 
-export type DocumentEvidenceParagraph = { paragraphId: string; text: string; assertionRefs: string[]; sourceRefs: string[]; limitations: string[] };
+export type DocumentEvidenceParagraph = { paragraphId: string; text: string; assertionRefs: string[]; sourceRefs: string[]; limitations: string[];
+  projectScoped?: { evidenceId: string; applicability: ProjectScopedEvidenceInput["applicability"]; contradictionRefs: string[]; location: string } };
 export type DocumentEvidenceContent = {
   owner: "KNOWLEDGE";
   libraryDigest: string;
+  projectBinding?: EvidenceProjectBinding;
+  projectScopedEvidence?: ProjectScopedEvidence[];
   paragraphs: DocumentEvidenceParagraph[];
   sources: ProjectSource[];
   excludedSourceRefs: string[];
@@ -74,7 +78,27 @@ export const availableDocumentEvidence = (library: ProjectSourceLibrary): Docume
       limitations: unique([...(existing?.limitations ?? []), ...assertion.limitations, ...assertion.applicabilityReasons]),
     });
   }
+  for (const record of currentProjectScopedEvidence(library)) claims.set(record.evidenceId, {
+    paragraphId: `document-scoped:${record.evidenceId}`, text: record.input.claim,
+    assertionRefs: [record.evidenceId], sourceRefs: [record.input.sourceId], limitations: projectScopedEvidenceLimits(record),
+    projectScoped: { evidenceId: record.evidenceId, applicability: record.input.applicability, contradictionRefs: record.input.contradictionRefs, location: record.input.location },
+  });
   return [...claims.values()];
+};
+
+/** Selecting or shortening a claim cannot silently remove a known opposing result. */
+const withDiscordanceClosure = (library: ProjectSourceLibrary, selected: DocumentEvidenceParagraph[]) => {
+  const available = availableDocumentEvidence(library);
+  const kept = new Map(selected.map((paragraph) => [paragraph.paragraphId, paragraph]));
+  while (true) {
+    const count = kept.size;
+    for (const paragraph of kept.values()) for (const ref of paragraph.projectScoped?.contradictionRefs ?? []) {
+      const counterpart = available.find((candidate) => candidate.projectScoped?.evidenceId === ref);
+      if (!counterpart) throw new Error("DOCUMENT_DISCORDANCE_CLOSURE_MISSING");
+      kept.set(counterpart.paragraphId, counterpart);
+    }
+    if (kept.size === count) return [...kept.values()];
+  }
 };
 
 export const contradictoryDocumentEvidence = (library: ProjectSourceLibrary): DocumentEvidenceParagraph[] => {
@@ -94,16 +118,17 @@ export const contradictoryDocumentEvidence = (library: ProjectSourceLibrary): Do
 };
 
 const evidenceWithNarrative = (library: ProjectSourceLibrary, content: DocumentEvidenceContent, projectContext: DocumentNarrativeProjectContext) => {
-  const paragraphs = buildScientificNarrativeSelection(library, content.paragraphs, content.depth, content.emphasisSourceRef);
-  const contradictoryEvidence = contradictoryDocumentEvidence(library);
+  const paragraphs = withDiscordanceClosure(library, buildScientificNarrativeSelection(library, content.paragraphs, content.depth, content.emphasisSourceRef));
+  const contradictoryEvidence = [...contradictoryDocumentEvidence(library), ...paragraphs.filter((paragraph) => paragraph.projectScoped?.contradictionRefs.length)];
   const ids = new Set([...paragraphs, ...contradictoryEvidence].flatMap((paragraph) => paragraph.sourceRefs));
-  const withSources = { ...content, libraryDigest: library.digest, paragraphs, sources: copy(library.sources.filter((source) => ids.has(source.source.sourceId))) };
+  const withSources = { ...content, libraryDigest: library.digest, ...scopedDocumentMaterial(library, paragraphs), paragraphs, sources: copy(library.sources.filter((source) => ids.has(source.source.sourceId))) };
   return { ...withSources, narrative: buildScientificNarrative({ library, paragraphs: withSources.paragraphs, contradictoryEvidence,
     projectContext, depth: withSources.depth, emphasisSourceRef: withSources.emphasisSourceRef }) };
 };
 
 export const initialDocumentEvidence = (library: ProjectSourceLibrary, projectContext?: DocumentNarrativeProjectContext): DocumentEvidenceContent => {
-  const paragraphs = projectContext ? buildScientificNarrativeSelection(library, availableDocumentEvidence(library), "SHORT", null) : availableDocumentEvidence(library).slice(0, 3);
+  library = libraryForDocumentContext(library, projectContext);
+  const paragraphs = withDiscordanceClosure(library, projectContext ? buildScientificNarrativeSelection(library, availableDocumentEvidence(library), "SHORT", null) : availableDocumentEvidence(library).slice(0, 3));
   const content: DocumentEvidenceContent = { owner: "KNOWLEDGE", libraryDigest: library.digest, paragraphs, sources: [], excludedSourceRefs: [], emphasisSourceRef: null,
     depth: "SHORT", caution: false, notices: paragraphs.length ? [] : ["Aucune assertion rédigée et suffisamment soutenue n’est disponible pour ce contexte dans le corpus local."],
     scope: "SCIENTIFIC_BACKGROUND_NOT_PROJECT_DECISION" };
@@ -111,6 +136,7 @@ export const initialDocumentEvidence = (library: ProjectSourceLibrary, projectCo
 };
 /** Rebind retained editorial choices to current owner evidence; regeneration never resets exclusions. */
 export const regenerateDocumentEvidence = (library: ProjectSourceLibrary, previous?: DocumentEvidenceContent, projectContext?: DocumentNarrativeProjectContext): DocumentEvidenceContent => {
+  library = libraryForDocumentContext(library, projectContext ?? previous?.narrative?.projectContext);
   if (!previous) return initialDocumentEvidence(library, projectContext);
   const current = availableDocumentEvidence(library);
   const paragraphs = previous.paragraphs.flatMap((paragraph) => {
@@ -128,16 +154,23 @@ export const regenerateDocumentEvidence = (library: ProjectSourceLibrary, previo
   return content;
 };
 const evidenceWithSources = (library: ProjectSourceLibrary, content: DocumentEvidenceContent): DocumentEvidenceContent => {
-  const ids = new Set([...content.paragraphs, ...(content.narrative?.contradictoryEvidence ?? [])].flatMap((paragraph) => paragraph.sourceRefs));
-  return { ...content, libraryDigest: library.digest, sources: copy(library.sources.filter((source) => ids.has(source.source.sourceId))) };
+  const paragraphs = withDiscordanceClosure(library, content.paragraphs);
+  const ids = new Set([...paragraphs, ...(content.narrative?.contradictoryEvidence ?? [])].flatMap((paragraph) => paragraph.sourceRefs));
+  return { ...content, paragraphs, libraryDigest: library.digest, ...scopedDocumentMaterial(library, paragraphs), sources: copy(library.sources.filter((source) => ids.has(source.source.sourceId))) };
 };
+
+const scopedDocumentMaterial = (library: ProjectSourceLibrary, paragraphs: DocumentEvidenceParagraph[]) => library.projectScopedEvidence
+  ? { projectBinding: copy(library.projectBinding), projectScopedEvidence: copy(currentProjectScopedEvidence(library).filter((record) => paragraphs.some((paragraph) => paragraph.projectScoped?.evidenceId === record.evidenceId))) } : {};
+
+const libraryForDocumentContext = (library: ProjectSourceLibrary, context?: DocumentNarrativeProjectContext): ProjectSourceLibrary => context && library.projectScopedEvidence
+  ? { ...library, projectBinding: { projectRef: library.projectId, projectVersion: context.sourceProjectVersion, projectDigest: context.sourceProjectDigest } } : library;
 
 const buildScientificNarrativeSelection = (library: ProjectSourceLibrary, paragraphs: DocumentEvidenceParagraph[], depth: "SHORT" | "EXPANDED", emphasisSourceRef: string | null) => {
   const ordered = buildScientificNarrative({ library, paragraphs, contradictoryEvidence: [], projectContext: {
     sourceProjectVersion: "SELECTION_ONLY", sourceProjectDigest: "SELECTION_ONLY", question: "Sélection documentaire", population: [], objectives: [], design: null, measurements: [],
   }, depth, emphasisSourceRef });
   const selected = new Set(ordered.blocks.flatMap((block) => block.assertionRefs));
-  return paragraphs.filter((paragraph) => paragraph.assertionRefs.some((ref) => selected.has(ref)));
+  return paragraphs.filter((paragraph) => paragraph.projectScoped || paragraph.assertionRefs.some((ref) => selected.has(ref)));
 };
 
 const section = (id: string, title: string, order: number, items: string[], refs: string[], templateNode: string): DocumentSectionInstance => {
@@ -153,6 +186,27 @@ const section = (id: string, title: string, order: number, items: string[], refs
   return { ...material, contentDigest: logicalDigest(material) };
 };
 const citationFor = (content: DocumentEvidenceContent, sourceId: string) => sourceShortReference(content.sources.find((source) => source.source.sourceId === sourceId)!);
+/** Standalone DOC resolution uses admitted metadata, never a guessed source. */
+export const documentSourceLocator = (entry: ProjectSource): string | null => {
+  if (entry.source.doi && /^10\.\d{4,9}\/\S+$/u.test(entry.source.doi)) return `https://doi.org/${encodeURI(entry.source.doi)}`;
+  if (entry.source.pmid && /^\d+$/u.test(entry.source.pmid)) return `https://pubmed.ncbi.nlm.nih.gov/${entry.source.pmid}/`;
+  if (entry.url) {
+    try { const url = new URL(entry.url); if (["https:", "http:"].includes(url.protocol)) return url.href; } catch { /* Not a resolvable public locator. */ }
+  }
+  return null;
+};
+export const documentBibliographyNeedsVerification = (sourceRefs: readonly string[], content?: DocumentEvidenceContent): boolean => {
+  if (!sourceRefs.length || !content) return true;
+  try {
+    validateDocumentEvidence(content);
+    return sourceRefs.some(ref => {
+      const source = content.sources.find(entry => entry.source.sourceId === ref);
+      return !source || !documentSourceLocator(source);
+    });
+  } catch { return true; }
+};
+export const resolvedBibliographyNotice = (value: string): boolean =>
+  /^(?:\[Revue bibliographique et références à compléter\s*\/\s*vérifier\]|Bibliographie\s*:\s*(?:références? (?:à compléter\s*\/\s*)?à vérifier|revue complémentaire et vérification avant finalisation))[.!]?$/iu.test(value.trim());
 const documentarySentence = (text: string) => {
   const translated = text
     .replace("cardiac motion peut limiter", "Les mouvements cardiaques peuvent limiter")
@@ -160,37 +214,55 @@ const documentarySentence = (text: string) => {
   return translated.charAt(0).toLocaleUpperCase("fr-FR") + translated.slice(1);
 };
 export const documentEvidenceSections = (content: DocumentEvidenceContent): DocumentSectionInstance[] => {
+  validateDocumentEvidence(content);
   const refs = unique([...(content.narrative?.blocks ?? []), ...content.paragraphs].flatMap((paragraph) => [...paragraph.assertionRefs, ...paragraph.sourceRefs]));
-  const paragraphs = content.paragraphs.map((paragraph) => `${content.caution ? "Dans les limites des références citées : " : ""}${documentarySentence(paragraph.text).replace(/[.\s]+$/u, "")}. (${paragraph.sourceRefs.map((id) => citationFor(content, id)).join(" ; ")})`);
+  const paragraphs = content.paragraphs.map((paragraph) => paragraph.projectScoped
+    ? `Résultat rapporté par la source : « ${paragraph.text} » (${paragraph.sourceRefs.map((id) => citationFor(content, id)).join(" ; ")}, ${paragraph.projectScoped.location}). ${paragraph.limitations.join(" ; ")}${paragraph.projectScoped.contradictionRefs.length ? " Résultats discordants conservés ci-dessous ; aucune conclusion consensuelle n’est déduite." : ""}`
+    : `${content.caution ? "Dans les limites des références citées : " : ""}${documentarySentence(paragraph.text).replace(/[.\s]+$/u, "")}. (${paragraph.sourceRefs.map((id) => citationFor(content, id)).join(" ; ")})`);
   return [
     section("scientific-background", "Contexte et justification scientifique", 2.5,
       content.narrative?.blocks.length ? content.narrative.blocks.map((block) => `${content.caution && block.basis !== "PROJECT" ? "Dans les limites des références citées : " : ""}${block.text}`)
         : paragraphs.length ? ["Les éléments ci-dessous décrivent le contexte scientifique et méthodologique documenté. Leur applicabilité au protocole proposé doit être distinguée des résultats obtenus dans les populations étudiées par ces références.", ...paragraphs] : ["Le contexte scientifique reste à documenter à partir de preuves applicables."],
       refs, "TMP-NODE:SCIENTIFIC_BACKGROUND"),
     section("scientific-references", "Références bibliographiques", 18,
-      content.sources.map((entry) => `${sourceShortReference(entry)}. ${entry.source.title}.${entry.source.doi ? ` DOI : ${entry.source.doi}.` : ""}${entry.source.pmid ? ` PMID : ${entry.source.pmid}.` : ""}${entry.url ? ` ${entry.url}` : ""}`),
+      content.sources.map((entry) => `${sourceShortReference(entry)}. ${entry.source.title.replace(/[.\s]+$/u, "")}.${entry.source.doi ? ` DOI : ${entry.source.doi}.` : ""}${entry.source.pmid ? ` PMID : ${entry.source.pmid}.` : ""}${entry.url ? ` ${entry.url}` : ""}`),
       content.sources.map((entry) => entry.source.sourceId), "TMP-NODE:SCIENTIFIC_REFERENCES"),
   ];
 };
 
-export const validateDocumentEvidence = (content: DocumentEvidenceContent) => {
+export const validateDocumentEvidence = (content: DocumentEvidenceContent, expectedBinding?: EvidenceProjectBinding) => {
+  if (content.projectBinding && expectedBinding && !sameEvidenceBinding(content.projectBinding, expectedBinding)) throw new Error("DOCUMENT_EVIDENCE_PROJECT_BINDING_STALE");
+  if (content.projectBinding && content.narrative && (content.projectBinding.projectVersion !== content.narrative.projectContext.sourceProjectVersion
+    || content.projectBinding.projectDigest !== content.narrative.projectContext.sourceProjectDigest)) throw new Error("DOCUMENT_EVIDENCE_PROJECT_BINDING_STALE");
+  const scopedRecords = content.projectScopedEvidence ?? [];
+  const scopedLibrary: ProjectSourceLibrary = { contract: "KNOWLEDGE_PROJECT_SOURCE_LIBRARY", version: "1.0.0", projectId: content.projectBinding?.projectRef ?? "",
+    projectBinding: content.projectBinding, projectScopedEvidence: scopedRecords, sources: content.sources, unresolvedMentions: [], digest: content.libraryDigest };
+  const currentScoped = availableDocumentEvidence(scopedLibrary).filter((paragraph) => paragraph.projectScoped);
+  const projectedScopedRefs = new Set([...content.paragraphs, ...(content.narrative?.contradictoryEvidence ?? [])].flatMap((paragraph) => paragraph.projectScoped ? [paragraph.projectScoped.evidenceId] : []));
+  if (new Set(scopedRecords.map((record) => record.evidenceId)).size !== scopedRecords.length) throw new Error("DOCUMENT_DECORATIVE_SCOPED_EVIDENCE");
   const refs = new Set<string>();
   for (const paragraph of [...content.paragraphs, ...(content.narrative?.contradictoryEvidence ?? [])]) {
     if (!paragraph.assertionRefs.length || !paragraph.sourceRefs.length) throw new Error("DOCUMENT_ORPHAN_ASSERTION");
+    if (paragraph.projectScoped) {
+      if (!currentScoped.some((candidate) => stableStringify(candidate) === stableStringify(paragraph))) throw new Error("DOCUMENT_SCOPED_EVIDENCE_INVALID_OR_STALE");
+      const all = [...content.paragraphs, ...(content.narrative?.contradictoryEvidence ?? [])];
+      if (paragraph.projectScoped.contradictionRefs.some((ref) => !all.some((candidate) => candidate.projectScoped?.evidenceId === ref))) throw new Error("DOCUMENT_DISCORDANCE_CLOSURE_MISSING");
+    }
     for (const sourceId of paragraph.sourceRefs) {
       const source = content.sources.find((candidate) => candidate.source.sourceId === sourceId);
       if (!source || content.excludedSourceRefs.includes(sourceId)) throw new Error("DOCUMENT_CITATION_SOURCE_MISSING");
       const contradictory = paragraph.paragraphId.startsWith("document-conflict:");
-      if (!paragraph.assertionRefs.every((ref) => source.assertions.some((assertion) => assertion.revision === ref && (contradictory ? admissible(source, assertion) && contested(source, assertion) : supported(source, assertion)) && assertionText(assertion) === paragraph.text))) throw new Error("DOCUMENT_CITATION_ASSERTION_MISMATCH");
+      if (!paragraph.projectScoped && !paragraph.assertionRefs.every((ref) => source.assertions.some((assertion) => assertion.revision === ref && (contradictory ? admissible(source, assertion) && contested(source, assertion) : supported(source, assertion)) && assertionText(assertion) === paragraph.text))) throw new Error("DOCUMENT_CITATION_ASSERTION_MISMATCH");
       refs.add(sourceId);
     }
   }
   if (content.sources.some((source) => !refs.has(source.source.sourceId))) throw new Error("DOCUMENT_DECORATIVE_REFERENCE");
+  if (scopedRecords.some((record) => !projectedScopedRefs.has(record.evidenceId))) throw new Error("DOCUMENT_DECORATIVE_SCOPED_EVIDENCE");
   if (content.narrative) {
-    const library: ProjectSourceLibrary = { contract: "KNOWLEDGE_PROJECT_SOURCE_LIBRARY", version: "1.0.0", projectId: content.narrative.projectContext.sourceProjectDigest,
-      sources: content.sources, unresolvedMentions: [], digest: content.libraryDigest };
+    const library: ProjectSourceLibrary = { ...scopedLibrary, projectId: content.projectBinding?.projectRef ?? content.narrative.projectContext.sourceProjectDigest };
     const expected = buildScientificNarrative({ library, paragraphs: content.paragraphs, contradictoryEvidence: content.narrative.contradictoryEvidence,
-      projectContext: content.narrative.projectContext, depth: content.depth, emphasisSourceRef: content.emphasisSourceRef });
+      projectContext: content.narrative.projectContext, depth: content.depth, emphasisSourceRef: content.emphasisSourceRef,
+      ...(content.narrative.editorialVersion ? {} : { editorialVersion: "LEGACY_V1" as const }) });
     if (stableStringify(expected) !== stableStringify(content.narrative)) throw new Error("DOCUMENT_NARRATIVE_DERIVATION_MISMATCH");
   }
   return true;
@@ -202,6 +274,9 @@ export const reviseScientificDocument = (input: {
 }): { projection: DocumentProjection; message: string } => {
   const { projection, library } = input;
   if (projection.source.projectId !== library.projectId || !projection.evidenceContent) throw new Error("DOCUMENT_EVIDENCE_CONTEXT_REQUIRED");
+  validateDocumentEvidence(projection.evidenceContent, { projectRef: projection.source.projectId, projectVersion: projection.source.projectVersion, projectDigest: projection.source.projectDigest });
+  if (library.projectScopedEvidence && (!library.projectBinding || library.projectBinding.projectVersion !== projection.source.projectVersion
+    || library.projectBinding.projectDigest !== projection.source.projectDigest)) throw new Error("DOCUMENT_EVIDENCE_PROJECT_BINDING_STALE");
   let content = copy(projection.evidenceContent);
   const all = availableDocumentEvidence(library);
   const sourceId = input.sourceId;

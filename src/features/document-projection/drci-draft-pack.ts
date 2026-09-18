@@ -1,11 +1,40 @@
+import { documentEvidenceSections, documentSourceLocator, documentBibliographyNeedsVerification, resolvedBibliographyNotice, validateDocumentEvidence } from "./scientific-document-revision.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { sourceShortReference } from "../knowledge-engine/project-source-library.js";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import { presentResearchProjectAssertion } from "../research-project-construction/contribution-owner-boundary.js";
 import type { StudyDeliverablePortfolio, StudyDeliverableArtifact } from "./study-deliverable-portfolio.js";
-import { DRCI_DOCUMENT_KINDS, isDrciDraftPackCurrent, polishDrciEditorialText, type DrciDraftPack } from "./drci-draft-contract.js";
+import { DRCI_DOCUMENT_KINDS, isDrciDraftPackCurrent, polishDrciEditorialText, pragmaticDimensioningOpenItems, type DrciDraftPack } from "./drci-draft-contract.js";
 export * from "./drci-draft-contract.js";
 const escapeHtml = (value: string) => value.replace(/[&<>"']/gu, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]!);
+// Presentation identity only: preserve the authored domain and scientific rows.
+const crfModuleLabel = (value: string) => value.trim().replace(/\s*\/\s*/gu, " / ");
+export const sequentialDocumentSectionTitles = (titles: readonly string[]): string[] => titles.some(title => /^\d+\.\s/u.test(title))
+  ? titles.map((title, index) => `${index + 1}. ${title.replace(/^\d+\.\s*/u, "")}`) : [...titles];
+// Exact token containment, with an explicit conjunction and distinct projected
+// details. No similarity score, approximate matching or scientific inference.
+export const openParentCoveredByDetails = (parent: string, details: readonly string[]): boolean => {
+  const words = (value: string) => new Set(value.normalize("NFD").replace(/[\u0300-\u036f]/gu, "").toLowerCase()
+    .replace(/^(?:technique|analyse|institution)\s*:/u, "")
+    .replace(/\b(?:l|le|la|les|de|du|des|d|et|a|au|aux|en|reste|restent|definir|preciser|completer)\b/gu, " ")
+    .split(/[^a-z0-9]+/u).filter(Boolean));
+  const parts = parent.split(/\s+et\s+/iu);
+  if (parts.length < 2) return false;
+  const candidates = parts.map(part => {
+    const tokens = words(part);
+    return tokens.size ? details.flatMap((detail, index) => {
+      const available = words(detail); return [...tokens].every(token => available.has(token)) ? [index] : [];
+    }) : [];
+  });
+  const distinct = (index: number, used: Set<number>): boolean => index === candidates.length
+    || candidates[index].some(detail => !used.has(detail) && distinct(index + 1, new Set([...used, detail])));
+  return candidates.every(matches => matches.length > 0) && distinct(0, new Set());
+};
 export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(doc => {
+  const citedSources = new Set(doc.sections.flatMap(section => section.paragraphs.flatMap(paragraph =>
+    [...paragraph.matchAll(/\[\[CITE:([^\]]+)\]\]/gu)].map(match => match[1]))));
+  if (citedSources.size) validateDocumentEvidence(pack.evidenceContent!);
+  const bibliographyOpen = documentBibliographyNeedsVerification([...citedSources], pack.evidenceContent);
   const facts = new Map(pack.sourceFacts.map(item => [item.ref, item]));
   const statedFact = (ref: string) => { const fact = facts.get(ref); return fact ? presentResearchProjectAssertion(fact.content, fact.polarity) : "[Source indisponible]"; };
   const substituted = (value: string) => {
@@ -13,14 +42,44 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     // A standalone fact projection still supplies its original adopted text.
     const refs = [...value.matchAll(/\[\[FACT:([^\]]+)\]\]/gu)].map(match => match[1]);
     const prose = value.replace(/\[\[FACT:[^\]]+\]\]/gu, "").replace(/[ \t]{2,}/gu, " ").replace(/\s+([.,;])/gu, "$1").trim();
-    return prose.replace(/[\s.,;]/gu, "") ? prose : refs.map(statedFact).join(" ");
+    const text = prose.replace(/[\s.,;]/gu, "") ? prose : refs.map(statedFact).join(" ");
+    return text;
   };
+  const renderProse = (value: string, format: "HTML" | "MARKDOWN") => value.split(/(\[\[CITE:[^\]]+\]\])/gu).map(part => {
+    const citation = part.match(/^\[\[CITE:([^\]]+)\]\]$/u);
+    if (!citation) return format === "HTML" ? escapeHtml(part) : part;
+    const source = pack.evidenceContent?.sources.find(item => item.source.sourceId === citation[1]);
+    if (!source) throw new Error("DRCI_CITATION_REFERENCE_INVALID");
+    const locator = documentSourceLocator(source);
+    if (!locator) throw new Error("DRCI_CITATION_LOCATOR_UNAVAILABLE");
+    const label = sourceShortReference(source);
+    return format === "HTML" ? `(<a href="${escapeHtml(locator)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(source.source.title)}">${escapeHtml(label)}</a>)`
+      : `([${label.replace(/[[\]\\]/gu, "\\$&")}](${locator.replace(/[()]/gu, ch => ch === "(" ? "%28" : "%29")}))`;
+  }).join("");
   const repeated = new Set<string>();
   const sections = doc.sections.map(section => ({ ...section, title: polishDrciEditorialText(section.title),
     paragraphs: section.paragraphs.map(value => polishDrciEditorialText(substituted(value))).filter(value => {
+      if (!bibliographyOpen && resolvedBibliographyNotice(value)) return false;
       if (repeated.has(value)) return false;
       repeated.add(value); return true;
     }) }));
+  if (doc.kind === "PROTOCOL_FULL" && pack.evidenceContent?.sources.length) {
+    validateDocumentEvidence(pack.evidenceContent);
+    const native = documentEvidenceSections(pack.evidenceContent);
+    const background = native.find(section => section.sectionId === "scientific-background")!;
+    const references = native.find(section => section.sectionId === "scientific-references")!;
+    const paragraphs = (section: typeof background) => section.blocks.flatMap(block => block.items);
+    // Keep Project provenance and scientific citations separate. Only the existing
+    // Knowledge-qualified projection supplies this documentary enrichment.
+    const contextIndex = sections.findIndex(section => /contexte|rationnel/iu.test(section.title));
+    if (!citedSources.size) sections.splice(contextIndex < 0 ? 0 : contextIndex + 1, 0, { title: "Fondements scientifiques documentés",
+      paragraphs: paragraphs(background), sourceRefs: [] });
+    const referenceIndex = sections.findIndex(section => /références|bibliograph/iu.test(section.title));
+    const usedReferences = citedSources.size ? references.blocks.flatMap(block => block.items)
+      .filter((_, index) => citedSources.has(pack.evidenceContent!.sources[index].source.sourceId)) : paragraphs(references);
+    const bibliography = { title: "Références scientifiques", paragraphs: usedReferences, sourceRefs: [] };
+    if (referenceIndex >= 0) sections.splice(referenceIndex, 1, bibliography); else sections.push(bibliography);
+  }
   const current = pack.sourceFacts.filter(fact => fact.epistemicState === "KNOWN"
     && (fact.polarity === undefined || fact.polarity === "AFFIRMED"));
   const criteria = current.filter(fact => fact.type === "ELIGIBILITY_CRITERION");
@@ -64,7 +123,10 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
       "Potentiellement éligible : tous les critères applicables sont satisfaits et aucune exclusion n’est présente. Une incertitude reste à confirmer par l’investigateur. Ce résultat ne remplace ni la vérification médicale ni le consentement.",
     ] });
   }
-  const unknownFacts = pack.sourceFacts.filter(item => item.epistemicState === "UNKNOWN");
+  // The synopsis summarizes essential open points in its prose. The complete
+  // checklist remains in the protocol and operational documents, not duplicated
+  // into a document intended for a brief scientific reading.
+  const unknownFacts = doc.kind === "PROTOCOL_SYNOPSIS" && pack.editorialVersion === "CONCISE_V2" ? [] : pack.sourceFacts.filter(item => item.epistemicState === "UNKNOWN");
   const authoredCompletion = sections.find(section => /à (?:définir|compléter) avant gel/iu.test(section.title)
     && unknownFacts.every(fact => section.sourceRefs.includes(fact.ref)));
   // Deduplication compares open topics only; it cannot modify their source state.
@@ -77,7 +139,11 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     const shared = [...b].filter(word => a.has(word)).length;
     return listed === value || shared >= 2 && shared === b.size;
   };
-  const notes = authoredCompletion?.paragraphs ?? doc.missingElements;
+  // Explicit category labels can share one provider paragraph. Split only at
+  // those labels, retaining every subject and all unlabelled prose.
+  const notes = (authoredCompletion?.paragraphs ?? doc.missingElements).filter(value => bibliographyOpen || !resolvedBibliographyNotice(value))
+    .filter(value => !openParentCoveredByDetails(value, unknownFacts.map(fact => statedFact(fact.ref))))
+    .flatMap(note => polishDrciEditorialText(note).split(/(?<=[.;])\s+(?=(?:Analyse|Institution|Technique)\s*:)/u));
   const missing: string[] = [];
   for (const note of notes) {
     const clean = polishDrciEditorialText(note)
@@ -95,8 +161,10 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     for (let i = missing.length - 1; i >= 0; i--) if (covers(fact.content, missing[i])) missing.splice(i, 1);
     missing.push(statedFact(fact.ref));
   }
-  const contentSections = sections.filter(section => section !== authoredCompletion);
-  const completionTitle = doc.kind === "RECRUITMENT" ? "C. Checklist interne avant mise en service"
+  if (doc.kind === "PROTOCOL_FULL" && !missing.some(value => /justification statistique.*précision/iu.test(value))) missing.push(...pragmaticDimensioningOpenItems(pack.sourceFacts));
+  const contentSections = sections.filter(section => section !== authoredCompletion)
+    .map(section => doc.kind === "CRF" ? { ...section, title: crfModuleLabel(section.title) } : section);
+  let completionTitle = doc.kind === "RECRUITMENT" ? "C. Checklist interne avant mise en service"
     : authoredCompletion?.title ?? "À définir avant gel du protocole";
   const checklist = new Map<string, string[]>();
   for (const item of missing) {
@@ -114,7 +182,7 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     IMAGING_DERIVED: "Mesure quantitative d’imagerie", IMAGING_READER_RECORDED: "Qualification du lecteur IRM", SYSTEM_DERIVED: "Calcul dérivé", UNSPECIFIED: "Origine à préciser" };
   const dictionary = doc.kind === "CRF" ? pack.crfRows.map(row => ({
     title: `${row.variableId ? `${row.variableId} — ` : ""}${row.label ?? facts.get(row.variableRef)?.content ?? "[Variable manquante]"}`,
-    module: row.domain, origin: originLabels[row.dataOrigin], required: row.required,
+    module: crfModuleLabel(row.domain), origin: originLabels[row.dataOrigin], required: row.required,
     fields: Object.entries({ "Module": row.domain, "Visite / moment": row.visit ?? "À préciser", "Définition": row.definition,
       "Type de données": ({ PROPOSED_FOR_REVIEW: "À définir", ADOPTED_PROJECT: "À préciser", UNSPECIFIED: "À définir" } as Record<string, string>)[row.entryType] ?? row.entryType,
       ...(row.unit ? { "Unité": row.unit } : {}), ...(row.categories ? { "Modalités": row.categories } : {}),
@@ -196,24 +264,29 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
   const fieldHtml = (item: { title: string; fields: [string, string][] }, control: boolean) => `<article class="${control ? "process-field" : "scientific-field"}"><h3>${escapeHtml(item.title)}</h3>${control ? "<p class=field-kind>Contrôle du recueil</p>" : ""}<dl>${item.fields.map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`).join("")}</dl></article>`;
   const fieldMarkdown = (item: { title: string; fields: [string, string][] }) => [`### ${item.title}`, ...item.fields.map(([label, value]) => `- **${label}** : ${value}`)];
   const processModules = new Set(processFields.map(field => field.module));
-  const introduction = doc.kind === "CRF" ? contentSections.filter(section => !processModules.has(section.title)
+  const dictionaryModules = new Set(dictionary.map(field => field.module));
+  const introduction = doc.kind === "CRF" ? contentSections.filter(section => !processModules.has(section.title) && !dictionaryModules.has(section.title)
     && section.title !== "Sécurité IRM / éligibilité au contraste" && section.title !== "Éligibilité à l’analyse") : contentSections;
-  const order = ["Présélection / éligibilité", "Consentement", "Démographie", "Anthropométrie", "Antécédents cardiovasculaires", "PA / HTA", "Diabète", "Tabac", "Sécurité IRM / éligibilité au contraste", "Laboratoire", "Acquisition IRM", "Lecture IRM", "Dérivation ECV", "Qualité / évaluabilité", "Éligibilité à l’analyse", "Clôture du recueil"];
+  const order = ["Présélection / éligibilité", "Consentement", "Démographie", "Anthropométrie", "Antécédents cardiovasculaires", "PA / HTA", "Diabète", "Tabac", "Sécurité IRM / éligibilité au contraste", "Laboratoire", "Acquisition IRM", "Acquisition", "Lecture IRM", "Dérivation ECV", "Qualité / évaluabilité", "Éligibilité à l’analyse", "Clôture du recueil"];
   const modules = doc.kind === "CRF" ? [...new Set([...dictionary.map(item => item.module), ...processModules,
     ...contentSections.filter(section => !introduction.includes(section)).map(section => section.title)])]
     .sort((a, b) => (order.indexOf(a) < 0 ? order.length : order.indexOf(a)) - (order.indexOf(b) < 0 ? order.length : order.indexOf(b))) : [];
   const readability = "Les rubriques sans objet sont omises : unité, modalités prédéfinies, condition, entrées/calcul de dérivation et impact supplémentaire. Une saisie directe ne comporte pas de formule. Toute spécification inconnue reste indiquée à préciser. Les champs de contrôle ci-dessous sont distincts des variables scientifiques canoniques ; aucune réponse n’est préremplie et un contrôle en attente reste vide.";
   const dictionaryHtml = modules.map(module => `<section><h2>${escapeHtml(module)}</h2>${contentSections.filter(section => section.title === module).flatMap(section => section.paragraphs).map(value => `<p>${escapeHtml(value)}</p>`).join("")}${dictionary.filter(item => item.module === module).map(item => fieldHtml(item, false)).join("")}${processFields.filter(item => item.module === module).map(item => fieldHtml(item, true)).join("")}</section>`).join("");
   const title = polishDrciEditorialText(doc.title);
+  if (doc.kind === "PROTOCOL_FULL") {
+    const titles = sequentialDocumentSectionTitles([...introduction.map(section => section.title), completionTitle]);
+    introduction.forEach((section, index) => { section.title = titles[index]; });
+    completionTitle = titles.at(-1)!;
+  }
   const markdown = [`# ${title}`, "Version de travail pour revue humaine — validation scientifique et institutionnelle requise.",
-    ...introduction.flatMap(section => [`## ${section.title}`, ...section.paragraphs]),
+    ...introduction.flatMap(section => [`## ${section.title}`, ...section.paragraphs.map(value => renderProse(value, "MARKDOWN"))]),
     ...(dictionary.length || processFields.length ? ["## Dictionnaire de collecte", readability,
       ...modules.flatMap(module => [`## ${module}`, ...contentSections.filter(section => section.title === module).flatMap(section => section.paragraphs),
         ...dictionary.filter(item => item.module === module).flatMap(fieldMarkdown), ...processFields.filter(item => item.module === module).flatMap(fieldMarkdown)])] : []),
-    `## ${completionTitle}`, checklistNotice,
-    ...(missing.length ? [...checklist].flatMap(([group, items]) => [`### ${group}`, ...items.map(value => `- ☐ ${value}`)])
+    ...(missing.length ? [`## ${completionTitle}`, checklistNotice, ...[...checklist].flatMap(([group, items]) => [`### ${group}`, ...items.map(value => `- ☐ ${value}`)])]
       : ["Revue scientifique, réglementaire et institutionnelle requise."])].join("\n\n");
-  const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(title)}</title><style>body{font:15px/1.6 Georgia,serif;color:#192c3a;max-width:960px;margin:32px auto;padding:0 24px}h1,h2,h3,dt{font-family:Arial,sans-serif}h1{line-height:1.2}h2{margin-top:1.7em}.dictionary-guide,.field-kind{font:12px/1.5 Arial,sans-serif;color:#455b6c}.internal-information{border-top:2px solid #c8d1d8;padding-top:12px}.open-checklist ul{list-style:none;padding-left:0}.open-checklist li{margin-bottom:8px}p{white-space:pre-line}table{border-collapse:collapse;font:12px/1.45 Arial,sans-serif;width:100%}td,th{border:1px solid #ccc;padding:8px;text-align:left;vertical-align:top}article{border-top:1px solid #c8d1d8;padding:12px 0;break-inside:avoid}dl{display:grid;grid-template-columns:165px 1fr;gap:6px 16px;font:13px/1.5 Arial,sans-serif}dt{font-weight:bold}dd{margin:0;overflow-wrap:anywhere}@media(max-width:600px){dl{grid-template-columns:1fr;gap:4px}dd{margin-bottom:8px}table{font-size:10px}}@media print{.internal-information{break-before:page}.open-checklist.internal-information{break-before:auto}body{margin:0;font-size:11pt;padding:0}h2,h3{break-after:avoid}article{break-inside:avoid}table{font-size:9pt}}</style></head><body><h1>${escapeHtml(title)}</h1><p>Version de travail pour revue humaine — validation scientifique et institutionnelle requise.</p>${introduction.map(section => `<section class="${doc.kind === "RECRUITMENT" ? /^A\. Information destinée aux candidats$/u.test(section.title) ? "candidate-information" : "internal-information" : "document-section"}"><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map(value => `<p>${escapeHtml(value)}</p>`).join("")}</section>`).join("")}${rows.length || processFields.length ? `<h2>Dictionnaire de collecte</h2><p class="dictionary-guide">${escapeHtml(readability)}</p><h3>Inventaire scientifique — ${rows.length} variables canoniques</h3><table><thead><tr>${headers.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(value => `<td>${escapeHtml(value)}</td>`).join("")}</tr>`).join("")}</tbody></table>${dictionaryHtml}` : ""}<section class="open-checklist${doc.kind === "RECRUITMENT" ? " internal-information" : ""}"><h2>${escapeHtml(completionTitle)}</h2><p>${escapeHtml(checklistNotice)}</p>${checklistHtml}</section></body></html>`;
+  const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(title)}</title><style>body{font:15px/1.6 Georgia,serif;color:#192c3a;max-width:960px;margin:32px auto;padding:0 24px}h1,h2,h3,dt{font-family:Arial,sans-serif}h1{line-height:1.2}h2{margin-top:1.7em}.dictionary-guide,.field-kind{font:12px/1.5 Arial,sans-serif;color:#455b6c}.internal-information{border-top:2px solid #c8d1d8;padding-top:12px}.open-checklist ul{list-style:none;padding-left:0}.open-checklist li{margin-bottom:8px}p{white-space:pre-line}table{border-collapse:collapse;font:12px/1.45 Arial,sans-serif;width:100%}td,th{border:1px solid #ccc;padding:8px;text-align:left;vertical-align:top}article{border-top:1px solid #c8d1d8;padding:12px 0;break-inside:avoid}dl{display:grid;grid-template-columns:165px 1fr;gap:6px 16px;font:13px/1.5 Arial,sans-serif}dt{font-weight:bold}dd{margin:0;overflow-wrap:anywhere}@media(max-width:600px){dl{grid-template-columns:1fr;gap:4px}dd{margin-bottom:8px}table{font-size:10px}}@media print{.internal-information{break-before:page}.open-checklist.internal-information{break-before:auto}body{margin:0;font-size:11pt;padding:0}h2,h3{break-after:avoid}article{break-inside:avoid}table{font-size:9pt}}</style></head><body><h1>${escapeHtml(title)}</h1><p>Version de travail pour revue humaine — validation scientifique et institutionnelle requise.</p>${introduction.map(section => `<section class="${doc.kind === "RECRUITMENT" ? /^A\. Information destinée aux candidats$/u.test(section.title) ? "candidate-information" : "internal-information" : "document-section"}"><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map(value => `<p>${renderProse(value, "HTML")}</p>`).join("")}</section>`).join("")}${rows.length || processFields.length ? `<h2>Dictionnaire de collecte</h2><p class="dictionary-guide">${escapeHtml(readability)}</p><h3>Inventaire scientifique — ${rows.length} variables canoniques</h3><table><thead><tr>${headers.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(value => `<td>${escapeHtml(value)}</td>`).join("")}</tr>`).join("")}</tbody></table>${dictionaryHtml}` : ""}${missing.length ? `<section class="open-checklist${doc.kind === "RECRUITMENT" ? " internal-information" : ""}"><h2>${escapeHtml(completionTitle)}</h2><p>${escapeHtml(checklistNotice)}</p>${checklistHtml}</section>` : "<p>Revue scientifique, réglementaire et institutionnelle requise.</p>"}</body></html>`;
   return { kind: doc.kind, title, markdown, html };
 });
 

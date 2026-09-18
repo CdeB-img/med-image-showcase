@@ -1,7 +1,7 @@
-import { comparableScientificText, uniqueSorted } from "./canonical";
-import { modalitiesAreCompatible } from "./modality";
-import { getKnowledgeProvider } from "./provider-registry";
-import type { ContextDimensionName, CoverageMapStatus, KnowledgeResult, RuntimeKnowledgeConclusion } from "./types";
+import { comparableScientificText, uniqueSorted } from "./canonical.js";
+import { modalitiesAreCompatible } from "./modality.js";
+import { getKnowledgeProvider } from "./provider-registry.js";
+import type { ContextDimensionName, CoverageMapStatus, KnowledgeResult, RuntimeKnowledgeConclusion } from "./types.js";
 
 export type ProjectionDepth = "SYNTHETIC" | "PROFESSIONAL" | "EXPERT";
 

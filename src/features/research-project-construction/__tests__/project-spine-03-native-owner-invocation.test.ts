@@ -20,6 +20,7 @@ import {
 } from "@/features/research-project-construction";
 
 const CURRENT_KNOWLEDGE_OWNER_VERSION_BASELINE = "1.2.1" as const;
+import { buildProjectContextSnapshot, buildKnowledgeRequestFromCanonicalSnapshot } from "@/features/research-project-construction";
 
 const authority = {
   actorRef: "project-spine-03:researcher",
@@ -177,6 +178,33 @@ let realKnowledgeInvocation: ReturnType<typeof invokeKnowledgeOwnerFromProject>;
 let realRegulatoryInvocation: ReturnType<typeof invokeRegulatoryOwnerFromProject>;
 
 describe("PROJECT-SPINE-03 — native specialized owner invocation gate", () => {
+  it("projects bounded Knowledge context without losing pending references or rewriting Project", () => {
+    const snapshot = buildProjectContextSnapshot({ project: gateProject });
+    const objective = { ...snapshot.objects[0]!, stableId: "objective:compound", type: "OBJECTIVE" as const,
+      content: "Objectif méthodologique explicite. ".repeat(9) };
+    const large = { ...snapshot, objects: [...snapshot.objects, objective],
+      pendingVerificationRefs: Array.from({ length: 64 }, (_, index) => `verification:${index}:${"x".repeat(35)}`) };
+    const before = JSON.stringify(large);
+    const request = buildKnowledgeRequestFromCanonicalSnapshot({ projectSnapshot: large, question: "Contexte scientifique de la MVO", createdAt: timing.startedAt });
+    expect(request.unknowns.length).toBeLessThanOrEqual(50);
+    expect(request.unknowns.every(value => value.length <= 300)).toBe(true);
+    for (const ref of large.pendingVerificationRefs) expect(request.unknowns.join("\n")).toContain(ref);
+    expect(request.scientificObjects.some(item => item.objectId === objective.stableId)).toBe(false);
+    expect(request.context.dimensions.find(item => item.name === "objective")!.values).toContain(objective.content.trim());
+    expect(request.context.dimensions.find(item => item.name === "modality")!.values).toContain("MRI");
+    expect(JSON.stringify(large)).toBe(before);
+    expect(() => buildKnowledgeRequestFromCanonicalSnapshot({ projectSnapshot: large, question: "Contexte", createdAt: timing.startedAt,
+      scientificObjectRefs: ["absent"] })).toThrow("KNOWLEDGE_SCIENTIFIC_OBJECT_SCOPE_INVALID");
+  });
+
+  it.each([["IRM sur une plateforme 3T", "MRI"], ["Scanner thoracique", "CT"], ["TEP corps entier", "PET"]])("uses the existing modality identity for %s", (label, identity) => {
+    const snapshot = buildProjectContextSnapshot({ project: gateProject });
+    const scoped = { ...snapshot, objects: snapshot.objects.filter(item => item.type !== "IMAGING_MODALITY")
+      .concat({ ...snapshot.objects.find(item => item.type === "IMAGING_MODALITY")!, content: label }) };
+    const request = buildKnowledgeRequestFromCanonicalSnapshot({ projectSnapshot: scoped, question: "Sources méthodologiques", createdAt: timing.startedAt });
+    expect(request.context.dimensions.find(item => item.name === "modality")!.values).toEqual([identity]);
+    expect(scoped.objects.find(item => item.type === "IMAGING_MODALITY")?.content).toBe(label);
+  });
   beforeAll(() => {
     gateProject = projectWithTemporalAndSupersession();
     gateProjectBefore = JSON.stringify(gateProject);

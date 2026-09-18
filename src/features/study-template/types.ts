@@ -1,11 +1,11 @@
-import type { PatternCatalog, PatternStatus } from "@/features/documentary-knowledge/types";
-import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
-import type { RegulatoryResolutionResult } from "@/features/regulatory-resolution/types";
+import type { PatternCatalog, PatternStatus } from "../documentary-knowledge/types.js";
+import type { HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
+import type { RegulatoryResolutionResult } from "../regulatory-resolution/types.js";
 import type {
   CanonicalProjectEpistemicState,
   CanonicalProjectObjectType,
   CanonicalTemporalAnchorValue,
-} from "@/features/research-project-construction/canonical-project-backbone";
+} from "../research-project-construction/canonical-project-backbone.js";
 
 export const STUDY_TEMPLATE_ENGINE_VERSION = "1.1.0" as const;
 export const STUDY_TEMPLATE_SCHEMA_VERSION = "1.1.0" as const;

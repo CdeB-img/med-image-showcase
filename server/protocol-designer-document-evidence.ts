@@ -13,7 +13,10 @@ export const readRetainedDrciProtocolEvidence = async (input: {
   try { await readFile(join(input.root, "protocol-designer-exchanges.jsonl")); }
   catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return null; throw error; }
   const state = await readCanaryState(input.root, input.policy.campaignId, input.policy);
-  if (!input.sessionId || !state.sessions.has(input.sessionId)) throw new Error("DRCI_RETAINED_SESSION_MISMATCH");
+  if (!input.sessionId) throw new Error("DRCI_RETAINED_SESSION_MISMATCH");
+  // A fresh session has no paid evidence to reuse. Admission remains exclusively
+  // owned by the existing guard when the first provider request is dispatched.
+  if (!state.sessions.has(input.sessionId)) return null;
   const store = new FileScientificInterpretationEvidenceStore(input.root);
   const retainedScopes: [RetainedDrciScope | null, RetainedDrciScope | null] = [null, null];
   for (const ref of (await readProtocolDesignerReplayRefs(input.root)).reverse()) {

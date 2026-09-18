@@ -35,6 +35,7 @@ import {
   type SpecializedOwnerResult,
 } from "./specialized-owner-handoff";
 import { buildProjectContextSnapshot, type ProjectContextSnapshot } from "./canonical-project-backbone";
+import { canonicalModality } from "../knowledge-engine/modality.js";
 
 export const NATIVE_SPECIALIZED_OWNER_INVOCATION_CONTRACT = "PROJECT_SPINE_03_NATIVE_OWNER_INVOCATION" as const;
 export const NATIVE_SPECIALIZED_OWNER_INVOCATION_VERSION = "0.1.0" as const;
@@ -136,11 +137,24 @@ const observation = (input: {
   projectWrites: 0,
 });
 
-const projectUnknowns = (snapshot: ProjectContextSnapshot) => [
-  ...snapshot.objects.filter((item) => item.epistemicState === "UNKNOWN").map((item) => `UNKNOWN_PROJECT_OBJECT:${item.stableId}`),
-  ...snapshot.pendingVerificationRefs.map((ref) => `PENDING_VERIFICATION:${ref}`),
-  ...snapshot.openConflicts.map((conflict) => `OPEN_PROJECT_CONFLICT:${conflict.conflictId}`),
-];
+const projectUnknowns = (snapshot: ProjectContextSnapshot) => {
+  const unknown = snapshot.objects.filter((item) => item.epistemicState === "UNKNOWN").map((item) => `UNKNOWN_PROJECT_OBJECT:${item.stableId}`);
+  const conflicts = snapshot.openConflicts.map((conflict) => `OPEN_PROJECT_CONFLICT:${conflict.conflictId}`);
+  const pending = snapshot.pendingVerificationRefs.map((ref) => `PENDING_VERIFICATION:${ref}`);
+  // Knowledge's bounded list also receives missing context dimensions. Group
+  // pending references losslessly instead of dropping them or raising its cap.
+  if (unknown.length + conflicts.length + pending.length <= 36) return [...unknown, ...pending, ...conflicts];
+  const groups: string[] = [];
+  let refs: string[] = [];
+  for (const ref of snapshot.pendingVerificationRefs) {
+    if (`PENDING_VERIFICATION:${JSON.stringify([...refs, ref])}`.length > 300 && refs.length) {
+      groups.push(`PENDING_VERIFICATION:${JSON.stringify(refs)}`); refs = [];
+    }
+    refs.push(ref);
+  }
+  if (refs.length) groups.push(`PENDING_VERIFICATION:${JSON.stringify(refs)}`);
+  return [...unknown, ...groups, ...conflicts];
+};
 
 const knowledgeRole = (item: ProjectContextSnapshot["objects"][number]): ScientificObjectRef["role"] => {
   if (/COMPARATOR/i.test(item.scientificRole ?? "")) return "COMPARATOR";
@@ -180,7 +194,8 @@ const knowledgeContextFromSnapshot = (snapshot: ProjectContextSnapshot): Knowled
     const dimension = knowledgeDimensionByProjectType[item.type];
     if (!dimension) continue;
     const previous = dimensions[dimension];
-    dimensions[dimension] = [...new Set([...(Array.isArray(previous) ? previous : previous ? [previous] : []), item.content])];
+    const value = dimension === "modality" ? canonicalModality(item.content) : item.content;
+    dimensions[dimension] = [...new Set([...(Array.isArray(previous) ? previous : previous ? [previous] : []), value])];
   }
   dimensions.unknowns = projectUnknowns(snapshot);
   dimensions.contradictions = snapshot.openConflicts.map((conflict) => conflict.message);
@@ -196,9 +211,14 @@ export const buildKnowledgeRequestFromCanonicalSnapshot = (input: {
   question: string;
   createdAt: string;
   referenceNeed?: Partial<Omit<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">> & Pick<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">;
+  scientificObjectRefs?: readonly string[];
 }): KnowledgeRequest => {
   const snapshot = input.projectSnapshot;
-  const scientificObjects = snapshot.objects.slice(0, 30).map((item) => ({
+  if (input.scientificObjectRefs?.some((ref) => !snapshot.objects.some((item) => item.stableId === ref))) throw new Error("KNOWLEDGE_SCIENTIFIC_OBJECT_SCOPE_INVALID");
+  // Compound Project decisions remain verbatim in the snapshot and applicable context dimensions. They are
+  // not truncated into misleading 200-character scientific search terms.
+  const scientificObjects = snapshot.objects.filter((item) => item.content.length <= 200
+    && (!input.scientificObjectRefs || input.scientificObjectRefs.includes(item.stableId))).slice(0, 30).map((item) => ({
     objectId: item.stableId,
     originalTerm: item.content,
     role: knowledgeRole(item),

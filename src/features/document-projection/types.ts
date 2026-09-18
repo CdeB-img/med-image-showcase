@@ -1,14 +1,14 @@
-import type { ProjectDecisionRecord, ResearchProjectDesignResult } from "@/features/research-project-construction/types";
-import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
-import type { DocumentAdministration } from "./administration";
-import type { ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
-import type { DocumentEvidenceContent, DocumentRevisionRecord } from "./scientific-document-revision";
+import type { ProjectDecisionRecord, ResearchProjectDesignResult } from "../research-project-construction/types.js";
+import type { HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
+import type { DocumentAdministration } from "./administration.js";
+import type { ProjectSourceLibrary } from "../knowledge-engine/project-source-library.js";
+import type { DocumentEvidenceContent, DocumentRevisionRecord } from "./scientific-document-revision.js";
 import type {
   StudyTemplateDefinition,
   StudyTemplateInstance,
   TemplateBlockStatus,
   TemplateReadinessStatus,
-} from "@/features/study-template/types";
+} from "../study-template/types.js";
 
 export const DOCUMENT_PROJECTION_ENGINE_VERSION = "1.2.0" as const;
 export const DOCUMENT_PROJECTION_RENDERER_VERSION = "1.0.0" as const;

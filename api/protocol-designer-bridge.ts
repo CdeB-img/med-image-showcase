@@ -1,3 +1,4 @@
+import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 import { rehydrateStudyProposal, planStudyProposalRecomputation, assertScopedStudyProposalRecomputation, completeStudyProposalRecomputation } from "../src/features/protocol-designer/functional-reset/study-proposal-standard.js";
 import { prepareDrciDraftPack, materializeDrciDraftPack, type RetainedDrciProtocol } from "../src/features/document-projection/drci-draft-contract.js";
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
@@ -125,6 +126,7 @@ export const executeProtocolDesignerBridge = async (input: {
   openAiExtractionModel?: string | null;
   /** Server-selected local candidate; default preserves the public runtime. */
   chatRuntime?: "TERRA" | null;
+  autonomousProjectBuild?: boolean;
   fetchImpl?: typeof fetch;
   now?: () => number;
   providerAttemptPolicy?: ProviderAttemptPolicy;
@@ -248,6 +250,30 @@ export const executeProtocolDesignerBridge = async (input: {
   });
 
   const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
+  if (request.prepareWorkingDraft) {
+    if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA") return { status: 422, body: {
+      apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "AUTONOMOUS_PROJECT_BUILD_OFF", message: "La préparation automatique est désactivée." } } };
+    try {
+      if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
+      const packet = prepareWorkingDraftRequest(request);
+      const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
+        { context: observationContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
+      const result = acceptWorkingDraftUpdate(JSON.parse(generated.value), request);
+      return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: "",
+        assistantTurn: { turnId: `working-draft:${observationContext.clientRequestId}`, role: "NOXIA", content: "", createdAt },
+        workingDraftUpdate: result.update, workingStudyProposal: result.composition,
+        persistentExtraction: { called: false, status: "NOT_REQUESTED", failure: null, providerArtifact: null, wireCandidate: null,
+          candidate: null, validation: null, contribution: null },
+        observability: { provider: "OPENAI", model: generated.modelReturned ?? "gpt-5.6-terra", calls: 1,
+          conversationCalls: 0, conversationLatencyMs: 0, extractionLatencyMs: null, projectWrites: 0,
+          ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
+    } catch (error) {
+      console.warn("WORKING_DRAFT_OWNER_PREPARATION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: "La discussion et le dernier brouillon sont conservés.",
+          details: [error instanceof Error ? error.message : "UNKNOWN"] }, observability: providerCallRequestObservability(providerCalls) } };
+    }
+  }
   if (request.documentDraftRequest !== undefined) {
     if (input.chatRuntime !== "TERRA" || !request.currentProject || request.evaluatePersistentDelta || !request.documentDraftRequest)
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "DRCI_DRAFT_BOUNDARY_REQUIRED", message: "Une version adoptée et son autorisation documentaire sont requises." } } };
@@ -255,10 +281,22 @@ export const executeProtocolDesignerBridge = async (input: {
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareDrciDraftPack(request.currentProject, request.documentDraftRequest);
       const retained = await input.readRetainedDocumentProtocol?.(packet, observationContext);
+      if (retained?.synopsisRevision) {
+        try {
+          const originalProtocol = (await import("../src/features/document-projection/drci-draft-contract.js"))
+            .validateRetainedDrciProtocol(packet, retained);
+          materializeDrciDraftPack({ documents: [...originalProtocol.documents, retained.synopsisRevision.original,
+            ...retained.synopsisRevision.frozenCompanion.documents], crfRows: retained.synopsisRevision.frozenCompanion.crfRows },
+            { project: request.currentProject, packet, generatedAt: createdAt });
+          throw new Error("DOC_REVISION_ORIGINAL_NOT_REJECTED");
+        } catch (error) {
+          if (!(error instanceof Error) || error.message !== "DRCI_SYNOPSIS_WORD_BOUND_EXCEEDED") throw error;
+        }
+      }
       const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained);
       const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: createdAt,
-        reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef });
+        reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision });
       const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: reply,
         assistantTurn: { turnId: `noxia-drci:${observationContext.clientRequestId}`, role: "NOXIA", content: reply, createdAt },
@@ -281,7 +319,7 @@ export const executeProtocolDesignerBridge = async (input: {
   if (input.chatRuntime === "TERRA") {
     try {
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
-      terraPacket = prepareTerraConversation(request);
+      terraPacket = prepareTerraConversation(request, input.autonomousProjectBuild);
       terraConversation = await executeOpenAITerraConversation(terraPacket, input.openAiApiKey,
         input.fetchImpl, { context: observationContext, purpose: "CONVERSATION_REALIZATION",
           reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
@@ -737,6 +775,7 @@ export const handleProtocolDesignerBridge = async (
     geminiModel: environment.GEMINI_MODEL,
     openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
     chatRuntime: environment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" ? "TERRA" : null,
+    autonomousProjectBuild: environment.VITE_AUTONOMOUS_PROJECT_BUILD === "ON",
     fetchImpl: providerFetch,
     now: dependencies.now,
     providerAttemptPolicy: dependencies.providerAttemptPolicy,

@@ -963,6 +963,10 @@ export type ProductBridgeRequest = {
   conversation: ScientificInterpretationConversation;
   currentProject: ResearchProjectOwnerProjection | null;
   evaluatePersistentDelta: boolean;
+  /** Non-adopting ST preparation, gated by server configuration. */
+  prepareWorkingDraft?: boolean;
+  /** Read-only rejected proposals from the existing working composition history. */
+  workingDraftHistory?: import("./functional-reset/continuous-project-build.js").WorkingDraftMetadata["history"];
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
   documentDraftRequest?: import("../document-projection/drci-draft-contract.js").DrciDraftSource;
   /** Server-only: native text proposals remain distinct from the user assent. */
@@ -991,6 +995,8 @@ export type ProductBridgeRequest = {
 
 export type ProductBridgeResponse = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
+  workingDraftUpdate?: import("./functional-reset/continuous-project-build.js").WorkingDraftUpdate;
+  workingStudyProposal?: import("../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   documentDraftPack?: import("../document-projection/drci-draft-contract.js").DrciDraftPack;
   assistantReply: string;
   assistantTurn: ScientificInterpretationTurn;
@@ -1857,6 +1863,11 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
   const record = value as Partial<ProductBridgeRequest>;
   if (record.apiVersion !== PRODUCT_BRIDGE_API_VERSION
     || typeof record.evaluatePersistentDelta !== "boolean"
+    || (record.prepareWorkingDraft !== undefined && (typeof record.prepareWorkingDraft !== "boolean"
+      || record.prepareWorkingDraft && (record.evaluatePersistentDelta || record.documentDraftRequest !== undefined)))
+    || (record.workingDraftHistory !== undefined && (!Array.isArray(record.workingDraftHistory)
+      || record.workingDraftHistory.length > 120 || !record.workingDraftHistory.every(h => h && h.status === "REJECTED"
+        && h.atom && typeof h.atom.ref === "string" && typeof h.atom.content === "string" && h.atom.content.length <= 600)))
     || (record.requestKind !== undefined && !["USER_TURN", "POST_ADOPTION_QRY_CONTINUATION"].includes(record.requestKind))
     || !record.conversation
     || typeof record.conversation.conversationId !== "string"

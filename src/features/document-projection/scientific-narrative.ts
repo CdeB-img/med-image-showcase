@@ -1,8 +1,8 @@
-import { logicalDigest, stableStringify } from "@/features/knowledge-engine/canonical";
-import { sourceShortReference, type ProjectSource, type ProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
-import type { ApplicabilityState, RuntimeAssertion } from "@/features/knowledge-engine/types";
-import type { ResearchProjectDesignResult } from "@/features/research-project-construction";
-import type { DocumentEvidenceParagraph } from "./scientific-document-revision";
+import { logicalDigest, stableStringify } from "../knowledge-engine/canonical.js";
+import { sourceShortReference, type ProjectSource, type ProjectSourceLibrary } from "../knowledge-engine/project-source-library.js";
+import type { ApplicabilityState, RuntimeAssertion } from "../knowledge-engine/types.js";
+import type { ResearchProjectDesignResult } from "../research-project-construction/types.js";
+import type { DocumentEvidenceParagraph } from "./scientific-document-revision.js";
 
 export type DocumentNarrativeProjectContext = {
   sourceProjectVersion: string;
@@ -46,6 +46,7 @@ export type DocumentSourcePriority = {
 
 export type DocumentScientificNarrative = {
   contract: "DOC_SCIENTIFIC_NARRATIVE_V1";
+  editorialVersion?: "CONCISE_V2";
   projectContext: DocumentNarrativeProjectContext;
   blocks: DocumentNarrativeBlock[];
   sourcePriorities: DocumentSourcePriority[];
@@ -87,6 +88,7 @@ const qualityOrder: Record<string, number> = { HIGH: 0, MODERATE: 1, LOW: 2, VER
 const maturityOrder: Record<string, number> = { ESTABLISHED: 0, ESTABLISHED_DOCUMENTARY_KNOWLEDGE: 0, VALIDATED: 1, PRELIMINARY: 2 };
 
 const evidenceOrder = (library: ProjectSourceLibrary, paragraph: DocumentEvidenceParagraph) => {
+  if (paragraph.projectScoped) return [applicabilityOrder[paragraph.projectScoped.applicability], 1, 3, 3, 0, paragraph.paragraphId] as const;
   const assertion = assertionFor(library, paragraph);
   const links = paragraph.sourceRefs.flatMap((sourceId) => sourceFor(library, sourceId)?.evidence.filter((link) => paragraph.assertionRefs.includes(link.assertionId)) ?? []);
   const relation = links.some((link) => link.relation === "SUPPORTS") ? 0 : links.some((link) => link.relation === "QUALIFIES") ? 1 : 2;
@@ -122,7 +124,9 @@ const cite = (library: ProjectSourceLibrary, paragraph: DocumentEvidenceParagrap
   .map(sourceShortReference)
   .join(" ; ");
 
-const renderedClaim = (library: ProjectSourceLibrary, paragraph: DocumentEvidenceParagraph) => `${sentence(paragraph.text)} (${cite(library, paragraph)}).`;
+const renderedClaim = (library: ProjectSourceLibrary, paragraph: DocumentEvidenceParagraph) => paragraph.projectScoped
+  ? `Résultat rapporté par la source : « ${paragraph.text} » (${cite(library, paragraph)}, ${paragraph.projectScoped.location}). ${paragraph.limitations.join(" ; ")}.`
+  : `${sentence(paragraph.text)} (${cite(library, paragraph)}).`;
 const isLimit = (assertion: RuntimeAssertion | undefined) => assertion?.polarity === "NEGATIVE"
   || assertion?.polarity === "QUALIFIED"
   // Applicability qualifications remain attached to a positive claim, but do
@@ -206,6 +210,8 @@ const priorityFor = (library: ProjectSourceLibrary, source: ProjectSource, selec
   if (!relevant.length) return null;
   const assertions = relevant.map((paragraph) => assertionFor(library, paragraph)).filter((item): item is RuntimeAssertion => Boolean(item));
   const best = [...assertions].sort((left, right) => applicabilityOrder[left.applicability] - applicabilityOrder[right.applicability])[0];
+  const scopedApplicability = relevant.filter((paragraph) => paragraph.projectScoped).map((paragraph) => paragraph.projectScoped!.applicability)
+    .sort((left, right) => applicabilityOrder[left] - applicabilityOrder[right])[0];
   const isConflict = conflicts.some((paragraph) => paragraph.sourceRefs.includes(source.source.sourceId));
   const role: DocumentSourcePriority["role"] = isConflict ? "CONTRADICTORY_EVIDENCE"
     : primarySourceIds.has(source.source.sourceId) ? "PRIMARY_SUPPORT"
@@ -233,7 +239,8 @@ const priorityFor = (library: ProjectSourceLibrary, source: ProjectSource, selec
       ? "Intérêt utilisateur explicite conservé séparément ; il n’a pas modifié la priorité scientifique."
       : "Aucune préférence utilisateur n’intervient dans la priorité scientifique.",
   ];
-  return { sourceId: source.source.sourceId, role, applicability: best?.applicability ?? "NOT_USED_FOR_ASSERTION", reasons, userPreferenceAffectedScientificPriority: false };
+  return { sourceId: source.source.sourceId, role, applicability: best?.applicability ?? scopedApplicability ?? "NOT_USED_FOR_ASSERTION",
+    reasons: [...reasons, ...relevant.filter((paragraph) => paragraph.projectScoped).flatMap((paragraph) => paragraph.limitations)], userPreferenceAffectedScientificPriority: false };
 };
 
 export const buildScientificNarrative = (input: {
@@ -243,64 +250,55 @@ export const buildScientificNarrative = (input: {
   projectContext: DocumentNarrativeProjectContext;
   depth: "SHORT" | "EXPANDED";
   emphasisSourceRef: string | null;
+  editorialVersion?: "LEGACY_V1";
 }): DocumentScientificNarrative => {
+  if (input.editorialVersion === "LEGACY_V1") return buildLegacyScientificNarrative(input);
   const ordered = prioritizeDocumentEvidence(input.library, input.paragraphs, input.emphasisSourceRef);
   const limits = ordered.filter((paragraph) => isLimit(assertionFor(input.library, paragraph)));
   const methods = ordered.filter((paragraph) => isMethod(assertionFor(input.library, paragraph)) && !limits.includes(paragraph));
   const knowledge = ordered.filter((paragraph) => !methods.includes(paragraph) && !limits.includes(paragraph));
   const maxClaims = input.depth === "EXPANDED" ? 5 : 2;
-  const selectedKnowledge = knowledge.slice(0, maxClaims);
+  const selectedKnowledge = [...knowledge.filter((paragraph) => !paragraph.projectScoped).slice(0, maxClaims), ...knowledge.filter((paragraph) => paragraph.projectScoped)];
   const selectedMethods = methods.slice(0, maxClaims);
   const selectedLimits = limits.slice(0, input.depth === "EXPANDED" ? 3 : 1);
   const evidenceSelected = unique([...selectedKnowledge, ...selectedMethods, ...selectedLimits].map((item) => item.paragraphId))
     .map((id) => ordered.find((item) => item.paragraphId === id)!);
   if (!evidenceSelected.length && ordered.length) evidenceSelected.push(ordered[0]!);
-  const population = input.projectContext.population.length ? input.projectContext.population.join(" ; ") : "la population définie dans le Research Project";
-  const problemDetails = [population, input.projectContext.design].filter(Boolean).join(" ; ");
-  const scientificImportance = input.projectContext.objectives.length
-    ? input.projectContext.framingKind === "OBJECTIVE"
-      ? ""
-      : ` Son importance scientifique est définie par l’objectif adopté : ${input.projectContext.objectives[0]}.`
-    : "";
   const blocks: DocumentNarrativeBlock[] = [
     block("PROBLEM", input.projectContext.framingKind === "OBJECTIVE"
-      ? `Le protocole porte sur l’objectif adopté suivant : « ${input.projectContext.question} ». Le cadre adopté concerne ${problemDetails}.`
-      : `Le protocole porte sur la question suivante : « ${input.projectContext.question} ». Le cadre adopté concerne ${problemDetails}.${scientificImportance}`, "PROJECT"),
+      ? "Le cadre de l’étude est défini par l’objectif adopté, formulé ci-dessous."
+      : "La question et les objectifs ci-dessous définissent l’importance scientifique recherchée par l’étude.", "PROJECT"),
   ];
-  const mainKnowledge = [...selectedKnowledge, ...selectedMethods].slice(0, maxClaims);
+  const conflictIds = new Set(input.contradictoryEvidence.map(item => item.paragraphId));
+  const mainKnowledge = [...[...selectedKnowledge, ...selectedMethods].filter((paragraph) => !paragraph.projectScoped).slice(0, maxClaims), ...selectedKnowledge.filter((paragraph) => paragraph.projectScoped)]
+    .filter(paragraph => !conflictIds.has(paragraph.paragraphId));
   if (mainKnowledge.length) blocks.push(block(mainKnowledge.some((item) => isMethod(assertionFor(input.library, item))) ? "METHODS_OR_BIOMARKERS" : "EXISTING_KNOWLEDGE",
     `Les connaissances mobilisables précisent le cadre scientifique et méthodologique : ${mainKnowledge.map((item) => renderedClaim(input.library, item)).join(" ")}`,
     "KNOWLEDGE_EVIDENCE", mainKnowledge));
   if (selectedLimits.length) blocks.push(block("LIMITS_OR_DISCORDANCE",
     `Ces résultats doivent rester bornés à leur domaine de validité. ${selectedLimits.map((item) => renderedClaim(input.library, item)).join(" ")}`,
     "KNOWLEDGE_EVIDENCE", selectedLimits));
-  const conflicts = input.contradictoryEvidence.slice(0, input.depth === "EXPANDED" ? 4 : 2);
+  const conflicts = [...input.contradictoryEvidence.filter((paragraph) => !paragraph.projectScoped).slice(0, input.depth === "EXPANDED" ? 4 : 2), ...input.contradictoryEvidence.filter((paragraph) => paragraph.projectScoped)];
   if (conflicts.length) blocks.push(block("LIMITS_OR_DISCORDANCE",
     `Les résultats disponibles ne sont pas entièrement concordants et aucune position n’est arbitrée par le document : ${conflicts.map((item) => renderedClaim(input.library, item)).join(" ")}`,
     "KNOWLEDGE_EVIDENCE", conflicts));
   const exact = evidenceSelected.some((paragraph) => directlyAppliesToProject(assertionFor(input.library, paragraph), input.projectContext));
-  const gapText = input.projectContext.framingKind === "OBJECTIVE"
-    ? exact
-      ? `Le corpus local qualifié documente certains éléments directement applicables, mais ne suffit pas à atteindre l’objectif complet « ${input.projectContext.question} » dans la population ${population}.`
-      : `Les preuves mobilisées sont indirectes ou limitées pour la population ${population}. Dans le corpus local qualifié pour ce document, aucune assertion ne couvre directement l’objectif complet « ${input.projectContext.question} ».`
-    : exact
-      ? `Le corpus local qualifié documente certains éléments directement applicables, mais ne répond pas à lui seul à la question complète « ${input.projectContext.question} » dans la population ${population}.`
-      : `Les preuves mobilisées sont indirectes ou limitées pour la population ${population}. Dans le corpus local qualifié pour ce document, aucune assertion ne répond directement à la question complète « ${input.projectContext.question} ».`;
-  blocks.push(block("SCIENTIFIC_GAP", `${gapText} Cette limite est conservée comme lacune scientifique et documentaire, sans extrapolation.`, "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
-  blocks.push(block("STUDY_JUSTIFICATION", input.projectContext.framingKind === "OBJECTIVE"
-    ? "L’étude est justifiée par la nécessité d’examiner cet objectif dans le cadre défini par le Research Project, tout en distinguant les résultats futurs des connaissances générales citées."
-    : "L’étude est justifiée par la nécessité d’examiner cette question dans le cadre défini par le Research Project, tout en distinguant les résultats futurs des connaissances générales citées.", "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
-  const objectives = input.projectContext.objectives.length
-    ? ` Les objectifs adoptés sont : ${input.projectContext.objectives.join(" ; ")}.`
-    : " Les objectifs détaillés restent à compléter dans le Research Project.";
+  blocks.push(block("SCIENTIFIC_GAP", exact
+    ? "Certaines preuves sont directement applicables ; leur couverture partielle ne constitue pas une réponse à l’ensemble de la question."
+    : "Les preuves disponibles ici sont indirectes ou limitées. Leur transposition doit tenir compte des différences de population, de mesure et de contexte ; cette sélection ne constitue pas une revue exhaustive.", "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
+  blocks.push(block("STUDY_JUSTIFICATION", conflicts.length
+    ? "Les positions discordantes motivent une évaluation dans le cadre adopté, sans présumer le sens du résultat."
+    : "Les résultats de l’étude devront être interprétés dans son propre cadre méthodologique, sans étendre la portée des connaissances citées.", "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
+  const remainingObjectives = input.projectContext.objectives.filter(value => value !== input.projectContext.question);
+  const objectives = remainingObjectives.length ? ` Autres objectifs adoptés : ${remainingObjectives.join(" ; ")}.` : "";
   blocks.push(block("QUESTION_AND_OBJECTIVES", input.projectContext.framingKind === "OBJECTIVE"
-    ? `L’objectif adopté demeure : « ${input.projectContext.question} ». La question scientifique reste à expliciter dans le Research Project.${objectives}`
-    : `La question de recherche demeure : « ${input.projectContext.question} ».${objectives}`, "PROJECT"));
+    ? `Formulation documentaire de la question à partir de l’objectif adopté : « ${input.projectContext.question} ».${objectives}`
+    : `Question de recherche : « ${input.projectContext.question} ».${objectives}`, "PROJECT"));
   const primarySourceIds = new Set(prioritizeDocumentEvidence(input.library, evidenceSelected).slice(0, 1).flatMap((paragraph) => paragraph.sourceRefs));
   const sourcePriorities = input.library.sources
     .map((source) => priorityFor(input.library, source, evidenceSelected, conflicts, primarySourceIds, input.projectContext))
     .filter((item): item is DocumentSourcePriority => Boolean(item));
-  const material = { contract: "DOC_SCIENTIFIC_NARRATIVE_V1" as const, projectContext: input.projectContext, blocks, sourcePriorities,
+  const material = { contract: "DOC_SCIENTIFIC_NARRATIVE_V1" as const, editorialVersion: "CONCISE_V2" as const, projectContext: input.projectContext, blocks, sourcePriorities,
     contradictoryEvidence: conflicts, depth: input.depth, coverage: unique(blocks.map((item) => item.role)) };
   return { ...material, contentDigest: logicalDigest(material) };
 };
@@ -348,3 +346,74 @@ export const explainDocumentSourceComparison = (
     : "Les qualifications disponibles ne justifient pas un départage scientifique supplémentaire entre ces deux références.";
   return `La comparaison suit l’ordre lexicographique KE-001 — applicabilité, relation EvidenceLink, robustesse déjà qualifiée et localisateur — sans score composite. ${verdict}\n\n${compared.map((item) => explainDocumentSourceSelection(library, narrative, item.source.source.sourceId)).join("\n\n")}\n\nLa préférence utilisateur reste séparée de cette priorité scientifique.`;
 };
+
+// Immutable historical derivation only. New DOC production always uses CONCISE_V2.
+const buildLegacyScientificNarrative = (input: {
+  library: ProjectSourceLibrary;
+  paragraphs: DocumentEvidenceParagraph[];
+  contradictoryEvidence: DocumentEvidenceParagraph[];
+  projectContext: DocumentNarrativeProjectContext;
+  depth: "SHORT" | "EXPANDED";
+  emphasisSourceRef: string | null;
+}): DocumentScientificNarrative => {
+  const ordered = prioritizeDocumentEvidence(input.library, input.paragraphs, input.emphasisSourceRef);
+  const limits = ordered.filter((paragraph) => isLimit(assertionFor(input.library, paragraph)));
+  const methods = ordered.filter((paragraph) => isMethod(assertionFor(input.library, paragraph)) && !limits.includes(paragraph));
+  const knowledge = ordered.filter((paragraph) => !methods.includes(paragraph) && !limits.includes(paragraph));
+  const maxClaims = input.depth === "EXPANDED" ? 5 : 2;
+  const selectedKnowledge = [...knowledge.filter((paragraph) => !paragraph.projectScoped).slice(0, maxClaims), ...knowledge.filter((paragraph) => paragraph.projectScoped)];
+  const selectedMethods = methods.slice(0, maxClaims);
+  const selectedLimits = limits.slice(0, input.depth === "EXPANDED" ? 3 : 1);
+  const evidenceSelected = unique([...selectedKnowledge, ...selectedMethods, ...selectedLimits].map((item) => item.paragraphId))
+    .map((id) => ordered.find((item) => item.paragraphId === id)!);
+  if (!evidenceSelected.length && ordered.length) evidenceSelected.push(ordered[0]!);
+  const population = input.projectContext.population.length ? input.projectContext.population.join(" ; ") : "la population définie dans le Research Project";
+  const problemDetails = [population, input.projectContext.design].filter(Boolean).join(" ; ");
+  const scientificImportance = input.projectContext.objectives.length
+    ? input.projectContext.framingKind === "OBJECTIVE"
+      ? ""
+      : ` Son importance scientifique est définie par l’objectif adopté : ${input.projectContext.objectives[0]}.`
+    : "";
+  const blocks: DocumentNarrativeBlock[] = [
+    block("PROBLEM", input.projectContext.framingKind === "OBJECTIVE"
+      ? `Le protocole porte sur l’objectif adopté suivant : « ${input.projectContext.question} ». Le cadre adopté concerne ${problemDetails}.`
+      : `Le protocole porte sur la question suivante : « ${input.projectContext.question} ». Le cadre adopté concerne ${problemDetails}.${scientificImportance}`, "PROJECT"),
+  ];
+  const mainKnowledge = [...[...selectedKnowledge, ...selectedMethods].filter((paragraph) => !paragraph.projectScoped).slice(0, maxClaims), ...selectedKnowledge.filter((paragraph) => paragraph.projectScoped)];
+  if (mainKnowledge.length) blocks.push(block(mainKnowledge.some((item) => isMethod(assertionFor(input.library, item))) ? "METHODS_OR_BIOMARKERS" : "EXISTING_KNOWLEDGE",
+    `Les connaissances mobilisables précisent le cadre scientifique et méthodologique : ${mainKnowledge.map((item) => renderedClaim(input.library, item)).join(" ")}`,
+    "KNOWLEDGE_EVIDENCE", mainKnowledge));
+  if (selectedLimits.length) blocks.push(block("LIMITS_OR_DISCORDANCE",
+    `Ces résultats doivent rester bornés à leur domaine de validité. ${selectedLimits.map((item) => renderedClaim(input.library, item)).join(" ")}`,
+    "KNOWLEDGE_EVIDENCE", selectedLimits));
+  const conflicts = [...input.contradictoryEvidence.filter((paragraph) => !paragraph.projectScoped).slice(0, input.depth === "EXPANDED" ? 4 : 2), ...input.contradictoryEvidence.filter((paragraph) => paragraph.projectScoped)];
+  if (conflicts.length) blocks.push(block("LIMITS_OR_DISCORDANCE",
+    `Les résultats disponibles ne sont pas entièrement concordants et aucune position n’est arbitrée par le document : ${conflicts.map((item) => renderedClaim(input.library, item)).join(" ")}`,
+    "KNOWLEDGE_EVIDENCE", conflicts));
+  const exact = evidenceSelected.some((paragraph) => directlyAppliesToProject(assertionFor(input.library, paragraph), input.projectContext));
+  const gapText = input.projectContext.framingKind === "OBJECTIVE"
+    ? exact
+      ? `Le corpus local qualifié documente certains éléments directement applicables, mais ne suffit pas à atteindre l’objectif complet « ${input.projectContext.question} » dans la population ${population}.`
+      : `Les preuves mobilisées sont indirectes ou limitées pour la population ${population}. Dans le corpus local qualifié pour ce document, aucune assertion ne couvre directement l’objectif complet « ${input.projectContext.question} ».`
+    : exact
+      ? `Le corpus local qualifié documente certains éléments directement applicables, mais ne répond pas à lui seul à la question complète « ${input.projectContext.question} » dans la population ${population}.`
+      : `Les preuves mobilisées sont indirectes ou limitées pour la population ${population}. Dans le corpus local qualifié pour ce document, aucune assertion ne répond directement à la question complète « ${input.projectContext.question} ».`;
+  blocks.push(block("SCIENTIFIC_GAP", `${gapText} Cette limite est conservée comme lacune scientifique et documentaire, sans extrapolation.`, "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
+  blocks.push(block("STUDY_JUSTIFICATION", input.projectContext.framingKind === "OBJECTIVE"
+    ? "L’étude est justifiée par la nécessité d’examiner cet objectif dans le cadre défini par le Research Project, tout en distinguant les résultats futurs des connaissances générales citées."
+    : "L’étude est justifiée par la nécessité d’examiner cette question dans le cadre défini par le Research Project, tout en distinguant les résultats futurs des connaissances générales citées.", "PROJECT_AND_EVIDENCE_GAP", evidenceSelected));
+  const objectives = input.projectContext.objectives.length
+    ? ` Les objectifs adoptés sont : ${input.projectContext.objectives.join(" ; ")}.`
+    : " Les objectifs détaillés restent à compléter dans le Research Project.";
+  blocks.push(block("QUESTION_AND_OBJECTIVES", input.projectContext.framingKind === "OBJECTIVE"
+    ? `L’objectif adopté demeure : « ${input.projectContext.question} ». La question scientifique reste à expliciter dans le Research Project.${objectives}`
+    : `La question de recherche demeure : « ${input.projectContext.question} ».${objectives}`, "PROJECT"));
+  const primarySourceIds = new Set(prioritizeDocumentEvidence(input.library, evidenceSelected).slice(0, 1).flatMap((paragraph) => paragraph.sourceRefs));
+  const sourcePriorities = input.library.sources
+    .map((source) => priorityFor(input.library, source, evidenceSelected, conflicts, primarySourceIds, input.projectContext))
+    .filter((item): item is DocumentSourcePriority => Boolean(item));
+  const material = { contract: "DOC_SCIENTIFIC_NARRATIVE_V1" as const, projectContext: input.projectContext, blocks, sourcePriorities,
+    contradictoryEvidence: conflicts, depth: input.depth, coverage: unique(blocks.map((item) => item.role)) };
+  return { ...material, contentDigest: logicalDigest(material) };
+};
+

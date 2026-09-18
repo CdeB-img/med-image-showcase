@@ -107,7 +107,7 @@ describe("V1 scientific narrative and evidence synthesis", () => {
     ]));
     expect(narrative.blocks.find((block) => block.role === "PROBLEM")!.text).toContain("importance scientifique");
     expect(narrative.blocks.map((block) => block.text).join("\n").length).toBeGreaterThan(900);
-    expect(narrative.blocks.map((block) => block.text).join("\n")).toContain("aucune assertion ne répond directement");
+    expect(narrative.blocks.map((block) => block.text).join("\n")).toContain("preuves disponibles ici sont indirectes ou limitées");
     expect(documentEvidenceSections(content).find((section) => section.sectionId === "scientific-background")!.blocks[0]!.items)
       .toEqual(narrative.blocks.map((block) => block.text));
   });
@@ -304,7 +304,7 @@ describe("V1 scientific narrative and evidence synthesis", () => {
     expect(paragraphs.length).toBeGreaterThan(0);
     expect(narrative.coverage).toEqual(expect.arrayContaining(["PROBLEM", "SCIENTIFIC_GAP", "STUDY_JUSTIFICATION", "QUESTION_AND_OBJECTIVES"]));
     expect(narrative.blocks.find((block) => block.role === "PROBLEM")!.text).toContain("objectif adopté");
-    expect(narrative.blocks.find((block) => block.role === "QUESTION_AND_OBJECTIVES")!.text).toContain("question scientifique reste à expliciter");
+    expect(narrative.blocks.find((block) => block.role === "QUESTION_AND_OBJECTIVES")!.text).toContain("Formulation documentaire de la question");
     expect(narrative.blocks.map((block) => block.text).join(" ")).toMatch(/débit cérébral|CBF/u);
     expect(narrative.blocks.map((block) => block.text).join(" ")).not.toContain("«  »");
     expect(narrative.blocks.map((block) => block.text).join(" ")).not.toMatch(/myocard|ECV/u);

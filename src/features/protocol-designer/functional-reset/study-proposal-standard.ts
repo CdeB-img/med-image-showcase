@@ -6,7 +6,7 @@ import { canonicalizeScientificContribution } from "../../scientific-interpretat
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
 import { ensureCanonicalProjectState } from "../../research-project-construction/canonical-project-backbone.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
-import { calculateStudyProposalScenarios, contextualStudyProposalSchema, type ProposalProjectBinding, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
+import { calculateStudyProposalScenarios, contextualStudyProposalSchema, hardStudyProposalDependencies, studyProposalOptionDecisionRefs, type ProposalProjectBinding, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 
 export const studyProposalBinding = (project: ResearchProjectOwnerProjection | null): ProposalProjectBinding => project
@@ -23,7 +23,7 @@ export const activeStudyProposalDimensioning = (composition: StudyProposalCompos
   const excluded = new Set(composition.proposal.arbitrations.flatMap(a => a.options.filter(o => composition.unavailableOptionRefs.includes(o.ref)).flatMap(o => o.atomRefs)));
   composition.dispositions?.filter(d => d.status === "REJECTED").flatMap(d => d.atomRefs).filter(r => !composition.adoptedAtomRefs.includes(r)).forEach(r => excluded.add(r));
   let changed = true;
-  while (changed) { changed = false; for (const a of composition.proposal.atoms) if (!excluded.has(a.ref) && a.dependsOn.some(r => excluded.has(r))) { excluded.add(a.ref); changed = true; } }
+  while (changed) { changed = false; for (const a of composition.proposal.atoms) if (!excluded.has(a.ref) && hardStudyProposalDependencies(a).some(r => excluded.has(r))) { excluded.add(a.ref); changed = true; } }
   const candidates = composition.proposal.dimensioningScenarios.filter(s => ![...s.branchAtomRefs, s.analysisAtomRef ?? ""].some(r => excluded.has(r)));
   const preferred = new Set([...composition.adoptedAtomRefs, ...composition.proposal.arbitrations.filter(a => !a.options.some(o => o.atomRefs.some(r => composition.adoptedAtomRefs.includes(r))))
     .flatMap(a => a.options.filter(o => a.recommendedRefs.includes(o.ref)).flatMap(o => o.atomRefs))]);
@@ -123,12 +123,16 @@ export const selectedStudyProposalAtoms = (composition: StudyProposalComposition
   for (const arbitration of composition.proposal.arbitrations) {
     if (arbitration.selection === "ONE" && arbitration.options.filter(o => selectedOptionRefs.includes(o.ref)).length > 1) throw new Error("STUDY_PROPOSAL_EXCLUSIVE_SELECTION_INVALID");
   }
-  const atomRefs = [...new Set([...selectedAtomRefs, ...options.filter(o => selectedOptionRefs.includes(o.ref)).flatMap(o => o.atomRefs)])];
+  const atomRefs = [...new Set([...selectedAtomRefs, ...options.filter(o => selectedOptionRefs.includes(o.ref)).flatMap(o => studyProposalOptionDecisionRefs(composition.proposal, o))])];
   if (atomRefs.some(r => composition.adoptedAtomRefs.includes(r))) throw new Error("STUDY_PROPOSAL_ALREADY_ADOPTED");
   if (atomRefs.some(r => composition.proposal.atoms.find(a => a.ref === r)?.status === "OPEN_DECISION")) throw new Error("STUDY_PROPOSAL_UNKNOWN_CANNOT_BE_ADOPTED");
   // Dependency requirements are visible. They are not silently added to scope.
   for (const atom of composition.proposal.atoms.filter(a => atomRefs.includes(a.ref))) {
-    if (atom.dependsOn.some(r => !atomRefs.includes(r) && !composition.adoptedAtomRefs.includes(r))) throw new Error("STUDY_PROPOSAL_DEPENDENCY_NOT_SELECTED");
+    if (hardStudyProposalDependencies(atom).some(r => !atomRefs.includes(r) && !composition.adoptedAtomRefs.includes(r))) throw new Error("STUDY_PROPOSAL_DEPENDENCY_NOT_SELECTED");
+  }
+  if (composition.ownerReceipts.length && composition.proposal.atoms.some(atom => atomRefs.includes(atom.ref)
+    && atom.dependencyQualifications && !composition.ownerReceipts.some(receipt => receipt.owner === atom.owner && receipt.atomRefs.includes(atom.ref)))) {
+    throw new Error("STUDY_PROPOSAL_OWNER_QUALIFICATION_REQUIRED");
   }
   return atomRefs;
 };
@@ -140,6 +144,8 @@ export const buildStudyProposalSelectionContribution = (input: {
   project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
   proposalTurn: ScientificInterpretationTurn; selectionTurn: ScientificInterpretationTurn; createdAt: string;
   disposition?: "ACCEPT" | "REJECTED" | "DEFERRED";
+  /** Preparation is not user assent; only the later native review authorizes adoption. */
+  preparingReview?: boolean;
 }): ScientificInterpretationContributionEnvelope => {
   assertStudyProposalCurrent(input.composition, input.project);
   if (input.proposalTurn.role !== "NOXIA" || input.proposalTurn.turnId !== input.composition.sourceResponseRef
@@ -153,10 +159,31 @@ export const buildStudyProposalSelectionContribution = (input: {
       proposedType: atom.targetType, content: atom.content, polarity: "AFFIRMED", studyRole: atom.area,
       confidence: null, previousItemIds: previous ? [previous.objectId, ...previous.sourceItemRefs] : [],
       evidenceRefs: [input.composition.proposalRef, input.composition.digest, atom.ref, ...atom.evidenceRefs],
-      epistemicBoundary: { ownership: atom.owner, epistemicState: "ASSUMED" as const, epistemicStatus: !input.disposition || input.disposition === "ACCEPT" ? "CONFIRMED_BY_USER" : "OWNER_CANDIDATE",
+      epistemicBoundary: { ownership: atom.owner, epistemicState: "ASSUMED" as const, epistemicStatus: !input.preparingReview && (!input.disposition || input.disposition === "ACCEPT") ? "CONFIRMED_BY_USER" : "OWNER_CANDIDATE",
         adoptionStatus: "CANDIDATE_PENDING_HUMAN_CONFIRMATION", originType: "ASSISTANT_OWNER_RESULT", originStatus: atom.status,
         activeState: true, sourceTurnIds: [input.proposalTurn.turnId, input.selectionTurn.turnId], sourceText: input.selectionTurn.content } };
   });
+  // Native PRJ relation closure groups indispensable choices for partial review.
+  // Refinements stay in the working composition, never as adopted unknowns.
+  const relations = input.composition.proposal.atoms.filter(a => atomRefs.includes(a.ref) && a.dependencyQualifications)
+    .flatMap(atom => hardStudyProposalDependencies(atom).map(dependency => ({
+      relationId: `${studyProposalAtomItemRef(input.composition, atom.ref)}:requires:${dependency}`,
+      relationType: "Nécessite", sourceItemId: studyProposalAtomItemRef(input.composition, atom.ref),
+      targetItemId: input.composition.adoptedAtomRefs.includes(dependency)
+        ? `${input.projectId}:study-strategy:${input.composition.proposal.atoms.find(a => a.ref === dependency)!.semanticKey}`
+        : studyProposalAtomItemRef(input.composition, dependency),
+      polarity: "AFFIRMED", confidence: null,
+      evidenceRefs: [input.composition.proposalRef, input.composition.digest],
+      epistemicBoundary: items.find(item => item.itemId === studyProposalAtomItemRef(input.composition, atom.ref))!.epistemicBoundary,
+    })));
+  const openDetails = input.preparingReview ? input.composition.proposal.atoms.filter(a => a.status === "OPEN_DECISION").map(atom => ({
+    itemId: studyProposalAtomItemRef(input.composition, atom.ref), semanticIdentity: null,
+    proposedType: "UNCERTAINTY", content: atom.content, polarity: null, studyRole: atom.area, confidence: null,
+    evidenceRefs: [input.composition.proposalRef, atom.ref],
+    epistemicBoundary: { ownership: atom.owner, epistemicState: "UNKNOWN" as const, epistemicStatus: "OWNER_CANDIDATE",
+      adoptionStatus: "NOT_ADOPTED", originType: "ASSISTANT_OWNER_RESULT", originStatus: "OPEN_DECISION",
+      activeState: true, sourceTurnIds: [input.proposalTurn.turnId, input.selectionTurn.turnId], sourceText: input.selectionTurn.content },
+  })) : [];
   return canonicalizeScientificContribution({ contract: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE", contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
     identity: { contributionId: `study-proposal-selection:${logicalDigest({ digest: input.composition.digest, atomRefs, userTurn: input.selectionTurn.turnId })}`,
       previousContributionId: input.project?.contributionRef ?? null, contractVersion: "1.0.0", runtimeId: "STANDARD_CONTEXTUAL_PROPOSAL_SELECTION_ADAPTER", runtimeVersion: "1.0.0", createdAt: input.createdAt },
@@ -166,8 +193,8 @@ export const buildStudyProposalSelectionContribution = (input: {
     runtimeEvidence: { provider: null, model: null, promptDigest: null, schemaDigest: logicalDigest("SCIENTIFIC_THINKING_STUDY_PROPOSAL_1"),
       configurationDigest: logicalDigest("STANDARD_CONTEXTUAL_PROPOSAL_SELECTION_ADAPTER_1"), technicalStatus: "VISIBLE_CHOICES_SELECTED_FOR_HUMAN_DECISION", parseStatus: "NOT_REQUIRED", validationErrors: [] },
     scientificContent: { normalizedUnderstanding: input.composition.proposal.understanding.join(" · "), routeProposal: null, explicitStatements: [], candidateObjects: items,
-      candidateRelations: [], inferredContext: [], contextualCandidates: [], negationsAndConstraints: [], temporalElements: [], ambiguities: [], unknowns: [],
-      missingInformation: [], correctionsAndSupersessions: [], openDecisions: [], clarificationNeeds: [], temporalQualifications: [], expectedVariableOccasions: [] },
+      candidateRelations: relations, inferredContext: [], contextualCandidates: [], negationsAndConstraints: [], temporalElements: [], ambiguities: [], unknowns: [],
+      missingInformation: [], correctionsAndSupersessions: [], openDecisions: [], clarificationNeeds: openDetails, temporalQualifications: [], expectedVariableOccasions: [] },
     epistemicBoundary: { candidateIsAdopted: false, knowledgeSupportIsProjectDecision: false, projectOwnershipTransferred: false, humanDecisionEnvelopeRef: null },
     mapping: items.map(item => ({ sourceItemId: item.itemId, proposedTargetDomain: "RESEARCH_PROJECT", proposedTargetTypes: [item.proposedType],
       mappingStatus: "DOMAIN_REVIEW_REQUIRED", qualificationOwnerRequired: "RESEARCH_PROJECT", mappingLimitations: ["EXACT_VISIBLE_SELECTION_ONLY", "NO_IMPLICIT_DOWNSTREAM_ADOPTION"] })),

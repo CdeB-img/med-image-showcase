@@ -215,6 +215,8 @@ export type ProductBridgeTrace = {
 export type FunctionalResetSession = {
   drciDraftPacks?: readonly import("../../document-projection/drci-draft-contract.js").DrciDraftPack[];
   /** Optional UX/runtime composition; never an additional Project aggregate. */
+  workingDraft?: import("./continuous-project-build.js").WorkingDraftMetadata | null;
+  workingDraftFailure?: string | null;
   studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";

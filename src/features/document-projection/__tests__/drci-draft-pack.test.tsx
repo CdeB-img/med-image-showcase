@@ -14,10 +14,14 @@ import { completeDrciOperationalProjection, polishDrciEditorialText, prepareDrci
 import { readRetainedDrciProtocolEvidence } from "../../../../server/protocol-designer-document-evidence";
 import { executeOpenAIDrciDraft, executeOpenAITerraConversation } from "../../../../api/protocol-designer-openai-extraction-provider";
 import { mkdtemp } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createCanaryCampaignPolicy, SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../server/protocol-designer-canary-policy";
 import { createRecordedProtocolDesignerFetch, readCanaryState } from "../../../../server/protocol-designer-provider-replay";
+import { executeKnowledgeEngine } from "@/features/knowledge-engine";
+import { collectProjectKnowledgeSources, emptyProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
+import { documentEvidenceSections, validateDocumentEvidence } from "../scientific-document-revision";
 
 const at = "2026-09-17T15:00:00.000Z";
 const project = adoptBehaviorContribution(richStudyContribution(), null, 1);
@@ -26,7 +30,7 @@ const projection = refreshFunctionalResetDocumentPortfolio({ project, handoffDec
 const source = { handoffDecision, protocolProjection: projection, crf: buildCanonicalCrfPackage(project) };
 const packet = () => prepareDrciDraftPack(project, source);
 const generated = () => ({ documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `LOCAL_SYNTHETIC ${kind}`,
-  sections: [{ title: "Rationnel", paragraphs: [`${packet().sourceFacts[0].content} [[FACT:${packet().sourceFacts[0].ref}]] <script>test</script>`], sourceRefs: [packet().sourceFacts[0].ref] }],
+  sections: [{ title: "Rationnel", paragraphs: [`${packet().sourceFacts[0].content} [[FACT:${packet().sourceFacts[0].ref}]] <script>test</script> ${kind === "PROTOCOL_SYNOPSIS" ? "Texte synthétique de qualification ".repeat(140) : ""}`.trim()], sourceRefs: [packet().sourceFacts[0].ref] }],
   missingElements: ["[À compléter : promoteur]"] })),
   crfRows: source.crf.fields.map((field, index) => ({ variableRef: field.canonicalVariableId, variableId: `FIELD_${index}`, label: field.label,
     visit: "Visite à préciser", condition: null, derivedFrom: [], analysisImpact: null, domain: "Visite à préciser", definition: field.label,
@@ -37,6 +41,73 @@ const portfolio = () => buildStudyDeliverablePortfolio({ project, protocolProjec
 afterEach(() => { vi.useRealTimers(); cleanup(); localStorage.clear(); });
 
 describe("DRCI DOC/DM projections: source, review, stale and actual reading mechanics", () => {
+  it("keeps the real historical evidence readable without rebuilding it in the new editorial style", () => {
+    const historical = JSON.parse(readFileSync("validation/noxia-drci-release-closure-from-astra-01/DEMONSTRATOR_DOCUMENT_EVIDENCE.json", "utf8"));
+    const before = JSON.stringify(historical);
+    expect(historical.narrative.editorialVersion).toBeUndefined();
+    expect(validateDocumentEvidence(historical)).toBe(true);
+    expect(documentEvidenceSections(historical).length).toBe(2);
+    expect(JSON.stringify(historical)).toBe(before);
+    const retained = { ...pack(), editorialVersion: undefined };
+    const renal = { ref: "historical-open", type: "UNCERTAINTY", content: "Critère rénal restant à définir", polarity: "AFFIRMED", epistemicState: "UNKNOWN" };
+    expect(drciDraftPackFiles({ ...retained, sourceFacts: [...retained.sourceFacts, renal] })[0].markdown).toContain(renal.content);
+  });
+  it("persists qualified scientific evidence and renders its native claim citations and bibliography separately from Project facts", () => {
+    const result = executeKnowledgeEngine({ originalQuestion: "ECV myocardique et fibrose en IRM",
+      scientificObjectTerms: [{ term: "ECV myocardique", role: "SUBJECT" }], context: {}, externalSearchPolicy: "INTERNAL_ONLY",
+      researchProjectId: project.projectId, researchProjectVersion: project.versionId, researchProjectDigest: project.projectDigest, createdAt: at });
+    const library = collectProjectKnowledgeSources(emptyProjectSourceLibrary(project.projectId), result);
+    const sourced = refreshFunctionalResetDocumentPortfolio({ project, handoffDecision, requestedAt: at, generateProtocol: true, knowledgeLibrary: library }).projections.at(-1)!;
+    const enrichedPacket = prepareDrciDraftPack(project, { ...source, protocolProjection: sourced });
+    const providerEvidence = JSON.parse(prepareDrciGenerationBatches(enrichedPacket)[0].context).AVAILABLE_EVIDENCE;
+    expect(providerEvidence.claims.map((claim: { claim: string; limitationRefs: string[] }) => ({
+      text: claim.claim, limitations: claim.limitationRefs.map(ref => providerEvidence.limitationNotes[ref]),
+    }))).toEqual(sourced.evidenceContent!.paragraphs.map(paragraph => ({ text: paragraph.text, limitations: paragraph.limitations })));
+    expect(JSON.stringify(providerEvidence).length).toBeLessThan(JSON.stringify(sourced.evidenceContent).length);
+    const enriched = materializeDrciDraftPack(generated(), { project, packet: enrichedPacket, generatedAt: at });
+    const restored = JSON.parse(JSON.stringify(enriched));
+    expect(restored.evidenceContent.sources.length).toBeGreaterThan(0);
+    expect(validateDocumentEvidence(restored.evidenceContent)).toBe(true);
+    expect(isDrciDraftPackCurrent(restored, project)).toBe(true);
+    const full = drciDraftPackFiles(restored).find(file => file.kind === "PROTOCOL_FULL")!;
+    const native = documentEvidenceSections(restored.evidenceContent);
+    for (const section of native) for (const block of section.blocks) for (const paragraph of block.items) expect(full.markdown).toContain(paragraph);
+    expect(full.markdown).toContain("Fondements scientifiques documentés");
+    expect(full.markdown).toContain("Références scientifiques");
+    const changed = structuredClone(restored); changed.evidenceContent.libraryDigest = "different";
+    expect(isDrciDraftPackCurrent(changed, project)).toBe(false);
+    const wrongBinding = structuredClone(sourced); wrongBinding.evidenceContent!.narrative!.projectContext.sourceProjectVersion = "other-project-version";
+    expect(() => prepareDrciDraftPack(project, { ...source, protocolProjection: wrongBinding })).toThrow();
+    const decorative = structuredClone(sourced); decorative.evidenceContent!.paragraphs[0]!.sourceRefs = [];
+    expect(() => prepareDrciDraftPack(project, { ...source, protocolProjection: decorative })).toThrow();
+    expect(project.versionId).toBe(enriched.project.projectVersion);
+  });
+  it("renders admitted inline citations without adding a second rationale or decorative references", () => {
+    const result = executeKnowledgeEngine({ originalQuestion: "ECV myocardique et fibrose en IRM",
+      scientificObjectTerms: [{ term: "ECV myocardique", role: "SUBJECT" }], context: {}, externalSearchPolicy: "INTERNAL_ONLY",
+      researchProjectId: project.projectId, researchProjectVersion: project.versionId, researchProjectDigest: project.projectDigest, createdAt: at });
+    const library = collectProjectKnowledgeSources(emptyProjectSourceLibrary(project.projectId), result);
+    const sourced = refreshFunctionalResetDocumentPortfolio({ project, handoffDecision, requestedAt: at, generateProtocol: true, knowledgeLibrary: library }).projections.at(-1)!;
+    const enrichedPacket = prepareDrciDraftPack(project, { ...source, protocolProjection: sourced });
+    const sourceId = sourced.evidenceContent!.sources[0].source.sourceId;
+    const data = generated(); data.documents[1].sections[0].paragraphs = [`Contexte rédigé [[CITE:${sourceId}]].`];
+    const candidate = materializeDrciDraftPack(data, { project, packet: enrichedPacket, generatedAt: at });
+    const file = drciDraftPackFiles(candidate).find(file => file.kind === "PROTOCOL_FULL")!;
+    expect(file.markdown).not.toContain("Fondements scientifiques documentés");
+    expect(file.markdown).not.toContain("[[CITE:");
+    expect(file.markdown).toContain(sourced.evidenceContent!.sources[0].source.title);
+    for (const unused of sourced.evidenceContent!.sources.slice(1)) expect(file.markdown).not.toContain(unused.source.title);
+    const invalid = structuredClone(data); invalid.documents[1].sections[0].paragraphs = ["Claim [[CITE:unadmitted]]."];
+    expect(() => materializeDrciDraftPack(invalid, { project, packet: enrichedPacket, generatedAt: at })).toThrow("DRCI_CITATION_REFERENCE_INVALID");
+    const batch = prepareDrciGenerationBatches(enrichedPacket)[0];
+    const decoded = batch.expand({ documents: [{ ...data.documents[1], sections: [{ title: "Contexte", sourceRefs: [], paragraphs: ["Claim [[CITE:s0]]."] }] }], crfRows: [] });
+    expect(decoded.documents[0].sections[0].paragraphs[0]).toContain(`[[CITE:${sourceId}]]`);
+    expect(() => batch.expand({ documents: [{ ...data.documents[1], sections: [{ title: "Contexte", sourceRefs: [], paragraphs: ["Claim [[CITE:s999]]."] }] }], crfRows: [] })).toThrow("DRCI_CITATION_REFERENCE_INVALID");
+  });
+  it.each([549, 751])("fails closed on a synopsis of %i words without shortening its scientific content", count => {
+    const data = generated(); data.documents[0].sections[0].paragraphs = [Array(count).fill("scientifique").join(" ")];
+    expect(() => materializeDrciDraftPack(data, { project, packet: packet(), generatedAt: at })).toThrow("DRCI_SYNOPSIS_WORD_BOUND_EXCEEDED");
+  });
   it("makes the existing native DOC update action available for a current working projection", () => {
     const onRegenerate = vi.fn(); const original = JSON.stringify(projection);
     render(<ProtocolPreview projection={projection} stale={false} onClose={() => undefined} onRegenerate={onRegenerate} />);
@@ -101,6 +172,20 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
         contradictions: s.contradictions.map(n => transported.DOCUMENT_PLAN_NOTES[n]) }));
       expect(restored).toEqual(JSON.parse(packet().context).DOCUMENT_PLAN);
     }
+  });
+  it("factors repeated DOC notes losslessly without raising the HTTP guard and rejects missing note references", () => {
+    const longNote = "Information institutionnelle inconnue et à confirmer. ".repeat(50);
+    const repeated = { ...source, protocolProjection: { ...projection,
+      sections: projection.sections.map(section => ({ ...section, limitations: [longNote, ...section.limitations] })) } };
+    const before = JSON.stringify(repeated);
+    const compact = prepareDrciDraftSource(repeated);
+    const transported = JSON.parse(JSON.stringify(compact));
+    expect(prepareDrciDraftPack(project, transported)).toEqual(prepareDrciDraftPack(project, repeated));
+    expect(JSON.stringify(compact).length).toBeLessThan(before.length / 2);
+    expect(prepareDrciDraftSource(compact)).toBe(compact);
+    expect(JSON.stringify(repeated)).toBe(before);
+    delete transported.documentPlanNotes[transported.protocolProjection.sections[0].limitations[0]];
+    expect(() => prepareDrciDraftPack(project, transported)).toThrow("DRCI_DOCUMENT_PLAN_NOTE_INVALID");
   });
   it("assembles two bounded DOC outputs losslessly into one version-bound pack through the original provider transport", async () => {
     let calls = 0;
@@ -197,6 +282,10 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     expect(retained).not.toBeNull();
     const before = await readCanaryState(root, p.campaignId, p);
     expect(before.providerHttpRequests).toBe(2);
+    expect(await readRetainedDrciProtocolEvidence({ root, policy: p, packet: packet(), sessionId: "FRESH_SESSION" })).toBeNull();
+    expect(await readCanaryState(root, p.campaignId, p)).toEqual(before);
+    expect(provider).toHaveBeenCalledTimes(2);
+    await expect(readRetainedDrciProtocolEvidence({ root, policy: p, packet: packet(), sessionId: null })).rejects.toThrow("DRCI_RETAINED_SESSION_MISMATCH");
     const result = await executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", recorded, instrumentation, retained);
     expect(result.calls).toBe(1); expect(provider).toHaveBeenCalledTimes(4);
     const actual = materializeDrciDraftPack(result.value, { project, packet: packet(), generatedAt: at, reusedProtocolEvidenceRef: result.reusedProtocolEvidenceRef });
@@ -286,6 +375,53 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     expect(polishDrciEditorialText("Le pré-screening. Issue du pré-screening.")).toBe("La présélection. Issue de la présélection.");
     const candidate = pack(); const before = JSON.stringify(candidate.sourceFacts);
     drciDraftPackFiles(candidate); expect(JSON.stringify(candidate.sourceFacts)).toBe(before);
+  });
+  it("repairs the accented evaluability typo without modifying source identifiers or larger tokens", () => {
+    expect(polishDrciEditorialText("ECV global évalu able selon les conditions définies.")).toBe("ECV global évaluable selon les conditions définies.");
+    expect(polishDrciEditorialText("évalu able")).toBe("évaluable");
+    for (const text of ["[[FACT:évalu able]]", "préévalu able", "évalu able_extra", "évalu ables", "évaluable"])
+      expect(polishDrciEditorialText(text)).toBe(text);
+  });
+  it("groups equivalent CRF headings once and orders collection modules without merging different methods or mutating the pack", () => {
+    const original = pack();
+    const candidate = { ...original, crfRows: [...original.crfRows], sourceFacts: [...original.sourceFacts] };
+    const baseRow = candidate.crfRows[0];
+    candidate.crfRows = ["PA/HTA", "Qualité/évaluabilité", "Acquisition", "Acquisition TDM", "Autre méthode"].map((domain, i) => ({
+      ...baseRow, domain, variableId: `CHECK_${i}`, variableRef: `variable-${i}`, unit: "unité conservée", controls: [`contrôle-${i}`],
+      derivedFrom: i === 1 ? ["CHECK_0"] : [], derivation: i === 1 ? "dérivation conservée" : null,
+    }));
+    candidate.sourceFacts.push(
+      { ref: "visit", type: "VISIT", content: "Une visite IRM unique.", polarity: "AFFIRMED", epistemicState: "KNOWN" },
+      { ref: "quality", type: "PROJECT_INFORMATION", content: "ECV : cartes interprétables et hématocrite disponible.", polarity: "AFFIRMED", epistemicState: "KNOWN" });
+    candidate.documents.find(doc => doc.kind === "CRF")!.sections.push({ title: "Qualité / évaluabilité", paragraphs: ["Instruction qualité conservée."], sourceRefs: [] });
+    const before = JSON.stringify(candidate);
+    const file = drciDraftPackFiles(candidate).find(doc => doc.kind === "CRF")!;
+    const div = document.createElement("div"); div.innerHTML = file.html;
+    const headings = [...div.querySelectorAll("h2")].map(h => h.textContent);
+    expect(headings.filter(h => h === "Qualité / évaluabilité")).toHaveLength(1);
+    const quality = [...div.querySelectorAll("section")].find(s => s.querySelector("h2")?.textContent === "Qualité / évaluabilité")!;
+    expect(quality.querySelectorAll(".scientific-field")).toHaveLength(1);
+    expect(quality.querySelectorAll(".process-field")).toHaveLength(1);
+    expect(file.markdown.match(/Instruction qualité conservée\./gu)).toHaveLength(1);
+    expect(headings.indexOf("PA / HTA")).toBeLessThan(headings.indexOf("Acquisition IRM"));
+    expect(headings.indexOf("Acquisition")).toBe(headings.indexOf("Acquisition IRM") + 1);
+    expect(headings).toContain("Acquisition TDM"); expect(headings).toContain("Autre méthode");
+    expect(div.querySelectorAll(".scientific-field")).toHaveLength(candidate.crfRows.length);
+    expect(file.markdown).toContain("dérivation conservée"); expect(file.markdown).toContain("unité conservée");
+    candidate.crfRows.forEach((_, i) => expect(file.markdown).toContain(`contrôle-${i}`));
+    expect(JSON.stringify(candidate)).toBe(before);
+  });
+  it("separates explicit open-item categories without inventing a category or removing an unknown", () => {
+    const candidate = pack(); const synopsis = candidate.documents.find(doc => doc.kind === "PROTOCOL_SYNOPSIS")!;
+    synopsis.missingElements = ["Technique : procédure locale. Analyse : données manquantes. Institution : promoteur et contact.",
+      "Une précision non catégorisée reste ouverte ; ne pas interpréter le mot Analyse sans label."];
+    const before = JSON.stringify(candidate);
+    const file = drciDraftPackFiles(candidate).find(doc => doc.kind === "PROTOCOL_SYNOPSIS")!;
+    expect(file.markdown).toContain("### Technique\n\n- ☐ Procédure locale.");
+    expect(file.markdown).toContain("### Analyse\n\n- ☐ Données manquantes.");
+    expect(file.markdown).toContain("### Institution\n\n- ☐ Promoteur et contact.");
+    expect(file.markdown).toContain(synopsis.missingElements[1]);
+    expect(JSON.stringify(candidate)).toBe(before);
   });
   it("adds collection controls separately and only from applicable known positive decisions", () => {
     const candidate = { ...pack(), sourceFacts: [
@@ -408,7 +544,7 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
       expect(artifact.sourceObjectRefs).toEqual(candidate.sourceFacts.map(f => f.ref));
     }
   });
-  it("keeps negated reference facts negated and every current unknown visible in all four documents", () => {
+  it("keeps negated facts in every document and consolidates the full unknown checklist outside the synopsis", () => {
     const original = pack();
     const candidate = { ...original, sourceFacts: [...original.sourceFacts,
       { ref: "negated-test", type: "ACQUISITION", content: "T2 systématique", polarity: "NEGATED", epistemicState: "KNOWN" },
@@ -417,8 +553,8 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     for (const file of drciDraftPackFiles(candidate)) {
       expect(file.markdown).toContain("Exclusion / absence : T2 systématique");
       expect(file.html).toContain("Exclusion / absence : T2 systématique");
-      expect(file.markdown).toContain("Critère rénal restant à définir");
-      expect(file.html).toContain("Critère rénal restant à définir");
+      if (file.kind === "PROTOCOL_SYNOPSIS") expect(file.markdown).not.toContain("Critère rénal restant à définir");
+      else { expect(file.markdown).toContain("Critère rénal restant à définir"); expect(file.html).toContain("Critère rénal restant à définir"); }
     }
   });
   it("marks every written document STALE after a Project change and preserves its original binding", () => {

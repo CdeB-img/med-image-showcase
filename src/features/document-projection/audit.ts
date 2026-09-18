@@ -62,7 +62,7 @@ export const auditDocumentProjection = (
   if (projection?.evidenceContent) {
     try {
       if (request.knowledgeLibrary?.projectId !== projection.source.projectId || request.knowledgeLibrary.digest !== projection.evidenceContent.libraryDigest) throw new Error("KNOWLEDGE_PROJECT_BINDING_MISMATCH");
-      validateDocumentEvidence(projection.evidenceContent);
+      validateDocumentEvidence(projection.evidenceContent, { projectRef: projection.source.projectId, projectVersion: projection.source.projectVersion, projectDigest: projection.source.projectDigest });
       if (!["TMP-NODE:SCIENTIFIC_BACKGROUND", "TMP-NODE:SCIENTIFIC_REFERENCES"].every((id) => instance.nodes.some((node) => node.nodeId === id))) throw new Error("KNOWLEDGE_TEMPLATE_BINDING_MISSING");
     } catch (error) {
       findings.push(finding("DOC_CONTENT_WITHOUT_PROJECT_SOURCE", "ERROR", subjectId, error instanceof Error ? error.message : "KNOWLEDGE_DOCUMENT_EVIDENCE_INVALID"));

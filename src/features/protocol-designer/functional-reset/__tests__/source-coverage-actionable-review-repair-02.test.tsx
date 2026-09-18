@@ -48,8 +48,7 @@ const render = (c: ScientificInterpretationContributionEnvelope) => renderToStat
 const renderAudit = (c: ScientificInterpretationContributionEnvelope) => {
   const ui = renderUi(<ContributionReview contribution={c} candidate={prepareResearchProjectContributionCandidate(c, null)} status="PENDING"
     onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
-  const details = ui.getByTestId("functional-review-details") as HTMLDetailsElement;
-  details.open = true; fireEvent(details, new Event("toggle"));
+  fireEvent.click(ui.getByTestId("functional-review-details"));
   const markup = ui.getByTestId("review-audit-detail").outerHTML;
   ui.unmount(); return markup;
 };
@@ -75,7 +74,7 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     const c = contribution(raw, delta([object("mri", "IRM à J1", raw, "ACQUISITION")]));
     const result = projectActionableSourceCoverage(c);
     expect(result.dispositions.find(item => item.sourceSpan === "Pas de PET.")?.classification).toBe("TRUE_OMISSION");
-    expect(render(c)).toContain("Compréhension partielle");
+    expect(render(c)).toContain("Projet en construction · des points restent à préciser.");
     expect(render(c)).toContain("Pas de PET.");
     expect(c.scientificContent.clarificationNeeds).toEqual([]);
   });
@@ -221,13 +220,13 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     const c = structuredClone(records.find(record => record.id === "AVC-T05")!.contribution);
     c.scientificContent.ambiguities.push({ ...c.scientificContent.candidateObjects[0], itemId: "legacy-provenance", content: "Détail de provenance",
       epistemicBoundary: { ...c.scientificContent.candidateObjects[0].epistemicBoundary, epistemicStatus: "UNREPRESENTED_SOURCE_SPAN" } });
-    expect(render(c)).not.toContain("Compréhension partielle");
+    expect(render(c)).not.toContain("Projet en construction · des points restent à préciser.");
   });
   it("shows no partial-comprehension warning for the represented AVC T5/confirmation", () => {
     const c = records.find(record => record.id === "AVC-T05")!.contribution;
     expect(projectActionableSourceCoverage(c).actionableItems).toHaveLength(0);
     const markup = render(c);
-    expect(markup).not.toContain("Compréhension partielle");
+    expect(markup).not.toContain("Projet en construction · des points restent à préciser.");
     expect(markup).not.toContain('data-testid="source-coverage-review"');
     expect(markup).not.toContain('data-testid="source-coverage-audit"');
     const audit = renderAudit(c);

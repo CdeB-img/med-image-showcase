@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
 export const REGULATORY_RESOLUTION_VERSION = "1.0.0" as const;
 

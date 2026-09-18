@@ -1,3 +1,4 @@
+import { prepareSynopsisRevision, materializeSynopsisRevision } from "../src/features/document-projection/synopsis-revision.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import { prepareDrciGenerationBatches, validateRetainedDrciProtocol, validateRetainedDrciScope, type RetainedDrciProtocol, type DrciProjectBinding } from "../src/features/document-projection/drci-draft-contract.js";
 import {
@@ -213,6 +214,8 @@ export const executeOpenAITerraConversation = async (
     usage: result.body.usage ?? null };
 };
 
+const usedSynopsisRevisionOriginals = new Set<string>();
+
 /** Document writing uses the same stateless Responses transport and recorder. */
 export const executeOpenAIDrciDraft = async (
   packet: { context: string; instruction: string; projectBinding: DrciProjectBinding }, apiKey: string, fetchImpl: typeof fetch = fetch,
@@ -222,6 +225,31 @@ export const executeOpenAIDrciDraft = async (
   const batches = prepareDrciGenerationBatches(packet);
   const retained = retainedProtocol ? validateRetainedDrciProtocol(packet, retainedProtocol) : null;
   const remaining = retainedProtocol?.remainingScope ? validateRetainedDrciScope(packet, retainedProtocol.remainingScope, 1) : null;
+  if (retainedProtocol?.synopsisRevision) {
+    if (!retained || !remaining || !retainedProtocol.readSynopsisRevisionRawRef) throw new Error("DOC_REVISION_RETAINED_SOURCE_REQUIRED");
+    const revision = retainedProtocol.synopsisRevision;
+    if (logicalDigest(retained.documents[0]) !== revision.frozenProtocolDigest) throw new Error("DOC_REVISION_FROZEN_PROTOCOL_CHANGED");
+    const original = remaining.documents.find(d => d.kind === "PROTOCOL_SYNOPSIS");
+    if (logicalDigest(original) !== logicalDigest(revision.original)) throw new Error("DOC_REVISION_ORIGINAL_SOURCE_MISMATCH");
+    const prepared = prepareSynopsisRevision(packet, revision);
+    const identity = `${prepared.originalDigest}:${prepared.planDigest}`;
+    if (usedSynopsisRevisionOriginals.has(prepared.originalDigest)) throw new Error("DOC_REVISION_ATTEMPT_ALREADY_USED");
+    usedSynopsisRevisionOriginals.add(prepared.originalDigest);
+    const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
+      modelRequested: "gpt-5.6-terra", instrumentation: instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
+        clientRequestId: `${instrumentation.context.clientRequestId}:synopsis-revision:${identity}` } } : undefined,
+      payload: { model: "gpt-5.6-terra", instructions: prepared.instruction,
+        input: "Retourne uniquement le plan de révision au format JSON valide demandé.\n" + prepared.context,
+        reasoning: { effort: "medium" }, max_output_tokens: 4000, store: false, service_tier: "default",
+        text: { format: { type: "json_object" } } } });
+    // Recorded fetch persists the full raw response before this owner decodes it.
+    const revised = materializeSynopsisRevision(JSON.parse(responseOutputText(result.body)), prepared, {
+      providerStatus: result.body.status ?? "", rawProviderResponseRef: await retainedProtocol.readSynopsisRevisionRawRef(),
+      createdAt: new Date().toISOString() });
+    return { value: { documents: [...retained.documents, revised.document, ...revision.frozenCompanion.documents],
+      crfRows: revision.frozenCompanion.crfRows }, latencyMs: result.latencyMs, modelReturned: result.body.model ?? null,
+      calls: 1 as const, reusedProtocolEvidenceRef: retainedProtocol.rawOutputRef, synopsisRevision: revised.provenance };
+  }
   const documents = [...retained?.documents ?? [], ...remaining?.documents ?? []]; const crfRows = [...remaining?.crfRows ?? []];
   let latencyMs = 0; let modelReturned: string | null = null;
   for (const batch of remaining ? [] : retained ? batches.slice(1) : batches) {
@@ -238,7 +266,7 @@ export const executeOpenAIDrciDraft = async (
     modelReturned = result.body.model ?? null;
   }
   return { value: { documents, crfRows }, latencyMs, modelReturned, calls: remaining ? 0 as const : retained ? 1 as const : 2 as const,
-    reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null };
+    reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null, synopsisRevision: undefined };
 };
 
 export const buildOpenAILanguageProjectionPayload = (

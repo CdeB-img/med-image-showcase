@@ -55,7 +55,7 @@ const summaryItemContent = (item: { content: string }) => {
 type SummaryRow = { id: string; label: string; items: HumanReviewProjectionItem[] };
 
 const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): SummaryRow[] => {
-  const items = candidate.humanReviewProjection.sections.flatMap((section) => section.items);
+  const items = candidate.humanReviewProjection.sections.flatMap((section) => section.items).filter(item => item.changeKind !== "RELATION");
   // UNCERTAINTY remains part of the candidate/Project model but is rendered
   // once through the dedicated clarification row below.
   const objects = items.filter((item) => item.changeKind === "OBJECT" && item.objectType !== "UNCERTAINTY");
@@ -74,8 +74,7 @@ const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): Su
   const bySection = (...sectionIds: string[]) => uniqueItems(objects.filter((item) => (
     item.projectSectionId && sectionIds.includes(item.projectSectionId)
   )));
-  const relations = uniqueItems(items.filter((item) => item.changeKind === "RELATION"));
-  const comparison = relations.length ? relations : bySection("INTERVENTION", "COMPARATOR");
+  const comparison = bySection("INTERVENTION", "COMPARATOR");
   const temporalChanges = [...candidate.canonicalChangeSet.temporalQualificationChanges, ...candidate.canonicalChangeSet.expectedVariableOccasionChanges];
   const temporalKeys = new Map(temporalChanges.flatMap(change => change.candidate ? [[change.changeRef, `${"subjectProjectRef" in change.candidate ? change.candidate.subjectProjectRef : change.candidate.variableProjectRef}:${JSON.stringify(change.candidate.anchor, (key, value) => key === "provenance" ? undefined : value)}`] as const] : []));
   const timedAcquisitionRefs = new Set(candidate.canonicalChangeSet.temporalQualificationChanges.flatMap(change => change.candidate ? [change.candidate.subjectProjectRef] : []));
@@ -100,17 +99,22 @@ const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): Su
     if (seenTemporalKeys.has(key)) return false;
     seenTemporalKeys.add(key); return true;
   });
-  const summarizedSections = new Set([
-    "QUESTION", "POPULATION", "DESIGN", "INTERVENTION", "COMPARATOR", "TEMPORALITY", "IMAGING", "MEASUREMENTS",
-  ]);
-  const otherItems = uniqueItems(objects.filter((item) => !item.projectSectionId || !summarizedSections.has(item.projectSectionId)));
-  return [
-    { id: "study", label: "Étude", items: bySection("QUESTION", "POPULATION", "DESIGN") },
-    { id: "comparison", label: "Comparaison", items: comparison },
-    { id: "evaluation", label: "Évaluation", items: evaluation },
-    { id: "primary-endpoint", label: "Critère principal", items: endpoints },
-    { id: "other", label: "Autres éléments", items: otherItems },
-  ].filter((row) => row.items.length);
+  const rows: SummaryRow[] = [
+    { id: "question", label: "Question / objectif", items: bySection("QUESTION") },
+    { id: "population", label: "Population", items: bySection("POPULATION") },
+    { id: "design", label: "Design", items: bySection("DESIGN") },
+    { id: "comparison", label: "Intervention / comparateur", items: comparison },
+    { id: "calendar", label: "Calendrier", items: evaluation.filter(item => item.projectSectionId === "TEMPORALITY") },
+    { id: "evaluation", label: "Évaluations / critère principal", items: [...endpoints, ...evaluation.filter(item => item.projectSectionId !== "TEMPORALITY")] },
+    { id: "analysis", label: "Analyse", items: bySection("ANALYSIS") },
+  ];
+  const represented = new Set(rows.flatMap(row => row.items.map(item => item.changeRef)));
+  rows.push({ id: "other", label: "Sécurité / autres éléments", items: objects.filter(item => !represented.has(item.changeRef)) });
+  const displayed = new Set<string>();
+  return rows.map(row => ({ ...row, items: row.items.filter(item => {
+    if (displayed.has(item.changeRef)) return false;
+    displayed.add(item.changeRef); return true;
+  }) })).filter(row => row.items.length);
 };
 
 const activeIssueItems = (contribution: ScientificInterpretationContributionEnvelope) => uniqueItems([
@@ -190,7 +194,17 @@ export default function ContributionReview({ contribution, candidate, currentPro
     : confirmedChanges.includes(item.changeRef) ? "Confirmé" : "Non retenu";
   const openPoints = candidate.humanReviewProjection.openPoints;
   const summaryRows = initialSummaryRows(candidate);
+  const decisionNumbers = new Map(summaryRows.flatMap(row => row.items).map((item, index) => [item.changeRef, index + 1]));
   const issueItems = activeIssueItems(contribution);
+  const pointTexts = new Set<string>();
+  const clarificationPoints = (issueItems.length > 0
+    ? issueItems.map(item => ({ id: item.itemId, content: summaryItemContent(item) }))
+    : openPoints.map(point => ({ id: point.openPointRef, content: summaryItemContent(point) }))
+  ).filter(point => {
+    const key = normalized(point.content);
+    if (pointTexts.has(key)) return false;
+    pointTexts.add(key); return true;
+  });
   const sourceCoverage = useMemo(() => projectActionableSourceCoverage(contribution), [contribution]);
   const coverageIssues = sourceCoverage.materialItems;
   const preservedProperties = status === "PENDING"
@@ -210,49 +224,46 @@ export default function ContributionReview({ contribution, candidate, currentPro
       </li>)}</ul>
     </section>}
 
-    {!isUpdate && <dl className="mt-2 divide-y rounded-2xl border bg-background px-3" data-testid="standard-initial-review-summary">
-      {(expanded ? summaryRows : summaryRows.slice(0, 3)).map((row) => <div key={row.id} className="grid gap-1 py-0.5 sm:grid-cols-[9rem_1fr]">
-        <dt className="text-sm font-semibold">{row.label}</dt>
-        <dd className={`text-sm leading-relaxed ${expanded ? "" : "line-clamp-1"}`} title={row.items.map(summaryItemContent).join(" · ")}>{row.items.map(item => `${summaryItemContent(item)}${partialDecision ? ` — ${decisionLabel(item)}` : ""}`).join(" · ")}</dd>
-      </div>)}
-      {expanded && issueItems.length > 0 && <div className="grid gap-1 py-1 sm:grid-cols-[9rem_1fr]">
-        <dt className="text-sm font-semibold text-amber-800 dark:text-amber-200">À clarifier</dt>
-        <dd className="text-sm leading-relaxed">{issueItems.map(summaryItemContent).join(" · ")}</dd>
-      </div>}
-    </dl>}
-
-    {isUpdate && <dl className="mt-2 divide-y rounded-2xl border bg-background px-3" data-testid="standard-update-review-summary">
-      {(expanded ? sections : sections.slice(0, 3)).map(section => <div key={section.sectionRef} className="grid gap-1 py-0.5 sm:grid-cols-[9rem_1fr]">
-        <dt className="text-sm font-semibold">{section.label}</dt>
-        <dd className={`text-sm ${expanded ? "" : "line-clamp-1"}`}>{section.items.map(item => <p key={item.reviewItemRef}>
+    <div className="mt-3 space-y-3" data-testid={isUpdate ? "standard-update-review-summary" : "standard-initial-review-summary"}>
+      {summaryRows.map(row => <section key={row.id} data-testid="human-review-decision-group">
+        <h4 className="text-sm font-semibold">{row.label}</h4>
+        <ul className="mt-1 space-y-1 text-sm leading-5">{row.items.map(item => <li key={item.changeRef} data-testid="human-review-decision-row">
+          <span className="mr-2 text-xs text-muted-foreground">{decisionNumbers.get(item.changeRef)}.</span>
           {summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}
-        </p>)}</dd>
-      </div>)}
+        </li>)}</ul>
+      </section>)}
+    </div>
+    {clarificationPoints.length > 0 && <section className="mt-3 text-sm" data-testid="human-review-open-points">
+      <h4 className="font-semibold">À préciser avant finalisation</h4>
+      <ul className="mt-1 space-y-1">{clarificationPoints.map(point => <li key={point.id}>{point.content}</li>)}</ul>
+    </section>}
+    {preservedProperties.length > 0 && <dl className="mt-3 text-sm" data-testid="standard-update-preserved-properties">
+      {preservedProperties.map(property => <div key={property.id}><dt className="font-semibold">{property.label}</dt><dd>{property.content}</dd></div>)}
     </dl>}
-
-    {!expanded && <p className="mt-2 text-xs text-muted-foreground">{changeCount} éléments proposés · contenu intégral dans les détails</p>}
-    <Sheet open={detailsOpen} onOpenChange={setDetailsOpen}>
-      <SheetTrigger asChild><button type="button" className="mt-1 min-h-8 text-sm font-medium underline underline-offset-4" data-testid="functional-review-details">Voir les détails</button></SheetTrigger>
-      <SheetContent className="w-[min(96vw,680px)] overflow-y-auto sm:max-w-[680px]">
-        <SheetHeader><SheetTitle>Choix proposés</SheetTitle><SheetDescription>Propositions et points ouverts. L’enregistrement nécessite votre confirmation.</SheetDescription></SheetHeader>
-        <div className="mt-4 space-y-3" data-testid="review-full-scientific-delta">{sections.map(section => <section key={section.sectionRef}><h4 className="text-sm font-semibold">{section.label}</h4><ul className="mt-1 space-y-1 text-sm">{section.items.map(item => <li key={item.reviewItemRef}>{summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}</li>)}</ul></section>)}</div>
-        {issueItems.length > 0 && <section className="mt-4 text-sm"><h4 className="font-semibold">À préciser</h4><ul>{issueItems.map(item => <li key={item.itemId}>{summaryItemContent(item)}</li>)}</ul></section>}
+    <p className="mt-3 text-xs text-muted-foreground">{summaryRows.reduce((count, row) => count + row.items.length, 0)} choix proposés · {clarificationPoints.length} points ouverts</p>
     {!readOnly && onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
       <summary className="cursor-pointer text-sm font-medium">Choisir les éléments à enregistrer</summary>
       <p className="mt-2 text-xs text-muted-foreground">Les éléments dépendants sont regroupés. Les éléments non sélectionnés restent en discussion.</p>
       <div className="mt-2 space-y-2">{scopeGroups.map(group => {
         const key = group.join("|");
         const selected = selectedGroups ?? scopeGroups.map(item => item.join("|"));
-        const labels = scopeItems.filter(item => group.includes(item.changeRef)).map(item => summaryItemContent(item));
+        const numbers = group.flatMap(ref => decisionNumbers.has(ref) ? [decisionNumbers.get(ref)!] : []).sort((a, b) => a - b);
+        const labels = summaryRows.filter(row => row.items.some(item => group.includes(item.changeRef))).map(row => row.label);
         return <label key={key} className="flex items-start gap-2 text-sm"><input type="checkbox" disabled={disabled}
           checked={selected.includes(key)} onChange={event => setSelectedGroups(event.target.checked ? [...selected, key] : selected.filter(item => item !== key))} />
-          <span>{[...new Set(labels)].join(" · ") || "Modification liée"}</span></label>;
+          <span>{numbers.length > 0 ? `Choix ${numbers.join(", ")} — ${labels.join(", ")}` : "Liens de l’étude"}</span></label>;
       })}</div>
       <button type="button" disabled={disabled || selectedGroups?.length === 0} className="mt-3 min-h-10 rounded-lg border px-3 text-sm font-semibold"
         onClick={() => onConfirmScope(scopeGroups.filter(group => (selectedGroups ?? scopeGroups.map(item => item.join("|"))).includes(group.join("|"))).flat())}>Enregistrer la sélection</button>
     </details>}
         {!readOnly && status === "PENDING" && actionable && <button type="button" disabled={disabled} onClick={() => { onConfirm(); setDetailsOpen(false); }} className="mt-5 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Confirmer les choix et enregistrer</button>}
         {!readOnly && status === "PENDING" && actionable && <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={disabled} onClick={() => { onCorrect(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Décrire une correction</button><button type="button" disabled={disabled} onClick={() => { onReject(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Refuser cette proposition</button></div>}
+
+    <Sheet open={detailsOpen} onOpenChange={setDetailsOpen}>
+      <SheetTrigger asChild><button type="button" className="mt-1 min-h-8 text-sm font-medium underline underline-offset-4" data-testid="functional-review-details">Voir les détails</button></SheetTrigger>
+      <SheetContent className="w-[min(96vw,680px)] overflow-y-auto sm:max-w-[680px]">
+        <SheetHeader><SheetTitle>Détails techniques de la revue</SheetTitle><SheetDescription>Relations, sources et provenance des choix proposés.</SheetDescription></SheetHeader>
+        <p className="mt-3 text-xs text-muted-foreground">{changeCount} changements natifs, dont {scopeItems.filter(item => item.changeKind === "RELATION").length} relations</p>
         <details className="mt-5 text-sm"><summary className="cursor-pointer font-medium">Sources et provenance</summary>
       {detailsOpen && <div className="mt-3 space-y-3" data-testid="review-audit-detail">
         {detailedUnderstanding}
@@ -266,9 +277,9 @@ export default function ContributionReview({ contribution, candidate, currentPro
             contribution, changeSet: candidate.changeSet, humanReviewProjection: candidate.humanReviewProjection,
           }, null, 2)}</pre>
         </details>
-        <div className="grid gap-3 sm:grid-cols-2">{sections.map(section => <section key={section.sectionRef} className="rounded-xl border p-3">
+        <div className="grid gap-3 sm:grid-cols-2">{sections.filter(section => section.items.some(item => item.changeKind === "RELATION")).map(section => <section key={section.sectionRef} className="rounded-xl border p-3">
           <h4 className="text-sm font-semibold">{section.label}</h4>
-          <ul className="mt-2 space-y-1 text-sm">{section.items.map(item => <li key={item.reviewItemRef}>
+          <ul className="mt-2 space-y-1 text-sm">{section.items.filter(item => item.changeKind === "RELATION").map(item => <li key={item.reviewItemRef}>
             <p>{item.content}</p>
             {partialDecision && <span>{decisionLabel(item)}</span>}
             <p className="text-xs text-muted-foreground">{[item.statusLabel, item.specificationLabel].filter(Boolean).join(" · ")}</p>

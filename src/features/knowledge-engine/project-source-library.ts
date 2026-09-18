@@ -1,7 +1,9 @@
-import { consolidatedSourceRevisions } from "@/knowledge-graph/scientific-consolidation/sources.mjs";
-import { multidomainSourceRevisions } from "@/knowledge-graph/scientific-multidomain/sources.mjs";
-import { logicalDigest, stableStringify } from "./canonical";
-import type { KnowledgeResult, RuntimeAssertion, RuntimeConflict, RuntimeEvidenceLink, RuntimeSource } from "./types";
+import { consolidatedSourceRevisions } from "../../knowledge-graph/scientific-consolidation/sources.mjs";
+import { multidomainSourceRevisions } from "../../knowledge-graph/scientific-multidomain/sources.mjs";
+import { logicalDigest, stableStringify } from "./canonical.js";
+import type { KnowledgeResult, RuntimeAssertion, RuntimeConflict, RuntimeEvidenceLink, RuntimeSource } from "./types.js";
+import { validateProjectScopedEvidenceRecord, type EvidenceProjectBinding, type ProjectScopedEvidence } from "./project-scoped-evidence.js";
+import type { ExternalCandidateSource } from "./external-evidence/types.js";
 
 export type SourceOrigin = "USER_MENTIONED" | "USER_PROVIDED" | "USER_UPLOADED" | "NOXIA_RETRIEVED" | "EXISTING_CORPUS";
 export type SourceRelevance = "EXPLICIT_INTEREST" | "INFERRED_INTEREST" | "NONE";
@@ -26,6 +28,8 @@ export type ProjectSourceLibrary = {
   contract: "KNOWLEDGE_PROJECT_SOURCE_LIBRARY";
   version: "1.0.0";
   projectId: string;
+  projectBinding?: EvidenceProjectBinding;
+  projectScopedEvidence?: ProjectScopedEvidence[];
   sources: ProjectSource[];
   unresolvedMentions: Array<{ mentionId: string; text: string; turnRef: string; recordedAt: string; origin: "USER_MENTIONED"; userRelevance: SourceRelevance }>;
   digest: string;
@@ -35,16 +39,61 @@ type BibliographicRecord = { revisionId: string; authors?: string[]; publication
 const bibliography = new Map<string, BibliographicRecord>(([...consolidatedSourceRevisions, ...multidomainSourceRevisions] as BibliographicRecord[]).map((source) => [source.revisionId, source]));
 const unique = <T>(values: T[]) => [...new Set(values)];
 const detached = <T>(value: T): T => JSON.parse(JSON.stringify(value));
-const seal = ({ contract, version, projectId, sources, unresolvedMentions }: Omit<ProjectSourceLibrary, "digest">): ProjectSourceLibrary => {
-  const material = { contract, version, projectId, sources, unresolvedMentions };
+const seal = ({ contract, version, projectId, sources, unresolvedMentions, projectBinding, projectScopedEvidence }: Omit<ProjectSourceLibrary, "digest">): ProjectSourceLibrary => {
+  const material = { contract, version, projectId, sources, unresolvedMentions,
+    ...(projectBinding ? { projectBinding } : {}), ...(projectScopedEvidence ? { projectScopedEvidence } : {}) };
   return { ...material, digest: logicalDigest(material) };
 };
 export const emptyProjectSourceLibrary = (projectId: string) => seal({ contract: "KNOWLEDGE_PROJECT_SOURCE_LIBRARY", version: "1.0.0", projectId, sources: [], unresolvedMentions: [] });
+/** Refreshing the binding does not requalify old evidence; its original binding is immutable. */
+export const bindProjectSourceLibrary = (library: ProjectSourceLibrary, binding: EvidenceProjectBinding) => {
+  if (binding.projectRef !== library.projectId || !binding.projectVersion || !binding.projectDigest) throw new Error("SOURCE_LIBRARY_PROJECT_MISMATCH");
+  return seal({ ...library, projectBinding: detached(binding) });
+};
+/** Scoped records remain separate from native assertions and their global qualification. */
+export const retainProjectScopedEvidence = (library: ProjectSourceLibrary, sources: ProjectSource[], records: ProjectScopedEvidence[]) => {
+  if (!library.projectBinding || library.projectBinding.projectRef !== library.projectId) throw new Error("PROJECT_SCOPED_EVIDENCE_BINDING_REQUIRED");
+  const entries = new Map(library.sources.map((entry) => [entry.source.sourceId, detached(entry)]));
+  for (const source of sources) {
+    const retained = entries.get(source.source.sourceId);
+    if (retained && (retained.source.revision !== source.source.revision || retained.source.title !== source.source.title)) throw new Error("SOURCE_LIBRARY_IDENTITY_COLLISION");
+    if (!retained) entries.set(source.source.sourceId, detached(source));
+  }
+  const evidence = new Map((library.projectScopedEvidence ?? []).map((record) => [record.evidenceId, record]));
+  for (const record of records) {
+    validateProjectScopedEvidenceRecord(record);
+    if (record.input.projectBinding.projectRef !== library.projectId) throw new Error("SOURCE_LIBRARY_PROJECT_MISMATCH");
+    if (!entries.has(record.input.sourceId)) throw new Error("PROJECT_SCOPED_EVIDENCE_SOURCE_MISSING");
+    const previous = evidence.get(record.evidenceId);
+    if (previous && stableStringify(previous) !== stableStringify(record)) throw new Error("PROJECT_SCOPED_EVIDENCE_REPLACEMENT_REQUIRES_LIFECYCLE");
+    evidence.set(record.evidenceId, detached(record));
+  }
+  return seal({ ...library, sources: [...entries.values()], projectScopedEvidence: [...evidence.values()] });
+};
+export const supersedeProjectScopedEvidence = (library: ProjectSourceLibrary, evidenceId: string) => {
+  if (!library.projectScopedEvidence?.some((record) => record.evidenceId === evidenceId)) throw new Error("PROJECT_SCOPED_EVIDENCE_MISSING");
+  return seal({ ...library, projectScopedEvidence: library.projectScopedEvidence.map((record) => {
+    if (record.evidenceId !== evidenceId) return record;
+    const { digest, ...material } = record;
+    const updated = { ...material, status: "SUPERSEDED" as const };
+    return { ...updated, digest: logicalDigest(updated) };
+  }) });
+};
 export const safeSourceUrl = (value: string | undefined | null) => {
   if (!value) return null;
   try { const url = new URL(value); return ["https:", "http:"].includes(url.protocol) && !url.username && !url.password ? url.href : null; } catch { return null; }
 };
 export const sourceShortReference = (entry: ProjectSource) => `${entry.authors[0] ?? entry.source.title}${entry.authors.length > 1 ? " et al." : ""}${entry.year ? ` (${entry.year})` : ""}`;
+
+/** Reuse the existing discovery type without admitting its candidate assertions. */
+export const projectSourceFromExternalCandidate = (candidate: ExternalCandidateSource): ProjectSource => ({
+  source: { sourceId: candidate.sourceIdentity, revision: candidate.sourceRevision, title: candidate.title,
+    status: candidate.documentStatus, doi: candidate.doi, pmid: candidate.pmid, pmcid: candidate.pmcid, locator: candidate.accessLocator },
+  authors: [...candidate.authors], year: candidate.publicationYear ?? candidate.publicationDate?.slice(0, 4) ?? null,
+  url: safeSourceUrl(candidate.accessLocator), publicationType: candidate.publicationTypes.join(" ; ") || null,
+  origins: ["NOXIA_RETRIEVED"], roles: ["BACKGROUND"], userRelevance: "NONE", interestHistory: [], knowledgeResultRefs: [], assertions: [], evidence: [],
+  scientificWeight: { assessment: "NOT_ASSESSED", evidenceLevel: "NOT_ASSIGNED", status: candidate.status },
+});
 
 /** This is a project-bound read projection of Knowledge; user interest never changes evidence status. */
 export const collectProjectKnowledgeSources = (library: ProjectSourceLibrary, result: KnowledgeResult): ProjectSourceLibrary => {
@@ -74,7 +123,9 @@ export const collectProjectKnowledgeSources = (library: ProjectSourceLibrary, re
       scientificWeight: { assessment: effective ? "OWNER_QUALIFIED_ASSERTIONS" : "NOT_ASSESSED", evidenceLevel: "NOT_ASSIGNED", status: source.status },
     });
   }
-  return seal({ ...library, sources: [...sources.values()] });
+  const binding = result.request.researchProjectVersion && result.request.researchProjectDigest
+    ? { projectRef: library.projectId, projectVersion: result.request.researchProjectVersion, projectDigest: result.request.researchProjectDigest } : undefined;
+  return seal({ ...library, sources: [...sources.values()], ...(binding ? { projectBinding: binding } : {}) });
 };
 
 const normalized = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -117,6 +168,15 @@ export const rehydrateProjectSourceLibrary = (value: ProjectSourceLibrary, proje
       || !Array.isArray(entry.evidence) || !Array.isArray(entry.assertions) || !Array.isArray(entry.interestHistory)
       || entry.evidence.some((link) => link.sourceId !== entry.source.sourceId)
       || !["EXPLICIT_INTEREST", "INFERRED_INTEREST", "NONE"].includes(entry.userRelevance)) throw new Error("SOURCE_LIBRARY_ENTRY_INVALID");
+  }
+  if (value.projectBinding && value.projectBinding.projectRef !== projectId) throw new Error("SOURCE_LIBRARY_PROJECT_MISMATCH");
+  if (value.projectScopedEvidence) {
+    if (!Array.isArray(value.projectScopedEvidence) || !value.projectBinding
+      || new Set(value.projectScopedEvidence.map((record) => record.evidenceId)).size !== value.projectScopedEvidence.length) throw new Error("PROJECT_SCOPED_EVIDENCE_INVALID");
+    for (const record of value.projectScopedEvidence) {
+      validateProjectScopedEvidenceRecord(record);
+      if (!value.sources.some((entry) => entry.source.sourceId === record.input.sourceId) || record.input.projectBinding.projectRef !== projectId) throw new Error("PROJECT_SCOPED_EVIDENCE_INVALID");
+    }
   }
   return JSON.parse(stableStringify(value)) as ProjectSourceLibrary;
 };
