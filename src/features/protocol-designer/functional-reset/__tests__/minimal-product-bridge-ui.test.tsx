@@ -328,7 +328,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(stored().entries.find((entry) => entry.kind === "REVIEW")).toEqual(firstReview);
   });
 
-  it("H03-P07/P08 makes blocked persistence visible and preserves Project truth", async () => {
+  it("H03-P07/P08 keeps unsolicited extraction failure in diagnostics and preserves Project truth", async () => {
     runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
       const response = makeFunctionalResetBridgeResponse(conversation.turns, null, "Je comprends la correction demandée.");
       return {
@@ -351,7 +351,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     submit("Je modifie cette référence dans mon protocole d’étude.");
     expect(await screen.findByText(/premi[èe]re compr[ée]hension structur[ée]e/u)).toBeInTheDocument();
     expect(screen.queryByText("Je comprends la correction demandée.")).toBeNull();
-    expect(await screen.findByText(/proposition est bloquée/)).toHaveAttribute("role", "alert");
+    expect(screen.queryByText(/proposition est bloquée/)).toBeNull();
+    expect(screen.queryByRole("alert")).toBeNull();
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)).toMatchObject({
       persistentExtractionStatus: "BLOCKED",

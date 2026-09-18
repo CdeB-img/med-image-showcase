@@ -20,6 +20,23 @@ const folded = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "")
   .toLocaleLowerCase("fr-FR").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
   .replace(/\s+/gu, " ").trim();
 
+/** Recognize an explicit operation, never its scientific scope or adoption.
+ * Questions about recording and negative/quoted commands remain discussion. */
+export const isExplicitProjectRecordingRequest = (raw: string) => raw.split(/[.!?;\n]/u).some(clause => {
+  const text = folded(clause).replace(/^(?:(?:oui|alors|donc|merci|s'il vous plait|s'il te plait)[, ]+)+/u, "");
+  const operation = /^(?:(?:je (?:veux|voudrais|souhaite)|nous (?:voulons|souhaitons)|(?:tu peux|vous pouvez)|peux-tu|pouvez-vous)\s+)?(?:enregistre(?:r|z)?|sauvegarde(?:r|z)?|inscri(?:s|re|vez))\b/u;
+  const choice = /^(?:je|nous|on)\s+(?:valide|validons|confirme|confirmons|retiens|retenons|adopte|adoptons)\b/u;
+  const projectEdit = /^(?:ajoute(?:z)?(?:-le|-la)?|mets|mettez)\b.{0,60}\b(?:au|dans le|a jour le) projet\b/u;
+  if (operation.test(text)) {
+    return !/^(?:enregistre\w*|sauvegarde\w*|inscri\w*)\s+(?:(?:ca|cela|le|la|les|l')\s+)?pas\b/u.test(text);
+  }
+  if (projectEdit.test(text)) return !/^(?:ajoute\w*|mets|mettez)\s+(?:pas|ne)\b/u.test(text);
+  if (!choice.test(text)) return false;
+  const target = text.replace(choice, "").trim();
+  return !/^(?:pas|que|qu'|si|quand|lorsque|en cas de)\b/u.test(target)
+    && !/^(?:le|la|ce|cet|cette|ton|votre)\s+(?:format|style|ton|texte|reponse|concision)\b/u.test(target);
+});
+
 /** Feedback concerns the assistant's output, not a new study object. Mixed
  * turns remain mixed; this recognition grants no decision authority. */
 export const isUserFeedbackOnAssistantOutput = (raw: string) => {
@@ -268,7 +285,7 @@ export const buildConciseAdoptionReply = (input: {
   projectExisted: boolean;
   stylePreference: ConversationStylePreference | null;
 }) => {
-  const receipt = input.projectExisted ? "Projet mis à jour." : "Projet créé.";
+  const receipt = input.projectExisted ? "Choix confirmés enregistrés." : "Projet créé avec les choix que vous avez confirmés.";
   const style = input.stylePreference ? "Je ferai plus court." : null;
   // A Project write produces only a receipt. An optional concise gap is kept
   // for the existing explicit style preference, never a scientific monologue.

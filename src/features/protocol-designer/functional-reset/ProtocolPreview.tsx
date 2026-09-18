@@ -49,6 +49,9 @@ export default function ProtocolPreview({ projection, stale, onClose, onArtifact
         <div><p>Le projet ou ses informations administratives ont changé depuis cette version du protocole. Son contenu reste consultable, mais il n’est plus présenté comme courant.</p>
           {onRegenerate && <button type="button" onClick={onRegenerate} className="mt-2 min-h-10 rounded-lg border bg-background px-3 font-medium">Régénérer depuis le projet courant</button>}</div>
       </div>}
+      {!stale && onRegenerate && <button type="button" onClick={onRegenerate} className="mt-4 mr-3 min-h-11 rounded-xl border px-4 text-sm font-medium">
+        Actualiser les documents de travail
+      </button>}
       <button
         type="button"
         onClick={downloadHtml}

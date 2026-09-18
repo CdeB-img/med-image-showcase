@@ -1,5 +1,6 @@
 import { Component, useMemo, useState, type ReactNode } from "react";
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
 import { projectActionableSourceCoverage } from "../actionable-source-coverage";
 import {
   ensureCanonicalProjectState,
@@ -19,6 +20,8 @@ type Props = {
   decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>;
   actionable?: boolean;
   disabled?: boolean;
+  expanded?: boolean;
+  readOnly?: boolean;
   detailedUnderstanding?: ReactNode;
   onConfirm: () => void;
   onConfirmScope?: (refs: readonly string[]) => void;
@@ -27,14 +30,19 @@ type Props = {
 };
 
 const normalized = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-const uniqueItems = <T extends { content: string }>(items: readonly T[]) => [...new Map(items.map((item) => [normalized(item.content), item])).values()];
+const decodeEntities = (value: string) => value.replace(/&(?:#x([0-9a-f]+)|#([0-9]+)|(amp|lt|gt|quot|apos|nbsp));/giu, (match, hex, decimal, name) => {
+  if (hex || decimal) { const point = Number.parseInt(hex ?? decimal, hex ? 16 : 10); return point > 0 && point <= 0x10ffff && !(point >= 0xd800 && point <= 0xdfff) ? String.fromCodePoint(point) : match; }
+  return ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " } as Record<string, string>)[String(name).toLowerCase()] ?? match;
+});
+const uniqueItems = <T extends { content: string }>(items: readonly T[]) => [...new Map(items.map((item) => [normalized(summaryItemContent(item)), item])).values()];
 const primaryEndpoint = (item: HumanReviewProjectionItem) => item.objectType === "ENDPOINT"
   && /PRIMARY|PRINCIPAL/i.test(item.scientificRole ?? "");
 const summaryItemContent = (item: { content: string }) => {
   // Keep the exact source witness in the detailed native review; the main
   // summary presents the scientific value rather than the assent receipt.
-  const withoutOperation = item.content.replace(/^\+\s+/u, "")
-    .replace(/ — formulation d’origine :[\s\S]*$/u, "");
+  const withoutOperation = decodeEntities(item.content).replace(/\u00a0/gu, " ").replace(/^\+\s+/u, "")
+    .replace(/ — formulation d[’']origine :[\s\S]*$/u, "")
+    .replace(/ — référentiel à (?:relier au projet|préciser)/gu, "");
   const naturalRelation = withoutOperation.replace(/\s+—\s+comparaison avec\s+→\s+/iu, " en comparaison avec ");
   const typographicTiming = naturalRelation
     .replace(/\b(?:a|à)\s+(\d+(?:[.,]\d+)?)\s*min\b/iu, "à $1 min")
@@ -68,11 +76,30 @@ const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): Su
   )));
   const relations = uniqueItems(items.filter((item) => item.changeKind === "RELATION"));
   const comparison = relations.length ? relations : bySection("INTERVENTION", "COMPARATOR");
+  const temporalChanges = [...candidate.canonicalChangeSet.temporalQualificationChanges, ...candidate.canonicalChangeSet.expectedVariableOccasionChanges];
+  const temporalKeys = new Map(temporalChanges.flatMap(change => change.candidate ? [[change.changeRef, `${"subjectProjectRef" in change.candidate ? change.candidate.subjectProjectRef : change.candidate.variableProjectRef}:${JSON.stringify(change.candidate.anchor, (key, value) => key === "provenance" ? undefined : value)}`] as const] : []));
+  const timedAcquisitionRefs = new Set(candidate.canonicalChangeSet.temporalQualificationChanges.flatMap(change => change.candidate ? [change.candidate.subjectProjectRef] : []));
+  const redundantAcquisitionChanges = new Set(candidate.canonicalChangeSet.objectChanges.filter(change => change.candidate?.objectType === "ACQUISITION" && timedAcquisitionRefs.has(change.objectId)).map(change => change.changeRef));
+  const acquisitionAnchors = new Set(candidate.canonicalChangeSet.temporalQualificationChanges.flatMap(change => change.candidate && change.candidate.temporalRole === "ACQUISITION_TIME" ? [JSON.stringify(change.candidate.anchor, (key, value) => key === "provenance" ? undefined : value)] : []));
+  const representedObjects = new Set(candidate.canonicalChangeSet.objectChanges.filter(change => objects.some(item => item.changeRef === change.changeRef)).map(change => change.objectId));
+  const repeatedOccasionRefs = new Set(candidate.canonicalChangeSet.expectedVariableOccasionChanges.filter(change => change.candidate && representedObjects.has(change.candidate.variableProjectRef) && acquisitionAnchors.has(JSON.stringify(change.candidate.anchor, (key, value) => key === "provenance" ? undefined : value))).map(change => change.changeRef));
+  for (const change of candidate.canonicalChangeSet.expectedVariableOccasionChanges) {
+    const anchor = change.candidate?.anchor;
+    if (anchor?.reference.status === "KNOWN" && anchor.direction === "AT" && anchor.offset === null
+      && timedAcquisitionRefs.has(anchor.reference.referenceProjectRef) && change.candidate && representedObjects.has(change.candidate.variableProjectRef)) repeatedOccasionRefs.add(change.changeRef);
+  }
+  const seenTemporalKeys = new Set<string>();
   const evaluation = uniqueItems([
     ...items.filter((item) => item.projectSectionId === "TEMPORALITY" && !isEndpointOccasionAlreadyVisible(item)),
     ...bySection("IMAGING"),
     ...bySection("MEASUREMENTS").filter((item) => !primaryEndpoint(item) && !isEndpointMeasurement(item)),
-  ]);
+  ]).filter(item => {
+    if (redundantAcquisitionChanges.has(item.changeRef) || repeatedOccasionRefs.has(item.changeRef)) return false;
+    const key = temporalKeys.get(item.changeRef);
+    if (!key) return true;
+    if (seenTemporalKeys.has(key)) return false;
+    seenTemporalKeys.add(key); return true;
+  });
   const summarizedSections = new Set([
     "QUESTION", "POPULATION", "DESIGN", "INTERVENTION", "COMPARATOR", "TEMPORALITY", "IMAGING", "MEASUREMENTS",
   ]);
@@ -145,7 +172,7 @@ const preservedProjectPropertiesForReview = (
     .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
 };
 
-export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onConfirmScope, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, expanded = false, readOnly = false, detailedUnderstanding, onConfirm, onConfirmScope, onCorrect, onReject }: Props) {
   const scopeGroups = useMemo(() => contributionDecisionScopeGroups(candidate, currentProject ?? null), [candidate, currentProject]);
   const [selectedGroups, setSelectedGroups] = useState<readonly string[] | null>(null);
   const scopeItems = candidate.humanReviewProjection.sections.flatMap(section => section.items);
@@ -170,42 +197,63 @@ export default function ContributionReview({ contribution, candidate, currentPro
     ? preservedProjectPropertiesForReview(candidate, currentProject)
     : [];
 
-  return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
+  return <section className="rounded-3xl border border-primary/30 bg-card p-2.5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
     <h3 id={`review-${contribution.identity.contributionId}`} className="text-base font-semibold">
-      Compréhension de travail
+      {status === "CONFIRMED" ? "Choix confirmés" : status === "REJECTED" ? "Propositions non retenues" : readOnly ? "Propositions en discussion" : "À enregistrer"}
     </h3>
     {sourceCoverage.partialComprehensionWarning && <section
       className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm" data-testid="source-coverage-review"
     >
-      <p role="status">Compréhension partielle : des éléments importants restent à préciser avant confirmation.</p>
-      <ul className="mt-2 space-y-1">{coverageIssues.map(group => <li key={group.id}>
+      <p role="status">Projet en construction · des points restent à préciser.</p>
+      <ul className={`mt-2 space-y-1 ${expanded ? "" : "hidden"}`}>{coverageIssues.map(group => <li key={group.id}>
         <span className="font-medium">{group.label} : </span>{group.dispositions.map(item => item.sourceSpan).join(" · ")}
       </li>)}</ul>
     </section>}
 
-    {!isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-initial-review-summary">
-      {summaryRows.map((row) => <div key={row.id} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
+    {!isUpdate && <dl className="mt-2 divide-y rounded-2xl border bg-background px-3" data-testid="standard-initial-review-summary">
+      {(expanded ? summaryRows : summaryRows.slice(0, 3)).map((row) => <div key={row.id} className="grid gap-1 py-0.5 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold">{row.label}</dt>
-        <dd className="text-sm leading-relaxed">{row.items.map(item => `${summaryItemContent(item)}${partialDecision ? ` — ${decisionLabel(item)}` : ""}`).join(" · ")}</dd>
+        <dd className={`text-sm leading-relaxed ${expanded ? "" : "line-clamp-1"}`} title={row.items.map(summaryItemContent).join(" · ")}>{row.items.map(item => `${summaryItemContent(item)}${partialDecision ? ` — ${decisionLabel(item)}` : ""}`).join(" · ")}</dd>
       </div>)}
-      {issueItems.length > 0 && <div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
+      {expanded && issueItems.length > 0 && <div className="grid gap-1 py-1 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold text-amber-800 dark:text-amber-200">À clarifier</dt>
         <dd className="text-sm leading-relaxed">{issueItems.map(summaryItemContent).join(" · ")}</dd>
       </div>}
     </dl>}
 
-    {isUpdate && <dl className="mt-4 divide-y rounded-2xl border bg-background px-4" data-testid="standard-update-review-summary">
-      {sections.map(section => <div key={section.sectionRef} className="grid gap-1 py-2 sm:grid-cols-[9rem_1fr]">
+    {isUpdate && <dl className="mt-2 divide-y rounded-2xl border bg-background px-3" data-testid="standard-update-review-summary">
+      {(expanded ? sections : sections.slice(0, 3)).map(section => <div key={section.sectionRef} className="grid gap-1 py-0.5 sm:grid-cols-[9rem_1fr]">
         <dt className="text-sm font-semibold">{section.label}</dt>
-        <dd className="text-sm">{section.items.map(item => <p key={item.reviewItemRef}>
+        <dd className={`text-sm ${expanded ? "" : "line-clamp-1"}`}>{section.items.map(item => <p key={item.reviewItemRef}>
           {summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}
         </p>)}</dd>
       </div>)}
     </dl>}
 
-    <details className="mt-3 rounded-2xl border border-dashed p-3" data-testid="functional-review-details"
-      onToggle={event => setDetailsOpen(event.currentTarget.open)}>
-      <summary className="cursor-pointer text-sm font-medium">Voir les détails</summary>
+    {!expanded && <p className="mt-2 text-xs text-muted-foreground">{changeCount} éléments proposés · contenu intégral dans les détails</p>}
+    <Sheet open={detailsOpen} onOpenChange={setDetailsOpen}>
+      <SheetTrigger asChild><button type="button" className="mt-1 min-h-8 text-sm font-medium underline underline-offset-4" data-testid="functional-review-details">Voir les détails</button></SheetTrigger>
+      <SheetContent className="w-[min(96vw,680px)] overflow-y-auto sm:max-w-[680px]">
+        <SheetHeader><SheetTitle>Choix proposés</SheetTitle><SheetDescription>Propositions et points ouverts. L’enregistrement nécessite votre confirmation.</SheetDescription></SheetHeader>
+        <div className="mt-4 space-y-3" data-testid="review-full-scientific-delta">{sections.map(section => <section key={section.sectionRef}><h4 className="text-sm font-semibold">{section.label}</h4><ul className="mt-1 space-y-1 text-sm">{section.items.map(item => <li key={item.reviewItemRef}>{summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}</li>)}</ul></section>)}</div>
+        {issueItems.length > 0 && <section className="mt-4 text-sm"><h4 className="font-semibold">À préciser</h4><ul>{issueItems.map(item => <li key={item.itemId}>{summaryItemContent(item)}</li>)}</ul></section>}
+    {!readOnly && onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
+      <summary className="cursor-pointer text-sm font-medium">Choisir les éléments à enregistrer</summary>
+      <p className="mt-2 text-xs text-muted-foreground">Les éléments dépendants sont regroupés. Les éléments non sélectionnés restent en discussion.</p>
+      <div className="mt-2 space-y-2">{scopeGroups.map(group => {
+        const key = group.join("|");
+        const selected = selectedGroups ?? scopeGroups.map(item => item.join("|"));
+        const labels = scopeItems.filter(item => group.includes(item.changeRef)).map(item => summaryItemContent(item));
+        return <label key={key} className="flex items-start gap-2 text-sm"><input type="checkbox" disabled={disabled}
+          checked={selected.includes(key)} onChange={event => setSelectedGroups(event.target.checked ? [...selected, key] : selected.filter(item => item !== key))} />
+          <span>{[...new Set(labels)].join(" · ") || "Modification liée"}</span></label>;
+      })}</div>
+      <button type="button" disabled={disabled || selectedGroups?.length === 0} className="mt-3 min-h-10 rounded-lg border px-3 text-sm font-semibold"
+        onClick={() => onConfirmScope(scopeGroups.filter(group => (selectedGroups ?? scopeGroups.map(item => item.join("|"))).includes(group.join("|"))).flat())}>Enregistrer la sélection</button>
+    </details>}
+        {!readOnly && status === "PENDING" && actionable && <button type="button" disabled={disabled} onClick={() => { onConfirm(); setDetailsOpen(false); }} className="mt-5 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Confirmer les choix et enregistrer</button>}
+        {!readOnly && status === "PENDING" && actionable && <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={disabled} onClick={() => { onCorrect(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Décrire une correction</button><button type="button" disabled={disabled} onClick={() => { onReject(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Refuser cette proposition</button></div>}
+        <details className="mt-5 text-sm"><summary className="cursor-pointer font-medium">Sources et provenance</summary>
       {detailsOpen && <div className="mt-3 space-y-3" data-testid="review-audit-detail">
         {detailedUnderstanding}
         <section className="text-sm" data-testid="review-original-source">
@@ -245,32 +293,17 @@ export default function ContributionReview({ contribution, candidate, currentPro
           <ul>{openPoints.map(point => <li key={point.openPointRef}>{point.content}</li>)}</ul>
         </section>}
       </div>}
-    </details>
+        </details>
+      </SheetContent>
+    </Sheet>
 
-    {onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
-      <summary className="cursor-pointer text-sm font-medium">Choisir les éléments à enregistrer</summary>
-      <p className="mt-2 text-xs text-muted-foreground">Les éléments dépendants sont regroupés. Les éléments non sélectionnés restent en discussion.</p>
-      <div className="mt-2 space-y-2">{scopeGroups.map(group => {
-        const key = group.join("|");
-        const selected = selectedGroups ?? scopeGroups.map(item => item.join("|"));
-        const labels = scopeItems.filter(item => group.includes(item.changeRef)).map(item => summaryItemContent(item));
-        return <label key={key} className="flex items-start gap-2 text-sm"><input type="checkbox" disabled={disabled}
-          checked={selected.includes(key)} onChange={event => setSelectedGroups(event.target.checked ? [...selected, key] : selected.filter(item => item !== key))} />
-          <span>{[...new Set(labels)].join(" · ") || "Modification liée"}</span></label>;
-      })}</div>
-      <button type="button" disabled={disabled || selectedGroups?.length === 0} className="mt-3 min-h-10 rounded-lg border px-3 text-sm font-semibold"
-        onClick={() => onConfirmScope(scopeGroups.filter(group => (selectedGroups ?? scopeGroups.map(item => item.join("|"))).includes(group.join("|"))).flat())}>Enregistrer la sélection</button>
-    </details>}
 
-    {status === "PENDING" && !actionable
+
+    {!readOnly && (status === "PENDING" && !actionable
       ? <p role="status" className="mt-5 text-sm text-muted-foreground">Proposition conservée dans l’historique, non sélectionnée pour une décision dans ce tour.</p>
-      : status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-      <button type="button" disabled={disabled} onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
-      <button type="button" disabled={disabled} onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
-      <button type="button" disabled={disabled} onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
-    </div> : status === "CONFIRMED"
+      : status === "PENDING" ? null : status === "CONFIRMED"
       ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{partialDecision ? "Décision partielle : seuls les éléments confirmés sont enregistrés." : isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
-      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">{partialDecision ? "Refus partiel enregistré. Les autres propositions restent en attente ; le projet est inchangé." : "Proposition refusée. Le projet est inchangé."}</p>}
+      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">{partialDecision ? "Refus partiel enregistré. Les autres propositions restent en attente ; le projet est inchangé." : "Proposition refusée. Le projet est inchangé."}</p>)}
   </section>;
 }
 

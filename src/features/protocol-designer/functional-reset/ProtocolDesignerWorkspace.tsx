@@ -150,6 +150,7 @@ import {
   isProjectStateQuestion,
   isUserFeedbackOnAssistantOutput,
   isExternalEvidenceRequest,
+  isExplicitProjectRecordingRequest,
   readNaturalCandidateDecision,
   type ConversationStylePreference,
 } from "./natural-conversation-policy";
@@ -527,19 +528,12 @@ const documentBlockerSignals = (documents: FunctionalResetSession["documents"]) 
 const persistenceFailureMessage = (
   status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
   candidateStatus: ReturnType<typeof prepareResearchProjectContributionCandidate>["status"] | null,
+  recordingRequested: boolean,
 ) => {
-  if (status === "TECHNICAL_FAILURE") {
-    return "Je vous ai répondu, mais ces informations n’ont pas pu être préparées pour le projet. Le projet reste inchangé.";
-  }
-  if (status === "BLOCKED") {
-    return "Je vous ai répondu, mais la proposition est bloquée et n’a pas été enregistrée. Le projet reste inchangé.";
-  }
-  if (candidateStatus === "BLOCKED_BY_STRUCTURAL_CONFLICT") {
-    return "Cette proposition entre en conflit avec l’état actuel du projet. Elle n’a pas été appliquée.";
-  }
-  if (candidateStatus === "REVIEW_PROJECTION_INCOMPLETE") {
-    return "Cette proposition ne peut pas encore être confirmée, car la revue ne montre pas tous les changements. Le projet reste inchangé.";
-  }
+  if (!recordingRequested) return null;
+  if (status === "TECHNICAL_FAILURE" || status === "BLOCKED"
+    || candidateStatus === "BLOCKED_BY_STRUCTURAL_CONFLICT" || candidateStatus === "REVIEW_PROJECTION_INCOMPLETE")
+    return "Je conserve la discussion, mais l’enregistrement n’a pas abouti.";
   return null;
 };
 
@@ -994,6 +988,7 @@ export default function ProtocolDesignerWorkspace({
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const latestReplyRef = useRef<HTMLElement>(null);
   const confirmationInFlightRef = useRef<string | null>(null);
   const mixedTurnInFlightRef = useRef<string | null>(null);
 
@@ -1192,7 +1187,9 @@ export default function ProtocolDesignerWorkspace({
   }, [postAdoptionContinuationJob]);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
+    if (!busy && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA")
+      latestReplyRef.current?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    else endRef.current?.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
   }, [busy, session.entries.length]);
 
   const projectExistedForReview = useMemo(() => {
@@ -1934,25 +1931,38 @@ export default function ProtocolDesignerWorkspace({
         throw new Error("Le projet a changé pendant cette réponse. Rouvrez son état courant ; aucune décision n'a été appliquée.");
       }
       const receivedAt = new Date().toISOString();
-      const contribution = response.persistentExtraction.contribution;
-      const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-      const reviewable = contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION";
-      const retained = reviewable ? retainValidatedContributionCandidate({ retained: session.retainedContributionCandidates ?? [],
-        contribution, candidate, validation: response.persistentExtraction.validation,
-        validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1", sourceTurnRef: userTurn.turnId,
-        baseProject: session.project, dependencyBindings: [], traceRunId, retainedAt: receivedAt }) : session.retainedContributionCandidates;
-      setSession(current => ({ ...current, currentContribution: contribution ?? current.currentContribution,
+      // Deliver native Chat text before any local transaction preparation. A
+      // rejected candidate must never erase or replace this conversational turn.
+      setSession(current => ({ ...current, runtimeTurns: [...current.runtimeTurns, response.assistantTurn],
+        entries: [...current.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
+          role: "NOXIA", content: response.assistantReply, createdAt: receivedAt }], updatedAt: receivedAt }));
+      const contribution = prepareRecording ? response.persistentExtraction.contribution : null;
+      let candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> | null = null;
+      let retained = session.retainedContributionCandidates;
+      let preparationFailed = false;
+      try {
+        candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
+        if (contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION")
+          retained = retainValidatedContributionCandidate({ retained: session.retainedContributionCandidates ?? [],
+            contribution, candidate, validation: response.persistentExtraction.validation,
+            validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1", sourceTurnRef: userTurn.turnId,
+            baseProject: session.project, dependencyBindings: [], traceRunId, retainedAt: receivedAt });
+      } catch (error) {
+        preparationFailed = true;
+        candidate = null;
+        console.warn("PROJECT_REVIEW_PREPARATION_FAILED", error);
+      }
+      const reviewable = !preparationFailed && contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION";
+      setSession(current => ({ ...current, currentContribution: !preparationFailed && contribution ? contribution : current.currentContribution,
         pendingContribution: reviewable ? contribution : current.pendingContribution,
         retainedContributionCandidates: retained,
-        runtimeTurns: [...current.runtimeTurns, response.assistantTurn],
-        entries: [...current.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
-          role: "NOXIA", content: response.assistantReply, createdAt: receivedAt },
+        entries: [...current.entries,
           ...(reviewable ? [{ entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
             contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt }] : []),
           ...(prepareRecording && !reviewable ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const,
-            role: "NOXIA" as const, content: response.persistentExtraction.status === "NO_CHANGE"
+            role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
               ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
-              : "La préparation de l'enregistrement n'a pas abouti. La conversation reste disponible ; rien n'a été adopté.", createdAt: receivedAt }] : [])],
+              : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt }] : [])],
         bridgeTraces: [...current.bridgeTraces, { turnId: userTurn.turnId, traceRunId, requestKind: "USER_TURN" as const,
           raw: content, assistantReply: response.assistantReply, persistentExtractionCalled: response.persistentExtraction.called,
           persistentExtractionStatus: response.persistentExtraction.status, persistentExtractionFailure: response.persistentExtraction.failure,
@@ -1979,7 +1989,7 @@ export default function ProtocolDesignerWorkspace({
     if (!content || busy) return;
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
       // Operation recognition only; the extraction and native review determine scope.
-      const recording = /\b(?:enregistre(?:r|z)?|sauvegarde(?:r|z)?|inscri(?:s|re|vez))\b/iu.test(content);
+      const recording = isExplicitProjectRecordingRequest(content);
       await submitTerraText(content, recording);
       return;
     }
@@ -2737,7 +2747,8 @@ export default function ProtocolDesignerWorkspace({
       const effectiveExtractionStatus = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.status
         : "NOT_REQUESTED" as const;
-      const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null);
+      const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null,
+        isExplicitProjectRecordingRequest(content));
       let scientificExecutionTraceLedger = recordInitialProductTrace({
         ledger: entryTraceLedger,
         traceRunId,
@@ -4021,7 +4032,7 @@ export default function ProtocolDesignerWorkspace({
     </Helmet>
 
     <div className="mx-auto max-w-[1480px] px-4 pb-5 sm:px-6 lg:px-8">
-      <header className="sticky top-0 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
+      <header className="sticky top-16 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
         <div className="mx-auto flex max-w-[1480px] flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA · Protocol Designer</p>
@@ -4040,10 +4051,19 @@ export default function ProtocolDesignerWorkspace({
           {onEditAdministration && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onEditAdministration} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Informations du projet</button>}
           {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources</button>}
           <Sheet>
-            <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium lg:hidden"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
+            <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
               <SheetHeader className="sr-only"><SheetTitle>Projet de recherche</SheetTitle><SheetDescription>État actuel du projet et des documents.</SheetDescription></SheetHeader>
-              <div className="pt-7">{projectPanel}</div>
+              <div className="space-y-4 pt-7">{projectPanel}
+                <section aria-label="Propositions et points ouverts"><h2 className="text-base font-semibold">Propositions et points ouverts</h2>
+                  <p className="mb-3 text-sm text-muted-foreground">Les propositions de la conversation restent en discussion jusqu’à confirmation des choix à enregistrer.</p>
+                  {!session.entries.some(entry => entry.kind === "REVIEW") && <p className="text-sm text-muted-foreground">Les pistes discutées figurent dans la conversation. Aucun choix n’est encore soumis à confirmation.</p>}
+                  {session.entries.filter(entry => entry.kind === "REVIEW").map(entry => entry.kind === "REVIEW" && <ContributionReview
+                    key={entry.entryId} contribution={entry.contribution} candidate={entry.candidate ?? prepareResearchProjectContributionCandidate(entry.contribution, projectExistedForReview(session.entries.indexOf(entry)) ? session.project : null)}
+                    status={entry.status} reviewDecision={entry.decision} decisionPartition={entry.decisionPartition} expanded readOnly
+                    onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />)}
+                </section>
+              </div>
             </SheetContent>
           </Sheet>
           <details className="relative">
@@ -4235,7 +4255,7 @@ export default function ProtocolDesignerWorkspace({
                     composerRef.current?.focus();
                   }}
                 />
-              : <article key={entry.entryId} className={`flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
+              : <article key={entry.entryId} ref={entry.role === "NOXIA" && entry.kind === "TEXT" && !session.entries.slice(index + 1).some(item => item.kind === "TEXT" && item.role === "NOXIA") ? latestReplyRef : undefined} className={`scroll-mt-64 flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
                 {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
                   ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />
                   : <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
