@@ -366,7 +366,11 @@ export type CanonicalResearchProjectState = {
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const typeText = (item: Pick<ScientificContributionItem, "proposedType" | "studyRole">) => `${item.proposedType ?? ""} ${item.studyRole ?? ""}`.toLocaleUpperCase("en-US");
-const temporalValueItem = (item: Pick<ScientificContributionItem, "proposedType" | "studyRole">) => {
+export const temporalValueItem = (item: Pick<ScientificContributionItem, "proposedType" | "studyRole">) => {
+  // A native object can belong to the timing discussion without being a
+  // temporal scalar (e.g. an intercurrent-event constraint). Preserve its type.
+  const explicitType = (item.proposedType ?? "").trim().toLocaleUpperCase("en-US");
+  if (CANONICAL_PROJECT_OBJECT_TYPES.some(type => type === explicitType && type !== "PROJECT_INFORMATION")) return false;
   const type = typeText(item);
   return ["TEMPORAL", "TIMING", "TIMEPOINT", "WINDOW", "INTERVAL"].some((token) => type.includes(token))
     && !type.includes("VISIT");
@@ -382,6 +386,10 @@ export const canonicalProjectObjectType = (item: Pick<ScientificContributionItem
   // type before EXPECTED_AT binding is validated.
   if (explicitType === "CANONICAL_VARIABLE" && explicitRole !== "PRIMARY_ENDPOINT") {
     return "CANONICAL_VARIABLE";
+  }
+  if (explicitType !== "PROJECT_INFORMATION" && CANONICAL_PROJECT_OBJECT_TYPES.some(type => type === explicitType)) {
+    return explicitType === "CANONICAL_VARIABLE" && explicitRole === "PRIMARY_ENDPOINT"
+      ? "ENDPOINT" : explicitType as CanonicalProjectObjectType;
   }
   const type = typeText(item);
   if (/QUESTION/.test(type)) return "SCIENTIFIC_QUESTION";
@@ -639,9 +647,22 @@ export const buildCanonicalProjectChangeSet = (input: {
       };
     });
 
-  const representedItemRefs = new Set(input.sectionChangeSet.changes.flatMap((change) => change.sourceObjectRefs));
+  // A section projection may merge the source refs of several contribution
+  // items into one display element. That display coverage is not proof that
+  // every distinct scientific item was materialized in the canonical Project.
+  // Keep only refs whose own identity or value is carried by the candidate;
+  // the remaining items are projected independently below.
+  const representedItemRefs = new Set<string>();
   for (const change of objectChanges) {
-    for (const ref of change.candidate?.sourceItemRefs ?? []) representedItemRefs.add(ref);
+    const candidate = change.candidate;
+    if (!candidate) continue;
+    for (const ref of candidate.sourceItemRefs) {
+      const item = items.get(ref);
+      if (!item) continue;
+      const identity = item.semanticIdentity ?? item.itemId;
+      if (candidate.objectId === identity || candidate.objectId.startsWith(`${identity}:`)
+        || normalized(candidate.content) === normalized(item.content)) representedItemRefs.add(item.itemId);
+    }
   }
   const distinctItems = [...new Map([...items.values()].map((item) => [item.itemId, item])).values()];
   for (const item of distinctItems) {

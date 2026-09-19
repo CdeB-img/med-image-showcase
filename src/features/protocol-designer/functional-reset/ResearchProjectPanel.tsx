@@ -20,6 +20,7 @@ type Props = {
   deliverablePortfolio?: StudyDeliverablePortfolio | null;
   onOpenDeliverables?: () => void;
   queryNavigation?: FunctionalResetQueryNavigation | null;
+  suppressDocumentAction?: boolean;
 };
 
 const projectVersionLabel = (versionId: string) => versionId.match(/:version:(\d+)$/)?.[1] ?? versionId;
@@ -66,6 +67,7 @@ export default function ResearchProjectPanel({
   deliverablePortfolio,
   onOpenDeliverables,
   queryNavigation,
+  suppressDocumentAction = false,
 }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const canonicalProject = project ? ensureCanonicalProjectState(project) : null;
@@ -246,13 +248,14 @@ export default function ResearchProjectPanel({
                 </div>)}
               </div>
             </details>}
-            {protocol.canOpen && protocol.projectionId && <button type="button" onClick={() => onOpenProtocol(protocol.projectionId!)} className="mt-3 min-h-10 rounded-lg border bg-background px-3 text-xs font-medium">Ouvrir l’aperçu</button>}
-            {protocol.canRequestProjection && project && <div className="mt-3 rounded-lg border bg-background p-2.5">
+            {protocol.canOpen && protocol.projectionId && <button type="button" onClick={() => onOpenProtocol(protocol.projectionId!)} className="mt-3 min-h-10 rounded-lg border bg-background px-3 text-xs font-medium">Ouvrir les documents</button>}
+            {protocol.canRequestProjection && project && !suppressDocumentAction && <div className="mt-3 rounded-lg border bg-background p-2.5">
               <p className="text-xs leading-relaxed">{protocol.freshness === "STALE"
-                ? "Le projet a changé. Souhaitez-vous mettre à jour le protocole de travail ?"
-                : "Souhaitez-vous créer un premier aperçu du protocole de travail ?"}</p>
+                ? "Le projet a changé depuis la dernière génération documentaire."
+                : protocol.templateStatus === "ENGINE_ERROR" ? "Les documents n’ont pas pu être générés. Le projet confirmé est conservé."
+                  : "Les documents de travail peuvent être générés depuis ce projet confirmé."}</p>
               <div className="mt-2 flex flex-wrap gap-2">
-                <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{protocol.freshness === "STALE" ? "Actualiser l’aperçu" : "Créer l’aperçu"}</button>
+                <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{protocol.templateStatus === "ENGINE_ERROR" ? "Réessayer la génération" : protocol.freshness === "STALE" ? "Mettre à jour les documents" : "Générer les documents"}</button>
                 {onCompleteAdministration && <button type="button" onClick={onCompleteAdministration} className="min-h-10 rounded-lg border px-3 text-xs font-medium">Compléter les informations d’abord</button>}
               </div>
             </div>}

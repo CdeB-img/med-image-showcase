@@ -71,7 +71,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
       session.runtimeTurns = Array.from({ length }, (_, i) => ({ turnId: `history-${i}`, role: i % 2 ? "NOXIA" as const : "USER" as const,
         content: `TRANSCRIPT_SENTINEL_${i} ${"x".repeat(3000)}` }));
       render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={() => true} /></HelmetProvider>);
-      fireEvent.click(screen.getByRole("button", { name: "Créer l’aperçu" }));
+      fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
       await screen.findByRole("heading", { name: "Portefeuille documentaire" });
       expect(requests).toHaveLength(1); expect(requests[0].conversation.turns).toHaveLength(1);
       expect(requests[0].evaluatePersistentDelta).toBe(false); expect(requests[0].currentProject).toEqual(project);

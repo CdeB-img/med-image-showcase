@@ -352,8 +352,8 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     const projectPanel = screen.getByTestId("functional-research-project");
-    await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" })).toBeEnabled());
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
+    await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Générer les documents" })).toBeEnabled());
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(storedSession().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).not.toContain("ARTIFACT_GENERATED");
     fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));

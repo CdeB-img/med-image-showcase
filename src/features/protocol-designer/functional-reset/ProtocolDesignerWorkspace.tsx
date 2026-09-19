@@ -1,5 +1,6 @@
 import WorkingProjectDraft from "./WorkingProjectDraft";
-import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, refreshWorkingDraftReview, validatePreparedWorkingReview } from "./continuous-project-build";
+import ProjectFinalizationCard from "./ProjectFinalizationCard";
+import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -993,6 +994,8 @@ export default function ProtocolDesignerWorkspace({
   const [busyMessage, setBusyMessage] = useState("NOXIA vous répond…");
   const [correctionMode, setCorrectionMode] = useState(false);
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
+  const [documentSaveWarning, setDocumentSaveWarning] = useState<string | null>(null);
+  const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
   const [documentMessage, setDocumentMessage] = useState("");
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
@@ -1003,8 +1006,13 @@ export default function ProtocolDesignerWorkspace({
   const mixedTurnInFlightRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (onSessionChange) onSessionChange(session);
-    else persistFunctionalResetSession(window.localStorage, session);
+    try {
+      if (onSessionChange) onSessionChange(session);
+      else persistFunctionalResetSession(window.localStorage, session);
+    } catch (error) {
+      if (!session.drciDraftPacks?.length) throw error;
+      setDocumentSaveWarning("Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
+    }
     if (import.meta.env.DEV && session.bridgeTraces.length > 0) {
       console.debug("NOXIA_PRODUCT_BRIDGE_TRACE", JSON.stringify(session.bridgeTraces.at(-1)));
     }
@@ -2239,7 +2247,7 @@ export default function ProtocolDesignerWorkspace({
           }),
         };
         if (boundedInteraction.kind === "USER_CONFIRMS_CURRENT_CANDIDATE") {
-          busyLifecycleDelegated = await confirmContribution(boundedReferentContext.candidateRef, naturalDecision);
+          busyLifecycleDelegated = Boolean(await confirmContribution(boundedReferentContext.candidateRef, naturalDecision));
         } else {
           rejectContribution(boundedReferentContext.candidateRef, naturalDecision);
           setBusy(false);
@@ -3448,6 +3456,7 @@ export default function ProtocolDesignerWorkspace({
 
       // Project writes supply context; they never select another scientific
       // speaker. QRY/owner results remain available for an explicit request.
+      return nextSession;
     } catch {
       setSession((current) => {
         const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
@@ -3486,11 +3495,11 @@ export default function ProtocolDesignerWorkspace({
         updatedAt: now,
       };
       });
+      return null;
     } finally {
       confirmationInFlightRef.current = null;
       setBusy(false);
     }
-    return false;
   };
 
   const validateStudyProposal = async (selectedOptions: readonly string[], selectedAtoms: readonly string[], expectedDigest: string) => {
@@ -3940,21 +3949,28 @@ export default function ProtocolDesignerWorkspace({
     }
   }
 
-  async function requestProtocolProjection(command?: { content: string; createdAt: string }, requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>) {
-    if (!session.project) return;
+  async function requestProtocolProjection(
+    command?: { content: string; createdAt: string },
+    requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>,
+    sourceSession: FunctionalResetSession = latestSessionRef.current,
+  ) {
+    if (!sourceSession.project) return;
     const now = new Date().toISOString();
     try {
-      const evidence = requestedEvidence ?? acquireDocumentKnowledge(session, now);
+      // A valid empty Knowledge result is allowed. Integrity, binding and
+      // privacy failures must retain their native error instead of pretending
+      // that no literature was found.
+      const evidence = requestedEvidence ?? acquireDocumentKnowledge(sourceSession, now);
       const decision = authorizeResearchProjectDocumentHandoff({
-        project: session.project,
-        authority: session.projectAuthority,
+        project: sourceSession.project,
+        authority: sourceSession.projectAuthority,
         confirmedAt: now,
       });
       const documents = refreshFunctionalResetDocumentPortfolio({
         knowledgeLibrary: evidence?.sourceLibrary,
         administration,
-        project: session.project,
-        previous: session.documents,
+        project: sourceSession.project,
+        previous: sourceSession.documents,
         handoffDecision: decision,
         requestedAt: now,
         generateProtocol: true,
@@ -3963,39 +3979,58 @@ export default function ProtocolDesignerWorkspace({
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
         if (busy) return;
-        setBusy(true); setBusyMessage("Je rédige le dossier de travail…");
         const turnId = createTurnId();
-        const records: ProviderCallRecord[] = [];
-        try {
-          const response = await requestProtocolDesignerBridge({ requestKind: "USER_TURN",
+        const nativeRequest: Omit<ProductBridgeRequest, "apiVersion"> = { requestKind: "USER_TURN",
             // DOC consumes the adopted Project, not the scientific transcript.
             // Keep the original last user turn for request correlation only.
-            conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns.filter(turn => turn.role === "USER").slice(-1) },
-            currentProject: session.project, evaluatePersistentDelta: false,
-            documentDraftRequest: prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: protocol, crf: buildCanonicalCrfPackage(session.project) }),
-            observabilityContext: { sessionId: session.sessionId, conversationId: session.conversationId,
-              turnId, clientRequestId: `drci-draft:${turnId}`, testSessionId: null } });
-          records.push(...response.observability.providerCalls ?? []);
-          const latest = latestSessionRef.current;
-          const pack = response.documentDraftPack;
-          if (!pack || !latest.project || latest.sessionId !== session.sessionId || !isDrciDraftPackCurrent(pack, latest.project))
-            throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
-          const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
-            drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
-            runtimeTurns: [...latest.runtimeTurns, response.assistantTurn],
-            entries: [...latest.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: now }],
-            updatedAt: now };
-          if (onSessionChange?.(nextSession) === false) throw new Error("La sauvegarde du dossier a échoué. Le Project adopté et les anciennes versions sont conservés.");
-          latestSessionRef.current = nextSession; setSession(nextSession);
-          setDeliverableWorkspaceOpen(true);
-        } catch (error) {
-          if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
-          setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
-            content: error instanceof Error ? error.message : "La rédaction documentaire a échoué ; le projet est conservé.", createdAt: now }] }));
-        } finally {
-          setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId, requestKind: "USER_TURN", records }));
-          setBusy(false);
-        }
+            conversation: { conversationId: sourceSession.conversationId, language: "fr", turns: sourceSession.runtimeTurns.filter(turn => turn.role === "USER").slice(-1) },
+            currentProject: sourceSession.project, evaluatePersistentDelta: false,
+            documentDraftRequest: prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: protocol, crf: buildCanonicalCrfPackage(sourceSession.project) }),
+            observabilityContext: { sessionId: sourceSession.sessionId, conversationId: sourceSession.conversationId,
+              turnId, clientRequestId: `drci-draft:${turnId}`, testSessionId: null } };
+        // Keep the exact request, including handoff time and payload, for a
+        // transport recovery. The durable owner decides whether dispatch is safe.
+        const resume = async () => {
+          if (latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
+          setBusy(true); setBusyMessage("Je rédige le dossier de travail…");
+          const records: ProviderCallRecord[] = [];
+          try {
+            const response = await requestProtocolDesignerBridge(nativeRequest);
+            documentRecoveryRef.current = null;
+            records.push(...response.observability.providerCalls ?? []);
+            const latest = latestSessionRef.current;
+            const pack = response.documentDraftPack;
+            if (!pack || !latest.project || latest.sessionId !== sourceSession.sessionId || !isDrciDraftPackCurrent(pack, latest.project))
+              throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
+            const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
+              drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
+              runtimeTurns: [...latest.runtimeTurns, response.assistantTurn],
+              entries: [...latest.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: now }],
+              updatedAt: now };
+            let saved = false;
+            try {
+              if (onSessionChange) saved = onSessionChange(nextSession) !== false;
+              else { persistFunctionalResetSession(window.localStorage, nextSession); saved = true; }
+            } catch { /* Paid, validated pack remains readable in memory. */ }
+            setDocumentSaveWarning(saved ? null : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
+            latestSessionRef.current = nextSession; setSession(nextSession);
+            setDeliverableWorkspaceOpen(true);
+          } catch (error) {
+            if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
+            // Only a transport failure exposes retrieval. Terminal/UNKNOWN
+            // results must not be turned into a fresh paid generation.
+            documentRecoveryRef.current = error instanceof TypeError
+              ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
+            const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error);
+            setSession(current => ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
+              entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
+                content: "Projet confirmé. Les documents n’ont pas pu être générés.", createdAt: now }], updatedAt: now }));
+          } finally {
+            setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId, requestKind: "USER_TURN", records }));
+            setBusy(false);
+          }
+        };
+        await resume();
         return;
       }
       const documentReply = protocol.readiness === "READY_FOR_REVIEW"
@@ -4004,13 +4039,13 @@ export default function ProtocolDesignerWorkspace({
       setSession((current) => {
         const correlatedTrace = [...current.bridgeTraces]
           .reverse()
-          .find((trace) => trace.traceRunId && trace.projectVersionAfter === session.project?.versionId);
+          .find((trace) => trace.traceRunId && trace.projectVersionAfter === sourceSession.project?.versionId);
         const scientificExecutionTraceLedger = recordDocumentProjectionTrace({
           ledger: current.scientificExecutionTraceLedger,
           traceRunId: correlatedTrace?.traceRunId,
           conversationId: current.conversationId,
           recordedAt: now,
-          project: session.project!,
+          project: sourceSession.project!,
           decision,
           projection: protocol,
           projectionMode,
@@ -4039,11 +4074,11 @@ export default function ProtocolDesignerWorkspace({
       };
       });
     } catch (error) {
-      const documents = markFunctionalResetDocumentFailure(session.project, session.documents, error);
+      const documents = markFunctionalResetDocumentFailure(sourceSession.project, sourceSession.documents, error);
       setSession((current) => {
         const correlatedTrace = [...current.bridgeTraces]
           .reverse()
-          .find((trace) => trace.traceRunId && trace.projectVersionAfter === session.project?.versionId);
+          .find((trace) => trace.traceRunId && trace.projectVersionAfter === sourceSession.project?.versionId);
         const scientificExecutionTraceLedger = correlatedTrace?.traceRunId
           ? recordProductErrorBoundary({
             ledger: current.scientificExecutionTraceLedger,
@@ -4060,8 +4095,8 @@ export default function ProtocolDesignerWorkspace({
             provider: "NONE",
             code: "DOCUMENT_PROJECTION_BOUNDARY_FAILED",
             category: "BOUNDARY_REJECTION",
-            sourceDigest: session.project!.projectDigest,
-            project: session.project!,
+            sourceDigest: sourceSession.project!.projectDigest,
+            project: sourceSession.project!,
           })
           : current.scientificExecutionTraceLedger;
         return {
@@ -4078,7 +4113,7 @@ export default function ProtocolDesignerWorkspace({
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: "L’aperçu du protocole n’a pas pu être produit. Le projet et la conversation sont conservés.",
+          content: "Projet confirmé. Les documents n’ont pas pu être générés.",
           createdAt: now,
         }],
         updatedAt: now,
@@ -4090,6 +4125,61 @@ export default function ProtocolDesignerWorkspace({
   const requestCorrection = () => {
     setCorrectionMode(true);
     composerRef.current?.focus();
+  };
+
+  const preparedFinalization = autonomousProjectBuild && Boolean(session.workingDraft) && !workingDraftBusy
+    && !session.workingDraftFailure && !session.workingDraft?.failure
+    ? validatePreparedWorkingReview(session)
+    : null;
+
+  useEffect(() => {
+    if (!autonomousProjectBuild || workingDraftBusy || session.workingDraftFailure
+      || session.workingDraft?.failure || preparedFinalization) return;
+    let refreshed: ReturnType<typeof refreshWorkingDraftReview> = null;
+    try {
+      refreshed = refreshWorkingDraftReview(session);
+    } catch (error) {
+      console.warn("WORKING_DRAFT_REVIEW_SCOPE_REFRESH_FAILED", error);
+      return;
+    }
+    if (!refreshed) return;
+    setSession((current) => current.sessionId === session.sessionId
+      && current.studyProposal?.digest === session.studyProposal?.digest
+      ? { ...current, ...refreshed }
+      : current);
+  }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
+
+  const confirmAndGenerateDocuments = async () => {
+    const current = latestSessionRef.current;
+    const prepared = validatePreparedWorkingReview(current);
+    const composition = current.studyProposal;
+    const workingDraft = current.workingDraft;
+    if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return;
+    const scope = recommendedWorkingScope(composition);
+    const confirmedAt = new Date().toISOString();
+    const confirmationText = "Confirmer et générer les documents";
+    const userTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "USER",
+      content: confirmationText,
+      createdAt: confirmedAt,
+    };
+    const adopted = await confirmContribution(prepared.contribution.identity.contributionId, {
+      userTurn,
+      originalText: confirmationText,
+      gatewayState: current.conversationLanguageGateway,
+      traceLedger: current.scientificExecutionTraceLedger,
+      stylePreference: null,
+      selectedChangeRefs: prepared.candidate.humanReviewProjection.coveredChangeRefs,
+    }, {
+      composition,
+      selectedOptions: scope.selectedOptionRefs,
+      selectedAtoms: scope.selectedAtomRefs,
+      expectedDigest: composition.digest,
+      contribution: prepared.contribution,
+      candidate: prepared.candidate,
+    });
+    if (adopted) await requestProtocolProjection(undefined, undefined, adopted);
   };
 
   const reset = () => {
@@ -4154,11 +4244,14 @@ export default function ProtocolDesignerWorkspace({
     onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
+    suppressDocumentAction={Boolean(preparedFinalization || session.documents.lastFailure)}
     onOpenDeliverables={() => {
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       setDeliverableWorkspaceOpen(true);
     }}
   />;
+
+
 
   return <main
     id="demo-main"
@@ -4230,6 +4323,7 @@ export default function ProtocolDesignerWorkspace({
 
         {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && deliverablePortfolio ? <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
+          saveWarning={documentSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
         /> : openProjection ? <ProtocolPreview
           onDocumentInstruction={handleDocumentInstruction}
@@ -4259,7 +4353,9 @@ export default function ProtocolDesignerWorkspace({
                 onRespond={(input) => respondToConversationActionGroup(entry.entryId, input)}
               />
               : entry.kind === "REVIEW"
-              ? session.entries.some((item) => item.entryId === `${entry.entryId}:presentation-failure`)
+              ? preparedFinalization?.contribution.identity.contributionId === entry.contribution.identity.contributionId
+                && entry.status === "PENDING" ? null
+              : session.entries.some((item) => item.entryId === `${entry.entryId}:presentation-failure`)
                 || session.retainedContributionCandidates?.some((candidate) => candidate.candidateRef === entry.contribution.identity.contributionId
                   && candidate.downstreamState === "DOWNSTREAM_FAILED_NOT_PRESENTED") ? null : <ContributionReviewPresentation
                 key={entry.entryId}
@@ -4412,15 +4508,30 @@ export default function ProtocolDesignerWorkspace({
           {autonomousProjectBuild && (session.workingDraft || session.workingDraftFailure || workingDraftBusy) && <div data-testid="continuous-working-draft-indicator" className="flex h-14 items-center gap-2 border-t px-4 text-xs sm:px-5">
             <p className="min-w-0 flex-1 truncate">{workingDraftBusy ? "Projet de travail en préparation…" : (session.workingDraft?.failure || session.workingDraftFailure) ? "Discussion conservée · projet de travail à actualiser" : `Projet de travail mis à jour · ${session.workingDraft?.metrics.openHighValueDecisions ?? 0} décisions ouvertes`}</p>
             <button type="button" className="h-8 shrink-0 rounded-lg border px-2" onClick={() => setWorkingProjectOpen(true)}>Voir le projet</button>
-            <button type="button" className="h-8 shrink-0 rounded-lg border px-2" disabled={busy || workingDraftBusy || Boolean(session.workingDraftFailure || session.workingDraft?.failure) || !session.workingDraft?.readyReview} onClick={() => showPreparedWorkingReview()}>Revoir les choix</button>
           </div>}
           {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
+          {preparedFinalization && session.workingDraft && <ProjectFinalizationCard
+            contribution={preparedFinalization.contribution}
+            candidate={preparedFinalization.candidate}
+            currentProject={session.project}
+            workingDraft={session.workingDraft}
+            disabled={busy || workingDraftBusy}
+            onConfirmAndGenerate={() => void confirmAndGenerateDocuments()}
+          />}
+          {!preparedFinalization && session.project && session.documents.lastFailure && <section className="border-t bg-destructive/5 px-4 py-4 sm:px-5" data-testid="document-generation-recovery">
+            <p className="text-sm font-semibold">Projet confirmé</p>
+            <p className="mt-1 text-sm text-muted-foreground">Les documents n’ont pas pu être générés.</p>
+            {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
+              ? <button type="button" disabled={busy} onClick={() => void documentRecoveryRef.current?.resume()}
+                  className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>
+              : <p className="mt-2 text-xs text-muted-foreground">Le projet est conservé. Aucune nouvelle génération n’a été lancée.</p>}
+          </section>}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
-            {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
-              type="button" disabled={busy || autonomousProjectBuild && (workingDraftBusy || Boolean(session.workingDraftFailure || session.workingDraft?.failure) || !session.workingDraft?.readyReview)} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
-              onClick={() => autonomousProjectBuild ? showPreparedWorkingReview() : void submitTerraText("Je retiens les choix de travail de vos propositions précédentes, tels que corrigés par mes messages, pour préparer leur enregistrement. Présentez une revue groupée avant toute adoption.", true)}
+            {!autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
+              type="button" disabled={busy} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
+              onClick={() => void submitTerraText("Je retiens les choix de travail de vos propositions précédentes, tels que corrigés par mes messages, pour préparer leur enregistrement. Présentez une revue groupée avant toute adoption.", true)}
             >Préparer l’enregistrement</button>}
             {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}
             <label htmlFor="protocol-designer-message" className="sr-only">Votre message</label>

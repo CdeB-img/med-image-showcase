@@ -223,11 +223,16 @@ export const buildKnowledgeRequestFromCanonicalSnapshot = (input: {
     originalTerm: item.content,
     role: knowledgeRole(item),
   }));
+  // Relations are scoped by researchProjectId in the same request. Remove
+  // only that repeated namespace; the local refs remain losslessly resolvable
+  // against the immutable handoff snapshot, without truncating any identity.
+  const localRef = (ref: string) => ref.startsWith(`${snapshot.sourceProjectRef}:`)
+    ? ref.slice(snapshot.sourceProjectRef.length + 1) : ref;
   const request = createKnowledgeRequest({
     originalQuestion: input.question,
     scientificObjectTerms: scientificObjects.map((item) => ({ term: item.originalTerm, role: item.role, objectId: item.objectId })),
     context: knowledgeContextFromSnapshot(snapshot),
-    relations: snapshot.relations.slice(0, 30).map((item) => `${item.type}(${item.sourceProjectRef},${item.targetProjectRef})`),
+    relations: snapshot.relations.slice(0, 30).map((item) => `${item.type}(${localRef(item.sourceProjectRef)},${localRef(item.targetProjectRef)})`),
     unknowns: projectUnknowns(snapshot),
     researchProjectId: snapshot.sourceProjectRef,
     researchProjectVersion: input.referenceNeed ? snapshot.sourceProjectVersion : undefined,

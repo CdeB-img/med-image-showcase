@@ -235,8 +235,8 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByRole("button", { name: "Créer l’aperçu" })).toBeEnabled());
-    fireEvent.click(screen.getByRole("button", { name: "Créer l’aperçu" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await screen.findByTestId("functional-protocol-preview");
     await waitFor(() => {
       const stored = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {

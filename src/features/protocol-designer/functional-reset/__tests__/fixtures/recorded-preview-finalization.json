@@ -1,0 +1,1745 @@
+{
+  "provenance": "PAID_PREVIEW_RESPONSE_UNMODIFIED_SCIENTIFIC_COMPOSITION",
+  "baseline": "192e094a1a39bad5d5a38a99342099e116164ee3",
+  "user": "Avant d’enregistrer, je confirme explicitement trois points. Premièrement, les critères d’éligibilité sont : femmes majeures, nouveau diagnostic de cardiomyopathie du péripartum, FEVG < 45 % au diagnostic et IRM index réalisable dans les 14 jours ; exclusion d’une cardiopathie structurelle préexistante ou d’une autre cause identifiée de dysfonction ventriculaire. Deuxièmement, la grossesse incidente avant M6 reste incluse sans censure dans l’analyse principale telle qu’observée ; si l’IRM M6 est impossible, l’échographie est recueillie mais ne remplace pas le critère principal IRM. Troisièmement, je valide la comparaison de modèles imbriqués, avec FEVG initiale puis ajout du GLS continu linéaire, calibration, discrimination, Brier et validation interne par bootstrap. Le nombre et la liste exacte des autres covariables, le taux attendu de récupération et l’analyse de sensibilité des grossesses restent ouverts.",
+  "assistant": "Les trois choix sont cohérents et maintiennent un modèle principal volontairement parcimonieux : issue binaire IRM à M6, FEVG initiale comme référence, puis ajout du GLS continu supposé linéaire, avec évaluation de la performance et validation interne.\n\nLe prochain arbitrage matériel est donc le **noyau clinique éventuel** du modèle de référence. Je proposerais de ne l’ajouter que si la faisabilité fournit assez de participantes IRM-évaluables et d’issues dans chaque catégorie. Il pourrait alors se limiter à un ou deux prédicteurs cliniques disponibles au diagnostic et homogènes entre centres, relevant par exemple du délai obstétrical et de la sévérité clinique initiale. À défaut, comparer **FEVG seule** versus **FEVG + GLS** est la stratégie la plus robuste.\n\nLe dimensionnement nécessitera ensuite trois estimations empiriques : fréquence de récupération selon votre définition, proportion d’IRM M6 non évaluables et recrutement/accès IRM par centre.",
+  "composition": {
+    "state": "CURRENT",
+    "digest": "ke1-a7bb917c400328a8",
+    "proposal": {
+      "atoms": [
+        {
+          "ref": "a_question",
+          "area": "QUESTION",
+          "unit": null,
+          "owner": "SCIENTIFIC_THINKING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Déterminer si le GLS VG mesuré par IRM au diagnostic prédit la récupération de FEVG mesurée par IRM à M6 chez des femmes ayant une cardiomyopathie du péripartum.",
+          "dependsOn": [],
+          "rationale": "Question pronostique prospective centrée sur la valeur ajoutée du GLS au diagnostic.",
+          "targetType": "SCIENTIFIC_QUESTION",
+          "semanticKey": "prognostic_question",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": []
+        },
+        {
+          "ref": "a_design",
+          "area": "DESIGN",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Cohorte pronostique prospective multicentrique avec IRM index et IRM de suivi à M6.",
+          "dependsOn": [
+            "a_question"
+          ],
+          "rationale": "Le design permet l’évaluation prospective de la valeur pronostique au diagnostic.",
+          "targetType": "STUDY_DESIGN",
+          "semanticKey": "prospective_multicentre_prognostic_cohort",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_question",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La question précise la finalité pronostique de la cohorte."
+            }
+          ]
+        },
+        {
+          "ref": "a_population",
+          "area": "POPULATION",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Femmes présentant une cardiomyopathie du péripartum, recrutées dans les centres participants au moment du diagnostic.",
+          "dependsOn": [],
+          "rationale": "Population cible de la question pronostique.",
+          "targetType": "POPULATION",
+          "semanticKey": "peripartum_cardiomyopathy_population",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": []
+        },
+        {
+          "ref": "a_eligibility",
+          "area": "ELIGIBILITY",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Inclure les femmes majeures avec nouveau diagnostic de cardiomyopathie du péripartum, FEVG <45 % au diagnostic et IRM index réalisable dans les 14 jours. Exclure cardiopathie structurelle préexistante ou autre cause identifiée de dysfonction ventriculaire.",
+          "dependsOn": [
+            "a_population"
+          ],
+          "rationale": "Définit une cohorte incidente homogène et compatible avec l’IRM index.",
+          "targetType": "ELIGIBILITY_CRITERION",
+          "semanticKey": "eligibility_definition",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Screening par l’équipe à partir du dossier et des examens disponibles.",
+          "plannedSource": "Site et équipe investigatrice",
+          "variableRoles": [
+            "EXCLUSION_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_population",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Les critères opérationnalisent la population cible."
+            }
+          ]
+        },
+        {
+          "ref": "a_index_mri",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "IRM cardiaque index réalisée dans les 14 jours suivant le diagnostic, incluant volumes ventriculaires, FEVG, GLS VG, T1 natif, T2 et rehaussement tardif.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "L’IRM index fournit les prédicteurs pronostiques initiaux.",
+          "targetType": "IMAGING_MODALITY",
+          "semanticKey": "index_cardiac_mri",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Acquisition et post-traitement selon protocole à harmoniser.",
+          "plannedSource": "IRM cardiaque du site",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’IRM index précise le recueil du design longitudinal."
+            }
+          ]
+        },
+        {
+          "ref": "a_gls_exposure",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "GLS du ventricule gauche issu de l’IRM index, biomarqueur pronostique principal et prédicteur continu du modèle étendu.",
+          "dependsOn": [
+            "a_index_mri"
+          ],
+          "rationale": "Le GLS est le biomarqueur principal retenu pour une faisabilité inter-centres.",
+          "targetType": "CANONICAL_VARIABLE",
+          "semanticKey": "baseline_gls_primary_biomarker",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Mesure quantitative selon méthode harmonisée à définir.",
+          "plannedSource": "Post-traitement de l’IRM cardiaque index",
+          "variableRoles": [
+            "EXPOSURE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le GLS est dérivé de l’IRM index."
+            }
+          ]
+        },
+        {
+          "ref": "a_secondary_mri_markers",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "T1 natif, T2 et rehaussement tardif sont des biomarqueurs IRM secondaires et ne sont pas inclus dans le modèle pronostique principal du GLS.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_gls_exposure"
+          ],
+          "rationale": "Préserve leur intérêt secondaire sans surajustement par marqueurs IRM corrélés.",
+          "targetType": "CANONICAL_VARIABLE",
+          "semanticKey": "secondary_mri_markers",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Quantification harmonisée à définir.",
+          "plannedSource": "Post-traitement de l’IRM cardiaque index",
+          "variableRoles": [
+            "EXPOSURE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Ces marqueurs sont issus de l’IRM index."
+            },
+            {
+              "ref": "a_gls_exposure",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Leur position secondaire découle du choix du GLS principal."
+            }
+          ]
+        },
+        {
+          "ref": "a_m6_mri",
+          "area": "TIMING",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Suivi à M6 avec IRM cardiaque destinée à mesurer la FEVG du critère principal et à documenter le remodelage.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "M6 est le temps de suivi, distinct de l’IRM index au diagnostic.",
+          "targetType": "VISIT",
+          "semanticKey": "month6_cardiac_mri",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Acquisition de suivi selon protocole à harmoniser.",
+          "plannedSource": "IRM cardiaque du site",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La visite met en œuvre le suivi prévu par le design."
+            }
+          ]
+        },
+        {
+          "ref": "a_primary_endpoint",
+          "area": "ENDPOINTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Récupération principale : FEVG par IRM à M6 ≥50 % avec augmentation d’au moins 10 points par rapport à la FEVG IRM au diagnostic.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "Définition binaire explicite du critère principal.",
+          "targetType": "ENDPOINT",
+          "semanticKey": "m6_cmr_lvef_recovery",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Calcul de variation et application de la définition préspécifiée.",
+          "plannedSource": "IRM cardiaque index et M6",
+          "variableRoles": [
+            "OUTCOME_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La variation exige la FEVG IRM initiale."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le statut exige une FEVG mesurée par IRM à M6."
+            }
+          ]
+        },
+        {
+          "ref": "a_pregnancy_handling",
+          "area": "TIMING",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Toute grossesse incidente avant M6 reste incluse sans censure dans l’analyse principale, estimée telle qu’observée.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "Préserve l’estimand du parcours observé sans censure informative.",
+          "targetType": "CONSTRAINT",
+          "semanticKey": "incident_pregnancy_estimand",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Recueil longitudinal par l’équipe investigatrice.",
+          "plannedSource": "Dossier médical et CRF du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’estimand organise l’interprétation du suivi de cohorte."
+            }
+          ]
+        },
+        {
+          "ref": "a_nonevaluable_m6",
+          "area": "ENDPOINTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Si l’IRM M6 est impossible, notamment pendant une grossesse, recueillir la FEVG échographique comme donnée auxiliaire sans remplacer le critère principal IRM; la participante est non évaluable pour ce critère.",
+          "dependsOn": [
+            "a_primary_endpoint",
+            "a_pregnancy_handling"
+          ],
+          "rationale": "Conserve la définition IRM du critère tout en documentant une mesure auxiliaire.",
+          "targetType": "CONSTRAINT",
+          "semanticKey": "m6_mri_nonevaluability",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Documenter le motif de non-évaluabilité et la FEVG auxiliaire.",
+          "plannedSource": "Dossier médical, IRM et échocardiographie du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La non-évaluabilité découle de l’exigence d’une mesure IRM."
+            },
+            {
+              "ref": "a_pregnancy_handling",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La grossesse est une cause anticipée parmi les causes possibles."
+            }
+          ]
+        },
+        {
+          "ref": "a_reference_model",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Modèle pronostique de référence : FEVG initiale seule pour prédire la récupération IRM à M6.",
+          "dependsOn": [
+            "a_primary_endpoint"
+          ],
+          "rationale": "Comparateur explicite et parcimonieux avant l’ajout du GLS.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "baseline_reference_prognostic_model",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Extraction de la FEVG initiale pour le jeu d’analyse.",
+          "plannedSource": "IRM cardiaque index",
+          "variableRoles": [
+            "OUTCOME_VARIABLE",
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle requiert un critère de récupération défini."
+            }
+          ]
+        },
+        {
+          "ref": "a_extended_model",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Comparer des modèles imbriqués : FEVG initiale seule, puis FEVG initiale + GLS continu linéaire. Volumes, autres indices fonctionnels, T1, T2 et rehaussement tardif restent hors modèle principal.",
+          "dependsOn": [
+            "a_reference_model",
+            "a_gls_exposure"
+          ],
+          "rationale": "Évalue l’apport incrémental du GLS sans multiplier les prédicteurs IRM corrélés.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "nested_gls_incremental_model",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Modèles pronostiques imbriqués avec GLS continu linéaire.",
+          "plannedSource": "IRM index et jeu d’analyse",
+          "variableRoles": [
+            "OUTCOME_VARIABLE",
+            "EXPOSURE_VARIABLE",
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_reference_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle étendu est défini par rapport au modèle de référence."
+            },
+            {
+              "ref": "a_gls_exposure",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le GLS est l’ajout évalué dans le modèle étendu."
+            }
+          ]
+        },
+        {
+          "ref": "a_model_evaluation",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Évaluer l’ajout du GLS par calibration, discrimination (AUC/C-statistic), Brier score, comparaison de vraisemblance et validation interne par bootstrap.",
+          "dependsOn": [
+            "a_extended_model"
+          ],
+          "rationale": "Documente performance, apport incrémental et optimisme du modèle.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "incremental_model_performance",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Évaluation de performance et bootstrap.",
+          "plannedSource": "Jeu d’analyse constitué à partir du CRF et des lectures IRM",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_extended_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Ces évaluations comparent les modèles imbriqués."
+            }
+          ]
+        },
+        {
+          "ref": "a_additional_covariates",
+          "area": "CONFOUNDERS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "Le nombre et la liste exacte d’éventuelles covariables cliniques additionnelles connues au diagnostic restent à décider avant tout modèle ajusté additionnel.",
+          "dependsOn": [
+            "a_reference_model",
+            "a_dimensioning_inputs"
+          ],
+          "rationale": "Chaque paramètre supplémentaire doit être compatible avec l’information disponible.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "additional_baseline_covariates",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Présélection à finaliser avant analyse.",
+          "plannedSource": "CRF et examens disponibles au diagnostic",
+          "variableRoles": [
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_reference_model",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Toute extension précise le comparateur de référence."
+            },
+            {
+              "ref": "a_dimensioning_inputs",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La complexité admissible dépend des données dimensionnantes."
+            }
+          ]
+        },
+        {
+          "ref": "a_treatment_description",
+          "area": "DESCRIPTION",
+          "unit": null,
+          "owner": "DATA_MANAGEMENT",
+          "status": "NOXIA_PROPOSAL",
+          "content": "Décrire longitudinalement les traitements reçus après l’IRM index, leur intensité et leur persistance; ne pas les intégrer au modèle pronostique principal disponible au diagnostic.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "Les traitements post-index peuvent refléter la sévérité et participer au devenir.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "post_index_treatment_description",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Recueil longitudinal standardisé des prescriptions et modifications.",
+          "plannedSource": "Dossier médical et CRF du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Le suivi longitudinal rend ce recueil possible."
+            }
+          ]
+        },
+        {
+          "ref": "a_sensitivity_plan",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "La stratégie de sensibilité pour grossesses incidentes et non-évaluabilité IRM M6 reste ouverte. Une pondération par probabilité inverse de censure n’est envisageable que si effectif et données le permettent.",
+          "dependsOn": [
+            "a_pregnancy_handling",
+            "a_nonevaluable_m6"
+          ],
+          "rationale": "Une censure non corrigée peut être informative; sa correction doit être soutenable.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "pregnancy_and_missing_mri_sensitivity",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Plan à finaliser après évaluation des effectifs et mécanismes de non-évaluabilité.",
+          "plannedSource": "CRF, dossier médical, IRM et échocardiographie",
+          "variableRoles": [
+            "STRATIFICATION_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_pregnancy_handling",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La sensibilité doit respecter l’estimand principal tel qu’observé."
+            },
+            {
+              "ref": "a_nonevaluable_m6",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Elle concerne l’absence d’évaluation IRM du critère."
+            }
+          ]
+        },
+        {
+          "ref": "a_dimensioning_inputs",
+          "area": "DIMENSIONING",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "Avant dimensionnement, documenter le taux attendu de récupération IRM M6, le taux et les motifs de non-évaluabilité IRM M6, et le nombre maximal de paramètres du modèle principal.",
+          "dependsOn": [
+            "a_primary_endpoint",
+            "a_nonevaluable_m6",
+            "a_reference_model"
+          ],
+          "rationale": "Ces intrants déterminent l’information disponible pour le modèle binaire.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "dimensioning_required_inputs",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Estimation documentée préalable puis calculateur adapté.",
+          "plannedSource": "Faisabilité des centres et sources cliniques pertinentes à vérifier",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le taux attendu dépend de la définition du critère."
+            },
+            {
+              "ref": "a_nonevaluable_m6",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "L’évaluabilité détermine le nombre analysable."
+            },
+            {
+              "ref": "a_reference_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle fixe la complexité minimale à soutenir."
+            }
+          ]
+        },
+        {
+          "ref": "a_recruitment_feasibility",
+          "area": "RECRUITMENT",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "OPEN_DECISION",
+          "content": "Évaluer par centre le nombre de diagnostics éligibles, la capacité à réaliser l’IRM index dans les 14 jours, l’accès à l’IRM M6 et la durée réaliste d’inclusion.",
+          "dependsOn": [
+            "a_eligibility",
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "La faisabilité conditionne le nombre de participantes avec critère IRM évaluable.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "multicentre_recruitment_feasibility",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Enquête de faisabilité standardisée auprès des centres candidats.",
+          "plannedSource": "Registres locaux, activité clinique et capacités des sites",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_eligibility",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Les volumes recrutables dépendent des critères retenus."
+            },
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La fenêtre index conditionne l’inclusion effective."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’accès M6 affine la projection d’évaluabilité."
+            }
+          ]
+        },
+        {
+          "ref": "a_acquisition_harmonisation",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "NOXIA_PROPOSAL",
+          "content": "Définir un protocole inter-centres d’acquisition et de post-traitement IRM, incluant les modalités de mesure du GLS et de FEVG aux temps index et M6.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "L’harmonisation soutient la comparabilité des prédicteurs et du critère IRM.",
+          "targetType": "ACQUISITION",
+          "semanticKey": "cmr_acquisition_harmonisation",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Manuel d’acquisition et de post-traitement à finaliser.",
+          "plannedSource": "Sites d’imagerie et lecture centralisée si faisable",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le protocole doit couvrir l’acquisition index."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le protocole doit couvrir la mesure du critère à M6."
+            }
+          ]
+        }
+      ],
+      "reply": "Structure consolidée : les covariables additionnelles, la sensibilité grossesse et les intrants de dimensionnement restent à préciser.",
+      "contract": "SCIENTIFIC_THINKING_STUDY_PROPOSAL_1",
+      "arbitrations": [
+        {
+          "ref": "arb_clinical_covariates",
+          "label": "Covariables cliniques additionnelles",
+          "options": [
+            {
+              "ref": "arb_clinical_covariates_none",
+              "label": "Aucune covariable clinique additionnelle",
+              "limits": "N’explore pas l’apport d’un contexte clinique initial.",
+              "atomRefs": [
+                "a_reference_model",
+                "a_extended_model"
+              ],
+              "benefits": "Maximise la parcimonie et réduit le risque de surajustement.",
+              "consequences": "Analyse principale limitée à FEVG puis GLS."
+            },
+            {
+              "ref": "arb_clinical_covariates_limited",
+              "label": "Noyau clinique limité et présélectionné",
+              "limits": "Augmente le nombre de paramètres et les besoins d’effectif.",
+              "atomRefs": [
+                "a_additional_covariates",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Permet une analyse ajustée si les données sont suffisantes.",
+              "consequences": "Nécessite liste fixée, recueil homogène et reconsidération du dimensionnement."
+            }
+          ],
+          "material": true,
+          "rationale": "Le modèle principal est fixé à FEVG puis GLS; toute extension doit rester parcimonieuse.",
+          "selection": "ONE",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_clinical_covariates_none"
+          ],
+          "affectedBranches": [
+            "ANALYSIS",
+            "COLLECTION",
+            "DIMENSIONING"
+          ]
+        },
+        {
+          "ref": "arb_pregnancy_sensitivity",
+          "label": "Sensibilité aux grossesses incidentes",
+          "options": [
+            {
+              "ref": "arb_pregnancy_sensitivity_descriptive",
+              "label": "Description et analyse complète des cas IRM-évaluables",
+              "limits": "Peut être affectée par une non-évaluabilité informative.",
+              "atomRefs": [
+                "a_nonevaluable_m6",
+                "a_sensitivity_plan"
+              ],
+              "benefits": "Simple et transparente sur la population effectivement évaluable.",
+              "consequences": "Documenter systématiquement les motifs d’absence d’IRM M6."
+            },
+            {
+              "ref": "arb_pregnancy_sensitivity_weighted",
+              "label": "Pondération par probabilité inverse de censure",
+              "limits": "Exige effectif, variables explicatives et hypothèses vérifiables.",
+              "atomRefs": [
+                "a_sensitivity_plan",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Cible une sensibilité à la non-évaluabilité informative.",
+              "consequences": "À envisager seulement après évaluation de faisabilité analytique."
+            }
+          ],
+          "material": true,
+          "rationale": "L’estimand principal est acquis; l’analyse secondaire dépend de l’effectif et des données disponibles.",
+          "selection": "ONE",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_pregnancy_sensitivity_descriptive"
+          ],
+          "affectedBranches": [
+            "ANALYSIS",
+            "COLLECTION",
+            "DIMENSIONING"
+          ]
+        },
+        {
+          "ref": "arb_dimensioning_target",
+          "label": "Acquisition des intrants de dimensionnement",
+          "options": [
+            {
+              "ref": "arb_dimensioning_site_feasibility",
+              "label": "Projection à partir de l’activité des centres",
+              "limits": "Les pratiques locales peuvent varier.",
+              "atomRefs": [
+                "a_recruitment_feasibility",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Ancrée dans la capacité réelle de recrutement et d’accès IRM.",
+              "consequences": "Fournit une projection d’inclusions et d’IRM M6 évaluables."
+            },
+            {
+              "ref": "arb_dimensioning_pilot",
+              "label": "Phase pilote prospective courte",
+              "limits": "Allonge la trajectoire de l’étude définitive.",
+              "atomRefs": [
+                "a_recruitment_feasibility",
+                "a_dimensioning_inputs",
+                "a_nonevaluable_m6"
+              ],
+              "benefits": "Estime directement les non-évaluabilités et leurs motifs.",
+              "consequences": "Peut réviser les hypothèses de recueil et de dimensionnement."
+            }
+          ],
+          "material": true,
+          "rationale": "Aucun effectif défendable ne peut être produit avant les taux d’issue, d’évaluabilité et de recrutement.",
+          "selection": "INDEPENDENT",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_dimensioning_site_feasibility"
+          ],
+          "affectedBranches": [
+            "RECRUITMENT",
+            "DIMENSIONING",
+            "COLLECTION"
+          ]
+        }
+      ],
+      "contextDigest": "ke1-42b2480b1e2fe38f",
+      "understanding": [
+        "Cohorte pronostique multicentrique : IRM index ≤14 jours, GLS principal et récupération IRM de FEVG à M6.",
+        "L’analyse principale conserve les grossesses incidentes et exige une IRM M6 pour évaluer le critère principal.",
+        "La comparaison principale est FEVG initiale seule puis FEVG+GLS continu linéaire, avec validation interne."
+      ],
+      "recruitmentNotice": "Appel à volontaires à préciser selon les critères, les centres et la disponibilité d’IRM ≤14 jours.",
+      "candidateIsAdopted": false,
+      "dimensioningScenarios": [],
+      "projectWriteAuthorized": false,
+      "participantArtifactsApplicable": true,
+      "participantQuestionnaireIntroduction": "Aucun questionnaire participant n’est défini; les données relèvent principalement du CRF et du dossier."
+    },
+    "revision": 1,
+    "proposalRef": "scientific-study-proposal:ke1-a7bb917c400328a8",
+    "dimensioning": [],
+    "ownerReceipts": [
+      {
+        "owner": "STUDY_DESIGN",
+        "status": "CANDIDATES_NOT_ADOPTED",
+        "atomRefs": [
+          "a_design",
+          "a_population",
+          "a_eligibility",
+          "a_m6_mri",
+          "a_pregnancy_handling"
+        ],
+        "contextRef": "STUDY-DESIGN-CONTEXT:ke1-36e444d1803d6d3d",
+        "projectWrites": 0
+      },
+      {
+        "owner": "IMAGING",
+        "status": "CANDIDATES_NOT_ADOPTED",
+        "atomRefs": [
+          "a_index_mri",
+          "a_gls_exposure",
+          "a_secondary_mri_markers",
+          "a_primary_endpoint",
+          "a_nonevaluable_m6",
+          "a_acquisition_harmonisation"
+        ],
+        "contextRef": "imaging-design-result:ke1-e16c855fd4461db3",
+        "projectWrites": 0
+      },
+      {
+        "owner": "SCIENTIFIC_THINKING",
+        "status": "CANDIDATES_NOT_ADOPTED",
+        "atomRefs": [
+          "a_question"
+        ],
+        "projectWrites": 0
+      },
+      {
+        "owner": "BIOSTATISTICS",
+        "status": "CANDIDATES_NOT_ADOPTED",
+        "atomRefs": [
+          "a_reference_model",
+          "a_extended_model",
+          "a_model_evaluation"
+        ],
+        "projectWrites": 0
+      },
+      {
+        "owner": "DATA_MANAGEMENT",
+        "status": "CANDIDATES_NOT_ADOPTED",
+        "atomRefs": [
+          "a_treatment_description"
+        ],
+        "projectWrites": 0
+      }
+    ],
+    "sourceProject": null,
+    "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623",
+    "adoptedAtomRefs": [],
+    "sourceResponseRef": "noxia-turn:d91659ed-6b7c-4fbe-a9c5-bc52c73ed877",
+    "originalSourceProject": null,
+    "unavailableOptionRefs": []
+  },
+  "update": {
+    "proposal": {
+      "atoms": [
+        {
+          "ref": "a_question",
+          "area": "QUESTION",
+          "unit": null,
+          "owner": "SCIENTIFIC_THINKING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Déterminer si le GLS VG mesuré par IRM au diagnostic prédit la récupération de FEVG mesurée par IRM à M6 chez des femmes ayant une cardiomyopathie du péripartum.",
+          "dependsOn": [],
+          "rationale": "Question pronostique prospective centrée sur la valeur ajoutée du GLS au diagnostic.",
+          "targetType": "SCIENTIFIC_QUESTION",
+          "semanticKey": "prognostic_question",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": []
+        },
+        {
+          "ref": "a_design",
+          "area": "DESIGN",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Cohorte pronostique prospective multicentrique avec IRM index et IRM de suivi à M6.",
+          "dependsOn": [
+            "a_question"
+          ],
+          "rationale": "Le design permet l’évaluation prospective de la valeur pronostique au diagnostic.",
+          "targetType": "STUDY_DESIGN",
+          "semanticKey": "prospective_multicentre_prognostic_cohort",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_question",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La question précise la finalité pronostique de la cohorte."
+            }
+          ]
+        },
+        {
+          "ref": "a_population",
+          "area": "POPULATION",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Femmes présentant une cardiomyopathie du péripartum, recrutées dans les centres participants au moment du diagnostic.",
+          "dependsOn": [],
+          "rationale": "Population cible de la question pronostique.",
+          "targetType": "POPULATION",
+          "semanticKey": "peripartum_cardiomyopathy_population",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": null,
+          "plannedSource": null,
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": []
+        },
+        {
+          "ref": "a_eligibility",
+          "area": "ELIGIBILITY",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Inclure les femmes majeures avec nouveau diagnostic de cardiomyopathie du péripartum, FEVG <45 % au diagnostic et IRM index réalisable dans les 14 jours. Exclure cardiopathie structurelle préexistante ou autre cause identifiée de dysfonction ventriculaire.",
+          "dependsOn": [
+            "a_population"
+          ],
+          "rationale": "Définit une cohorte incidente homogène et compatible avec l’IRM index.",
+          "targetType": "ELIGIBILITY_CRITERION",
+          "semanticKey": "eligibility_definition",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Screening par l’équipe à partir du dossier et des examens disponibles.",
+          "plannedSource": "Site et équipe investigatrice",
+          "variableRoles": [
+            "EXCLUSION_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_population",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Les critères opérationnalisent la population cible."
+            }
+          ]
+        },
+        {
+          "ref": "a_index_mri",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "IRM cardiaque index réalisée dans les 14 jours suivant le diagnostic, incluant volumes ventriculaires, FEVG, GLS VG, T1 natif, T2 et rehaussement tardif.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "L’IRM index fournit les prédicteurs pronostiques initiaux.",
+          "targetType": "IMAGING_MODALITY",
+          "semanticKey": "index_cardiac_mri",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Acquisition et post-traitement selon protocole à harmoniser.",
+          "plannedSource": "IRM cardiaque du site",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’IRM index précise le recueil du design longitudinal."
+            }
+          ]
+        },
+        {
+          "ref": "a_gls_exposure",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "GLS du ventricule gauche issu de l’IRM index, biomarqueur pronostique principal et prédicteur continu du modèle étendu.",
+          "dependsOn": [
+            "a_index_mri"
+          ],
+          "rationale": "Le GLS est le biomarqueur principal retenu pour une faisabilité inter-centres.",
+          "targetType": "CANONICAL_VARIABLE",
+          "semanticKey": "baseline_gls_primary_biomarker",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Mesure quantitative selon méthode harmonisée à définir.",
+          "plannedSource": "Post-traitement de l’IRM cardiaque index",
+          "variableRoles": [
+            "EXPOSURE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le GLS est dérivé de l’IRM index."
+            }
+          ]
+        },
+        {
+          "ref": "a_secondary_mri_markers",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "T1 natif, T2 et rehaussement tardif sont des biomarqueurs IRM secondaires et ne sont pas inclus dans le modèle pronostique principal du GLS.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_gls_exposure"
+          ],
+          "rationale": "Préserve leur intérêt secondaire sans surajustement par marqueurs IRM corrélés.",
+          "targetType": "CANONICAL_VARIABLE",
+          "semanticKey": "secondary_mri_markers",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Quantification harmonisée à définir.",
+          "plannedSource": "Post-traitement de l’IRM cardiaque index",
+          "variableRoles": [
+            "EXPOSURE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Ces marqueurs sont issus de l’IRM index."
+            },
+            {
+              "ref": "a_gls_exposure",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Leur position secondaire découle du choix du GLS principal."
+            }
+          ]
+        },
+        {
+          "ref": "a_m6_mri",
+          "area": "TIMING",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Suivi à M6 avec IRM cardiaque destinée à mesurer la FEVG du critère principal et à documenter le remodelage.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "M6 est le temps de suivi, distinct de l’IRM index au diagnostic.",
+          "targetType": "VISIT",
+          "semanticKey": "month6_cardiac_mri",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Acquisition de suivi selon protocole à harmoniser.",
+          "plannedSource": "IRM cardiaque du site",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La visite met en œuvre le suivi prévu par le design."
+            }
+          ]
+        },
+        {
+          "ref": "a_primary_endpoint",
+          "area": "ENDPOINTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Récupération principale : FEVG par IRM à M6 ≥50 % avec augmentation d’au moins 10 points par rapport à la FEVG IRM au diagnostic.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "Définition binaire explicite du critère principal.",
+          "targetType": "ENDPOINT",
+          "semanticKey": "m6_cmr_lvef_recovery",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Calcul de variation et application de la définition préspécifiée.",
+          "plannedSource": "IRM cardiaque index et M6",
+          "variableRoles": [
+            "OUTCOME_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La variation exige la FEVG IRM initiale."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le statut exige une FEVG mesurée par IRM à M6."
+            }
+          ]
+        },
+        {
+          "ref": "a_pregnancy_handling",
+          "area": "TIMING",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Toute grossesse incidente avant M6 reste incluse sans censure dans l’analyse principale, estimée telle qu’observée.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "Préserve l’estimand du parcours observé sans censure informative.",
+          "targetType": "CONSTRAINT",
+          "semanticKey": "incident_pregnancy_estimand",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Recueil longitudinal par l’équipe investigatrice.",
+          "plannedSource": "Dossier médical et CRF du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’estimand organise l’interprétation du suivi de cohorte."
+            }
+          ]
+        },
+        {
+          "ref": "a_nonevaluable_m6",
+          "area": "ENDPOINTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Si l’IRM M6 est impossible, notamment pendant une grossesse, recueillir la FEVG échographique comme donnée auxiliaire sans remplacer le critère principal IRM; la participante est non évaluable pour ce critère.",
+          "dependsOn": [
+            "a_primary_endpoint",
+            "a_pregnancy_handling"
+          ],
+          "rationale": "Conserve la définition IRM du critère tout en documentant une mesure auxiliaire.",
+          "targetType": "CONSTRAINT",
+          "semanticKey": "m6_mri_nonevaluability",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Documenter le motif de non-évaluabilité et la FEVG auxiliaire.",
+          "plannedSource": "Dossier médical, IRM et échocardiographie du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La non-évaluabilité découle de l’exigence d’une mesure IRM."
+            },
+            {
+              "ref": "a_pregnancy_handling",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "La grossesse est une cause anticipée parmi les causes possibles."
+            }
+          ]
+        },
+        {
+          "ref": "a_reference_model",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Modèle pronostique de référence : FEVG initiale seule pour prédire la récupération IRM à M6.",
+          "dependsOn": [
+            "a_primary_endpoint"
+          ],
+          "rationale": "Comparateur explicite et parcimonieux avant l’ajout du GLS.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "baseline_reference_prognostic_model",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Extraction de la FEVG initiale pour le jeu d’analyse.",
+          "plannedSource": "IRM cardiaque index",
+          "variableRoles": [
+            "OUTCOME_VARIABLE",
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle requiert un critère de récupération défini."
+            }
+          ]
+        },
+        {
+          "ref": "a_extended_model",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Comparer des modèles imbriqués : FEVG initiale seule, puis FEVG initiale + GLS continu linéaire. Volumes, autres indices fonctionnels, T1, T2 et rehaussement tardif restent hors modèle principal.",
+          "dependsOn": [
+            "a_reference_model",
+            "a_gls_exposure"
+          ],
+          "rationale": "Évalue l’apport incrémental du GLS sans multiplier les prédicteurs IRM corrélés.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "nested_gls_incremental_model",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Modèles pronostiques imbriqués avec GLS continu linéaire.",
+          "plannedSource": "IRM index et jeu d’analyse",
+          "variableRoles": [
+            "OUTCOME_VARIABLE",
+            "EXPOSURE_VARIABLE",
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_reference_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle étendu est défini par rapport au modèle de référence."
+            },
+            {
+              "ref": "a_gls_exposure",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le GLS est l’ajout évalué dans le modèle étendu."
+            }
+          ]
+        },
+        {
+          "ref": "a_model_evaluation",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "STRONG_CONTEXTUAL_INFERENCE",
+          "content": "Évaluer l’ajout du GLS par calibration, discrimination (AUC/C-statistic), Brier score, comparaison de vraisemblance et validation interne par bootstrap.",
+          "dependsOn": [
+            "a_extended_model"
+          ],
+          "rationale": "Documente performance, apport incrémental et optimisme du modèle.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "incremental_model_performance",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Évaluation de performance et bootstrap.",
+          "plannedSource": "Jeu d’analyse constitué à partir du CRF et des lectures IRM",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_extended_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Ces évaluations comparent les modèles imbriqués."
+            }
+          ]
+        },
+        {
+          "ref": "a_additional_covariates",
+          "area": "CONFOUNDERS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "Le nombre et la liste exacte d’éventuelles covariables cliniques additionnelles connues au diagnostic restent à décider avant tout modèle ajusté additionnel.",
+          "dependsOn": [
+            "a_reference_model",
+            "a_dimensioning_inputs"
+          ],
+          "rationale": "Chaque paramètre supplémentaire doit être compatible avec l’information disponible.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "additional_baseline_covariates",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Présélection à finaliser avant analyse.",
+          "plannedSource": "CRF et examens disponibles au diagnostic",
+          "variableRoles": [
+            "ADJUSTMENT_COVARIATE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_reference_model",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Toute extension précise le comparateur de référence."
+            },
+            {
+              "ref": "a_dimensioning_inputs",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La complexité admissible dépend des données dimensionnantes."
+            }
+          ]
+        },
+        {
+          "ref": "a_treatment_description",
+          "area": "DESCRIPTION",
+          "unit": null,
+          "owner": "DATA_MANAGEMENT",
+          "status": "NOXIA_PROPOSAL",
+          "content": "Décrire longitudinalement les traitements reçus après l’IRM index, leur intensité et leur persistance; ne pas les intégrer au modèle pronostique principal disponible au diagnostic.",
+          "dependsOn": [
+            "a_design"
+          ],
+          "rationale": "Les traitements post-index peuvent refléter la sévérité et participer au devenir.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "post_index_treatment_description",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Recueil longitudinal standardisé des prescriptions et modifications.",
+          "plannedSource": "Dossier médical et CRF du site",
+          "variableRoles": [
+            "DESCRIPTIVE_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_design",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "Le suivi longitudinal rend ce recueil possible."
+            }
+          ]
+        },
+        {
+          "ref": "a_sensitivity_plan",
+          "area": "ANALYSIS",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "La stratégie de sensibilité pour grossesses incidentes et non-évaluabilité IRM M6 reste ouverte. Une pondération par probabilité inverse de censure n’est envisageable que si effectif et données le permettent.",
+          "dependsOn": [
+            "a_pregnancy_handling",
+            "a_nonevaluable_m6"
+          ],
+          "rationale": "Une censure non corrigée peut être informative; sa correction doit être soutenable.",
+          "targetType": "ANALYSIS_SPECIFICATION",
+          "semanticKey": "pregnancy_and_missing_mri_sensitivity",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Plan à finaliser après évaluation des effectifs et mécanismes de non-évaluabilité.",
+          "plannedSource": "CRF, dossier médical, IRM et échocardiographie",
+          "variableRoles": [
+            "STRATIFICATION_VARIABLE"
+          ],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_pregnancy_handling",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La sensibilité doit respecter l’estimand principal tel qu’observé."
+            },
+            {
+              "ref": "a_nonevaluable_m6",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Elle concerne l’absence d’évaluation IRM du critère."
+            }
+          ]
+        },
+        {
+          "ref": "a_dimensioning_inputs",
+          "area": "DIMENSIONING",
+          "unit": null,
+          "owner": "BIOSTATISTICS",
+          "status": "OPEN_DECISION",
+          "content": "Avant dimensionnement, documenter le taux attendu de récupération IRM M6, le taux et les motifs de non-évaluabilité IRM M6, et le nombre maximal de paramètres du modèle principal.",
+          "dependsOn": [
+            "a_primary_endpoint",
+            "a_nonevaluable_m6",
+            "a_reference_model"
+          ],
+          "rationale": "Ces intrants déterminent l’information disponible pour le modèle binaire.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "dimensioning_required_inputs",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Estimation documentée préalable puis calculateur adapté.",
+          "plannedSource": "Faisabilité des centres et sources cliniques pertinentes à vérifier",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_primary_endpoint",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le taux attendu dépend de la définition du critère."
+            },
+            {
+              "ref": "a_nonevaluable_m6",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "L’évaluabilité détermine le nombre analysable."
+            },
+            {
+              "ref": "a_reference_model",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le modèle fixe la complexité minimale à soutenir."
+            }
+          ]
+        },
+        {
+          "ref": "a_recruitment_feasibility",
+          "area": "RECRUITMENT",
+          "unit": null,
+          "owner": "STUDY_DESIGN",
+          "status": "OPEN_DECISION",
+          "content": "Évaluer par centre le nombre de diagnostics éligibles, la capacité à réaliser l’IRM index dans les 14 jours, l’accès à l’IRM M6 et la durée réaliste d’inclusion.",
+          "dependsOn": [
+            "a_eligibility",
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "La faisabilité conditionne le nombre de participantes avec critère IRM évaluable.",
+          "targetType": "DATA_NEED",
+          "semanticKey": "multicentre_recruitment_feasibility",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Enquête de faisabilité standardisée auprès des centres candidats.",
+          "plannedSource": "Registres locaux, activité clinique et capacités des sites",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_eligibility",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Les volumes recrutables dépendent des critères retenus."
+            },
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "La fenêtre index conditionne l’inclusion effective."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "SOFT_REFINEMENT_DEPENDENCY",
+              "rationale": "L’accès M6 affine la projection d’évaluabilité."
+            }
+          ]
+        },
+        {
+          "ref": "a_acquisition_harmonisation",
+          "area": "MEASUREMENTS",
+          "unit": null,
+          "owner": "IMAGING",
+          "status": "NOXIA_PROPOSAL",
+          "content": "Définir un protocole inter-centres d’acquisition et de post-traitement IRM, incluant les modalités de mesure du GLS et de FEVG aux temps index et M6.",
+          "dependsOn": [
+            "a_index_mri",
+            "a_m6_mri"
+          ],
+          "rationale": "L’harmonisation soutient la comparabilité des prédicteurs et du critère IRM.",
+          "targetType": "ACQUISITION",
+          "semanticKey": "cmr_acquisition_harmonisation",
+          "strataCount": null,
+          "evidenceRefs": [],
+          "plannedMethod": "Manuel d’acquisition et de post-traitement à finaliser.",
+          "plannedSource": "Sites d’imagerie et lecture centralisée si faisable",
+          "variableRoles": [],
+          "analysisMethod": null,
+          "userChangeRefs": [],
+          "participantReported": false,
+          "dependencyQualifications": [
+            {
+              "ref": "a_index_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le protocole doit couvrir l’acquisition index."
+            },
+            {
+              "ref": "a_m6_mri",
+              "kind": "HARD_BLOCKING_DEPENDENCY",
+              "rationale": "Le protocole doit couvrir la mesure du critère à M6."
+            }
+          ]
+        }
+      ],
+      "reply": "Structure consolidée : les covariables additionnelles, la sensibilité grossesse et les intrants de dimensionnement restent à préciser.",
+      "contract": "SCIENTIFIC_THINKING_STUDY_PROPOSAL_1",
+      "arbitrations": [
+        {
+          "ref": "arb_clinical_covariates",
+          "label": "Covariables cliniques additionnelles",
+          "options": [
+            {
+              "ref": "arb_clinical_covariates_none",
+              "label": "Aucune covariable clinique additionnelle",
+              "limits": "N’explore pas l’apport d’un contexte clinique initial.",
+              "atomRefs": [
+                "a_reference_model",
+                "a_extended_model"
+              ],
+              "benefits": "Maximise la parcimonie et réduit le risque de surajustement.",
+              "consequences": "Analyse principale limitée à FEVG puis GLS."
+            },
+            {
+              "ref": "arb_clinical_covariates_limited",
+              "label": "Noyau clinique limité et présélectionné",
+              "limits": "Augmente le nombre de paramètres et les besoins d’effectif.",
+              "atomRefs": [
+                "a_additional_covariates",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Permet une analyse ajustée si les données sont suffisantes.",
+              "consequences": "Nécessite liste fixée, recueil homogène et reconsidération du dimensionnement."
+            }
+          ],
+          "material": true,
+          "rationale": "Le modèle principal est fixé à FEVG puis GLS; toute extension doit rester parcimonieuse.",
+          "selection": "ONE",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_clinical_covariates_none"
+          ],
+          "affectedBranches": [
+            "ANALYSIS",
+            "COLLECTION",
+            "DIMENSIONING"
+          ]
+        },
+        {
+          "ref": "arb_pregnancy_sensitivity",
+          "label": "Sensibilité aux grossesses incidentes",
+          "options": [
+            {
+              "ref": "arb_pregnancy_sensitivity_descriptive",
+              "label": "Description et analyse complète des cas IRM-évaluables",
+              "limits": "Peut être affectée par une non-évaluabilité informative.",
+              "atomRefs": [
+                "a_nonevaluable_m6",
+                "a_sensitivity_plan"
+              ],
+              "benefits": "Simple et transparente sur la population effectivement évaluable.",
+              "consequences": "Documenter systématiquement les motifs d’absence d’IRM M6."
+            },
+            {
+              "ref": "arb_pregnancy_sensitivity_weighted",
+              "label": "Pondération par probabilité inverse de censure",
+              "limits": "Exige effectif, variables explicatives et hypothèses vérifiables.",
+              "atomRefs": [
+                "a_sensitivity_plan",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Cible une sensibilité à la non-évaluabilité informative.",
+              "consequences": "À envisager seulement après évaluation de faisabilité analytique."
+            }
+          ],
+          "material": true,
+          "rationale": "L’estimand principal est acquis; l’analyse secondaire dépend de l’effectif et des données disponibles.",
+          "selection": "ONE",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_pregnancy_sensitivity_descriptive"
+          ],
+          "affectedBranches": [
+            "ANALYSIS",
+            "COLLECTION",
+            "DIMENSIONING"
+          ]
+        },
+        {
+          "ref": "arb_dimensioning_target",
+          "label": "Acquisition des intrants de dimensionnement",
+          "options": [
+            {
+              "ref": "arb_dimensioning_site_feasibility",
+              "label": "Projection à partir de l’activité des centres",
+              "limits": "Les pratiques locales peuvent varier.",
+              "atomRefs": [
+                "a_recruitment_feasibility",
+                "a_dimensioning_inputs"
+              ],
+              "benefits": "Ancrée dans la capacité réelle de recrutement et d’accès IRM.",
+              "consequences": "Fournit une projection d’inclusions et d’IRM M6 évaluables."
+            },
+            {
+              "ref": "arb_dimensioning_pilot",
+              "label": "Phase pilote prospective courte",
+              "limits": "Allonge la trajectoire de l’étude définitive.",
+              "atomRefs": [
+                "a_recruitment_feasibility",
+                "a_dimensioning_inputs",
+                "a_nonevaluable_m6"
+              ],
+              "benefits": "Estime directement les non-évaluabilités et leurs motifs.",
+              "consequences": "Peut réviser les hypothèses de recueil et de dimensionnement."
+            }
+          ],
+          "material": true,
+          "rationale": "Aucun effectif défendable ne peut être produit avant les taux d’issue, d’évaluabilité et de recrutement.",
+          "selection": "INDEPENDENT",
+          "reversible": true,
+          "recommendedRefs": [
+            "arb_dimensioning_site_feasibility"
+          ],
+          "affectedBranches": [
+            "RECRUITMENT",
+            "DIMENSIONING",
+            "COLLECTION"
+          ]
+        }
+      ],
+      "contextDigest": "ke1-42b2480b1e2fe38f",
+      "understanding": [
+        "Cohorte pronostique multicentrique : IRM index ≤14 jours, GLS principal et récupération IRM de FEVG à M6.",
+        "L’analyse principale conserve les grossesses incidentes et exige une IRM M6 pour évaluer le critère principal.",
+        "La comparaison principale est FEVG initiale seule puis FEVG+GLS continu linéaire, avec validation interne."
+      ],
+      "recruitmentNotice": "Appel à volontaires à préciser selon les critères, les centres et la disponibilité d’IRM ≤14 jours.",
+      "candidateIsAdopted": false,
+      "dimensioningScenarios": [],
+      "projectWriteAuthorized": false,
+      "participantArtifactsApplicable": true,
+      "participantQuestionnaireIntroduction": "Aucun questionnaire participant n’est défini; les données relèvent principalement du CRF et du dossier."
+    },
+    "requestType": "STUDY_UPDATE",
+    "inferredAtomRefs": [
+      "a_population"
+    ],
+    "rejectedAtomRefs": [],
+    "explicitDecisions": [
+      {
+        "quote": "Je veux construire une étude prospective multicentrique",
+        "atomRef": "a_design",
+        "sourceTurnRef": "turn:1b2341d6-07bb-44a6-a3cb-b9d3a7c44abc"
+      },
+      {
+        "quote": "pour déterminer si l’IRM cardiaque réalisée au diagnostic prédit la récupération de la FEVG à 6 mois.",
+        "atomRef": "a_question",
+        "sourceTurnRef": "turn:1b2341d6-07bb-44a6-a3cb-b9d3a7c44abc"
+      },
+      {
+        "quote": "l’IRM initiale n’est pas à M6 ; elle est réalisée dans les 14 jours du diagnostic, et M6 est le suivi.",
+        "atomRef": "a_index_mri",
+        "sourceTurnRef": "turn:e8706177-d839-48c6-8aa2-e6e6e327eb3e"
+      },
+      {
+        "quote": "les critères d’éligibilité sont : femmes majeures, nouveau diagnostic de cardiomyopathie du péripartum, FEVG < 45 % au diagnostic et IRM index réalisable dans les 14 jours ; exclusion d’une cardiopathie structurelle préexistante ou d’une autre cause identifiée de dysfonction ventriculaire.",
+        "atomRef": "a_eligibility",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "retenons le strain longitudinal global du ventricule gauche comme biomarqueur IRM principal.",
+        "atomRef": "a_gls_exposure",
+        "sourceTurnRef": "turn:a3958e91-16f9-4346-bbf7-3f1ab9da4e1b"
+      },
+      {
+        "quote": "Le T1 natif, le T2 et le rehaussement tardif restent secondaires.",
+        "atomRef": "a_secondary_mri_markers",
+        "sourceTurnRef": "turn:a3958e91-16f9-4346-bbf7-3f1ab9da4e1b"
+      },
+      {
+        "quote": "La récupération sera définie par une FEVG ≥ 50 % à 6 mois avec une augmentation d’au moins 10 points par rapport au diagnostic.",
+        "atomRef": "a_primary_endpoint",
+        "sourceTurnRef": "turn:a3958e91-16f9-4346-bbf7-3f1ab9da4e1b"
+      },
+      {
+        "quote": "la grossesse incidente avant M6 reste incluse sans censure dans l’analyse principale telle qu’observée",
+        "atomRef": "a_pregnancy_handling",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "si l’IRM M6 est impossible, l’échographie est recueillie mais ne remplace pas le critère principal IRM.",
+        "atomRef": "a_nonevaluable_m6",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "je valide la comparaison de modèles imbriqués, avec FEVG initiale puis ajout du GLS continu linéaire, calibration, discrimination, Brier et validation interne par bootstrap.",
+        "atomRef": "a_extended_model",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "je valide la comparaison de modèles imbriqués, avec FEVG initiale puis ajout du GLS continu linéaire, calibration, discrimination, Brier et validation interne par bootstrap.",
+        "atomRef": "a_model_evaluation",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "Le nombre et la liste exacte des autres covariables, le taux attendu de récupération et l’analyse de sensibilité des grossesses restent ouverts.",
+        "atomRef": "a_additional_covariates",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "Le nombre et la liste exacte des autres covariables, le taux attendu de récupération et l’analyse de sensibilité des grossesses restent ouverts.",
+        "atomRef": "a_dimensioning_inputs",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      },
+      {
+        "quote": "Le nombre et la liste exacte des autres covariables, le taux attendu de récupération et l’analyse de sensibilité des grossesses restent ouverts.",
+        "atomRef": "a_sensitivity_plan",
+        "sourceTurnRef": "turn:f3c30978-13ce-4fba-9be5-cb368f038623"
+      }
+    ]
+  }
+}

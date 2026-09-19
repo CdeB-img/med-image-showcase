@@ -12,6 +12,7 @@ import {
   applyCanonicalProjectChangeSet,
   buildCanonicalProjectChangeSet,
   canonicalProjectObjectType,
+  temporalValueItem,
   ensureCanonicalProjectState,
   projectSectionsFromCanonicalState,
   type CanonicalProjectChangeSet,
@@ -643,7 +644,7 @@ const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchPr
   // or operational window. Preserve its own semantic payload instead of
   // rebuilding it from the whole source turn, which may contain independent
   // temporal changes for other objects.
-  if (sectionId !== "TEMPORALITY" || canonicalProjectObjectType(item) === "VISIT") return null;
+  if (sectionId !== "TEMPORALITY" || !temporalValueItem(item)) return null;
   const context = folded(itemContext(item, contribution));
   // Normalize only the temporal object's own value. Its evidence can be a
   // complete turn containing unrelated ages or another acquisition's timing.

@@ -15,6 +15,9 @@ import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
+import * as documentaryConversation from "../documentary-conversation";
+import { ProductBridgeClientError } from "../../product-bridge-client";
+import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
@@ -180,6 +183,43 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(result.readyReview!.contribution.scientificContent.candidateObjects.some(o => o.content === open.content)).toBe(false);
     expect(result.readiness.CRF.status).toBe("OPEN");
   });
+  it("carries detailed eligibility, an incident-pregnancy estimand, and corrected MRI timing through review into Project", () => {
+    const initial = sessionFor(), initialRequest = requestFor(initial), initialUpdate = updateFor(initialRequest);
+    initialUpdate.proposal!.atoms.find(atom => atom.area === "TIMING")!.content = "IRM initiale = M6";
+    const firstComposition = acceptWorkingDraftUpdate(initialUpdate, initialRequest).composition!;
+    const firstDraft = prepareContinuousWorkingDraft(initial, firstComposition, initialUpdate, prepareWorkingDraftRequest(initialRequest).inputDigest);
+    const correction = "Conserver les critères d’éligibilité détaillés et l’estimand des grossesses incidentes. Correction : IRM index dans les 14 jours ; M6 est le suivi.";
+    const next: FunctionalResetSession = { ...initial, studyProposal: firstComposition, workingDraft: firstDraft,
+      runtimeTurns: [...initial.runtimeTurns,
+        { turnId: "u2", role: "USER", content: correction, createdAt: initial.updatedAt },
+        { turnId: "a2", role: "NOXIA", content: "LOCAL_SYNTHETIC — correction comprise.", createdAt: initial.updatedAt }] };
+    const request = requestFor(next), update = updateFor(request);
+    const eligibility = update.proposal!.atoms.find(atom => atom.area === "ELIGIBILITY")!;
+    const estimand = update.proposal!.atoms.find(atom => atom.area === "ANALYSIS")!;
+    const timing = update.proposal!.atoms.find(atom => atom.area === "TIMING")!;
+    eligibility.content = "Éligibilité détaillée : critères d’inclusion et d’exclusion confirmés";
+    estimand.content = "Estimand des grossesses incidentes confirmé";
+    timing.content = "IRM index dans les 14 jours ; M6 = suivi";
+    update.explicitDecisions = [eligibility, estimand, timing].map(atom => ({ atomRef: atom.ref, sourceTurnRef: "u2", quote: correction }));
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const draft = prepareContinuousWorkingDraft(next, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    const ready = draft.readyReview!;
+    const reviewText = ready.contribution.scientificContent.candidateObjects.map(object => object.content).join("\n");
+    expect(reviewText).toContain(eligibility.content);
+    expect(reviewText).toContain(estimand.content);
+    expect(reviewText).toContain(timing.content);
+    expect(reviewText).not.toContain("IRM initiale = M6");
+    expect(draft.history).toContainEqual(expect.objectContaining({ status: "SUPERSEDED", atom: expect.objectContaining({ content: "IRM initiale = M6" }) }));
+
+    const project = confirmResearchProjectContribution({ contribution: ready.contribution, current: null, projectId: next.projectId,
+      authority: next.projectAuthority, confirmedAt: next.updatedAt, reviewedProjection: ready.candidate.humanReviewProjection,
+      selectedChangeRefs: ready.candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["u2"] });
+    const projectText = JSON.stringify(project.canonicalState?.objects.filter(object => object.actuality === "CURRENT") ?? project.sections);
+    expect(projectText).toContain(eligibility.content);
+    expect(projectText).toContain(estimand.content);
+    expect(projectText).toContain(timing.content);
+    expect(projectText).not.toContain("IRM initiale = M6");
+  });
   it("uses only the native Terra transport once for background and fails closed without retry", async () => {
     const r = requestFor(sessionFor()), update = updateFor(r);
     const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(update)));
@@ -277,7 +317,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.pendingContribution).toBeNull(); expect(saved.workingDraftFailure).toBe(s.workingDraftFailure);
   });
 
-  it("delivers native text while background is still pending, opens ready review without another bridge call", async () => {
+  it("delivers native text while background is pending, then exposes the final review without a preparation click", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     let release!: () => void;
     const waiting = new Promise<void>(resolve => { release = resolve; });
@@ -298,11 +338,105 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project).toBeNull(); expect(screen.queryByRole("dialog")).toBeNull();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();
     release(); await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
-    await waitFor(() => expect(screen.getByRole("button", { name: "Revoir les choix" })).toBeEnabled());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Confirmer et générer les documents" })).toBeEnabled());
+    expect(screen.queryByRole("button", { name: "Revoir les choix" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Préparer l’enregistrement" })).toBeNull();
+    expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/décisions? prêtes? à confirmer/i);
+    expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/points? reste(?:nt)? à définir/i);
     expect(bridge).toHaveBeenCalledTimes(2);
-    send("je retiens cette architecture, montre-moi ce qui va être enregistré");
-    await waitFor(() => expect(saved.pendingContribution).not.toBeNull());
-    expect(bridge).toHaveBeenCalledTimes(2); expect(saved.project).toBeNull(); expect(screen.getByTestId("continuous-working-draft-indicator").className).toContain("h-14");
+    expect(saved.project).toBeNull(); expect(screen.getByTestId("continuous-working-draft-indicator").className).toContain("h-14");
+  });
+
+  it("uses one explicit action, preserves adopted Project on transport failure, and retrieves the same request without another adoption", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
+    bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+
+    expect(screen.getAllByRole("button", { name: "Confirmer et générer les documents" })).toHaveLength(1);
+    for (const technicalStep of ["Préparer l’enregistrement", "Revoir les changements", "Préparer l’adoption", "Enregistrer dans le projet", "Préparer les documents"])
+      expect(screen.queryByRole("button", { name: technicalStep })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer et générer les documents" }));
+    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
+    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(1));
+    await screen.findByTestId("document-generation-recovery");
+    const adoptedVersion = saved.project!.versionId;
+    expect(saved.documents.lastFailure?.code).toBe("FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR");
+    expect(screen.getByText("Projet confirmé")).toBeInTheDocument();
+    expect(screen.getByText("Les documents n’ont pas pu être générés.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Confirmer et générer les documents" })).toBeNull();
+
+    const firstRequest = JSON.stringify(bridge.mock.calls[0][0]);
+    fireEvent.click(screen.getByRole("button", { name: "Retrouver les documents" }));
+    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(2));
+    expect(JSON.stringify(bridge.mock.calls[1][0])).toBe(firstRequest);
+    expect(saved.project?.versionId).toBe(adoptedVersion);
+    expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
+  });
+
+  it.each(["saved", "refused", "throws"])("opens all four validated documents after one confirmation (local save %s)", async saveDocuments => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
+    const composition=acceptWorkingDraftUpdate(update,request).composition!;
+    const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
+    let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
+    bridge.mockImplementation(async (req: ProductBridgeRequest) => {
+      const project=req.currentProject!, source=req.documentDraftRequest!, packet=prepareDrciDraftPack(project,source);
+      const generated={documents:DRCI_DOCUMENT_KINDS.map(kind=>({kind,title:`LOCAL_SYNTHETIC ${kind}`,
+        sections:[{title:"Dossier de travail",paragraphs:[kind === "PROTOCOL_SYNOPSIS"
+          ? "Texte synthétique de qualification mécanique sans aucune validation scientifique humaine. ".repeat(60)
+          : packet.sourceFacts[0].content],sourceRefs:[packet.sourceFacts[0].ref]}],missingElements:[]})),
+        crfRows:source.crf.fields.map((field,index)=>({variableRef:field.canonicalVariableId,variableId:`FIELD_${index}`,label:field.label,
+          domain:"À préciser",visit:"À préciser",definition:field.label,entryType:"Texte",unit:null,categories:null,dataOrigin:"UNSPECIFIED",
+          source:"À préciser",required:"À préciser",condition:null,derivedFrom:[],derivation:null,controls:[],analysisImpact:null,specificationStatus:"UNSPECIFIED"}))};
+      return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
+        observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
+    });
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{
+      if (next.drciDraftPacks?.length) {
+        if (saveDocuments === "throws") throw new DOMException("LOCAL_SYNTHETIC", "QuotaExceededError");
+        if (saveDocuments === "refused") return false;
+      }
+      saved=next; return true;
+    }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    await screen.findByTestId("study-deliverable-workspace");
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(saved.project?.revision).toBe(1);
+    for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
+    if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("non enregistrés");
+  });
+
+  it("preserves a Knowledge integrity failure instead of replacing it by empty evidence", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
+    const composition=acceptWorkingDraftUpdate(update,request).composition!;
+    const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
+    let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
+    vi.spyOn(documentaryConversation,"acquireDocumentKnowledge").mockImplementationOnce(()=>{throw new Error("KNOWLEDGE_BINDING_INVALID");});
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    await screen.findByTestId("document-generation-recovery");
+    expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
+    expect(JSON.stringify(saved.documents.lastFailure)).toContain("KNOWLEDGE_BINDING_INVALID");
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("does not offer a paid reroll after a terminal document failure", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
+    const composition=acceptWorkingDraftUpdate(update,request).composition!;
+    const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
+    bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={{...initial,studyProposal:composition,workingDraft}} onSessionChange={()=>true} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    await screen.findByTestId("document-generation-recovery");
+    expect(screen.queryByRole("button",{name:"Retrouver les documents"})).toBeNull();
+    expect(bridge).toHaveBeenCalledTimes(1);
   });
 
   it("starts the next foreground while the previous background is pending and rejects the late stale commit", async () => {

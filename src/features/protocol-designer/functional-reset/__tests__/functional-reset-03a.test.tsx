@@ -220,7 +220,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
     await confirm();
     const project = screen.getByTestId("functional-research-project");
-    fireEvent.click(within(project).getByRole("button", { name: "Créer l’aperçu" }));
+    fireEvent.click(within(project).getByRole("button", { name: "Générer les documents" }));
 
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(within(preview).getByRole("heading", { name: "PROTOCOLE DE TRAVAIL" })).toBeInTheDocument();

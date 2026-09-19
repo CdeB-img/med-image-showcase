@@ -155,7 +155,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
     expect(within(projectPanel).queryByText(/DMP|SAP/)).toBeNull();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
 
     const previewV1 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
     expect(within(projectPanel).getByText("Le projet a changé depuis cette version du protocole.")).toBeInTheDocument();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser l’aperçu" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Mettre à jour les documents" }));
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();

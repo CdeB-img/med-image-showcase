@@ -11,6 +11,7 @@ import {
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
   onClose: () => void;
+  saveWarning?: string | null;
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
@@ -22,7 +23,7 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
@@ -31,6 +32,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props)
     className="min-w-0 rounded-3xl border bg-background shadow-sm"
     data-testid="study-deliverable-workspace"
   >
+    {saveWarning && <p role="alert" className="border-b bg-amber-50 px-5 py-3 text-sm text-amber-950">{saveWarning}</p>}
     <header className="border-b px-5 py-5 sm:px-6">
       <button type="button" onClick={onClose} className="inline-flex min-h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium">
         <ArrowLeft className="h-4 w-4" /> Retour à la conversation

@@ -84,7 +84,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(governedContinuation?.kind === "TEXT" ? governedContinuation.content.match(/\?/g) : []).toHaveLength(1);
 
     const projectV1BeforeDocument = JSON.stringify(v1.project);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
     const previewV1 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     fireEvent.click(within(previewV1).getByRole("button", { name: "Télécharger le protocole (.html)" }));
@@ -116,7 +116,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     });
 
     const projectV2BeforeDocument = JSON.stringify(staleV1.project);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser l’aperçu" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Mettre à jour les documents" }));
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
