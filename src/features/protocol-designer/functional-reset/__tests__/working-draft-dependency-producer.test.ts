@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { acceptContextualStudyProposal, type ContextualStudyProposal } from "@/features/scientific-thinking/contextual-study-proposal";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
-import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, validatePreparedWorkingReview, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, workingDraftReviewCoverage, type WorkingDraftUpdate } from "../continuous-project-build";
 import { createFunctionalResetSession } from "../session";
 import { selectedStudyProposalAtoms } from "../study-proposal-standard";
 import type { ProductBridgeRequest } from "../../product-bridge";
@@ -45,7 +45,7 @@ describe("Working Draft dependency producer — native graph invariants", () => 
     expect(JSON.stringify(historical)).toBe(before);
   });
 
-  it("admits a SYNTHETIC same-science DAG and preserves the indispensable diagnostic prerequisite", () => {
+  it("preserves the SYNTHETIC DAG correction but rejects the historical explicit decisions hidden by options", () => {
     const session = createFunctionalResetSession();
     session.runtimeTurns = receipts[2].context.RECENT_CONVERSATION.map(t => ({ turnId: t.ref, role: t.role, content: t.content, createdAt: session.createdAt }));
     const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns },
@@ -62,23 +62,26 @@ describe("Working Draft dependency producer — native graph invariants", () => 
     measurement.dependencyQualifications = measurement.dependencyQualifications!.filter(q => q.ref !== "A7");
     expect(synthetic.proposal!.atoms.map(a => [a.ref, a.content])).toEqual(historical.proposal!.atoms.map(a => [a.ref, a.content]));
     expect(synthetic.proposal!.arbitrations).toEqual(historical.proposal!.arbitrations);
-    const composition = acceptWorkingDraftUpdate(synthetic, request).composition!;
+    expect(() => acceptWorkingDraftUpdate(synthetic, request)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+    // The graph correction remains valid in isolation. Empty owner scope here
+    // checks graph invariants only; it is not an adoptable composition receipt.
+    const composition = acceptContextualStudyProposal(synthetic.proposal, {
+      contextDigest: packet.inputDigest, sourceTurnRef: session.runtimeTurns.at(-2)!.turnId,
+      sourceResponseRef: session.runtimeTurns.at(-1)!.turnId, sourceProject: null,
+      applicableEvidenceRefs: [], scopedAtomRefs: [],
+    });
     const scope = recommendedWorkingScope(composition);
     expect(scope.selectedAtomRefs).toContain("A13");
     // Historical arbitration leaves this population in an unselected alternative;
     // repairing its graph must not also change the scientific recommendation.
     expect(scope.selectedAtomRefs).not.toContain("A7");
-    expect(selectedStudyProposalAtoms(composition, scope.selectedOptionRefs, scope.selectedAtomRefs)).toContain("A13");
     expect(composition.proposal.atoms.find(a => a.ref === "A7")!.dependencyQualifications).toContainEqual(expect.objectContaining({ ref: "A13", kind: "HARD_BLOCKING_DEPENDENCY" }));
     expect(() => selectedStudyProposalAtoms(composition, [], ["A7"])).toThrow("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
     expect(() => selectedStudyProposalAtoms(composition, ["R1O2"], ["A1"])).toThrow("STUDY_PROPOSAL_DEPENDENCY_NOT_SELECTED");
-    const draft = prepareContinuousWorkingDraft(session, composition, synthetic, packet.inputDigest);
-    expect(draft.failure).toBeNull(); expect(draft.readyReview).not.toBeNull();
-    const current = { ...session, studyProposal: composition, workingDraft: draft };
-    expect(validatePreparedWorkingReview(current)).not.toBeNull();
-    current.runtimeTurns.push({ turnId: "u4", role: "USER", content: "je retiens cette architecture, montre-moi ce qui va être enregistré" });
-    expect(validatePreparedWorkingReview(current)).not.toBeNull();
-    expect(current.project).toBeNull(); expect(draft.readyReview!.candidate.projectWriteAuthorized).toBe(false);
+    expect(workingDraftReviewCoverage(composition).excluded.some(atom =>
+      synthetic.explicitDecisions.some(decision => decision.atomRef === atom.ref))).toBe(true);
+    expect(composition.ownerReceipts).toEqual([]);
+    expect(session.project).toBeNull();
   });
 
   it.each([DOMAINS[2], DOMAINS[4]])("preserves $id prerequisites without reciprocal contextual dependencies", domain => {

@@ -26,6 +26,46 @@ const qualify = (p: ReturnType<typeof preparation>, parent: string, child: strin
 const accepted = (p: ReturnType<typeof preparation>) => acceptWorkingDraftUpdate(p.update, p.request).composition!;
 
 describe("adoptable parent decisions with unadopted open refinements — native owners", () => {
+  it.each([DOMAINS[1], DOMAINS[2], DOMAINS[4]])("rejects an explicit $id endpoint hidden inside an unresolved alternative", domain => {
+    const p = preparation(domain);
+    p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: domain.text }];
+    p.proposal.arbitrations[0].options[1].atomRefs.push("endpoint");
+    expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+    expect(p.session.project).toBeNull();
+  });
+  it("rejects hidden explicit decisions even when wrongly grouped prerequisites cause a dependency cascade", () => {
+    const p = preparation();
+    p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }];
+    qualify(p, "endpoint", "measurement", "HARD_BLOCKING_DEPENDENCY");
+    p.proposal.arbitrations[0].options[1].atomRefs.push("measurement", "endpoint");
+    expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+  });
+  it("retains the explicit stable core while genuine alternatives stay unresolved and unadopted", () => {
+    const p = preparation();
+    p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }];
+    p.proposal.arbitrations[0].recommendedRefs = [];
+    qualify(p, "age-continuous", "endpoint", "HARD_BLOCKING_DEPENDENCY");
+    qualify(p, "age-classes", "endpoint", "HARD_BLOCKING_DEPENDENCY");
+    const composition = accepted(p), coverage = workingDraftReviewCoverage(composition);
+    expect(coverage.stable).toContain("endpoint");
+    expect(coverage.stable).not.toContain("age-continuous");
+    expect(coverage.stable).not.toContain("age-classes");
+    const draft = prepareContinuousWorkingDraft(p.session, composition, p.update, p.packet.inputDigest);
+    expect(draft.failure).toBeNull();
+    expect(draft.readyReview?.contribution.scientificContent.candidateObjects.some(a => a.content === p.proposal.atoms.find(a => a.ref === "endpoint")!.content)).toBe(true);
+    expect(p.session.project).toBeNull();
+  });
+  it("preserves a genuine hard blocker and a user-declared unknown instead of forcing them into review", () => {
+    const p = preparation();
+    p.proposal.atoms.find(a => a.ref === "timing")!.status = "OPEN_DECISION";
+    p.proposal.arbitrations[0].options[1].atomRefs.push("bounds");
+    p.update.explicitDecisions = ["endpoint", "bounds"].map(atomRef => ({ atomRef, sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }));
+    qualify(p, "endpoint", "timing", "HARD_BLOCKING_DEPENDENCY");
+    const coverage = workingDraftReviewCoverage(accepted(p));
+    expect(coverage.excluded.find(a => a.ref === "endpoint")?.reason).toBe("HARD_DEPENDENCY_NOT_SATISFIED");
+    expect(coverage.open).toContain("bounds");
+    expect(coverage.stable).not.toContain("bounds");
+  });
   it.each([
     ["RCT", 1, "measurement", "timing", "Examen de suivi à trois mois", "Paramètres d'acquisition à préciser"],
     ["LONGITUDINAL", 2, "timing", "practical", "Trois temps de mesure : initial, six mois et un an", "Fenêtres de tolérance à préciser"],
