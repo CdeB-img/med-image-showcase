@@ -223,7 +223,12 @@ export const projectDocumentSourceFromFunctionalProject = (
     source: "USER_PROVIDED" as const,
     sourceRef: item.objectVersionId,
     role: "MEASUREMENT_CANDIDATE" as const,
-    timingIds,
+    // A calendar entry is not a schedule for every variable. Only native
+    // bindings authorize collection occasions; missing bindings stay unknown.
+    timingIds: uniqueSorted([
+      ...expectedVariableOccasions.filter(occasion => occasion.variableProjectRef === item.objectId).map(occasion => occasion.occasionId),
+      ...temporalQualifications.filter(qualification => qualification.subjectProjectRef === item.objectId).map(qualification => qualification.qualificationId),
+    ]),
     endpointIds: [],
     analysisRequirementIds: canonicalAnalysis.map((analysis) => analysis.objectId),
     qualityRequirements: [],
