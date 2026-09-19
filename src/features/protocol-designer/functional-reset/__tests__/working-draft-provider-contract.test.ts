@@ -22,6 +22,37 @@ const fixture = () => {
 };
 
 describe("background provider contract follows the native owner", () => {
+  it("binds each wire quote to its own immutable USER turn and rejects abbreviated, borrowed or invented quotes", () => {
+    const { request, update } = fixture();
+    request.conversation.turns.push({ turnId: "u2", role: "USER", content: "Le promoteur et les centres restent ouverts. L'effectif reste ouvert." });
+    const packet = prepareWorkingDraftRequest(request);
+    update.proposal.contextDigest = packet.inputDigest;
+    for (const atom of update.proposal.atoms) Object.assign(atom, { dependencyQualifications: atom.dependsOn.map(ref => ({ ref, kind: "HARD_BLOCKING_DEPENDENCY", rationale: "Prérequis." })) });
+    const validate = new Ajv({ allErrors: true }).compile(packet.outputSchema);
+    const decision = { atomRef: "practical", sourceTurnRef: "u2", quote: "Le promoteur et les centres restent ouverts." };
+    const wire = { ...update, explicitDecisions: [decision] };
+    expect(validate(wire), JSON.stringify(validate.errors)).toBe(true);
+    expect(() => acceptWorkingDraftUpdate(wire, request)).not.toThrow();
+    for (const quote of ["Le promoteur [...] reste ouvert.", "Les centres sont décidés.", DOMAINS[1].text]) {
+      expect(validate({ ...wire, explicitDecisions: [{ ...decision, quote }] })).toBe(false);
+    }
+    expect(validate({ ...wire, explicitDecisions: [{ ...decision, sourceTurnRef: "a1" }] })).toBe(false);
+    expect(validate({ ...wire, explicitDecisions: [{ ...decision, sourceTurnRef: "u1" }] })).toBe(false);
+  });
+
+  it("keeps exact multiline and decimal source passages available without rewriting or authorizing duplicate source ids", () => {
+    const { request } = fixture();
+    request.conversation.turns[0].content = "Comparer A\ncontre B à 1.5 mg. Le reste est ouvert.";
+    const packet = prepareWorkingDraftRequest(request);
+    const text = JSON.stringify(packet.outputSchema);
+    expect(text).toContain(JSON.stringify("Comparer A\ncontre B à 1.5 mg."));
+    expect(text).toContain(JSON.stringify(request.conversation.turns[0].content));
+    const before = JSON.stringify(request);
+    prepareWorkingDraftRequest(request);
+    expect(JSON.stringify(request)).toBe(before);
+    request.conversation.turns.push({ ...request.conversation.turns[0] });
+    expect(prepareWorkingDraftRequest(request).outputSchema.properties?.explicitDecisions).toMatchObject({ maxItems: 0 });
+  });
   it("constrains the two paid failure shapes without relaxing native validation", () => {
     const { packet, request, update } = fixture();
     const validate = new Ajv({ allErrors: true }).compile(packet.outputSchema);
