@@ -443,6 +443,41 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("non enregistrés");
   });
 
+  it("generates the four documents directly from an already adopted Project without adopting it again", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
+    const composition=acceptWorkingDraftUpdate(update,request).composition!;
+    const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
+    const ready=workingDraft.readyReview!;
+    const project=confirmResearchProjectContribution({ contribution:ready.contribution,current:null,projectId:initial.projectId,
+      authority:initial.projectAuthority,confirmedAt:initial.updatedAt,reviewedProjection:ready.candidate.humanReviewProjection,
+      selectedChangeRefs:ready.candidate.humanReviewProjection.coveredChangeRefs,confirmationSourceRefs:["human-review-button"] });
+    let saved:FunctionalResetSession={...initial,project,studyProposal:null,workingDraft:null};
+    bridge.mockImplementation(async (req:ProductBridgeRequest)=>{
+      const source=req.documentDraftRequest!, packet=prepareDrciDraftPack(project,source);
+      const generated={documents:DRCI_DOCUMENT_KINDS.map(kind=>({kind,title:`LOCAL_SYNTHETIC ${kind}`,
+        sections:[{title:"Dossier de travail",paragraphs:[kind === "PROTOCOL_SYNOPSIS"
+          ? "Texte synthétique de qualification mécanique sans aucune validation scientifique humaine. ".repeat(60)
+          : packet.sourceFacts[0].content],sourceRefs:[packet.sourceFacts[0].ref]}],missingElements:[]})),
+        crfRows:source.crf.fields.map((field,index)=>({variableRef:field.canonicalVariableId,variableId:`FIELD_${index}`,label:field.label,
+          domain:"À préciser",visit:"À préciser",definition:field.label,entryType:"Texte",unit:null,categories:null,dataOrigin:"UNSPECIFIED",
+          source:"À préciser",required:"À préciser",condition:null,derivedFrom:[],derivation:null,controls:[],analysisImpact:null,specificationStatus:"UNSPECIFIED"}))};
+      return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
+        observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
+    });
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Projet déjà validé");
+    expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
+    const adoptedVersion=project.versionId;
+    fireEvent.click(screen.getByRole("button",{name:"Générer les documents"}));
+    await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(1));
+    await waitFor(()=>expect(screen.queryByTestId("adopted-project-document-generation")).toBeNull());
+    expect(bridge.mock.calls[0][0].currentProject?.versionId).toBe(adoptedVersion);
+    expect(saved.project?.versionId).toBe(adoptedVersion);
+    for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
+  });
+
   it("preserves a Knowledge integrity failure instead of replacing it by empty evidence", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);

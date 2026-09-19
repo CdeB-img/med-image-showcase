@@ -4261,6 +4261,22 @@ export default function ProtocolDesignerWorkspace({
     disabled={busy || workingDraftBusy}
     onConfirmAndGenerate={() => void confirmAndGenerateDocuments()}
   /> : null;
+  const currentDrciDraftPack = session.project
+    ? [...session.drciDraftPacks ?? []].reverse().find((pack) => isDrciDraftPackCurrent(pack, session.project!)) ?? null
+    : null;
+  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !currentDrciDraftPack
+    && !session.documents.lastFailure ? <section
+      className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
+      data-testid="adopted-project-document-generation"
+    >
+      <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents du projet</p>
+      <h2 className="mt-1 text-xl font-semibold">Projet déjà validé</h2>
+      <p className="mt-2 text-sm text-muted-foreground">Générez les quatre documents de travail depuis la version confirmée du projet.</p>
+      <button type="button" disabled={busy} onClick={() => void requestProtocolProjection()}
+        className="mt-4 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
+        Générer les documents
+      </button>
+    </section> : null;
   const documentGenerationRecovery = !preparedFinalization && session.project && session.documents.lastFailure ? <section
     className="border-t bg-destructive/5 px-4 py-4 sm:px-5"
     data-testid="document-generation-recovery"
@@ -4360,6 +4376,7 @@ export default function ProtocolDesignerWorkspace({
           {projectFinalizationCard}
         </section> : deliverableWorkspaceOpen && deliverablePortfolio ? <div className="min-w-0">
           {busy && <p role="status" className="mb-3 rounded-xl border bg-primary/5 px-5 py-3 text-sm font-medium">Génération des documents…</p>}
+          {adoptedProjectDocumentAction}
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
