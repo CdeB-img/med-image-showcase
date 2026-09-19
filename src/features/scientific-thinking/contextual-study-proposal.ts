@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { CANONICAL_PROJECT_OBJECT_TYPES } from "../research-project-construction/canonical-project-backbone.js";
 import type { ScientificInterpretationContributionEnvelope } from "../scientific-interpretation/contracts.js";
