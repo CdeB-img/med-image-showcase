@@ -84,9 +84,9 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     && (fact.polarity === undefined || fact.polarity === "AFFIRMED"));
   const criteria = current.filter(fact => fact.type === "ELIGIBILITY_CRITERION");
   const consent = criteria.filter(fact => /consentement.*requis/iu.test(fact.content));
-  const evaluability = current.filter(fact => fact.type === "PROJECT_INFORMATION" && /cartes.*interprétables/iu.test(fact.content));
-  const analytical = current.filter(fact => fact.type === "PROJECT_INFORMATION" && /LGE.*analyse principale/iu.test(fact.content));
-  const mri = current.filter(fact => fact.type === "VISIT" && /IRM/iu.test(fact.content));
+  const evaluability = current.filter(fact => fact.type === "PROJECT_INFORMATION" && /évaluab|interprétab|qualité/iu.test(fact.content));
+  const analytical = current.filter(fact => ["PROJECT_INFORMATION", "ANALYSIS_SPECIFICATION"].includes(fact.type) && /analysable|analyse principale|population.*analyse/iu.test(fact.content));
+  const visits = current.filter(fact => fact.type === "VISIT");
   if (doc.kind === "CRF") {
     if (criteria.length) sections.push({ title: "Présélection / éligibilité", sourceRefs: criteria.map(fact => fact.ref), paragraphs: [
       "Vérifier les critères courants avec le formulaire interne de présélection et consigner l’issue avec son motif. Une incertitude nécessite une confirmation ; elle ne vaut pas éligibilité automatique.",
@@ -94,9 +94,9 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
     if (consent.length) sections.push({ title: "Consentement", sourceRefs: consent.map(fact => fact.ref), paragraphs: [
       "Vérifier le recueil du consentement avant les procédures de recherche. Ce dictionnaire et la présélection ne constituent pas un formulaire de consentement. Version, date et traçabilité du formulaire relèvent du circuit institutionnel à préciser.",
     ] });
-    const safety = criteria.filter(fact => /contre-indication.*IRM.*contraste/iu.test(fact.content));
-    if (safety.length) sections.push({ title: "Sécurité IRM / éligibilité au contraste", sourceRefs: safety.map(fact => fact.ref), paragraphs: [
-      "Faire confirmer médicalement l’absence de contre-indication à l’IRM ou au contraste. La checklist finale rassemble les paramètres de sécurité à arrêter avant utilisation ; aucun seuil ni décision médicale automatisée n’est ajouté.",
+    const safety = criteria.filter(fact => /contre.indication/iu.test(fact.content));
+    if (safety.length) sections.push({ title: "Sécurité / éligibilité", sourceRefs: safety.map(fact => fact.ref), paragraphs: [
+      ...safety.map(fact => statedFact(fact.ref)), "Faire vérifier les conditions de sécurité adoptées par le professionnel compétent ; aucun seuil ni décision médicale automatisée n’est ajouté.",
     ] });
     if (analytical.length || evaluability.length) sections.push({ title: "Éligibilité à l’analyse", sourceRefs: [...analytical, ...evaluability].map(fact => fact.ref), paragraphs: [
       "Vérifier l’évaluabilité du critère de jugement principal et les exclusions analytiques adoptées. Consigner le motif sans supprimer la fiche du participant ni ses données sources. Distinguer donnée manquante, non-évaluabilité et exclusion analytique.",
@@ -148,7 +148,7 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
   for (const note of notes) {
     const clean = polishDrciEditorialText(note)
       .replace(/tolérance temporelle post-contraste/giu, "tolérance du délai post-contraste")
-      .replace(/modalités de lecture et critères documentaires de qualité/giu, "modalités exactes de lecture IRM et critères documentaires de qualité");
+      ;
     const category = clean.match(/^(Technique|Analyse|Institution)\s*:\s*/iu)?.[0] ?? "";
     const body = clean.slice(category.length);
     const pieces = category ? body.split(body.includes(";") ? /\s*;\s*/u : /^Technique\s*:/iu.test(category) ? /\s*,\s*/u : /$^/u) : [body];
@@ -179,7 +179,7 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
   const checklistNotice = "Chaque entrée ci-dessous correspond à un élément à arrêter avant utilisation. Aucun choix n’est présumé acquis.";
   const checklistHtml = [...checklist].map(([group, items]) => `<h3>${escapeHtml(group)}</h3><ul>${items.map(value => `<li>☐ ${escapeHtml(value)}</li>`).join("")}</ul>`).join("");
   const originLabels = { PARTICIPANT_REPORTED: "Déclaration du participant", SITE_RECORDED: "Recueil clinique du site", LAB_RESULT: "Résultat laboratoire",
-    IMAGING_DERIVED: "Mesure quantitative d’imagerie", IMAGING_READER_RECORDED: "Qualification du lecteur IRM", SYSTEM_DERIVED: "Calcul dérivé", UNSPECIFIED: "Origine à préciser" };
+    IMAGING_DERIVED: "Mesure quantitative d’imagerie", IMAGING_READER_RECORDED: "Qualification du lecteur", SYSTEM_DERIVED: "Calcul dérivé", UNSPECIFIED: "Origine à préciser" };
   const dictionary = doc.kind === "CRF" ? pack.crfRows.map(row => ({
     title: `${row.variableId ? `${row.variableId} — ` : ""}${row.label ?? facts.get(row.variableRef)?.content ?? "[Variable manquante]"}`,
     module: crfModuleLabel(row.domain), origin: originLabels[row.dataOrigin], required: row.required,
@@ -222,33 +222,33 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
       "Source": "Vérification du dossier de consentement", "Obligation": "Oui : avant toute procédure de recherche",
       "Contrôles": "Oui uniquement après vérification ; version/date et traçabilité institutionnelles à préciser.",
     });
-    if (mri.length) process("MRI_PERFORMED", "IRM réalisée", "Acquisition IRM", {
-      "Visite / moment": "Visite IRM prévue", "Définition": "Réalisation effective de l’examen ; ne préjuge pas de son évaluabilité.",
+    if (visits.length) process("VISIT_PERFORMED", "Visite réalisée", "Visites", {
+      "Visite / moment": "À renseigner pour chaque visite adoptée", "Définition": "Réalisation effective de la visite concernée ; ne préjuge pas de l’évaluabilité des mesures.",
       "Type de données": "Booléen", "Modalités": "yes — oui ; no — non", "Origine": originLabels.SITE_RECORDED,
       "Source": "Compte rendu de réalisation de la visite", "Obligation": "Oui : lorsque l’issue de la visite est connue",
       "Contrôles": "Ne pas confondre examen réalisé et critère de jugement évaluable. Documenter toute non-réalisation.",
     });
-    if (evaluability.length) process("ECV_EVALUABLE", "ECV évaluable", "Qualité / évaluabilité", {
-      "Visite / moment": "Après contrôle des acquisitions et du résultat laboratoire", "Définition": "Évaluabilité selon les conditions adoptées, sans seuil supplémentaire.",
-      "Type de données": "Booléen", "Modalités": "yes — oui ; no — non", "Origine": originLabels.IMAGING_READER_RECORDED,
+    if (evaluability.length) process("OUTCOME_EVALUABLE", "Critère évaluable", "Qualité / évaluabilité", {
+      "Visite / moment": "Après contrôle des données nécessaires au critère", "Définition": "Évaluabilité selon les conditions adoptées, sans seuil supplémentaire.",
+      "Type de données": "Booléen", "Modalités": "yes — oui ; no — non", "Origine": "Responsable du contrôle à préciser",
       "Source": "Contrôle d’évaluabilité documenté et données sources", "Obligation": "Oui : après examen des éléments nécessaires",
-      "Entrées du calcul": "T1 pré/post appariables ; hématocrite disponible ; cartes interprétables",
+      "Entrées du calcul": evaluability.map(fact => statedFact(fact.ref)).join(" ; "),
       "Contrôles": "Oui seulement si toutes les conditions adoptées sont vérifiées. Non-évaluabilité motivée ; une vérification en attente reste vide.",
       "Impact analytique": "Condition nécessaire à la population analysable principale.",
     });
     if (analytical.length && evaluability.length) {
       process("PRIMARY_ANALYSIS_ELIGIBLE", "Admissible à l’analyse principale", "Éligibilité à l’analyse", {
-        "Visite / moment": "Après contrôle d’évaluabilité et lecture du LGE", "Définition": "Appartenance à la population analysable principale selon les décisions adoptées.",
+        "Visite / moment": "Après les contrôles prévus par les décisions adoptées", "Définition": "Appartenance à la population analysable principale selon les décisions adoptées.",
         "Type de données": "Booléen", "Modalités": "yes — oui ; no — non", "Origine": originLabels.SITE_RECORDED,
-        "Source": "Vérification du dossier inclus, de l’évaluabilité et de la lecture IRM", "Obligation": "Oui : une fois les contrôles nécessaires terminés",
-        "Entrées du calcul": "Participant inclus ; ECV_EVALUABLE ; présence de LGE focal",
-        "Dérivation": "Oui pour un participant inclus si ECV_EVALUABLE = yes et absence de LGE focal. Non si ECV non évaluable ou LGE focal. En attente si un contrôle nécessaire n’est pas terminé.",
+        "Source": "Vérification des données sources et des règles analytiques adoptées", "Obligation": "Oui : une fois les contrôles nécessaires terminés",
+        "Entrées du calcul": [...evaluability, ...analytical].map(fact => statedFact(fact.ref)).join(" ; "),
+        "Dérivation": "Appliquer exclusivement les conditions adoptées ci-dessus. L’évaluabilité ne vaut pas automatiquement admissibilité. En attente si une règle ou un contrôle nécessaire reste à préciser.",
         "Contrôles": "Ne pas coder une incertitude comme non. Conserver le participant et ses données en cas d’exclusion analytique.",
       });
       process("PRIMARY_ANALYSIS_EXCLUSION_REASON", "Motif de non-admissibilité analytique", "Éligibilité à l’analyse", {
         "Visite / moment": "Contrôle de la population analysable", "Définition": "Motif observé de non-admissibilité à l’analyse principale.", "Type de données": "Texte",
-        "Origine": originLabels.SITE_RECORDED, "Source": "Contrôle d’évaluabilité et lecture IRM", "Obligation": "Conditionnelle",
-        "Condition": "PRIMARY_ANALYSIS_ELIGIBLE = no", "Contrôles": "Distinguer LGE focal, non-évaluabilité et motif de non-réalisation ; ne supprimer aucune fiche.",
+        "Origine": originLabels.SITE_RECORDED, "Source": "Contrôle des données sources et des conditions analytiques", "Obligation": "Conditionnelle",
+        "Condition": "PRIMARY_ANALYSIS_ELIGIBLE = no", "Contrôles": "Distinguer motif analytique adopté, non-évaluabilité et non-réalisation ; ne supprimer aucune fiche.",
       });
     }
     process("STUDY_COMPLETION_STATUS", "Clôture du recueil individuel", "Clôture du recueil", {
@@ -266,8 +266,10 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
   const processModules = new Set(processFields.map(field => field.module));
   const dictionaryModules = new Set(dictionary.map(field => field.module));
   const introduction = doc.kind === "CRF" ? contentSections.filter(section => !processModules.has(section.title) && !dictionaryModules.has(section.title)
-    && section.title !== "Sécurité IRM / éligibilité au contraste" && section.title !== "Éligibilité à l’analyse") : contentSections;
-  const order = ["Présélection / éligibilité", "Consentement", "Démographie", "Anthropométrie", "Antécédents cardiovasculaires", "PA / HTA", "Diabète", "Tabac", "Sécurité IRM / éligibilité au contraste", "Laboratoire", "Acquisition IRM", "Acquisition", "Lecture IRM", "Dérivation ECV", "Qualité / évaluabilité", "Éligibilité à l’analyse", "Clôture du recueil"];
+    && section.title !== "Sécurité / éligibilité" && section.title !== "Éligibilité à l’analyse") : contentSections;
+  const closingModules = ["Qualité / évaluabilité", "Éligibilité à l’analyse", "Clôture du recueil"];
+  const order = ["Présélection / éligibilité", "Consentement", "Visites", "Sécurité / éligibilité",
+    ...dictionary.map(item => item.module).filter(module => !closingModules.includes(module)), ...closingModules];
   const modules = doc.kind === "CRF" ? [...new Set([...dictionary.map(item => item.module), ...processModules,
     ...contentSections.filter(section => !introduction.includes(section)).map(section => section.title)])]
     .sort((a, b) => (order.indexOf(a) < 0 ? order.length : order.indexOf(a)) - (order.indexOf(b) < 0 ? order.length : order.indexOf(b))) : [];

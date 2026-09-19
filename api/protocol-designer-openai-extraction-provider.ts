@@ -129,8 +129,12 @@ const callOpenAIResponses = async (input: {
     raw = await response.text();
   } catch (error) {
     const latencyMs = Date.now() - started;
-    const failureReason = error instanceof Error && error.name === "AbortError" ? "TIMEOUT"
-      : response ? "RESPONSE_BODY_READ_FAILURE" : "NETWORK_FAILURE";
+    // A local admission denial is not a network failure. Retain only known
+    // codes, never arbitrary exception text (which could contain credentials).
+    const guardCode = error instanceof Error && /^(PUBLIC_SESSION_BUDGET_CLOSED|PUBLIC_CONCURRENT_PROVIDER_CALL_DENIED|PUBLIC_PROVIDER_DENIED_(INVALID_BUDGET_POLICY|UNKNOWN_CUMULATIVE_COST|SOFT_STOP|UNKNOWN_UPPER_BOUND|HARD_BUDGET))$/.test(error.message)
+      ? error.message : null;
+    const failureReason = error !== null && typeof error === "object" && "name" in error && error.name === "AbortError" ? "TIMEOUT"
+      : guardCode ?? (response ? "RESPONSE_BODY_READ_FAILURE" : "NETWORK_FAILURE");
     const requestId = response?.headers.get("x-request-id") ?? null;
     observe({
       provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: null,
@@ -169,7 +173,10 @@ const callOpenAIResponses = async (input: {
   }
   if (!response.ok || body.status === "failed" || body.status === "incomplete") {
     const latencyMs = Date.now() - started;
-    const failureReason = body.error?.code ?? body.error?.type ?? body.status ?? `HTTP_${response.status}`;
+    const incompleteReason = body.incomplete_details && typeof body.incomplete_details === "object" && "reason" in body.incomplete_details
+      && ["max_output_tokens", "content_filter"].includes(String(body.incomplete_details.reason)) ? String(body.incomplete_details.reason) : null;
+    const failureReason = body.error?.code ?? body.error?.type
+      ?? (body.status === "incomplete" && incompleteReason ? `incomplete:${incompleteReason}` : body.status) ?? `HTTP_${response.status}`;
     observe({
       provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: body.model ?? null,
       instrumentation: input.instrumentation!, usage: openAIProviderTokenUsage(body.usage), latencyMs,
@@ -179,7 +186,7 @@ const callOpenAIResponses = async (input: {
     throw new ProductBridgeProviderError(
       input.stage,
       response.status,
-      body.error?.code ?? body.error?.type ?? body.status ?? `HTTP_${response.status}`,
+      failureReason,
       body.error?.message ?? "OpenAI request failed.",
       body.id ?? null,
       "OPENAI",
@@ -196,15 +203,23 @@ const callOpenAIResponses = async (input: {
   return { body, httpStatus: response.status, latencyMs, requestId };
 };
 
+export const buildOpenAITerraConversationPayload = (packet: { instruction: string; context: string }) => ({
+  model: "gpt-5.6-terra",
+  instructions: packet.instruction,
+  input: packet.context,
+  reasoning: { effort: "medium" },
+  max_output_tokens: MAX_OUTPUT_TOKENS,
+  store: false,
+  service_tier: "default",
+} as const);
+
 export const executeOpenAITerraConversation = async (
   packet: { instruction: string; context: string },
   apiKey: string,
   fetchImpl: typeof fetch = fetch,
   instrumentation?: ProviderCallAttemptInstrumentation,
 ) => {
-  const payload = { model: "gpt-5.6-terra", instructions: packet.instruction,
-    input: packet.context, reasoning: { effort: "medium" }, max_output_tokens: MAX_OUTPUT_TOKENS,
-    store: false, service_tier: "default" };
+  const payload = buildOpenAITerraConversationPayload(packet);
   const result = await callOpenAIResponses({ stage: "CONVERSATION", apiKey, payload,
     fetchImpl, modelRequested: payload.model, instrumentation });
   const value = responseOutputText(result.body).trim();

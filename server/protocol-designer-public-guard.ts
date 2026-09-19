@@ -90,7 +90,12 @@ export const admitPublicProtocolDesignerRequest = (input: {
   if (!existing && sessions.size >= MAX_ACTIVE_KEYS) {
     return { admitted: false, status: 503, code: "PUBLIC_GUARD_CAPACITY_REACHED", message: "Service temporairement indisponible." };
   }
-  sessions.set(sessionKey, existing ? { ...existing, requestCount: existing.requestCount + 1, updatedAt: now } : {
+  // A running transport holds this object through reservation and settlement.
+  // Replacing it here strands its lock and loses its financial settlement.
+  if (existing) {
+    existing.requestCount += 1;
+    existing.updatedAt = now;
+  } else sessions.set(sessionKey, {
     clientKey, requestCount: 1, updatedAt: now, committedCostUsd: 0, measuredCostUsd: 0,
     providerCallInFlight: false, providerGateClosed: false,
   });
@@ -130,30 +135,30 @@ export const createPublicProtocolDesignerBudgetedFetch = (sessionKey: string, fe
     state.committedCostUsd = addCanaryCosts(committedBefore, bound.upperBoundUsd);
     state.providerCallInFlight = true;
     state.updatedAt = Date.now();
-    let response: Response;
     try {
-      response = await fetchImpl(input, request.init);
+      const response = await fetchImpl(input, request.init);
+      let responseBody: string;
+      try { responseBody = await response.clone().text(); }
+      catch {
+        state.providerGateClosed = true;
+        return response;
+      }
+      const settlement = response.ok ? settleCanaryProviderCall(bound, responseBody) : null;
+      if (!settlement) {
+        state.providerGateClosed = true;
+        return response;
+      }
+      state.committedCostUsd = addCanaryCosts(committedBefore, settlement.committedCostUpperBoundUsd);
+      state.measuredCostUsd = addCanaryCosts(state.measuredCostUsd, settlement.measuredCostUsd);
+      state.updatedAt = Date.now();
+      return response;
     } catch (error) {
       state.providerGateClosed = true;
       throw error;
     } finally {
+      // Response headers alone do not settle usage or release the reservation.
       state.providerCallInFlight = false;
     }
-    let responseBody: string;
-    try { responseBody = await response.clone().text(); }
-    catch {
-      state.providerGateClosed = true;
-      return response;
-    }
-    const settlement = response.ok ? settleCanaryProviderCall(bound, responseBody) : null;
-    if (!settlement) {
-      state.providerGateClosed = true;
-      return response;
-    }
-    state.committedCostUsd = addCanaryCosts(committedBefore, settlement.committedCostUpperBoundUsd);
-    state.measuredCostUsd = addCanaryCosts(state.measuredCostUsd, settlement.measuredCostUsd);
-    state.updatedAt = Date.now();
-    return response;
   }
 );
 

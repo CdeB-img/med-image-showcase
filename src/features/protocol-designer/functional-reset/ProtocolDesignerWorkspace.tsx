@@ -981,6 +981,10 @@ export default function ProtocolDesignerWorkspace({
   const [workingDraftBusy, setWorkingDraftBusy] = useState(false);
   const [workingProjectOpen, setWorkingProjectOpen] = useState(false);
   const backgroundDraftJobRef = useRef<Promise<void> | null>(null);
+  const pendingBackgroundJobsRef = useRef(0);
+  const foregroundInFlightRef = useRef(false);
+  const mountedRef = useRef(true);
+  useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   const latestSessionRef = useRef(session);
   useEffect(() => { latestSessionRef.current = session; }, [session]);
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
@@ -1942,9 +1946,10 @@ export default function ProtocolDesignerWorkspace({
   };
   const updateBackgroundWorkingDraft = (foreground: FunctionalResetSession, userTurn: ScientificInterpretationTurn) => {
     const previousJob = backgroundDraftJobRef.current;
+    pendingBackgroundJobsRef.current += 1;
+    setWorkingDraftBusy(true);
     const job = (async () => {
       if (previousJob) await previousJob;
-      setWorkingDraftBusy(true);
       const records: ProviderCallRecord[] = [];
       try {
         const current = latestSessionRef.current;
@@ -1990,27 +1995,41 @@ export default function ProtocolDesignerWorkspace({
         }
       } catch (error) {
         if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
-        setSession(state => state.sessionId !== foreground.sessionId ? state : { ...state,
-          workingDraftFailure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED",
-          workingDraft: state.workingDraft ? { ...state.workingDraft, failure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED" } : state.workingDraft });
+        setSession(state => state.sessionId !== foreground.sessionId
+          || [...state.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId !== userTurn.turnId ? state : { ...state,
+            workingDraftFailure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED",
+            workingDraft: state.workingDraft ? { ...state.workingDraft, failure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED" } : state.workingDraft });
         console.warn("WORKING_DRAFT_PREPARATION_FAILED", error);
       } finally {
         setSession(state => state.sessionId !== foreground.sessionId ? state : appendFunctionalResetProviderCallRecords(state,
           { turnId: userTurn.turnId, traceRunId: createProductTraceRunId(state.sessionId, userTurn.turnId), requestKind: "USER_TURN", records }));
-        setWorkingDraftBusy(false);
+        pendingBackgroundJobsRef.current = Math.max(0, pendingBackgroundJobsRef.current - 1);
+        setWorkingDraftBusy(pendingBackgroundJobsRef.current > 0);
       }
     })();
     backgroundDraftJobRef.current = job;
     void job.finally(() => { if (backgroundDraftJobRef.current === job) backgroundDraftJobRef.current = null; });
   };
   const submitTerraText = async (content: string, prepareRecording = false) => {
+    if (foregroundInFlightRef.current) return;
+    foregroundInFlightRef.current = true;
+    const requestedSessionId = latestSessionRef.current.sessionId;
+    setBusy(true);
+    setBusyMessage("NOXIA réfléchit…");
+    if (!mountedRef.current || latestSessionRef.current.sessionId !== requestedSessionId) {
+      foregroundInFlightRef.current = false; setBusy(false); return;
+    }
+    const session = latestSessionRef.current;
     const now = new Date().toISOString();
-    const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
+    const lastTurn = session.runtimeTurns.at(-1), lastEntry = session.entries.at(-1);
+    const retry = lastTurn?.role === "USER" && lastTurn.content === content
+      && lastEntry?.kind === "ERROR" && lastEntry.turnId === lastTurn.turnId;
+    const userTurn: ScientificInterpretationTurn = retry ? lastTurn : { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const traceRunId = createProductTraceRunId(session.sessionId, userTurn.turnId);
-    const runtimeTurns = [...session.runtimeTurns, userTurn];
+    const runtimeTurns = retry ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
     setDraft(""); setBusy(true); setBusyMessage("NOXIA réfléchit…");
     setSession(current => ({ ...current, runtimeTurns, entries: [...current.entries,
-      { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now }], updatedAt: now }));
+      ...(!retry ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now }));
     const records: ProviderCallRecord[] = [];
     try {
       const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
@@ -2032,13 +2051,14 @@ export default function ProtocolDesignerWorkspace({
       const receivedAt = new Date().toISOString();
       // Deliver native Chat text before any local transaction preparation. A
       // rejected candidate must never erase or replace this conversational turn.
-      setSession(current => ({ ...current, runtimeTurns: [...current.runtimeTurns, response.assistantTurn],
-        entries: [...current.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
-          role: "NOXIA", content: response.assistantReply, createdAt: receivedAt }], updatedAt: receivedAt }));
+      const delivered: FunctionalResetSession = { ...latest, runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
+        entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
+          role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,
+          ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {}) }], updatedAt: receivedAt };
+      latestSessionRef.current = delivered;
+      setSession(delivered);
       if (autonomousProjectBuild && !response.conversationFailure) {
-        const foreground = { ...latest, runtimeTurns: [...runtimeTurns, response.assistantTurn] };
-        latestSessionRef.current = foreground;
-        updateBackgroundWorkingDraft(foreground, userTurn);
+        updateBackgroundWorkingDraft(delivered, userTurn);
       }
       const contribution = prepareRecording ? response.persistentExtraction.contribution : null;
       let candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> | null = null;
@@ -2068,7 +2088,8 @@ export default function ProtocolDesignerWorkspace({
               ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
               : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt }] : [])],
         bridgeTraces: [...current.bridgeTraces, { turnId: userTurn.turnId, traceRunId, requestKind: "USER_TURN" as const,
-          raw: content, assistantReply: response.assistantReply, persistentExtractionCalled: response.persistentExtraction.called,
+          raw: content, assistantReply: response.assistantReply, conversationFailure: response.conversationFailure,
+          persistentExtractionCalled: response.persistentExtraction.called,
           persistentExtractionStatus: response.persistentExtraction.status, persistentExtractionFailure: response.persistentExtraction.failure,
           providerArtifact: response.persistentExtraction.providerArtifact, wireCandidate: response.persistentExtraction.wireCandidate,
           persistentCandidate: response.persistentExtraction.candidate, deterministicValidation: response.persistentExtraction.validation,
@@ -2082,11 +2103,13 @@ export default function ProtocolDesignerWorkspace({
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR",
         role: "NOXIA", content: error instanceof Error ? error.message : "La réponse n'a pas abouti. Votre message et le projet sont conservés.",
+        turnId: userTurn.turnId, failureCode: error instanceof ProductBridgeClientError ? error.code : "CONVERSATION_CLIENT_FAILURE",
         createdAt: new Date().toISOString() }] }));
     } finally {
       setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId: userTurn.turnId,
         traceRunId, requestKind: "USER_TURN", records }));
       setBusy(false);
+      foregroundInFlightRef.current = false;
     }
   };
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
@@ -4389,14 +4412,14 @@ export default function ProtocolDesignerWorkspace({
           {autonomousProjectBuild && (session.workingDraft || session.workingDraftFailure || workingDraftBusy) && <div data-testid="continuous-working-draft-indicator" className="flex h-14 items-center gap-2 border-t px-4 text-xs sm:px-5">
             <p className="min-w-0 flex-1 truncate">{workingDraftBusy ? "Projet de travail en préparation…" : (session.workingDraft?.failure || session.workingDraftFailure) ? "Discussion conservée · projet de travail à actualiser" : `Projet de travail mis à jour · ${session.workingDraft?.metrics.openHighValueDecisions ?? 0} décisions ouvertes`}</p>
             <button type="button" className="h-8 shrink-0 rounded-lg border px-2" onClick={() => setWorkingProjectOpen(true)}>Voir le projet</button>
-            <button type="button" className="h-8 shrink-0 rounded-lg border px-2" disabled={busy || workingDraftBusy || !session.workingDraft?.readyReview} onClick={() => showPreparedWorkingReview()}>Revoir les choix</button>
+            <button type="button" className="h-8 shrink-0 rounded-lg border px-2" disabled={busy || workingDraftBusy || Boolean(session.workingDraftFailure || session.workingDraft?.failure) || !session.workingDraft?.readyReview} onClick={() => showPreparedWorkingReview()}>Revoir les choix</button>
           </div>}
           {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
-              type="button" disabled={busy} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
+              type="button" disabled={busy || autonomousProjectBuild && (workingDraftBusy || Boolean(session.workingDraftFailure || session.workingDraft?.failure) || !session.workingDraft?.readyReview)} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
               onClick={() => autonomousProjectBuild ? showPreparedWorkingReview() : void submitTerraText("Je retiens les choix de travail de vos propositions précédentes, tels que corrigés par mes messages, pour préparer leur enregistrement. Présentez une revue groupée avant toute adoption.", true)}
             >Préparer l’enregistrement</button>}
             {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}

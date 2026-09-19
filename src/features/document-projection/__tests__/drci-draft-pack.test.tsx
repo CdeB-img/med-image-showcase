@@ -325,8 +325,8 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const instruction = packet().instruction;
     expect(instruction).toContain("Une spécification mécaniquement dérivée");
     expect(instruction).toContain("DERIVED_FROM_PROJECT");
-    expect(instruction).toContain("données manquantes restent ouvertes".replace("données", "Données"));
-    expect(instruction).toContain("tout antihypertenseur ne prouve pas HTA");
+    expect(instruction).toContain("stratégie de données manquantes non adoptés");
+    expect(instruction).toContain("aucun diagnostic ou critère d'exclusion n'est déduit automatiquement");
     expect(JSON.parse(packet().context).DOCUMENT_SPECIFICATION).toBe("DRCI_OPERATIONAL_V2");
     expect(JSON.parse(packet().context).CURRENT_PROJECT.sourceFacts).toEqual(packet().sourceFacts);
     const data = generated();
@@ -403,8 +403,9 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     expect(quality.querySelectorAll(".scientific-field")).toHaveLength(1);
     expect(quality.querySelectorAll(".process-field")).toHaveLength(1);
     expect(file.markdown.match(/Instruction qualité conservée\./gu)).toHaveLength(1);
-    expect(headings.indexOf("PA / HTA")).toBeLessThan(headings.indexOf("Acquisition IRM"));
-    expect(headings.indexOf("Acquisition")).toBe(headings.indexOf("Acquisition IRM") + 1);
+    expect(headings.indexOf("Visites")).toBeLessThan(headings.indexOf("PA / HTA"));
+    expect(headings.indexOf("PA / HTA")).toBeLessThan(headings.indexOf("Acquisition"));
+    expect(headings.indexOf("Acquisition")).toBeLessThan(headings.indexOf("Qualité / évaluabilité"));
     expect(headings).toContain("Acquisition TDM"); expect(headings).toContain("Autre méthode");
     expect(div.querySelectorAll(".scientific-field")).toHaveLength(candidate.crfRows.length);
     expect(file.markdown).toContain("dérivation conservée"); expect(file.markdown).toContain("unité conservée");
@@ -432,16 +433,16 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     ] };
     const before = JSON.stringify(candidate); const files = drciDraftPackFiles(candidate);
     const crf = files.find(file => file.kind === "CRF")!;
-    for (const id of ["SCREENING_STATUS", "SCREENING_REASON", "CONSENT_CONFIRMED", "MRI_PERFORMED", "ECV_EVALUABLE", "PRIMARY_ANALYSIS_ELIGIBLE", "PRIMARY_ANALYSIS_EXCLUSION_REASON", "STUDY_COMPLETION_STATUS"]) expect(crf.html).toContain(id);
+    for (const id of ["SCREENING_STATUS", "SCREENING_REASON", "CONSENT_CONFIRMED", "VISIT_PERFORMED", "OUTCOME_EVALUABLE", "PRIMARY_ANALYSIS_ELIGIBLE", "PRIMARY_ANALYSIS_EXCLUSION_REASON", "STUDY_COMPLETION_STATUS"]) expect(crf.html).toContain(id);
     expect(crf.html.match(/class="process-field"/gu)).toHaveLength(8);
     expect(crf.html.match(/class="scientific-field"/gu)).toHaveLength(candidate.crfRows.length);
     expect(crf.markdown).toContain("un contrôle en attente reste vide");
     expect(crf.markdown).toContain("Conditionnelle"); expect(crf.markdown).toContain("ne vaut pas validation scientifique");
     expect(JSON.stringify(candidate)).toBe(before);
     const open = drciDraftPackFiles({ ...candidate, sourceFacts: candidate.sourceFacts.map(fact => ({ ...fact, epistemicState: "UNKNOWN" })) }).find(file => file.kind === "CRF")!;
-    expect(open.html).not.toContain("PRIMARY_ANALYSIS_ELIGIBLE"); expect(open.html).not.toContain("ECV_EVALUABLE");
+    expect(open.html).not.toContain("PRIMARY_ANALYSIS_ELIGIBLE"); expect(open.html).not.toContain("OUTCOME_EVALUABLE");
     const negated = drciDraftPackFiles({ ...candidate, sourceFacts: candidate.sourceFacts.map(fact => ({ ...fact, polarity: "NEGATED" })) }).find(file => file.kind === "CRF")!;
-    expect(negated.html).not.toContain("MRI_PERFORMED"); expect(negated.html).not.toContain("CONSENT_CONFIRMED");
+    expect(negated.html).not.toContain("VISIT_PERFORMED"); expect(negated.html).not.toContain("CONSENT_CONFIRMED");
   });
   it("keeps candidate information separate from the internal form and all current open items", () => {
     const candidate = pack(); const unknown = { ref: "sequence", type: "UNCERTAINTY", content: "La séquence constructeur de T1 mapping reste à définir.", polarity: "AFFIRMED", epistemicState: "UNKNOWN" };

@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
-import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { executeProtocolDesignerBridge, handleProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { publicProtocolDesignerGuardStateForTests, resetPublicProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-public-guard";
+import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { buildPersistentSourceCatalog, contributionFromPersistentDelta, validatePersistentProjectDelta, type ProductBridgeRequest, type ProductBridgeResponse } from "../../product-bridge";
 import { buildOpenAIPersistentDeltaPayload } from "../../../../../api/protocol-designer-openai-extraction-provider";
@@ -15,7 +17,7 @@ import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-pro
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
-afterEach(() => { vi.restoreAllMocks(); cleanup(); bridge.mockReset(); localStorage.clear(); vi.unstubAllEnvs(); });
+afterEach(() => { vi.restoreAllMocks(); cleanup(); bridge.mockReset(); localStorage.clear(); vi.unstubAllEnvs(); resetPublicProtocolDesignerGuardForTests(); });
 const native = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 20, total_tokens: 120 } }));
 const call = async (r: ProductBridgeRequest, provider: typeof fetch) => executeProtocolDesignerBridge({ body: r, apiKey: null,
@@ -48,11 +50,22 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
         expect(payload.input).not.toContain("TRANSCRIPT_SENTINEL");
         expect(context.RECENT_CONVERSATION).toBeUndefined();
         return native(JSON.stringify({ documents: context.DOCUMENT_SCOPE.map((kind: string) => ({ kind, title: `LOCAL_SYNTHETIC ${kind}`,
-          sections: [{ title: "Test de mécanique DOC", paragraphs: ["LOCAL_SYNTHETIC — aucune qualification scientifique."], sourceRefs: [] }], missingElements: ["[À compléter : institution]"] })),
-          crfRows: context.INCLUDE_CRF_ROWS ? context.DATA_MANAGEMENT_CRF.fields.map((field: { canonicalVariableId: string; label: string; unit: string | null }) => ({ variableRef: field.canonicalVariableId, domain: "À définir", definition: field.label, entryType: "À définir", unit: field.unit, categories: null,
+          sections: [{ title: "Test de mécanique DOC", paragraphs: [kind === "PROTOCOL_SYNOPSIS"
+            ? "Texte synthétique de qualification ".repeat(150).trim() : "LOCAL_SYNTHETIC — aucune qualification scientifique."], sourceRefs: [] }], missingElements: ["[À compléter : institution]"] })),
+          crfRows: context.INCLUDE_CRF_ROWS ? context.DATA_MANAGEMENT_CRF.fields.map((field: { canonicalVariableId: string; label: string; unit: string | null }, index: number) => ({ variableRef: field.canonicalVariableId,
+            variableId: `V_${index}`, label: field.label, visit: "Visite à définir", condition: null, derivedFrom: [], analysisImpact: null,
+            domain: "À définir", definition: field.label, entryType: "Texte", unit: field.unit, categories: null,
             dataOrigin: "UNSPECIFIED", source: "À définir", required: "À définir", derivation: null, controls: [], specificationStatus: "UNSPECIFIED" })) : [] }));
       });
-      bridge.mockImplementation(async (r: ProductBridgeRequest) => { requests.push(r); return (await call({ ...r, apiVersion: "1.0.0" }, provider)).body; });
+      bridge.mockImplementation(async (r: ProductBridgeRequest) => {
+        requests.push(r); let status = 0, output: unknown;
+        await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json",
+          origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr" }, body: { ...r, apiVersion: "1.0.0" } }, {
+          setHeader() {}, status(value) { status = value; return this; }, json(value) { output = value; },
+        }, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA" },
+        { fetchImpl: provider, durableGuard: createMemoryProtocolDesignerGuardForTests() });
+        expect(status).toBe(200); return output;
+      });
       const session = createFunctionalResetSession(); session.project = project; session.projectId = project.projectId; session.projectAuthority = behaviorAuthority;
       session.documents = refreshFunctionalResetDocumentPortfolio({ project, requestedAt: "2026-09-17T00:00:00Z" });
       session.runtimeTurns = Array.from({ length }, (_, i) => ({ turnId: `history-${i}`, role: i % 2 ? "NOXIA" as const : "USER" as const,
@@ -63,6 +76,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
       expect(requests).toHaveLength(1); expect(requests[0].conversation.turns).toHaveLength(1);
       expect(requests[0].evaluatePersistentDelta).toBe(false); expect(requests[0].currentProject).toEqual(project);
       expect(provider).toHaveBeenCalledTimes(2); expect(JSON.stringify(project)).toBe(before);
+      expect(publicProtocolDesignerGuardStateForTests(session.sessionId)).toMatchObject({ requestCount: 1, providerCallInFlight: false, providerGateClosed: false });
       contextByLength.push(inputs); cleanup(); bridge.mockReset();
     }
     expect(contextByLength[1]).toEqual(contextByLength[0]); expect(contextByLength[2]).toEqual(contextByLength[0]);

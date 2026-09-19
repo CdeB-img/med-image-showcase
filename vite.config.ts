@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
+import { executeProtocolDesignerBridge, handleProtocolDesignerBridge } from "./api/protocol-designer-bridge";
 import { createRecordedProtocolDesignerFetch } from "./server/protocol-designer-provider-replay";
 import { resolveCanaryExecution } from "./server/protocol-designer-canary-policy";
 import { readRetainedDrciProtocolEvidence } from "./server/protocol-designer-document-evidence";
@@ -46,9 +46,11 @@ export const localProductBridge = (
   evidenceRoot: string,
   canaryConfiguration: ReturnType<typeof resolveCanaryExecution> = null,
   fetchImpl: typeof fetch = fetch,
+  publicRuntime = false,
 ): Plugin => ({
   name: "noxia-local-product-bridge",
   configureServer(server) {
+    if (publicRuntime && canaryConfiguration) throw new Error("PUBLIC_RUNTIME_AND_CANARY_PROFILE_CONFLICT");
     const canary = canaryConfiguration ? resolveCanaryExecution({
       PROTOCOL_DESIGNER_LIVE_CANARY: canaryConfiguration.attemptPolicy,
       PROTOCOL_DESIGNER_CANARY_ID: canaryConfiguration.campaignId,
@@ -93,6 +95,22 @@ export const localProductBridge = (
         context: body && typeof body === "object" && "observabilityContext" in body
           ? body.observabilityContext : null,
       });
+      // Local qualification can exercise the actual Production handler and its
+      // unchanged caps. This is the same client endpoint and native transport.
+      if (publicRuntime) {
+        await handleProtocolDesignerBridge({ method: request.method, headers: request.headers, body, socket: request.socket }, {
+          setHeader(name, value) { response.setHeader(name, value); },
+          status(status) { response.statusCode = status; return this; },
+          json(value) { response.end(JSON.stringify(value)); },
+        }, { NODE_ENV: "production", GEMINI_API_KEY: configuration.apiKey ?? undefined,
+          OPENAI_API_KEY: configuration.openAiApiKey ?? undefined, GEMINI_MODEL: configuration.geminiModel ?? undefined,
+          OPENAI_EXTRACTION_MODEL: configuration.openAiExtractionModel ?? undefined,
+          VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: configuration.chatRuntime ?? undefined,
+          VITE_AUTONOMOUS_PROJECT_BUILD: configuration.autonomousProjectBuild ? "ON" : undefined,
+          NOXIA_DURABLE_DATABASE_DATABASE_URL: process.env.NOXIA_DURABLE_DATABASE_DATABASE_URL,
+        }, { fetchImpl: recordedFetch, providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" });
+        return;
+      }
       const result = await executeLocalProductBridgeRequest(body, configuration,
         (input) => executeProtocolDesignerBridge({ ...input, fetchImpl: recordedFetch,
           ...(canary ? { providerAttemptPolicy: canary.attemptPolicy } : {}),
@@ -124,7 +142,8 @@ export default defineConfig(({ mode }) => {
   const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
   return {
     base: "/",
-    plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot, canary)],
+    plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot, canary, fetch,
+      process.env.PROTOCOL_DESIGNER_LOCAL_PUBLIC_RUNTIME === "ON")],
     server: { fs: { deny: [".env", ".env.*", "*.{crt,pem}", "**/.provider-evidence.local/**", `${evidenceRoot}/**`] } },
     define: {
       __NOXIA_BUILD_GIT_SHA__: JSON.stringify(buildGitSha),

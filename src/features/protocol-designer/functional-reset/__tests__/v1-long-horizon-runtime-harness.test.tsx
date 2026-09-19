@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
+import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
@@ -98,7 +99,8 @@ const installRuntimeReplayTransport = (
       body: init.body,
     }, response, {
       NODE_ENV: "development", GEMINI_API_KEY: "offline-gemini-key", OPENAI_API_KEY: "offline-openai-key",
-    }, { fetchImpl: providerReplay, now: () => Date.parse("2026-09-14T08:00:00.000Z") });
+    }, { fetchImpl: providerReplay, now: () => Date.parse("2026-09-14T08:00:00.000Z"),
+      durableGuard: createMemoryProtocolDesignerGuardForTests() });
     return deterministicResponse(responseBody, responseStatus, headers);
   });
   vi.stubGlobal("fetch", browserTransport);

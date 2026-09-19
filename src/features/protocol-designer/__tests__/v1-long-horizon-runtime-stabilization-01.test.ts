@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
+import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/protocol-designer-durable-guard";
 import { executeNaturalConversation } from "../../../../api/protocol-designer-bridge-provider";
 import { executeOpenAIPersistentDelta } from "../../../../api/protocol-designer-openai-extraction-provider";
 import type { ProductBridgeRequest } from "../product-bridge";
@@ -214,7 +215,8 @@ describe("public Protocol Designer runtime boundaries", () => {
       method: "POST",
       headers: { "content-type": "application/json", "x-forwarded-for": "203.0.113.12" },
       body: bridgeRequest,
-    }, response, { NODE_ENV: "production", GEMINI_API_KEY: "server-only", GEMINI_MODEL: "gemini-3.5-flash-lite" }, { fetchImpl: provider });
+    }, response, { NODE_ENV: "production", GEMINI_API_KEY: "server-only", GEMINI_MODEL: "gemini-3.5-flash-lite" },
+    { fetchImpl: provider, durableGuard: createMemoryProtocolDesignerGuardForTests() });
 
     expect(statusCode).toBe(200);
     expect(body).toMatchObject({

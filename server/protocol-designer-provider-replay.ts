@@ -41,7 +41,7 @@ export const openAIInputCountRequest = (request: { endpoint: string; method: str
     .filter((key) => payload[key] !== undefined).map((key) => [key, payload[key]]));
   return { endpoint: "https://api.openai.com/v1/responses/input_tokens", method: "POST", body: JSON.stringify(input) };
 };
-const countedTokens = (response: Exchange["response"]) => {
+export const readOpenAIInputTokenCount = (response: { status: number; body: string } | null) => {
   if (!response || response.status < 200 || response.status >= 300) return null;
   try {
     const value = JSON.parse(response.body);
@@ -337,7 +337,7 @@ export const readCanaryState = async (root: string, campaignId: string, campaign
           throw new CanaryAdmissionError("CANARY_STOP_PREVIOUS_PROVIDER_FAILURE");
         }
         if (countAdmission) {
-          const tokens = countedTokens(exchange.response);
+          const tokens = readOpenAIInputTokenCount(exchange.response);
           if (tokens === null || countProofs.has(countAdmission.generationRequestDigest)) throw new CanaryAdmissionError("CANARY_COUNT_FAILED_OR_DUPLICATE");
           countProofs.set(countAdmission.generationRequestDigest, { request: exchange.request, inputTokens: tokens, logicalCallId: admission.logicalCallId });
         } else {
@@ -557,7 +557,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
         // Re-read durable completion before authorizing generation, including IO
         // failures. A count response without its journal proof cannot pay a call.
         await readCanaryState(options.root, options.canaryCampaignId!, campaignPolicy);
-        const tokens = countedTokens({ status: response.status, headers: {}, body: await response.text() });
+        const tokens = readOpenAIInputTokenCount({ status: response.status, body: await response.text() });
         if (tokens === null) throw new CanaryAdmissionError("CANARY_INPUT_COUNT_UNAVAILABLE");
         if (tokens > exact.maxInputTokens) throw new CanaryAdmissionError("CONVERSATION_MEMORY_LIMIT");
         bound = boundCanaryProviderCall(request.endpoint, request.body, tokens);

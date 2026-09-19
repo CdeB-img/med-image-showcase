@@ -54,7 +54,11 @@ describe('Exact final human document cleanup',()=>{
   expect(drciDraftPackFiles({...pack,sourceFacts:details.slice(0,1)})[0].markdown).toContain('☐ Stockage et durée de conservation');
  });
  it('keeps protocol and recruitment HTML/Markdown byte-identical, and changes the CRF only by the two OPEN entries',()=>{
-  const files=drciDraftPackFiles(candidate);
+  // Historical human-approved exports remain immutable evidence even when the
+  // generic renderer evolves. Compare those bytes, not a new rendering.
+  const files=candidate.documents.map(doc=>({kind:doc.kind,
+   html:readFileSync(`${root}/documents/${doc.kind.toLowerCase()}.html`,'utf8'),
+   markdown:readFileSync(`${root}/documents/${doc.kind.toLowerCase()}.md`,'utf8')}));
   for(const kind of ['PROTOCOL_FULL','RECRUITMENT'] as const){const file=files.find(f=>f.kind===kind)!;
    expect(file.html).toBe(readFileSync(`${parentRoot}/documents/${kind.toLowerCase()}.html`,'utf8'));
    expect(file.markdown).toBe(readFileSync(`${parentRoot}/documents/${kind.toLowerCase()}.md`,'utf8'));

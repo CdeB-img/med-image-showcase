@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { createRecordedProtocolDesignerFetch } from "../../../../../server/protocol-designer-provider-replay";
 import { createCanaryCampaignPolicy } from "../../../../../server/protocol-designer-canary-policy";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
@@ -18,7 +18,7 @@ import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
-afterEach(() => { cleanup(); bridge.mockReset(); localStorage.clear(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); bridge.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const sessionFor = (text: string = DOMAINS[1].text) => {
@@ -42,6 +42,28 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it.each([
+    ["novel coarctation", "Les patients gardent leur traitement habituel et on note la prise."],
+    ["non-cardiac cohort", DOMAINS[2].text],
+    ["paired reproducibility", DOMAINS[4].text],
+  ])("pairs each immutable user source with its output-contract identity (%s)", (_label, earlierChoice) => {
+    const s = sessionFor(earlierChoice);
+    s.runtimeTurns.push({ turnId: "u2", role: "USER", content: "Je garde ce choix et laisse la procédure ouverte." },
+      { turnId: "a2", role: "NOXIA", content: "Proposition, sans adoption." });
+    const request = requestFor(s), before = JSON.stringify(request);
+    const packet = JSON.parse(prepareWorkingDraftRequest(request).context);
+    expect(packet.RECENT_CONVERSATION.filter((t: { role: string }) => t.role === "USER")).toEqual([
+      { ref: "u1", sourceTurnRef: "u1", role: "USER", content: earlierChoice },
+      { ref: "u2", sourceTurnRef: "u2", role: "USER", content: "Je garde ce choix et laisse la procédure ouverte." },
+    ]);
+    const update = updateFor(request);
+    update.explicitDecisions = [{ atomRef: "design", sourceTurnRef: "u2", quote: earlierChoice }];
+    // A producer mistake is still rejected. No fuzzy cross-turn reassignment.
+    expect(() => acceptWorkingDraftUpdate(update, request)).toThrow("WORKING_DRAFT_USER_PROVENANCE_INVALID");
+    update.explicitDecisions[0].sourceTurnRef = "u1";
+    expect(acceptWorkingDraftUpdate(update, request).update.explicitDecisions[0].sourceTurnRef).toBe("u1");
+    expect(JSON.stringify(request)).toBe(before);
+  });
   it("recovers immutable raw provenance across layout whitespace and rejects ambiguity or semantic edits", () => {
     const source = "avec medicament\ncontre placebo";
     expect(resolveWorkingDraftSourceQuote(source, "avec medicament contre placebo")).toEqual({ quote: source, start: 0, end: source.length });
@@ -281,5 +303,136 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
     await waitFor(() => expect(saved.pendingContribution).not.toBeNull());
     expect(bridge).toHaveBeenCalledTimes(2); expect(saved.project).toBeNull(); expect(screen.getByTestId("continuous-working-draft-indicator").className).toContain("h-14");
+  });
+
+  it("starts the next foreground while the previous background is pending and rejects the late stale commit", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let releaseFirstBackground!: () => void;
+    const firstBackgroundGate = new Promise<void>(resolve => { releaseFirstBackground = resolve; });
+    let backgroundCalls = 0;
+    bridge.mockImplementation(async req => {
+      if (!req.prepareWorkingDraft) {
+        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
+        const provider = vi.fn<typeof fetch>().mockResolvedValue(response(`LOCAL_SYNTHETIC — foreground ${latest.content}`));
+        const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
+        if (result.status !== 200) throw new Error(JSON.stringify(result.body));
+        return result.body;
+      }
+      backgroundCalls += 1;
+      if (backgroundCalls === 1) await firstBackgroundGate;
+      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
+      const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
+        ...updateFor(req),
+        proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
+        explicitDecisions: [],
+        inferredAtomRefs: [],
+      })));
+      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
+      return result.body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    send(DOMAINS[1].text);
+    await screen.findByText(`LOCAL_SYNTHETIC — foreground ${DOMAINS[1].text}`);
+    await waitFor(() => expect(backgroundCalls).toBe(1));
+    const followUp = "Je conserve ce design et je veux maintenant préciser la visite à six mois.";
+    send(followUp);
+    await screen.findByText(`LOCAL_SYNTHETIC — foreground ${followUp}`);
+    expect(backgroundCalls).toBe(1);
+    expect(bridge.mock.calls.filter(([request]) => !request.prepareWorkingDraft)).toHaveLength(2);
+    releaseFirstBackground();
+    await waitFor(() => expect(backgroundCalls).toBe(2));
+    await waitFor(() => expect(saved.workingDraft?.sourceUserTurnRef)
+      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId));
+    expect(saved.workingDraftFailure).toBeNull();
+    expect(saved.project).toBeNull();
+    expect(bridge).toHaveBeenCalledTimes(4);
+  });
+
+  it("qualifies the 10s foreground / 70s background synthetic timeline without blocking the next turn", async () => {
+    vi.useFakeTimers();
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let backgroundCalls = 0;
+    bridge.mockImplementation(async req => {
+      const delay = req.prepareWorkingDraft ? 70_000 : 10_000;
+      if (req.prepareWorkingDraft) backgroundCalls += 1;
+      await new Promise(resolve => setTimeout(resolve, delay));
+      if (!req.prepareWorkingDraft) {
+        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
+        return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>()
+          .mockResolvedValue(response(`LOCAL_SYNTHETIC_TIMELINE — ${latest.content}`)))).body;
+      }
+      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
+      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
+        ...updateFor(req), proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
+        explicitDecisions: [], inferredAtomRefs: [],
+      }))))).body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    send(DOMAINS[1].text);
+    await act(async () => { await vi.advanceTimersByTimeAsync(10_000); });
+    expect(screen.getByText(`LOCAL_SYNTHETIC_TIMELINE — ${DOMAINS[1].text}`)).toBeInTheDocument();
+    expect(backgroundCalls).toBe(1);
+    const followUp = "Je précise le calendrier sans attendre la préparation précédente.";
+    send(followUp);
+    await act(async () => { await vi.advanceTimersByTimeAsync(10_000); });
+    expect(screen.getByText(`LOCAL_SYNTHETIC_TIMELINE — ${followUp}`)).toBeInTheDocument();
+    expect(backgroundCalls).toBe(1);
+    await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
+    expect(backgroundCalls).toBe(2);
+    await act(async () => { await vi.advanceTimersByTimeAsync(70_000); });
+    expect(saved.workingDraft?.sourceUserTurnRef)
+      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId);
+    expect(saved.workingDraftFailure).toBeNull();
+  });
+
+  it("keeps the foreground first when a 20s Chat is followed by a 5s background", async () => {
+    vi.useFakeTimers();
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let backgroundCalls = 0;
+    bridge.mockImplementation(async req => {
+      await new Promise(resolve => setTimeout(resolve, req.prepareWorkingDraft ? 5_000 : 20_000));
+      if (!req.prepareWorkingDraft) {
+        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
+        return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>()
+          .mockResolvedValue(response(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${latest.content}`)))).body;
+      }
+      backgroundCalls += 1;
+      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
+      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
+        ...updateFor(req), proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
+        explicitDecisions: [], inferredAtomRefs: [],
+      }))))).body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    send(DOMAINS[1].text);
+    await act(async () => { await vi.advanceTimersByTimeAsync(19_999); });
+    expect(screen.queryByText(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${DOMAINS[1].text}`)).not.toBeInTheDocument();
+    expect(backgroundCalls).toBe(0);
+    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
+    expect(screen.getByText(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${DOMAINS[1].text}`)).toBeInTheDocument();
+    expect(backgroundCalls).toBe(0);
+    await act(async () => { await vi.advanceTimersByTimeAsync(4_999); });
+    expect(backgroundCalls).toBe(0);
+    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
+    expect(backgroundCalls).toBe(1);
+    expect(saved.workingDraft?.sourceUserTurnRef)
+      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId);
+  });
+
+  it("does not start a background preparation when the foreground fails", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockRejectedValue(new Error("LOCAL_SYNTHETIC_FOREGROUND_FAILURE"));
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    send(DOMAINS[4].text);
+    await screen.findByText("LOCAL_SYNTHETIC_FOREGROUND_FAILURE");
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(bridge.mock.calls.some(([request]) => request.prepareWorkingDraft)).toBe(false);
+    expect(saved.workingDraft).toBeFalsy();
+    expect(saved.project).toBeNull();
   });
 });

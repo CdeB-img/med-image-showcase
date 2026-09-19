@@ -166,7 +166,7 @@ export type ConversationEntry =
   | { entryId: string; kind: "DATA_MANAGEMENT_RESULT"; role: "NOXIA"; presentation: StandardDataManagementPresentation; createdAt: string }
   | { entryId: string; kind: "FOLLOW_UP_ACTIONS"; role: "NOXIA"; presentation: StandardConversationActionGroupPresentation; response: StandardConversationActionGroupResponse | null; createdAt: string }
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>; createdAt: string }
-  | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
+  | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string; turnId?: string; failureCode?: string };
 
 export type ProductBridgeTrace = {
   turnId: string;
@@ -174,6 +174,7 @@ export type ProductBridgeTrace = {
   requestKind?: ProductBridgeRequest["requestKind"];
   raw: string;
   assistantReply: string;
+  conversationFailure?: ProductBridgeResponse["conversationFailure"];
   persistentExtractionCalled: boolean;
   persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE" | "UNKNOWN";
   persistentExtractionFailure?: ProductBridgeResponse["persistentExtraction"]["failure"];

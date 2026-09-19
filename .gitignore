@@ -28,3 +28,4 @@ tmp/
 
 .env.local
 .env.*.local
+.vercel

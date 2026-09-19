@@ -46,9 +46,12 @@ import {
   protocolDesignerStandardConversationCallsAllowed,
 } from "../src/features/protocol-designer/public-runtime-access.js";
 import {
-  admitPublicProtocolDesignerRequest,
-  createPublicProtocolDesignerBudgetedFetch,
-} from "../server/protocol-designer-public-guard.js";
+  DurablePublicGuardError,
+  durableGuardConnectionString,
+  durableGuardSessionRequestLimit,
+  sharedPostgresProtocolDesignerDurableGuard,
+  type PublicProtocolDesignerDurableGuard,
+} from "../server/protocol-designer-durable-guard.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -732,7 +735,8 @@ export const handleProtocolDesignerBridge = async (
   request: ApiRequest,
   response: ApiResponse,
   environment: Record<string, string | undefined> = process.env,
-  dependencies: { fetchImpl?: typeof fetch; now?: () => number; providerAttemptPolicy?: ProviderAttemptPolicy } = {},
+  dependencies: { fetchImpl?: typeof fetch; now?: () => number; providerAttemptPolicy?: ProviderAttemptPolicy;
+    durableGuard?: PublicProtocolDesignerDurableGuard } = {},
 ) => {
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
@@ -753,34 +757,63 @@ export const handleProtocolDesignerBridge = async (
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
   }
-  const publicAdmission = admitPublicProtocolDesignerRequest({
-    headers: request.headers,
-    remoteAddress: request.socket?.remoteAddress,
-    body,
-    now: dependencies.now?.(),
-  });
-  if ("status" in publicAdmission) return response.status(publicAdmission.status).json({
+  const connectionString = durableGuardConnectionString(environment);
+  let durableGuard = dependencies.durableGuard ?? null;
+  try {
+    if (!durableGuard && connectionString) {
+      durableGuard = sharedPostgresProtocolDesignerDurableGuard(
+        connectionString,
+        durableGuardSessionRequestLimit(environment),
+      );
+    }
+  } catch (error) {
+    if (error instanceof DurablePublicGuardError) return response.status(error.status).json({
+      apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: error.code, message: "Service temporairement indisponible." },
+      observability: providerCallRequestObservability([]),
+    });
+    throw error;
+  }
+  if (!durableGuard) return response.status(503).json({
     apiVersion: PRODUCT_BRIDGE_API_VERSION,
-    error: { code: publicAdmission.code, message: publicAdmission.message },
+    error: { code: "PUBLIC_DURABLE_STORE_UNAVAILABLE", message: "Service temporairement indisponible." },
     observability: providerCallRequestObservability([]),
   });
-  const providerFetch = createPublicProtocolDesignerBudgetedFetch(
-    publicAdmission.sessionKey,
-    dependencies.fetchImpl ?? fetch,
-  );
-  const result = await executeProtocolDesignerBridge({
-    body,
-    apiKey: environment.GEMINI_API_KEY?.trim() || null,
-    openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
-    geminiModel: environment.GEMINI_MODEL,
-    openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
-    chatRuntime: environment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" ? "TERRA" : null,
-    autonomousProjectBuild: environment.VITE_AUTONOMOUS_PROJECT_BUILD === "ON",
-    fetchImpl: providerFetch,
-    now: dependencies.now,
-    providerAttemptPolicy: dependencies.providerAttemptPolicy,
-  });
-  response.status(result.status).json(result.body);
+  try {
+    const publicAdmission = await durableGuard.prepareRequest({
+      headers: request.headers,
+      remoteAddress: request.socket?.remoteAddress,
+      body,
+    });
+    if ("recovered" in publicAdmission) return response.status(publicAdmission.status).json(publicAdmission.body);
+    if ("code" in publicAdmission) return response.status(publicAdmission.status).json({
+      apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: publicAdmission.code, message: publicAdmission.message },
+      observability: providerCallRequestObservability([]),
+    });
+    const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch);
+    const result = await executeProtocolDesignerBridge({
+      body,
+      apiKey: environment.GEMINI_API_KEY?.trim() || null,
+      openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
+      geminiModel: environment.GEMINI_MODEL,
+      openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
+      chatRuntime: environment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" ? "TERRA" : null,
+      autonomousProjectBuild: environment.VITE_AUTONOMOUS_PROJECT_BUILD === "ON",
+      fetchImpl: providerFetch,
+      now: dependencies.now,
+      providerAttemptPolicy: dependencies.providerAttemptPolicy,
+    });
+    await durableGuard.completeRequest(publicAdmission, result.status, result.body);
+    return response.status(result.status).json(result.body);
+  } catch (error) {
+    if (error instanceof DurablePublicGuardError) return response.status(error.status).json({
+      apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: error.code, message: "Service temporairement indisponible." },
+      observability: providerCallRequestObservability([]),
+    });
+    throw error;
+  }
 };
 
 export default handleProtocolDesignerBridge;
