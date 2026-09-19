@@ -45,7 +45,7 @@ export default function ProjectFinalizationCard({
       </div>
       <button type="button" disabled={disabled} onClick={onConfirmAndGenerate}
         className="min-h-11 shrink-0 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
-        Confirmer et générer les documents
+        Valider et générer les documents
       </button>
     </div>
     <details className="mt-3 text-sm">

@@ -364,7 +364,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project).toBeNull(); expect(screen.queryByRole("dialog")).toBeNull();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();
     release(); await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
-    await waitFor(() => expect(screen.getByRole("button", { name: "Confirmer et générer les documents" })).toBeEnabled());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Valider et générer les documents" })).toBeEnabled());
     expect(screen.queryByRole("button", { name: "Revoir les choix" })).toBeNull();
     expect(screen.queryByRole("button", { name: "Préparer l’enregistrement" })).toBeNull();
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/décisions? prêtes? à confirmer/i);
@@ -382,11 +382,15 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
 
-    expect(screen.getAllByRole("button", { name: "Confirmer et générer les documents" })).toHaveLength(1);
+    expect(screen.getByRole("button", { name: "Protocole / documents" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Documents du projet" })).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: "Valider et générer les documents" })).toHaveLength(1);
     for (const technicalStep of ["Préparer l’enregistrement", "Revoir les changements", "Préparer l’adoption", "Enregistrer dans le projet", "Préparer les documents"])
       expect(screen.queryByRole("button", { name: technicalStep })).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Confirmer et générer les documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider et générer les documents" }));
     await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
     await waitFor(() => expect(bridge).toHaveBeenCalledTimes(1));
     await screen.findByTestId("document-generation-recovery");
@@ -394,7 +398,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.documents.lastFailure?.code).toBe("FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR");
     expect(screen.getByText("Projet confirmé")).toBeInTheDocument();
     expect(screen.getByText("Les documents n’ont pas pu être générés.")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Confirmer et générer les documents" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Valider et générer les documents" })).toBeNull();
 
     const firstRequest = JSON.stringify(bridge.mock.calls[0][0]);
     fireEvent.click(screen.getByRole("button", { name: "Retrouver les documents" }));
@@ -429,7 +433,9 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       }
       saved=next; return true;
     }} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
     await screen.findByTestId("study-deliverable-workspace");
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
@@ -445,7 +451,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
     vi.spyOn(documentaryConversation,"acquireDocumentKnowledge").mockImplementationOnce(()=>{throw new Error("KNOWLEDGE_BINDING_INVALID");});
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
     await screen.findByTestId("document-generation-recovery");
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
     expect(JSON.stringify(saved.documents.lastFailure)).toContain("KNOWLEDGE_BINDING_INVALID");
@@ -459,7 +465,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={{...initial,studyProposal:composition,workingDraft}} onSessionChange={()=>true} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button",{name:"Confirmer et générer les documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
     await screen.findByTestId("document-generation-recovery");
     expect(screen.queryByRole("button",{name:"Retrouver les documents"})).toBeNull();
     expect(bridge).toHaveBeenCalledTimes(1);

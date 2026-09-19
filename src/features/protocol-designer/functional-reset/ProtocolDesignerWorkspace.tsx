@@ -4160,7 +4160,7 @@ export default function ProtocolDesignerWorkspace({
     if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return;
     const scope = recommendedWorkingScope(composition);
     const confirmedAt = new Date().toISOString();
-    const confirmationText = "Confirmer et générer les documents";
+    const confirmationText = "Valider et générer les documents";
     const userTurn: ScientificInterpretationTurn = {
       turnId: createTurnId(),
       role: "USER",
@@ -4253,6 +4253,25 @@ export default function ProtocolDesignerWorkspace({
       setDeliverableWorkspaceOpen(true);
     }}
   />;
+  const projectFinalizationCard = preparedFinalization && session.workingDraft ? <ProjectFinalizationCard
+    contribution={preparedFinalization.contribution}
+    candidate={preparedFinalization.candidate}
+    currentProject={session.project}
+    workingDraft={session.workingDraft}
+    disabled={busy || workingDraftBusy}
+    onConfirmAndGenerate={() => void confirmAndGenerateDocuments()}
+  /> : null;
+  const documentGenerationRecovery = !preparedFinalization && session.project && session.documents.lastFailure ? <section
+    className="border-t bg-destructive/5 px-4 py-4 sm:px-5"
+    data-testid="document-generation-recovery"
+  >
+    <p className="text-sm font-semibold">Projet confirmé</p>
+    <p className="mt-1 text-sm text-muted-foreground">Les documents n’ont pas pu être générés.</p>
+    {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
+      ? <button type="button" disabled={busy} onClick={() => void documentRecoveryRef.current?.resume()}
+          className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>
+      : <p className="mt-2 text-xs text-muted-foreground">Le projet est conservé. Aucune nouvelle génération n’a été lancée.</p>}
+  </section> : null;
 
 
 
@@ -4314,7 +4333,7 @@ export default function ProtocolDesignerWorkspace({
           </div>
         </div>
       </header>
-      <ProjectContinuum documentsAvailable={Boolean(session.project)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
+      <ProjectContinuum documentsAvailable={Boolean(session.project || preparedFinalization)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
         disabled={busy || Boolean(postAdoptionContinuationJob)}
         onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
         onDocuments={() => { setSourceLibraryOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); setDeliverableWorkspaceOpen(true); }} />
@@ -4324,11 +4343,30 @@ export default function ProtocolDesignerWorkspace({
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
 
-        {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && deliverablePortfolio ? <StudyDeliverableWorkspace
+        {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && projectFinalizationCard ? <section
+          aria-labelledby="project-documents-title"
+          className="min-w-0 rounded-3xl border bg-background shadow-sm"
+          data-testid="project-document-finalization-workspace"
+        >
+          <header className="border-b px-5 py-5 sm:px-6">
+            <button type="button" onClick={() => setDeliverableWorkspaceOpen(false)} className="min-h-10 rounded-lg border px-3 text-sm font-medium">← Retour à la conversation</button>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[.18em] text-primary">Protocole / documents</p>
+            <h2 id="project-documents-title" className="mt-1 text-2xl font-semibold">Documents du projet</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Validez le projet courant et lancez la génération de ses quatre documents de travail.</p>
+          </header>
+          {busy && <p role="status" className="border-b bg-primary/5 px-5 py-3 text-sm font-medium">
+            {confirmationInFlightRef.current ? "Validation du projet…" : "Génération des documents…"}
+          </p>}
+          {projectFinalizationCard}
+        </section> : deliverableWorkspaceOpen && deliverablePortfolio ? <div className="min-w-0">
+          {busy && <p role="status" className="mb-3 rounded-xl border bg-primary/5 px-5 py-3 text-sm font-medium">Génération des documents…</p>}
+          {documentGenerationRecovery}
+          <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
           saveWarning={documentSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
-        /> : openProjection ? <ProtocolPreview
+          />
+        </div> : openProjection ? <ProtocolPreview
           onDocumentInstruction={handleDocumentInstruction}
           documentMessage={documentMessage}
           projection={openProjection}
@@ -4515,22 +4553,8 @@ export default function ProtocolDesignerWorkspace({
           {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
-          {preparedFinalization && session.workingDraft && <ProjectFinalizationCard
-            contribution={preparedFinalization.contribution}
-            candidate={preparedFinalization.candidate}
-            currentProject={session.project}
-            workingDraft={session.workingDraft}
-            disabled={busy || workingDraftBusy}
-            onConfirmAndGenerate={() => void confirmAndGenerateDocuments()}
-          />}
-          {!preparedFinalization && session.project && session.documents.lastFailure && <section className="border-t bg-destructive/5 px-4 py-4 sm:px-5" data-testid="document-generation-recovery">
-            <p className="text-sm font-semibold">Projet confirmé</p>
-            <p className="mt-1 text-sm text-muted-foreground">Les documents n’ont pas pu être générés.</p>
-            {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
-              ? <button type="button" disabled={busy} onClick={() => void documentRecoveryRef.current?.resume()}
-                  className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>
-              : <p className="mt-2 text-xs text-muted-foreground">Le projet est conservé. Aucune nouvelle génération n’a été lancée.</p>}
-          </section>}
+          {projectFinalizationCard}
+          {documentGenerationRecovery}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {!autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
               type="button" disabled={busy} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
