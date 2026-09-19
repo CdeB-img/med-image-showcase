@@ -2125,7 +2125,10 @@ export default function ProtocolDesignerWorkspace({
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
       // Operation recognition only; the extraction and native review determine scope.
       const recording = isExplicitProjectRecordingRequest(content);
-      if (autonomousProjectBuild && isWorkingDraftReviewOnlyRequest(content)) {
+      const workingContext = latestSessionRef.current;
+      const hasWorkingReviewContext = !!workingContext.studyProposal || !!workingContext.workingDraft
+        || !!workingContext.workingDraftFailure || pendingBackgroundJobsRef.current > 0;
+      if (autonomousProjectBuild && hasWorkingReviewContext && isWorkingDraftReviewOnlyRequest(content)) {
         const now = new Date().toISOString();
         const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
         setDraft("");

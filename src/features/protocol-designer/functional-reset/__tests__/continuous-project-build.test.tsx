@@ -46,6 +46,32 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
   it.each([
+    "Je veux comparer la répétabilité de plusieurs mesures de rugosité sur des plaques. Je retiens ce schéma.",
+    "Je veux comparer un traitement au placebo par randomisation en aveugle. Je retiens ce schéma.",
+  ])("sends a substantive first turn to Chat even if it contains a recording phrase: %s", async text => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    expect(isWorkingDraftReviewOnlyRequest(text)).toBe(true);
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      return response(payload.instructions.includes("Tu prépares en arrière-plan")
+        ? JSON.stringify({ requestType: "INSUFFICIENT", proposal: null, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] })
+        : "LOCAL_SYNTHETIC — premier échange scientifique conservé.");
+    });
+    bridge.mockImplementation(async req => {
+      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send(text);
+    await screen.findByText("LOCAL_SYNTHETIC — premier échange scientifique conservé.");
+    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(2));
+    expect(bridge.mock.calls[0][0].prepareWorkingDraft).not.toBe(true);
+    expect(bridge.mock.calls[0][0].conversation.turns.at(-1).content).toBe(text);
+    expect(saved.project).toBeNull();
+    expect(screen.queryByText("La discussion et le brouillon sont conservés. Les choix ne sont pas encore prêts à confirmer.")).toBeNull();
+  });
+  it.each([
     ["novel coarctation", "Les patients gardent leur traitement habituel et on note la prise."],
     ["non-cardiac cohort", DOMAINS[2].text],
     ["paired reproducibility", DOMAINS[4].text],
