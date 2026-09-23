@@ -165,7 +165,7 @@ export const boundCanaryProviderCall = (endpoint: string, body: string, countedI
 export const canaryBudgetAdmission = (committedCostUsd: number, bound: CanaryCallBound | null, measuredCostUsd: number,
   budget: Readonly<{ absoluteHardCampaignBoundUsd: number; measuredCostSoftStopUsd: number }> = CANARY_BUDGET_POLICY) => {
   if (!Number.isFinite(budget.absoluteHardCampaignBoundUsd) || budget.absoluteHardCampaignBoundUsd <= 0 || budget.absoluteHardCampaignBoundUsd > 10
-    || !Number.isFinite(budget.measuredCostSoftStopUsd) || budget.measuredCostSoftStopUsd <= 0 || budget.measuredCostSoftStopUsd > 4
+    || !Number.isFinite(budget.measuredCostSoftStopUsd) || budget.measuredCostSoftStopUsd <= 0 || budget.measuredCostSoftStopUsd > 10
     || budget.measuredCostSoftStopUsd > budget.absoluteHardCampaignBoundUsd) return "DENIED_INVALID_BUDGET_POLICY";
   if (!Number.isFinite(committedCostUsd) || committedCostUsd < 0
     || !Number.isFinite(measuredCostUsd) || measuredCostUsd < 0 || measuredCostUsd > committedCostUsd) return "DENIED_UNKNOWN_CUMULATIVE_COST";

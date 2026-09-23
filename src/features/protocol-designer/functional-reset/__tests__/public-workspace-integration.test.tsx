@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, act } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { handleProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
-import { admitPublicProtocolDesignerRequest, resetPublicProtocolDesignerGuardForTests, publicProtocolDesignerGuardStateForTests } from "../../../../../server/protocol-designer-public-guard";
+import { admitPublicProtocolDesignerRequest, resetPublicProtocolDesignerGuardForTests, publicProtocolDesignerGuardStateForTests, PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT } from "../../../../../server/protocol-designer-public-guard";
 import { createMemoryProtocolDesignerGuardForTests, type PublicProtocolDesignerDurableGuard } from "../../../../../server/protocol-designer-durable-guard";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import ProjectWorkspace from "../ProjectWorkspace";
@@ -65,7 +65,7 @@ afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.uns
 describe("independent Standard workspace through public admission", () => {
   it("exposes session exhaustion without a provider call or a duplicated pending turn", async () => {
     const initial = createFunctionalResetSession();
-    for (let i = 0; i < 8; i++) expect(admitPublicProtocolDesignerRequest({ headers: {}, now: Date.now() - (8 - i) * 61_000,
+    for (let i = 0; i < PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT; i++) expect(admitPublicProtocolDesignerRequest({ headers: {}, now: Date.now() - (PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT - i) * 61_000,
       body: { observabilityContext: { sessionId: initial.sessionId } } }).admitted).toBe(true);
     const provider = vi.fn<typeof fetch>(); wirePublicHandler(provider); const workspace = mount(initial);
     send("Poursuivons le projet.");

@@ -1,7 +1,6 @@
 import { createHash } from "node:crypto";
 import {
   ABSOLUTE_HARD_CAMPAIGN_BOUND_USD,
-  MEASURED_COST_SOFT_STOP_USD,
   addCanaryCosts,
   boundCanaryProviderCall,
   canaryBudgetAdmission,
@@ -10,11 +9,11 @@ import {
 import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
 
 export const PUBLIC_PROTOCOL_DESIGNER_RATE_LIMIT = Object.freeze({ requests: 6, windowMs: 60_000 });
-export const PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT = 8;
+export const PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT = 512;
 export const PUBLIC_PROTOCOL_DESIGNER_SESSION_TTL_MS = 24 * 60 * 60 * 1_000;
 export const PUBLIC_PROTOCOL_DESIGNER_BUDGET = Object.freeze({
   absoluteHardCampaignBoundUsd: ABSOLUTE_HARD_CAMPAIGN_BOUND_USD,
-  measuredCostSoftStopUsd: MEASURED_COST_SOFT_STOP_USD,
+  measuredCostSoftStopUsd: ABSOLUTE_HARD_CAMPAIGN_BOUND_USD,
 });
 
 type Headers = Record<string, string | string[] | undefined>;

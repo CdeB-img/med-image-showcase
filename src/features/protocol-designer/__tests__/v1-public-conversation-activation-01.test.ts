@@ -8,6 +8,7 @@ import {
   publicProtocolDesignerGuardStateForTests,
   resetPublicProtocolDesignerGuardForTests,
 } from "../../../../server/protocol-designer-public-guard";
+import { CANARY_BUDGET_POLICY, boundCanaryProviderCall, canaryBudgetAdmission } from "../../../../server/protocol-designer-canary-policy";
 
 const body = (sessionId = "public-session:1") => ({
   apiVersion: "1.0.0",
@@ -24,6 +25,17 @@ const headers = { "x-forwarded-for": "203.0.113.24" };
 
 describe("public Standard conversation guards", () => {
   beforeEach(resetPublicProtocolDesignerGuardForTests);
+
+  it("aligns only the public measured stop with its hard bound", () => {
+    const bound = boundCanaryProviderCall("https://api.openai.com/v1/responses", JSON.stringify({
+      model: "gpt-5.6-terra", instructions: "i", input: "x", max_output_tokens: 64, store: false,
+      service_tier: "default",
+    }), 100);
+    expect(PUBLIC_PROTOCOL_DESIGNER_BUDGET).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 6 });
+    expect(CANARY_BUDGET_POLICY).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 1 });
+    expect(canaryBudgetAdmission(1.1, bound, 1.01, PUBLIC_PROTOCOL_DESIGNER_BUDGET)).toBe("ADMITTED");
+    expect(canaryBudgetAdmission(1.1, bound, 1.01, CANARY_BUDGET_POLICY)).toBe("DENIED_SOFT_STOP");
+  });
 
   it("enforces the rolling client rate limit before provider transport", () => {
     for (let index = 0; index < PUBLIC_PROTOCOL_DESIGNER_RATE_LIMIT.requests; index += 1) {
@@ -73,7 +85,7 @@ describe("public Standard conversation guards", () => {
       body: JSON.stringify({ systemInstruction: { parts: [{ text: "i" }] }, contents: [{ role: "user", parts: [{ text: "x" }] }] }),
     })).rejects.toThrow("PUBLIC_PROVIDER_DENIED_HARD_BUDGET");
     expect(provider).toHaveBeenCalledTimes(2);
-    expect(PUBLIC_PROTOCOL_DESIGNER_BUDGET).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 1 });
+    expect(PUBLIC_PROTOCOL_DESIGNER_BUDGET).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 6 });
     expect(publicProtocolDesignerGuardStateForTests("public-session:1")).toMatchObject({ providerGateClosed: true });
   });
 

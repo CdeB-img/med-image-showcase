@@ -789,7 +789,8 @@ export const handleProtocolDesignerBridge = async (
   } catch (error) {
     if (error instanceof DurablePublicGuardError) return response.status(error.status).json({
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      error: { code: error.code, message: "Service temporairement indisponible." },
+      error: { code: error.code, message: error.code === "PUBLIC_SESSION_LIMITED"
+        ? "Limite de session atteinte." : "Service temporairement indisponible." },
       observability: providerCallRequestObservability([]),
     });
     throw error;
@@ -830,7 +831,8 @@ export const handleProtocolDesignerBridge = async (
   } catch (error) {
     if (error instanceof DurablePublicGuardError) return response.status(error.status).json({
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      error: { code: error.code, message: "Service temporairement indisponible." },
+      error: { code: error.code, message: error.code === "PUBLIC_SESSION_LIMITED"
+        ? "Limite de session atteinte." : "Service temporairement indisponible." },
       observability: providerCallRequestObservability([]),
     });
     throw error;

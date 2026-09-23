@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
-import { durableGuardSessionRequestLimit } from "../../../../server/protocol-designer-durable-guard";
+import { DurablePublicGuardError, durableGuardSessionRequestLimit, type PublicProtocolDesignerDurableGuard } from "../../../../server/protocol-designer-durable-guard";
 
 describe("public durable session-limit configuration", () => {
-  it("keeps the Production-compatible default when the environment is unset", () => {
-    expect(durableGuardSessionRequestLimit({})).toBe(8);
+  it("uses the long-session safety limit when the environment is unset", () => {
+    expect(durableGuardSessionRequestLimit({})).toBe(512);
   });
 
-  it("accepts an environment-scoped Preview limit", () => {
-    expect(durableGuardSessionRequestLimit({ NOXIA_PUBLIC_SESSION_REQUEST_LIMIT: "16" })).toBe(16);
+  it("accepts an explicit long-session limit", () => {
+    expect(durableGuardSessionRequestLimit({ NOXIA_PUBLIC_SESSION_REQUEST_LIMIT: "512" })).toBe(512);
   });
 
   it.each(["0", "-1", "16.5", "not-a-number"])("fails closed for invalid value %s", (value) => {
@@ -18,6 +18,32 @@ describe("public durable session-limit configuration", () => {
 });
 
 describe("public handler durable-store boundary", () => {
+  it("reports a session-limit refusal as a limit rather than a service outage", async () => {
+    let status = 0;
+    let body: unknown;
+    const response: ApiResponse = {
+      setHeader() {},
+      status(value) { status = value; return this; },
+      json(value) { body = value; },
+    };
+    const provider = vi.fn<typeof fetch>();
+    const durableGuard: PublicProtocolDesignerDurableGuard = {
+      prepareRequest: async () => { throw new DurablePublicGuardError("PUBLIC_SESSION_LIMITED", 429); },
+      createBudgetedFetch: () => provider,
+      completeRequest: async () => {},
+      close: async () => {},
+    };
+    await handleProtocolDesignerBridge({
+      method: "POST",
+      headers: { "content-type": "application/json", host: "noxia-imagerie.fr", origin: "https://noxia-imagerie.fr" },
+      body: { observabilityContext: { sessionId: "SYNTHETIC_SESSION", clientRequestId: "request-1" } },
+    }, response, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC_NOT_DISPATCHED" },
+    { fetchImpl: provider, durableGuard });
+    expect(status).toBe(429);
+    expect(body).toMatchObject({ error: { code: "PUBLIC_SESSION_LIMITED", message: "Limite de session atteinte." } });
+    expect(provider).not.toHaveBeenCalled();
+  });
+
   it("fails closed before provider dispatch when no durable store is configured", async () => {
     let status = 0;
     let body: unknown;
