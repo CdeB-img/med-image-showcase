@@ -62,6 +62,24 @@ export const validatePreparedWorkingReview = (session: WorkingDraftSession) => {
   } catch { return null; }
 };
 
+/** Explain a failed review precondition without treating an adopted Project as
+ * unconfirmed or exposing internal owner/contract codes to the researcher. */
+export const workingDraftReviewUnavailableMessage = (session: WorkingDraftSession & { workingDraftFailure?: string | null }) => {
+  if (session.workingDraftFailure || session.workingDraft?.failure)
+    return session.project
+      ? "La préparation des nouveaux choix n’a pas abouti. Le projet déjà confirmé reste enregistré ; poursuivez la discussion pour préparer une nouvelle proposition."
+      : "La préparation des choix n’a pas abouti. La discussion est conservée ; aucun projet n’a été confirmé.";
+  if (!session.studyProposal || !session.workingDraft)
+    return session.project
+      ? "Le projet déjà confirmé reste enregistré. Aucune nouvelle proposition n’est prête à confirmer."
+      : "Aucune proposition n’est encore prête à confirmer. Précisez votre étude pour préparer les choix.";
+  if (session.studyProposal.digest !== session.workingDraft.compositionDigest)
+    return "Le projet déjà confirmé reste enregistré. La dernière réponse n’a pas préparé de nouveaux choix pour revue ; l’ancienne proposition ne peut pas être confirmée une seconde fois.";
+  if (!session.workingDraft.readyReview)
+    return "La discussion est conservée, mais aucun nouveau choix n’est prêt pour revue et confirmation.";
+  return "La proposition préparée ne correspond plus à l’état courant du projet. Le projet confirmé reste enregistré ; les nouveaux choix doivent être préparés à nouveau.";
+};
+
 export const workingDraftInputDigest = (request: ProductBridgeRequest) => logicalDigest({
   turns: request.conversation.turns, project: studyProposalBinding(request.currentProject),
   previous: request.studyProposalContext?.digest ?? null, rejected: request.workingDraftHistory ?? [],

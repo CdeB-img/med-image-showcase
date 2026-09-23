@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
-import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
@@ -18,6 +18,7 @@ import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
+import { requireStudyProposalReview } from "../study-proposal-standard";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
@@ -338,9 +339,48 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved: FunctionalResetSession = s;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={s} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
-    await screen.findByText("La discussion et le brouillon sont conservés. Les choix ne sont pas encore prêts à confirmer.");
+    await screen.findByText(/La préparation des choix n’a pas abouti.*aucun projet n’a été confirmé/);
     expect(bridge).not.toHaveBeenCalled(); expect(saved.project).toBeNull();
     expect(saved.pendingContribution).toBeNull(); expect(saved.workingDraftFailure).toBe(s.workingDraftFailure);
+  });
+
+  it("preserves the adopted Project and stale draft after a targeted question, then explains why a second confirmation is unavailable", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    const ready = workingDraft.readyReview!;
+    const project = confirmResearchProjectContribution({ contribution: ready.contribution, current: null, projectId: initial.projectId,
+      authority: initial.projectAuthority, confirmedAt: initial.updatedAt, reviewedProjection: ready.candidate.humanReviewProjection,
+      selectedChangeRefs: ready.candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["human-review-button"] });
+    const adoptedProposal = requireStudyProposalReview(composition, project);
+    const adopted = { ...initial, project, studyProposal: adoptedProposal, workingDraft,
+      documents: { ...initial.documents, lastFailure: { code: "FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR", message: "LOCAL_SYNTHETIC_DOC_FAILURE",
+        resumeCondition: "LOCAL_SYNTHETIC_MANUAL_RETRY" } } } satisfies FunctionalResetSession;
+    expect(adopted.project?.confirmationDecision.status).toBe("ADOPTED");
+    expect(workingDraftReviewUnavailableMessage(adopted)).toMatch(/l’ancienne proposition ne peut pas être confirmée une seconde fois/);
+    const staleSource = workingDraft.sourceUserTurnRef;
+    bridge.mockImplementation(async (req: ProductBridgeRequest) => req.prepareWorkingDraft
+      ? { apiVersion: "1.0.0", workingDraftUpdate: { requestType: "TARGETED_QUESTION", proposal: null,
+          explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }, workingStudyProposal: null,
+          observability: { providerCalls: [] } }
+      : { apiVersion: "1.0.0", assistantReply: "LOCAL_SYNTHETIC — réponse ciblée.",
+          assistantTurn: { turnId: "a-targeted", role: "NOXIA", content: "LOCAL_SYNTHETIC — réponse ciblée.", createdAt: initial.updatedAt },
+          persistentExtraction: { called: false, status: "NOT_REQUESTED", failure: null, providerArtifact: null,
+            wireCandidate: null, candidate: null, validation: null, contribution: null }, observability: { providerCalls: [] } });
+    let saved: FunctionalResetSession = adopted;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={adopted} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send("Que reste-t-il à préciser ?");
+    await screen.findByText("LOCAL_SYNTHETIC — réponse ciblée.");
+    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(2));
+    expect(saved.workingDraft?.sourceUserTurnRef).toBe(staleSource);
+    expect(saved.project?.versionId).toBe(project.versionId);
+    expect(isWorkingDraftReviewOnlyRequest("je valide tes proposition genere les documents")).toBe(true);
+    send("je valide tes proposition genere les documents");
+    await screen.findByText(/Le projet déjà confirmé reste enregistré.*l’ancienne proposition ne peut pas être confirmée une seconde fois/);
+    expect(bridge).toHaveBeenCalledTimes(2);
+    expect(saved.project?.versionId).toBe(project.versionId);
+    expect(saved.project?.projectDigest).toBe(project.projectDigest);
   });
 
   it("delivers native text while background is pending, then exposes the final review without a preparation click", async () => {

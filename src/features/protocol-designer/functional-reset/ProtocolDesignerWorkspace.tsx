@@ -1,6 +1,6 @@
 import WorkingProjectDraft from "./WorkingProjectDraft";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
-import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview } from "./continuous-project-build";
+import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview, workingDraftReviewUnavailableMessage } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -1973,7 +1973,10 @@ export default function ProtocolDesignerWorkspace({
         if (!response.workingStudyProposal || !response.workingDraftUpdate) {
           if (response.workingDraftUpdate?.requestType !== "STUDY_UPDATE") setSession(state => {
             if (state.sessionId !== current.sessionId || [...state.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId) return state;
-            return { ...state, workingDraftFailure: null, workingDraft: state.workingDraft ? { ...state.workingDraft, sourceUserTurnRef: userTurn.turnId, failure: null } : null };
+            // A targeted answer is not a new scientific composition. Keep the
+            // previous draft's provenance/readiness as-is, including staleness
+            // after a Project adoption or an earlier preparation failure.
+            return state;
           });
           return;
         }
@@ -2139,7 +2142,8 @@ export default function ProtocolDesignerWorkspace({
         setSession(next);
         if (backgroundDraftJobRef.current) await backgroundDraftJobRef.current;
         if (!showPreparedWorkingReview()) setSession(current => ({ ...current, entries: [...current.entries, {
-          entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: "La discussion et le brouillon sont conservés. Les choix ne sont pas encore prêts à confirmer.", createdAt: now }] }));
+          entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
+          content: workingDraftReviewUnavailableMessage(current), createdAt: now }] }));
         return;
       }
       await submitTerraText(content, autonomousProjectBuild ? false : recording);
