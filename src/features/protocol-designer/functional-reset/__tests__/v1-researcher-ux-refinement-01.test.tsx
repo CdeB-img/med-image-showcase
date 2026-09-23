@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesigner from "@/pages/ProtocolDesigner";
@@ -17,7 +17,7 @@ const save = (title: string): SavedProjectSession => {
 };
 
 beforeEach(() => localStorage.clear());
-afterEach(() => cleanup());
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 
 describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
   it("PROJECT_RENAME_PERSISTS without changing technical identity or project content", () => {
@@ -120,6 +120,102 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(within(details).getByText("Voir le détail de l’étude")).toBeInTheDocument();
     expect(screen.getByTestId("project-cockpit-counts")).toHaveTextContent("0 élément confirmé · 0 point à préciser");
     expect(screen.getByTestId("conversation-composer")).toHaveClass("sticky", "bottom-0");
+  });
+
+  it("grows and shrinks the composer, then scrolls internally above its viewport-bound maximum", () => {
+    const saved = save("Myocardite");
+    localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+    vi.stubGlobal("innerHeight", 800);
+    renderDemo();
+    const composer = screen.getByLabelText("Votre message") as HTMLTextAreaElement;
+    let contentHeight = 55;
+    Object.defineProperty(composer, "scrollHeight", { configurable: true, get: () => contentHeight });
+    expect(composer.rows).toBe(3);
+    expect(composer).toHaveClass("resize-none", "md:resize-y", "min-w-0");
+    fireEvent.change(composer, { target: { value: "Première proposition" } });
+    const restingHeight = Number.parseFloat(composer.style.height);
+    expect(restingHeight).toBeGreaterThanOrEqual(60);
+    contentHeight = 190;
+    fireEvent.change(composer, { target: { value: "Une proposition détaillée sur plusieurs lignes" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(190);
+    expect(composer.style.overflowY).toBe("hidden");
+    contentHeight = 80;
+    fireEvent.change(composer, { target: { value: "Texte raccourci" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(80);
+    contentHeight = 900;
+    fireEvent.change(composer, { target: { value: "Paragraphe long et détaillé" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(Number.parseFloat(composer.style.maxHeight));
+    expect(Number.parseFloat(composer.style.maxHeight)).toBeLessThanOrEqual(800 * 0.38);
+    expect(composer.style.overflowY).toBe("auto");
+    vi.stubGlobal("innerHeight", 480);
+    fireEvent(window, new Event("resize"));
+    expect(Number.parseFloat(composer.style.maxHeight)).toBeLessThanOrEqual(480 * 0.38);
+    expect(Number.parseFloat(composer.style.height)).toBeLessThanOrEqual(Number.parseFloat(composer.style.maxHeight));
+  });
+
+  it("keeps an explicit desktop resize while writing and resumes auto sizing after clearing", () => {
+    const saved = save("Myocardite");
+    localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+    renderDemo();
+    const composer = screen.getByLabelText("Votre message") as HTMLTextAreaElement;
+    let contentHeight = 100;
+    Object.defineProperty(composer, "scrollHeight", { configurable: true, get: () => contentHeight });
+    fireEvent.change(composer, { target: { value: "Texte initial" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(100);
+    vi.spyOn(composer, "getBoundingClientRect").mockReturnValue({ height: 220 } as DOMRect);
+    fireEvent.pointerUp(composer);
+    contentHeight = 120;
+    fireEvent.change(composer, { target: { value: "Texte prolongé" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(220);
+    contentHeight = 300;
+    fireEvent.change(composer, { target: { value: "Texte encore plus long" } });
+    expect(Number.parseFloat(composer.style.height)).toBe(220);
+    expect(composer.style.overflowY).toBe("auto");
+    contentHeight = 50;
+    fireEvent.change(composer, { target: { value: "" } });
+    expect(Number.parseFloat(composer.style.height)).toBeGreaterThanOrEqual(60);
+    expect(Number.parseFloat(composer.style.height)).toBeLessThan(220);
+  });
+
+  it("keeps Enter to send and Shift+Enter for a newline without changing focus or content", () => {
+    const saved = save("Myocardite");
+    localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+    renderDemo();
+    const composer = screen.getByLabelText("Votre message") as HTMLTextAreaElement;
+    const submit = vi.spyOn(composer.form!, "requestSubmit").mockImplementation(() => undefined);
+    fireEvent.change(composer, { target: { value: "Question longue" } });
+    composer.focus();
+    expect(fireEvent.keyDown(composer, { key: "Enter", shiftKey: true })).toBe(true);
+    expect(submit).not.toHaveBeenCalled();
+    expect(fireEvent.keyDown(composer, { key: "Enter", shiftKey: false })).toBe(false);
+    expect(submit).toHaveBeenCalledTimes(1);
+    expect(document.activeElement).toBe(composer);
+    expect(composer.value).toBe("Question longue");
+  });
+
+  it("shows the page-scroll return only below the threshold and honors reduced motion", () => {
+    const saved = save("Myocardite");
+    localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+    vi.stubGlobal("scrollY", 0);
+    const scrollTo = vi.spyOn(window, "scrollTo").mockImplementation(() => undefined);
+    vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: false })));
+    renderDemo();
+    expect(screen.queryByRole("button", { name: "Revenir en haut" })).not.toBeInTheDocument();
+    vi.stubGlobal("scrollY", 600);
+    fireEvent.scroll(window);
+    const button = screen.getByRole("button", { name: "Revenir en haut" });
+    expect(screen.getByTestId("project-top-navigation")).toContainElement(button);
+    expect(button).toHaveClass("h-11", "w-11");
+    button.focus();
+    expect(document.activeElement).toBe(button);
+    fireEvent.click(button);
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
+    vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: true })));
+    fireEvent.click(button);
+    expect(scrollTo).toHaveBeenLastCalledWith({ top: 0, behavior: "auto" });
+    vi.stubGlobal("scrollY", 0);
+    fireEvent.scroll(window);
+    expect(screen.queryByRole("button", { name: "Revenir en haut" })).not.toBeInTheDocument();
   });
 
   it("FUTURE_STEPS_VISIBLE_DISABLED", () => {

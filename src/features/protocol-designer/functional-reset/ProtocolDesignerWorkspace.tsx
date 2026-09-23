@@ -3,7 +3,7 @@ import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview, workingDraftReviewUnavailableMessage } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
-import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type FormEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   buildBoundedConversationReferentContext,
   requiresCurrentOwnerPresentation,
@@ -971,6 +971,22 @@ type ProtocolDesignerWorkspaceProps = Readonly<{
 
 const VALIDATED_CANDIDATE_DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 
+const fitConversationComposer = (textarea: HTMLTextAreaElement, manualHeight: number | null = null) => {
+  const style = window.getComputedStyle(textarea);
+  const lineHeight = Number.parseFloat(style.lineHeight) || 20;
+  const padding = (Number.parseFloat(style.paddingTop) || 0) + (Number.parseFloat(style.paddingBottom) || 0);
+  const minHeight = lineHeight * 3 + padding;
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const maxHeight = Math.max(minHeight, Math.min(lineHeight * 15 + padding, viewportHeight * 0.38));
+  textarea.style.height = "auto";
+  const contentHeight = textarea.scrollHeight;
+  const height = Math.min(Math.max(manualHeight ?? contentHeight, minHeight), maxHeight);
+  textarea.style.maxHeight = `${maxHeight}px`;
+  textarea.style.height = `${height}px`;
+  textarea.style.overflowY = contentHeight > height ? "auto" : "hidden";
+  return height;
+};
+
 export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
   initialSession, onSessionChange, onLeaveWorkspace, onEditAdministration, onNewProject, onOpenProfile, onRenameProject,
@@ -990,6 +1006,7 @@ export default function ProtocolDesignerWorkspace({
   useEffect(() => { latestSessionRef.current = session; }, [session]);
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
   const [draft, setDraft] = useState("");
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [busy, setBusy] = useState(false);
   const [busyMessage, setBusyMessage] = useState("NOXIA vous répond…");
   const [correctionMode, setCorrectionMode] = useState(false);
@@ -1000,10 +1017,36 @@ export default function ProtocolDesignerWorkspace({
   const [documentMessage, setDocumentMessage] = useState("");
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
+  const composerManualHeightRef = useRef<number | null>(null);
+  const composerAppliedHeightRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const latestReplyRef = useRef<HTMLElement>(null);
   const confirmationInFlightRef = useRef<string | null>(null);
   const mixedTurnInFlightRef = useRef<string | null>(null);
+
+  useLayoutEffect(() => {
+    if (!draft) composerManualHeightRef.current = null;
+    if (composerRef.current) composerAppliedHeightRef.current = fitConversationComposer(composerRef.current, composerManualHeightRef.current);
+  }, [draft, deliverableWorkspaceOpen, sourceLibraryOpen, session.openDocumentProjectionId]);
+
+  useEffect(() => {
+    const update = () => setShowScrollTop((window.scrollY || document.scrollingElement?.scrollTop || 0) > 480);
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  useEffect(() => {
+    const update = () => {
+      if (composerRef.current) composerAppliedHeightRef.current = fitConversationComposer(composerRef.current, composerManualHeightRef.current);
+    };
+    window.addEventListener("resize", update);
+    window.visualViewport?.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.visualViewport?.removeEventListener("resize", update);
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -4326,6 +4369,11 @@ export default function ProtocolDesignerWorkspace({
           {onOpenProfile && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onOpenProfile} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Profil / organisation</button>}
           {onEditAdministration && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onEditAdministration} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Informations du projet</button>}
           {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources</button>}
+          {showScrollTop && projectionMode === "STANDARD" && !sourceLibraryOpen && !deliverableWorkspaceOpen && !session.openDocumentProjectionId && <button
+            type="button" aria-label="Revenir en haut" title="Revenir en haut"
+            onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border bg-background text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          ><ArrowUp className="h-5 w-5" aria-hidden="true" /></button>}
           <Sheet open={workingProjectOpen} onOpenChange={setWorkingProjectOpen}>
             <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
@@ -4595,10 +4643,15 @@ export default function ProtocolDesignerWorkspace({
                     event.currentTarget.form?.requestSubmit();
                   }
                 }}
-                rows={2}
+                onPointerUp={(event) => {
+                  if (window.innerWidth < 768) return;
+                  const height = event.currentTarget.getBoundingClientRect().height;
+                  if (Math.abs(height - composerAppliedHeightRef.current) > 2) composerManualHeightRef.current = height;
+                }}
+                rows={3}
                 maxLength={4_000}
                 placeholder={correctionMode ? "Ce que je souhaite corriger…" : productEntryPromptForIntent(activeRouteIntent)}
-                className="max-h-40 min-h-12 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
+                className="min-w-0 flex-1 resize-none bg-transparent px-3 py-2 text-sm leading-5 outline-none md:resize-y"
               />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
             </div>
