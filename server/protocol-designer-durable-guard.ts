@@ -90,6 +90,66 @@ const canonicalJson = (value: unknown): string => {
 
 const object = (value: unknown): value is JsonObject => Boolean(value) && typeof value === "object" && !Array.isArray(value);
 
+// A provider error message can echo input text or a dynamic JSON Schema enum.
+// Keep only fixed technical identifiers and hashes in the existing runtime log.
+const safePrecountErrorField = (value: unknown, allowed: readonly string[]) =>
+  typeof value === "string" && allowed.includes(value) ? value : null;
+
+const workingDraftPrecountFailureDiagnostic = (input: Readonly<{
+  generationProvider: "AZURE_OPENAI" | "OPENAI";
+  countBody: string;
+  countStatus: number;
+  countRequestBody: string;
+  sessionKey: string;
+  admissionKey: string;
+}>) => {
+  const count = JSON.parse(input.countRequestBody) as JsonObject;
+  let error: JsonObject | null = null;
+  try {
+    const response = JSON.parse(input.countBody) as unknown;
+    error = object(response) && object(response.error) ? response.error : null;
+  } catch { /* The response digest still correlates an unreadable provider error. */ }
+  const text = object(count.text) ? count.text : null;
+  const format = text && object(text.format) ? text.format : null;
+  const schema = format && object(format.schema) ? format.schema : null;
+  return {
+    timestamp: new Date().toISOString(),
+    phase: "WORKING_DRAFT_PRECOUNT",
+    countProvider: "OPENAI",
+    generationProvider: input.generationProvider,
+    httpStatus: input.countStatus,
+    providerErrorType: safePrecountErrorField(error?.type,
+      ["invalid_request_error", "authentication_error", "permission_error", "rate_limit_error", "server_error", "api_error"]),
+    providerErrorCode: safePrecountErrorField(error?.code,
+      ["invalid_request_error", "invalid_value", "unsupported_value", "invalid_json", "invalid_type",
+        "context_length_exceeded", "model_not_found", "invalid_model", "invalid_parameter",
+        "unsupported_parameter", "schema_validation_error"]),
+    providerErrorParam: safePrecountErrorField(error?.param,
+      ["model", "instructions", "input", "reasoning", "reasoning.effort", "text", "text.format",
+        "text.format.type", "text.format.name", "text.format.strict", "text.format.schema",
+        "max_output_tokens", "store", "service_tier", "tools", "tool_choice"]),
+    providerErrorMessage: null,
+    model: typeof count.model === "string" && /^gpt-[a-z0-9.-]+$/.test(count.model) ? count.model : null,
+    payloadClass: "WORKING_DRAFT_JSON_SCHEMA",
+    requestDigest: hash(input.countRequestBody),
+    responseDigest: hash(input.countBody),
+    schemaDigest: schema ? hash(canonicalJson(schema)) : null,
+    schemaIdentifier: format?.name === "continuous_working_draft" ? format.name : null,
+    schemaVersion: null,
+    fieldTypes: Object.fromEntries(["model", "instructions", "input", "reasoning", "text"]
+      .map((key) => [key, count[key] === undefined ? "absent" : Array.isArray(count[key]) ? "array"
+        : count[key] === null ? "null" : typeof count[key]])),
+    requestBytes: Buffer.byteLength(input.countRequestBody),
+    requestCharacters: input.countRequestBody.length,
+    schemaBytes: schema ? Buffer.byteLength(canonicalJson(schema)) : null,
+    sessionKeyHash: input.sessionKey,
+    admissionKeyHash: input.admissionKey,
+    runtimeCommit: typeof process.env.VERCEL_GIT_COMMIT_SHA === "string"
+      && /^[a-f0-9]{40}$/.test(process.env.VERCEL_GIT_COMMIT_SHA)
+      ? process.env.VERCEL_GIT_COMMIT_SHA : null,
+  };
+};
+
 const publicIdentity = (body: unknown) => {
   if (!object(body)) return null;
   const observation = object(body.observabilityContext) ? body.observabilityContext : null;
@@ -644,6 +704,17 @@ export const createPostgresProtocolDesignerDurableGuard = (
             if (!countResponse.ok) {
               const code = `PUBLIC_PROVIDER_INPUT_COUNT_HTTP_${countResponse.status}`;
               await failCount(code, countResponse.status, countBody);
+              if (typeof request.observation?.context?.clientRequestId === "string"
+                && request.observation.context.clientRequestId.startsWith("working-draft:")) {
+                console.warn("WORKING_DRAFT_PRECOUNT_HTTP_FAILURE", JSON.stringify(workingDraftPrecountFailureDiagnostic({
+                  generationProvider: azureGeneration ? "AZURE_OPENAI" : "OPENAI",
+                  countBody,
+                  countStatus: countResponse.status,
+                  countRequestBody: countRequest.body,
+                  sessionKey: context.sessionKey,
+                  admissionKey: context.admissionKey,
+                })));
+              }
               throw new DurablePublicGuardError(code);
             }
             const tokens = readOpenAIInputTokenCount({ status: countResponse.status, body: countBody });

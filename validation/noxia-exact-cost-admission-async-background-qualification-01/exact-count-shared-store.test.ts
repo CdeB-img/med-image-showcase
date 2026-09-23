@@ -363,6 +363,53 @@ describe.sequential("exact input count on the existing durable public operation 
     expect(Number(state?.committed_cost_upper_bound_usd)).toBe(0);
   });
 
+  it("records only technical Working Draft precount diagnostics on an Azure HTTP 400", async () => {
+    const guard = createGuard();
+    const context = await prepare(guard, admissionBody("draft-count-failure", "working-draft:u1"));
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const provider = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ error: {
+      type: "invalid_request_error", code: "invalid_value", param: "text.format.schema",
+      message: "SYNTHETIC_PRIVATE_SCIENCE Bearer SYNTHETIC_SECRET",
+    } }), { status: 400 }));
+    try {
+      const body = JSON.stringify({ ...JSON.parse(backgroundPayload()), model: "gpt-5.6-sol" });
+      await expect(guard.createBudgetedFetch(context, provider, AZURE_COUNT_KEY)(AZURE_RESPONSES,
+        { ...observedInit(body, "working-draft:u1"),
+          headers: { "content-type": "application/json", "api-key": "SYNTHETIC_AZURE_KEY" } }))
+        .rejects.toMatchObject({ code: "PUBLIC_PROVIDER_INPUT_COUNT_HTTP_400" });
+      expect(provider).toHaveBeenCalledTimes(1);
+      expect(endpoint(provider.mock.calls[0]![0])).toBe(OPENAI_INPUT_TOKENS);
+      expect(warning).toHaveBeenCalledTimes(1);
+      expect(warning.mock.calls[0]![0]).toBe("WORKING_DRAFT_PRECOUNT_HTTP_FAILURE");
+      const serialized = String(warning.mock.calls[0]![1]);
+      const diagnostic = JSON.parse(serialized);
+      expect(diagnostic).toMatchObject({ phase: "WORKING_DRAFT_PRECOUNT", countProvider: "OPENAI",
+        generationProvider: "AZURE_OPENAI", httpStatus: 400,
+        providerErrorType: "invalid_request_error", providerErrorCode: "invalid_value",
+        providerErrorParam: "text.format.schema", providerErrorMessage: null,
+        model: "gpt-5.6-sol", payloadClass: "WORKING_DRAFT_JSON_SCHEMA",
+        schemaIdentifier: "continuous_working_draft" });
+      expect(diagnostic.requestDigest).toMatch(/^[a-f0-9]{64}$/);
+      expect(diagnostic.schemaDigest).toMatch(/^[a-f0-9]{64}$/);
+      expect(diagnostic.schemaBytes).toBeGreaterThan(0);
+      expect(serialized).not.toContain("SYNTHETIC_PRIVATE_SCIENCE");
+      expect(serialized).not.toContain("SYNTHETIC_SECRET");
+      expect(serialized).not.toContain("Je veux comparer");
+      const state = await queryOne(await admin`
+        select o.state, o.reserved_upper_bound_usd, a.state as admission_state,
+          s.admission_count, s.committed_cost_upper_bound_usd
+        from noxia_durable.public_provider_operation o
+        join noxia_durable.public_bridge_admission a on a.admission_key = o.admission_key
+        join noxia_durable.public_guard_session s on s.session_key_hash = o.session_key_hash
+      `);
+      expect(state).toMatchObject({ state: "COUNT_FAILED", admission_state: "COUNTING", admission_count: 0 });
+      expect(Number(state?.reserved_upper_bound_usd)).toBe(0);
+      expect(Number(state?.committed_cost_upper_bound_usd)).toBe(0);
+    } finally {
+      warning.mockRestore();
+    }
+  });
+
   it("recovers a completed count after restart without recounting", async () => {
     const payload = admissionBody("count-restart", "request");
     const first = createGuard();
