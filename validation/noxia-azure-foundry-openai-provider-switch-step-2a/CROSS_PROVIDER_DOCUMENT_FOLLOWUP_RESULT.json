@@ -1,0 +1,68 @@
+{
+  "campaignId": "NOXIA_AZURE_OPENAI_CROSS_PROVIDER_INPUT_COUNT_DOCUMENT_CURRENT_02",
+  "startedAt": "2026-09-22T15:51:46.289Z",
+  "completedAt": "2026-09-22T15:51:49.138Z",
+  "status": "QUALIFIED_MATCH_ALL_CLASSES",
+  "policy": {
+    "hardCapUsd": 6,
+    "softStopUsd": 1,
+    "maximumTokenCountRequests": 1,
+    "maximumAzureGenerationRequests": 1,
+    "maximumProviderHttpRequests": 2,
+    "maxOutputTokensPerGeneration": 64,
+    "singleAttempt": true,
+    "store": false
+  },
+  "providerProvenance": {
+    "countProvider": "OPENAI",
+    "countEndpoint": "https://api.openai.com/v1/responses/input_tokens",
+    "generationProvider": "AZURE_OPENAI",
+    "generationEndpoint": "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod/openai/v1/responses",
+    "executionTransport": "DIRECT_LOCAL"
+  },
+  "counters": {
+    "tokenCountRequests": 1,
+    "azureGenerationRequests": 1,
+    "totalProviderHttpRequests": 2
+  },
+  "accounting": {
+    "committedUpperBoundUsd": 0.09595100000000001,
+    "measuredCostUsd": 0,
+    "unsettledReservationsUsd": 0.09595100000000001
+  },
+  "trials": [
+    {
+      "trialId": "DOCUMENT_JSON_OBJECT_CURRENT_TERRA",
+      "payloadClass": "JSON_OBJECT_DOCUMENT_PROJECTION_CURRENT",
+      "sourceFile": "validation/noxia-azure-foundry-openai-provider-switch-step-2a/frozen-payloads/document-json-object-current.json",
+      "sourcePayloadDigest": "b16934264410ce734b1e57a82b7320d81ecbe044f02171013285e01a89314ba3",
+      "payloadDigest": "813da95a3154a4cc9f9647d115cefbbc5f453cd7d52869688b46e47171bc8b33",
+      "inputMaterialDigest": "a959af5dbfee749d9c0f491f4c16257bf7b13dfc83a4b0eae0e7aa8637fb344f",
+      "countPayloadDigest": "a959af5dbfee749d9c0f491f4c16257bf7b13dfc83a4b0eae0e7aa8637fb344f",
+      "modelDeployment": "gpt-5.6-terra",
+      "state": "MATCH",
+      "openaiPrecountInputTokens": 19956,
+      "azurePostUsageInputTokens": 19956,
+      "delta": 0,
+      "openaiCountHttpStatus": 200,
+      "openaiCountResponseDigest": "16bcee2742366bc3050215c5937d7425d0bb2456a497b2f9ecef2e3146db873c",
+      "openaiCountRequestId": "req_53485cdd1f4c439d811498c411e5b1b6",
+      "reservedUpperBoundUsd": 0.050658,
+      "admission": "ADMITTED",
+      "azureHttpStatus": 200,
+      "azureResponseDigest": "76c1a8df815a54d1785bf93dc468d92224cb1565f3718a03b9b8c7b072d8d852",
+      "azureRequestId": "e90b9a47-3a34-49ed-8ab4-3d36c195c717",
+      "azureResponseStatus": "incomplete",
+      "azureModelReturned": "gpt-5.6-terra",
+      "azureUsage": {
+        "inputTokens": 19956,
+        "outputTokens": 64,
+        "totalTokens": 20020,
+        "cachedInputTokens": 0,
+        "cacheWriteTokens": 19953
+      },
+      "settlement": null,
+      "accountingDisposition": "RESERVATION_RETAINED_RESPONSE_NOT_SETTLEABLE_BY_EXISTING_CONTRACT"
+    }
+  ]
+}

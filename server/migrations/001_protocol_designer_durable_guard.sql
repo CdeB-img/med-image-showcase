@@ -40,7 +40,8 @@ create table if not exists noxia_durable.public_provider_operation (
   configuration_digest text not null,
   state text not null check (state in (
     'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
-    'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH'
+    'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+    'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
   )),
   reserved_upper_bound_usd numeric(18, 10) not null check (reserved_upper_bound_usd >= 0),
   measured_cost_usd numeric(18, 10),
@@ -63,6 +64,13 @@ create table if not exists noxia_durable.public_provider_operation (
   count_dispatched_at timestamptz,
   count_lease_expires_at timestamptz,
   count_completed_at timestamptz,
+  count_provider text,
+  generation_provider text,
+  generation_model text,
+  count_qualification_ref text,
+  qualification_failure_code text,
+  post_usage_input_tokens integer,
+  input_token_delta integer,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (admission_key, operation_index)
@@ -86,7 +94,8 @@ alter table noxia_durable.public_provider_operation
   add constraint public_provider_operation_state_check
   check (state in (
     'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
-    'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH'
+    'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+    'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
   ));
 alter table noxia_durable.public_provider_operation
   drop constraint if exists public_provider_operation_reserved_upper_bound_usd_check;
@@ -103,7 +112,26 @@ alter table noxia_durable.public_provider_operation
   add column if not exists count_failure_code text,
   add column if not exists count_dispatched_at timestamptz,
   add column if not exists count_lease_expires_at timestamptz,
-  add column if not exists count_completed_at timestamptz;
+  add column if not exists count_completed_at timestamptz,
+  add column if not exists count_provider text,
+  add column if not exists generation_provider text,
+  add column if not exists generation_model text,
+  add column if not exists count_qualification_ref text,
+  add column if not exists qualification_failure_code text,
+  add column if not exists post_usage_input_tokens integer,
+  add column if not exists input_token_delta integer;
+
+create table if not exists noxia_durable.public_provider_equivalence_gate (
+  generation_endpoint_digest text not null,
+  generation_model text not null,
+  count_qualification_ref text not null,
+  state text not null check (state in ('OPEN', 'CLOSED')),
+  anomaly_operation_key text,
+  invalidated_at timestamptz,
+  primary key (generation_endpoint_digest, generation_model)
+);
+alter table noxia_durable.public_provider_equivalence_gate
+  add column if not exists count_qualification_ref text;
 
 create table if not exists noxia_durable.public_rate_bucket (
   client_key_hash text primary key,

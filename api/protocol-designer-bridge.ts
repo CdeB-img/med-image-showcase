@@ -52,6 +52,10 @@ import {
   sharedPostgresProtocolDesignerDurableGuard,
   type PublicProtocolDesignerDurableGuard,
 } from "../server/protocol-designer-durable-guard.js";
+import {
+  resolveOpenAIProviderRuntimeConfiguration,
+  type OpenAIProviderTransport,
+} from "../server/protocol-designer-openai-provider-config.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -125,6 +129,7 @@ export const executeProtocolDesignerBridge = async (input: {
   body: unknown;
   apiKey: string | null;
   openAiApiKey?: string | null;
+  openAiTransport?: OpenAIProviderTransport;
   geminiModel?: string | null;
   openAiExtractionModel?: string | null;
   /** Server-selected local candidate; default preserves the public runtime. */
@@ -178,12 +183,13 @@ export const executeProtocolDesignerBridge = async (input: {
           retryReason: null,
           onRecord: observeProviderCall,
         },
+        input.openAiTransport,
       );
       const projection = materializeLanguageProjectionArtifact({
         request: languageRequest,
         result: projected.value,
         provider: "OPENAI",
-        model,
+        model: projected.modelRequested,
         providerResponseId: projected.responseId,
         reasoningEffort: projected.reasoningEffort,
         usage: projected.usage,
@@ -198,7 +204,7 @@ export const executeProtocolDesignerBridge = async (input: {
           projection,
           observability: {
             provider: "OPENAI",
-            model,
+            model: projected.modelRequested,
             reasoningEffort,
             providerResponseId: projected.responseId,
             usage: projected.usage,
@@ -260,14 +266,15 @@ export const executeProtocolDesignerBridge = async (input: {
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareWorkingDraftRequest(request);
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
-        { context: observationContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
+        { context: observationContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall },
+        input.openAiTransport);
       const result = acceptWorkingDraftUpdate(JSON.parse(generated.value), request);
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: "",
         assistantTurn: { turnId: `working-draft:${observationContext.clientRequestId}`, role: "NOXIA", content: "", createdAt },
         workingDraftUpdate: result.update, workingStudyProposal: result.composition,
         persistentExtraction: { called: false, status: "NOT_REQUESTED", failure: null, providerArtifact: null, wireCandidate: null,
           candidate: null, validation: null, contribution: null },
-        observability: { provider: "OPENAI", model: generated.modelReturned ?? "gpt-5.6-terra", calls: 1,
+        observability: { provider: "OPENAI", model: generated.modelReturned ?? generated.modelRequested, calls: 1,
           conversationCalls: 0, conversationLatencyMs: 0, extractionLatencyMs: null, projectWrites: 0,
           ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
     } catch (error) {
@@ -297,7 +304,8 @@ export const executeProtocolDesignerBridge = async (input: {
         }
       }
       const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
-        { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained);
+        { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained,
+        input.openAiTransport);
       const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: createdAt,
         reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision });
       const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
@@ -306,7 +314,7 @@ export const executeProtocolDesignerBridge = async (input: {
         documentDraftPack: pack,
         persistentExtraction: { called: false, status: "NOT_REQUESTED", failure: null, providerArtifact: null, wireCandidate: null,
           candidate: null, validation: null, contribution: null },
-        observability: { provider: "OPENAI", model: "gpt-5.6-terra", conversationCalls: 0, extractionAttempts: 0,
+        observability: { provider: "OPENAI", model: generated.modelReturned ?? generated.modelRequested, conversationCalls: 0, extractionAttempts: 0,
           conversationLatencyMs: generated.latencyMs, extractionLatencyMs: null, calls: generated.calls, projectWrites: 0,
           ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
     } catch (error) {
@@ -325,7 +333,7 @@ export const executeProtocolDesignerBridge = async (input: {
       terraPacket = prepareTerraConversation(request, input.autonomousProjectBuild);
       terraConversation = await executeOpenAITerraConversation(terraPacket, input.openAiApiKey,
         input.fetchImpl, { context: observationContext, purpose: "CONVERSATION_REALIZATION",
-          reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall });
+          reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
     } catch (error) {
       terraFailure = { stage: "HOW", code: error instanceof ProductBridgeProviderError
         ? error.providerStatus ?? "CONVERSATION_PROVIDER_FAILURE" : error instanceof Error ? error.message : "CONVERSATION_PROVIDER_FAILURE",
@@ -348,6 +356,7 @@ export const executeProtocolDesignerBridge = async (input: {
   let extractionLatencyMs: number | null = null;
   let extractionUsage: ProductBridgeResponse["observability"]["extractionUsage"] = null;
   let extractionModelReturned: string | null = null;
+  let extractionModelRequested: string | null = null;
   let extractionAttempts: 0 | 1 | 2 = 0;
   let recoveryContext: Omit<NonNullable<ProductBridgeResponse["persistentExtraction"]["recovery"]>, "outcome"> | null = null;
 
@@ -374,10 +383,12 @@ export const executeProtocolDesignerBridge = async (input: {
             retryReason: extractionAttempts === 2 ? "RECOVERABLE_PROVIDER_OUTPUT_VALIDATION_FAILURE" : null,
             onRecord: observeProviderCall,
           },
+          input.openAiTransport,
         );
         extractionLatencyMs = (extractionLatencyMs ?? 0) + extracted.latencyMs;
         extractionUsage = addOpenAIUsage(extractionUsage, extracted.usage);
         extractionModelReturned = extracted.modelReturned;
+        extractionModelRequested = extracted.modelRequested;
         input.onPersistentProviderArtifact?.(extracted.value.providerArtifact);
         const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
         const sourceCatalog = extracted.value.providerArtifact.sourceCatalog ?? buildPersistentSourceCatalog(request.conversation);
@@ -519,11 +530,11 @@ export const executeProtocolDesignerBridge = async (input: {
         providerInput: { systemInstruction: terraPacket.instruction, context: terraPacket.context },
         projectWrites: 0, projectWriteAuthorized: false,
       } : undefined,
-      observability: { provider: "OPENAI", model: "gpt-5.6-terra", conversationProvider: "OPENAI",
-        conversationModel: terraConversation?.modelReturned ?? "gpt-5.6-terra",
+      observability: { provider: "OPENAI", model: terraConversation?.modelReturned ?? terraConversation?.modelRequested ?? "gpt-5.6-terra", conversationProvider: "OPENAI",
+        conversationModel: terraConversation?.modelReturned ?? terraConversation?.modelRequested ?? "gpt-5.6-terra",
         conversationLatencyMs: terraConversation?.latencyMs ?? 0, extractionLatencyMs,
         extractionProvider: persistentExtraction.called ? "OPENAI" : null,
-        extractionModelRequested: persistentExtraction.called ? extractionModel : null,
+        extractionModelRequested: persistentExtraction.called ? extractionModelRequested ?? extractionModel : null,
         extractionModelReturned, extractionUsage, extractionAttempts,
         calls: providerCalls.length as 0 | 1 | 2 | 3, conversationCalls: providerCalls.some(call => call.purpose === "CONVERSATION_REALIZATION") ? 1 : 0,
         conversationResponseReceived: Boolean(terraConversation), projectWrites: 0,
@@ -757,6 +768,15 @@ export const handleProtocolDesignerBridge = async (
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
   }
+  let openAiProvider: ReturnType<typeof resolveOpenAIProviderRuntimeConfiguration>;
+  try { openAiProvider = resolveOpenAIProviderRuntimeConfiguration(environment); }
+  catch {
+    return response.status(503).json({
+      apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "OPENAI_PROVIDER_CONFIGURATION_INVALID", message: "Service temporairement indisponible." },
+      observability: providerCallRequestObservability([]),
+    });
+  }
   const connectionString = durableGuardConnectionString(environment);
   let durableGuard = dependencies.durableGuard ?? null;
   try {
@@ -791,11 +811,12 @@ export const handleProtocolDesignerBridge = async (
       error: { code: publicAdmission.code, message: publicAdmission.message },
       observability: providerCallRequestObservability([]),
     });
-    const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch);
+    const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch, openAiProvider.countApiKey);
     const result = await executeProtocolDesignerBridge({
       body,
       apiKey: environment.GEMINI_API_KEY?.trim() || null,
-      openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
+      openAiApiKey: openAiProvider.apiKey,
+      openAiTransport: openAiProvider.transport,
       geminiModel: environment.GEMINI_MODEL,
       openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
       chatRuntime: environment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" ? "TERRA" : null,

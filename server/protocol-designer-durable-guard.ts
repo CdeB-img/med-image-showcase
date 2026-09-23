@@ -17,6 +17,7 @@ import {
   openAIInputCountRequest,
   readOpenAIInputTokenCount,
 } from "./protocol-designer-provider-replay.js";
+import { azureInputCountQualification, isOpenAIResponsesEndpoint, openAIProviderDestinationFromEndpoint, supportsOpenAIExactInputCount } from "./protocol-designer-openai-provider-config.js";
 
 type Headers = Record<string, string | string[] | undefined>;
 type JsonObject = Record<string, unknown>;
@@ -56,7 +57,7 @@ export interface PublicProtocolDesignerDurableGuard {
     remoteAddress?: string;
     body: unknown;
   }>): Promise<DurablePublicRequestPreparation>;
-  createBudgetedFetch(context: DurablePublicRequestContext, fetchImpl?: typeof fetch): typeof fetch;
+  createBudgetedFetch(context: DurablePublicRequestContext, fetchImpl?: typeof fetch, openAIInputCountApiKey?: string): typeof fetch;
   completeRequest(context: DurablePublicRequestContext, status: number, body: unknown): Promise<void>;
   close(): Promise<void>;
 }
@@ -139,7 +140,7 @@ const providerRequest = (input: Parameters<typeof fetch>[0], init?: RequestInit)
   if (typeof transportInit.body !== "string") {
     return { endpoint, body: null, init: transportInit, observation: noxiaProviderObservation };
   }
-  if (endpoint !== "https://api.openai.com/v1/responses") {
+  if (!isOpenAIResponsesEndpoint(endpoint)) {
     return { endpoint, body: transportInit.body, init: transportInit, observation: noxiaProviderObservation };
   }
   let parsed: unknown;
@@ -170,6 +171,13 @@ type OperationRow = Readonly<{
   count_response_digest: string | null;
   count_failure_code: string | null;
   count_lease_expires_at: string | Date | null;
+  count_provider: string | null;
+  generation_provider: string | null;
+  generation_model: string | null;
+  count_qualification_ref: string | null;
+  qualification_failure_code: string | null;
+  post_usage_input_tokens: number | null;
+  input_token_delta: number | null;
 }>;
 
 const recoveredProviderResponse = (row: OperationRow) => {
@@ -227,6 +235,22 @@ const lockSession = async (tx: TransactionQuery, context: DurablePublicRequestCo
   if (!session) throw new DurablePublicGuardError("PUBLIC_DURABLE_SESSION_MISSING");
   if (session.client_key_hash !== context.clientKey) throw new DurablePublicGuardError("PUBLIC_SESSION_CLIENT_MISMATCH", 429);
   return session;
+};
+
+const assertAzureEquivalenceOpen = async (tx: TransactionQuery, endpointDigest: string, model: string, qualificationRef: string) => {
+  await tx`
+    insert into noxia_durable.public_provider_equivalence_gate
+      (generation_endpoint_digest, generation_model, count_qualification_ref, state)
+    values (${endpointDigest}, ${model}, ${qualificationRef}, 'OPEN')
+    on conflict (generation_endpoint_digest, generation_model) do nothing
+  `;
+  const rows = await tx`
+    select state, count_qualification_ref from noxia_durable.public_provider_equivalence_gate
+    where generation_endpoint_digest = ${endpointDigest} and generation_model = ${model}
+    for update
+  `;
+  if (rows[0]?.state !== "OPEN" || rows[0]?.count_qualification_ref !== qualificationRef)
+    throw new DurablePublicGuardError("PUBLIC_AZURE_INPUT_COUNT_EQUIVALENCE_CLOSED");
 };
 
 const ensureCountingAdmission = async (
@@ -340,7 +364,8 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       endpoint_digest text not null, payload_digest text not null, configuration_digest text not null,
       state text not null check (state in (
         'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
-        'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH'
+        'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+        'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
       )),
       reserved_upper_bound_usd numeric(18, 10) not null check (reserved_upper_bound_usd >= 0),
       measured_cost_usd numeric(18, 10), committed_cost_upper_bound_usd numeric(18, 10),
@@ -351,6 +376,9 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       count_model text, count_pricing_snapshot_date text, count_http_status integer,
       count_response_digest text, count_failure_code text, count_dispatched_at timestamptz,
       count_lease_expires_at timestamptz, count_completed_at timestamptz,
+      count_provider text, generation_provider text, generation_model text, count_qualification_ref text,
+      qualification_failure_code text,
+      post_usage_input_tokens integer, input_token_delta integer,
       created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
       unique (admission_key, operation_index)
     );
@@ -369,7 +397,8 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       add constraint public_provider_operation_state_check
       check (state in (
         'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
-        'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH'
+        'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+        'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
       ));
     alter table noxia_durable.public_provider_operation
       drop constraint if exists public_provider_operation_reserved_upper_bound_usd_check;
@@ -386,7 +415,25 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       add column if not exists count_failure_code text,
       add column if not exists count_dispatched_at timestamptz,
       add column if not exists count_lease_expires_at timestamptz,
-      add column if not exists count_completed_at timestamptz;
+      add column if not exists count_completed_at timestamptz,
+      add column if not exists count_provider text,
+      add column if not exists generation_provider text,
+      add column if not exists generation_model text,
+      add column if not exists count_qualification_ref text,
+      add column if not exists qualification_failure_code text,
+      add column if not exists post_usage_input_tokens integer,
+      add column if not exists input_token_delta integer;
+    create table if not exists noxia_durable.public_provider_equivalence_gate (
+      generation_endpoint_digest text not null,
+      generation_model text not null,
+      count_qualification_ref text not null,
+      state text not null check (state in ('OPEN', 'CLOSED')),
+      anomaly_operation_key text,
+      invalidated_at timestamptz,
+      primary key (generation_endpoint_digest, generation_model)
+    );
+    alter table noxia_durable.public_provider_equivalence_gate
+      add column if not exists count_qualification_ref text;
     create table if not exists noxia_durable.public_rate_bucket (
       client_key_hash text primary key, window_started_at timestamptz not null,
       request_count integer not null check (request_count >= 0), updated_at timestamptz not null default now()
@@ -443,12 +490,21 @@ export const createPostgresProtocolDesignerDurableGuard = (
     }
   };
 
-  const createBudgetedFetch: PublicProtocolDesignerDurableGuard["createBudgetedFetch"] = (context, fetchImpl = fetch) => {
+  const createBudgetedFetch: PublicProtocolDesignerDurableGuard["createBudgetedFetch"] = (context, fetchImpl = fetch, openAIInputCountApiKey) => {
     let operationIndex = 0;
     return async (input, init) => {
       const index = operationIndex++;
       const request = providerRequest(input, init);
       const uncountedBound = request.body === null ? null : boundCanaryProviderCall(request.endpoint, request.body);
+      const azureGeneration = openAIProviderDestinationFromEndpoint(request.endpoint) === "azure";
+      const qualificationRef = azureGeneration && uncountedBound
+        ? azureInputCountQualification(uncountedBound.model) : null;
+      if (azureGeneration && !openAIInputCountApiKey?.trim()) {
+        throw new DurablePublicGuardError("PUBLIC_AZURE_PRECOUNT_CREDENTIAL_MISSING");
+      }
+      if (azureGeneration && !qualificationRef) {
+        throw new DurablePublicGuardError("PUBLIC_AZURE_INPUT_COUNT_MODEL_PAIR_UNQUALIFIED");
+      }
       const endpointDigest = hash(request.endpoint);
       const payloadDigest = hash(request.body ?? "NO_BODY");
       const configurationDigest = hash(canonicalJson({
@@ -457,14 +513,17 @@ export const createPostgresProtocolDesignerDurableGuard = (
         retryIndex: request.observation?.retryIndex ?? null,
       }));
       const operationKey = hash(`${context.admissionKey}\u0000${index}`);
-      const countRequest = request.body !== null && request.endpoint === "https://api.openai.com/v1/responses"
+      const countRequest = request.body !== null && supportsOpenAIExactInputCount(request.endpoint)
         ? openAIInputCountRequest({ endpoint: request.endpoint, method: "POST", body: request.body })
         : null;
       const countPayloadDigest = countRequest ? hash(countRequest.body) : null;
       const identityMatches = (row: OperationRow) => row.endpoint_digest === endpointDigest
         && row.payload_digest === payloadDigest
         && row.configuration_digest === configurationDigest
-        && row.count_payload_digest === countPayloadDigest;
+        && row.count_payload_digest === countPayloadDigest
+        && (!azureGeneration || (row.count_provider === "OPENAI"
+          && row.generation_provider === "AZURE_OPENAI" && row.generation_model === uncountedBound?.model
+          && row.count_qualification_ref === qualificationRef));
       const operationPurpose = typeof request.observation?.purpose === "string" ? request.observation.purpose : null;
       let operation: OperationRow | undefined;
       let bound = uncountedBound;
@@ -502,6 +561,9 @@ export const createPostgresProtocolDesignerDurableGuard = (
             if (existing) {
               if (!identityMatches(existing)) throw new DurablePublicGuardError("PUBLIC_STALE_OPERATION_REJECTED");
               if (existing.state === "COUNT_FAILED") return { denial: existing.count_failure_code ?? "PUBLIC_PROVIDER_INPUT_COUNT_FAILED" };
+              if (existing.state === "INPUT_TOKEN_DIVERGENCE") return { denial: "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" };
+              if (existing.state === "QUALIFICATION_INVALID") return { denial: existing.qualification_failure_code ?? "PUBLIC_AZURE_QUALIFICATION_INVALID" };
+              if (["COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"].includes(existing.state)) return existing;
               if (existing.state === "COUNT_UNKNOWN_AFTER_DISPATCH") return { denial: "PUBLIC_PROVIDER_INPUT_COUNT_UNKNOWN_AFTER_DISPATCH" };
               if (existing.state === "COUNT_DISPATCHED") {
                 const leaseExpiresAt = existing.count_lease_expires_at
@@ -519,15 +581,19 @@ export const createPostgresProtocolDesignerDurableGuard = (
             }
             if (session.provider_gate_closed) return { denial: "PUBLIC_SESSION_BUDGET_CLOSED" };
             if (!uncountedBound) return { denial: "PUBLIC_PROVIDER_DENIED_UNKNOWN_UPPER_BOUND" };
+            if (azureGeneration) await assertAzureEquivalenceOpen(tx, endpointDigest, uncountedBound.model, qualificationRef!);
             const inserted = await tx`
               insert into noxia_durable.public_provider_operation (
                 operation_key, admission_key, session_key_hash, operation_index, purpose,
                 endpoint_digest, payload_digest, configuration_digest, state, reserved_upper_bound_usd,
-                count_payload_digest, count_model, count_pricing_snapshot_date, created_at, updated_at
+                count_payload_digest, count_model, count_pricing_snapshot_date,
+                count_provider, generation_provider, generation_model, count_qualification_ref, created_at, updated_at
               ) values (
                 ${operationKey}, ${context.admissionKey}, ${context.sessionKey}, ${index}, ${operationPurpose},
                 ${endpointDigest}, ${payloadDigest}, ${configurationDigest}, 'COUNT_PENDING', 0,
-                ${countPayloadDigest}, ${uncountedBound.model}, ${uncountedBound.pricingSnapshotDate}, ${now}, ${now}
+                ${countPayloadDigest}, ${uncountedBound.model}, ${uncountedBound.pricingSnapshotDate},
+                ${azureGeneration ? "OPENAI" : null}, ${azureGeneration ? "AZURE_OPENAI" : null},
+                ${azureGeneration ? uncountedBound.model : null}, ${qualificationRef}, ${now}, ${now}
               ) returning *
             `;
             return inserted[0] as OperationRow;
@@ -558,6 +624,10 @@ export const createPostgresProtocolDesignerDurableGuard = (
                 ...request.init,
                 method: countRequest.method,
                 body: countRequest.body,
+                ...(azureGeneration ? { headers: {
+                  "content-type": "application/json",
+                  authorization: `Bearer ${openAIInputCountApiKey}`,
+                } } : {}),
               });
             } catch (error) {
               const code = error instanceof Error && error.name === "AbortError"
@@ -607,6 +677,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
           const existing = rows[0] as OperationRow | undefined;
           if (existing && !identityMatches(existing)) throw new DurablePublicGuardError("PUBLIC_STALE_OPERATION_REJECTED");
           if (existing && ["COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"].includes(existing.state)) return existing;
+          if (azureGeneration && uncountedBound) await assertAzureEquivalenceOpen(tx, endpointDigest, uncountedBound.model, qualificationRef!);
           if (existing?.state === "DISPATCHED") {
             const leaseExpiresAt = existing.dispatch_lease_expires_at
               ? new Date(existing.dispatch_lease_expires_at).getTime() : 0;
@@ -624,6 +695,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
             return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
           }
           if (existing?.state === "UNKNOWN_AFTER_DISPATCH") return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
+          if (existing?.state === "INPUT_TOKEN_DIVERGENCE") return { denial: "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" };
+          if (existing?.state === "QUALIFICATION_INVALID") return { denial: existing.qualification_failure_code ?? "PUBLIC_AZURE_QUALIFICATION_INVALID" };
           if (existing?.state === "RESERVED") return existing;
           if (countRequest && existing?.state !== "COUNT_COMPLETED") {
             return { denial: existing?.state === "COUNT_FAILED"
@@ -700,6 +773,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
             for update
           `;
           if (rows[0]?.state !== "RESERVED") throw new DurablePublicGuardError("PUBLIC_PROVIDER_OPERATION_NOT_RESERVED");
+          if (azureGeneration && bound) await assertAzureEquivalenceOpen(tx, endpointDigest, bound.model, qualificationRef!);
           await tx`
             update noxia_durable.public_provider_operation
             set state = 'DISPATCHED', dispatched_at = ${new Date()},
@@ -752,6 +826,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
 
       const settlement = response.ok && bound ? settleCanaryProviderCall(bound, responseBody) : null;
       const responseHeaders = safeResponseHeaders(response);
+      let qualificationFailureCode: string | null = null;
       await sql.begin(async (tx) => {
         const session = await lockSession(tx, context, new Date());
         const rows = await tx`
@@ -763,6 +838,53 @@ export const createPostgresProtocolDesignerDurableGuard = (
         if (!current) throw new DurablePublicGuardError("PUBLIC_PROVIDER_OPERATION_MISSING");
         if (["COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"].includes(current.state)) return;
         if (current.state !== "DISPATCHED") throw new DurablePublicGuardError("PUBLIC_PROVIDER_OPERATION_NOT_DISPATCHED");
+        if (azureGeneration && response.ok) {
+          let providerBody: JsonObject | null = null;
+          try {
+            const parsed: unknown = JSON.parse(responseBody);
+            providerBody = object(parsed) ? parsed : null;
+          } catch { /* Fail closed below when Azure usage cannot be verified. */ }
+          const usage = object(providerBody?.usage) ? providerBody.usage : null;
+          const postInput = usage?.input_tokens;
+          if (!providerBody) {
+            qualificationFailureCode = "PUBLIC_AZURE_RESPONSE_UNREADABLE";
+          } else if (typeof providerBody.model !== "string" || providerBody.model !== current.generation_model) {
+            qualificationFailureCode = "PUBLIC_AZURE_GENERATION_MODEL_DRIFT";
+          } else if (!Number.isSafeInteger(postInput) || typeof postInput !== "number"
+            || postInput <= 0 || current.counted_input_tokens === null) {
+            qualificationFailureCode = "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING";
+          } else if (typeof postInput === "number" && current.counted_input_tokens !== null
+            && postInput !== asNumber(current.counted_input_tokens)) {
+            qualificationFailureCode = "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE";
+          }
+          if (qualificationFailureCode) {
+            const now = new Date();
+            await tx`
+              update noxia_durable.public_provider_operation
+              set state = ${qualificationFailureCode === "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" ? "INPUT_TOKEN_DIVERGENCE" : "QUALIFICATION_INVALID"},
+                  qualification_failure_code = ${qualificationFailureCode},
+                  post_usage_input_tokens = ${typeof postInput === "number" && Number.isSafeInteger(postInput) ? postInput : null},
+                  input_token_delta = ${typeof postInput === "number" && Number.isSafeInteger(postInput) && current.counted_input_tokens !== null
+                    ? postInput - asNumber(current.counted_input_tokens) : null},
+                  provider_http_status = ${response.status}, provider_response_body = ${responseBody},
+                  provider_response_headers = ${tx.json(responseHeaders)}, provider_response_digest = ${hash(responseBody)},
+                  completed_at = ${now}, updated_at = ${now}
+              where operation_key = ${operationKey}
+            `;
+            await tx`
+              update noxia_durable.public_provider_equivalence_gate
+              set state = 'CLOSED', anomaly_operation_key = ${operationKey}, invalidated_at = ${now}
+              where generation_endpoint_digest = ${endpointDigest} and generation_model = ${current.generation_model}
+                and count_qualification_ref = ${qualificationRef}
+            `;
+            await tx`
+              update noxia_durable.public_guard_session
+              set provider_gate_closed = true, updated_at = ${now}, version = version + 1
+              where session_key_hash = ${context.sessionKey}
+            `;
+            return;
+          }
+        }
         if (!settlement) {
           await tx`
             update noxia_durable.public_provider_operation
@@ -783,6 +905,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
           update noxia_durable.public_provider_operation
           set state = 'COMPLETED_RECEIVED', measured_cost_usd = ${settlement.measuredCostUsd},
               committed_cost_upper_bound_usd = ${settlement.committedCostUpperBoundUsd},
+              post_usage_input_tokens = ${azureGeneration ? asNumber(current.counted_input_tokens) : null},
+              input_token_delta = ${azureGeneration ? 0 : null},
               provider_http_status = ${response.status}, provider_response_body = ${responseBody},
               provider_response_headers = ${tx.json(responseHeaders)},
               provider_response_digest = ${hash(responseBody)}, completed_at = ${new Date()}, settled_at = ${new Date()}, updated_at = ${new Date()}
@@ -796,6 +920,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
           where session_key_hash = ${context.sessionKey}
         `;
       });
+      if (qualificationFailureCode) throw new DurablePublicGuardError(qualificationFailureCode);
       return response;
     };
   };

@@ -5,10 +5,16 @@ import { executeProtocolDesignerBridge, handleProtocolDesignerBridge } from "./a
 import { createRecordedProtocolDesignerFetch } from "./server/protocol-designer-provider-replay";
 import { resolveCanaryExecution } from "./server/protocol-designer-canary-policy";
 import { readRetainedDrciProtocolEvidence } from "./server/protocol-designer-document-evidence";
+import {
+  resolveOpenAIProviderRuntimeConfiguration,
+  type OpenAIProviderTransport,
+} from "./server/protocol-designer-openai-provider-config";
 
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;
   openAiApiKey: string | null;
+  openAiCountApiKey?: string;
+  openAiTransport?: OpenAIProviderTransport;
   geminiModel: string | null;
   openAiExtractionModel: string | null;
   chatRuntime?: "TERRA" | null;
@@ -24,16 +30,22 @@ const configuredValue = (
 export const resolveLocalProductBridgeConfiguration = (
   processEnvironment: Readonly<Record<string, string | undefined>>,
   fileEnvironment: Readonly<Record<string, string | undefined>>,
-): LocalProductBridgeConfiguration => ({
-  apiKey: configuredValue("GEMINI_API_KEY", processEnvironment, fileEnvironment),
-  openAiApiKey: configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment),
-  geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
-  openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
-  ...((processEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD ?? fileEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD) === "ON"
-    ? { autonomousProjectBuild: true } : {}),
-  ...( (processEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME ?? fileEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME) === "TERRA"
-    ? { chatRuntime: "TERRA" as const } : {}),
-});
+): LocalProductBridgeConfiguration => {
+  const processValues = Object.fromEntries(Object.entries(processEnvironment).filter(([, value]) => value !== undefined));
+  const openAiProvider = resolveOpenAIProviderRuntimeConfiguration({ ...fileEnvironment, ...processValues });
+  return {
+    apiKey: configuredValue("GEMINI_API_KEY", processEnvironment, fileEnvironment),
+    openAiApiKey: openAiProvider.apiKey,
+    ...(openAiProvider.countApiKey ? { openAiCountApiKey: openAiProvider.countApiKey } : {}),
+    ...(openAiProvider.transport ? { openAiTransport: openAiProvider.transport } : {}),
+    geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
+    openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
+    ...((processEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD ?? fileEnvironment.VITE_AUTONOMOUS_PROJECT_BUILD) === "ON"
+      ? { autonomousProjectBuild: true } : {}),
+    ...( (processEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME ?? fileEnvironment.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME) === "TERRA"
+      ? { chatRuntime: "TERRA" as const } : {}),
+  };
+};
 
 export const executeLocalProductBridgeRequest = (
   body: unknown,
@@ -91,7 +103,7 @@ export const localProductBridge = (
             && body.currentProject && typeof body.currentProject === "object" && "projectId" in body.currentProject
             && typeof body.currentProject.projectId === "string" ? body.currentProject.projectId : null,
         } : {}),
-        secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? ""],
+        secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? "", configuration.openAiCountApiKey ?? ""],
         context: body && typeof body === "object" && "observabilityContext" in body
           ? body.observabilityContext : null,
       });
@@ -103,7 +115,12 @@ export const localProductBridge = (
           status(status) { response.statusCode = status; return this; },
           json(value) { response.end(JSON.stringify(value)); },
         }, { NODE_ENV: "production", GEMINI_API_KEY: configuration.apiKey ?? undefined,
-          OPENAI_API_KEY: configuration.openAiApiKey ?? undefined, GEMINI_MODEL: configuration.geminiModel ?? undefined,
+          OPENAI_PROVIDER: configuration.openAiTransport?.destination,
+          OPENAI_API_KEY: configuration.openAiTransport ? configuration.openAiCountApiKey : configuration.openAiApiKey ?? undefined,
+          AZURE_OPENAI_API_KEY: configuration.openAiTransport?.destination === "azure" ? configuration.openAiApiKey ?? undefined : undefined,
+          AZURE_OPENAI_PROJECT_ENDPOINT: configuration.openAiTransport?.destination === "azure"
+            ? configuration.openAiTransport.responsesEndpoint.slice(0, -"/openai/v1/responses".length) : undefined,
+          GEMINI_MODEL: configuration.geminiModel ?? undefined,
           OPENAI_EXTRACTION_MODEL: configuration.openAiExtractionModel ?? undefined,
           VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: configuration.chatRuntime ?? undefined,
           VITE_AUTONOMOUS_PROJECT_BUILD: configuration.autonomousProjectBuild ? "ON" : undefined,

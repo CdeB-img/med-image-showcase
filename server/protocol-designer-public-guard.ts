@@ -7,6 +7,7 @@ import {
   canaryBudgetAdmission,
   settleCanaryProviderCall,
 } from "./protocol-designer-canary-policy.js";
+import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
 
 export const PUBLIC_PROTOCOL_DESIGNER_RATE_LIMIT = Object.freeze({ requests: 6, windowMs: 60_000 });
 export const PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT = 8;
@@ -105,7 +106,7 @@ export const admitPublicProtocolDesignerRequest = (input: {
 const providerRequest = (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
   const endpoint = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
   if (typeof init?.body !== "string") return { endpoint, body: null, init };
-  if (endpoint !== "https://api.openai.com/v1/responses") return { endpoint, body: init.body, init };
+  if (!isOpenAIResponsesEndpoint(endpoint)) return { endpoint, body: init.body, init };
   let parsed: unknown;
   try { parsed = JSON.parse(init.body); } catch { return { endpoint, body: null, init }; }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return { endpoint, body: null, init };

@@ -1,0 +1,28 @@
+{
+  "campaignId": "NOXIA_AZURE_OPENAI_CROSS_PROVIDER_INPUT_COUNT_DOCUMENT_CURRENT_02",
+  "purpose": "Qualify the current native DOC json_object payload after the historical pre-fix payload was rejected before Azure dispatch",
+  "azureProjectEndpoint": "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod",
+  "hardCapUsd": 6,
+  "softStopUsd": 1,
+  "maxOutputTokensPerGeneration": 64,
+  "attemptPolicy": "SINGLE_ATTEMPT_FAIL_CLOSED",
+  "maximumTokenCountRequests": 1,
+  "maximumAzureGenerationRequests": 1,
+  "maximumProviderHttpRequests": 2,
+  "store": false,
+  "priorAccounting": {
+    "committedUpperBoundUsd": 0.045293,
+    "measuredCostUsd": 0,
+    "unsettledReservationsUsd": 0.045293
+  },
+  "trials": [
+    {
+      "trialId": "DOCUMENT_JSON_OBJECT_CURRENT_TERRA",
+      "payloadClass": "JSON_OBJECT_DOCUMENT_PROJECTION_CURRENT",
+      "sourceFile": "validation/noxia-azure-foundry-openai-provider-switch-step-2a/frozen-payloads/document-json-object-current.json",
+      "sourceSelector": "$",
+      "sourcePayloadDigest": "b16934264410ce734b1e57a82b7320d81ecbe044f02171013285e01a89314ba3",
+      "targetModel": "gpt-5.6-terra"
+    }
+  ]
+}

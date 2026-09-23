@@ -10,6 +10,14 @@ import {
   settleCanaryProviderCall, SINGLE_ATTEMPT_FAIL_CLOSED, type CanaryCallBound,
   campaignBudgetPolicy, validateCanaryCampaignPolicy, type CanaryCampaignPolicy,
 } from "./protocol-designer-canary-policy.js";
+import {
+  azureInputCountQualification,
+  isOpenAIInputCountEndpoint,
+  isOpenAIResponsesEndpoint,
+  mapOpenAIModelForEndpoint,
+  openAIInputCountEndpoint,
+  openAIProviderDestinationFromEndpoint,
+} from "./protocol-designer-openai-provider-config.js";
 
 // Validation consumers share campaign accounting without extending the
 // scientific Product Bridge observability contract or its provider purposes.
@@ -34,12 +42,16 @@ const purposeModel = (purpose: keyof typeof canaryPurposeModels, policy?: Canary
 // Count only the input-affecting fields of the exact, stateless generation
 // request. The journal owns count provenance and money; this is not a transport.
 export const openAIInputCountRequest = (request: { endpoint: string; method: string; body: string }) => {
-  if (request.endpoint !== "https://api.openai.com/v1/responses" || !boundCanaryProviderCall(request.endpoint, request.body))
+  if (!isOpenAIResponsesEndpoint(request.endpoint) || !boundCanaryProviderCall(request.endpoint, request.body))
     throw new CanaryAdmissionError("CANARY_INPUT_COUNT_PAYLOAD_UNQUALIFIED");
   const payload = JSON.parse(request.body);
+  if (openAIProviderDestinationFromEndpoint(request.endpoint) === "azure"
+    && !azureInputCountQualification(payload.model)) {
+    throw new CanaryAdmissionError("CANARY_AZURE_INPUT_COUNT_MODEL_PAIR_UNQUALIFIED");
+  }
   const input = Object.fromEntries(["model", "instructions", "input", "reasoning", "text"]
     .filter((key) => payload[key] !== undefined).map((key) => [key, payload[key]]));
-  return { endpoint: "https://api.openai.com/v1/responses/input_tokens", method: "POST", body: JSON.stringify(input) };
+  return { endpoint: openAIInputCountEndpoint(request.endpoint), method: "POST", body: JSON.stringify(input) };
 };
 export const readOpenAIInputTokenCount = (response: { status: number; body: string } | null) => {
   if (!response || response.status < 200 || response.status >= 300) return null;
@@ -80,7 +92,7 @@ const safeBody = (text: string, secrets: readonly string[]) => {
 };
 const requestIdentity = (input: Parameters<typeof fetch>[0], init?: RequestInit, secrets: readonly string[] = []) => {
   const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
-  if (!(url.origin === "https://api.openai.com" && ["/v1/responses", "/v1/responses/input_tokens"].includes(url.pathname))
+  if (!(isOpenAIResponsesEndpoint(`${url.origin}${url.pathname}`) || isOpenAIInputCountEndpoint(`${url.origin}${url.pathname}`))
     && !(url.origin === "https://generativelanguage.googleapis.com" && /^\/v1beta\/models\/[^/]+:generateContent$/.test(url.pathname))) {
     throw new Error("PROVIDER_EVIDENCE_ENDPOINT_NOT_ALLOWED");
   }
@@ -89,7 +101,7 @@ const requestIdentity = (input: Parameters<typeof fetch>[0], init?: RequestInit,
 };
 type RequestIdentity = ReturnType<typeof requestIdentity>;
 export const withCanaryServiceTier = (request: RequestIdentity, init?: RequestInit): RequestInit | undefined => {
-  if (request.endpoint !== "https://api.openai.com/v1/responses") return init;
+  if (!isOpenAIResponsesEndpoint(request.endpoint)) return init;
   const payload = JSON.parse(init!.body as string);
   // Execution/billing policy only. Never inherit auto/priority from the provider
   // project; leave an explicit unsupported tier intact so admission rejects it.
@@ -295,7 +307,7 @@ export const readCanaryState = async (root: string, campaignId: string, campaign
           || !context.turnId || !context.clientRequestId || metadata.retryIndex !== 0 || metadata.retryReason !== null
           || admission.logicalCallId !== digest([context.sessionId, context.turnId, context.clientRequestId, metadata.purpose]) + (countAdmission ? ":count" : "")
           || !campaignPolicy.allowedProviderModels.includes(exchange.modelRequested ?? "")
-          || purposeModel(metadata.purpose, campaignPolicy) !== exchange.modelRequested) throw new Error("session provenance");
+          || mapOpenAIModelForEndpoint(purposeModel(metadata.purpose, campaignPolicy), exchange.request.endpoint) !== exchange.modelRequested) throw new Error("session provenance");
         if (sessions.has(admission.sessionId) && sessions.get(admission.sessionId) !== admission.conversationId) throw new Error("conversation identity");
         sessions.set(admission.sessionId, admission.conversationId);
         if (sessions.size > campaignPolicy.maxSessions) throw new Error("session limit");
@@ -304,7 +316,7 @@ export const readCanaryState = async (root: string, campaignId: string, campaign
       if (entry.disposition === "REQUEST_PREPARED") {
         if (prepared.has(entry.operationId) || logicalIds.has(admission.logicalCallId)) throw new Error("duplicate");
         if (countAdmission) {
-          if (!campaignPolicy?.exactInputCounting || exchange.request.endpoint !== "https://api.openai.com/v1/responses/input_tokens"
+          if (!campaignPolicy?.exactInputCounting || !isOpenAIInputCountEndpoint(exchange.request.endpoint)
             || admission.committedBeforeUsd !== committed || admission.measuredBeforeUsd !== measured
             || measured >= budget.measuredCostSoftStopUsd || committed >= budget.absoluteHardCampaignBoundUsd
             || !/^[a-f0-9]{64}$/.test(countAdmission.generationRequestDigest)) throw new Error("count reservation");
@@ -402,7 +414,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       callMetadata: redact(callMetadata, options.secrets ?? []),
       attemptIndex: attemptIndex++, startedAt: new Date(started).toISOString(),
       recordingSequence: recordingSequence++,
-      provider: request.endpoint.includes("api.openai.com") ? "OPENAI" : "GOOGLE_GEMINI",
+      provider: openAIProviderDestinationFromEndpoint(request.endpoint) ? "OPENAI" : "GOOGLE_GEMINI",
       modelRequested: payload.model ?? request.endpoint.split("/models/")[1]?.split(":")[0] ?? null,
       reasoningEffort: payload.reasoning?.effort ?? null,
       latencyMs: 0, response: null, transportError: null,
@@ -506,7 +518,7 @@ export const createRecordedProtocolDesignerFetch = (options: {
       const budget = campaignBudgetPolicy(campaignPolicy);
       if (!bound) throw new CanaryAdmissionError("DENIED_UNKNOWN_UPPER_BOUND");
       const exact = campaignPolicy?.exactInputCounting;
-      const expectedModel = purposeModel(metadata.purpose, campaignPolicy);
+      const expectedModel = mapOpenAIModelForEndpoint(purposeModel(metadata.purpose, campaignPolicy), request.endpoint);
       if (bound.model !== expectedModel) throw new CanaryAdmissionError("CANARY_PROVIDER_MODEL_PURPOSE_MISMATCH");
       if (!exact) {
         const admission = canaryBudgetAdmission(state.committed, bound, state.measured, budget);

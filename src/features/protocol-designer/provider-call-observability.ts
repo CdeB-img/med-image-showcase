@@ -81,6 +81,12 @@ type Pricing = Readonly<{
 // Official standard-tier text-token prices observed on 2026-09-14.
 // The dated snapshot makes estimates reproducible; it is not a billing authority.
 const PRICING_BY_MODEL: Readonly<Record<string, Pricing>> = Object.freeze({
+  "gpt-5.6-sol": Object.freeze({
+    inputPerMillionUsd: 4.00,
+    cachedInputPerMillionUsd: 0.40,
+    cacheWritePerMillionUsd: 5.00,
+    outputPerMillionUsd: 20.00,
+  }),
   "gpt-5.6-luna": Object.freeze({
     inputPerMillionUsd: 0.20,
     cachedInputPerMillionUsd: 0.02,

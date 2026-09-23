@@ -137,6 +137,23 @@ describe("P1-UX-RESTORE-01H-R — local provider bridge parity", () => {
     });
   });
 
+  it("selects the Azure destination from server configuration only", async () => {
+    const { resolveLocalProductBridgeConfiguration } = await loadLocalBridgeConfiguration();
+    expect(resolveLocalProductBridgeConfiguration({
+      OPENAI_PROVIDER: "azure",
+      AZURE_OPENAI_PROJECT_ENDPOINT: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod",
+      AZURE_OPENAI_API_KEY: "dummy-azure-process-key",
+      OPENAI_API_KEY: "dummy-openai-count-key",
+    }, {})).toMatchObject({
+      openAiApiKey: "dummy-azure-process-key",
+      openAiCountApiKey: "dummy-openai-count-key",
+      openAiTransport: {
+        destination: "azure",
+        responsesEndpoint: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod/openai/v1/responses",
+      },
+    });
+  });
+
   it("keeps provider secrets outside client-facing environment contracts", () => {
     const configSource = readFileSync("vite.config.ts", "utf8");
     const workspaceSource = readFileSync(

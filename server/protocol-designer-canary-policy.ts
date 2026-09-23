@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { providerModelPricing, PROVIDER_PRICING_SNAPSHOT_DATE } from "../src/features/protocol-designer/provider-call-observability.js";
+import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
 
 export const SINGLE_ATTEMPT_FAIL_CLOSED = "SINGLE_ATTEMPT_FAIL_CLOSED" as const;
 export type ProviderAttemptPolicy = typeof SINGLE_ATTEMPT_FAIL_CLOSED;
@@ -17,6 +18,7 @@ export const CANARY_BUDGET_POLICY = Object.freeze({
 // https://developers.openai.com/api/docs/models/gpt-5.6-terra
 // https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite
 const limits: Readonly<Record<string, { input: number; output: number }>> = {
+  "gpt-5.6-sol": { input: 1_050_000, output: 128_000 },
   "gpt-5.6-luna": { input: 1_050_000, output: 128_000 },
   "gpt-5.6-terra": { input: 1_050_000, output: 128_000 },
   "gemini-3.5-flash-lite": { input: 1_048_576, output: 65_536 },
@@ -43,7 +45,7 @@ export type CanaryCampaignPolicy = Readonly<{
   exactInputCounting?: Readonly<{ maxInputTokens: number; maxGenerationAttempts: number; maxTokenCountRequests: number; maxProviderHttpRequests: number }>;
   policyDigest: string;
 }>;
-export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
+export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
 const policyHash = (value: unknown) => createHash("sha256").update(stableStringify(value)).digest("hex");
 const campaignIdValid = (value: unknown): value is string => typeof value === "string" && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(value);
 
@@ -112,11 +114,11 @@ export const boundCanaryProviderCall = (endpoint: string, body: string, countedI
   let payload: unknown;
   try { payload = JSON.parse(body); } catch { return null; }
   if (!object(payload)) return null;
-  const openai = endpoint === "https://api.openai.com/v1/responses";
+  const openai = isOpenAIResponsesEndpoint(endpoint);
   const geminiMatch = /^https:\/\/generativelanguage.googleapis.com\/v1beta\/models\/(gemini-3\.5-flash-lite):generateContent$/.exec(endpoint);
   if (!openai && !geminiMatch) return null;
   const model = openai ? payload.model : geminiMatch![1];
-  if (typeof model !== "string" || (openai && !["gpt-5.6-luna", "gpt-5.6-terra"].includes(model))) return null;
+  if (typeof model !== "string" || (openai && !["gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra"].includes(model))) return null;
   const pricing = providerModelPricing(model);
   const limit = limits[model];
   if (!pricing || !limit) return null;
