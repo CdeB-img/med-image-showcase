@@ -41,14 +41,15 @@ export type WorkingDraftMetadata = {
 export const isWorkingDraftReviewOnlyRequest = (text: string) => isExplicitProjectRecordingRequest(text)
   && !/\b(?:ajout\w*|chang\w*|remplac\w*|corrig\w*|modifi\w*|sauf|uniquement|seulement|inclu\w*|exclu\w*|mais|prefer\w*|plut[oô]t|finalement|sans|avec)\b|\d/iu.test(text);
 
-export const validatePreparedWorkingReview = (session: WorkingDraftSession) => {
+export const validatePreparedWorkingReview = (session: WorkingDraftSession, allowedConfirmationTurnRef?: string) => {
   const composition = session.studyProposal, draft = session.workingDraft, prepared = draft?.readyReview;
   if (!composition || !draft || !prepared || draft.failure || composition.digest !== draft.compositionDigest) return null;
   if (draft.reviewScopeDigest !== logicalDigest({ composition: composition.digest, scope: recommendedWorkingScope(composition) })) return null;
   try {
     assertStudyProposalCurrent(composition, session.project);
     const lastUser = [...session.runtimeTurns].reverse().find(t => t.role === "USER");
-    if (lastUser?.turnId !== draft.sourceUserTurnRef && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return null;
+    if (lastUser?.turnId !== draft.sourceUserTurnRef && lastUser?.turnId !== allowedConfirmationTurnRef
+      && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return null;
     const reply = session.runtimeTurns.find(t => t.turnId === composition.sourceResponseRef)!;
     const source = session.runtimeTurns.find(t => t.turnId === composition.sourceTurnRef)!;
     const expected = buildStudyProposalSelectionContribution({ composition, ...recommendedWorkingScope(composition),

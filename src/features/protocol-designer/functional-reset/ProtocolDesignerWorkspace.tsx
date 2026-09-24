@@ -982,6 +982,7 @@ export default function ProtocolDesignerWorkspace({
   const [workingProjectOpen, setWorkingProjectOpen] = useState(false);
   const backgroundDraftJobRef = useRef<Promise<void> | null>(null);
   const pendingBackgroundJobsRef = useRef(0);
+  const pendingNaturalConfirmationRef = useRef<{ turnId: string; invalidated: boolean } | null>(null);
   const foregroundInFlightRef = useRef(false);
   const mountedRef = useRef(true);
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
@@ -2010,7 +2011,8 @@ export default function ProtocolDesignerWorkspace({
           const state = latestSessionRef.current;
           const lastUser = [...state.runtimeTurns].reverse().find(t => t.role === "USER");
           if (state.sessionId !== current.sessionId || state.project?.versionId !== current.project?.versionId
-            || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return;
+            || lastUser?.turnId !== userTurn.turnId && lastUser?.turnId !== pendingNaturalConfirmationRef.current?.turnId
+              && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return;
           const composition = response.workingStudyProposal!;
           const workingDraft = prepareContinuousWorkingDraft(current, composition, response.workingDraftUpdate!, composition.proposal.contextDigest);
           const prepared = workingDraft.readyReview;
@@ -2156,6 +2158,16 @@ export default function ProtocolDesignerWorkspace({
   };
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
+    const pendingConfirmation = pendingNaturalConfirmationRef.current;
+    if (pendingConfirmation && !continuedTurn) {
+      const nextDecision = readNaturalCandidateDecision(content);
+      if (nextDecision?.act === "CONFIRM" && !nextDecision.qualified) {
+        // Repeating the same whole-scope assent while it is settling is not a new decision.
+        setDraft("");
+        return;
+      }
+      pendingConfirmation.invalidated = true;
+    }
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
       if (continuedTurn) {
         await submitTerraText(content, false, continuedTurn);
@@ -2190,16 +2202,55 @@ export default function ProtocolDesignerWorkspace({
       const workingContext = latestSessionRef.current;
       const hasWorkingReviewContext = !!workingContext.studyProposal || !!workingContext.workingDraft
         || !!workingContext.workingDraftFailure || pendingBackgroundJobsRef.current > 0;
-      if (autonomousProjectBuild && hasWorkingReviewContext && isWorkingDraftReviewOnlyRequest(content)) {
+      const pendingWholeConfirmation = naturalDecision?.act === "CONFIRM" && !naturalDecision.qualified
+        && !checkpoint && pendingBackgroundJobsRef.current > 0 && !!backgroundDraftJobRef.current;
+      if (autonomousProjectBuild && hasWorkingReviewContext && (pendingWholeConfirmation || isWorkingDraftReviewOnlyRequest(content))) {
         const now = new Date().toISOString();
         const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
         setDraft("");
         const current = latestSessionRef.current;
+        const sourceTurn = [...current.runtimeTurns].reverse().find(turn => turn.role === "USER");
+        const sourceReply = current.runtimeTurns.at(-1);
+        const sourceJob = backgroundDraftJobRef.current;
         const next = { ...current, runtimeTurns: [...current.runtimeTurns, userTurn],
           entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }], updatedAt: now };
         latestSessionRef.current = next;
         setSession(next);
-        if (backgroundDraftJobRef.current) await backgroundDraftJobRef.current;
+        if (pendingWholeConfirmation && sourceJob && sourceTurn && sourceReply?.role === "NOXIA") {
+          const intent = { turnId: userTurn.turnId, invalidated: false };
+          pendingNaturalConfirmationRef.current = intent;
+          try {
+            await sourceJob;
+            const settled = latestSessionRef.current;
+            const prepared = !settled.workingDraftFailure && validatePreparedWorkingReview(settled, userTurn.turnId);
+            const bound = !intent.invalidated && mountedRef.current
+              && settled.sessionId === current.sessionId && settled.projectId === current.projectId
+              && settled.conversationId === current.conversationId
+              && settled.project?.versionId === current.project?.versionId
+              && settled.project?.projectDigest === current.project?.projectDigest
+              && [...settled.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId === userTurn.turnId
+              && settled.studyProposal?.sourceTurnRef === sourceTurn.turnId
+              && settled.studyProposal.sourceResponseRef === sourceReply.turnId
+              && settled.workingDraft?.sourceUserTurnRef === sourceTurn.turnId
+              && !!prepared;
+            if (bound && await confirmProject(content, undefined, undefined, false, userTurn)) return;
+            if (!mountedRef.current || settled.sessionId !== latestSessionRef.current.sessionId) return;
+            const latest = latestSessionRef.current;
+            if (latest.sessionId !== current.sessionId) return;
+            const failureSession: FunctionalResetSession = {
+              ...latest,
+              entries: [...latest.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
+                content: "Votre confirmation n’a pas été appliquée : la proposition visée n’est plus disponible ou sa préparation a échoué. Le projet reste inchangé.",
+                createdAt: new Date().toISOString() }],
+            };
+            latestSessionRef.current = failureSession;
+            setSession(failureSession);
+          } finally {
+            if (pendingNaturalConfirmationRef.current === intent) pendingNaturalConfirmationRef.current = null;
+          }
+          return;
+        }
+        if (sourceJob) await sourceJob;
         showPreparedWorkingReview();
         return;
       }
@@ -3308,6 +3359,7 @@ export default function ProtocolDesignerWorkspace({
     proposalSelection?: Readonly<{ composition: StudyProposalComposition; selectedOptions: readonly string[]; selectedAtoms: readonly string[];
       expectedDigest: string; contribution: ScientificInterpretationContributionEnvelope; candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> }>,
   ) => {
+    const session = latestSessionRef.current;
     if (busy && !naturalDecision) return false;
     if (confirmationInFlightRef.current === contributionId) return false;
     const contribution = proposalSelection?.contribution ?? session.pendingContribution;
@@ -3387,7 +3439,8 @@ export default function ProtocolDesignerWorkspace({
       };
       const runtimeTurns = [
         ...session.runtimeTurns,
-        ...(naturalDecision ? [naturalDecision.userTurn] : []),
+        ...(naturalDecision && !session.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId)
+          ? [naturalDecision.userTurn] : []),
         confirmationTurn,
       ];
       const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
@@ -3489,7 +3542,9 @@ export default function ProtocolDesignerWorkspace({
           decision: project.confirmationDecision,
         }), ...(remainder ? [remainder] : [])],
         runtimeTurns: naturalDecision
-          ? [...current.runtimeTurns, naturalDecision.userTurn, confirmationTurn]
+          ? [...current.runtimeTurns,
+            ...(current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId) ? [] : [naturalDecision.userTurn]),
+            confirmationTurn]
           : runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
@@ -3499,7 +3554,7 @@ export default function ProtocolDesignerWorkspace({
             : entry),
           ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
             contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
-          ...(naturalDecision ? [{
+          ...(naturalDecision && !current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId) ? [{
             entryId: createConversationEntryId(),
             kind: "TEXT" as const,
             role: "USER" as const,
@@ -4197,15 +4252,16 @@ export default function ProtocolDesignerWorkspace({
       : current);
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
-  const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[], prepareRemainingTurn = false) => {
+  const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[], prepareRemainingTurn = false,
+    existingUserTurn?: ScientificInterpretationTurn) => {
     const current = latestSessionRef.current;
-    const prepared = validatePreparedWorkingReview(current);
+    const prepared = validatePreparedWorkingReview(current, existingUserTurn?.turnId);
     const composition = current.studyProposal;
     const workingDraft = current.workingDraft;
-    if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return null;
+    if (!prepared || !composition || !workingDraft || busy || pendingBackgroundJobsRef.current > 0) return null;
     const scope = recommendedWorkingScope(composition);
     const confirmedAt = new Date().toISOString();
-    const userTurn: ScientificInterpretationTurn = {
+    const userTurn: ScientificInterpretationTurn = existingUserTurn ?? {
       turnId: createTurnId(),
       role: "USER",
       content: confirmationText,
