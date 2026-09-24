@@ -12,6 +12,7 @@ import {
   boundCanaryProviderCall,
   canaryBudgetAdmission,
   settleCanaryProviderCall,
+  settleKnownWorkingDraftTruncation,
 } from "./protocol-designer-canary-policy.js";
 import {
   openAIInputCountRequest,
@@ -895,7 +896,19 @@ export const createPostgresProtocolDesignerDurableGuard = (
         return response;
       }
 
-      const settlement = response.ok && bound ? settleCanaryProviderCall(bound, responseBody) : null;
+      let workingDraftRequest = false;
+      if (typeof request.observation?.context?.clientRequestId === "string"
+        && request.observation.context.clientRequestId.startsWith("working-draft:") && request.body) {
+        try {
+          const payload: unknown = JSON.parse(request.body);
+          workingDraftRequest = object(payload) && object(payload.text) && object(payload.text.format)
+            && payload.text.format.name === "continuous_working_draft";
+        } catch { /* An unreadable request cannot qualify for known-cost incomplete settlement. */ }
+      }
+      const settlement = response.ok && bound
+        ? settleCanaryProviderCall(bound, responseBody)
+          ?? (workingDraftRequest ? settleKnownWorkingDraftTruncation(bound, responseBody) : null)
+        : null;
       const responseHeaders = safeResponseHeaders(response);
       let qualificationFailureCode: string | null = null;
       await sql.begin(async (tx) => {

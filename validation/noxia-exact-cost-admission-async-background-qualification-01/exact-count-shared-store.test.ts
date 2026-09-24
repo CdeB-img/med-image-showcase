@@ -105,6 +105,12 @@ const azureGenerationResponse = (tokens: number, model = "gpt-5.6-sol") => new R
   usage: { input_tokens: tokens, output_tokens: 40, total_tokens: tokens + 40,
     input_tokens_details: { cached_tokens: 0 } },
 }), { status: 200, headers: { "content-type": "application/json" } });
+const truncatedWorkingDraftResponse = (tokens: number) => new Response(JSON.stringify({
+  id: "synthetic-truncated-working-draft", status: "incomplete", model: "gpt-5.6-sol",
+  incomplete_details: { reason: "max_output_tokens" }, output: [{ type: "message", content: [{ type: "output_text", text: "PARTIAL_DRAFT_MUST_NOT_BE_ADOPTED" }] }],
+  usage: { input_tokens: tokens, output_tokens: 8_000, total_tokens: tokens + 8_000,
+    output_tokens_details: { reasoning_tokens: 2_112 }, input_tokens_details: { cached_tokens: 0 } },
+}), { status: 200, headers: { "content-type": "application/json" } });
 
 const queryOne = async (query: ReturnType<typeof admin>) => query[0] as Record<string, unknown> | undefined;
 
@@ -141,6 +147,58 @@ afterAll(async () => {
 });
 
 describe.sequential("qualified Azure generation on the existing durable journal", () => {
+  it("settles a known truncated Working Draft without closing the session or adopting partial output", async () => {
+    const guard = createGuard();
+    const first = await prepare(guard, admissionBody("draft-truncated", "working-draft:u1"));
+    const provider = vi.fn<typeof fetch>(async (input) => endpoint(input) === OPENAI_INPUT_TOKENS
+      ? countResponse(BACKGROUND_TOKENS) : truncatedWorkingDraftResponse(BACKGROUND_TOKENS));
+    const body = JSON.stringify({ ...JSON.parse(backgroundPayload()), model: "gpt-5.6-sol", max_output_tokens: 12_000 });
+    const init = { ...observedInit(body, "working-draft:u1"),
+      headers: { "content-type": "application/json", "api-key": "SYNTHETIC_AZURE_KEY" } };
+    const response = await guard.createBudgetedFetch(first, provider, AZURE_COUNT_KEY)(AZURE_RESPONSES, init);
+    expect((await response.clone().json()).status).toBe("incomplete");
+    await guard.completeRequest(first, 422, { error: { code: "WORKING_DRAFT_PREPARATION_FAILED" } });
+    const state = await queryOne(await admin`
+      select o.state, o.reserved_upper_bound_usd, o.committed_cost_upper_bound_usd as operation_cost,
+        o.measured_cost_usd as measured, o.provider_response_body, o.input_token_delta,
+        s.provider_gate_closed, s.committed_cost_upper_bound_usd as session_cost,
+        a.response_status from noxia_durable.public_provider_operation o
+      join noxia_durable.public_guard_session s on s.session_key_hash = o.session_key_hash
+      join noxia_durable.public_bridge_admission a on a.admission_key = o.admission_key
+    `);
+    expect(state).toMatchObject({ state: "CONSUMED", provider_gate_closed: false,
+      input_token_delta: 0, response_status: 422 });
+    expect(String(state?.provider_response_body)).toContain("max_output_tokens");
+    expect(Number(state?.operation_cost)).toBeLessThan(Number(state?.reserved_upper_bound_usd));
+    expect(Number(state?.session_cost)).toBeCloseTo(Number(state?.operation_cost), 8);
+    expect(Number(state?.measured)).toBeGreaterThan(0);
+    const replay = await guard.prepareRequest({ headers, body: admissionBody("draft-truncated", "working-draft:u1") });
+    expect(replay).toMatchObject({ recovered: true, status: 422 });
+    const next = await prepare(guard, admissionBody("draft-truncated", "working-draft:u2"));
+    const nextProvider = vi.fn<typeof fetch>(async (input) => endpoint(input) === OPENAI_INPUT_TOKENS
+      ? countResponse(BACKGROUND_TOKENS) : azureGenerationResponse(BACKGROUND_TOKENS));
+    await guard.createBudgetedFetch(next, nextProvider, AZURE_COUNT_KEY)(AZURE_RESPONSES,
+      { ...init, noxiaProviderObservation: { ...init.noxiaProviderObservation, context: { clientRequestId: "working-draft:u2" } } });
+    expect(nextProvider).toHaveBeenCalledTimes(2);
+  });
+
+  it("keeps a truly ambiguous dispatched Working Draft fail-closed", async () => {
+    const guard = createGuard();
+    const context = await prepare(guard, admissionBody("draft-unknown", "working-draft:u1"));
+    const provider = vi.fn<typeof fetch>(async (input) => {
+      if (endpoint(input) === OPENAI_INPUT_TOKENS) return countResponse(BACKGROUND_TOKENS);
+      throw new Error("SYNTHETIC_RESPONSE_LOST_AFTER_DISPATCH");
+    });
+    const body = JSON.stringify({ ...JSON.parse(backgroundPayload()), model: "gpt-5.6-sol" });
+    await expect(guard.createBudgetedFetch(context, provider, AZURE_COUNT_KEY)(AZURE_RESPONSES,
+      { ...observedInit(body, "working-draft:u1"), headers: { "content-type": "application/json", "api-key": "SYNTHETIC_AZURE_KEY" } }))
+      .rejects.toThrow("SYNTHETIC_RESPONSE_LOST_AFTER_DISPATCH");
+    expect((await queryOne(await admin`
+      select o.state, s.provider_gate_closed from noxia_durable.public_provider_operation o
+      join noxia_durable.public_guard_session s on s.session_key_hash = o.session_key_hash
+    `))).toMatchObject({ state: "UNKNOWN_AFTER_DISPATCH", provider_gate_closed: true });
+  });
+
   it("precounts with OpenAI, reserves before Azure dispatch, and settles an exact match", async () => {
     const guard = createGuard();
     const context = await prepare(guard, admissionBody("azure-match", "request"));

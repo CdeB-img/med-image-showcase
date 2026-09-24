@@ -23,6 +23,7 @@ const responseSchema = z.object({
   inferredAtomRefs: z.array(z.string()).max(60),
   rejectedAtomRefs: z.array(z.string()).max(60),
 }).strict();
+export const WORKING_DRAFT_MAX_OUTPUT_TOKENS = 16_000 as const;
 export type WorkingDraftUpdate = z.infer<typeof responseSchema>;
 export type WorkingDraftMetadata = {
   compositionDigest: string;
@@ -94,7 +95,10 @@ export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBr
   // chooses provenance; it never writes or abbreviates the quoted source.
   const sourceBindings = turns.filter(turn => turn.role === "USER"
     && turns.filter(other => other.turnId === turn.turnId).length === 1).flatMap(turn => {
-    const quotes = [...new Set([turn.content, ...turn.content.split(/(?<=[.!?;])\s+/u)])]
+    // Strict provider schemas reject line breaks in string literals. The
+    // source-binding owner restores the immutable original span on acceptance.
+    const quotes = [...new Set([turn.content, ...turn.content.split(/(?<=[.!?;])\s+/u)]
+      .map(quote => quote.replace(/[ \t\r\n]+/gu, " ")))]
       .filter(quote => resolveWorkingDraftSourceQuote(turn.content, quote));
     return quotes.length ? [responseSchema.shape.explicitDecisions.element.extend({
       sourceTurnRef: z.literal(turn.turnId), quote: z.enum(quotes as [string, ...string[]]),
@@ -158,7 +162,8 @@ Respecte exclusivement nativeContractValues : area est une catégorie native, va
 Réponds UNIQUEMENT avec l'enveloppe JSON {requestType,proposal,explicitDecisions:[{atomRef,sourceTurnRef,quote}],inferredAtomRefs:[],rejectedAtomRefs:[]}. Chaque explicitDecision cite littéralement un passage d'un tour USER réel qui exprime ce choix ; une inférence ou recommandation n'est jamais une décision explicite. Les inferredAtomRefs désignent seulement les inférences fortes. Les rejetés désignent des atomes de previousStudyProposal retirés par un refus USER explicite. Ne confonds pas une explication ciblée avec une correction. Statuts natifs inchangés ; tous les éléments restent non adoptés. Pas de scénario de dimensionnement numérique sans inputs défendables. Fournis les atomes nécessaires à la couverture scientifique dans les bornes du contrat natif, sans quota éditorial qui ferait omettre des décisions ; dépendances acycliques et pas de longs aperçus documentaires. contextDigest doit être recopié exactement.
 GRAPHE DE PRÉREQUIS : dependsOn va de l'atome dépendant vers son prérequis ; il ne représente pas toute relation scientifique. Pour chaque lien, identifie ce que le prérequis rend possible : HARD_BLOCKING_DEPENDENCY si son absence empêche l'interprétation ou l'adoption scientifique du dépendant ; SOFT_REFINEMENT_DEPENDENCY ou OPTIONAL_DETAIL uniquement pour un raffinement ou détail orienté, sans blocage du choix autonome. Une contextualisation, une précision d'indication, un contexte de sélection ou une conséquence ne crée pas à elle seule un prérequis inverse : conserve cette information dans content/rationale, sans fabriquer un dependsOn réciproque. Réévalue les liens hérités lorsque les choix évoluent ; conserver les branches non affectées ne signifie pas recopier un lien devenu purement contextuel. Si un prérequis dépend déjà directement ou indirectement du dépendant, n'ajoute pas le lien inverse. Examine le sens des deux relations, sans supprimer arbitrairement une arête ni affaiblir un vrai prérequis HARD. Si un atome mélange un prérequis et sa conséquence, sépare ces concepts avec les atomes/types natifs nécessaires, en conservant leur matière scientifique et leurs qualifications. Avant émission, vérifie l'absence de tout cycle, y compris SOFT/OPTIONAL et mixte ; un changement de qualification ne résout pas un cycle.
 RÉDACTION BACKGROUND COMPACTE : conserve intégralement les décisions, distinctions scientifiques, liens, qualifications et arbitrages utiles. La concision porte sur leur explication, jamais sur leur suppression. Une justification ne répète pas le contenu : rationale d'atome ≤180 caractères, rationale de dépendance ≤100, rationale d'arbitrage ≤180 ; benefits/limits/consequences ≤140 chacun, understanding ≤150 chacun. proposal.reply ≤120 caractères car non affiché ; recruitmentNotice et participantQuestionnaireIntroduction ≤120 chacun, sans aperçu documentaire. N'ajoute pas de scénario chiffré pour remplir une rubrique. Les branches non affectées conservent leur contenu et leurs références ; ne les reformule pas pour le style. Ne tronque aucun texte ni lien pour respecter ces cibles ; garde une explication plus longue si elle est indispensable à son sens. Émets du JSON sans indentation ni commentaires.`;
-  return { context, instruction, inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns) };
+  return { context, instruction, inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns),
+    maxOutputTokens: WORKING_DRAFT_MAX_OUTPUT_TOKENS };
 };
 
 export const recommendedWorkingScope = (composition: StudyProposalComposition) => {

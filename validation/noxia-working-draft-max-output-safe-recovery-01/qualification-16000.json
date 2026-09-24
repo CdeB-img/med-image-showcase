@@ -1,0 +1,23 @@
+{
+  "candidate": 16000,
+  "payloadDigest": "bccc74a078be404ee74dcbc8f32f704c7eb700cac38d64a54c27ecff7e811114",
+  "providerHttpRequests": 2,
+  "model": "gpt-5.6-sol",
+  "status": "completed",
+  "incompleteReason": null,
+  "inputTokens": 12040,
+  "outputTokens": 8029,
+  "reasoningTokens": 768,
+  "productValidity": "PASS",
+  "operations": [
+    {
+      "reserved_upper_bound_usd": 0.3802,
+      "measured_cost_usd": 0.1654068,
+      "committed_cost_upper_bound_usd": 0.22078,
+      "state": "CONSUMED",
+      "counted_input_tokens": 12040,
+      "post_usage_input_tokens": 12040,
+      "input_token_delta": 0
+    }
+  ]
+}

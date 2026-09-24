@@ -280,7 +280,9 @@ export const executeProtocolDesignerBridge = async (input: {
     } catch (error) {
       console.warn("WORKING_DRAFT_OWNER_PREPARATION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
-        error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: "La discussion et le dernier brouillon sont conservés.",
+        error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: error instanceof ProductBridgeProviderError && error.providerStatus === "incomplete:max_output_tokens"
+          ? "Le brouillon n'a pas pu être finalisé. Votre conversation est conservée et vous pouvez continuer."
+          : "La discussion et le dernier brouillon sont conservés.",
           details: [error instanceof Error ? error.message : "UNKNOWN"] }, observability: providerCallRequestObservability(providerCalls) } };
     }
   }

@@ -18,6 +18,19 @@ const fixture = (first: string, second = "Je laisse les détails ouverts.") => {
 };
 
 describe("immutable source binding and explicit limitations", () => {
+  it("uses provider-safe layout in quote enums and restores the exact USER span", () => {
+    const { request, update } = fixture("médicament\ncontre placebo.");
+    const schema = prepareWorkingDraftRequest(request).outputSchema as {
+      properties: { explicitDecisions: { items: { anyOf: Array<{ properties: { quote: { enum: string[] } } }> } } };
+    };
+    const allowed = schema.properties.explicitDecisions.items.anyOf.flatMap(item => item.properties.quote.enum);
+    expect(allowed).toContain("médicament contre placebo.");
+    expect(allowed.some(quote => /[\r\n\t]/u.test(quote))).toBe(false);
+    update.explicitDecisions[0]!.quote = "médicament contre placebo.";
+    expect(acceptWorkingDraftUpdate(update, request).update.explicitDecisions[0]!.quote).toBe("médicament\ncontre placebo.");
+    update.explicitDecisions[0]!.quote = "médicament contre témoin.";
+    expect(() => acceptWorkingDraftUpdate(update, request)).toThrow("WORKING_DRAFT_USER_PROVENANCE_INVALID");
+  });
   it.each([
     ["Une mesure avant traitement.", "Une mesure après traitement."],
     ["Comparer A au placebo.", "Comparer A au traitement usuel."],

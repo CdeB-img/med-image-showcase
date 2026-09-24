@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-09-24T04:52:40.086Z",
+  "qualificationDataOnly": true,
+  "providerHttpRequests": 0,
+  "remainingRows": {
+    "sessions": 0,
+    "admissions": 0,
+    "operations": 0,
+    "rate_buckets": 0
+  }
+}

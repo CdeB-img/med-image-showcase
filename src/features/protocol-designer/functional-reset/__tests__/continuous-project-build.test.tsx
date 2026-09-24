@@ -312,6 +312,38 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(screen.getByTestId("continuous-working-draft-indicator")).toHaveTextContent("Discussion conservée");
     expect(saved.project).toBeNull(); expect(saved.studyProposal).toBeFalsy(); expect(bridge).toHaveBeenCalledTimes(2);
   });
+  it("explains a truncated Working Draft without adopting partial content or masking the Chat", async () => {
+    const current = sessionFor();
+    const result = await call(requestFor(current), vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify({
+      id: "LOCAL_TRUNCATED", model: "gpt-5.6-terra", status: "incomplete",
+      incomplete_details: { reason: "max_output_tokens" },
+      output: [{ content: [{ type: "output_text", text: "PARTIAL_MUST_NOT_BE_USED" }] }],
+      usage: { input_tokens: 100, output_tokens: 8000, total_tokens: 8100 },
+    }), { status: 200 })));
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: { message: "Le brouillon n'a pas pu être finalisé. Votre conversation est conservée et vous pouvez continuer." } });
+    expect(result.body).not.toHaveProperty("workingStudyProposal");
+    expect(result.body).not.toHaveProperty("workingDraftUpdate");
+    expect(current.project).toBeNull();
+  });
+  it("shows the bounded background failure beside an intact conversation", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    bridge.mockImplementation(async req => {
+      if (req.prepareWorkingDraft) throw new ProductBridgeClientError("WORKING_DRAFT_PREPARATION_FAILED",
+        "Le brouillon n'a pas pu être finalisé. Votre conversation est conservée et vous pouvez continuer.");
+      return (await call({ ...req, apiVersion: "1.0.0" },
+        vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — réponse conservée.")))).body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send(DOMAINS[1].text);
+    await screen.findByText("LOCAL_SYNTHETIC — réponse conservée.");
+    await waitFor(() => expect(screen.getByTestId("continuous-working-draft-indicator"))
+      .toHaveTextContent("Le brouillon n'a pas pu être finalisé. Votre conversation est conservée et vous pouvez continuer."));
+    expect(saved.project).toBeNull();
+    expect(saved.workingDraft).toBeFalsy();
+  });
   it("synchronizes a new choice before opening mixed recording review, without persistent extraction", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
@@ -410,7 +442,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/décisions? prêtes? à confirmer/i);
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/points? reste(?:nt)? à définir/i);
     expect(bridge).toHaveBeenCalledTimes(2);
-    expect(saved.project).toBeNull(); expect(screen.getByTestId("continuous-working-draft-indicator").className).toContain("h-14");
+    expect(saved.project).toBeNull(); expect(screen.getByTestId("continuous-working-draft-indicator").className).toContain("min-h-14");
   });
 
   it("uses one explicit action, preserves adopted Project on transport failure, and retrieves the same request without another adoption", async () => {

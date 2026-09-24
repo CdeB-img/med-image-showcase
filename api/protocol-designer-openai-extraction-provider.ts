@@ -218,14 +218,14 @@ const callOpenAIResponses = async (input: {
   return { body, httpStatus: response.status, latencyMs, requestId, endpoint, modelRequested };
 };
 
-type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown> };
+type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown>; maxOutputTokens?: 12_000 | 16_000 };
 
 export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket) => ({
   model: "gpt-5.6-terra",
   instructions: packet.instruction,
   input: packet.context,
   reasoning: { effort: "medium" },
-  max_output_tokens: MAX_OUTPUT_TOKENS,
+  max_output_tokens: packet.maxOutputTokens ?? MAX_OUTPUT_TOKENS,
   store: false,
   service_tier: "default",
   ...(packet.outputSchema ? { text: { format: {

@@ -40,13 +40,14 @@ describe("background provider contract follows the native owner", () => {
     expect(validate({ ...wire, explicitDecisions: [{ ...decision, sourceTurnRef: "u1" }] })).toBe(false);
   });
 
-  it("keeps exact multiline and decimal source passages available without rewriting or authorizing duplicate source ids", () => {
+  it("projects multiline sources as safe schema literals while preserving the exact input and source ids", () => {
     const { request } = fixture();
     request.conversation.turns[0].content = "Comparer A\ncontre B à 1.5 mg. Le reste est ouvert.";
     const packet = prepareWorkingDraftRequest(request);
     const text = JSON.stringify(packet.outputSchema);
-    expect(text).toContain(JSON.stringify("Comparer A\ncontre B à 1.5 mg."));
-    expect(text).toContain(JSON.stringify(request.conversation.turns[0].content));
+    expect(text).toContain(JSON.stringify("Comparer A contre B à 1.5 mg."));
+    expect(text).toContain(JSON.stringify("Comparer A contre B à 1.5 mg. Le reste est ouvert."));
+    expect(text).not.toContain(JSON.stringify("Comparer A\ncontre B à 1.5 mg."));
     const before = JSON.stringify(request);
     prepareWorkingDraftRequest(request);
     expect(JSON.stringify(request)).toBe(before);
@@ -95,7 +96,9 @@ describe("background provider contract follows the native owner", () => {
     const { packet } = fixture();
     const body = buildOpenAITerraConversationPayload(packet);
     expect(body).toMatchObject({ model: "gpt-5.6-terra", reasoning: { effort: "medium" }, store: false,
-      max_output_tokens: 8000, text: { format: { type: "json_schema", strict: true, schema: packet.outputSchema } } });
+      max_output_tokens: 16000, text: { format: { type: "json_schema", strict: true, schema: packet.outputSchema } } });
+    expect(buildOpenAITerraConversationPayload({ context: packet.context, instruction: packet.instruction }))
+      .toMatchObject({ max_output_tokens: 8000 });
     expect(buildOpenAITerraConversationPayload({ context: packet.context, instruction: packet.instruction })).not.toHaveProperty("text");
     const count = openAIInputCountRequest({ endpoint: "https://api.openai.com/v1/responses", method: "POST", body: JSON.stringify(body) });
     expect(JSON.parse(count!.body).text).toEqual(body.text);

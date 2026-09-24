@@ -182,7 +182,7 @@ export const canaryBudgetAdmission = (committedCostUsd: number, bound: CanaryCal
  * committed bound, while preserving the measured standard-price subtotal.
  * Missing usage never becomes a zero-dollar successful settlement.
  */
-export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: string) => {
+const settleProviderUsage = (bound: CanaryCallBound, responseBody: string, allowKnownWorkingDraftTruncation: boolean) => {
   let response: unknown;
   try { response = JSON.parse(responseBody); } catch { return null; }
   if (!object(response)) return null;
@@ -190,7 +190,10 @@ export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: s
   const returnedModel = openai ? response.model : response.modelVersion;
   if (returnedModel !== undefined && (typeof returnedModel !== "string"
     || (returnedModel !== bound.model && !returnedModel.startsWith(`${bound.model}-`)))) return null;
-  if (openai && response.status !== undefined && response.status !== "completed") return null;
+  if (allowKnownWorkingDraftTruncation) {
+    if (!openai || typeof response.model !== "string" || response.status !== "incomplete" || !object(response.incomplete_details)
+      || response.incomplete_details.reason !== "max_output_tokens") return null;
+  } else if (openai && response.status !== undefined && response.status !== "completed") return null;
   const usage = openai ? response.usage : response.usageMetadata;
   if (!object(usage)) return null;
   const input = openai ? usage.input_tokens : usage.promptTokenCount;
@@ -219,6 +222,15 @@ export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: s
     pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * inputMultiplier + output * outputRate) / 1_000_000) / unitsPerUsd;
   return { inputTokens: input, billableOutputTokens: output, measuredCostUsd, committedCostUpperBoundUsd };
 };
+
+export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: string) =>
+  settleProviderUsage(bound, responseBody, false);
+
+/** Financially known, functionally rejected Working Draft output. The durable
+ * guard alone decides whether the request is a Working Draft; canaries retain
+ * their existing fail-closed treatment of incomplete responses. */
+export const settleKnownWorkingDraftTruncation = (bound: CanaryCallBound, responseBody: string) =>
+  settleProviderUsage(bound, responseBody, true);
 
 export type CanaryExecution = Readonly<{ attemptPolicy: typeof SINGLE_ATTEMPT_FAIL_CLOSED; campaignId: string; campaignPolicy?: CanaryCampaignPolicy }>;
 export const resolveCanaryExecution = (environment: Readonly<Record<string, string | undefined>>): CanaryExecution | null => {
