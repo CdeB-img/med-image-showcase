@@ -1,6 +1,6 @@
 import WorkingProjectDraft from "./WorkingProjectDraft";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
-import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview, workingDraftReviewUnavailableMessage } from "./continuous-project-build";
+import { isWorkingDraftAdoptionRequest, isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview, workingDraftReviewUnavailableMessage } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
@@ -2175,6 +2175,22 @@ export default function ProtocolDesignerWorkspace({
       const hasWorkingReviewContext = !!workingContext.studyProposal || !!workingContext.workingDraft
         || !!workingContext.workingDraftFailure || pendingBackgroundJobsRef.current > 0;
       if (autonomousProjectBuild && hasWorkingReviewContext && isWorkingDraftReviewOnlyRequest(content)) {
+        const prepared = isWorkingDraftAdoptionRequest(content) && !backgroundDraftJobRef.current
+          ? validatePreparedWorkingReview(workingContext) : null;
+        if (prepared && workingContext.studyProposal) {
+          const now = new Date().toISOString();
+          const composition = workingContext.studyProposal;
+          const scope = recommendedWorkingScope(composition);
+          const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
+          setDraft("");
+          await confirmContribution(prepared.contribution.identity.contributionId, {
+            userTurn, originalText: content, gatewayState: workingContext.conversationLanguageGateway,
+            traceLedger: workingContext.scientificExecutionTraceLedger, stylePreference: null,
+            selectedChangeRefs: prepared.candidate.humanReviewProjection.coveredChangeRefs,
+          }, { composition, selectedOptions: scope.selectedOptionRefs, selectedAtoms: scope.selectedAtomRefs,
+            expectedDigest: composition.digest, contribution: prepared.contribution, candidate: prepared.candidate });
+          return;
+        }
         const now = new Date().toISOString();
         const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
         setDraft("");

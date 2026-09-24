@@ -42,6 +42,11 @@ export type WorkingDraftMetadata = {
 export const isWorkingDraftReviewOnlyRequest = (text: string) => isExplicitProjectRecordingRequest(text)
   && !/\b(?:ajout\w*|chang\w*|remplac\w*|corrig\w*|modifi\w*|sauf|uniquement|seulement|inclu\w*|exclu\w*|mais|prefer\w*|plut[oô]t|finalement|sans|avec)\b|\d/iu.test(text);
 
+/** A bare human acceptance of the already prepared review is a decision act.
+ * Requests to inspect or generate documents still follow their existing paths. */
+export const isWorkingDraftAdoptionRequest = (text: string) => isWorkingDraftReviewOnlyRequest(text)
+  && !/\b(?:montre\w*|affiche\w*|revoi\w*|examiner|pr[eé]pare\w*|document\w*|protocole|g[eé]n[eé]r\w*)\b|\?/iu.test(text);
+
 export const validatePreparedWorkingReview = (session: WorkingDraftSession) => {
   const composition = session.studyProposal, draft = session.workingDraft, prepared = draft?.readyReview;
   if (!composition || !draft || !prepared || draft.failure || composition.digest !== draft.compositionDigest) return null;

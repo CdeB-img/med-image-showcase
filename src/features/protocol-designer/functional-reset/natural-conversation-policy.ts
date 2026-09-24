@@ -23,9 +23,9 @@ const folded = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "")
 /** Recognize an explicit operation, never its scientific scope or adoption.
  * Questions about recording and negative/quoted commands remain discussion. */
 export const isExplicitProjectRecordingRequest = (raw: string) => raw.split(/[.!?;\n]/u).some(clause => {
-  const text = folded(clause).replace(/^(?:(?:oui|alors|donc|merci|s'il vous plait|s'il te plait)[, ]+)+/u, "");
+  const text = folded(clause).replace(/^(?:(?:oui|alors|donc|merci|s'il vous plait|s'il te plait|ca me convient|cela me convient|c'est parfait|c'est bon)[, ]+)+/u, "");
   const operation = /^(?:(?:je (?:veux|voudrais|souhaite)|nous (?:voulons|souhaitons)|(?:tu peux|vous pouvez)|peux-tu|pouvez-vous)\s+)?(?:enregistre(?:r|z)?|sauvegarde(?:r|z)?|inscri(?:s|re|vez))\b/u;
-  const choice = /^(?:je|nous|on)\s+(?:valide|validons|confirme|confirmons|retiens|retenons|adopte|adoptons)\b/u;
+  const choice = /^(?:(?:je|nous|on)\s+)?(?:valide(?:s|z)?|validons|confirme(?:s|z)?|confirmons|retiens|retenons|adopte(?:s|z)?|adoptons)\b/u;
   const projectEdit = /^(?:ajoute(?:z)?(?:-le|-la)?|mets|mettez)\b.{0,60}\b(?:au|dans le|a jour le) projet\b/u;
   if (operation.test(text)) {
     return !/^(?:enregistre\w*|sauvegarde\w*|inscri\w*)\s+(?:(?:ca|cela|le|la|les|l')\s+)?pas\b/u.test(text);

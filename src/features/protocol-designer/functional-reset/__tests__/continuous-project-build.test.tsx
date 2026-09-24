@@ -7,7 +7,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
-import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftAdoptionRequest, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
+import { isExplicitProjectRecordingRequest } from "../natural-conversation-policy";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
@@ -46,6 +47,80 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it.each(["ca me convient, valide", "ca me convient valides tes propositions", "c'est parfait on valide aussi"])(
+    "recognizes an explicit human adoption act after conversational assent: %s", text => {
+      expect(isExplicitProjectRecordingRequest(text)).toBe(true);
+      expect(isWorkingDraftAdoptionRequest(text)).toBe(true);
+    });
+  it.each(["ca me convient, mais ajoute une visite", "je valide si la mesure est disponible", "je retiens cette architecture, montre-moi ce qui va être enregistré", "je valide et génère les documents"])(
+    "does not silently adopt a mixed or review-only act: %s", text => {
+      expect(isWorkingDraftAdoptionRequest(text)).toBe(false);
+    });
+
+  it("adopts a prepared working review from a plain chat confirmation without provider or documents", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send("ca me convient, valide");
+    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
+    expect(saved.project?.revision).toBe(1);
+    expect(saved.project?.projectId).toBe(initial.projectId);
+    expect(saved.runtimeTurns.at(-2)?.content).toBe("ca me convient, valide");
+    expect(saved.entries.some(entry => entry.kind === "REVIEW" && entry.status === "CONFIRMED")).toBe(false);
+    expect(screen.getByText(/Les éléments confirmés sont enregistrés/)).toBeInTheDocument();
+    expect(screen.queryByText(/Aucun élément n’est encore confirmé/)).toBeNull();
+    persistFunctionalResetSession(localStorage, saved);
+    expect(loadFunctionalResetSession(localStorage).project?.versionId).toBe(saved.project?.versionId);
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("adds a later confirmed choice without discarding the previously adopted Project", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), firstRequest = requestFor(initial), firstUpdate = updateFor(firstRequest);
+    const firstComposition = acceptWorkingDraftUpdate(firstUpdate, firstRequest).composition!;
+    const firstDraft = prepareContinuousWorkingDraft(initial, firstComposition, firstUpdate, prepareWorkingDraftRequest(firstRequest).inputDigest);
+    const firstReady = firstDraft.readyReview!;
+    const firstProject = confirmResearchProjectContribution({ contribution: firstReady.contribution, current: null,
+      projectId: initial.projectId, authority: initial.projectAuthority, confirmedAt: initial.updatedAt,
+      reviewedProjection: firstReady.candidate.humanReviewProjection,
+      selectedChangeRefs: firstReady.candidate.humanReviewProjection.coveredChangeRefs,
+      confirmationSourceRefs: ["u1"] });
+    const nextChoice = "Nous ajoutons une analyse de sensibilité par classe d'âge.";
+    const secondBase: FunctionalResetSession = { ...initial, project: firstProject,
+      runtimeTurns: [...initial.runtimeTurns, { turnId: "u2", role: "USER", content: nextChoice, createdAt: initial.updatedAt },
+        { turnId: "a2", role: "NOXIA", content: "LOCAL_SYNTHETIC — analyse complémentaire proposée.", createdAt: initial.updatedAt }] };
+    const secondRequest = requestFor(secondBase), secondUpdate = updateFor(secondRequest);
+    secondUpdate.proposal!.atoms.find(atom => atom.area === "ANALYSIS")!.content = nextChoice;
+    secondUpdate.explicitDecisions = [{ atomRef: secondUpdate.proposal!.atoms.find(atom => atom.area === "ANALYSIS")!.ref,
+      sourceTurnRef: "u2", quote: nextChoice }];
+    const secondComposition = acceptWorkingDraftUpdate(secondUpdate, secondRequest).composition!;
+    const secondDraft = prepareContinuousWorkingDraft(secondBase, secondComposition, secondUpdate, prepareWorkingDraftRequest(secondRequest).inputDigest);
+    expect(secondDraft.readyReview).not.toBeNull();
+    let saved: FunctionalResetSession = { ...secondBase, studyProposal: secondComposition, workingDraft: secondDraft };
+    expect(validatePreparedWorkingReview(saved)).not.toBeNull();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send("c'est parfait on valide aussi");
+    await waitFor(() => expect(saved.project?.revision).toBe(firstProject.revision + 1));
+    expect(saved.project?.projectId).toBe(firstProject.projectId);
+    expect(saved.project?.versionId).not.toBe(firstProject.versionId);
+    expect(saved.project?.canonicalState.objects.length).toBeGreaterThanOrEqual(firstProject.canonicalState.objects.length);
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("reports missing preparation instead of pretending that a chat confirmation adopted the Project", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let saved: FunctionalResetSession = { ...sessionFor(), workingDraftFailure: "CONVERSATION:TIMEOUT" };
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send("c'est parfait on valide aussi");
+    await screen.findByText(/La préparation des choix n’a pas abouti/);
+    expect(saved.project).toBeNull();
+    expect(saved.entries.some(entry => entry.kind === "REVIEW")).toBe(false);
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
   it.each([
     "Je veux comparer la répétabilité de plusieurs mesures de rugosité sur des plaques. Je retiens ce schéma.",
     "Je veux comparer un traitement au placebo par randomisation en aveugle. Je retiens ce schéma.",
