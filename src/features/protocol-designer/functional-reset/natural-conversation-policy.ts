@@ -285,7 +285,7 @@ export const buildConciseAdoptionReply = (input: {
   projectExisted: boolean;
   stylePreference: ConversationStylePreference | null;
 }) => {
-  const receipt = input.projectExisted ? "Choix confirmés enregistrés." : "Projet créé avec les choix que vous avez confirmés.";
+  const receipt = "Choix enregistrés dans le projet.";
   const style = input.stylePreference ? "Je ferai plus court." : null;
   // A Project write produces only a receipt. An optional concise gap is kept
   // for the existing explicit style preference, never a scientific monologue.

@@ -117,6 +117,11 @@ const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): Su
   }) })).filter(row => row.items.length);
 };
 
+// The checkpoint reply must bind to the exact numbering shown in this review.
+// eslint-disable-next-line react-refresh/only-export-components
+export const reviewDecisionRefsInDisplayOrder = (candidate: ResearchProjectContributionCandidate): readonly string[] =>
+  initialSummaryRows(candidate).flatMap(row => row.items.map(item => item.changeRef));
+
 const activeIssueItems = (contribution: ScientificInterpretationContributionEnvelope) => uniqueItems([
   ...contribution.scientificContent.clarificationNeeds,
   ...contribution.scientificContent.ambiguities,
@@ -194,7 +199,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
     : confirmedChanges.includes(item.changeRef) ? "Confirmé" : "Non retenu";
   const openPoints = candidate.humanReviewProjection.openPoints;
   const summaryRows = initialSummaryRows(candidate);
-  const decisionNumbers = new Map(summaryRows.flatMap(row => row.items).map((item, index) => [item.changeRef, index + 1]));
+  const decisionNumbers = new Map(reviewDecisionRefsInDisplayOrder(candidate).map((ref, index) => [ref, index + 1]));
   const issueItems = activeIssueItems(contribution);
   const pointTexts = new Set<string>();
   const clarificationPoints = (issueItems.length > 0

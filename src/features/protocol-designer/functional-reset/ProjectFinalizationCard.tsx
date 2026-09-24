@@ -39,13 +39,14 @@ export default function ProjectFinalizationCard({
           ? "Les choix présentés sont prêts à être confirmés."
           : `${openPointCount} point${openPointCount > 1 ? "s" : ""} reste${openPointCount > 1 ? "nt" : ""} à définir.`}
         </p>
+        <p className="mt-1 text-xs text-muted-foreground">Validez-vous ces choix ? Vous pouvez répondre dans la conversation ou utiliser le bouton.</p>
         {superseded.length > 0 && <p className="mt-1 text-xs text-muted-foreground">
           {superseded.length} correction{superseded.length > 1 ? "s" : ""} prise{superseded.length > 1 ? "s" : ""} en compte.
         </p>}
       </div>
       <button type="button" disabled={disabled} onClick={onConfirm}
         className="min-h-11 shrink-0 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
-        Valider le projet
+        Valider ces choix
       </button>
     </div>
     <details className="mt-3 text-sm">

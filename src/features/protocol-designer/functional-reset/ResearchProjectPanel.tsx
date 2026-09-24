@@ -186,6 +186,15 @@ export default function ResearchProjectPanel({
           </div>
         </div>
         <p className="mt-3 text-xs font-medium" data-testid="project-cockpit-counts">{confirmedDecisionCount} élément{confirmedDecisionCount > 1 ? "s" : ""} confirmé{confirmedDecisionCount > 1 ? "s" : ""} · {openMaterialPointCount} point{openMaterialPointCount > 1 ? "s" : ""} à préciser</p>
+        <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 text-xs" aria-label="État des rubriques du projet">
+          {CURRENT_PROJECT_GROUPS.filter(group => ["scientific-question", "population", "design", "imaging-methods", "analyses", "constraints"].includes(group.id)).map(group => {
+            const progress = groupProgress.get(group.id)!;
+            return <li key={group.id} className="flex items-center gap-1.5">
+              <span aria-hidden="true" className="font-semibold text-primary">{!progress.applicable ? "○" : progress.value === 100 ? "✓" : "◐"}</span>
+              <span>{group.label}</span>
+            </li>;
+          })}
+        </ul>
         {nextUsefulDecision && <div className="mt-3 border-t pt-3 text-xs" data-testid="project-next-useful-decision">
           <p className="font-medium">Prochaine décision utile</p>
           <p className="mt-1 leading-relaxed text-muted-foreground">{nextUsefulDecision}</p>

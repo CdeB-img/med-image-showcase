@@ -94,6 +94,6 @@ describe('Referential understanding / compact review / continuous advancement �
  });
  it('creation receipt states the adoption scope explicitly', () => {
   const project=adoptBehaviorContribution(richStudyContribution(), null, 0);
-  expect(buildConciseAdoptionReply({project,projectExisted:false,stylePreference:null})).toBe('Projet créé avec les choix que vous avez confirmés.');
+  expect(buildConciseAdoptionReply({project,projectExisted:false,stylePreference:null})).toBe('Choix enregistrés dans le projet.');
  });
 });

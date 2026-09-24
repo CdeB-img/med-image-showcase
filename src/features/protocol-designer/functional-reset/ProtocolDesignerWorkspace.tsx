@@ -1,4 +1,3 @@
-import WorkingProjectDraft from "./WorkingProjectDraft";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { isWorkingDraftReviewOnlyRequest, prepareContinuousWorkingDraft, recommendedWorkingScope, refreshWorkingDraftReview, validatePreparedWorkingReview } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
@@ -88,10 +87,10 @@ import {
   realizePreProjectNavigationDecision,
   recordFunctionalResetQueryResponse,
 } from "@/features/query-navigation";
-import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
+import ContributionReview, { ContributionReviewPresentation, reviewDecisionRefsInDisplayOrder, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
 import { buildStudyProposalSelectionContribution, selectedStudyProposalAtoms, propagateStudyProposalDecision, propagateFreeformStudyProposalDecision, requireStudyProposalReview, assertStudyProposalCurrent, projectStudyProposalDisposition } from "./study-proposal-standard";
-import { deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
+import { contributionDecisionScopeGroups, deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
 import type { StudyProposalComposition } from "../product-bridge";
 import {
   retainValidatedContributionCandidate,
@@ -998,12 +997,42 @@ export default function ProtocolDesignerWorkspace({
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
   const [documentMessage, setDocumentMessage] = useState("");
+  const [documentGenerationPending, setDocumentGenerationPending] = useState(false);
+  const documentGenerationInFlightRef = useRef(false);
+  const [documentGenerationStartedAt, setDocumentGenerationStartedAt] = useState<number | null>(null);
+  const [documentGenerationElapsed, setDocumentGenerationElapsed] = useState(0);
+  const [documentGenerationVersion, setDocumentGenerationVersion] = useState(1);
+  const [documentGenerationComplete, setDocumentGenerationComplete] = useState(false);
+  const [documentProgressExpanded, setDocumentProgressExpanded] = useState(true);
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
+  const conversationScrollRef = useRef<HTMLDivElement>(null);
+  const [conversationScrolled, setConversationScrolled] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const latestReplyRef = useRef<HTMLElement>(null);
   const confirmationInFlightRef = useRef<string | null>(null);
   const mixedTurnInFlightRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (documentGenerationStartedAt === null || !documentGenerationPending) return;
+    const refresh = () => setDocumentGenerationElapsed(Math.floor((Date.now() - documentGenerationStartedAt) / 1000));
+    refresh();
+    const timer = window.setInterval(refresh, 1000);
+    return () => window.clearInterval(timer);
+  }, [documentGenerationPending, documentGenerationStartedAt]);
+
+  useEffect(() => {
+    if (!documentGenerationComplete || documentGenerationPending) return;
+    const timer = window.setTimeout(() => setDocumentGenerationComplete(false), 8000);
+    return () => window.clearTimeout(timer);
+  }, [documentGenerationComplete, documentGenerationPending]);
+
+  useEffect(() => {
+    const textarea = composerRef.current;
+    if (!textarea) return;
+    textarea.style.height = "auto";
+    textarea.style.height = `${Math.min(textarea.scrollHeight, Math.min(window.innerWidth < 640 ? window.innerHeight * 0.28 : window.innerHeight * 0.35, 12 * 22))}px`;
+  }, [draft]);
 
   useEffect(() => {
     try {
@@ -2065,6 +2094,7 @@ export default function ProtocolDesignerWorkspace({
           ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {}) }], updatedAt: receivedAt };
       latestSessionRef.current = delivered;
       setSession(delivered);
+      if (response.conversationFailure) setDraft(current => current || content);
       if (autonomousProjectBuild && !response.conversationFailure) {
         updateBackgroundWorkingDraft(delivered, userTurn);
       }
@@ -2109,6 +2139,7 @@ export default function ProtocolDesignerWorkspace({
           calls: response.observability.calls, projectWriteCount: 0, protocolProjectionCount: 0 }].slice(-20), updatedAt: receivedAt }));
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
+      setDraft(current => current || content);
       setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR",
         role: "NOXIA", content: error instanceof Error ? error.message : "La réponse n'a pas abouti. Votre message et le projet sont conservés.",
         turnId: userTurn.turnId, failureCode: error instanceof ProductBridgeClientError ? error.code : "CONVERSATION_CLIENT_FAILURE",
@@ -2123,6 +2154,27 @@ export default function ProtocolDesignerWorkspace({
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
+      const current = latestSessionRef.current;
+      const checkpoint = !workingDraftBusy && !current.workingDraftFailure && validatePreparedWorkingReview(current);
+      const naturalDecision = readNaturalCandidateDecision(content);
+      const normalizedDecision = content.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").trim().replace(/[.!]+$/u, "");
+      const confirmsWholeCheckpoint = naturalDecision?.act === "CONFIRM" && !naturalDecision.qualified
+        || /^(?:valide tout|je valide tout|ca me convient|cela me convient)$/u.test(normalizedDecision);
+      const exceptPoint = /^(?:(?:je )?(?:valide|confirme) )?tout sauf (?:le )?point (\d+)$/u.exec(normalizedDecision);
+      if (checkpoint && exceptPoint) {
+        const ordinal = Number(exceptPoint[1]);
+        const displayedRef = reviewDecisionRefsInDisplayOrder(checkpoint.candidate)[ordinal - 1];
+        const group = displayedRef ? contributionDecisionScopeGroups(checkpoint.candidate, current.project)
+          .find(refs => refs.includes(displayedRef)) : undefined;
+        const selected = group ? checkpoint.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !group.includes(ref)) : [];
+        if (group && selected.length && await confirmProject(content, selected, group)) setDraft("");
+        else if (!group || !selected.length) await submitTerraText(content);
+        return;
+      }
+      if (checkpoint && confirmsWholeCheckpoint) {
+        if (await confirmProject(content)) setDraft("");
+        return;
+      }
       // Operation recognition only; the extraction and native review determine scope.
       const recording = isExplicitProjectRecordingRequest(content);
       const workingContext = latestSessionRef.current;
@@ -2138,8 +2190,7 @@ export default function ProtocolDesignerWorkspace({
         latestSessionRef.current = next;
         setSession(next);
         if (backgroundDraftJobRef.current) await backgroundDraftJobRef.current;
-        if (!showPreparedWorkingReview()) setSession(current => ({ ...current, entries: [...current.entries, {
-          entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: "La discussion et le brouillon sont conservés. Les choix ne sont pas encore prêts à confirmer.", createdAt: now }] }));
+        showPreparedWorkingReview();
         return;
       }
       await submitTerraText(content, autonomousProjectBuild ? false : recording);
@@ -3030,6 +3081,7 @@ export default function ProtocolDesignerWorkspace({
       }
     } catch (error) {
       const failedAt = new Date().toISOString();
+      setDraft(current => current || content);
       onProviderCallRecords(providerRecordsFromError(error));
       const failureCode = productBridgeClientErrorCode(error) ?? "PRODUCT_BRIDGE_REQUEST_FAILED";
       const failedProjectionRequest = languageProjectionRequestFromError(error);
@@ -3308,9 +3360,10 @@ export default function ProtocolDesignerWorkspace({
         dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
       }) });
       const feedback = naturalDecision?.selectedChangeRefs
+        && (naturalDecision.refusedChangeRefs?.length || naturalDecision.correctionChangeRefs?.length)
         ? naturalDecision.correctionChangeRefs?.length
-          ? "Les éléments confirmés sont enregistrés. Le critère reste à préciser : quelle formulation souhaitez-vous retenir ?"
-          : "Les éléments confirmés sont enregistrés. Les éléments refusés ne sont pas retenus."
+          ? "Choix enregistrés dans le projet. Le critère reste à préciser : quelle formulation souhaitez-vous retenir ?"
+          : "Choix enregistrés dans le projet. Les éléments refusés ne sont pas retenus."
         : buildConciseAdoptionReply({
         project,
         projectExisted: Boolean(session.project),
@@ -3341,7 +3394,11 @@ export default function ProtocolDesignerWorkspace({
         queryNavigation,
         documents,
       });
-      const updatedStudyProposal = proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
+      const partialProposalSelection = Boolean(proposalSelection && naturalDecision?.selectedChangeRefs
+        && naturalDecision.selectedChangeRefs.length < proposalSelection.candidate.humanReviewProjection.coveredChangeRefs.length);
+      const updatedStudyProposal = partialProposalSelection && proposalSelection
+        ? requireStudyProposalReview(proposalSelection.composition, project)
+        : proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
         selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn)
         : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution, naturalDecision?.userTurn) : session.studyProposal;
       const current = latestSessionRef.current;
@@ -3978,7 +4035,7 @@ export default function ProtocolDesignerWorkspace({
       const protocol = documents.projections.at(-1) ?? null;
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
-        if (busy) return;
+        if (documentGenerationInFlightRef.current) return;
         const turnId = createTurnId();
         const nativeRequest: Omit<ProductBridgeRequest, "apiVersion"> = { requestKind: "USER_TURN",
             // DOC consumes the adopted Project, not the scientific transcript.
@@ -3991,8 +4048,13 @@ export default function ProtocolDesignerWorkspace({
         // Keep the exact request, including handoff time and payload, for a
         // transport recovery. The durable owner decides whether dispatch is safe.
         const resume = async () => {
-          if (latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
-          setBusy(true); setBusyMessage("Je rédige le dossier de travail…");
+          if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
+          documentGenerationInFlightRef.current = true;
+          setDocumentGenerationVersion((sourceSession.drciDraftPacks ?? []).filter(pack => pack.project.projectId === sourceSession.project!.projectId).length + 1);
+          setDocumentGenerationStartedAt(Date.now());
+          setDocumentGenerationElapsed(0);
+          setDocumentGenerationComplete(false);
+          setDocumentGenerationPending(true);
           const records: ProviderCallRecord[] = [];
           try {
             const response = await requestProtocolDesignerBridge(nativeRequest);
@@ -4015,6 +4077,7 @@ export default function ProtocolDesignerWorkspace({
             setDocumentSaveWarning(saved ? null : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
             latestSessionRef.current = nextSession; setSession(nextSession);
             setDeliverableWorkspaceOpen(true);
+            setDocumentGenerationComplete(true);
           } catch (error) {
             if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
             // Only a transport failure exposes retrieval. Terminal/UNKNOWN
@@ -4022,12 +4085,14 @@ export default function ProtocolDesignerWorkspace({
             documentRecoveryRef.current = error instanceof TypeError
               ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
             const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error);
-            setSession(current => ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
+            setSession(current => current.sessionId !== sourceSession.sessionId
+              || current.project?.projectDigest !== sourceSession.project?.projectDigest ? current : ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
               documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
               updatedAt: now }));
           } finally {
             setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId, requestKind: "USER_TURN", records }));
-            setBusy(false);
+            documentGenerationInFlightRef.current = false;
+            setDocumentGenerationPending(false);
           }
         };
         await resume();
@@ -4122,28 +4187,28 @@ export default function ProtocolDesignerWorkspace({
       : current);
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
-  const confirmProject = async () => {
+  const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[]) => {
     const current = latestSessionRef.current;
     const prepared = validatePreparedWorkingReview(current);
     const composition = current.studyProposal;
     const workingDraft = current.workingDraft;
-    if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return;
+    if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return null;
     const scope = recommendedWorkingScope(composition);
     const confirmedAt = new Date().toISOString();
-    const confirmationText = "Valider le projet";
     const userTurn: ScientificInterpretationTurn = {
       turnId: createTurnId(),
       role: "USER",
       content: confirmationText,
       createdAt: confirmedAt,
     };
-    await confirmContribution(prepared.contribution.identity.contributionId, {
+    return await confirmContribution(prepared.contribution.identity.contributionId, {
       userTurn,
       originalText: confirmationText,
       gatewayState: current.conversationLanguageGateway,
       traceLedger: current.scientificExecutionTraceLedger,
       stylePreference: null,
-      selectedChangeRefs: prepared.candidate.humanReviewProjection.coveredChangeRefs,
+      selectedChangeRefs: selectedChangeRefs ?? prepared.candidate.humanReviewProjection.coveredChangeRefs,
+      refusedChangeRefs,
     }, {
       composition,
       selectedOptions: scope.selectedOptionRefs,
@@ -4216,7 +4281,7 @@ export default function ProtocolDesignerWorkspace({
     onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
-    suppressDocumentAction={Boolean(preparedFinalization || session.documentRetryUnsafe)}
+    suppressDocumentAction={Boolean(preparedFinalization || session.documentRetryUnsafe || documentGenerationPending)}
     onOpenDeliverables={() => {
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       setDeliverableWorkspaceOpen(true);
@@ -4238,9 +4303,9 @@ export default function ProtocolDesignerWorkspace({
       data-testid="adopted-project-document-generation"
     >
       <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents du projet</p>
-      <h2 className="mt-1 text-xl font-semibold">Projet validé · version {session.project.revision}</h2>
+      <h2 className="mt-1 text-xl font-semibold">Choix enregistrés dans le projet · version {session.project.revision}</h2>
       <p className="mt-2 text-sm text-muted-foreground">{currentDrciDraftPack ? "Une version documentaire existe déjà. Une nouvelle génération sera conservée séparément." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
-      <button type="button" disabled={busy} onClick={() => void requestProtocolProjection()}
+      <button type="button" disabled={documentGenerationPending || busy} onClick={() => void requestProtocolProjection()}
         className="mt-4 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
         Générer les documents
       </button>
@@ -4249,10 +4314,10 @@ export default function ProtocolDesignerWorkspace({
     className="border-t bg-destructive/5 px-4 py-4 sm:px-5"
     data-testid="document-generation-recovery"
   >
-    <p className="text-sm font-semibold">Projet confirmé</p>
-    <p className="mt-1 text-sm text-muted-foreground">Les documents n’ont pas pu être générés.</p>
+    <p className="text-sm font-semibold">Documents indisponibles</p>
+    <p className="mt-1 text-sm text-muted-foreground">La génération des documents n’a pas abouti. Votre projet et les versions précédentes sont conservés.</p>
     {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
-      ? <button type="button" disabled={busy} onClick={() => void documentRecoveryRef.current?.resume()}
+      ? <button type="button" disabled={documentGenerationPending} onClick={() => void documentRecoveryRef.current?.resume()}
           className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>
       : <p className="mt-2 text-xs text-muted-foreground">{session.documentRetryUnsafe ? "Le résultat de l’opération est incertain ; aucune nouvelle génération n’est autorisée depuis cette page." : "Le projet et les anciennes versions sont conservés. Vous pouvez relancer une génération explicite."}</p>}
   </section> : null;
@@ -4295,7 +4360,6 @@ export default function ProtocolDesignerWorkspace({
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
               <SheetHeader className="sr-only"><SheetTitle>Projet de recherche</SheetTitle><SheetDescription>État actuel du projet et des documents.</SheetDescription></SheetHeader>
               <div className="space-y-4 pt-7">{projectPanel}
-                {autonomousProjectBuild && <WorkingProjectDraft session={session} />}
                 <section aria-label="Propositions et points ouverts"><h2 className="text-base font-semibold">Propositions et points ouverts</h2>
                   <p className="mb-3 text-sm text-muted-foreground">Les propositions de la conversation restent en discussion jusqu’à confirmation des choix à enregistrer.</p>
                   {!session.entries.some(entry => entry.kind === "REVIEW") && <p className="text-sm text-muted-foreground">Les pistes discutées figurent dans la conversation. Aucun choix n’est encore soumis à confirmation.</p>}
@@ -4324,8 +4388,8 @@ export default function ProtocolDesignerWorkspace({
 
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
-      <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
-        <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
+      <div className="grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
+        <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>
 
         {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && projectFinalizationCard ? <section
           aria-labelledby="project-documents-title"
@@ -4339,11 +4403,11 @@ export default function ProtocolDesignerWorkspace({
             <p className="mt-2 text-sm text-muted-foreground">Confirmez les décisions scientifiques. Vous pourrez ensuite générer les documents séparément.</p>
           </header>
           {busy && <p role="status" className="border-b bg-primary/5 px-5 py-3 text-sm font-medium">
-            {confirmationInFlightRef.current ? "Validation du projet…" : "Génération des documents…"}
+            Validation des choix…
           </p>}
           {projectFinalizationCard}
         </section> : deliverableWorkspaceOpen && deliverablePortfolio ? <div className="min-w-0">
-          {busy && <p role="status" className="mb-3 rounded-xl border bg-primary/5 px-5 py-3 text-sm font-medium">Génération des documents…</p>}
+          {documentGenerationPending && <p role="status" className="mb-3 rounded-xl border bg-primary/5 px-5 py-3 text-sm font-medium">Génération des documents en cours…</p>}
           {adoptedProjectDocumentAction}
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
@@ -4364,12 +4428,14 @@ export default function ProtocolDesignerWorkspace({
           onRegenerate={() => requestProtocolProjection()}
           history={session.documents.projections}
           onOpenVersion={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
-        /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
+        /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm lg:h-full lg:min-h-0">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
           </div>
 
-          <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
+          <div ref={conversationScrollRef} onScroll={event => setConversationScrolled(event.currentTarget.scrollTop > 320)}
+            className="min-h-0 flex-1 space-y-5 px-4 py-5 sm:px-6 lg:overflow-y-auto lg:overscroll-contain"
+            aria-live="polite" data-testid="conversation-scroll-panel">
             {session.entries.map((entry, index) => entry.kind === "FOLLOW_UP_ACTIONS"
               ? <StandardConversationActionGroup
                 key={entry.entryId}
@@ -4533,15 +4599,15 @@ export default function ProtocolDesignerWorkspace({
             <div ref={endRef} />
           </div>
 
-          {autonomousProjectBuild && (session.workingDraft || session.workingDraftFailure || workingDraftBusy) && <div data-testid="continuous-working-draft-indicator" className="flex h-14 items-center gap-2 border-t px-4 text-xs sm:px-5">
-            <p className="min-w-0 flex-1 truncate">{workingDraftBusy ? "Projet de travail en préparation…" : (session.workingDraft?.failure || session.workingDraftFailure) ? "Discussion conservée · projet de travail à actualiser" : `Projet de travail mis à jour · ${session.workingDraft?.metrics.openHighValueDecisions ?? 0} décisions ouvertes`}</p>
-            <button type="button" className="h-8 shrink-0 rounded-lg border px-2" onClick={() => setWorkingProjectOpen(true)}>Voir le projet</button>
-          </div>}
+          {conversationScrolled && <button type="button" aria-label="Retour en haut de la conversation"
+            className="hidden min-h-10 self-end rounded-xl border bg-background px-3 text-sm lg:mr-5 lg:inline-flex lg:items-center lg:gap-1"
+            onClick={() => conversationScrollRef.current?.scrollTo({ top: 0, behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>
+            <ArrowUp className="h-4 w-4" /> Haut
+          </button>}
           {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
           {projectFinalizationCard}
-          {documentGenerationRecovery}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {!autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
               type="button" disabled={busy} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
@@ -4561,10 +4627,10 @@ export default function ProtocolDesignerWorkspace({
                     event.currentTarget.form?.requestSubmit();
                   }
                 }}
-                rows={2}
+                rows={3}
                 maxLength={4_000}
                 placeholder={correctionMode ? "Ce que je souhaite corriger…" : productEntryPromptForIntent(activeRouteIntent)}
-                className="max-h-40 min-h-12 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
+                className="min-h-[4.5rem] max-h-[28dvh] flex-1 resize-none overflow-y-auto bg-transparent px-3 py-2 text-sm outline-none sm:max-h-[min(35dvh,16.5rem)] lg:resize-y"
               />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
             </div>
@@ -4572,5 +4638,23 @@ export default function ProtocolDesignerWorkspace({
         </section>}
       </div>
     </div>
+    {(documentGenerationPending || documentGenerationComplete) && <aside role="status" aria-label="Progression de la génération documentaire"
+      className="fixed bottom-24 right-4 z-50 w-[min(21rem,calc(100vw-2rem))] rounded-2xl border bg-background p-3 shadow-xl lg:bottom-28"
+      data-testid="document-generation-progress">
+      <button type="button" className="flex min-h-8 w-full items-center justify-between gap-2 text-left text-sm font-semibold"
+        aria-expanded={documentProgressExpanded} onClick={() => setDocumentProgressExpanded(value => !value)}>
+        <span>Documents V{documentGenerationVersion} {documentGenerationComplete ? "disponibles" : "en cours"}</span>
+        <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
+      </button>
+      {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">
+        <div role="progressbar" aria-label="Progression estimée des documents" aria-valuemin={0} aria-valuemax={100}
+          aria-valuenow={documentGenerationComplete ? 100 : Math.min(90, Math.round(documentGenerationElapsed / 240 * 90))}
+          className="h-2 overflow-hidden rounded-full bg-muted">
+          <div className="h-full rounded-full bg-primary" style={{ width: `${documentGenerationComplete ? 100 : Math.min(90, Math.round(documentGenerationElapsed / 240 * 90))}%` }} />
+        </div>
+        <p>{documentGenerationComplete ? "Génération terminée." : "Progression temporelle estimée ; vérification en attente du résultat réel."}</p>
+        <p>{Math.floor(documentGenerationElapsed / 60)} min {String(documentGenerationElapsed % 60).padStart(2, "0")} s écoulées · durée habituelle : 3–4 min</p>
+      </div>}
+    </aside>}
   </main>;
 }
