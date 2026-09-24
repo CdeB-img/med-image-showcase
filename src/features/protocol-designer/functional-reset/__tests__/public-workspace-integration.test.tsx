@@ -114,7 +114,7 @@ describe("independent Standard workspace through public admission", () => {
     expect(workspace.current().entries.filter(e => e.kind === "TEXT" && e.role === "NOXIA" && e.content === "Discussion contrôlée intacte.")).toHaveLength(2);
     expect(workspace.current().project).toBeNull(); expect(requests).toHaveLength(4);
     expect(loadFunctionalResetSession(localStorage).workingDraftFailure).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Valider et générer les documents" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Valider le projet" })).toBeNull();
     expect(workspace.current().pendingContribution).toBeNull();
   });
 
@@ -180,10 +180,11 @@ describe("independent Standard workspace through public admission", () => {
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).pendingContribution).not.toBeNull());
     expect(requests).toHaveLength(4);
     expect(loadFunctionalResetSession(localStorage).project).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Valider et générer les documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider le projet" }));
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(loadFunctionalResetSession(localStorage).project?.projectId).toBe(reopened.projectId);
-    await waitFor(() => expect(requests).toHaveLength(5));
+    expect(requests).toHaveLength(4);
+    expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
   });
 
   it("keeps a failed foreground out of scientific context and retries the same logical user turn after reload", async () => {

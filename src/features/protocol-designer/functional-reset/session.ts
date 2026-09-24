@@ -215,6 +215,8 @@ export type ProductBridgeTrace = {
 
 export type FunctionalResetSession = {
   drciDraftPacks?: readonly import("../../document-projection/drci-draft-contract.js").DrciDraftPack[];
+  /** A dispatch with an unknown outcome cannot be retried as a new paid operation. */
+  documentRetryUnsafe?: boolean;
   /** Optional UX/runtime composition; never an additional Project aggregate. */
   workingDraft?: import("./continuous-project-build.js").WorkingDraftMetadata | null;
   workingDraftFailure?: string | null;

@@ -364,7 +364,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project).toBeNull(); expect(screen.queryByRole("dialog")).toBeNull();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();
     release(); await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
-    await waitFor(() => expect(screen.getByRole("button", { name: "Valider et générer les documents" })).toBeEnabled());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Valider le projet" })).toBeEnabled());
     expect(screen.queryByRole("button", { name: "Revoir les choix" })).toBeNull();
     expect(screen.queryByRole("button", { name: "Préparer l’enregistrement" })).toBeNull();
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/décisions? prêtes? à confirmer/i);
@@ -386,19 +386,22 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Documents du projet" })).toBeInTheDocument();
-    expect(screen.getAllByRole("button", { name: "Valider et générer les documents" })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: "Valider le projet" })).toHaveLength(1);
     for (const technicalStep of ["Préparer l’enregistrement", "Revoir les changements", "Préparer l’adoption", "Enregistrer dans le projet", "Préparer les documents"])
       expect(screen.queryByRole("button", { name: technicalStep })).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Valider et générer les documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider le projet" }));
     await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
+    expect(bridge).not.toHaveBeenCalled();
+    await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
+    fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await waitFor(() => expect(bridge).toHaveBeenCalledTimes(1));
     await screen.findByTestId("document-generation-recovery");
     const adoptedVersion = saved.project!.versionId;
     expect(saved.documents.lastFailure?.code).toBe("FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR");
     expect(screen.getByText("Projet confirmé")).toBeInTheDocument();
     expect(screen.getByText("Les documents n’ont pas pu être générés.")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Valider et générer les documents" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Valider le projet" })).toBeNull();
 
     const firstRequest = JSON.stringify(bridge.mock.calls[0][0]);
     fireEvent.click(screen.getByRole("button", { name: "Retrouver les documents" }));
@@ -408,7 +411,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
   });
 
-  it.each(["saved", "refused", "throws"])("opens all four validated documents after one confirmation (local save %s)", async saveDocuments => {
+  it.each(["saved", "refused", "throws"])("opens all four validated documents after separate confirmation and generation (local save %s)", async saveDocuments => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
@@ -435,12 +438,33 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     }} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Valider le projet"}));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    expect(bridge).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await screen.findByTestId("study-deliverable-workspace");
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
+    expect(screen.getByTestId("document-generation-1")).toHaveTextContent("Documents V1 disponibles · projet version 1");
+    if (saveDocuments === "saved") expect(saved.drciDraftPacks?.[0].project).toEqual({ projectId: saved.project?.projectId,
+      projectVersion: saved.project?.versionId, projectDigest: saved.project?.projectDigest });
     for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("non enregistrés");
+    if (saveDocuments === "saved") {
+      fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
+      await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
+      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
+      expect(screen.getByTestId("document-generation-2")).toHaveTextContent("Documents V2 disponibles");
+      const previousEntries = saved.entries.length;
+      bridge.mockRejectedValueOnce(new Error("LOCAL_SYNTHETIC_DOC_FAILURE"));
+      fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
+      await screen.findByTestId("document-generation-recovery");
+      expect(saved.drciDraftPacks).toHaveLength(2);
+      expect(saved.project?.revision).toBe(1);
+      expect(saved.entries).toHaveLength(previousEntries);
+      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
+      expect(screen.getByTestId("document-generation-2")).toBeInTheDocument();
+    }
   });
 
   it("generates the four documents directly from an already adopted Project without adopting it again", async () => {
@@ -467,12 +491,12 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
-    expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Projet déjà validé");
+    expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Projet validé · version 1");
     expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
     const adoptedVersion=project.versionId;
     fireEvent.click(screen.getByRole("button",{name:"Générer les documents"}));
     await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(1));
-    await waitFor(()=>expect(screen.queryByTestId("adopted-project-document-generation")).toBeNull());
+    await screen.findByTestId("document-generation-history");
     expect(bridge.mock.calls[0][0].currentProject?.versionId).toBe(adoptedVersion);
     expect(saved.project?.versionId).toBe(adoptedVersion);
     for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
@@ -486,7 +510,11 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
     vi.spyOn(documentaryConversation,"acquireDocumentKnowledge").mockImplementationOnce(()=>{throw new Error("KNOWLEDGE_BINDING_INVALID");});
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Valider le projet"}));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    expect(bridge).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await screen.findByTestId("document-generation-recovery");
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
     expect(JSON.stringify(saved.documents.lastFailure)).toContain("KNOWLEDGE_BINDING_INVALID");
@@ -500,7 +528,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={{...initial,studyProposal:composition,workingDraft}} onSessionChange={()=>true} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button",{name:"Valider et générer les documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Valider le projet"}));
+    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
+    fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await screen.findByTestId("document-generation-recovery");
     expect(screen.queryByRole("button",{name:"Retrouver les documents"})).toBeNull();
     expect(bridge).toHaveBeenCalledTimes(1);

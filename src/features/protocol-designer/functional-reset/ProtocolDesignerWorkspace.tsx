@@ -3290,7 +3290,6 @@ export default function ProtocolDesignerWorkspace({
       }) : null;
       const remainderEntryId = remainder ? createConversationEntryId() : null;
       let documents;
-      let documentWarning = false;
       try {
         documents = refreshFunctionalResetDocumentPortfolio({
           administration,
@@ -3300,7 +3299,6 @@ export default function ProtocolDesignerWorkspace({
         });
       } catch (error) {
         documents = markFunctionalResetDocumentFailure(project, session.documents, error);
-        documentWarning = true;
       }
       const queryNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
         project,
@@ -3352,6 +3350,7 @@ export default function ProtocolDesignerWorkspace({
       const nextSession: FunctionalResetSession = {
         ...current,
         project,
+        documentRetryUnsafe: false,
         queryNavigation,
         studyProposal: updatedStudyProposal,
         studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
@@ -3441,7 +3440,6 @@ export default function ProtocolDesignerWorkspace({
             createdAt: naturalDecision.userTurn.createdAt,
           }] : []),
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
-          ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "La partie documentaire n’a pas pu être mise à jour. Le projet confirmé reste disponible.", createdAt: now }] : []),
         ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
           ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
@@ -3849,7 +3847,8 @@ export default function ProtocolDesignerWorkspace({
       return;
     }
 
-    requestProtocolProjection(command);
+    appendProductDocumentCommandResult({ command, assistantContent: "Ouvrez Protocole / documents, puis choisissez « Générer les documents » pour la version confirmée du projet." });
+    setDeliverableWorkspaceOpen(true);
   }
 
   function acquireSources() {
@@ -3897,8 +3896,7 @@ export default function ProtocolDesignerWorkspace({
       let evidence = acquireDocumentKnowledge(session, timestamp);
       retainedEvidence = evidence;
       if (intent.kind === "PREPARE_EVIDENCE") {
-        requestProtocolProjection(recordUser ? { content: instruction, createdAt: timestamp } : undefined, evidence);
-        setDocumentMessage("Le contexte et la bibliographie ont été produits depuis les éléments soutenus du corpus local. Les choix scientifiques de l’étude restent ceux du projet confirmé.");
+        reply("Les sources disponibles ont été préparées. Pour rédiger les documents, utilisez « Générer les documents ».", evidence);
         setSourceLibraryOpen(false);
         return;
       }
@@ -3953,7 +3951,6 @@ export default function ProtocolDesignerWorkspace({
   }
 
   async function requestProtocolProjection(
-    command?: { content: string; createdAt: string },
     requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>,
     sourceSession: FunctionalResetSession = latestSessionRef.current,
   ) {
@@ -4007,8 +4004,8 @@ export default function ProtocolDesignerWorkspace({
               throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
             const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
               drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
-              runtimeTurns: [...latest.runtimeTurns, response.assistantTurn],
-              entries: [...latest.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: now }],
+              documentRetryUnsafe: false,
+              entries: latest.entries,
               updatedAt: now };
             let saved = false;
             try {
@@ -4026,8 +4023,8 @@ export default function ProtocolDesignerWorkspace({
               ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
             const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error);
             setSession(current => ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
-              entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
-                content: "Projet confirmé. Les documents n’ont pas pu être générés.", createdAt: now }], updatedAt: now }));
+              documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
+              updatedAt: now }));
           } finally {
             setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId, requestKind: "USER_TURN", records }));
             setBusy(false);
@@ -4036,9 +4033,6 @@ export default function ProtocolDesignerWorkspace({
         await resume();
         return;
       }
-      const documentReply = protocol.readiness === "READY_FOR_REVIEW"
-        ? "Une version de travail du protocole est disponible pour revue."
-        : "Un premier aperçu partiel du protocole lié à la version courante du projet est disponible. Les sections encore ouvertes restent visibles.";
       setSession((current) => {
         const correlatedTrace = [...current.bridgeTraces]
           .reverse()
@@ -4056,23 +4050,11 @@ export default function ProtocolDesignerWorkspace({
         return {
         ...current,
         ...(evidence ?? {}),
-        runtimeTurns: [...current.runtimeTurns, { turnId: createTurnId(), role: "NOXIA", content: documentReply, createdAt: now }],
         documents,
+        documentRetryUnsafe: false,
         openDocumentProjectionId: protocol.projectionId,
         scientificExecutionTraceLedger,
-        entries: [...current.entries, ...(command ? [{
-          entryId: createConversationEntryId(),
-          kind: "TEXT" as const,
-          role: "USER" as const,
-          content: command.content,
-          createdAt: command.createdAt,
-        }] : []), {
-          entryId: createConversationEntryId(),
-          kind: "TEXT",
-          role: "NOXIA",
-          content: documentReply,
-          createdAt: now,
-        }],
+        entries: current.entries,
         updatedAt: now,
       };
       });
@@ -4106,19 +4088,7 @@ export default function ProtocolDesignerWorkspace({
         ...current,
         documents,
         scientificExecutionTraceLedger,
-        entries: [...current.entries, ...(command ? [{
-          entryId: createConversationEntryId(),
-          kind: "TEXT" as const,
-          role: "USER" as const,
-          content: command.content,
-          createdAt: command.createdAt,
-        }] : []), {
-          entryId: createConversationEntryId(),
-          kind: "ERROR",
-          role: "NOXIA",
-          content: "Projet confirmé. Les documents n’ont pas pu être générés.",
-          createdAt: now,
-        }],
+        entries: current.entries,
         updatedAt: now,
       };
       });
@@ -4152,7 +4122,7 @@ export default function ProtocolDesignerWorkspace({
       : current);
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
-  const confirmAndGenerateDocuments = async () => {
+  const confirmProject = async () => {
     const current = latestSessionRef.current;
     const prepared = validatePreparedWorkingReview(current);
     const composition = current.studyProposal;
@@ -4160,14 +4130,14 @@ export default function ProtocolDesignerWorkspace({
     if (!prepared || !composition || !workingDraft || busy || workingDraftBusy) return;
     const scope = recommendedWorkingScope(composition);
     const confirmedAt = new Date().toISOString();
-    const confirmationText = "Valider et générer les documents";
+    const confirmationText = "Valider le projet";
     const userTurn: ScientificInterpretationTurn = {
       turnId: createTurnId(),
       role: "USER",
       content: confirmationText,
       createdAt: confirmedAt,
     };
-    const adopted = await confirmContribution(prepared.contribution.identity.contributionId, {
+    await confirmContribution(prepared.contribution.identity.contributionId, {
       userTurn,
       originalText: confirmationText,
       gatewayState: current.conversationLanguageGateway,
@@ -4182,7 +4152,6 @@ export default function ProtocolDesignerWorkspace({
       contribution: prepared.contribution,
       candidate: prepared.candidate,
     });
-    if (adopted) await requestProtocolProjection(undefined, undefined, adopted);
   };
 
   const reset = () => {
@@ -4227,7 +4196,7 @@ export default function ProtocolDesignerWorkspace({
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
       generatedAt: currentProtocolProjection?.requestedAt ?? session.project.adoptedAt });
-    const pack = session.drciDraftPacks?.at(-1);
+    const pack = [...session.drciDraftPacks ?? []].reverse().find((item) => isDrciDraftPackCurrent(item, session.project!));
     return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
   }, [currentProtocolProjection, session.project, session.drciDraftPacks]);
   const activeRouteIntent = [...session.bridgeTraces]
@@ -4247,7 +4216,7 @@ export default function ProtocolDesignerWorkspace({
     onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
-    suppressDocumentAction={Boolean(preparedFinalization || session.documents.lastFailure)}
+    suppressDocumentAction={Boolean(preparedFinalization || session.documentRetryUnsafe)}
     onOpenDeliverables={() => {
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       setDeliverableWorkspaceOpen(true);
@@ -4259,19 +4228,18 @@ export default function ProtocolDesignerWorkspace({
     currentProject={session.project}
     workingDraft={session.workingDraft}
     disabled={busy || workingDraftBusy}
-    onConfirmAndGenerate={() => void confirmAndGenerateDocuments()}
+    onConfirm={() => void confirmProject()}
   /> : null;
   const currentDrciDraftPack = session.project
     ? [...session.drciDraftPacks ?? []].reverse().find((pack) => isDrciDraftPackCurrent(pack, session.project!)) ?? null
     : null;
-  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !currentDrciDraftPack
-    && !session.documents.lastFailure ? <section
+  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
       data-testid="adopted-project-document-generation"
     >
       <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents du projet</p>
-      <h2 className="mt-1 text-xl font-semibold">Projet déjà validé</h2>
-      <p className="mt-2 text-sm text-muted-foreground">Générez les quatre documents de travail depuis la version confirmée du projet.</p>
+      <h2 className="mt-1 text-xl font-semibold">Projet validé · version {session.project.revision}</h2>
+      <p className="mt-2 text-sm text-muted-foreground">{currentDrciDraftPack ? "Une version documentaire existe déjà. Une nouvelle génération sera conservée séparément." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
       <button type="button" disabled={busy} onClick={() => void requestProtocolProjection()}
         className="mt-4 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
         Générer les documents
@@ -4286,7 +4254,7 @@ export default function ProtocolDesignerWorkspace({
     {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
       ? <button type="button" disabled={busy} onClick={() => void documentRecoveryRef.current?.resume()}
           className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>
-      : <p className="mt-2 text-xs text-muted-foreground">Le projet est conservé. Aucune nouvelle génération n’a été lancée.</p>}
+      : <p className="mt-2 text-xs text-muted-foreground">{session.documentRetryUnsafe ? "Le résultat de l’opération est incertain ; aucune nouvelle génération n’est autorisée depuis cette page." : "Le projet et les anciennes versions sont conservés. Vous pouvez relancer une génération explicite."}</p>}
   </section> : null;
 
 
@@ -4368,7 +4336,7 @@ export default function ProtocolDesignerWorkspace({
             <button type="button" onClick={() => setDeliverableWorkspaceOpen(false)} className="min-h-10 rounded-lg border px-3 text-sm font-medium">← Retour à la conversation</button>
             <p className="mt-4 text-xs font-semibold uppercase tracking-[.18em] text-primary">Protocole / documents</p>
             <h2 id="project-documents-title" className="mt-1 text-2xl font-semibold">Documents du projet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Validez le projet courant et lancez la génération de ses quatre documents de travail.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Confirmez les décisions scientifiques. Vous pourrez ensuite générer les documents séparément.</p>
           </header>
           {busy && <p role="status" className="border-b bg-primary/5 px-5 py-3 text-sm font-medium">
             {confirmationInFlightRef.current ? "Validation du projet…" : "Génération des documents…"}
@@ -4380,6 +4348,8 @@ export default function ProtocolDesignerWorkspace({
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
+          documentPacks={session.drciDraftPacks}
+          projectId={session.project?.projectId}
           saveWarning={documentSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
           />
