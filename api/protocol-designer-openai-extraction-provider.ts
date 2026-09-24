@@ -115,6 +115,7 @@ const callOpenAIResponses = async (input: {
   modelRequested: string;
   instrumentation?: ProviderCallAttemptInstrumentation;
   transport?: OpenAIProviderTransport;
+  timeoutMs?: number;
 }): Promise<OpenAIResponsesResult> => {
   const transport = input.transport;
   const endpoint = transport?.responsesEndpoint ?? OPENAI_RESPONSES_ENDPOINT;
@@ -129,7 +130,7 @@ const callOpenAIResponses = async (input: {
     input.instrumentation.onRecord(materializeProviderCallRecord(record));
   };
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), input.stage === "DOCUMENT_PROJECTION" ? DOC_PROVIDER_TIMEOUT_MS : TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), input.timeoutMs ?? (input.stage === "DOCUMENT_PROJECTION" ? DOC_PROVIDER_TIMEOUT_MS : TIMEOUT_MS));
   let response: Response | undefined;
   let raw: string;
   try {
@@ -219,13 +220,14 @@ const callOpenAIResponses = async (input: {
 };
 
 type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown> };
+type TerraConversationRequestOptions = Readonly<{ maxOutputTokens?: number; timeoutMs?: number }>;
 
-export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket) => ({
+export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket, options?: TerraConversationRequestOptions) => ({
   model: "gpt-5.6-terra",
   instructions: packet.instruction,
   input: packet.context,
   reasoning: { effort: "medium" },
-  max_output_tokens: MAX_OUTPUT_TOKENS,
+  max_output_tokens: options?.maxOutputTokens ?? MAX_OUTPUT_TOKENS,
   store: false,
   service_tier: "default",
   ...(packet.outputSchema ? { text: { format: {
@@ -239,10 +241,11 @@ export const executeOpenAITerraConversation = async (
   fetchImpl: typeof fetch = fetch,
   instrumentation?: ProviderCallAttemptInstrumentation,
   transport?: OpenAIProviderTransport,
+  options?: TerraConversationRequestOptions,
 ) => {
-  const payload = buildOpenAITerraConversationPayload(packet);
+  const payload = buildOpenAITerraConversationPayload(packet, options);
   const result = await callOpenAIResponses({ stage: "CONVERSATION", apiKey, payload,
-    fetchImpl, modelRequested: payload.model, instrumentation, transport });
+    fetchImpl, modelRequested: payload.model, instrumentation, transport, timeoutMs: options?.timeoutMs });
   const value = responseOutputText(result.body).trim();
   if (!value) throw new ProductBridgeProviderError("CONVERSATION", result.httpStatus,
     "TEXT_RESPONSE_MISSING", "OpenAI returned no conversational text.", result.body.id ?? null, "OPENAI", result.requestId);

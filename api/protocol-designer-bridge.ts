@@ -267,7 +267,7 @@ export const executeProtocolDesignerBridge = async (input: {
       const packet = prepareWorkingDraftRequest(request);
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall },
-        input.openAiTransport);
+        input.openAiTransport, input.openAiTransport?.destination === "azure" ? { maxOutputTokens: 16_000, timeoutMs: 300_000 } : undefined);
       const result = acceptWorkingDraftUpdate(JSON.parse(generated.value), request);
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: "",
         assistantTurn: { turnId: `working-draft:${observationContext.clientRequestId}`, role: "NOXIA", content: "", createdAt },
