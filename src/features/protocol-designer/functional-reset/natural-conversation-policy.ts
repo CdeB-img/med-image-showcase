@@ -75,7 +75,8 @@ export const readNaturalCandidateDecision = (raw: string): Readonly<{
   remainder: string;
   qualified: boolean;
 }> | null => {
-  const text = folded(raw).replace(/[.!]+$/u, "");
+  const text = folded(raw).replace(/[.!]+$/u, "")
+    .replace(/^(?:oui[, ]+)?c'est (?:bien|exactement) (?:tout )?(?:ca|cela)[, ]+(?=(?:je|nous)\s+(?:confirme|confirmons|valide|validons|adopte|adoptons)\b)/u, "");
   if (/[?"«»“”]/u.test(text) || /\b(?:si|supposons|imaginons|exemple|dirais|dirions|peut etre|a condition)\b/u.test(text)) return null;
   const match = /^(?:(?:oui|non|donc|alors)[, ]+)?(?:(?:je|nous|on)\s+(confirme|confirmons|valide|validons|adopte|adoptons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b|(?:vous pouvez|tu peux)\s+(enregistrer)\b|(garde)\s+(?:ca|cela)\b|(oui|non)\b|(ca me va|cela me va)\b)/u.exec(text);
   if (!match) return null;

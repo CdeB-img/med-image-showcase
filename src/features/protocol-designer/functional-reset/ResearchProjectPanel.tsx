@@ -21,6 +21,8 @@ type Props = {
   onOpenDeliverables?: () => void;
   queryNavigation?: FunctionalResetQueryNavigation | null;
   suppressDocumentAction?: boolean;
+  showDocumentAction?: boolean;
+  documentActionDisabledReason?: string;
 };
 
 const projectVersionLabel = (versionId: string) => versionId.match(/:version:(\d+)$/)?.[1] ?? versionId;
@@ -68,6 +70,8 @@ export default function ResearchProjectPanel({
   onOpenDeliverables,
   queryNavigation,
   suppressDocumentAction = false,
+  showDocumentAction = true,
+  documentActionDisabledReason,
 }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const canonicalProject = project ? ensureCanonicalProjectState(project) : null;
@@ -84,6 +88,10 @@ export default function ResearchProjectPanel({
   const protocolExplanation = project
     ? (protocol?.explanation ?? "Aucun livrable généré.").replace(/Research Project/g, "projet")
     : null;
+  const documentActionReason = !project ? "Validez d’abord des choix dans le projet."
+    : suppressDocumentAction ? documentActionDisabledReason ?? "Une action est déjà en cours."
+      : !protocol?.canRequestProjection ? "Les documents de cette version sont déjà disponibles ou ne peuvent pas encore être générés."
+        : null;
   const applicableQueryNavigation = project && queryNavigation
     && queryNavigation.projectRef === project.projectId
     && queryNavigation.projectVersion === project.versionId
@@ -186,6 +194,13 @@ export default function ResearchProjectPanel({
           </div>
         </div>
         <p className="mt-3 text-xs font-medium" data-testid="project-cockpit-counts">{confirmedDecisionCount} élément{confirmedDecisionCount > 1 ? "s" : ""} confirmé{confirmedDecisionCount > 1 ? "s" : ""} · {openMaterialPointCount} point{openMaterialPointCount > 1 ? "s" : ""} à préciser</p>
+        {showDocumentAction && <div className="mt-3 border-t pt-3" data-testid="project-document-action">
+          <button type="button" onClick={onRequestProtocol} disabled={Boolean(documentActionReason)}
+            className="min-h-11 w-full rounded-xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
+            Générer les documents
+          </button>
+          {documentActionReason && <p className="mt-1.5 text-xs text-muted-foreground">{documentActionReason}</p>}
+        </div>}
         <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 text-xs" aria-label="État des rubriques du projet">
           {CURRENT_PROJECT_GROUPS.filter(group => ["scientific-question", "population", "design", "imaging-methods", "analyses", "constraints"].includes(group.id)).map(group => {
             const progress = groupProgress.get(group.id)!;
@@ -258,7 +273,7 @@ export default function ResearchProjectPanel({
               </div>
             </details>}
             {protocol.canOpen && protocol.projectionId && <button type="button" onClick={() => onOpenProtocol(protocol.projectionId!)} className="mt-3 min-h-10 rounded-lg border bg-background px-3 text-xs font-medium">Ouvrir les documents</button>}
-            {protocol.canRequestProjection && project && !suppressDocumentAction && <div className="mt-3 rounded-lg border bg-background p-2.5">
+            {protocol.canRequestProjection && project && !suppressDocumentAction && !showDocumentAction && <div className="mt-3 rounded-lg border bg-background p-2.5">
               <p className="text-xs leading-relaxed">{protocol.freshness === "STALE"
                 ? "Le projet a changé depuis la dernière génération documentaire."
                 : protocol.templateStatus === "ENGINE_ERROR" ? "Les documents n’ont pas pu être générés. Le projet confirmé est conservé."

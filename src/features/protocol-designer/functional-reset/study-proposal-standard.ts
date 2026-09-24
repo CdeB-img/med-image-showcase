@@ -208,7 +208,9 @@ export const propagateStudyProposalDecision = (composition: StudyProposalComposi
   for (const ref of adoptedRefs) {
     const atom = composition.proposal.atoms.find(a => a.ref === ref);
     const sourceRefs = [studyProposalAtomItemRef(composition, ref), ...atom?.userChangeRefs ?? []];
-    const object = objects.find(o => o.content === atom?.content && sourceRefs.some(r => o.sourceItemRefs.includes(r)));
+    const semanticIdentity = `${project.projectId}:study-strategy:${atom?.semanticKey}`;
+    const object = objects.find(o => o.content === atom?.content && sourceRefs.some(r => o.sourceItemRefs.includes(r)))
+      ?? objects.find(o => o.objectId === semanticIdentity && o.content === atom?.content);
     if (!object) throw new Error("STUDY_PROPOSAL_ADOPTION_NOT_IN_CANONICAL_PROJECT");
     adoptionSourceRefs[ref] = object.sourceItemRefs;
   }

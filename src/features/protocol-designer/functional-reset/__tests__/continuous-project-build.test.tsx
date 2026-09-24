@@ -10,6 +10,7 @@ import { executeProtocolDesignerBridge } from "../../../../../api/protocol-desig
 import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
+import { ensureCanonicalProjectState } from "@/features/research-project-construction/canonical-project-backbone";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
 import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
@@ -390,6 +391,94 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
     expect(bridge).not.toHaveBeenCalled();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toHaveValue("");
+  });
+
+  it("adopts the ECV study checkpoint from the human mixed confirmation and carries France into the next discussion", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const confirmation = "oui c'est bien tout ça je valide. ce sera en france";
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      if (!payload.instructions.includes("Tu prépares en arrière-plan"))
+        return response("LOCAL_SYNTHETIC — structure scientifique proposée ; le cadre français reste à préciser.");
+      const packet = JSON.parse(payload.input), proposal = controlledStudyProposal(packet.contextDigest, DOMAINS[0]);
+      if (String(payload.input).includes("M12")) proposal.atoms.find(atom => atom.ref === "timing")!.content = "Une visite supplémentaire à M12";
+      if (String(payload.input).includes("ce sera en france")) proposal.atoms.find(atom => atom.ref === "practical")!.content = "Étude conduite en France";
+      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal,
+        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
+    });
+    bridge.mockImplementation(async request => {
+      if (request.documentDraftRequest) {
+        const project = request.currentProject!, source = request.documentDraftRequest;
+        const packet = prepareDrciDraftPack(project, source);
+        const generated = { documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `LOCAL_SYNTHETIC ${kind}`,
+          sections: [{ title: "Dossier de travail", paragraphs: [kind === "PROTOCOL_SYNOPSIS"
+            ? "Texte synthétique de qualification mécanique sans validation scientifique humaine. ".repeat(65)
+            : packet.sourceFacts[0].content], sourceRefs: [packet.sourceFacts[0].ref] }], missingElements: [] })),
+          crfRows: source.crf.fields.map((field, index) => ({ variableRef: field.canonicalVariableId, variableId: `FIELD_${index}`, label: field.label,
+            domain: "À préciser", visit: "À préciser", definition: field.label, entryType: "Texte", unit: null, categories: null,
+            dataOrigin: "UNSPECIFIED", source: "À préciser", required: "À préciser", condition: null, derivedFrom: [],
+            derivation: null, controls: [], analysisImpact: null, specificationStatus: "UNSPECIFIED" })) };
+        return { apiVersion: "1.0.0", assistantReply: "Dossier de travail disponible.",
+          assistantTurn: { turnId: "doc-answer", role: "NOXIA", content: "Dossier de travail disponible." },
+          observability: { providerCalls: [] }, documentDraftPack: materializeDrciDraftPack(generated, { project, packet, generatedAt: saved.updatedAt }) };
+      }
+      const result = await call({ ...request, apiVersion: "1.0.0" }, provider);
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
+      return result.body;
+    });
+    let saved = createFunctionalResetSession();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
+      saved = next; persistFunctionalResetSession(localStorage, next); return true;
+    }} /></HelmetProvider>);
+    send(DOMAINS[0].text);
+    await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
+    expect(saved.project).toBeNull();
+    expect(screen.getByTestId("project-document-action")).toHaveTextContent("Validez d’abord des choix dans le projet.");
+    expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
+
+    send(confirmation);
+    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
+    expect(saved.project?.revision).toBe(1);
+    expect(loadFunctionalResetSession(localStorage).project?.projectDigest).toBe(saved.project?.projectDigest);
+    expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
+    expect(screen.getByTestId("project-cockpit-counts")).not.toHaveTextContent("0 élément confirmé");
+    expect(screen.getByTestId("project-group-scientific-question")).toHaveTextContent(/ECV|âge/i);
+    await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
+    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.currentProject?.revision === 1
+      && !request.prepareWorkingDraft && request.conversation.turns.at(-1)?.content === confirmation)).toBe(true));
+    await waitFor(() => expect(saved.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
+      .some(object => object.content.includes("en France"))).toBe(true));
+    expect(saved.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === confirmation)).toHaveLength(1);
+    expect(bridge.mock.calls.some(([request]) => Boolean(request.documentDraftRequest))).toBe(false);
+
+    fireEvent.click(screen.getByTestId("project-document-action").querySelector("button")!);
+    await waitFor(() => expect(saved.drciDraftPacks, JSON.stringify(saved.documents.lastFailure)).toHaveLength(1));
+    const firstPack = saved.drciDraftPacks![0];
+    expect(firstPack.project.projectVersion).toBe(saved.project?.versionId);
+    await waitFor(() => expect(screen.getByTestId("document-generation-1")).toHaveTextContent("Documents V1 disponibles"));
+
+    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    send("Je veux aussi une visite à M12.");
+    await waitFor(() => expect(saved.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
+      .some(object => object.content.includes("M12"))).toBe(true));
+    expect(saved.project?.revision).toBe(1);
+    expect(saved.drciDraftPacks).toEqual([firstPack]);
+    send("je valide");
+    await waitFor(() => expect(saved.project?.revision).toBe(2));
+    const currentObjects = ensureCanonicalProjectState(saved.project!).objects.filter(object => object.actuality === "CURRENT");
+    expect(currentObjects.some(object => object.content.includes("en France"))).toBe(true);
+    expect(currentObjects.some(object => object.content.includes("M12"))).toBe(true);
+    expect(currentObjects.some(object => object.content.includes("Volontaires sains de différents âges"))).toBe(true);
+    expect(saved.drciDraftPacks).toEqual([firstPack]);
+    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(1);
+    fireEvent.click(screen.getByTestId("project-document-action").querySelector("button")!);
+    await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
+    expect(saved.drciDraftPacks![0]).toEqual(firstPack);
+    expect(saved.drciDraftPacks![1].project.projectVersion).toBe(saved.project?.versionId);
+    expect(saved.drciDraftPacks![1].project.projectDigest).toBe(saved.project?.projectDigest);
+    await waitFor(() => expect(screen.getByTestId("document-generation-1")).toBeInTheDocument());
+    expect(screen.getByTestId("document-generation-2")).toHaveTextContent("Documents V2 disponibles");
   });
 
   it("binds 'tout sauf le point 3' to the visible checkpoint and keeps the excluded decision out of Project", async () => {

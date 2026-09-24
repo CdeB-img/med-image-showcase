@@ -2047,7 +2047,7 @@ export default function ProtocolDesignerWorkspace({
     backgroundDraftJobRef.current = job;
     void job.finally(() => { if (backgroundDraftJobRef.current === job) backgroundDraftJobRef.current = null; });
   };
-  const submitTerraText = async (content: string, prepareRecording = false) => {
+  const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn) => {
     if (foregroundInFlightRef.current) return;
     foregroundInFlightRef.current = true;
     const requestedSessionId = latestSessionRef.current.sessionId;
@@ -2059,20 +2059,22 @@ export default function ProtocolDesignerWorkspace({
     const session = latestSessionRef.current;
     const now = new Date().toISOString();
     const lastTurn = session.runtimeTurns.at(-1), lastEntry = session.entries.at(-1);
-    const retry = lastTurn?.role === "USER" && lastTurn.content === content
+    const retry = !continuedTurn && lastTurn?.role === "USER" && lastTurn.content === content
       && lastEntry?.kind === "ERROR" && lastEntry.turnId === lastTurn.turnId;
-    const userTurn: ScientificInterpretationTurn = retry ? lastTurn : { turnId: createTurnId(), role: "USER", content, createdAt: now };
+    const userTurn: ScientificInterpretationTurn = continuedTurn ?? (retry ? lastTurn : { turnId: createTurnId(), role: "USER", content, createdAt: now });
     const traceRunId = createProductTraceRunId(session.sessionId, userTurn.turnId);
-    const runtimeTurns = retry ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
+    const runtimeTurns = continuedTurn || retry ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
+    const requestTurns = continuedTurn && runtimeTurns.at(-1)?.role === "NOXIA"
+      && runtimeTurns.at(-2)?.turnId === continuedTurn.turnId ? runtimeTurns.slice(0, -1) : runtimeTurns;
     setDraft(""); setBusy(true); setBusyMessage("NOXIA réfléchit…");
-    setSession(current => ({ ...current, runtimeTurns, entries: [...current.entries,
-      ...(!retry ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now }));
+    setSession(current => ({ ...current, pendingMixedUserTurnRef: null, runtimeTurns, entries: [...current.entries,
+      ...(!retry && !continuedTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now }));
     const records: ProviderCallRecord[] = [];
     try {
       const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
-        currentProject: session.project, conversationId: session.conversationId, runtimeTurns,
+        currentProject: session.project, conversationId: session.conversationId, runtimeTurns: requestTurns,
         selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null });
-      const response = await requestProtocolDesignerBridge({ conversation: { conversationId: session.conversationId, language: "fr", turns: runtimeTurns },
+      const response = await requestProtocolDesignerBridge({ conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
         ...(autonomousProjectBuild && session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}),
         currentProject: session.project, evaluatePersistentDelta: prepareRecording,
         scientificDiscussionContext: discussion,
@@ -2088,7 +2090,8 @@ export default function ProtocolDesignerWorkspace({
       const receivedAt = new Date().toISOString();
       // Deliver native Chat text before any local transaction preparation. A
       // rejected candidate must never erase or replace this conversational turn.
-      const delivered: FunctionalResetSession = { ...latest, runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
+      const delivered: FunctionalResetSession = { ...latest, pendingMixedUserTurnRef: null,
+        runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
         entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
           role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,
           ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {}) }], updatedAt: receivedAt };
@@ -2154,9 +2157,16 @@ export default function ProtocolDesignerWorkspace({
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
+      if (continuedTurn) {
+        await submitTerraText(content, false, continuedTurn);
+        return;
+      }
       const current = latestSessionRef.current;
       const checkpoint = !workingDraftBusy && !current.workingDraftFailure && validatePreparedWorkingReview(current);
       const naturalDecision = readNaturalCandidateDecision(content);
+      const firstClause = /^(.+?[.;])\s+\S/us.exec(content)?.[1] ?? null;
+      const confirmedFirstClause = firstClause ? readNaturalCandidateDecision(firstClause) : null;
+      const confirmsThenContinues = confirmedFirstClause?.act === "CONFIRM" && !confirmedFirstClause.qualified;
       const normalizedDecision = content.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").trim().replace(/[.!]+$/u, "");
       const confirmsWholeCheckpoint = naturalDecision?.act === "CONFIRM" && !naturalDecision.qualified
         || /^(?:valide tout|je valide tout|ca me convient|cela me convient)$/u.test(normalizedDecision);
@@ -2171,8 +2181,8 @@ export default function ProtocolDesignerWorkspace({
         else if (!group || !selected.length) await submitTerraText(content);
         return;
       }
-      if (checkpoint && confirmsWholeCheckpoint) {
-        if (await confirmProject(content)) setDraft("");
+      if (checkpoint && (confirmsWholeCheckpoint || confirmsThenContinues)) {
+        if (await confirmProject(content, undefined, undefined, confirmsThenContinues)) setDraft("");
         return;
       }
       // Operation recognition only; the extraction and native review determine scope.
@@ -4187,7 +4197,7 @@ export default function ProtocolDesignerWorkspace({
       : current);
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
-  const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[]) => {
+  const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[], prepareRemainingTurn = false) => {
     const current = latestSessionRef.current;
     const prepared = validatePreparedWorkingReview(current);
     const composition = current.studyProposal;
@@ -4209,6 +4219,7 @@ export default function ProtocolDesignerWorkspace({
       stylePreference: null,
       selectedChangeRefs: selectedChangeRefs ?? prepared.candidate.humanReviewProjection.coveredChangeRefs,
       refusedChangeRefs,
+      prepareRemainingTurn,
     }, {
       composition,
       selectedOptions: scope.selectedOptionRefs,
@@ -4281,7 +4292,13 @@ export default function ProtocolDesignerWorkspace({
     onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
-    suppressDocumentAction={Boolean(preparedFinalization || session.documentRetryUnsafe || documentGenerationPending)}
+    suppressDocumentAction={Boolean(busy || (!session.project && preparedFinalization) || session.documentRetryUnsafe || documentGenerationPending)}
+    showDocumentAction={!deliverableWorkspaceOpen && !sourceLibraryOpen}
+    documentActionDisabledReason={session.documentRetryUnsafe
+      ? "Le résultat de la dernière génération est incertain ; aucune nouvelle génération n’est autorisée depuis cette page."
+      : documentGenerationPending ? "Une génération documentaire est déjà en cours."
+        : !session.project && preparedFinalization ? "Validez d’abord les choix proposés."
+          : busy ? "Attendez la fin de la réponse en cours." : undefined}
     onOpenDeliverables={() => {
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       setDeliverableWorkspaceOpen(true);
@@ -4391,7 +4408,7 @@ export default function ProtocolDesignerWorkspace({
       <div className="grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>
 
-        {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && projectFinalizationCard ? <section
+        {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && !session.project && projectFinalizationCard ? <section
           aria-labelledby="project-documents-title"
           className="min-w-0 rounded-3xl border bg-background shadow-sm"
           data-testid="project-document-finalization-workspace"
