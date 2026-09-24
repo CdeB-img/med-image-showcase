@@ -207,16 +207,23 @@ export const propagateStudyProposalDecision = (composition: StudyProposalComposi
   const adoptionSourceRefs = { ...composition.adoptionSourceRefs };
   for (const ref of adoptedRefs) {
     const atom = composition.proposal.atoms.find(a => a.ref === ref);
-    const sourceRefs = [studyProposalAtomItemRef(composition, ref), ...atom?.userChangeRefs ?? []];
+    const sourceRefs = [studyProposalAtomItemRef(composition, ref), ...(atom?.userChangeRefs ?? []),
+      ...(composition.adoptionSourceRefs?.[ref] ?? [])];
     const semanticIdentity = `${project.projectId}:study-strategy:${atom?.semanticKey}`;
-    const object = objects.find(o => o.content === atom?.content && sourceRefs.some(r => o.sourceItemRefs.includes(r)))
-      ?? objects.find(o => o.objectId === semanticIdentity && o.content === atom?.content);
+    // New PRJ objects can gain a presentation prefix while retaining their
+    // source item. A later full draft can restate an unchanged current object
+    // with a fresh proposal ref, so its stable identity and exact content bind
+    // that already-adopted decision without inventing new provenance.
+    const object = objects.find(o => o.objectId === semanticIdentity
+      && (sourceRefs.some(r => o.sourceItemRefs.includes(r)) || o.content === atom?.content));
     if (!object) throw new Error("STUDY_PROPOSAL_ADOPTION_NOT_IN_CANONICAL_PROJECT");
     adoptionSourceRefs[ref] = object.sourceItemRefs;
   }
   const adoptedAtomRefs = [...new Set([...composition.adoptedAtomRefs, ...adoptedRefs])].filter(ref => {
     const atom = composition.proposal.atoms.find(a => a.ref === ref);
-    return objects.some(o => o.content === atom?.content && (adoptionSourceRefs[ref] ?? [studyProposalAtomItemRef(composition, ref)]).some(r => o.sourceItemRefs.includes(r)));
+    return objects.some(o => o.objectId === `${project.projectId}:study-strategy:${atom?.semanticKey}`
+      && ((adoptionSourceRefs[ref] ?? [studyProposalAtomItemRef(composition, ref)]).some(r => o.sourceItemRefs.includes(r))
+        || o.content === atom?.content));
   });
   const unavailableOptionRefs = [...new Set([...composition.unavailableOptionRefs.filter(r => !selectedOptionRefs.includes(r)), ...composition.proposal.arbitrations
     .filter(a => a.selection === "ONE" && a.options.some(o => selectedOptionRefs.includes(o.ref)))

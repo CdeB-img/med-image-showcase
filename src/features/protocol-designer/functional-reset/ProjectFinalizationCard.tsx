@@ -9,6 +9,7 @@ type Props = Readonly<{
   currentProject: ResearchProjectOwnerProjection | null;
   workingDraft: WorkingDraftMetadata;
   disabled: boolean;
+  error?: string | null;
   onConfirm: () => void;
 }>;
 
@@ -23,6 +24,7 @@ export default function ProjectFinalizationCard({
   currentProject,
   workingDraft,
   disabled,
+  error,
   onConfirm,
 }: Props) {
   const decisionCount = visibleDecisionCount(candidate);
@@ -49,8 +51,9 @@ export default function ProjectFinalizationCard({
         Valider ces choix
       </button>
     </div>
+    {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
     <details className="mt-3 text-sm">
-      <summary className="cursor-pointer font-medium">Voir le détail</summary>
+      <summary className="cursor-pointer font-medium">Voir / modifier les choix</summary>
       <div className="mt-3 space-y-3">
         {superseded.length > 0 && <section className="rounded-xl border bg-background p-3" aria-label="Choix remplacés ou retirés">
           <h4 className="font-semibold">Choix remplacés ou retirés</h4>

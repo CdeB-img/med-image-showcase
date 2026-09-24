@@ -336,15 +336,24 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.pendingContribution!.scientificContent.candidateObjects.some(o => o.content === "Temps candidat corrigé à six mois")).toBe(true);
     expect(saved.project).toBeNull(); expect(bridge).toHaveBeenCalledTimes(2);
   });
-  it("never reconstructs a failed draft on a pure review request", async () => {
+  it("keeps a failed draft non-adopted while a review request reaches Chat", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockImplementation(async req => {
+      const provider = vi.fn<typeof fetch>(async (_url, init) => response(JSON.parse(String(init?.body)).instructions.includes("Tu prépares en arrière-plan")
+        ? JSON.stringify({ requestType: "INSUFFICIENT", proposal: null, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] })
+        : "LOCAL_SYNTHETIC — discussion conservée, revue non prête."));
+      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
+    });
     const s = { ...sessionFor(), workingDraftFailure: "LOCAL_SYNTHETIC_PREVIOUS_OWNER_FAILURE" };
     let saved: FunctionalResetSession = s;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={s} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
     expect(screen.queryByText(/discussion et le brouillon sont conservés/i)).toBeNull();
-    expect(bridge).not.toHaveBeenCalled(); expect(saved.project).toBeNull();
-    expect(saved.pendingContribution).toBeNull(); expect(saved.workingDraftFailure).toBe(s.workingDraftFailure);
+    await screen.findByText("LOCAL_SYNTHETIC — discussion conservée, revue non prête.");
+    expect(bridge.mock.calls[0][0].prepareWorkingDraft).not.toBe(true); expect(saved.project).toBeNull();
+    expect(saved.pendingContribution).toBeNull();
+    await waitFor(() => expect(saved.workingDraftFailure).toBeNull());
   });
 
   it("delivers native text while background is pending, then exposes the final review without a preparation click", async () => {
@@ -379,6 +388,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
 
   it.each(["oui", "ça me convient", "valide tout"])("confirms a prepared checkpoint naturally with %s, without generating documents", async answer => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockImplementation(async req => {
+      const result = await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — confirmation entendue.")));
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
+    });
     const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
@@ -389,7 +402,8 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(saved.runtimeTurns.filter(turn => turn.role === "USER").at(-1)?.content).toBe(answer);
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
-    expect(bridge).not.toHaveBeenCalled();
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(bridge.mock.calls[0][0].conversation.turns.at(-1).content).toBe(answer);
     expect(screen.getByRole("textbox", { name: "Votre message" })).toHaveValue("");
   });
 
@@ -446,7 +460,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
     await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.currentProject?.revision === 1
-      && !request.prepareWorkingDraft && request.conversation.turns.at(-1)?.content === confirmation)).toBe(true));
+      && request.prepareWorkingDraft && request.conversation.turns.some(turn => turn.content === confirmation))).toBe(true));
     await waitFor(() => expect(saved.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
       .some(object => object.content.includes("en France"))).toBe(true));
     expect(saved.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === confirmation)).toHaveLength(1);
@@ -483,6 +497,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
 
   it("binds 'tout sauf le point 3' to the visible checkpoint and keeps the excluded decision out of Project", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockImplementation(async req => {
+      const result = await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — sélection entendue.")));
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
+    });
     const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
@@ -496,7 +514,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project?.confirmationDecision.targets).not.toContain(excludedRef);
     expect(saved.project?.confirmationDecision.targets.some(ref => excludedGroup.includes(ref))).toBe(false);
     expect(saved.studyProposal?.state).toBe("REVIEW_REQUIRED");
-    expect(bridge).not.toHaveBeenCalled();
+    expect(bridge).toHaveBeenCalledTimes(1);
   });
 
   it("uses one explicit action, preserves adopted Project on transport failure, and retrieves the same request without another adoption", async () => {

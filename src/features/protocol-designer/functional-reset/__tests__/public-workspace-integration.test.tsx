@@ -177,13 +177,13 @@ describe("independent Standard workspace through public admission", () => {
     expect(reopened.runtimeTurns).toEqual(workspace.current().runtimeTurns);
     workspace.view.unmount(); mount(reopened);
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
-    await waitFor(() => expect(loadFunctionalResetSession(localStorage).pendingContribution).not.toBeNull());
-    expect(requests).toHaveLength(4);
+    await waitFor(() => expect(requests).toHaveLength(6));
+    expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled();
     expect(loadFunctionalResetSession(localStorage).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(loadFunctionalResetSession(localStorage).project?.projectId).toBe(reopened.projectId);
-    expect(requests).toHaveLength(4);
+    expect(requests).toHaveLength(6);
     expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
   });
 

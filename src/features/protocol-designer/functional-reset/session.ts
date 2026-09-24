@@ -156,8 +156,23 @@ export const resolveGovernedPostAdoptionReceipt = (input: {
   };
 };
 
+export type ProjectReviewInvitation = Readonly<{
+  sessionId: string;
+  conversationId: string;
+  projectId: string;
+  sourceProjectVersion: string | null;
+  sourceProjectDigest: string | null;
+  sourceTurnRef: string;
+  sourceResponseRef: string;
+  compositionDigest: string;
+  reviewScopeDigest: string;
+  candidateRef: string;
+  contributionDigest: string;
+}>;
+
 export type ConversationEntry =
-  | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; knowledgePresentation?: ProductUnderstandKnowledgePresentation | null; createdAt: string }
+  | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; knowledgePresentation?: ProductUnderstandKnowledgePresentation | null;
+      reviewInvitation?: ProjectReviewInvitation; createdAt: string }
   | { entryId: string; kind: "STUDY_DESIGN_PROPOSAL"; role: "NOXIA"; presentation: StandardStudyDesignPresentation; createdAt: string }
   | { entryId: string; kind: "OBSERVABILITY_PROPOSAL"; role: "NOXIA"; presentation: StandardObservabilityPresentation; createdAt: string }
   | { entryId: string; kind: "IMAGING_PROPOSAL"; role: "NOXIA"; presentation: StandardImagingPresentation; createdAt: string }

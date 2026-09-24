@@ -169,6 +169,7 @@ import {
   shouldMediatePostAdoptionQuery,
   type ConversationEntry,
   type FunctionalResetSession,
+  type ProjectReviewInvitation,
 } from "./session";
 import {
   buildStandardStudyDesignPresentation,
@@ -241,6 +242,39 @@ import { explainDocumentSourceComparison, explainDocumentSourceSelection } from 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
   : loadFunctionalResetSession(window.localStorage);
+
+const projectReviewInvitation = (session: FunctionalResetSession,
+  prepared: NonNullable<ReturnType<typeof validatePreparedWorkingReview>>): ProjectReviewInvitation => ({
+  sessionId: session.sessionId,
+  conversationId: session.conversationId,
+  projectId: session.projectId,
+  sourceProjectVersion: session.project?.versionId ?? null,
+  sourceProjectDigest: session.project?.projectDigest ?? null,
+  sourceTurnRef: session.studyProposal!.sourceTurnRef,
+  sourceResponseRef: session.studyProposal!.sourceResponseRef,
+  compositionDigest: session.studyProposal!.digest,
+  reviewScopeDigest: session.workingDraft!.reviewScopeDigest!,
+  candidateRef: prepared.contribution.identity.contributionId,
+  contributionDigest: prepared.contribution.identity.contributionDigest,
+});
+
+const sameProjectReviewInvitation = (a: ProjectReviewInvitation, b: ProjectReviewInvitation) =>
+  a.sessionId === b.sessionId && a.conversationId === b.conversationId && a.projectId === b.projectId
+  && a.sourceProjectVersion === b.sourceProjectVersion && a.sourceProjectDigest === b.sourceProjectDigest
+  && a.sourceTurnRef === b.sourceTurnRef && a.sourceResponseRef === b.sourceResponseRef
+  && a.compositionDigest === b.compositionDigest && a.reviewScopeDigest === b.reviewScopeDigest
+  && a.candidateRef === b.candidateRef && a.contributionDigest === b.contributionDigest;
+
+const projectReviewInvitationText = (session: FunctionalResetSession,
+  prepared: NonNullable<ReturnType<typeof validatePreparedWorkingReview>>) => {
+  const choices = prepared.candidate.humanReviewProjection.sections.flatMap(section => section.items)
+    .filter(item => item.changeKind === "OBJECT" && item.objectType !== "UNCERTAINTY");
+  const open = session.workingDraft!.metrics.openHighValueDecisions;
+  const examples = choices.slice(0, 2).map(item => `- ${item.content}`).join("\n");
+  return `J’ai structuré ${choices.length} choix pour votre projet. ${open} point${open > 1 ? "s" : ""} reste${open > 1 ? "nt" : ""} à définir et ne sera${open > 1 ? "ont" : ""} pas confirmé${open > 1 ? "s" : ""}.`
+    + (examples ? `\n\nParmi les choix proposés :\n${examples}` : "")
+    + "\n\nSouhaitez-vous valider ces choix, les consulter ou les modifier ?";
+};
 
 const productBridgeClientErrorCode = (error: unknown) => error && typeof error === "object"
   && "code" in error && typeof error.code === "string"
@@ -982,7 +1016,7 @@ export default function ProtocolDesignerWorkspace({
   const [workingProjectOpen, setWorkingProjectOpen] = useState(false);
   const backgroundDraftJobRef = useRef<Promise<void> | null>(null);
   const pendingBackgroundJobsRef = useRef(0);
-  const pendingNaturalConfirmationRef = useRef<{ turnId: string; invalidated: boolean } | null>(null);
+  const [reviewError, setReviewError] = useState<string | null>(null);
   const foregroundInFlightRef = useRef(false);
   const mountedRef = useRef(true);
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
@@ -1953,35 +1987,6 @@ export default function ProtocolDesignerWorkspace({
     event.preventDefault();
     await submitText(draft.trim());
   };
-  const showPreparedWorkingReview = (current = latestSessionRef.current) => {
-    if (current.workingDraftFailure) return false;
-    let prepared = validatePreparedWorkingReview(current);
-    let refreshed: ReturnType<typeof refreshWorkingDraftReview> = null;
-    if (!prepared) {
-      try {
-        refreshed = refreshWorkingDraftReview(current);
-        if (refreshed) prepared = validatePreparedWorkingReview({ ...current, ...refreshed });
-      } catch (error) { console.warn("WORKING_DRAFT_REVIEW_SCOPE_REFRESH_FAILED", error); return false; }
-    }
-    if (!prepared) return false;
-    const checked = prepared.candidate, ready = prepared;
-    setSession(state => {
-      if (state.sessionId !== current.sessionId) return state;
-      const oldReviewRef = state.workingDraft?.readyReview?.contribution.identity.contributionId;
-      const previousRetained = refreshed && oldReviewRef ? markContributionCandidateNonCurrent({
-        retained: state.retainedContributionCandidates ?? [], candidateRef: oldReviewRef, actuality: "SUPERSEDED",
-        reasonRef: refreshed.workingDraft.reviewScopeDigest!, recordedAt: new Date().toISOString() }) : state.retainedContributionCandidates ?? [];
-      const retained = refreshed ? retainValidatedContributionCandidate({ retained: previousRetained, ...ready,
-        validation: { valid: true, blocks: [] }, validatorRef: "STUDY_PROPOSAL_AND_PRJ_OWNER", sourceTurnRef: refreshed.studyProposal.sourceTurnRef,
-        baseProject: state.project, dependencyBindings: [], traceRunId: null, retainedAt: new Date().toISOString() }) : previousRetained;
-      return { ...state, ...refreshed, retainedContributionCandidates: retained,
-        pendingContribution: ready.contribution, currentContribution: ready.contribution,
-        entries: state.entries.some(e => e.kind === "REVIEW" && e.contribution.identity.contributionId === ready.contribution.identity.contributionId)
-          ? state.entries : [...state.entries, { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution: ready.contribution,
-            candidate: checked, status: "PENDING", createdAt: new Date().toISOString() }] };
-    });
-    return true;
-  };
   const updateBackgroundWorkingDraft = (foreground: FunctionalResetSession, userTurn: ScientificInterpretationTurn) => {
     const previousJob = backgroundDraftJobRef.current;
     pendingBackgroundJobsRef.current += 1;
@@ -2011,8 +2016,7 @@ export default function ProtocolDesignerWorkspace({
           const state = latestSessionRef.current;
           const lastUser = [...state.runtimeTurns].reverse().find(t => t.role === "USER");
           if (state.sessionId !== current.sessionId || state.project?.versionId !== current.project?.versionId
-            || lastUser?.turnId !== userTurn.turnId && lastUser?.turnId !== pendingNaturalConfirmationRef.current?.turnId
-              && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return;
+            || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return;
           const composition = response.workingStudyProposal!;
           const workingDraft = prepareContinuousWorkingDraft(current, composition, response.workingDraftUpdate!, composition.proposal.contextDigest);
           const prepared = workingDraft.readyReview;
@@ -2049,7 +2053,9 @@ export default function ProtocolDesignerWorkspace({
     backgroundDraftJobRef.current = job;
     void job.finally(() => { if (backgroundDraftJobRef.current === job) backgroundDraftJobRef.current = null; });
   };
-  const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn) => {
+  const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn,
+    reviewConfirmation?: { binding: ProjectReviewInvitation; selectedChangeRefs?: readonly string[]; refusedChangeRefs?: readonly string[];
+      prepareRemainingTurn?: boolean }) => {
     if (foregroundInFlightRef.current) return;
     foregroundInFlightRef.current = true;
     const requestedSessionId = latestSessionRef.current.sessionId;
@@ -2101,7 +2107,14 @@ export default function ProtocolDesignerWorkspace({
       setSession(delivered);
       if (response.conversationFailure) setDraft(current => current || content);
       if (autonomousProjectBuild && !response.conversationFailure) {
-        updateBackgroundWorkingDraft(delivered, userTurn);
+        if (reviewConfirmation) {
+          const adopted = await confirmProject(content, reviewConfirmation.selectedChangeRefs,
+            reviewConfirmation.refusedChangeRefs, false, userTurn, reviewConfirmation.binding);
+          // The compound turn already reached Chat. Prepare its distinct new
+          // scientific content against the adopted Project without replaying it
+          // as a second user message or eliciting a duplicate Chat answer.
+          if (adopted && reviewConfirmation.prepareRemainingTurn) updateBackgroundWorkingDraft(adopted, userTurn);
+        } else updateBackgroundWorkingDraft(delivered, userTurn);
       }
       const contribution = prepareRecording ? response.persistentExtraction.contribution : null;
       let candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> | null = null;
@@ -2122,7 +2135,7 @@ export default function ProtocolDesignerWorkspace({
       const reviewable = !preparationFailed && contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION";
       setSession(current => ({ ...current, currentContribution: !preparationFailed && contribution ? contribution : current.currentContribution,
         pendingContribution: reviewable ? contribution : current.pendingContribution,
-        retainedContributionCandidates: retained,
+        retainedContributionCandidates: reviewable ? retained : current.retainedContributionCandidates,
         entries: [...current.entries,
           ...(reviewable ? [{ entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
             contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt }] : []),
@@ -2138,7 +2151,7 @@ export default function ProtocolDesignerWorkspace({
           persistentCandidate: response.persistentExtraction.candidate, deterministicValidation: response.persistentExtraction.validation,
           projectChangeSetCandidate: candidate?.changeSet ?? null, canonicalProjectChangeSetCandidate: candidate?.canonicalChangeSet ?? null,
           humanReviewProjection: candidate?.humanReviewProjection ?? null, humanDecision: null,
-          projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: session.project?.versionId ?? null,
+          projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null,
           qryNeedBefore: null, qryNeedAfter: null, provider: response.observability.provider, model: response.observability.model,
           conversationLatencyMs: response.observability.conversationLatencyMs, extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls, projectWriteCount: 0, protocolProjectionCount: 0 }].slice(-20), updatedAt: receivedAt }));
@@ -2158,16 +2171,6 @@ export default function ProtocolDesignerWorkspace({
   };
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
-    const pendingConfirmation = pendingNaturalConfirmationRef.current;
-    if (pendingConfirmation && !continuedTurn) {
-      const nextDecision = readNaturalCandidateDecision(content);
-      if (nextDecision?.act === "CONFIRM" && !nextDecision.qualified) {
-        // Repeating the same whole-scope assent while it is settling is not a new decision.
-        setDraft("");
-        return;
-      }
-      pendingConfirmation.invalidated = true;
-    }
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
       if (continuedTurn) {
         await submitTerraText(content, false, continuedTurn);
@@ -2181,78 +2184,25 @@ export default function ProtocolDesignerWorkspace({
       const confirmsWholeCheckpoint = naturalDecision?.act === "CONFIRM"
         && (!naturalDecision.qualified || confirmsThenContinues);
       const exceptPoint = /^(?:(?:je )?(?:valide|confirme) )?tout sauf (?:le )?point (\d+)$/u.exec(normalizedDecision);
+      const binding = checkpoint ? projectReviewInvitation(current, checkpoint) : null;
       if (checkpoint && exceptPoint) {
         const ordinal = Number(exceptPoint[1]);
         const displayedRef = reviewDecisionRefsInDisplayOrder(checkpoint.candidate)[ordinal - 1];
         const group = displayedRef ? contributionDecisionScopeGroups(checkpoint.candidate, current.project)
           .find(refs => refs.includes(displayedRef)) : undefined;
         const selected = group ? checkpoint.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !group.includes(ref)) : [];
-        if (group && selected.length && await confirmProject(content, selected, group)) setDraft("");
-        else if (!group || !selected.length) await submitTerraText(content);
+        await submitTerraText(content, false, undefined, group && selected.length && binding
+          ? { binding, selectedChangeRefs: selected, refusedChangeRefs: group } : undefined);
         return;
       }
-      if (checkpoint && (confirmsWholeCheckpoint || confirmsThenContinues)) {
-        if (await confirmProject(content, undefined, undefined, confirmsThenContinues)) setDraft("");
+      if (checkpoint && confirmsWholeCheckpoint && binding) {
+        await submitTerraText(content, false, undefined, { binding, prepareRemainingTurn: confirmsThenContinues });
         return;
       }
-      // Operation recognition only; the extraction and native review determine scope.
-      const recording = isExplicitProjectRecordingRequest(content);
-      const workingContext = latestSessionRef.current;
-      const hasWorkingReviewContext = !!workingContext.studyProposal || !!workingContext.workingDraft
-        || !!workingContext.workingDraftFailure || pendingBackgroundJobsRef.current > 0;
-      const pendingWholeConfirmation = confirmsWholeCheckpoint
-        && !checkpoint && pendingBackgroundJobsRef.current > 0 && !!backgroundDraftJobRef.current;
-      if (autonomousProjectBuild && hasWorkingReviewContext && (pendingWholeConfirmation || isWorkingDraftReviewOnlyRequest(content))) {
-        const now = new Date().toISOString();
-        const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
-        setDraft("");
-        const current = latestSessionRef.current;
-        const sourceTurn = [...current.runtimeTurns].reverse().find(turn => turn.role === "USER");
-        const sourceReply = current.runtimeTurns.at(-1);
-        const sourceJob = backgroundDraftJobRef.current;
-        const next = { ...current, runtimeTurns: [...current.runtimeTurns, userTurn],
-          entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }], updatedAt: now };
-        latestSessionRef.current = next;
-        setSession(next);
-        if (pendingWholeConfirmation && sourceJob && sourceTurn && sourceReply?.role === "NOXIA") {
-          const intent = { turnId: userTurn.turnId, invalidated: false };
-          pendingNaturalConfirmationRef.current = intent;
-          try {
-            await sourceJob;
-            const settled = latestSessionRef.current;
-            const prepared = !settled.workingDraftFailure && validatePreparedWorkingReview(settled, userTurn.turnId);
-            const bound = !intent.invalidated && mountedRef.current
-              && settled.sessionId === current.sessionId && settled.projectId === current.projectId
-              && settled.conversationId === current.conversationId
-              && settled.project?.versionId === current.project?.versionId
-              && settled.project?.projectDigest === current.project?.projectDigest
-              && [...settled.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId === userTurn.turnId
-              && settled.studyProposal?.sourceTurnRef === sourceTurn.turnId
-              && settled.studyProposal.sourceResponseRef === sourceReply.turnId
-              && settled.workingDraft?.sourceUserTurnRef === sourceTurn.turnId
-              && !!prepared;
-            if (bound && await confirmProject(content, undefined, undefined, confirmsThenContinues, userTurn)) return;
-            if (!mountedRef.current || settled.sessionId !== latestSessionRef.current.sessionId) return;
-            const latest = latestSessionRef.current;
-            if (latest.sessionId !== current.sessionId) return;
-            const failureSession: FunctionalResetSession = {
-              ...latest,
-              entries: [...latest.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA",
-                content: "Votre confirmation n’a pas été appliquée : la proposition visée n’est plus disponible ou sa préparation a échoué. Le projet reste inchangé.",
-                createdAt: new Date().toISOString() }],
-            };
-            latestSessionRef.current = failureSession;
-            setSession(failureSession);
-          } finally {
-            if (pendingNaturalConfirmationRef.current === intent) pendingNaturalConfirmationRef.current = null;
-          }
-          return;
-        }
-        if (sourceJob) await sourceJob;
-        showPreparedWorkingReview();
-        return;
-      }
-      await submitTerraText(content, autonomousProjectBuild ? false : recording);
+      // Every submitted message reaches Chat, including early assent, refusal,
+      // correction and review-only requests. A button remains the reference
+      // transaction when the scientific review is ready.
+      await submitTerraText(content, autonomousProjectBuild ? false : isExplicitProjectRecordingRequest(content));
       return;
     }
     const now = new Date().toISOString();
@@ -3574,11 +3524,15 @@ export default function ProtocolDesignerWorkspace({
       if (onSessionChange?.(nextSession) === false) throw new Error("PROJECT_PERSISTENCE_FAILED");
       latestSessionRef.current = nextSession;
       setSession(nextSession);
+      setReviewError(null);
 
       // Project writes supply context; they never select another scientific
       // speaker. QRY/owner results remain available for an explicit request.
       return nextSession;
-    } catch {
+    } catch (error) {
+      console.warn("PROJECT_CONFIRMATION_FAILED", error);
+      const workingReview = autonomousProjectBuild && Boolean(proposalSelection);
+      if (workingReview) setReviewError("La validation du projet n’a pas abouti. Les choix restent disponibles dans cette revue.");
       setSession((current) => {
         const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
         const scientificExecutionTraceLedger = correlatedTrace?.traceRunId
@@ -3603,10 +3557,8 @@ export default function ProtocolDesignerWorkspace({
           : current.scientificExecutionTraceLedger;
         return {
         ...current,
-        entries: [...current.entries, {
-          entryId: createConversationEntryId(),
-          kind: "ERROR",
-          role: "NOXIA",
+        entries: workingReview ? current.entries : [...current.entries, {
+          entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const,
           content: current.project?.versionId !== session.project?.versionId
             ? "Le projet est à jour, mais NOXIA n’a pas pu formuler la prochaine étape. Vous pouvez poursuivre librement."
             : "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
@@ -4250,13 +4202,34 @@ export default function ProtocolDesignerWorkspace({
       : current);
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
+  useEffect(() => {
+    if (!autonomousProjectBuild || workingDraftBusy || !preparedFinalization) return;
+    const expected = projectReviewInvitation(session, preparedFinalization);
+    setSession(current => {
+      const ready = validatePreparedWorkingReview(current);
+      if (!ready || !sameProjectReviewInvitation(projectReviewInvitation(current, ready), expected)
+        || current.entries.some(entry => entry.kind === "TEXT" && entry.reviewInvitation
+          && sameProjectReviewInvitation(entry.reviewInvitation, expected))) return current;
+      const createdAt = new Date().toISOString();
+      const content = projectReviewInvitationText(current, ready);
+      return { ...current, runtimeTurns: [...current.runtimeTurns, { turnId: createTurnId(), role: "NOXIA", content, createdAt }],
+        entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA",
+          content, reviewInvitation: expected, createdAt }], updatedAt: createdAt };
+    });
+  }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
+
   const confirmProject = async (confirmationText = "Valider ces choix", selectedChangeRefs?: readonly string[], refusedChangeRefs?: readonly string[], prepareRemainingTurn = false,
-    existingUserTurn?: ScientificInterpretationTurn) => {
+    existingUserTurn?: ScientificInterpretationTurn, expectedReview?: ProjectReviewInvitation) => {
     const current = latestSessionRef.current;
     const prepared = validatePreparedWorkingReview(current, existingUserTurn?.turnId);
     const composition = current.studyProposal;
     const workingDraft = current.workingDraft;
-    if (!prepared || !composition || !workingDraft || busy || pendingBackgroundJobsRef.current > 0) return null;
+    if (!prepared || !composition || !workingDraft || busy && !existingUserTurn || pendingBackgroundJobsRef.current > 0
+      || expectedReview && !sameProjectReviewInvitation(projectReviewInvitation(current, prepared), expectedReview)) {
+      setReviewError("Cette revue a changé. Attendez les choix courants avant de confirmer.");
+      return null;
+    }
+    setReviewError(null);
     const scope = recommendedWorkingScope(composition);
     const confirmedAt = new Date().toISOString();
     const userTurn: ScientificInterpretationTurn = existingUserTurn ?? {
@@ -4364,7 +4337,9 @@ export default function ProtocolDesignerWorkspace({
     currentProject={session.project}
     workingDraft={session.workingDraft}
     disabled={busy || workingDraftBusy}
-    onConfirm={() => void confirmProject()}
+    error={reviewError}
+    onConfirm={() => void confirmProject("Valider ces choix", undefined, undefined, false, undefined,
+      projectReviewInvitation(session, preparedFinalization))}
   /> : null;
   const currentDrciDraftPack = session.project
     ? [...session.drciDraftPacks ?? []].reverse().find((pack) => isDrciDraftPackCurrent(pack, session.project!)) ?? null
@@ -4658,7 +4633,7 @@ export default function ProtocolDesignerWorkspace({
                     composerRef.current?.focus();
                   }}
                 />
-              : <article key={entry.entryId} ref={entry.role === "NOXIA" && entry.kind === "TEXT" && !session.entries.slice(index + 1).some(item => item.kind === "TEXT" && item.role === "NOXIA") ? latestReplyRef : undefined} className={`scroll-mt-64 flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
+              : <article key={entry.entryId} data-testid={entry.kind === "TEXT" && entry.reviewInvitation ? "project-review-invitation" : undefined} ref={entry.role === "NOXIA" && entry.kind === "TEXT" && !session.entries.slice(index + 1).some(item => item.kind === "TEXT" && item.role === "NOXIA") ? latestReplyRef : undefined} className={`scroll-mt-64 flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
                 {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
                   ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />
                   : <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
@@ -4667,6 +4642,7 @@ export default function ProtocolDesignerWorkspace({
                   }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>}
               </article>)}
             {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />{busyMessage}</div></div>}
+            {autonomousProjectBuild && workingDraftBusy && <div role="status" className="px-4 py-2 text-xs text-muted-foreground">Structuration du projet en cours…</div>}
             <div ref={endRef} />
           </div>
 

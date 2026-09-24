@@ -36,6 +36,11 @@ const setUp = (backgroundFailure = false) => {
     if (backgroundFailure) throw new Error("LOCAL_SYNTHETIC_BACKGROUND_FAILURE");
     const packet = JSON.parse(payload.input);
     const proposal = controlledStudyProposal(packet.contextDigest, DOMAINS[0]);
+    proposal.atoms.find(atom => atom.ref === "eligibility")!.content = "Vérifier avant l’examen l’absence de contre-indication à l’IRM selon les règles de sécurité applicables; la procédure exacte reste à définir.";
+    for (const atom of proposal.atoms.slice(-15)) atom.status = "OPEN_DECISION";
+    for (const ref of ["sex", "height", "weight", "bmi", "bp", "history", "renal"]) {
+      proposal.atoms.splice(proposal.atoms.findIndex(atom => atom.ref === ref), 1);
+    }
     if (String(payload.input).includes("ce sera en France"))
       proposal.atoms.find(atom => atom.ref === "practical")!.content = "Étude conduite en France";
     return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal,
@@ -57,10 +62,10 @@ const simpleAcquiescence = [
   "oui", "oui je valide", "je valide", "valide", "on valide", "ça me va", "ça me convient",
   "d'accord", "ok", "ok on garde ça", "on garde ça", "c'est bon", "c'est parfait", "je retiens ça", "ça marche",
 ];
-const pendingConfirmVariants = ["oui je valide", "oui", "valide", "ça me convient", "d'accord", "ok on garde ça", "c'est parfait", "je retiens ça"];
+const pendingConfirmVariants = ["oui je valide", "oui", "ça me convient", "d'accord"];
 
 describe("natural confirmation while the real workspace Working Draft is pending", () => {
-  it.each(pendingConfirmVariants)("adopts the source-bound pending proposal once for %s, persists and reloads", async confirmation => {
+  it.each(pendingConfirmVariants)("keeps early assent visible and waits for a current review: %s", async confirmation => {
     expect(readNaturalCandidateDecision(confirmation)).toMatchObject({ act: "CONFIRM", qualified: false });
     const { view, backgroundStarted, release } = setUp();
     send(DOMAINS[0].text);
@@ -70,13 +75,19 @@ describe("natural confirmation while the real workspace Working Draft is pending
     send(confirmation);
     await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
     expect(savedProject()?.project).toBeNull();
+    expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
+    expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === confirmation)).toHaveLength(1);
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => !request.prepareWorkingDraft
+      && request.conversation.turns.at(-1)?.content === confirmation)).toBe(true));
     await act(async () => { release(); });
+    await waitFor(() => expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1));
+    expect(savedProject()?.project).toBeNull();
+    expect(screen.queryByText(/Votre confirmation n’a pas été appliquée/)).not.toBeInTheDocument();
+    expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === confirmation)).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(savedProject()?.project?.confirmationDecision.status).toBe("ADOPTED"));
     const adopted = savedProject()!;
-    expect(adopted.project?.versionId).toBeTruthy();
-    expect(adopted.project?.canonicalBackboneStatus).toBe("PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE");
-    expect(adopted.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === confirmation)).toHaveLength(1);
-    expect(adopted.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === confirmation)).toHaveLength(1);
+    expect(adopted.project?.revision).toBe(1);
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
     const version = adopted.project?.versionId;
@@ -88,40 +99,88 @@ describe("natural confirmation while the real workspace Working Draft is pending
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
   });
 
-  it("does not bind a pending assent to the later document request", async () => {
+  it("does not treat a later document request as assent to a pending review", async () => {
     const { backgroundStarted, release } = setUp();
     send(DOMAINS[0].text);
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
     send("genere les documents");
     await act(async () => { release(); });
-    await waitFor(() => expect(screen.getByText(/Votre confirmation n’a pas été appliquée/)).toBeInTheDocument());
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(3));
     expect(savedProject()?.project).toBeNull();
     expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
   });
 
-  it("does not adopt twice when the same whole-scope assent is repeated while pending", async () => {
+  it("does not adopt on repeated assent before review", async () => {
     const { backgroundStarted, release } = setUp();
     send(DOMAINS[0].text);
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
     send("oui je valide");
     await act(async () => { release(); });
-    await waitFor(() => expect(savedProject()?.project?.confirmationDecision.status).toBe("ADOPTED"));
-    expect(savedProject()?.project?.revision).toBe(1);
-    expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === "oui je valide")).toHaveLength(1);
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === "oui je valide")).toHaveLength(2));
+    expect(savedProject()?.project).toBeNull();
   });
 
-  it("keeps Project empty and reports a failed background preparation", async () => {
+  it("binds a natural assent to the invited current review only after Chat has seen it", async () => {
+    const { backgroundStarted, release } = setUp();
+    send(DOMAINS[0].text);
+    await backgroundStarted;
+    await act(async () => { release(); });
+    await screen.findByTestId("project-review-invitation");
+    const invitation = savedProject()?.entries.find(entry => entry.kind === "TEXT" && entry.reviewInvitation);
+    expect(invitation?.kind).toBe("TEXT");
+    if (invitation?.kind === "TEXT") expect(invitation.reviewInvitation?.sessionId).toBe(savedProject()?.sessionId);
+    send("ça me convient");
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => !request.prepareWorkingDraft
+      && request.conversation.turns.at(-1)?.content === "ça me convient")).toBe(true));
+    await waitFor(() => expect(savedProject()?.project?.revision).toBe(1));
+    expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === "ça me convient")).toHaveLength(1);
+    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
+  });
+
+  it("rehydrates one exact review invitation before the user confirms", async () => {
+    const { view, backgroundStarted, release } = setUp();
+    send(DOMAINS[0].text);
+    await backgroundStarted;
+    await act(async () => { release(); });
+    await screen.findByTestId("project-review-invitation");
+    const binding = savedProject()?.entries.find(entry => entry.kind === "TEXT" && entry.reviewInvitation);
+    expect(binding?.kind).toBe("TEXT");
+    view.unmount();
+    render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
+    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
+    expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.reviewInvitation)).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(savedProject()?.project?.revision).toBe(1));
+    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
+  });
+
+  it("does not adopt when the invited user refuses", async () => {
+    const { backgroundStarted, release } = setUp();
+    send(DOMAINS[0].text);
+    await backgroundStarted;
+    await act(async () => { release(); });
+    await screen.findByTestId("project-review-invitation");
+    send("non, je préfère revoir le critère principal");
+    await waitFor(() => expect(savedProject()?.runtimeTurns.some(turn => turn.role === "USER"
+      && turn.content === "non, je préfère revoir le critère principal")).toBe(true));
+    expect(savedProject()?.project).toBeNull();
+  });
+
+  it("keeps Project empty without a global confirmation error after failed background preparation", async () => {
     const { backgroundStarted, release } = setUp(true);
     send(DOMAINS[0].text);
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
     await act(async () => { release(); });
-    await waitFor(() => expect(screen.getByText(/Votre confirmation n’a pas été appliquée/)).toBeInTheDocument());
+    await waitFor(() => expect(savedProject()?.workingDraftFailure).toBeTruthy());
+    expect(screen.queryByText(/Votre confirmation n’a pas été appliquée/)).not.toBeInTheDocument();
     expect(savedProject()?.project).toBeNull();
   });
 
@@ -131,6 +190,7 @@ describe("natural confirmation while the real workspace Working Draft is pending
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
     fireEvent.click(screen.getByRole("button", { name: "← Mes projets" }));
     await act(async () => { release(); });
     expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe("LIST");
@@ -138,15 +198,16 @@ describe("natural confirmation while the real workspace Working Draft is pending
   });
 
   it.each(["finalement je refuse et je veux modifier le critère principal", "non, je refuse cette proposition"])(
-    "invalidates the pending confirmation when the user changes course: %s", async change => {
+    "keeps the later refusal visible without a silent adoption: %s", async change => {
     const { backgroundStarted, release } = setUp();
     send(DOMAINS[0].text);
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
+    await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
     send(change);
     await act(async () => { release(); });
-    await waitFor(() => expect(screen.getByText(/Votre confirmation n’a pas été appliquée/)).toBeInTheDocument());
+    await waitFor(() => expect(savedProject()?.runtimeTurns.some(turn => turn.role === "USER" && turn.content === change)).toBe(true));
     expect(savedProject()?.project).toBeNull();
   });
 
@@ -165,7 +226,7 @@ describe("natural confirmation while the real workspace Working Draft is pending
       expect(readNaturalCandidateDecision(text)?.act).not.toBe("CONFIRM");
     });
 
-  it("confirms only the prior proposal and retains a clearly separate scientific continuation", async () => {
+  it("preserves a scientific continuation without premature adoption", async () => {
     const { backgroundStarted, release } = setUp();
     const mixed = "oui je valide. ce sera en France";
     expect(readNaturalCandidateDecision(mixed)).toMatchObject({ act: "CONFIRM", qualified: true, separableContinuation: true });
@@ -175,13 +236,9 @@ describe("natural confirmation while the real workspace Working Draft is pending
     send(mixed);
     expect(savedProject()?.project).toBeNull();
     await act(async () => { release(); });
-    await waitFor(() => expect(savedProject()?.project?.confirmationDecision.status).toBe("ADOPTED"));
-    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.currentProject?.revision === 1
-      && request.conversation.turns.at(-1)?.content === mixed && !request.prepareWorkingDraft)).toBe(true));
-    await waitFor(() => expect(savedProject()?.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
-      .some(object => object.content.includes("en France"))).toBe(true));
-    expect(savedProject()?.project?.revision).toBe(1);
-    expect(JSON.stringify(savedProject()?.project)).not.toContain("France");
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.conversation.turns.at(-1)?.content === mixed
+      && !request.prepareWorkingDraft)).toBe(true));
+    expect(savedProject()?.project).toBeNull();
     expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === mixed)).toHaveLength(1);
     expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
   });
