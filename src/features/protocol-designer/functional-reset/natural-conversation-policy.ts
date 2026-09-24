@@ -23,9 +23,9 @@ const folded = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "")
 /** Recognize an explicit operation, never its scientific scope or adoption.
  * Questions about recording and negative/quoted commands remain discussion. */
 export const isExplicitProjectRecordingRequest = (raw: string) => raw.split(/[.!?;\n]/u).some(clause => {
-  const text = folded(clause).replace(/^(?:(?:oui|alors|donc|merci|s'il vous plait|s'il te plait|ca me convient|cela me convient|c'est parfait|c'est bon)[, ]+)+/u, "");
+  const text = folded(clause).replace(/^(?:(?:oui|alors|donc|merci|vas-y|s'il vous plait|s'il te plait|ca me convient|cela me convient|c'est parfait|c'est bon)[, ]+)+/u, "");
   const operation = /^(?:(?:je (?:veux|voudrais|souhaite)|nous (?:voulons|souhaitons)|(?:tu peux|vous pouvez)|peux-tu|pouvez-vous)\s+)?(?:enregistre(?:r|z)?|sauvegarde(?:r|z)?|inscri(?:s|re|vez))\b/u;
-  const choice = /^(?:(?:je|nous|on)\s+)?(?:valide(?:s|z)?|validons|confirme(?:s|z)?|confirmons|retiens|retenons|adopte(?:s|z)?|adoptons)\b/u;
+  const choice = /^(?:(?:(?:je|nous|on)\s+)|(?:(?:tu peux|vous pouvez|peux-tu|pouvez-vous)\s+))?(?:valide(?:r|s|z)?|validons|confirme(?:r|s|z)?|confirmons|retiens|retenons|adopte(?:r|s|z)?|adoptons|garde(?:r)?\s+(?:ca|cela))\b/u;
   const projectEdit = /^(?:ajoute(?:z)?(?:-le|-la)?|mets|mettez)\b.{0,60}\b(?:au|dans le|a jour le) projet\b/u;
   if (operation.test(text)) {
     return !/^(?:enregistre\w*|sauvegarde\w*|inscri\w*)\s+(?:(?:ca|cela|le|la|les|l')\s+)?pas\b/u.test(text);
@@ -77,9 +77,9 @@ export const readNaturalCandidateDecision = (raw: string): Readonly<{
 }> | null => {
   const text = folded(raw).replace(/[.!]+$/u, "");
   if (/[?"«»“”]/u.test(text) || /\b(?:si|supposons|imaginons|exemple|dirais|dirions|peut etre|a condition)\b/u.test(text)) return null;
-  const match = /^(?:(?:oui|non|donc|alors)[, ]+)?(?:(?:je|nous|on)\s+(confirme|confirmons|valide|validons|adopte|adoptons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b|(?:vous pouvez|tu peux)\s+(enregistrer)\b|(garde)\s+(?:ca|cela)\b|(oui|non)\b|(ca me va|cela me va)\b)/u.exec(text);
+  const match = /^(?:(?:oui|alors|donc|vas-y|ca me convient|cela me convient|c'est parfait|c'est bon)[, ]+)*(?:(?:je|nous|on)\s+(confirme|confirmons|valide|validons|adopte|adoptons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b|(?:vous pouvez|tu peux|peux-tu|pouvez-vous)\s+(enregistrer|valider|confirmer|adopter|garder)\b|(garde)\s+(?:ca|cela)\b|(oui|non)\b|(ca me va|cela me va)\b|(valide(?:r|s|z)?|validons|confirme(?:r|s|z)?|confirmons|adopte(?:r|s|z)?|adoptons|accepte(?:r|s|z)?|acceptons|retiens|retenons|garde)\b)/u.exec(text);
   if (!match) return null;
-  const verb = match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5]!;
+  const verb = match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5] ?? match[6]!;
   let remainder = text.slice(match[0].length).trim();
   if (/^(?:pas|jamais|plus)\b/u.test(remainder)) return null;
   remainder = remainder.replace(/^[,.; ]+/u, "").trim();

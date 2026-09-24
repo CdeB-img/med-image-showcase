@@ -8,7 +8,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-libra
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftAdoptionRequest, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
-import { isExplicitProjectRecordingRequest } from "../natural-conversation-policy";
+import { classifyNaturalConversationActs, isExplicitProjectRecordingRequest } from "../natural-conversation-policy";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
@@ -47,12 +47,13 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
-  it.each(["ca me convient, valide", "ca me convient valides tes propositions", "c'est parfait on valide aussi"])(
+  it.each(["ça me convient tu peux valider", "ca me convient, valide", "ca me convient valides tes propositions", "oui, valide", "je valide ces propositions", "on valide aussi", "je confirme ces choix", "vas-y, garde ça"])(
     "recognizes an explicit human adoption act after conversational assent: %s", text => {
       expect(isExplicitProjectRecordingRequest(text)).toBe(true);
       expect(isWorkingDraftAdoptionRequest(text)).toBe(true);
+      expect(classifyNaturalConversationActs(text)).toContain("SCIENTIFIC_DECISION_INTENT");
     });
-  it.each(["ca me convient, mais ajoute une visite", "je valide si la mesure est disponible", "je retiens cette architecture, montre-moi ce qui va être enregistré", "je valide et génère les documents"])(
+  it.each(["je ne valide pas", "pas encore", "est-ce que je dois valider ?", "si je valide ça...", "on pourrait éventuellement valider", "ca me convient, mais ajoute une visite", "je valide si la mesure est disponible", "je retiens cette architecture, montre-moi ce qui va être enregistré", "je valide et génère les documents"])(
     "does not silently adopt a mixed or review-only act: %s", text => {
       expect(isWorkingDraftAdoptionRequest(text)).toBe(false);
     });
@@ -64,17 +65,24 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
     let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
-    send("ca me convient, valide");
+    send("ça me convient tu peux valider");
     await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(saved.project?.revision).toBe(1);
     expect(saved.project?.projectId).toBe(initial.projectId);
-    expect(saved.runtimeTurns.at(-2)?.content).toBe("ca me convient, valide");
+    expect(saved.runtimeTurns.at(-2)?.content).toBe("ça me convient tu peux valider");
     expect(saved.entries.some(entry => entry.kind === "REVIEW" && entry.status === "CONFIRMED")).toBe(false);
     expect(screen.getByText(/Les éléments confirmés sont enregistrés/)).toBeInTheDocument();
     expect(screen.queryByText(/Aucun élément n’est encore confirmé/)).toBeNull();
     persistFunctionalResetSession(localStorage, saved);
     expect(loadFunctionalResetSession(localStorage).project?.versionId).toBe(saved.project?.versionId);
     expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("does not teach Chat a false product incapacity for Project or documents", () => {
+    const prepared = prepareTerraConversation(requestFor(sessionFor()), true);
+    expect(prepared.instruction).not.toContain("Tu n'as aucune capacité de write");
+    expect(prepared.instruction).toContain("Les écritures et les documents sont des actions du produit");
+    expect(prepared.instruction).toContain("Ne présente jamais l'absence d'un outil direct");
   });
 
   it("adds a later confirmed choice without discarding the previously adopted Project", async () => {
