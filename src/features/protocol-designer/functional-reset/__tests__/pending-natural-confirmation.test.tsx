@@ -35,8 +35,10 @@ const setUp = (backgroundFailure = false) => {
     await held;
     if (backgroundFailure) throw new Error("LOCAL_SYNTHETIC_BACKGROUND_FAILURE");
     const packet = JSON.parse(payload.input);
-    return response(JSON.stringify({ requestType: "STUDY_UPDATE",
-      proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[0]),
+    const proposal = controlledStudyProposal(packet.contextDigest, DOMAINS[0]);
+    if (String(payload.input).includes("ce sera en France"))
+      proposal.atoms.find(atom => atom.ref === "practical")!.content = "Étude conduite en France";
+    return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal,
       explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
   });
   bridge.mockImplementation(async (request: ProductBridgeRequest) => {
@@ -51,11 +53,14 @@ const setUp = (backgroundFailure = false) => {
   return { view, provider, backgroundStarted, release };
 };
 
-// Every case here is recognized by the existing classifier; this test does not define its vocabulary.
-const existingConfirmActs = ["oui je valide", "oui", "je valide", "on valide", "ça me va"];
+const simpleAcquiescence = [
+  "oui", "oui je valide", "je valide", "valide", "on valide", "ça me va", "ça me convient",
+  "d'accord", "ok", "ok on garde ça", "on garde ça", "c'est bon", "c'est parfait", "je retiens ça", "ça marche",
+];
+const pendingConfirmVariants = ["oui je valide", "oui", "valide", "ça me convient", "d'accord", "ok on garde ça", "c'est parfait", "je retiens ça"];
 
 describe("natural confirmation while the real workspace Working Draft is pending", () => {
-  it.each(existingConfirmActs)("adopts the source-bound pending proposal once for %s, persists and reloads", async confirmation => {
+  it.each(pendingConfirmVariants)("adopts the source-bound pending proposal once for %s, persists and reloads", async confirmation => {
     expect(readNaturalCandidateDecision(confirmation)).toMatchObject({ act: "CONFIRM", qualified: false });
     const { view, backgroundStarted, release } = setUp();
     send(DOMAINS[0].text);
@@ -145,8 +150,58 @@ describe("natural confirmation while the real workspace Working Draft is pending
     expect(savedProject()?.project).toBeNull();
   });
 
-  it("does not pretend that an unrecognized assent belongs to the existing CONFIRM policy", () => {
-    for (const text of ["ça me convient", "ok on garde ça", "c'est parfait", "d'accord"])
-      expect(readNaturalCandidateDecision(text)).toBeNull();
+  it.each(simpleAcquiescence)("classifies unambiguous natural acquiescence: %s", text => {
+    expect(readNaturalCandidateDecision(text)).toMatchObject({ act: "CONFIRM", qualified: false });
+  });
+
+  it.each(["OUI !", "ÇA ME CONVIENT.", "D’ACCORD", "OK, on garde ça !", "C'EST PARFAIT…"])(
+    "preserves case, accent and punctuation equivalence: %s", text => {
+      expect(readNaturalCandidateDecision(text)).toMatchObject({ act: "CONFIRM", qualified: false });
+    });
+
+  it.each(["non", "non ça ne me convient pas", "je préfère autre chose", "ne valide pas", "attends",
+    "valide pas", "oui mais non", "oui ?", "ok si on change le critère"])(
+    "never infers confirmation from refusal, condition or question: %s", text => {
+      expect(readNaturalCandidateDecision(text)?.act).not.toBe("CONFIRM");
+    });
+
+  it("confirms only the prior proposal and retains a clearly separate scientific continuation", async () => {
+    const { backgroundStarted, release } = setUp();
+    const mixed = "oui je valide. ce sera en France";
+    expect(readNaturalCandidateDecision(mixed)).toMatchObject({ act: "CONFIRM", qualified: true, separableContinuation: true });
+    send(DOMAINS[0].text);
+    await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
+    await backgroundStarted;
+    send(mixed);
+    expect(savedProject()?.project).toBeNull();
+    await act(async () => { release(); });
+    await waitFor(() => expect(savedProject()?.project?.confirmationDecision.status).toBe("ADOPTED"));
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.currentProject?.revision === 1
+      && request.conversation.turns.at(-1)?.content === mixed && !request.prepareWorkingDraft)).toBe(true));
+    await waitFor(() => expect(savedProject()?.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
+      .some(object => object.content.includes("en France"))).toBe(true));
+    expect(savedProject()?.project?.revision).toBe(1);
+    expect(JSON.stringify(savedProject()?.project)).not.toContain("France");
+    expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === mixed)).toHaveLength(1);
+    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
+  });
+
+  it.each(["oui je valide. je refuse finalement", "oui je valide. je préfère deux centres"])(
+    "does not mark a later correction as a separable addition: %s", text => {
+      expect(readNaturalCandidateDecision(text)).toMatchObject({ act: "CONFIRM", qualified: true, separableContinuation: false });
+    });
+
+  it("does not silently adopt a qualified confirmation with an incompatible change", async () => {
+    const { backgroundStarted, release } = setUp();
+    const mixed = "ça me convient mais je préfère finalement deux centres";
+    expect(readNaturalCandidateDecision(mixed)).toMatchObject({ act: "CONFIRM", qualified: true, separableContinuation: false });
+    send(DOMAINS[0].text);
+    await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
+    await backgroundStarted;
+    send(mixed);
+    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.conversation.turns.at(-1)?.content === mixed)).toBe(true));
+    await act(async () => { release(); });
+    expect(savedProject()?.project).toBeNull();
+    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
   });
 });

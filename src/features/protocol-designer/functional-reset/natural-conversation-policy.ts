@@ -74,18 +74,22 @@ export const readNaturalCandidateDecision = (raw: string): Readonly<{
   act: "CONFIRM" | "REFUSE";
   remainder: string;
   qualified: boolean;
+  separableContinuation: boolean;
 }> | null => {
-  const text = folded(raw).replace(/[.!]+$/u, "")
+  const text = folded(raw).replace(/[.!;,… ]+$/u, "")
     .replace(/^(?:oui[, ]+)?c'est (?:bien|exactement) (?:tout )?(?:ca|cela)[, ]+(?=(?:je|nous)\s+(?:confirme|confirmons|valide|validons|adopte|adoptons)\b)/u, "");
   if (/[?"«»“”]/u.test(text) || /\b(?:si|supposons|imaginons|exemple|dirais|dirions|peut etre|a condition)\b/u.test(text)) return null;
-  const match = /^(?:(?:oui|non|donc|alors)[, ]+)?(?:(?:je|nous|on)\s+(confirme|confirmons|valide|validons|adopte|adoptons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b|(?:vous pouvez|tu peux)\s+(enregistrer)\b|(garde)\s+(?:ca|cela)\b|(oui|non)\b|(ca me va|cela me va)\b)/u.exec(text);
+  const match = /^(?:(?:oui|donc|alors|ok)[, ]+)?(?:(?:je|nous|on)\s+(confirme|confirmons|valide|validons|adopte|adoptons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b|(?:je|nous|on)\s+(retiens|retenons|garde|gardons)\s+(?:ca|cela)\b|(?:vous pouvez|tu peux)\s+(enregistrer)\b|(garde(?:\s+(?:ca|cela))?|valide(?:\s+(?:ca|cela|tout))?)\b|(oui|non|ok|d'accord|ca me va|cela me va|ca me convient|cela me convient|c'est bon|c'est parfait|ca marche|cela marche)\b)/u.exec(text);
   if (!match) return null;
   const verb = match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5]!;
-  let remainder = text.slice(match[0].length).trim();
-  if (/^(?:pas|jamais|plus)\b/u.test(remainder)) return null;
-  remainder = remainder.replace(/^[,.; ]+/u, "").trim();
-  const qualified = Boolean(remainder && !/^(?:c'est (?:bien |exactement )?(?:ca|cela|bon)|(?:ce|cet|cette|la|le) (?:proposition|formulation|projet|candidate|contribution)|comme tu viens de (?:le |la )?presenter|celui-la|celle-la)$/u.test(remainder));
-  return Object.freeze({ act: /refus|rejet/u.test(verb) || verb === "non" ? "REFUSE" : "CONFIRM", remainder, qualified });
+  const rawRemainder = text.slice(match[0].length);
+  const remainder = rawRemainder.replace(/^[,.; ]+/u, "").trim();
+  if (/^(?:pas|jamais|plus|rien|aucun|mais\s+(?:non|je\s+(?:refuse|rejette|ne\s+valide)))\b/u.test(remainder)) return null;
+  const qualified = Boolean(remainder && !/^(?:tout|c'est (?:bien |exactement )?(?:ca|cela|bon)|(?:ce|cet|cette|la|le) (?:proposition|formulation|projet|candidate|contribution)|comme tu viens de (?:le |la )?presenter|celui-la|celle-la)$/u.test(remainder));
+  const separableContinuation = qualified && /^[.;]\s*\S/u.test(rawRemainder)
+    && !/\b(?:mais|finalement|plutot|refus\w*|rejet\w*|remplac\w*|modifi\w*|corrig\w*|chang\w*|prefer\w*|annul\w*|attend\w*)\b/u.test(remainder);
+  return Object.freeze({ act: /refus|rejet/u.test(verb) || verb === "non" ? "REFUSE" : "CONFIRM",
+    remainder, qualified, separableContinuation });
 };
 
 /** A style suffix may not smuggle a scientific edit into a whole decision. */

@@ -2176,12 +2176,10 @@ export default function ProtocolDesignerWorkspace({
       const current = latestSessionRef.current;
       const checkpoint = !workingDraftBusy && !current.workingDraftFailure && validatePreparedWorkingReview(current);
       const naturalDecision = readNaturalCandidateDecision(content);
-      const firstClause = /^(.+?[.;])\s+\S/us.exec(content)?.[1] ?? null;
-      const confirmedFirstClause = firstClause ? readNaturalCandidateDecision(firstClause) : null;
-      const confirmsThenContinues = confirmedFirstClause?.act === "CONFIRM" && !confirmedFirstClause.qualified;
+      const confirmsThenContinues = naturalDecision?.act === "CONFIRM" && naturalDecision.separableContinuation;
       const normalizedDecision = content.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").trim().replace(/[.!]+$/u, "");
-      const confirmsWholeCheckpoint = naturalDecision?.act === "CONFIRM" && !naturalDecision.qualified
-        || /^(?:valide tout|je valide tout|ca me convient|cela me convient)$/u.test(normalizedDecision);
+      const confirmsWholeCheckpoint = naturalDecision?.act === "CONFIRM"
+        && (!naturalDecision.qualified || confirmsThenContinues);
       const exceptPoint = /^(?:(?:je )?(?:valide|confirme) )?tout sauf (?:le )?point (\d+)$/u.exec(normalizedDecision);
       if (checkpoint && exceptPoint) {
         const ordinal = Number(exceptPoint[1]);
@@ -2202,7 +2200,7 @@ export default function ProtocolDesignerWorkspace({
       const workingContext = latestSessionRef.current;
       const hasWorkingReviewContext = !!workingContext.studyProposal || !!workingContext.workingDraft
         || !!workingContext.workingDraftFailure || pendingBackgroundJobsRef.current > 0;
-      const pendingWholeConfirmation = naturalDecision?.act === "CONFIRM" && !naturalDecision.qualified
+      const pendingWholeConfirmation = confirmsWholeCheckpoint
         && !checkpoint && pendingBackgroundJobsRef.current > 0 && !!backgroundDraftJobRef.current;
       if (autonomousProjectBuild && hasWorkingReviewContext && (pendingWholeConfirmation || isWorkingDraftReviewOnlyRequest(content))) {
         const now = new Date().toISOString();
@@ -2233,7 +2231,7 @@ export default function ProtocolDesignerWorkspace({
               && settled.studyProposal.sourceResponseRef === sourceReply.turnId
               && settled.workingDraft?.sourceUserTurnRef === sourceTurn.turnId
               && !!prepared;
-            if (bound && await confirmProject(content, undefined, undefined, false, userTurn)) return;
+            if (bound && await confirmProject(content, undefined, undefined, confirmsThenContinues, userTurn)) return;
             if (!mountedRef.current || settled.sessionId !== latestSessionRef.current.sessionId) return;
             const latest = latestSessionRef.current;
             if (latest.sessionId !== current.sessionId) return;
