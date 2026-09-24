@@ -4631,7 +4631,8 @@ export default function ProtocolDesignerWorkspace({
             <div ref={endRef} />
           </div>
 
-          {autonomousProjectBuild && (session.workingDraft || session.workingDraftFailure || workingDraftBusy) && <div data-testid="continuous-working-draft-indicator" className="flex min-h-14 items-center gap-2 border-t px-4 py-2 text-xs sm:px-5">
+          {autonomousProjectBuild && (workingDraftBusy || session.workingDraftFailure
+            || (session.workingDraft && session.studyProposal?.digest === session.workingDraft.compositionDigest)) && <div data-testid="continuous-working-draft-indicator" className="flex min-h-14 items-center gap-2 border-t px-4 py-2 text-xs sm:px-5">
             <p className="min-w-0 flex-1 break-words">{workingDraftBusy ? "Projet de travail en préparation…" : session.workingDraftFailure?.startsWith("Le brouillon n'a pas pu être finalisé.")
               ? session.workingDraftFailure
               : (session.workingDraft?.failure || session.workingDraftFailure) ? "Discussion conservée · projet de travail à actualiser" : `Projet de travail mis à jour · ${session.workingDraft?.metrics.openHighValueDecisions ?? 0} décisions ouvertes`}</p>

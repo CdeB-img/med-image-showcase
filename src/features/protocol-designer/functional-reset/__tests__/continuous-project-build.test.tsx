@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
-import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftAdoptionRequest, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftAdoptionRequest, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, workingDraftReviewUnavailableMessage, type WorkingDraftUpdate } from "../continuous-project-build";
 import { classifyNaturalConversationActs, isExplicitProjectRecordingRequest } from "../natural-conversation-policy";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
@@ -19,7 +19,7 @@ import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
-import { requireStudyProposalReview } from "../study-proposal-standard";
+import { propagateStudyProposalDecision, requireStudyProposalReview, selectedStudyProposalAtoms } from "../study-proposal-standard";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
@@ -72,6 +72,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.runtimeTurns.at(-2)?.content).toBe("ça me convient tu peux valider");
     expect(saved.entries.some(entry => entry.kind === "REVIEW" && entry.status === "CONFIRMED")).toBe(false);
     expect(screen.getByText(/Les éléments confirmés sont enregistrés/)).toBeInTheDocument();
+    expect(screen.queryByTestId("continuous-working-draft-indicator")).toBeNull();
     expect(screen.queryByText(/Aucun élément n’est encore confirmé/)).toBeNull();
     persistFunctionalResetSession(localStorage, saved);
     expect(loadFunctionalResetSession(localStorage).project?.versionId).toBe(saved.project?.versionId);
@@ -115,6 +116,48 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project?.projectId).toBe(firstProject.projectId);
     expect(saved.project?.versionId).not.toBe(firstProject.versionId);
     expect(saved.project?.canonicalState.objects.length).toBeGreaterThanOrEqual(firstProject.canonicalState.objects.length);
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("builds an explicit ECV-to-biopsy revision from Project V1 without retaining contradictory current decisions", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(DOMAINS[0].text), firstRequest = requestFor(initial), firstUpdate = updateFor(firstRequest, DOMAINS[0]);
+    firstUpdate.proposal!.atoms.find(atom => atom.ref === "measurement")!.content = "IRM cardiaque avec ECV myocardique comme mesure principale";
+    firstUpdate.proposal!.atoms.find(atom => atom.ref === "ecv")!.content = "IRM — ECV myocardique, mesure principale";
+    const firstComposition = acceptWorkingDraftUpdate(firstUpdate, firstRequest).composition!;
+    const firstDraft = prepareContinuousWorkingDraft(initial, firstComposition, firstUpdate, prepareWorkingDraftRequest(firstRequest).inputDigest);
+    const firstScope = recommendedWorkingScope(firstComposition), firstReady = firstDraft.readyReview!;
+    const projectV1 = confirmResearchProjectContribution({ contribution: firstReady.contribution, current: null,
+      projectId: initial.projectId, authority: initial.projectAuthority, confirmedAt: initial.updatedAt,
+      reviewedProjection: firstReady.candidate.humanReviewProjection,
+      selectedChangeRefs: firstReady.candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["u1"] });
+    const adoptedComposition = propagateStudyProposalDecision(firstComposition, projectV1,
+      selectedStudyProposalAtoms(firstComposition, firstScope.selectedOptionRefs, firstScope.selectedAtomRefs), firstScope.selectedOptionRefs,
+      initial.runtimeTurns.find(turn => turn.turnId === "u1"));
+    const revisionText = "finalement je préfère une biopsie myocardique plutôt que l’ECV IRM";
+    const secondBase: FunctionalResetSession = { ...initial, project: projectV1, studyProposal: adoptedComposition, workingDraft: firstDraft,
+      runtimeTurns: [...initial.runtimeTurns, { turnId: "u2", role: "USER", content: revisionText, createdAt: initial.updatedAt },
+        { turnId: "a2", role: "NOXIA", content: "LOCAL_SYNTHETIC — révision proposée, non adoptée.", createdAt: initial.updatedAt }] };
+    const secondRequest = requestFor(secondBase), secondUpdate = updateFor(secondRequest, DOMAINS[0]);
+    secondUpdate.proposal!.atoms.find(atom => atom.ref === "measurement")!.content = "Biopsie myocardique comme mesure principale ; IRM ECV retirée de la stratégie principale";
+    secondUpdate.proposal!.atoms.find(atom => atom.ref === "ecv")!.content = "Biopsie myocardique, mesure principale";
+    secondUpdate.explicitDecisions = ["measurement", "ecv"].map(atomRef => ({ atomRef, sourceTurnRef: "u2", quote: revisionText }));
+    const secondComposition = acceptWorkingDraftUpdate(secondUpdate, secondRequest).composition!;
+    const secondDraft = prepareContinuousWorkingDraft(secondBase, secondComposition, secondUpdate, prepareWorkingDraftRequest(secondRequest).inputDigest);
+    expect(secondDraft.readyReview).not.toBeNull();
+    expect(secondDraft.history).toContainEqual(expect.objectContaining({ status: "SUPERSEDED", atom: expect.objectContaining({ ref: "ecv", content: "IRM — ECV myocardique, mesure principale" }) }));
+    expect(JSON.stringify(projectV1.canonicalState.objects.filter(object => object.actuality === "CURRENT"))).toContain("ECV myocardique");
+
+    let saved: FunctionalResetSession = { ...secondBase, studyProposal: secondComposition, workingDraft: secondDraft };
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    send("ca me convient, valide");
+    await waitFor(() => expect(saved.project?.revision).toBe(projectV1.revision + 1));
+    const currentObjects = saved.project!.canonicalState.objects.filter(object => object.actuality === "CURRENT").map(object => object.content).join("\n");
+    expect(currentObjects).toContain("Biopsie myocardique");
+    expect(currentObjects).not.toContain("IRM — ECV myocardique, mesure principale");
+    expect(saved.project!.canonicalState.objects.some(object => object.actuality === "SUPERSEDED" && object.content === "IRM — ECV myocardique, mesure principale")).toBe(true);
+    expect(currentObjects).toContain("IRM — T1 natif");
+    expect(currentObjects).toContain("IRM — T1 post-contraste");
     expect(bridge).not.toHaveBeenCalled();
   });
 
