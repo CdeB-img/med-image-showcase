@@ -3,7 +3,6 @@ import { confirmResearchProjectContribution, researchProjectOwnerDigest } from "
 import { parseProductBridgeRequest, type ProductBridgeRequest } from "../product-bridge";
 import { requestProtocolDesignerBridge } from "../product-bridge-client";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
-import { handleProtocolDesignerProjectSnapshot } from "../../../../api/protocol-designer-project-snapshot";
 import { createMemoryProtocolDesignerGuardForTests, type PublicProtocolDesignerDurableGuard } from "../../../../server/protocol-designer-durable-guard";
 import {
   ProjectSnapshotError,
@@ -49,7 +48,7 @@ describe("verified immutable Project transport", () => {
     const fetchMock = vi.fn(async (url: string, init: RequestInit) => {
       const body = JSON.parse(String(init.body)) as Record<string, unknown>;
       calls.push({ url, body, headers: init.headers as Record<string, string> });
-      if (url.endsWith("project-snapshot")) return new Response(JSON.stringify({
+      if (body.operation === "PERSIST_PROJECT_SNAPSHOT") return new Response(JSON.stringify({
         contract: "VERIFIED_PROJECT_SNAPSHOT",
         ref: { projectId, versionId: project.versionId, projectDigest: project.projectDigest },
         proof: "p".repeat(43),
@@ -68,9 +67,10 @@ describe("verified immutable Project transport", () => {
       ...request.observabilityContext!, clientRequestId: "synthetic-request-two",
     } });
     expect(calls.map((item) => item.url)).toEqual([
-      "/api/protocol-designer-project-snapshot", "/api/protocol-designer-bridge", "/api/protocol-designer-bridge",
+      "/api/protocol-designer-bridge", "/api/protocol-designer-bridge", "/api/protocol-designer-bridge",
     ]);
-    for (const call of calls.filter((item) => item.url.endsWith("bridge"))) {
+    expect(calls[0].body.operation).toBe("PERSIST_PROJECT_SNAPSHOT");
+    for (const call of calls.filter((item) => item.body.operation !== "PERSIST_PROJECT_SNAPSHOT")) {
       expect(call.body.currentProject).toBeNull();
       expect(call.body.currentProjectRef).toEqual({ projectId, versionId: project.versionId, projectDigest: project.projectDigest });
       expect(call.headers["x-noxia-project-snapshot-proof"]).toBe("p".repeat(43));
@@ -91,7 +91,7 @@ describe("verified immutable Project transport", () => {
     const wire: Record<string, unknown>[] = [];
     vi.stubGlobal("fetch", vi.fn(async (url: string, init: RequestInit) => {
       const body = JSON.parse(String(init.body)) as Record<string, unknown>;
-      if (url.endsWith("project-snapshot")) return new Response(JSON.stringify({
+      if (body.operation === "PERSIST_PROJECT_SNAPSHOT") return new Response(JSON.stringify({
         contract: "VERIFIED_PROJECT_SNAPSHOT",
         ref: { projectId, versionId: project.versionId, projectDigest: project.projectDigest },
         proof: "p".repeat(43),
@@ -225,20 +225,33 @@ describe("verified immutable Project transport", () => {
     let status = 0;
     let result: unknown;
     const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(value) { result = value; } };
-    await handleProtocolDesignerProjectSnapshot({ method: "POST",
+    await handleProtocolDesignerBridge({ method: "POST",
       headers: { "content-type": "application/json", host: "noxia.test", origin: "https://noxia.test",
         "x-forwarded-for": "203.0.113.24" },
-      body: { sessionId, project },
-    }, response, {}, { store });
+      body: { operation: "PERSIST_PROJECT_SNAPSHOT", sessionId, project },
+    }, response, { NODE_ENV: "production", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA",
+      VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, { projectSnapshotStore: store });
     expect(status).toBe(200);
     expect(result).toMatchObject({ contract: "VERIFIED_PROJECT_SNAPSHOT", ref: {
       projectId, versionId: project.versionId, projectDigest: project.projectDigest }, proof: "p".repeat(43) });
     expect(persist).toHaveBeenCalledWith({ sessionId, clientAddress: "203.0.113.24" }, project, null);
-    await handleProtocolDesignerProjectSnapshot({ method: "POST",
+    const transportProbe = { ...project, syntheticTransportPadding: "x".repeat(300_000) };
+    expect(JSON.stringify({ operation: "PERSIST_PROJECT_SNAPSHOT", sessionId, project: transportProbe }).length)
+      .toBeGreaterThan(300_000);
+    await handleProtocolDesignerBridge({ method: "POST",
+      headers: { "content-type": "application/json", host: "noxia.test", origin: "https://noxia.test",
+        "x-forwarded-for": "203.0.113.24" },
+      body: { operation: "PERSIST_PROJECT_SNAPSHOT", sessionId, project: transportProbe },
+    }, response, { NODE_ENV: "production", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA",
+      VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, { projectSnapshotStore: store });
+    expect(status).toBe(200);
+    expect(persist).toHaveBeenCalledTimes(2);
+    await handleProtocolDesignerBridge({ method: "POST",
       headers: { "content-type": "application/json", host: "noxia.test", origin: "https://other.test" },
-      body: { sessionId, project },
-    }, response, {}, { store });
+      body: { operation: "PERSIST_PROJECT_SNAPSHOT", sessionId, project },
+    }, response, { NODE_ENV: "production", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA",
+      VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, { projectSnapshotStore: store });
     expect(status).toBe(403);
-    expect(persist).toHaveBeenCalledTimes(1);
+    expect(persist).toHaveBeenCalledTimes(2);
   });
 });

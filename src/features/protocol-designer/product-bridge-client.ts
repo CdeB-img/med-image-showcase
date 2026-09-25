@@ -62,11 +62,11 @@ export const ensureServerProjectSnapshot = async (
   const inFlight = pendingSnapshots.get(flightKey);
   if (inFlight) return inFlight;
   const registration = (async () => {
-    const response = await fetch("/api/protocol-designer-project-snapshot", {
+    const response = await fetch("/api/protocol-designer-bridge", {
       method: "POST",
       headers: { "content-type": "application/json",
         ...(priorProof ? { "x-noxia-project-snapshot-proof": priorProof } : {}) },
-      body: JSON.stringify({ sessionId, project }),
+      body: JSON.stringify({ operation: "PERSIST_PROJECT_SNAPSHOT", sessionId, project }),
       credentials: "same-origin",
     });
     const value = await response.json().catch(() => null);

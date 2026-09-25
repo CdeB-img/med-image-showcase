@@ -57,6 +57,7 @@ import {
   type OpenAIProviderTransport,
 } from "../server/protocol-designer-openai-provider-config.js";
 import {
+  PROJECT_SNAPSHOT_MAX_BYTES,
   ProjectSnapshotError,
   parseProjectSnapshotRef,
   sharedPostgresProjectSnapshotStore,
@@ -771,6 +772,41 @@ export const handleProtocolDesignerBridge = async (
   let body: unknown = request.body;
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { return response.status(400).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "JSON invalide." } }); }
+  }
+  // The existing function also admits a non-provider upload of an already
+  // adopted Project. This separate operation does not alter the Chat body cap.
+  if (body && typeof body === "object" && !Array.isArray(body)
+    && "operation" in body && body.operation === "PERSIST_PROJECT_SNAPSHOT") {
+    const upload = body as Record<string, unknown>;
+    const serialized = JSON.stringify(body);
+    if (Buffer.byteLength(serialized) > PROJECT_SNAPSHOT_MAX_BYTES) {
+      return response.status(413).json({ error: { code: "PROJECT_SNAPSHOT_TOO_LARGE" } });
+    }
+    if (Object.keys(upload).sort().join(",") !== "operation,project,sessionId"
+      || typeof upload.sessionId !== "string"
+      || !upload.project || typeof upload.project !== "object" || Array.isArray(upload.project)) {
+      return response.status(400).json({ error: { code: "PROJECT_SNAPSHOT_REQUEST_INVALID" } });
+    }
+    const proof = header(request.headers, "x-noxia-project-snapshot-proof") ?? null;
+    if (proof && !/^[A-Za-z0-9_-]{43}$/u.test(proof)) {
+      return response.status(403).json({ error: { code: "PROJECT_SNAPSHOT_SESSION_MISMATCH" } });
+    }
+    const connection = durableGuardConnectionString(environment);
+    if (!connection && !dependencies.projectSnapshotStore) {
+      return response.status(503).json({ error: { code: "PROJECT_SNAPSHOT_STORE_UNAVAILABLE" } });
+    }
+    try {
+      const store = dependencies.projectSnapshotStore ?? sharedPostgresProjectSnapshotStore(connection!);
+      const result = await store.persist({ sessionId: upload.sessionId,
+        clientAddress: header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim()
+          || request.socket?.remoteAddress?.trim() || "anonymous",
+      }, upload.project, proof);
+      return response.status(200).json({ contract: "VERIFIED_PROJECT_SNAPSHOT", ref: result.ref, proof: result.proof });
+    } catch (error) {
+      const failure = error instanceof ProjectSnapshotError
+        ? error : new ProjectSnapshotError("PROJECT_SNAPSHOT_STORE_UNAVAILABLE", 503);
+      return response.status(failure.status).json({ error: { code: failure.code } });
+    }
   }
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
