@@ -26,12 +26,64 @@ const qualify = (p: ReturnType<typeof preparation>, parent: string, child: strin
 const accepted = (p: ReturnType<typeof preparation>) => acceptWorkingDraftUpdate(p.update, p.request).composition!;
 
 describe("adoptable parent decisions with unadopted open refinements — native owners", () => {
+  it("keeps an explicit premise common to two unresolved options in the persisted review", () => {
+    const p = preparation();
+    const endpoint = p.proposal.atoms.find(a => a.ref === "endpoint")!;
+    p.update.explicitDecisions = [{ atomRef: endpoint.ref, sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }];
+    const open = { ...structuredClone(p.proposal.atoms.find(a => a.ref === "timing")!),
+      ref: "blood-window-open", semanticKey: "blood.window.open", status: "OPEN_DECISION" as const,
+      content: "Le nombre et la fenêtre des prélèvements restent à préciser.", dependsOn: [], dependencyQualifications: [] };
+    p.proposal.atoms.push(open);
+    const original = p.proposal.arbitrations[0];
+    p.proposal.arbitrations.push({ ...structuredClone(original), ref: "blood-calendar", label: "Calendrier du prélèvement",
+      affectedBranches: ["COLLECTION"], recommendedRefs: ["single-draw"],
+      options: original.options.map((option, index) => ({ ...option, ref: index ? "two-draws" : "single-draw",
+        label: index ? "Deux prélèvements" : "Un prélèvement", atomRefs: [endpoint.ref, open.ref] })) });
+    const composition = accepted(p);
+    const calendar = composition.proposal.arbitrations.find(a => a.ref === "blood-calendar")!;
+    expect(calendar.options.map(option => option.atomRefs)).toEqual([[open.ref], [open.ref]]);
+    const coverage = workingDraftReviewCoverage(composition);
+    expect(coverage.stable).toContain(endpoint.ref);
+    expect(coverage.open).toContain(open.ref);
+    expect(recommendedWorkingScope(composition).selectedOptionRefs).not.toContain("single-draw");
+    const draft = prepareContinuousWorkingDraft(p.session, composition, p.update, p.packet.inputDigest);
+    expect(draft.failure).toBeNull();
+    expect(draft.readyReview?.contribution.scientificContent.candidateObjects.some(item => item.content === endpoint.content)).toBe(true);
+    const current = { ...p.session, studyProposal: composition, workingDraft: draft };
+    persistFunctionalResetSession(localStorage, current);
+    const reloaded = loadFunctionalResetSession(localStorage);
+    const ready = validatePreparedWorkingReview(reloaded);
+    expect(ready).not.toBeNull();
+    const adopted = confirmResearchProjectContribution({ contribution: ready!.contribution, current: null,
+      projectId: p.session.projectId, authority: p.session.projectAuthority, confirmedAt: p.session.updatedAt,
+      reviewedProjection: ready!.candidate.humanReviewProjection,
+      selectedChangeRefs: ready!.candidate.humanReviewProjection.coveredChangeRefs });
+    expect(adopted.revision).toBe(1);
+    expect(adopted.canonicalState.objects.some(object => object.content === endpoint.content)).toBe(true);
+    expect(adopted.canonicalState.objects.some(object => object.content === open.content)).toBe(false);
+  });
   it.each([DOMAINS[1], DOMAINS[2], DOMAINS[4]])("rejects an explicit $id endpoint hidden inside an unresolved alternative", domain => {
     const p = preparation(domain);
     p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: domain.text }];
     p.proposal.arbitrations[0].options[1].atomRefs.push("endpoint");
     expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
     expect(p.session.project).toBeNull();
+  });
+  it("does not lift a shared explicit atom that still depends on an exclusive option", () => {
+    const p = preparation();
+    p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }];
+    qualify(p, "endpoint", "age-continuous", "HARD_BLOCKING_DEPENDENCY");
+    p.proposal.arbitrations[0].recommendedRefs = [];
+    for (const option of p.proposal.arbitrations[0].options) option.atomRefs.push("endpoint");
+    expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+  });
+  it("keeps the guard closed when lifting common decisions would empty an option", () => {
+    const p = preparation();
+    p.update.explicitDecisions = ["question", "endpoint"].map(atomRef => ({
+      atomRef, sourceTurnRef: "u1", quote: p.session.runtimeTurns[0].content }));
+    p.proposal.arbitrations[0].recommendedRefs = [];
+    for (const option of p.proposal.arbitrations[0].options) option.atomRefs = ["question", "endpoint"];
+    expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
   });
   it("rejects hidden explicit decisions even when wrongly grouped prerequisites cause a dependency cascade", () => {
     const p = preparation();

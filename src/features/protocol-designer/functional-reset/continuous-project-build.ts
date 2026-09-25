@@ -180,6 +180,27 @@ export const workingDraftReviewCoverage = (composition: StudyProposalComposition
   };
 };
 
+/** An explicit choice repeated in every alternative is common ground, not an
+ * alternative. Lift only independently adoptable atoms; exclusive choices and
+ * unresolved prerequisites remain governed by the existing fail-closed check. */
+const liftSharedExplicitDecisionsFromOptions = (update: WorkingDraftUpdate) => {
+  if (!update.proposal) return;
+  const explicitRefs = new Set(update.explicitDecisions.map(decision => decision.atomRef));
+  const arbitrations = update.proposal.arbitrations;
+  const optionRefs = new Set(arbitrations.flatMap(a => a.options.flatMap(o => o.atomRefs)));
+  const liftable = new Set(update.proposal.atoms.filter(atom => explicitRefs.has(atom.ref)
+    && atom.status !== "OPEN_DECISION"
+    && hardStudyProposalDependencies(atom).every(ref => !optionRefs.has(ref))
+    && arbitrations.some(a => a.options.some(o => o.atomRefs.includes(atom.ref)))
+    && arbitrations.every(a => !a.options.some(o => o.atomRefs.includes(atom.ref))
+      || a.options.length > 1 && a.options.every(o => o.atomRefs.includes(atom.ref) && o.atomRefs.length > 1)))
+    .map(atom => atom.ref));
+  if (!liftable.size || arbitrations.some(a => a.options.some(o => o.atomRefs.every(ref => liftable.has(ref))))) return;
+  update.proposal.arbitrations = arbitrations.map(arbitration => ({ ...arbitration,
+    options: arbitration.options.map(option => ({ ...option,
+      atomRefs: option.atomRefs.filter(ref => !liftable.has(ref)) })) }));
+};
+
 /** Compare only ASCII layout separators; recover one exact span of the immutable USER source. */
 export const resolveWorkingDraftSourceQuote = (source: string, quote: string): { quote: string; start: number; end: number } | null => {
   const canonical = (text: string) => {
@@ -221,6 +242,7 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
     if (!atoms.has(decision.atomRef) || !anchor) throw new Error("WORKING_DRAFT_USER_PROVENANCE_INVALID");
     return { ...decision, quote: anchor.quote };
   });
+  liftSharedExplicitDecisionsFromOptions(update);
   const previous = request.studyProposalContext;
   if (update.rejectedAtomRefs.some(r => !previous?.proposal.atoms.some(a => a.ref === r) || atoms.has(r))) throw new Error("WORKING_DRAFT_REJECTED_REFERENCE_INVALID");
   const rejectedHistory = (request.workingDraftHistory ?? []).filter(h => h.status === "REJECTED");
