@@ -233,6 +233,31 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const batch = prepareDrciGenerationBatches(packet())[0];
     expect(() => batch.expand({ binding: JSON.parse(batch.context).PACK_PREPARATION, documents: [generated().documents[0]], crfRows: [] })).toThrow("SCOPE_MISMATCH");
   });
+  it("recovers only empty section-level missingElements without losing protocol content", () => {
+    const batch = prepareDrciGenerationBatches(packet())[0];
+    const sections = Array.from({ length: 17 }, (_, index) => ({ title: `Section ${index + 1}`,
+      paragraphs: [`Contenu ${index + 1}`], sourceRefs: [], missingElements: [] as string[] }));
+    const value = { documents: [{ kind: "PROTOCOL_FULL", title: "Protocole", sections }], crfRows: [] };
+    const actual = batch.expand(value);
+    expect(actual.documents[0].missingElements).toEqual([]);
+    expect(actual.documents[0].sections).toEqual(sections.map(({ missingElements: _empty, ...section }) => section));
+    const canonicalSections = sections.map(({ missingElements: _empty, ...section }) => section);
+    const canonical = { documents: [{ kind: "PROTOCOL_FULL", title: "Protocole", sections: canonicalSections,
+      missingElements: [] }], crfRows: [] };
+    expect(batch.expand(canonical).documents[0].sections).toEqual(canonicalSections);
+    expect(batch.expand({ ...value, documents: [{ ...value.documents[0], missingElements: [] }] })
+      .documents[0].sections).toEqual(canonicalSections);
+    const nonempty = structuredClone(value);
+    nonempty.documents[0].sections[0].missingElements = ["Arbitrage scientifique encore ouvert"];
+    expect(() => batch.expand(nonempty)).toThrow();
+    expect(() => batch.expand({ ...value, documents: [{ ...value.documents[0], sections: [
+      canonicalSections[0], ...sections.slice(1),
+    ] }] })).toThrow();
+    expect(() => batch.expand({ ...value, documents: [{ ...value.documents[0], missingElements: ["Ouvert"] }] })).toThrow();
+    expect(() => batch.expand({ ...value, documents: [{ ...value.documents[0], sections: [
+      { ...sections[0], unexpected: "forbidden" }, ...sections.slice(1),
+    ] }] })).toThrow();
+  });
   it.each(["wrong-project-version", undefined])("keeps runtime binding authoritative when the LLM binding is %s", binding => {
     const batches = prepareDrciGenerationBatches(packet());
     const refs = new Map(packet().sourceFacts.map((f, i) => [f.ref, `f${i}`]));

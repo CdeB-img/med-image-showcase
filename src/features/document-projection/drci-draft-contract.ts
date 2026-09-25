@@ -12,6 +12,34 @@ const text = z.string().trim().min(1).max(16000);
 const sectionSchema = z.object({ title: text, paragraphs: z.array(text).min(1).max(12), sourceRefs: z.array(text).max(100) }).strict();
 const documentSchema = z.object({ kind: z.enum(DRCI_DOCUMENT_KINDS), title: text,
   sections: z.array(sectionSchema).min(1).max(30), missingElements: z.array(text).max(50) }).strict();
+// JSON-object mode may place an empty document-level list on every section.
+// Recover only that lossless shape; a nonempty misplaced list still fails the
+// strict contract, so no open decision can disappear during normalization.
+const normalizeEmptySectionMissingElements = (value: unknown): unknown => {
+  const hasOwn = (target: object, key: string) => Object.prototype.hasOwnProperty.call(target, key);
+  if (!value || typeof value !== "object" || Array.isArray(value)) return value;
+  const candidate = value as Record<string, unknown>;
+  if (!Array.isArray(candidate.documents)) return value;
+  return { ...candidate, documents: candidate.documents.map(document => {
+    if (!document || typeof document !== "object" || Array.isArray(document)) return document;
+    const doc = document as Record<string, unknown>;
+    if (!Array.isArray(doc.sections)) return document;
+    const sections = doc.sections as unknown[];
+    const hasMisplaced = sections.some(section => section && typeof section === "object" && !Array.isArray(section)
+      && hasOwn(section, "missingElements"));
+    if (!hasMisplaced) return document;
+    if (hasOwn(doc, "missingElements") && (!Array.isArray(doc.missingElements) || doc.missingElements.length !== 0)) return document;
+    if (!sections.every(section => section && typeof section === "object" && !Array.isArray(section)
+      && hasOwn(section, "missingElements") && Array.isArray((section as Record<string, unknown>).missingElements)
+      && ((section as Record<string, unknown>).missingElements as unknown[]).length === 0)) return document;
+    return { ...doc, ...(!hasOwn(doc, "missingElements") ? { missingElements: [] } : {}),
+      sections: sections.map(section => {
+        if (!section || typeof section !== "object" || Array.isArray(section)) return section;
+        const { missingElements: _empty, ...rest } = section as Record<string, unknown>;
+        return rest;
+      }) };
+  }) };
+};
 // Equivalent DOC representations retain every label/control verbatim. Unknown
 // origins and invalid values still fail; no scientific value is inferred.
 const originAliases = { SITE_CLINIQUE: "SITE_RECORDED", LABORATOIRE: "LAB_RESULT", IMAGERIE: "IMAGING_DERIVED" } as const;
@@ -174,7 +202,7 @@ export const prepareDrciGenerationBatches = (packet: { context: string; instruct
     instruction: `${packet.instruction}\nFORMAT / SCOPE DE CETTE SORTIE : retourne uniquement les documents de DOCUMENT_SCOPE, tous complets. Le JSON contient uniquement documents et crfRows. Le runtime attribue binding, identités et provenance ; ne les reproduis pas. Les notes n du plan sont les textes exacts de DOCUMENT_PLAN_NOTES ; ne les utilise pas comme sourceRefs. Les références f sont des alias exacts : utilise-les uniquement dans sourceRefs et variableRef, jamais dans la prose. Les citations bibliographiques sont exclusivement [[CITE:sN]], après le claim soutenu par AVAILABLE_EVIDENCE.claims ; aucun auteur ni résultat inventé. Les refs s sont distinctes des refs f. Ne rédige pas de bibliographie : le runtime construit uniquement celle des sources citées. crfRows est vide pour PROTOCOL_FULL; il contient tous les champs natifs pour le scope CRF. Aucun résultat partiel n'est publié. Les négations scientifiques restent formulées normalement. Préserve la rédaction complète ; les spécifications de saisie restent courtes et les inconnus explicites.`,
     expand(value: unknown) {
       // Legacy model binding is inert metadata; runtime authority stays local.
-      const batch = z.object({ binding: z.unknown().optional(), documents: z.array(documentSchema).length(kinds.length), crfRows: z.array(crfRowSchema).max(100) }).strict().parse(value);
+      const batch = z.object({ binding: z.unknown().optional(), documents: z.array(documentSchema).length(kinds.length), crfRows: z.array(crfRowSchema).max(100) }).strict().parse(normalizeEmptySectionMissingElements(value));
       if (new Set(batch.documents.map(d => d.kind)).size !== kinds.length || batch.documents.some(d => !(kinds as readonly string[]).includes(d.kind))
         || index === 0 && batch.crfRows.length) throw new Error("DRCI_BATCH_SCOPE_MISMATCH");
       if (index === 1 && context.DOCUMENT_SPECIFICATION === "DRCI_OPERATIONAL_V2") validateOperationalRows(batch.crfRows);
