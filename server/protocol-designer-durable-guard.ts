@@ -18,6 +18,11 @@ import {
   readOpenAIInputTokenCount,
 } from "./protocol-designer-provider-replay.js";
 import { azureInputCountQualification, isOpenAIResponsesEndpoint, openAIProviderDestinationFromEndpoint, supportsOpenAIExactInputCount } from "./protocol-designer-openai-provider-config.js";
+import {
+  readDurableProviderFailureDiagnostic,
+  type DurableProviderFailureDiagnostic,
+  type DurableProviderFailurePhase,
+} from "../src/features/protocol-designer/provider-call-observability.js";
 
 type Headers = Record<string, string | string[] | undefined>;
 type JsonObject = Record<string, unknown>;
@@ -63,6 +68,7 @@ export interface PublicProtocolDesignerDurableGuard {
 }
 
 export class DurablePublicGuardError extends Error {
+  providerFailureDiagnostic?: DurableProviderFailureDiagnostic;
   constructor(
     readonly code: string,
     readonly status: 400 | 429 | 503 = 503,
@@ -71,6 +77,24 @@ export class DurablePublicGuardError extends Error {
     this.name = "DurablePublicGuardError";
   }
 }
+
+const safeExceptionClass = (error: unknown): DurableProviderFailureDiagnostic["safeExceptionClass"] => {
+  if (!error || typeof error !== "object" || !("name" in error)) return "OtherError";
+  const name = error.name;
+  return name === "AbortError" || name === "TypeError" || name === "Error"
+    || name === "DurablePublicGuardError" || name === "CanaryAdmissionError" ? name : "OtherError";
+};
+
+const safeProviderResponseStatus = (body: string): Pick<DurableProviderFailureDiagnostic, "providerResponseStatus" | "incompleteReason"> => {
+  try {
+    const parsed: unknown = JSON.parse(body);
+    if (!object(parsed)) return { providerResponseStatus: "UNKNOWN", incompleteReason: null };
+    const providerResponseStatus = parsed.status === "completed" || parsed.status === "incomplete" || parsed.status === "failed"
+      ? parsed.status : "UNKNOWN";
+    const detail = object(parsed.incomplete_details) ? parsed.incomplete_details.reason : null;
+    return { providerResponseStatus, incompleteReason: detail === "max_output_tokens" || detail === "content_filter" ? detail : null };
+  } catch { return { providerResponseStatus: "UNKNOWN", incompleteReason: null }; }
+};
 
 const header = (headers: Headers, name: string) => {
   const value = Object.entries(headers).find(([key]) => key.toLowerCase() === name.toLowerCase())?.[1];
@@ -493,10 +517,50 @@ export const createPostgresProtocolDesignerDurableGuard = (
   const createBudgetedFetch: PublicProtocolDesignerDurableGuard["createBudgetedFetch"] = (context, fetchImpl = fetch, openAIInputCountApiKey) => {
     let operationIndex = 0;
     return async (input, init) => {
+      const progress: {
+        phase: DurableProviderFailurePhase;
+        operationKey: string | null;
+        clientRequestId: string | null;
+        sessionId: string | null;
+        turnId: string | null;
+        providerCallId: string | null;
+        generationProvider: DurableProviderFailureDiagnostic["generationProvider"];
+        precountStarted: boolean;
+        precountCompleted: boolean;
+        reservationConfirmed: boolean;
+        dispatchAttempted: boolean;
+        headersReceived: boolean;
+        bodyRead: boolean;
+        inputCountHttpStatus: number | null;
+        providerHttpStatus: number | null;
+        providerResponseStatus: DurableProviderFailureDiagnostic["providerResponseStatus"];
+        incompleteReason: DurableProviderFailureDiagnostic["incompleteReason"];
+        safeExceptionClass: DurableProviderFailureDiagnostic["safeExceptionClass"];
+        abortSignalAborted: boolean | null;
+        lastConfirmedDurableState: string;
+      } = {
+        phase: "UNKNOWN", operationKey: null, clientRequestId: null, sessionId: null, turnId: null,
+        providerCallId: null, generationProvider: "UNKNOWN", precountStarted: false, precountCompleted: false,
+        reservationConfirmed: false, dispatchAttempted: false, headersReceived: false, bodyRead: false,
+        inputCountHttpStatus: null, providerHttpStatus: null, providerResponseStatus: "UNKNOWN",
+        incompleteReason: null, safeExceptionClass: null, abortSignalAborted: null,
+        lastConfirmedDurableState: "UNKNOWN",
+      };
+      try {
       const index = operationIndex++;
       const request = providerRequest(input, init);
+      const observedContext = request.observation?.context as { clientRequestId?: unknown; sessionId?: unknown; turnId?: unknown } | undefined;
+      progress.clientRequestId = typeof observedContext?.clientRequestId === "string" ? observedContext.clientRequestId : null;
+      progress.sessionId = typeof observedContext?.sessionId === "string" ? observedContext.sessionId : null;
+      progress.turnId = typeof observedContext?.turnId === "string" ? observedContext.turnId : null;
+      const purpose = request.observation?.purpose;
+      const retryIndex = request.observation?.retryIndex;
+      progress.providerCallId = progress.clientRequestId && typeof purpose === "string" && typeof retryIndex === "number"
+        ? `provider-call:${progress.clientRequestId}:${purpose}:${retryIndex}` : null;
+      progress.abortSignalAborted = request.init.signal?.aborted ?? null;
       const uncountedBound = request.body === null ? null : boundCanaryProviderCall(request.endpoint, request.body);
       const azureGeneration = openAIProviderDestinationFromEndpoint(request.endpoint) === "azure";
+      progress.generationProvider = azureGeneration ? "AZURE_OPENAI" : "OPENAI";
       const qualificationRef = azureGeneration && uncountedBound
         ? azureInputCountQualification(uncountedBound.model) : null;
       if (azureGeneration && !openAIInputCountApiKey?.trim()) {
@@ -513,9 +577,11 @@ export const createPostgresProtocolDesignerDurableGuard = (
         retryIndex: request.observation?.retryIndex ?? null,
       }));
       const operationKey = hash(`${context.admissionKey}\u0000${index}`);
+      progress.operationKey = operationKey;
       const countRequest = request.body !== null && supportsOpenAIExactInputCount(request.endpoint)
         ? openAIInputCountRequest({ endpoint: request.endpoint, method: "POST", body: request.body })
         : null;
+      progress.phase = countRequest ? "PRECOUNT" : "RESERVATION";
       const countPayloadDigest = countRequest ? hash(countRequest.body) : null;
       const identityMatches = (row: OperationRow) => row.endpoint_digest === endpointDigest
         && row.payload_digest === payloadDigest
@@ -544,6 +610,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
             where operation_key = ${operationKey}
           `;
         });
+        progress.lastConfirmedDurableState = "COUNT_FAILED";
       };
 
       try {
@@ -598,8 +665,16 @@ export const createPostgresProtocolDesignerDurableGuard = (
             `;
             return inserted[0] as OperationRow;
           });
-          if ("denial" in prepared) throw new DurablePublicGuardError(prepared.denial);
+          if ("denial" in prepared) {
+            if (prepared.denial === "PUBLIC_PROVIDER_INPUT_COUNT_UNKNOWN_AFTER_DISPATCH") {
+              progress.lastConfirmedDurableState = "COUNT_UNKNOWN_AFTER_DISPATCH";
+            }
+            throw new DurablePublicGuardError(prepared.denial);
+          }
           operation = prepared;
+          progress.lastConfirmedDurableState = operation.state;
+          progress.precountCompleted = ["COUNT_COMPLETED", "RESERVED", "DISPATCHED", "COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"]
+            .includes(operation.state);
 
           if (operation.state === "COUNT_PENDING") {
             const marked = await sql.begin(async (tx) => {
@@ -618,6 +693,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
               return true;
             });
             if (!marked) throw new DurablePublicGuardError("PUBLIC_INPUT_COUNT_IN_PROGRESS");
+            progress.precountStarted = true;
+            progress.lastConfirmedDurableState = "COUNT_DISPATCHED";
             let countResponse: Response;
             try {
               countResponse = await fetchImpl(countRequest.endpoint, {
@@ -630,11 +707,14 @@ export const createPostgresProtocolDesignerDurableGuard = (
                 } } : {}),
               });
             } catch (error) {
+              progress.safeExceptionClass = safeExceptionClass(error);
+              progress.abortSignalAborted = request.init.signal?.aborted ?? null;
               const code = error instanceof Error && error.name === "AbortError"
                 ? "PUBLIC_PROVIDER_INPUT_COUNT_TIMEOUT" : "PUBLIC_PROVIDER_INPUT_COUNT_NETWORK_FAILURE";
               await failCount(code);
               throw new DurablePublicGuardError(code);
             }
+            progress.inputCountHttpStatus = countResponse.status;
             let countBody: string;
             try { countBody = await countResponse.clone().text(); }
             catch {
@@ -660,12 +740,15 @@ export const createPostgresProtocolDesignerDurableGuard = (
             `;
             if (!completed[0]) throw new DurablePublicGuardError("PUBLIC_INPUT_COUNT_COMPLETION_RACE");
             operation = completed[0] as OperationRow;
+            progress.precountCompleted = true;
+            progress.lastConfirmedDurableState = "COUNT_COMPLETED";
           }
           if (operation.counted_input_tokens) {
             bound = boundCanaryProviderCall(request.endpoint, request.body!, asNumber(operation.counted_input_tokens));
           }
         }
 
+        progress.phase = "RESERVATION";
         const reservationNow = new Date();
         const reservation = await sql.begin(async (tx): Promise<OperationRow | { denial: string }> => {
           const session = await lockSession(tx, context, reservationNow);
@@ -748,20 +831,32 @@ export const createPostgresProtocolDesignerDurableGuard = (
           bound = exactBound;
           return reserved;
         });
-        if ("denial" in reservation) throw new DurablePublicGuardError(reservation.denial);
+        if ("denial" in reservation) {
+          if (reservation.denial === "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH") {
+            progress.lastConfirmedDurableState = "UNKNOWN_AFTER_DISPATCH";
+          }
+          throw new DurablePublicGuardError(reservation.denial);
+        }
         operation = reservation;
+        progress.lastConfirmedDurableState = operation.state;
+        progress.reservationConfirmed = ["RESERVED", "DISPATCHED", "COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"]
+          .includes(operation.state);
         if (operation.counted_input_tokens && request.body !== null) {
           bound = boundCanaryProviderCall(request.endpoint, request.body, asNumber(operation.counted_input_tokens));
         }
       } catch (error) {
         if (error instanceof DurablePublicGuardError) throw error;
+        progress.safeExceptionClass = safeExceptionClass(error);
+        progress.lastConfirmedDurableState = "UNKNOWN";
         throw new DurablePublicGuardError("PUBLIC_DURABLE_STORE_UNAVAILABLE");
       }
 
       if (["COMPLETED_RECEIVED", "VALIDATED", "CONSUMED"].includes(operation.state)) {
+        progress.phase = "PRE_DISPATCH";
         return recoveredProviderResponse(operation);
       }
 
+      progress.phase = "PRE_DISPATCH";
       try {
         await sql.begin(async (tx) => {
           const rows = await tx`
@@ -780,13 +875,20 @@ export const createPostgresProtocolDesignerDurableGuard = (
         });
       } catch (error) {
         if (error instanceof DurablePublicGuardError) throw error;
+        progress.safeExceptionClass = safeExceptionClass(error);
+        progress.lastConfirmedDurableState = "UNKNOWN";
         throw new DurablePublicGuardError("PUBLIC_DURABLE_STORE_UNAVAILABLE");
       }
+      progress.lastConfirmedDurableState = "DISPATCHED";
 
       let response: Response;
+      progress.phase = "DISPATCHED";
+      progress.dispatchAttempted = true;
       try {
         response = await fetchImpl(input, request.init);
-      } catch {
+      } catch (error) {
+        progress.safeExceptionClass = safeExceptionClass(error);
+        progress.abortSignalAborted = request.init.signal?.aborted ?? null;
         await sql.begin(async (tx) => {
           await lockSession(tx, context, new Date());
           await tx`
@@ -795,12 +897,19 @@ export const createPostgresProtocolDesignerDurableGuard = (
             where operation_key = ${operationKey} and state = 'DISPATCHED'
           `;
         });
+        progress.lastConfirmedDurableState = "UNKNOWN_AFTER_DISPATCH";
         throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       }
+      progress.phase = "HEADERS_RECEIVED";
+      progress.headersReceived = true;
+      progress.providerHttpStatus = response.status;
 
       let responseBody: string;
+      progress.phase = "BODY_READ";
       try { responseBody = await response.clone().text(); }
-      catch {
+      catch (error) {
+        progress.safeExceptionClass = safeExceptionClass(error);
+        progress.abortSignalAborted = request.init.signal?.aborted ?? null;
         await sql.begin(async (tx) => {
           await tx`
             update noxia_durable.public_provider_operation
@@ -808,8 +917,12 @@ export const createPostgresProtocolDesignerDurableGuard = (
             where operation_key = ${operationKey} and state = 'DISPATCHED'
           `;
         });
+        progress.lastConfirmedDurableState = "UNKNOWN_AFTER_DISPATCH";
         throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       }
+      progress.bodyRead = true;
+      progress.phase = "SETTLEMENT";
+      Object.assign(progress, safeProviderResponseStatus(responseBody));
 
       const settlement = response.ok && bound ? settleCanaryProviderCall(bound, responseBody) : null;
       const responseHeaders = safeResponseHeaders(response);
@@ -902,9 +1015,34 @@ export const createPostgresProtocolDesignerDurableGuard = (
           where session_key_hash = ${context.sessionKey}
         `;
       });
+      progress.lastConfirmedDurableState = qualificationFailureCode
+        ? qualificationFailureCode === "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" ? "INPUT_TOKEN_DIVERGENCE" : "QUALIFICATION_INVALID"
+        : settlement ? "COMPLETED_RECEIVED" : "UNKNOWN_AFTER_DISPATCH";
       if (qualificationFailureCode) throw new DurablePublicGuardError(qualificationFailureCode);
       if (!settlement) throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       return response;
+      } catch (error) {
+        // This is diagnostic-only: the same error, durable state, and public response continue unchanged.
+        const structuredErrorCode = error instanceof DurablePublicGuardError ? error.code
+          : error && typeof error === "object" && "code" in error && typeof error.code === "string"
+            ? error.code : null;
+        if (!progress.safeExceptionClass) progress.safeExceptionClass = safeExceptionClass(error);
+        if (progress.abortSignalAborted === null && init?.signal) progress.abortSignalAborted = init.signal.aborted;
+        // A failed transaction cannot establish whether a write committed.
+        if (!(error instanceof DurablePublicGuardError) && progress.phase !== "UNKNOWN") {
+          progress.lastConfirmedDurableState = "UNKNOWN";
+        }
+        const diagnostic = readDurableProviderFailureDiagnostic({
+          contract: "DURABLE_PROVIDER_TERMINAL_FAILURE",
+          ...progress,
+          structuredErrorCode,
+        });
+        if (diagnostic && error && typeof error === "object") {
+          try { Object.defineProperty(error, "providerFailureDiagnostic", { value: diagnostic, configurable: true }); }
+          catch { /* An immutable exception retains its original failure behavior. */ }
+        }
+        throw error;
+      }
     };
   };
 

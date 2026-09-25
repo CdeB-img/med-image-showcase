@@ -4,6 +4,85 @@ export const PROVIDER_PRICING_SNAPSHOT_DATE = "2026-09-14" as const;
 
 export type ProtocolDesignerProvider = "OPENAI" | "GOOGLE_GEMINI";
 export type ProviderCallPurpose = "LANGUAGE_PROJECTION" | "PERSISTENT_DELTA" | "CONVERSATION_REALIZATION" | "SCIENTIFIC_THINKING_PROPOSAL" | "DOCUMENT_PROJECTION";
+export type DurableProviderFailurePhase = "PRECOUNT" | "RESERVATION" | "PRE_DISPATCH" | "DISPATCHED"
+  | "HEADERS_RECEIVED" | "BODY_READ" | "SETTLEMENT" | "UNKNOWN";
+export type DurableProviderFailureDiagnostic = Readonly<{
+  contract: "DURABLE_PROVIDER_TERMINAL_FAILURE";
+  clientRequestId: string | null;
+  operationKey: string | null;
+  sessionId: string | null;
+  turnId: string | null;
+  providerCallId: string | null;
+  generationProvider: "OPENAI" | "AZURE_OPENAI" | "UNKNOWN";
+  phase: DurableProviderFailurePhase;
+  precountStarted: boolean;
+  precountCompleted: boolean;
+  reservationConfirmed: boolean;
+  dispatchAttempted: boolean;
+  headersReceived: boolean;
+  bodyRead: boolean;
+  inputCountHttpStatus: number | null;
+  providerHttpStatus: number | null;
+  providerResponseStatus: "completed" | "incomplete" | "failed" | "UNKNOWN";
+  incompleteReason: "max_output_tokens" | "content_filter" | null;
+  structuredErrorCode: string | null;
+  safeExceptionClass: "AbortError" | "TypeError" | "Error" | "DurablePublicGuardError"
+    | "CanaryAdmissionError" | "OtherError" | null;
+  abortSignalAborted: boolean | null;
+  lastConfirmedDurableState: string;
+}>;
+
+/** Rebuild from an allowlist; never trust arbitrary exception fields or raw messages. */
+export const readDurableProviderFailureDiagnostic = (value: unknown): DurableProviderFailureDiagnostic | null => {
+  if (!value || typeof value !== "object") return null;
+  const candidate = "durableFailure" in value ? value.durableFailure
+    : "providerFailureDiagnostic" in value ? value.providerFailureDiagnostic : value;
+  if (!candidate || typeof candidate !== "object" || !("contract" in candidate)
+    || candidate.contract !== "DURABLE_PROVIDER_TERMINAL_FAILURE") return null;
+  const item = candidate as Partial<DurableProviderFailureDiagnostic>;
+  const safeId = (id: unknown, max: number) => typeof id === "string" && id.length <= max
+    && /^[A-Za-z0-9:_-]+$/u.test(id) ? id : null;
+  const safeCode = typeof item.structuredErrorCode === "string" && item.structuredErrorCode.length <= 128
+    && (/^(PUBLIC|CANARY|PROVIDER)_[A-Z0-9_]+$/u.test(item.structuredErrorCode)
+      || item.structuredErrorCode === "QUALIFICATION_INVALID" || item.structuredErrorCode === "INPUT_TOKEN_DIVERGENCE")
+    ? item.structuredErrorCode : null;
+  const phase = ["PRECOUNT", "RESERVATION", "PRE_DISPATCH", "DISPATCHED", "HEADERS_RECEIVED", "BODY_READ", "SETTLEMENT", "UNKNOWN"]
+    .includes(String(item.phase)) ? item.phase! : "UNKNOWN";
+  const state = ["COUNT_PENDING", "COUNT_DISPATCHED", "COUNT_COMPLETED", "COUNT_FAILED", "COUNT_UNKNOWN_AFTER_DISPATCH",
+    "RESERVED", "DISPATCHED", "COMPLETED_RECEIVED", "VALIDATED", "CONSUMED", "UNKNOWN_AFTER_DISPATCH",
+    "INPUT_TOKEN_DIVERGENCE", "QUALIFICATION_INVALID", "UNKNOWN"].includes(String(item.lastConfirmedDurableState))
+    ? item.lastConfirmedDurableState! : "UNKNOWN";
+  const httpStatus = (status: unknown) => Number.isSafeInteger(status) && (status as number) >= 100
+    && (status as number) <= 599 ? status as number : null;
+  return Object.freeze({
+    contract: "DURABLE_PROVIDER_TERMINAL_FAILURE",
+    clientRequestId: safeId(item.clientRequestId, 320),
+    operationKey: typeof item.operationKey === "string" && /^[a-f0-9]{64}$/u.test(item.operationKey) ? item.operationKey : null,
+    sessionId: safeId(item.sessionId, 240),
+    turnId: safeId(item.turnId, 320),
+    providerCallId: safeId(item.providerCallId, 512),
+    generationProvider: item.generationProvider === "OPENAI" || item.generationProvider === "AZURE_OPENAI"
+      ? item.generationProvider : "UNKNOWN",
+    phase,
+    precountStarted: item.precountStarted === true,
+    precountCompleted: item.precountCompleted === true,
+    reservationConfirmed: item.reservationConfirmed === true,
+    dispatchAttempted: item.dispatchAttempted === true,
+    headersReceived: item.headersReceived === true,
+    bodyRead: item.bodyRead === true,
+    inputCountHttpStatus: httpStatus(item.inputCountHttpStatus),
+    providerHttpStatus: httpStatus(item.providerHttpStatus),
+    providerResponseStatus: item.providerResponseStatus === "completed" || item.providerResponseStatus === "incomplete"
+      || item.providerResponseStatus === "failed" ? item.providerResponseStatus : "UNKNOWN",
+    incompleteReason: item.incompleteReason === "max_output_tokens" || item.incompleteReason === "content_filter"
+      ? item.incompleteReason : null,
+    structuredErrorCode: safeCode,
+    safeExceptionClass: ["AbortError", "TypeError", "Error", "DurablePublicGuardError", "CanaryAdmissionError", "OtherError"]
+      .includes(String(item.safeExceptionClass)) ? item.safeExceptionClass! : null,
+    abortSignalAborted: typeof item.abortSignalAborted === "boolean" ? item.abortSignalAborted : null,
+    lastConfirmedDurableState: state,
+  });
+};
 
 export type ProviderCallObservationContext = Readonly<{
   sessionId: string | null;
@@ -45,6 +124,7 @@ export type ProviderCallRecord = Readonly<{
   pricingSnapshotDate: typeof PROVIDER_PRICING_SNAPSHOT_DATE;
   startedAt: string;
   completedAt: string;
+  durableFailure?: DurableProviderFailureDiagnostic;
 }>;
 
 export type ProviderCallAttemptInstrumentation = Readonly<{
@@ -156,6 +236,7 @@ export const materializeProviderCallRecord = (input: Readonly<{
   providerResponseId: string | null;
   startedAt: string;
   completedAt: string;
+  durableFailure?: DurableProviderFailureDiagnostic | null;
 }>): ProviderCallRecord => {
   const modelVersion = input.modelReturned ?? input.modelRequested;
   const estimatedCostUsd = estimateProviderCallCostUsd(modelVersion, input.usage)
@@ -183,6 +264,7 @@ export const materializeProviderCallRecord = (input: Readonly<{
     pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
     startedAt: input.startedAt,
     completedAt: input.completedAt,
+    ...(input.durableFailure ? { durableFailure: readDurableProviderFailureDiagnostic(input.durableFailure) ?? undefined } : {}),
   });
 };
 

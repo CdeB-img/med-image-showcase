@@ -831,6 +831,18 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "contentAvailabilityStates",
   "validationEntryDigest",
   "validationEntryId",
+  "precountStarted",
+  "precountCompleted",
+  "reservationConfirmed",
+  "dispatchAttempted",
+  "headersReceived",
+  "bodyRead",
+  "inputCountHttpStatus",
+  "providerHttpStatus",
+  "providerResponseStatus",
+  "incompleteReason",
+  "lastConfirmedDurableState",
+  "generationProvider",
 ]);
 
 const assertNoForbiddenData = (value: unknown, path = "trace") => {
@@ -1960,6 +1972,7 @@ export const appendProductTraceStage = (input: {
   envelope: ScientificProductTraceEnvelopeInput;
   error?: ScientificTraceError | null;
   durationMs?: number | null;
+  technicalMetadata?: ScientificTraceTechnicalMetadata;
 }): { ledger: Readonly<ScientificExecutionTraceLedger>; event: Readonly<ScientificExecutionTraceEvent> } => appendScientificExecutionTraceEvent({
   ledger: input.ledger,
   runId: input.traceRunId,
@@ -1976,6 +1989,7 @@ export const appendProductTraceStage = (input: {
     status: input.status,
     durationMs: input.durationMs ?? null,
     error: input.error ?? null,
+    ...(input.technicalMetadata ? { technicalMetadata: input.technicalMetadata } : {}),
     common: input.envelope,
   },
 });

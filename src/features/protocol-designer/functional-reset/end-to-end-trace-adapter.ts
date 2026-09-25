@@ -8,6 +8,7 @@ import type {
 } from "@/features/research-project-construction";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { PersistentExtractionProviderArtifact, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
+import type { DurableProviderFailureDiagnostic } from "@/features/protocol-designer/provider-call-observability";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
 import type { resolveGovernedPostAdoptionReceipt } from "./session";
 import type { StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
@@ -20,6 +21,7 @@ import {
   type ScientificRunProjectBinding,
   type ScientificTraceError,
   type ScientificTraceOwner,
+  type ScientificTraceCaptureConfiguration,
   type ScientificTraceRealizationOutcome,
   type ScientificTraceSemanticDimension,
   type ScientificTraceSemanticTransformation,
@@ -1300,6 +1302,8 @@ export const recordProductErrorBoundary = (input: {
   project?: Readonly<ResearchProjectOwnerProjection> | null;
   retainedCandidate?: Readonly<RetainedContributionCandidate> | null;
   realizationOutcome?: ScientificTraceRealizationOutcome;
+  durableFailure?: DurableProviderFailureDiagnostic | null;
+  captureConfiguration?: ScientificTraceCaptureConfiguration;
 }): Readonly<ScientificExecutionTraceLedger> => {
   let ledger = input.ledger;
   if (!hasRun(ledger, input.traceRunId)) {
@@ -1310,12 +1314,35 @@ export const recordProductErrorBoundary = (input: {
       conversationId: input.conversationId,
       startedAt: input.startedAt,
       sourceDigest: input.sourceDigest ?? "UNKNOWN",
+      captureConfiguration: input.captureConfiguration,
     }).ledger;
   }
   if (input.retainedCandidate) ledger = recordRetainedContributionValidation({
     ledger, traceRunId: input.traceRunId, conversationId: input.conversationId,
     retainedCandidate: input.retainedCandidate,
   });
+  const failure = input.durableFailure;
+  const captureLevel = ledger.runBindings.find((binding) => binding.runId === input.traceRunId)
+    ?.captureConfiguration?.captureLevel ?? "LEVEL_1_CORE";
+  const technicalMetadata = failure ? {
+    boundedStatus: failure.phase,
+    callerRef: failure.clientRequestId,
+    ...(captureLevel !== "LEVEL_1_CORE" ? {
+      invocationId: failure.operationKey,
+      precountStarted: failure.precountStarted,
+      precountCompleted: failure.precountCompleted,
+      reservationConfirmed: failure.reservationConfirmed,
+      dispatchAttempted: failure.dispatchAttempted,
+      headersReceived: failure.headersReceived,
+      bodyRead: failure.bodyRead,
+      inputCountHttpStatus: failure.inputCountHttpStatus,
+      providerHttpStatus: failure.providerHttpStatus,
+      providerResponseStatus: failure.providerResponseStatus,
+      incompleteReason: failure.incompleteReason,
+      lastConfirmedDurableState: failure.lastConfirmedDurableState,
+      generationProvider: failure.generationProvider,
+    } : {}),
+  } : undefined;
   return appendProductTraceStage({
     ledger,
     traceRunId: input.traceRunId,
@@ -1324,6 +1351,7 @@ export const recordProductErrorBoundary = (input: {
     owner: input.owner,
     durationMs: null,
     error: { category: input.category, code: input.code },
+    technicalMetadata,
     envelope: {
       stage: "ERROR_BOUNDARY",
       responsibilityOwner: input.responsibilityOwner,
@@ -1341,6 +1369,15 @@ export const recordProductErrorBoundary = (input: {
       } : {}),
       ...(input.realizationOutcome && ledger.runBindings.find((binding) => binding.runId === input.traceRunId)
         ?.captureConfiguration?.captureLevel !== "LEVEL_1_CORE" ? { realizationOutcome: input.realizationOutcome } : {}),
+      ...(failure && captureLevel === "LEVEL_3_FORENSIC" ? { forensicPayload: {
+        contract: "SCIENTIFIC_TRACE_FORENSIC_PAYLOAD" as const,
+        contractVersion: "1.0.0" as const,
+        allowlisted: true as const,
+        redactionApplied: true,
+        fields: [{ field: "STRUCTURED_ERROR_DIAGNOSTICS" as const, source: "DURABLE_PROVIDER_GUARD",
+          classification: "NON_SENSITIVE" as const,
+          value: JSON.stringify({ safeExceptionClass: failure.safeExceptionClass, abortSignalAborted: failure.abortSignalAborted }) }],
+      } } : {}),
       reasonCode: input.code,
       completedAt: input.failedAt,
       conversationId: input.conversationId,

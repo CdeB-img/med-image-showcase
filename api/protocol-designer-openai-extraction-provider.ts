@@ -29,6 +29,7 @@ import {
   emptyProviderTokenUsage,
   materializeProviderCallRecord,
   providerCallRequestMetadata,
+  readDurableProviderFailureDiagnostic,
   type ProviderCallAttemptInstrumentation,
   type ProviderObservedRequestInit,
   type ProviderTokenUsage,
@@ -145,6 +146,7 @@ const callOpenAIResponses = async (input: {
     raw = await response.text();
   } catch (error) {
     const latencyMs = Date.now() - started;
+    const durableFailure = readDurableProviderFailureDiagnostic(error);
     // A local admission denial is not a network failure. Retain only known
     // codes, never arbitrary exception text (which could contain credentials).
     const guardCode = error instanceof Error && /^(PUBLIC_SESSION_BUDGET_CLOSED|PUBLIC_CONCURRENT_PROVIDER_CALL_DENIED|PUBLIC_PROVIDER_DENIED_(INVALID_BUDGET_POLICY|UNKNOWN_CUMULATIVE_COST|SOFT_STOP|UNKNOWN_UPPER_BOUND|HARD_BUDGET))$/.test(error.message)
@@ -156,6 +158,7 @@ const callOpenAIResponses = async (input: {
       provider: "OPENAI", modelRequested, modelReturned: null,
       instrumentation: input.instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
       status: "FAILED", failureReason,
+      durableFailure,
       providerRequestId: requestId, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
     });
     throw new ProductBridgeProviderError(

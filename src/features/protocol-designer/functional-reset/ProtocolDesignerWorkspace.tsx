@@ -2039,11 +2039,41 @@ export default function ProtocolDesignerWorkspace({
         }
       } catch (error) {
         if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
-        setSession(state => state.sessionId !== foreground.sessionId
-          || [...state.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId !== userTurn.turnId ? state : { ...state,
+        const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)
+          ?.durableFailure;
+        setSession(state => {
+          if (state.sessionId !== foreground.sessionId
+            || [...state.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId !== userTurn.turnId) return state;
+          let scientificExecutionTraceLedger = state.scientificExecutionTraceLedger;
+          if (durableFailure) {
+            const code = durableFailure.structuredErrorCode ?? "PUBLIC_PROVIDER_FAILURE_UNCLASSIFIED";
+            try {
+              scientificExecutionTraceLedger = recordProductErrorBoundary({
+                ledger: scientificExecutionTraceLedger,
+                traceRunId: createProductTraceRunId(state.sessionId, userTurn.turnId),
+                turnId: userTurn.turnId,
+                conversationId: state.conversationId,
+                startedAt: userTurn.createdAt,
+                failedAt: new Date().toISOString(),
+                owner: "CONVERSATION_MODEL",
+                responsibilityOwner: "DURABLE_PROVIDER_GUARD",
+                executor: "POSTGRES_DURABLE_PROVIDER_GUARD",
+                componentId: "WORKING_DRAFT_PROVIDER_OPERATION",
+                componentVersion: "1.0.0",
+                provider: durableFailure.generationProvider,
+                code,
+                category: "OWNER_RUNTIME",
+                project: state.project,
+                durableFailure,
+                captureConfiguration: traceCaptureConfiguration,
+              });
+            } catch { /* Diagnostic capture must not change the Working Draft failure behavior. */ }
+          }
+          return { ...state, scientificExecutionTraceLedger,
             workingDraftFailure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED",
-            workingDraft: state.workingDraft ? { ...state.workingDraft, failure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED" } : state.workingDraft });
-        console.warn("WORKING_DRAFT_PREPARATION_FAILED", error);
+            workingDraft: state.workingDraft ? { ...state.workingDraft, failure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED" } : state.workingDraft };
+        });
+        console.warn("WORKING_DRAFT_PREPARATION_FAILED", durableFailure?.structuredErrorCode ?? "UNCLASSIFIED");
       } finally {
         setSession(state => state.sessionId !== foreground.sessionId ? state : appendFunctionalResetProviderCallRecords(state,
           { turnId: userTurn.turnId, traceRunId: createProductTraceRunId(state.sessionId, userTurn.turnId), requestKind: "USER_TURN", records }));
@@ -3093,6 +3123,8 @@ export default function ProtocolDesignerWorkspace({
       const failedAt = new Date().toISOString();
       setDraft(current => current || content);
       onProviderCallRecords(providerRecordsFromError(error));
+      const durableFailure = [...observedProviderCalls].reverse().find(record => record.status === "FAILED" && record.durableFailure)
+        ?.durableFailure;
       const failureCode = productBridgeClientErrorCode(error) ?? "PRODUCT_BRIDGE_REQUEST_FAILED";
       const failedProjectionRequest = languageProjectionRequestFromError(error);
       const failedProjectionDiagnostic = languageProjectionDiagnosticFromError(error);
@@ -3157,16 +3189,17 @@ export default function ProtocolDesignerWorkspace({
           startedAt: now,
           failedAt,
           owner: languageGatewayFailed ? "LANGUAGE_GATEWAY" : "TRACE",
-          responsibilityOwner: languageGatewayFailed ? "LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE",
+          responsibilityOwner: durableFailure ? "DURABLE_PROVIDER_GUARD" : languageGatewayFailed ? "LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE",
           executor: languageGatewayFailed ? "OPENAI_LANGUAGE_PROJECTION" : "PRODUCT_BRIDGE_CLIENT",
           componentId: languageGatewayFailed ? "CONVERSATION_LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE_CLIENT",
           componentVersion: "UNKNOWN",
-          provider: languageGatewayFailed ? "OPENAI" : "UNKNOWN",
-          code: failureCode,
+          provider: durableFailure?.generationProvider ?? (languageGatewayFailed ? "OPENAI" : "UNKNOWN"),
+          code: durableFailure?.structuredErrorCode ?? failureCode,
           category: languageGatewayFailed ? "BOUNDARY_REJECTION" : "UNKNOWN",
           sourceDigest: failure?.sourceTextDigest ?? "UNKNOWN",
           retainedCandidate: retainedThisTurn,
           realizationOutcome: governedRealizationOutcome,
+          durableFailure,
         });
         return {
         ...current,
