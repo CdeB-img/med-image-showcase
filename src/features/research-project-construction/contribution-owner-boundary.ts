@@ -27,6 +27,8 @@ import {
   type ResearchProjectSectionId,
 } from "./project-section-projection.js";
 import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "./types.js";
+import { researchProjectOwnerDigest } from "./project-owner-digest.js";
+export { researchProjectOwnerDigest } from "./project-owner-digest.js";
 
 export const RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY = "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER" as const;
 export const PRJ001_CONTRIBUTION_INTAKE_GAP = {
@@ -194,20 +196,6 @@ export type ResearchProjectOwnerProjection = {
   appliedChangeSet?: ContributionProjectChangeSet;
   canonicalState?: CanonicalResearchProjectState;
 };
-
-/** The digest input owned by canonical Project adoption, reusable for immutable transport verification. */
-export const researchProjectOwnerDigest = (project: Pick<ResearchProjectOwnerProjection,
-  "projectId" | "versionId" | "previousVersionId" | "contributionDigest" | "appliedChangeSet"
-  | "canonicalState" | "sections" | "confirmationDecision">) => logicalDigest({
-  projectId: project.projectId,
-  versionId: project.versionId,
-  previousVersionId: project.previousVersionId,
-  contributionDigest: project.contributionDigest,
-  changeSet: project.appliedChangeSet,
-  canonicalState: project.canonicalState,
-  sections: project.sections,
-  decisionId: project.confirmationDecision.decisionId,
-});
 
 const active = (item: ScientificContributionItem) => item.epistemicBoundary.activeState !== false;
 const positiveProjectValue = (item: ScientificContributionItem) => active(item) && item.polarity !== "NEGATED";

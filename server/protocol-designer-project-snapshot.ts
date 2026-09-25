@@ -2,7 +2,13 @@ import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import postgres, { type Sql } from "postgres";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { humanDecisionEnvelopeSchema } from "../src/features/protocol-designer/human-decision.js";
-import { researchProjectOwnerDigest, type ResearchProjectOwnerProjection } from "../src/features/research-project-construction/contribution-owner-boundary.js";
+import { researchProjectOwnerDigest } from "../src/features/research-project-construction/project-owner-digest.js";
+
+export type VerifiedProjectSnapshot = Record<string, unknown> & Readonly<{
+  projectId: string;
+  versionId: string;
+  projectDigest: string;
+}>;
 
 /** Separate, non-provider upload. Ten times the observed 259 kB Project fits below this bound. */
 export const PROJECT_SNAPSHOT_MAX_BYTES = 4_000_000;
@@ -33,7 +39,7 @@ export const parseProjectSnapshotRef = (value: unknown): ProjectSnapshotRef => {
 };
 
 /** Verify the PRJ owner's exact digest input, not a browser assertion or a derived Chat projection. */
-export const parseVerifiedProjectSnapshot = (value: unknown, sessionId: string): ResearchProjectOwnerProjection => {
+export const parseVerifiedProjectSnapshot = (value: unknown, sessionId: string): VerifiedProjectSnapshot => {
   if (!record(value) || !nonempty(sessionId, 240)
     || value.contract !== "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION"
     || value.owner !== "RESEARCH_PROJECT" || value.llmProjectWrites !== 0
@@ -54,8 +60,8 @@ export const parseVerifiedProjectSnapshot = (value: unknown, sessionId: string):
     || value.confirmationDecision.projectVersion !== value.versionId) {
     throw new ProjectSnapshotError("PROJECT_SNAPSHOT_CANONICAL_INVALID", 400);
   }
-  const project = value as ResearchProjectOwnerProjection;
-  if (researchProjectOwnerDigest(project) !== project.projectDigest) {
+  const project = value as VerifiedProjectSnapshot;
+  if (researchProjectOwnerDigest(project as unknown as Parameters<typeof researchProjectOwnerDigest>[0]) !== project.projectDigest) {
     throw new ProjectSnapshotError("PROJECT_SNAPSHOT_DIGEST_MISMATCH", 409);
   }
   return project;
@@ -145,13 +151,13 @@ export const createPostgresProjectSnapshotStore = (connectionString: string) => 
               (session_key_hash, client_key_hash, project_id, version_id, project_digest,
                 payload_sha256, canonical_payload, access_proof_hash)
             values (${sessionKey}, ${clientKey}, ${ref.projectId}, ${ref.versionId}, ${ref.projectDigest},
-              ${payloadHash}, ${sql.json(project)}, ${accessHash})
+              ${payloadHash}, ${sql.json(project as unknown as postgres.JSONValue)}, ${accessHash})
           `;
         }
         return { ref, proof: issuedProof };
       });
     },
-    async resolve(identity: ProjectSnapshotIdentity, ref: ProjectSnapshotRef, proof: string | null): Promise<ResearchProjectOwnerProjection> {
+    async resolve(identity: ProjectSnapshotIdentity, ref: ProjectSnapshotRef, proof: string | null): Promise<VerifiedProjectSnapshot> {
       assertBound(identity, ref);
       const { sessionKey, clientKey } = keys(identity);
       await ready();

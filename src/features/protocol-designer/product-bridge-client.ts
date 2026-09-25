@@ -9,7 +9,7 @@ import type {
   LanguageProjectionResponse,
 } from "./conversation-language-gateway";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
-import { researchProjectOwnerDigest } from "../research-project-construction/contribution-owner-boundary";
+import { researchProjectOwnerDigest } from "../research-project-construction/project-owner-digest";
 import {
   providerCallRequestObservability,
   type ProviderCallRecord,
