@@ -962,6 +962,8 @@ export type ProductBridgeRequest = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
   conversation: ScientificInterpretationConversation;
   currentProject: ResearchProjectOwnerProjection | null;
+  /** Transport-only exact version reference; resolved before any Product Bridge owner runs. */
+  currentProjectRef?: Readonly<{ projectId: string; versionId: string; projectDigest: string }>;
   evaluatePersistentDelta: boolean;
   /** Non-adopting ST preparation, gated by server configuration. */
   prepareWorkingDraft?: boolean;
@@ -1861,6 +1863,9 @@ export const relevantProjectContext = (project: ResearchProjectOwnerProjection |
 export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Partial<ProductBridgeRequest>;
+  // A reference is transport metadata; only the server resolver may replace it
+  // with an exact canonical Project before any owner receives this request.
+  if (record.currentProjectRef !== undefined) return null;
   if (record.apiVersion !== PRODUCT_BRIDGE_API_VERSION
     || typeof record.evaluatePersistentDelta !== "boolean"
     || (record.prepareWorkingDraft !== undefined && (typeof record.prepareWorkingDraft !== "boolean"

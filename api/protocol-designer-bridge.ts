@@ -56,6 +56,12 @@ import {
   resolveOpenAIProviderRuntimeConfiguration,
   type OpenAIProviderTransport,
 } from "../server/protocol-designer-openai-provider-config.js";
+import {
+  ProjectSnapshotError,
+  parseProjectSnapshotRef,
+  sharedPostgresProjectSnapshotStore,
+  type ProtocolDesignerProjectSnapshotStore,
+} from "../server/protocol-designer-project-snapshot.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -747,7 +753,8 @@ export const handleProtocolDesignerBridge = async (
   response: ApiResponse,
   environment: Record<string, string | undefined> = process.env,
   dependencies: { fetchImpl?: typeof fetch; now?: () => number; providerAttemptPolicy?: ProviderAttemptPolicy;
-    durableGuard?: PublicProtocolDesignerDurableGuard } = {},
+    durableGuard?: PublicProtocolDesignerDurableGuard;
+    projectSnapshotStore?: ProtocolDesignerProjectSnapshotStore } = {},
 ) => {
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
@@ -799,6 +806,42 @@ export const handleProtocolDesignerBridge = async (
     error: { code: "PUBLIC_DURABLE_STORE_UNAVAILABLE", message: "Service temporairement indisponible." },
     observability: providerCallRequestObservability([]),
   });
+  // Resolve the exact adopted version before durable replay. Otherwise a recovered
+  // response could bypass proof verification for a compact Project request.
+  if (body && typeof body === "object" && !Array.isArray(body)
+    && "currentProjectRef" in body && body.currentProjectRef !== undefined) {
+    try {
+      const raw = body as Record<string, unknown>;
+      if (raw.currentProject !== null) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_REF_CONFLICT", 400);
+      const observation = raw.observabilityContext;
+      const sessionId = observation && typeof observation === "object" && "sessionId" in observation
+        ? (observation as { sessionId?: unknown }).sessionId : null;
+      if (typeof sessionId !== "string") throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_REQUIRED", 400);
+      const ref = parseProjectSnapshotRef(raw.currentProjectRef);
+      const proof = header(request.headers, "x-noxia-project-snapshot-proof") ?? null;
+      if (proof && !/^[A-Za-z0-9_-]{43}$/u.test(proof)) {
+        throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_MISMATCH", 403);
+      }
+      const store = dependencies.projectSnapshotStore
+        ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
+      if (!store) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_STORE_UNAVAILABLE", 503);
+      const project = await store.resolve({
+        sessionId,
+        clientAddress: header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim()
+          || request.socket?.remoteAddress?.trim() || "anonymous",
+      }, ref, proof);
+      const { currentProjectRef: _ref, ...rest } = raw;
+      body = { ...rest, currentProject: project };
+    } catch (error) {
+      const failure = error instanceof ProjectSnapshotError
+        ? error : new ProjectSnapshotError("PROJECT_SNAPSHOT_STORE_UNAVAILABLE", 503);
+      return response.status(failure.status).json({
+        apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: failure.code, message: "Le projet enregistré ne peut pas être vérifié pour cette session." },
+        observability: providerCallRequestObservability([]),
+      });
+    }
+  }
   try {
     const publicAdmission = await durableGuard.prepareRequest({
       headers: request.headers,

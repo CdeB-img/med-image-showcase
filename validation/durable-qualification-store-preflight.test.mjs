@@ -20,6 +20,11 @@ const development = {
   NOXIA_DURABLE_QUALIFICATION_NEON_PROJECT_ID: qualification.NOXIA_DURABLE_DATABASE_NEON_PROJECT_ID,
   NOXIA_DURABLE_QUALIFICATION_DATABASE_URL: qualification.NOXIA_DURABLE_DATABASE_DATABASE_URL,
 };
+const preview = {
+  NOXIA_DURABLE_DATABASE_NEON_PROJECT_ID: "soft-hill-09530523",
+  NOXIA_DURABLE_DATABASE_DATABASE_URL:
+    "postgresql://synthetic:synthetic@ep-spring-cake-b1a8cl9x-pooler.c-5.eu-central-1.aws.neon.tech/neondb",
+};
 
 test("qualification and Production identities are distinct", () => {
   const identities = assertQualificationIdentity(qualification, production);
@@ -53,21 +58,29 @@ test("destructive preflight refuses changed Production identity", () => {
 });
 
 test("Vercel Development-only mapping resolves the qualification resource", () => {
-  const result = assertVercelEnvironmentIsolation(development, production, production, "qualification/test");
+  const result = assertVercelEnvironmentIsolation(development, preview, production, "qualification/test");
   assert.equal(result.candidate.NOXIA_DURABLE_DATABASE_DATABASE_URL,
     qualification.NOXIA_DURABLE_DATABASE_DATABASE_URL);
 });
 
 test("Vercel qualification variables in Preview or Production fail closed", () => {
-  assert.throws(() => assertVercelEnvironmentIsolation(development, { ...production,
+  assert.throws(() => assertVercelEnvironmentIsolation(development, { ...preview,
     NOXIA_DURABLE_QUALIFICATION_DATABASE_URL: qualification.NOXIA_DURABLE_DATABASE_DATABASE_URL,
   }, production, "qualification/test"), /QUALIFICATION_VARIABLE_OUTSIDE_DEVELOPMENT/);
-  assert.throws(() => assertVercelEnvironmentIsolation(development, production, { ...production,
+  assert.throws(() => assertVercelEnvironmentIsolation(development, preview, { ...production,
     NOXIA_DURABLE_QUALIFICATION_NEON_PROJECT_ID: qualification.NOXIA_DURABLE_DATABASE_NEON_PROJECT_ID,
   }, "qualification/test"), /QUALIFICATION_VARIABLE_OUTSIDE_DEVELOPMENT/);
 });
 
 test("Vercel Development-only mapping still requires the explicit test role", () => {
-  assert.throws(() => assertVercelEnvironmentIsolation(development, production, production, ""),
+  assert.throws(() => assertVercelEnvironmentIsolation(development, preview, production, ""),
     /QUALIFICATION_ROLE_REQUIRED/);
+});
+
+test("destructive preflight refuses a Preview URL or a changed Preview resource", () => {
+  assert.throws(() => assertVercelEnvironmentIsolation(development, production, production, "qualification/test"),
+    /PREVIEW_DATABASE_IDENTITY_CHANGED/);
+  assert.throws(() => assertVercelEnvironmentIsolation(development, { ...preview,
+    NOXIA_DURABLE_DATABASE_DATABASE_URL: qualification.NOXIA_DURABLE_DATABASE_DATABASE_URL,
+  }, production, "qualification/test"), /PREVIEW_DATABASE_IDENTITY_CHANGED/);
 });

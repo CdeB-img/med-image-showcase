@@ -687,11 +687,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
               set state = 'UNKNOWN_AFTER_DISPATCH', updated_at = ${reservationNow}
               where operation_key = ${operationKey} and state = 'DISPATCHED'
             `;
-            await tx`
-              update noxia_durable.public_guard_session
-              set provider_gate_closed = true, updated_at = ${reservationNow}, version = version + 1
-              where session_key_hash = ${context.sessionKey}
-            `;
+            // The original reservation remains in committed_cost_upper_bound_usd.
+            // A distinct operation still passes canaryBudgetAdmission under this session lock.
             return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
           }
           if (existing?.state === "UNKNOWN_AFTER_DISPATCH") return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
@@ -789,7 +786,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
       let response: Response;
       try {
         response = await fetchImpl(input, request.init);
-      } catch (error) {
+      } catch {
         await sql.begin(async (tx) => {
           await lockSession(tx, context, new Date());
           await tx`
@@ -797,13 +794,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
             set state = 'UNKNOWN_AFTER_DISPATCH', updated_at = ${new Date()}
             where operation_key = ${operationKey} and state = 'DISPATCHED'
           `;
-          await tx`
-            update noxia_durable.public_guard_session
-            set provider_gate_closed = true, updated_at = ${new Date()}, version = version + 1
-            where session_key_hash = ${context.sessionKey}
-          `;
         });
-        throw error;
+        throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       }
 
       let responseBody: string;
@@ -815,13 +807,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
             set state = 'UNKNOWN_AFTER_DISPATCH', provider_http_status = ${response.status}, updated_at = ${new Date()}
             where operation_key = ${operationKey} and state = 'DISPATCHED'
           `;
-          await tx`
-            update noxia_durable.public_guard_session
-            set provider_gate_closed = true, updated_at = ${new Date()}, version = version + 1
-            where session_key_hash = ${context.sessionKey}
-          `;
         });
-        return response;
+        throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       }
 
       const settlement = response.ok && bound ? settleCanaryProviderCall(bound, responseBody) : null;
@@ -893,11 +880,6 @@ export const createPostgresProtocolDesignerDurableGuard = (
                 provider_response_digest = ${hash(responseBody)}, completed_at = ${new Date()}, updated_at = ${new Date()}
             where operation_key = ${operationKey}
           `;
-          await tx`
-            update noxia_durable.public_guard_session
-            set provider_gate_closed = true, updated_at = ${new Date()}, version = version + 1
-            where session_key_hash = ${context.sessionKey}
-          `;
           return;
         }
         const reserved = asNumber(current.reserved_upper_bound_usd);
@@ -921,6 +903,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
         `;
       });
       if (qualificationFailureCode) throw new DurablePublicGuardError(qualificationFailureCode);
+      if (!settlement) throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       return response;
     };
   };

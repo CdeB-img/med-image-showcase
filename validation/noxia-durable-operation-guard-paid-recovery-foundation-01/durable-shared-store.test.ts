@@ -225,7 +225,7 @@ describe.sequential("shared Neon durable operation guard", () => {
     const failingProvider = vi.fn<typeof fetch>().mockRejectedValue(new Error("synthetic transport interruption"));
     await expect(first.createBudgetedFetch(context, failingProvider)(
       "https://api.openai.com/v1/responses", openAiRequest(),
-    )).rejects.toThrow("synthetic transport interruption");
+    )).rejects.toMatchObject({ code: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" });
     const before = await querySingle(await admin`
       select o.state, s.provider_gate_closed, s.committed_cost_upper_bound_usd
       from noxia_durable.public_provider_operation o
@@ -233,7 +233,7 @@ describe.sequential("shared Neon durable operation guard", () => {
       where o.admission_key = ${context.admissionKey}
     `);
     expect(before?.state).toBe("UNKNOWN_AFTER_DISPATCH");
-    expect(before?.provider_gate_closed).toBe(true);
+    expect(before?.provider_gate_closed).toBe(false);
     const debt = Number(before?.committed_cost_upper_bound_usd);
     expect(debt).toBeGreaterThan(0);
     await admin`
@@ -246,19 +246,31 @@ describe.sequential("shared Neon durable operation guard", () => {
     const retryContext = await prepare(restarted, payload);
     const forbiddenProvider = vi.fn<typeof fetch>();
     const retryFetch = restarted.createBudgetedFetch(retryContext, forbiddenProvider);
-    await expect(retryFetch(
+    await expect(restarted.createBudgetedFetch(retryContext, forbiddenProvider)(
       "https://api.openai.com/v1/responses", openAiRequest(),
     )).rejects.toMatchObject({ code: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" });
     await expect(retryFetch(
       "https://api.openai.com/v1/responses", openAiRequest(),
-    )).rejects.toMatchObject({ code: "PUBLIC_SESSION_BUDGET_CLOSED" });
+    )).rejects.toMatchObject({ code: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" });
     expect(forbiddenProvider).not.toHaveBeenCalled();
+    const independent = await prepare(restarted, body("unknown", "request-2"));
+    const independentProvider = vi.fn<typeof fetch>().mockResolvedValue(successfulResponse());
+    await restarted.createBudgetedFetch(independent, independentProvider)(
+      "https://api.openai.com/v1/responses", openAiRequest(),
+    );
+    expect(independentProvider).toHaveBeenCalledTimes(1);
     const after = await querySingle(await admin`
       select provider_gate_closed, committed_cost_upper_bound_usd
       from noxia_durable.public_guard_session where session_key_hash = ${context.sessionKey}
     `);
-    expect(after?.provider_gate_closed).toBe(true);
-    expect(Number(after?.committed_cost_upper_bound_usd)).toBe(debt);
+    expect(after?.provider_gate_closed).toBe(false);
+    expect(Number(after?.committed_cost_upper_bound_usd)).toBeGreaterThan(debt);
+    const unknown = await querySingle(await admin`
+      select state, reserved_upper_bound_usd from noxia_durable.public_provider_operation
+      where admission_key = ${context.admissionKey}
+    `);
+    expect(unknown?.state).toBe("UNKNOWN_AFTER_DISPATCH");
+    expect(Number(unknown?.reserved_upper_bound_usd)).toBe(debt);
   });
 
   it("converts an expired dispatch lease to retained UNKNOWN debt without redispatch", async () => {
@@ -297,7 +309,7 @@ describe.sequential("shared Neon durable operation guard", () => {
       where o.admission_key = ${contextA.admissionKey}
     `);
     expect(state?.state).toBe("UNKNOWN_AFTER_DISPATCH");
-    expect(state?.provider_gate_closed).toBe(true);
+    expect(state?.provider_gate_closed).toBe(false);
     expect(Number(state?.committed_cost_upper_bound_usd)).toBeGreaterThan(0);
   });
 
@@ -373,7 +385,7 @@ describe.sequential("shared Neon durable operation guard", () => {
       ...openAiRequest(), noxiaProviderObservation: {
         ...openAiRequest().noxiaProviderObservation, purpose: "DOCUMENT_PROJECTION",
       },
-    } as SyntheticObservedRequest)).rejects.toThrow("synthetic crash after first scope persistence");
+    } as SyntheticObservedRequest)).rejects.toMatchObject({ code: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" });
     expect(provider).toHaveBeenCalledTimes(2);
     await first.close();
 
@@ -399,6 +411,12 @@ describe.sequential("shared Neon durable operation guard", () => {
       group by a.state
     `);
     expect(state).toEqual({ admission_state: "ACTIVE", completed_scopes: 1, unknown_scopes: 1 });
+    const independent = await prepare(restarted, body("doc-partial", "chat-after-doc"));
+    const independentProvider = vi.fn<typeof fetch>().mockResolvedValue(successfulResponse());
+    await restarted.createBudgetedFetch(independent, independentProvider)(
+      "https://api.openai.com/v1/responses", openAiRequest(),
+    );
+    expect(independentProvider).toHaveBeenCalledTimes(1);
   });
 
   it("admits concurrent Terra foreground and background after exact count under the unchanged hard bound", async () => {

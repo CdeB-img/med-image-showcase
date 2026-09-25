@@ -195,6 +195,20 @@ export type ResearchProjectOwnerProjection = {
   canonicalState?: CanonicalResearchProjectState;
 };
 
+/** The digest input owned by canonical Project adoption, reusable for immutable transport verification. */
+export const researchProjectOwnerDigest = (project: Pick<ResearchProjectOwnerProjection,
+  "projectId" | "versionId" | "previousVersionId" | "contributionDigest" | "appliedChangeSet"
+  | "canonicalState" | "sections" | "confirmationDecision">) => logicalDigest({
+  projectId: project.projectId,
+  versionId: project.versionId,
+  previousVersionId: project.previousVersionId,
+  contributionDigest: project.contributionDigest,
+  changeSet: project.appliedChangeSet,
+  canonicalState: project.canonicalState,
+  sections: project.sections,
+  decisionId: project.confirmationDecision.decisionId,
+});
+
 const active = (item: ScientificContributionItem) => item.epistemicBoundary.activeState !== false;
 const positiveProjectValue = (item: ScientificContributionItem) => active(item) && item.polarity !== "NEGATED";
 
@@ -1652,15 +1666,10 @@ export const confirmResearchProjectContribution = (input: {
         ?? { ...responsibility, state: "NOT_TRIGGERED" as const, sourceItemIds: [] };
   }) : candidate.specializedResponsibilities;
 
-  const projectDigest = logicalDigest({
-    projectId: input.projectId,
-    versionId,
-    previousVersionId: input.current?.versionId ?? null,
-    contributionDigest: candidate.contributionDigest,
-    changeSet,
-    canonicalState,
-    sections: projectedSections,
-    decisionId: confirmationDecision.decisionId,
+  const projectDigest = researchProjectOwnerDigest({
+    projectId: input.projectId, versionId, previousVersionId: input.current?.versionId ?? null,
+    contributionDigest: candidate.contributionDigest, appliedChangeSet: changeSet,
+    canonicalState, sections: projectedSections, confirmationDecision,
   });
   return {
     contract: "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION",

@@ -8,6 +8,8 @@ const ROOT = resolve(import.meta.dirname, "..");
 const POINTER_FILE = join(ROOT, ".env.durable-qualification.local");
 const PRODUCTION_PROJECT_ID = "aged-art-41980988";
 const PRODUCTION_HOST = "ep-nameless-dew-b13ga6ek-pooler.c-5.eu-central-1.aws.neon.tech";
+const PREVIEW_PROJECT_ID = "soft-hill-09530523";
+const PREVIEW_HOST = "ep-spring-cake-b1a8cl9x-pooler.c-5.eu-central-1.aws.neon.tech";
 const QUALIFICATION_PROJECT_ID = "lingering-haze-73971206";
 const QUALIFICATION_HOST = "ep-aged-dust-b2o37gm4-pooler.c-6.eu-central-1.aws.neon.tech";
 const QUALIFICATION_PREFIX = "NOXIA_DURABLE_QUALIFICATION";
@@ -63,8 +65,9 @@ export const assertVercelEnvironmentIsolation = (development, preview, productio
     throw new Error("QUALIFICATION_VARIABLE_OUTSIDE_DEVELOPMENT");
   }
   const previewIdentity = databaseIdentity(preview.NOXIA_DURABLE_DATABASE_DATABASE_URL);
-  if (preview.NOXIA_DURABLE_DATABASE_NEON_PROJECT_ID !== PRODUCTION_PROJECT_ID ||
-      previewIdentity.host !== PRODUCTION_HOST) {
+  if (preview.NOXIA_DURABLE_DATABASE_NEON_PROJECT_ID !== PREVIEW_PROJECT_ID ||
+      previewIdentity.host !== PREVIEW_HOST || previewIdentity.database !== "neondb" ||
+      previewIdentity.host === PRODUCTION_HOST || previewIdentity.host === QUALIFICATION_HOST) {
     throw new Error("PREVIEW_DATABASE_IDENTITY_CHANGED");
   }
   const candidate = {

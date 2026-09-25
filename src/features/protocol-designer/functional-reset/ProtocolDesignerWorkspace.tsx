@@ -17,6 +17,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
   ProductBridgeClientError,
+  ensureServerProjectSnapshot,
   requestConversationLanguageProjection,
   requestProtocolDesignerBridge,
 } from "@/features/protocol-designer/product-bridge-client";
@@ -3525,6 +3526,13 @@ export default function ProtocolDesignerWorkspace({
       latestSessionRef.current = nextSession;
       setSession(nextSession);
       setReviewError(null);
+      // Adoption remains owned and persisted locally; the immutable server copy
+      // follows it. A subsequent bridge request waits for this same upload.
+      if (import.meta.env.MODE !== "development") {
+        void ensureServerProjectSnapshot(session.sessionId, project).catch(() => {
+          // The next request reports a local snapshot error without dispatching a provider.
+        });
+      }
 
       // Project writes supply context; they never select another scientific
       // speaker. QRY/owner results remain available for an explicit request.
