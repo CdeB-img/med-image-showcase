@@ -25,6 +25,7 @@ import {
 } from "../src/features/protocol-designer/provider-call-observability.js";
 
 type Headers = Record<string, string | string[] | undefined>;
+type PublicBudgetPolicy = Readonly<{ absoluteHardCampaignBoundUsd: number; measuredCostSoftStopUsd: number }>;
 type JsonObject = Record<string, unknown>;
 type TransactionQuery = Sql | postgres.TransactionSql;
 const PROVIDER_DISPATCH_LEASE_MS = 6 * 60 * 1_000;
@@ -467,9 +468,11 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
 
 export const createPostgresProtocolDesignerDurableGuard = (
   connectionString: string,
-  options: Readonly<{ maxConnections?: number; sessionRequestLimit?: number }> = {},
+  options: Readonly<{ maxConnections?: number; sessionRequestLimit?: number;
+    budgetPolicy?: PublicBudgetPolicy }> = {},
 ): PublicProtocolDesignerDurableGuard => {
   const sessionRequestLimit = options.sessionRequestLimit ?? PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT;
+  const budgetPolicy = options.budgetPolicy ?? PUBLIC_PROTOCOL_DESIGNER_BUDGET;
   if (!Number.isSafeInteger(sessionRequestLimit) || sessionRequestLimit < 1) {
     throw new DurablePublicGuardError("PUBLIC_SESSION_LIMIT_CONFIGURATION_INVALID");
   }
@@ -788,7 +791,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
           if (session.provider_gate_closed) return { denial: "PUBLIC_SESSION_BUDGET_CLOSED" };
           const measured = asNumber(session.measured_cost_usd);
           const committed = asNumber(session.committed_cost_upper_bound_usd);
-          const admission = canaryBudgetAdmission(committed, exactBound, measured, PUBLIC_PROTOCOL_DESIGNER_BUDGET);
+          const admission = canaryBudgetAdmission(committed, exactBound, measured, budgetPolicy);
           if (admission !== "ADMITTED" || !exactBound) {
             await tx`
               update noxia_durable.public_guard_session
@@ -1094,16 +1097,27 @@ export const durableGuardSessionRequestLimit = (environment: Record<string, stri
   return limit;
 };
 
+export const durableGuardPublicBudget = (environment: Record<string, string | undefined>) => {
+  if (environment.VERCEL_ENV !== "preview" || environment.NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD === undefined) {
+    return PUBLIC_PROTOCOL_DESIGNER_BUDGET;
+  }
+  if (environment.NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD !== "3") {
+    throw new DurablePublicGuardError("PUBLIC_PREVIEW_SOFT_STOP_CONFIGURATION_INVALID");
+  }
+  return Object.freeze({ ...PUBLIC_PROTOCOL_DESIGNER_BUDGET, measuredCostSoftStopUsd: 3 });
+};
+
 const sharedGuards = new Map<string, PublicProtocolDesignerDurableGuard>();
 
 export const sharedPostgresProtocolDesignerDurableGuard = (
   connectionString: string,
   sessionRequestLimit = PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT,
+  budgetPolicy: PublicBudgetPolicy = PUBLIC_PROTOCOL_DESIGNER_BUDGET,
 ) => {
-  const key = hash(`${connectionString}\u0000${sessionRequestLimit}`);
+  const key = hash(`${connectionString}\u0000${sessionRequestLimit}\u0000${budgetPolicy.measuredCostSoftStopUsd}`);
   const existing = sharedGuards.get(key);
   if (existing) return existing;
-  const guard = createPostgresProtocolDesignerDurableGuard(connectionString, { sessionRequestLimit });
+  const guard = createPostgresProtocolDesignerDurableGuard(connectionString, { sessionRequestLimit, budgetPolicy });
   sharedGuards.set(key, guard);
   return guard;
 };

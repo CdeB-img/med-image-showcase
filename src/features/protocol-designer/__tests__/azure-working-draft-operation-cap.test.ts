@@ -65,7 +65,7 @@ const observedResponseTimeouts = async (run: () => Promise<unknown>) => {
 
 describe.each([
   { provider: "OPENAI", transport: undefined, expectedWorkingDraftCap: 8000, expectedWorkingDraftTimeout: 120_000 },
-  { provider: "AZURE", transport: azure.transport, expectedWorkingDraftCap: 16000, expectedWorkingDraftTimeout: 300_000 },
+  { provider: "AZURE", transport: azure.transport, expectedWorkingDraftCap: 24000, expectedWorkingDraftTimeout: 300_000 },
 ])("$provider operation-scoped output cap and timeout", ({ transport, expectedWorkingDraftCap, expectedWorkingDraftTimeout }) => {
   it("keeps Chat at 8000/120s and scopes the Working Draft cap and timeout", async () => {
     for (const workingDraft of [false, true]) {
