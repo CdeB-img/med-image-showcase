@@ -165,6 +165,7 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  recordWorkingDraftPreparation,
   productEntryPromptForIntent,
   resolveGovernedPostAdoptionReceipt,
   shouldMediatePostAdoptionQuery,
@@ -1992,13 +1993,19 @@ export default function ProtocolDesignerWorkspace({
     const previousJob = backgroundDraftJobRef.current;
     pendingBackgroundJobsRef.current += 1;
     setWorkingDraftBusy(true);
+    setSession(state => state.sessionId === foreground.sessionId
+      ? recordWorkingDraftPreparation(state, userTurn.turnId, "PREPARING") : state);
     const job = (async () => {
       if (previousJob) await previousJob;
       const records: ProviderCallRecord[] = [];
       try {
         const current = latestSessionRef.current;
         // A later turn supersedes this queued request before any provider dispatch.
-        if (current.sessionId !== foreground.sessionId || [...current.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId) return;
+        if (current.sessionId !== foreground.sessionId || [...current.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId) {
+          setSession(state => state.sessionId === foreground.sessionId
+            ? recordWorkingDraftPreparation(state, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_TURN") : state);
+          return;
+        }
         const response = await requestProtocolDesignerBridge({ conversation: { conversationId: current.conversationId, language: "fr", turns: current.runtimeTurns },
           currentProject: current.project, evaluatePersistentDelta: false, prepareWorkingDraft: true,
           workingDraftHistory: (current.workingDraft?.history ?? []).filter(h => h.status === "REJECTED"),
@@ -2007,9 +2014,15 @@ export default function ProtocolDesignerWorkspace({
             clientRequestId: `working-draft:${userTurn.turnId}`, testSessionId: null } });
         records.push(...response.observability.providerCalls ?? []);
         if (!response.workingStudyProposal || !response.workingDraftUpdate) {
-          if (response.workingDraftUpdate?.requestType !== "STUDY_UPDATE") setSession(state => {
-            if (state.sessionId !== current.sessionId || [...state.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId) return state;
-            return { ...state, workingDraftFailure: null, workingDraft: state.workingDraft ? { ...state.workingDraft, sourceUserTurnRef: userTurn.turnId, failure: null } : null };
+          setSession(state => {
+            if (state.sessionId !== current.sessionId) return state;
+            if ([...state.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId)
+              return recordWorkingDraftPreparation(state, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_TURN");
+            const code = response.workingDraftUpdate?.requestType === "STUDY_UPDATE"
+              ? "WORKING_DRAFT_PROPOSAL_MISSING" : "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE";
+            const failed = recordWorkingDraftPreparation(state, userTurn.turnId, "FAILED", code);
+            return { ...failed, workingDraftFailure: code,
+              workingDraft: state.workingDraft ? { ...state.workingDraft, sourceUserTurnRef: userTurn.turnId, failure: code } : null };
           });
           return;
         }
@@ -2017,7 +2030,11 @@ export default function ProtocolDesignerWorkspace({
           const state = latestSessionRef.current;
           const lastUser = [...state.runtimeTurns].reverse().find(t => t.role === "USER");
           if (state.sessionId !== current.sessionId || state.project?.versionId !== current.project?.versionId
-            || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return;
+            || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) {
+            setSession(latest => latest.sessionId === current.sessionId
+              ? recordWorkingDraftPreparation(latest, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : latest);
+            return;
+          }
           const composition = response.workingStudyProposal!;
           const workingDraft = prepareContinuousWorkingDraft(current, composition, response.workingDraftUpdate!, composition.proposal.contextDigest);
           const prepared = workingDraft.readyReview;
@@ -2028,22 +2045,28 @@ export default function ProtocolDesignerWorkspace({
             ...prepared, validation: { valid: true, blocks: [] }, validatorRef: "STUDY_PROPOSAL_AND_PRJ_OWNER",
             sourceTurnRef: userTurn.turnId, baseProject: state.project, dependencyBindings: [], traceRunId: null, retainedAt: new Date().toISOString() }) : previousRetained;
           const openReview = prepared && isExplicitProjectRecordingRequest(userTurn.content) && !isWorkingDraftReviewOnlyRequest(userTurn.content);
-          const next = { ...state, studyProposal: composition, workingDraft, workingDraftFailure: null,
+          const outcome = prepared && !workingDraft.failure ? state
+            : recordWorkingDraftPreparation(state, userTurn.turnId, "FAILED", workingDraft.failure ?? "WORKING_REVIEW_NOT_READY");
+          const next = { ...outcome, studyProposal: composition, workingDraft,
+            workingDraftFailure: prepared && !workingDraft.failure ? null : workingDraft.failure ?? "WORKING_REVIEW_NOT_READY",
             pendingContribution: openReview ? prepared.contribution : state.pendingContribution?.identity.contributionId === oldReviewRef ? null : state.pendingContribution,
             currentContribution: openReview ? prepared.contribution : state.currentContribution,
             entries: openReview ? [...state.entries, { entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
               contribution: prepared.contribution, candidate: prepared.candidate, status: "PENDING" as const, createdAt: new Date().toISOString() }] : state.entries,
             retainedContributionCandidates: retained, updatedAt: new Date().toISOString() };
           latestSessionRef.current = next;
-          setSession(next);
+          setSession(latest => latest.sessionId === next.sessionId
+            ? { ...next, workingDraftPreparations: latest.workingDraftPreparations ?? next.workingDraftPreparations }
+            : latest);
         }
       } catch (error) {
         if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
         const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)
           ?.durableFailure;
         setSession(state => {
-          if (state.sessionId !== foreground.sessionId
-            || [...state.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId !== userTurn.turnId) return state;
+          if (state.sessionId !== foreground.sessionId) return state;
+          if ([...state.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId !== userTurn.turnId)
+            return recordWorkingDraftPreparation(state, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_TURN");
           let scientificExecutionTraceLedger = state.scientificExecutionTraceLedger;
           if (durableFailure) {
             const code = durableFailure.structuredErrorCode ?? "PUBLIC_PROVIDER_FAILURE_UNCLASSIFIED";
@@ -2069,7 +2092,13 @@ export default function ProtocolDesignerWorkspace({
               });
             } catch { /* Diagnostic capture must not change the Working Draft failure behavior. */ }
           }
-          return { ...state, scientificExecutionTraceLedger,
+          const code = error instanceof ProductBridgeClientError ? error.code : "WORKING_DRAFT_FAILED";
+          const unknown = code.includes("UNKNOWN_AFTER_DISPATCH")
+            || ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH"].includes(durableFailure?.lastConfirmedDurableState ?? "")
+            || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? ""));
+          const failed = recordWorkingDraftPreparation(state, userTurn.turnId,
+            unknown ? "UNKNOWN/INTERRUPTED" : "FAILED", code);
+          return { ...failed, scientificExecutionTraceLedger,
             workingDraftFailure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED",
             workingDraft: state.workingDraft ? { ...state.workingDraft, failure: error instanceof Error ? error.message : "WORKING_DRAFT_FAILED" } : state.workingDraft };
         });
@@ -4234,9 +4263,23 @@ export default function ProtocolDesignerWorkspace({
       refreshed = refreshWorkingDraftReview(session);
     } catch (error) {
       console.warn("WORKING_DRAFT_REVIEW_SCOPE_REFRESH_FAILED", error);
+      if (session.workingDraft?.sourceUserTurnRef) setSession(current => {
+        const sourceTurnRef = current.workingDraft?.sourceUserTurnRef;
+        return sourceTurnRef && current.workingDraftPreparations?.some(attempt => attempt.sourceTurnRef === sourceTurnRef && attempt.status === "PREPARING")
+          ? recordWorkingDraftPreparation({ ...current, workingDraftFailure: "WORKING_DRAFT_REVIEW_REFRESH_FAILED" },
+            sourceTurnRef, "FAILED", "WORKING_DRAFT_REVIEW_REFRESH_FAILED") : current;
+      });
       return;
     }
-    if (!refreshed) return;
+    if (!refreshed) {
+      if (session.workingDraft?.sourceUserTurnRef) setSession(current => {
+        const sourceTurnRef = current.workingDraft?.sourceUserTurnRef;
+        return sourceTurnRef && current.workingDraftPreparations?.some(attempt => attempt.sourceTurnRef === sourceTurnRef && attempt.status === "PREPARING")
+          ? recordWorkingDraftPreparation({ ...current, workingDraftFailure: "WORKING_DRAFT_REVIEW_UNAVAILABLE" },
+            sourceTurnRef, "FAILED", "WORKING_DRAFT_REVIEW_UNAVAILABLE") : current;
+      });
+      return;
+    }
     setSession((current) => current.sessionId === session.sessionId
       && current.studyProposal?.digest === session.studyProposal?.digest
       ? { ...current, ...refreshed }
@@ -4248,14 +4291,18 @@ export default function ProtocolDesignerWorkspace({
     const expected = projectReviewInvitation(session, preparedFinalization);
     setSession(current => {
       const ready = validatePreparedWorkingReview(current);
-      if (!ready || !sameProjectReviewInvitation(projectReviewInvitation(current, ready), expected)
-        || current.entries.some(entry => entry.kind === "TEXT" && entry.reviewInvitation
-          && sameProjectReviewInvitation(entry.reviewInvitation, expected))) return current;
+      if (!ready || !sameProjectReviewInvitation(projectReviewInvitation(current, ready), expected)) return current;
+      const sourceTurnRef = current.workingDraft?.sourceUserTurnRef;
+      const invitationPresent = current.entries.some(entry => entry.kind === "TEXT" && entry.reviewInvitation
+        && sameProjectReviewInvitation(entry.reviewInvitation, expected));
+      if (invitationPresent) return sourceTurnRef
+        ? recordWorkingDraftPreparation(current, sourceTurnRef, "READY_FOR_REVIEW") : current;
       const createdAt = new Date().toISOString();
       const content = projectReviewInvitationText(current, ready);
-      return { ...current, runtimeTurns: [...current.runtimeTurns, { turnId: createTurnId(), role: "NOXIA", content, createdAt }],
+      const invited = { ...current, runtimeTurns: [...current.runtimeTurns, { turnId: createTurnId(), role: "NOXIA" as const, content, createdAt }],
         entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA",
           content, reviewInvitation: expected, createdAt }], updatedAt: createdAt };
+      return sourceTurnRef ? recordWorkingDraftPreparation(invited as FunctionalResetSession, sourceTurnRef, "READY_FOR_REVIEW") : invited as FunctionalResetSession;
     });
   }, [autonomousProjectBuild, preparedFinalization, session, workingDraftBusy]);
 
@@ -4684,6 +4731,15 @@ export default function ProtocolDesignerWorkspace({
               </article>)}
             {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />{busyMessage}</div></div>}
             {autonomousProjectBuild && workingDraftBusy && <div role="status" className="px-4 py-2 text-xs text-muted-foreground">Structuration du projet en cours…</div>}
+            {autonomousProjectBuild && !workingDraftBusy && ["FAILED", "UNKNOWN/INTERRUPTED", "SUPERSEDED"].includes(session.workingDraftPreparations?.at(-1)?.status ?? "") && <div role="alert"
+              data-testid="working-draft-terminal-status" className="mx-4 rounded-xl border border-amber-500/30 bg-amber-500/5 px-4 py-2 text-xs sm:mx-5">
+              {session.workingDraftPreparations?.at(-1)?.status === "UNKNOWN/INTERRUPTED"
+                ? "La préparation a été interrompue ; son résultat n’est pas vérifié. La conversation et le dernier projet sont conservés."
+                : session.workingDraftPreparations?.at(-1)?.status === "SUPERSEDED"
+                  ? "Cette préparation a été remplacée par un échange plus récent ; son résultat ne peut pas être validé."
+                  : session.workingDraftPreparations?.at(-1)?.code === "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE"
+                    ? "Cet échange ne crée pas de nouveaux choix à valider. La conversation et le dernier projet sont conservés."
+                  : "La structuration du projet n’a pas abouti. La conversation et le dernier projet sont conservés ; vous pouvez poursuivre la discussion."}</div>}
             <div ref={endRef} />
           </div>
 

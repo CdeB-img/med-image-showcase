@@ -336,7 +336,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.pendingContribution!.scientificContent.candidateObjects.some(o => o.content === "Temps candidat corrigé à six mois")).toBe(true);
     expect(saved.project).toBeNull(); expect(bridge).toHaveBeenCalledTimes(2);
   });
-  it("keeps a failed draft non-adopted while a review request reaches Chat", async () => {
+  it("keeps a failed draft non-adopted and reports that a review request produced no confirmable choices", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     bridge.mockImplementation(async req => {
       const provider = vi.fn<typeof fetch>(async (_url, init) => response(JSON.parse(String(init?.body)).instructions.includes("Tu prépares en arrière-plan")
@@ -353,7 +353,9 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await screen.findByText("LOCAL_SYNTHETIC — discussion conservée, revue non prête.");
     expect(bridge.mock.calls[0][0].prepareWorkingDraft).not.toBe(true); expect(saved.project).toBeNull();
     expect(saved.pendingContribution).toBeNull();
-    await waitFor(() => expect(saved.workingDraftFailure).toBeNull());
+    await waitFor(() => expect(saved.workingDraftFailure).toBe("WORKING_DRAFT_NO_CONFIRMABLE_UPDATE"));
+    expect(saved.workingDraftPreparations?.at(-1)).toMatchObject({ status: "FAILED", code: "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE" });
+    expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
   });
 
   it("delivers native text while background is pending, then exposes the final review without a preparation click", async () => {

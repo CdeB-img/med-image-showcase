@@ -147,10 +147,45 @@ describe("independent Standard workspace through public admission", () => {
     await screen.findByText("Discussion contrôlée intacte.");
     await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
     const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
-    expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED" });
+    expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED", code: "WORKING_DRAFT_PREPARATION_FAILED" });
     expect(screen.getByRole("alert")).toHaveTextContent(/structuration du projet n’a pas abouti/iu);
     expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("FAILED");
     expect(workspace.current().entries.some(entry => entry.kind === "TEXT" && entry.content === "Discussion contrôlée intacte.")).toBe(true);
+    expect(workspace.current().project).toBeNull();
+  });
+
+  it("records a completed no-change preparation without inventing a review", async () => {
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      return response(payload.instructions.includes("Tu prépares en arrière-plan")
+        ? JSON.stringify({ requestType: "INSUFFICIENT", proposal: null,
+          explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] })
+        : "Discussion contrôlée intacte.");
+    });
+    wirePublicHandler(provider);
+    const workspace = mount();
+    send("Bonjour, je réfléchis à une étude.");
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
+    expect(workspace.current().workingDraftPreparations?.at(-1)?.code).toBe("WORKING_DRAFT_NO_CONFIRMABLE_UPDATE");
+    expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
+    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    expect(workspace.current().project).toBeNull();
+  });
+
+  it("does not claim success when the background operation becomes unknown after dispatch", async () => {
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
+      throw new DOMException("LOCAL_SYNTHETIC", "AbortError");
+    });
+    wirePublicHandler(provider);
+    const workspace = mount();
+    send(DOMAINS[1].text);
+    await screen.findByText("Discussion contrôlée intacte.");
+    await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
+    expect(screen.getByRole("alert")).toHaveTextContent(/résultat n’est pas vérifié/iu);
+    expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
     expect(workspace.current().project).toBeNull();
   });
 
@@ -222,7 +257,7 @@ describe("independent Standard workspace through public admission", () => {
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(loadFunctionalResetSession(localStorage).project?.projectId).toBe(reopened.projectId);
-    expect(requests).toHaveLength(6);
+    expect(requests.filter(request => !("operation" in request))).toHaveLength(6);
     expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
   });
 

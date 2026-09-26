@@ -235,6 +235,8 @@ export type FunctionalResetSession = {
   /** Optional UX/runtime composition; never an additional Project aggregate. */
   workingDraft?: import("./continuous-project-build.js").WorkingDraftMetadata | null;
   workingDraftFailure?: string | null;
+  /** Local preparation receipts. Scientific review and Project adoption remain owned elsewhere. */
+  workingDraftPreparations?: readonly WorkingDraftPreparation[];
   studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
@@ -277,6 +279,34 @@ export type FunctionalResetSession = {
   validationRunLedger: Readonly<ProductValidationRunLedger>;
   scientificExecutionTraceLedger: Readonly<ScientificExecutionTraceLedger>;
   conversationLanguageGateway: Readonly<ConversationLanguageGatewayState>;
+};
+
+export type WorkingDraftPreparationStatus = "PREPARING" | "READY_FOR_REVIEW" | "FAILED" | "SUPERSEDED" | "UNKNOWN/INTERRUPTED";
+export type WorkingDraftPreparation = Readonly<{
+  sourceTurnRef: string;
+  status: WorkingDraftPreparationStatus;
+  code: string | null;
+  updatedAt: string;
+}>;
+
+const readWorkingDraftPreparations = (value: unknown): readonly WorkingDraftPreparation[] =>
+  Array.isArray(value) ? value.filter((item): item is WorkingDraftPreparation => Boolean(item)
+    && typeof item === "object" && typeof item.sourceTurnRef === "string"
+    && ["PREPARING", "READY_FOR_REVIEW", "FAILED", "SUPERSEDED", "UNKNOWN/INTERRUPTED"].includes(item.status)
+    && (item.code === null || typeof item.code === "string") && typeof item.updatedAt === "string") : [];
+
+export const recordWorkingDraftPreparation = (
+  session: FunctionalResetSession, sourceTurnRef: string, status: WorkingDraftPreparationStatus,
+  code: string | null = null, updatedAt = new Date().toISOString(),
+): FunctionalResetSession => {
+  const attempts = session.workingDraftPreparations ?? [];
+  const index = attempts.findIndex(attempt => attempt.sourceTurnRef === sourceTurnRef);
+  const receipt: WorkingDraftPreparation = { sourceTurnRef, status, code, updatedAt };
+  if (index < 0) return { ...session, workingDraftPreparations: [...attempts, receipt] };
+  const current = attempts[index]!;
+  if (status !== "PREPARING" && current.status !== "PREPARING"
+    && !(status === "READY_FOR_REVIEW" && current.status === "UNKNOWN/INTERRUPTED")) return session;
+  return { ...session, workingDraftPreparations: attempts.map((attempt, i) => i === index ? receipt : attempt) };
 };
 
 /** Attach observations to the existing bridge trace, including early local/error exits. */
@@ -480,6 +510,10 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
     }
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
+      workingDraftPreparations: readWorkingDraftPreparations(session.workingDraftPreparations)
+        .map(attempt => attempt.status === "PREPARING" ? {
+          ...attempt, status: "UNKNOWN/INTERRUPTED" as const, code: "WORKING_DRAFT_INTERRUPTED", updatedAt: new Date().toISOString(),
+        } : attempt),
       studyProposal: rehydrateStudyProposal(session.studyProposal, session.project),
       retainedContributionCandidates: session.retainedContributionCandidates ?? [],
       observabilityInteraction: session.observabilityInteraction ?? null,
