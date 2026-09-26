@@ -302,7 +302,8 @@ export const executeOpenAIDrciDraft = async (
       clientRequestId: `${instrumentation.context.clientRequestId}:doc-scope:${batch.requestScope}` } } : undefined;
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
       modelRequested: "gpt-5.6-terra", instrumentation: batchInstrumentation, transport, payload: { model: "gpt-5.6-terra", instructions: batch.instruction,
-        input: batch.context, reasoning: { effort: "medium" }, max_output_tokens: 8000, store: false,
+        input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
+          transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
         service_tier: "default", text: { format: { type: "json_object" } } } });
     const value = batch.expand(JSON.parse(responseOutputText(result.body)));
     documents.push(...value.documents); crfRows.push(...value.crfRows); latencyMs += result.latencyMs;

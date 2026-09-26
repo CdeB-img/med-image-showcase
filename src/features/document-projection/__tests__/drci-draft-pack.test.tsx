@@ -258,6 +258,70 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
       { ...sections[0], unexpected: "forbidden" }, ...sections.slice(1),
     ] }] })).toThrow();
   });
+  it("bounds paragraphs by document kind without losing recruitment questions", () => {
+    const [protocolBatch, companionBatch] = prepareDrciGenerationBatches(packet());
+    const paragraphs = (count: number) => Array.from({ length: count }, (_, index) => `Question ${index + 1} : ____`);
+    const document = (kind: "PROTOCOL_FULL" | "PROTOCOL_SYNOPSIS" | "CRF" | "RECRUITMENT", count: number) => ({
+      kind, title: kind, sections: [{ title: "Section", paragraphs: paragraphs(count), sourceRefs: [] }], missingElements: [],
+    });
+    const companion = (recruitmentCount: number, synopsisCount = 1, crfCount = 1) => ({ documents: [
+      document("PROTOCOL_SYNOPSIS", synopsisCount), document("CRF", crfCount), document("RECRUITMENT", recruitmentCount),
+    ], crfRows: [] });
+    for (const kind of ["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS", "CRF"] as const) {
+      if (kind === "PROTOCOL_FULL") expect(() => protocolBatch.expand({ documents: [document(kind, 13)], crfRows: [] })).toThrow();
+      else expect(() => companionBatch.expand(companion(19, kind === "PROTOCOL_SYNOPSIS" ? 13 : 1,
+        kind === "CRF" ? 13 : 1))).toThrow();
+    }
+    for (const count of [19, 30]) {
+      const expanded = companionBatch.expand(companion(count));
+      expect(expanded.documents.find(doc => doc.kind === "RECRUITMENT")!.sections[0].paragraphs).toEqual(paragraphs(count));
+    }
+    expect(() => companionBatch.expand(companion(31))).toThrow();
+  });
+  it("requests the higher output cap only for the Azure companion DOC scope", async () => {
+    const caps: Record<"openai" | "azure", number[]> = { openai: [], azure: [] };
+    for (const destination of ["openai", "azure"] as const) {
+      const fetchImpl: typeof fetch = async (_url, init) => {
+        const payload = JSON.parse(String(init?.body));
+        const context = JSON.parse(payload.input);
+        caps[destination].push(payload.max_output_tokens);
+        const refs = new Map(packet().sourceFacts.map((fact, index) => [fact.ref, `f${index}`]));
+        const data = generated();
+        const value = { documents: data.documents.filter(doc => context.DOCUMENT_SCOPE.includes(doc.kind)).map(doc => ({
+          ...doc, sections: doc.sections.map(section => ({ ...section,
+            sourceRefs: section.sourceRefs.map(ref => refs.get(ref)),
+            paragraphs: section.paragraphs.map(paragraph => paragraph.replace(/\[\[FACT:([^\]]+)\]\]/gu,
+              (_, ref: string) => `[[FACT:${refs.get(ref)}]]`)),
+          })),
+        })), crfRows: context.INCLUDE_CRF_ROWS ? data.crfRows.map(row => ({ ...row, variableRef: refs.get(row.variableRef) })) : [] };
+        return new Response(JSON.stringify({ status: "completed", model: destination === "azure" ? "gpt-5.6-sol" : "gpt-5.6-terra",
+          output_text: JSON.stringify(value) }));
+      };
+      const result = await executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", fetchImpl, undefined, undefined,
+        destination === "azure" ? { destination, responsesEndpoint: "https://test.services.ai.azure.com/api/projects/test/openai/v1/responses" } : undefined);
+      expect(materializeDrciDraftPack(result.value, { project, packet: packet(), generatedAt: at }).documents).toHaveLength(4);
+    }
+    expect(caps.openai).toEqual([8000, 8000]);
+    expect(caps.azure).toEqual([8000, 16000]);
+  });
+  it("does not return a partial pack when the Azure companion scope is incomplete", async () => {
+    const scopes: string[] = [];
+    const fetchImpl: typeof fetch = async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      const context = JSON.parse(payload.input);
+      scopes.push(context.DOCUMENT_SCOPE.join("+"));
+      if (context.INCLUDE_CRF_ROWS) return new Response(JSON.stringify({ status: "incomplete", model: "gpt-5.6-sol",
+        incomplete_details: { reason: "max_output_tokens" }, usage: { input_tokens: 100, output_tokens: 8000 } }));
+      const protocol = { ...generated().documents.find(doc => doc.kind === "PROTOCOL_FULL")!,
+        sections: [{ title: "Rationnel", paragraphs: ["LOCAL_SYNTHETIC"], sourceRefs: [] }] };
+      return new Response(JSON.stringify({ status: "completed", model: "gpt-5.6-sol",
+        output_text: JSON.stringify({ documents: [protocol], crfRows: [] }) }));
+    };
+    await expect(executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", fetchImpl, undefined, undefined,
+      { destination: "azure", responsesEndpoint: "https://test.services.ai.azure.com/api/projects/test/openai/v1/responses" }))
+      .rejects.toMatchObject({ stage: "DOCUMENT_PROJECTION", providerStatus: "incomplete:max_output_tokens" });
+    expect(scopes).toEqual(["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT"]);
+  });
   it.each(["wrong-project-version", undefined])("keeps runtime binding authoritative when the LLM binding is %s", binding => {
     const batches = prepareDrciGenerationBatches(packet());
     const refs = new Map(packet().sourceFacts.map((f, i) => [f.ref, `f${i}`]));

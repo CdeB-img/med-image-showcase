@@ -9,9 +9,16 @@ export const DRCI_DOCUMENT_KINDS = ["PROTOCOL_SYNOPSIS", "PROTOCOL_FULL", "CRF",
 export const drciProseWordCount = (paragraphs: readonly string[]) => paragraphs.join(" ")
   .replace(/\[\[(?:FACT|CITE):[^\]]+\]\]/gu, "").trim().split(/\s+/u).filter(Boolean).length;
 const text = z.string().trim().min(1).max(16000);
-const sectionSchema = z.object({ title: text, paragraphs: z.array(text).min(1).max(12), sourceRefs: z.array(text).max(100) }).strict();
+export const RECRUITMENT_SECTION_MAX_PARAGRAPHS = 30;
+const sectionSchema = z.object({ title: text, paragraphs: z.array(text).min(1).max(RECRUITMENT_SECTION_MAX_PARAGRAPHS), sourceRefs: z.array(text).max(100) }).strict();
 const documentSchema = z.object({ kind: z.enum(DRCI_DOCUMENT_KINDS), title: text,
-  sections: z.array(sectionSchema).min(1).max(30), missingElements: z.array(text).max(50) }).strict();
+  sections: z.array(sectionSchema).min(1).max(30), missingElements: z.array(text).max(50) }).strict().superRefine((document, context) => {
+    if (document.kind === "RECRUITMENT") return;
+    document.sections.forEach((section, index) => {
+      if (section.paragraphs.length > 12) context.addIssue({ code: z.ZodIssueCode.too_big, maximum: 12,
+        type: "array", inclusive: true, exact: false, path: ["sections", index, "paragraphs"], message: "Array must contain at most 12 element(s)" });
+    });
+  });
 // JSON-object mode may place an empty document-level list on every section.
 // Recover only that lossless shape; a nonempty misplaced list still fails the
 // strict contract, so no open decision can disappear during normalization.
