@@ -54,6 +54,8 @@ const mount = (initial = createFunctionalResetSession()) => {
   }} /></HelmetProvider>);
   return { view, current: () => saved };
 };
+const preparationFor = (session: FunctionalResetSession, turnRef: string) =>
+  session.workingDraftPreparations?.find(attempt => attempt.sourceTurnRef === turnRef);
 beforeEach(() => {
   resetPublicProtocolDesignerGuardForTests(); localStorage.clear();
   vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
@@ -116,6 +118,40 @@ describe("independent Standard workspace through public admission", () => {
     expect(loadFunctionalResetSession(localStorage).workingDraftFailure).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
     expect(workspace.current().pendingContribution).toBeNull();
+    const lastTurn = workspace.current().runtimeTurns.filter(turn => turn.role === "USER").at(-1)!;
+    expect(preparationFor(workspace.current(), lastTurn.turnId)).toMatchObject({ status: "FAILED" });
+    expect(screen.getByRole("alert")).toHaveTextContent(/structuration du projet n’a pas abouti/iu);
+    expect(preparationFor(loadFunctionalResetSession(localStorage), lastTurn.turnId)?.status).toBe("FAILED");
+  });
+
+  it.each(["OWNER_CYCLE", "INCOMPLETE_MAX_OUTPUT"] as const)("terminates %s visibly without losing Chat or Project", async failure => {
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
+      if (failure === "INCOMPLETE_MAX_OUTPUT") return new Response(JSON.stringify({ status: "incomplete",
+        incomplete_details: { reason: "max_output_tokens" }, model: "gpt-5.6-sol",
+        usage: { input_tokens: 100, output_tokens: 8000 } }));
+      const proposal = controlledStudyProposal(JSON.parse(payload.input).contextDigest, DOMAINS[1]);
+      const measurement = proposal.atoms.find(atom => atom.ref === "measurement")!;
+      const timing = proposal.atoms.find(atom => atom.ref === "timing")!;
+      measurement.dependsOn = ["timing"];
+      measurement.dependencyQualifications = [{ ref: "timing", kind: "SOFT_REFINEMENT_DEPENDENCY", rationale: "Prérequis synthétique." }];
+      timing.dependsOn = ["measurement"];
+      timing.dependencyQualifications = [{ ref: "measurement", kind: "SOFT_REFINEMENT_DEPENDENCY", rationale: "Prérequis synthétique." }];
+      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal,
+        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
+    });
+    wirePublicHandler(provider);
+    const workspace = mount();
+    send(DOMAINS[1].text);
+    await screen.findByText("Discussion contrôlée intacte.");
+    await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
+    const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
+    expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED" });
+    expect(screen.getByRole("alert")).toHaveTextContent(/structuration du projet n’a pas abouti/iu);
+    expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("FAILED");
+    expect(workspace.current().entries.some(entry => entry.kind === "TEXT" && entry.content === "Discussion contrôlée intacte.")).toBe(true);
+    expect(workspace.current().project).toBeNull();
   });
 
   it("reports browser storage failure after background and retries saving without a provider call", async () => {
@@ -167,6 +203,8 @@ describe("independent Standard workspace through public admission", () => {
     expect(requests).toHaveLength(3);
     await act(async () => { release(); });
     await waitFor(() => expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[2]?.conversation.turns.at(-1)?.turnId));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
+    expect(workspace.current().workingDraftPreparations?.[0]?.status).toBe("SUPERSEDED");
     expect(requests[2].studyProposalContext).toBeUndefined();
     expect(requests[2].conversation.turns.filter(t => t.role === "USER").map(t => t.content)).toEqual([firstMessage, nextMessage]);
     expect(workspace.current().runtimeTurns.filter(t => t.role === "USER")).toHaveLength(2);
@@ -174,6 +212,7 @@ describe("independent Standard workspace through public admission", () => {
     expect(workspace.current().workingDraftFailure).toBeNull();
     const reopened = loadFunctionalResetSession(localStorage);
     expect(reopened.workingDraft?.readyReview).not.toBeNull();
+    expect(reopened.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW");
     expect(reopened.runtimeTurns).toEqual(workspace.current().runtimeTurns);
     workspace.view.unmount(); mount(reopened);
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
@@ -185,6 +224,31 @@ describe("independent Standard workspace through public admission", () => {
     expect(loadFunctionalResetSession(localStorage).project?.projectId).toBe(reopened.projectId);
     expect(requests).toHaveLength(6);
     expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
+  });
+
+  it("marks an in-flight preparation interrupted on reload without asserting a review", async () => {
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
+      await pending;
+      return response(JSON.stringify({ requestType: "INSUFFICIENT", proposal: null,
+        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
+    });
+    wirePublicHandler(provider);
+    const workspace = mount();
+    send(DOMAINS[1].text);
+    await screen.findByText("Structuration du projet en cours…");
+    const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
+    expect(preparationFor(workspace.current(), turnRef)?.status).toBe("PREPARING");
+    workspace.view.unmount();
+    const reloaded = loadFunctionalResetSession(localStorage);
+    expect(preparationFor(reloaded, turnRef)?.status).toBe("UNKNOWN/INTERRUPTED");
+    mount(reloaded);
+    expect(screen.getByRole("alert")).toHaveTextContent(/préparation a été interrompue/iu);
+    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    await act(async () => { release(); });
   });
 
   it("keeps a failed foreground out of scientific context and retries the same logical user turn after reload", async () => {
