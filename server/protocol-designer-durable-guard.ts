@@ -1098,12 +1098,14 @@ export const durableGuardSessionRequestLimit = (environment: Record<string, stri
 };
 
 export const durableGuardPublicBudget = (environment: Record<string, string | undefined>) => {
-  if (environment.VERCEL_ENV !== "preview" || environment.NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD === undefined) {
-    return PUBLIC_PROTOCOL_DESIGNER_BUDGET;
-  }
-  if (environment.NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD !== "3") {
-    throw new DurablePublicGuardError("PUBLIC_PREVIEW_SOFT_STOP_CONFIGURATION_INVALID");
-  }
+  const preview = environment.VERCEL_ENV === "preview";
+  const production = environment.VERCEL_ENV === "production";
+  const configured = preview ? environment.NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD
+    : production ? environment.NOXIA_PUBLIC_SOFT_STOP_USD : undefined;
+  if (configured === undefined) return PUBLIC_PROTOCOL_DESIGNER_BUDGET;
+  if (configured !== "3") throw new DurablePublicGuardError(preview
+    ? "PUBLIC_PREVIEW_SOFT_STOP_CONFIGURATION_INVALID"
+    : "PUBLIC_PRODUCTION_SOFT_STOP_CONFIGURATION_INVALID");
   return Object.freeze({ ...PUBLIC_PROTOCOL_DESIGNER_BUDGET, measuredCostSoftStopUsd: 3 });
 };
 

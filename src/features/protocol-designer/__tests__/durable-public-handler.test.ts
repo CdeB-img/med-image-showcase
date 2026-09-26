@@ -18,14 +18,17 @@ describe("public durable session-limit configuration", () => {
   });
 });
 
-describe("Preview-only public soft stop", () => {
+describe("environment-scoped public soft stop", () => {
   const preview = { VERCEL_ENV: "preview", NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD: "3" };
+  const production = { VERCEL_ENV: "production", NOXIA_PUBLIC_SOFT_STOP_USD: "3" };
   const bound = { upperBoundUsd: 0.27877 } as CanaryCallBound;
-  it("keeps Production and unconfigured Preview at the existing one-dollar stop", () => {
+  it("keeps every unconfigured environment at the existing one-dollar stop", () => {
     expect(durableGuardPublicBudget({})).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 1 });
     expect(durableGuardPublicBudget({ VERCEL_ENV: "production", NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD: "3" }))
       .toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 1 });
     expect(durableGuardPublicBudget({ VERCEL_ENV: "preview" }).measuredCostSoftStopUsd).toBe(1);
+    expect(durableGuardPublicBudget({ VERCEL_ENV: "development", NOXIA_PUBLIC_SOFT_STOP_USD: "3" }))
+      .toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 1 });
   });
   it("admits the same conserved ledger under Preview policy without releasing reservations", () => {
     const ledger = { measured: 1.065185, committed: 1.49809 };
@@ -36,9 +39,20 @@ describe("Preview-only public soft stop", () => {
     expect(canaryBudgetAdmission(ledger.committed, bound, ledger.measured, budget)).toBe("ADMITTED");
     expect(ledger).toEqual({ measured: 1.065185, committed: 1.49809 });
   });
+  it("uses the same three-dollar policy in Production without changing the six-dollar hard cap", () => {
+    const ledger = { measured: 1.065185, committed: 1.49809 };
+    const budget = durableGuardPublicBudget(production);
+    expect(budget).toEqual({ absoluteHardCampaignBoundUsd: 6, measuredCostSoftStopUsd: 3 });
+    expect(canaryBudgetAdmission(ledger.committed, bound, ledger.measured, budget)).toBe("ADMITTED");
+    expect(ledger).toEqual({ measured: 1.065185, committed: 1.49809 });
+  });
   it("rejects an invalid Preview override before dispatch", () => {
     expect(() => durableGuardPublicBudget({ ...preview, NOXIA_PREVIEW_PUBLIC_SOFT_STOP_USD: "6" }))
       .toThrow("PUBLIC_PREVIEW_SOFT_STOP_CONFIGURATION_INVALID");
+  });
+  it.each(["", "1", "3.01", "6", "invalid"])("rejects invalid Production override %j", (value) => {
+    expect(() => durableGuardPublicBudget({ ...production, NOXIA_PUBLIC_SOFT_STOP_USD: value }))
+      .toThrow("PUBLIC_PRODUCTION_SOFT_STOP_CONFIGURATION_INVALID");
   });
 });
 
