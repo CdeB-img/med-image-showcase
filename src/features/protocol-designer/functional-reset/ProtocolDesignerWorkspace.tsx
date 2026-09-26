@@ -165,7 +165,9 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  recordConversationConfirmationReceipt,
   recordWorkingDraftPreparation,
+  conversationConfirmationReceiptStatus,
   productEntryPromptForIntent,
   resolveGovernedPostAdoptionReceipt,
   shouldMediatePostAdoptionQuery,
@@ -2115,7 +2117,7 @@ export default function ProtocolDesignerWorkspace({
   };
   const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn,
     reviewConfirmation?: { binding: ProjectReviewInvitation; selectedChangeRefs?: readonly string[]; refusedChangeRefs?: readonly string[];
-      prepareRemainingTurn?: boolean }) => {
+      prepareRemainingTurn?: boolean }, pendingConfirmation: ReturnType<typeof readNaturalCandidateDecision> = null) => {
     if (foregroundInFlightRef.current) return;
     foregroundInFlightRef.current = true;
     const requestedSessionId = latestSessionRef.current.sessionId;
@@ -2135,8 +2137,12 @@ export default function ProtocolDesignerWorkspace({
     const requestTurns = continuedTurn && runtimeTurns.at(-1)?.role === "NOXIA"
       && runtimeTurns.at(-2)?.turnId === continuedTurn.turnId ? runtimeTurns.slice(0, -1) : runtimeTurns;
     setDraft(""); setBusy(true); setBusyMessage("NOXIA réfléchit…");
-    setSession(current => ({ ...current, pendingMixedUserTurnRef: null, runtimeTurns, entries: [...current.entries,
-      ...(!retry && !continuedTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now }));
+    setSession(current => {
+      const withReceipt = pendingConfirmation?.act === "CONFIRM" && !retry && !continuedTurn && !reviewConfirmation
+        ? recordConversationConfirmationReceipt(current, userTurn, pendingConfirmation) : current;
+      return { ...withReceipt, pendingMixedUserTurnRef: null, runtimeTurns, entries: [...current.entries,
+        ...(!retry && !continuedTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now };
+    });
     const records: ProviderCallRecord[] = [];
     try {
       const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
@@ -2262,7 +2268,8 @@ export default function ProtocolDesignerWorkspace({
       // Every submitted message reaches Chat, including early assent, refusal,
       // correction and review-only requests. A button remains the reference
       // transaction when the scientific review is ready.
-      await submitTerraText(content, autonomousProjectBuild ? false : isExplicitProjectRecordingRequest(content));
+      await submitTerraText(content, autonomousProjectBuild ? false : isExplicitProjectRecordingRequest(content),
+        undefined, undefined, autonomousProjectBuild && workingDraftBusy ? naturalDecision : null);
       return;
     }
     const now = new Date().toISOString();
@@ -4254,6 +4261,15 @@ export default function ProtocolDesignerWorkspace({
     && !session.workingDraftFailure && !session.workingDraft?.failure
     ? validatePreparedWorkingReview(session)
     : null;
+  const latestConfirmationReceipt = session.conversationConfirmationReceipts?.at(-1);
+  const latestUserTurn = [...session.runtimeTurns].reverse().find(turn => turn.role === "USER");
+  const visibleConfirmationReceipt = latestConfirmationReceipt
+    && latestUserTurn?.turnId === latestConfirmationReceipt.userTurnId
+    && (session.project?.versionId ?? null) === latestConfirmationReceipt.baseProjectVersion
+    && (session.project?.projectDigest ?? null) === latestConfirmationReceipt.baseProjectDigest
+    ? latestConfirmationReceipt : null;
+  const confirmationReceiptStatus = visibleConfirmationReceipt
+    ? conversationConfirmationReceiptStatus(session, visibleConfirmationReceipt) : null;
 
   useEffect(() => {
     if (!autonomousProjectBuild || workingDraftBusy || session.workingDraftFailure
@@ -4731,6 +4747,16 @@ export default function ProtocolDesignerWorkspace({
               </article>)}
             {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />{busyMessage}</div></div>}
             {autonomousProjectBuild && workingDraftBusy && <div role="status" className="px-4 py-2 text-xs text-muted-foreground">Structuration du projet en cours…</div>}
+            {confirmationReceiptStatus && <div role="status" data-testid="conversation-confirmation-receipt"
+              className="mx-4 rounded-xl border bg-primary/5 px-4 py-2 text-xs sm:mx-5">
+              {confirmationReceiptStatus === "PREPARATION_FAILED"
+                ? "Accord enregistré sur la proposition précédente ; la préparation a échoué. Le projet reste inchangé."
+                : confirmationReceiptStatus === "SUPERSEDED"
+                  ? "Accord conservé sur la proposition précédente ; un échange plus récent a remplacé sa préparation."
+                  : confirmationReceiptStatus === "INTERRUPTED/UNKNOWN"
+                    ? "Accord conservé sur la proposition précédente ; le résultat de sa préparation n’est pas vérifié."
+                    : "Accord enregistré sur la proposition précédente — revue requise."}
+            </div>}
             {autonomousProjectBuild && !workingDraftBusy && ["FAILED", "UNKNOWN/INTERRUPTED", "SUPERSEDED"].includes(session.workingDraftPreparations?.at(-1)?.status ?? "") && <div role="alert"
               data-testid="working-draft-terminal-status" className="mx-4 rounded-xl border border-amber-500/30 bg-amber-500/5 px-4 py-2 text-xs sm:mx-5">
               {session.workingDraftPreparations?.at(-1)?.status === "UNKNOWN/INTERRUPTED"

@@ -77,17 +77,26 @@ describe("natural confirmation while the real workspace Working Draft is pending
     expect(savedProject()?.project).toBeNull();
     expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
     expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === confirmation)).toHaveLength(1);
+    const receipt = savedProject()?.conversationConfirmationReceipts?.[0];
+    expect(receipt).toMatchObject({ sessionId: savedProject()?.sessionId, classification: "CONFIRM",
+      userTurnId: [...savedProject()?.runtimeTurns ?? []].reverse().find(turn => turn.role === "USER")?.turnId,
+      targetAssistantTurnId: savedProject()?.runtimeTurns.find(turn => turn.role === "NOXIA")?.turnId,
+      baseProjectId: savedProject()?.projectId, baseProjectVersion: null, baseProjectDigest: null });
+    expect(screen.getByTestId("conversation-confirmation-receipt")).toHaveTextContent("Accord enregistré");
     await waitFor(() => expect(bridge.mock.calls.some(([request]) => !request.prepareWorkingDraft
       && request.conversation.turns.at(-1)?.content === confirmation)).toBe(true));
     await act(async () => { release(); });
     await waitFor(() => expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1));
     expect(savedProject()?.project).toBeNull();
+    expect(savedProject()?.conversationConfirmationReceipts?.[0]).toEqual(receipt);
     expect(screen.queryByText(/Votre confirmation n’a pas été appliquée/)).not.toBeInTheDocument();
     expect(savedProject()?.entries.filter(entry => entry.kind === "TEXT" && entry.role === "USER" && entry.content === confirmation)).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(savedProject()?.project?.confirmationDecision.status).toBe("ADOPTED"));
     const adopted = savedProject()!;
     expect(adopted.project?.revision).toBe(1);
+    expect(adopted.conversationConfirmationReceipts?.[0]).toEqual(receipt);
+    expect(screen.queryByTestId("conversation-confirmation-receipt")).not.toBeInTheDocument();
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
     const version = adopted.project?.versionId;
@@ -106,10 +115,14 @@ describe("natural confirmation while the real workspace Working Draft is pending
     await backgroundStarted;
     send("oui je valide");
     await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(2));
+    const receipt = savedProject()?.conversationConfirmationReceipts?.[0];
+    expect(receipt?.targetAssistantTurnId).toBeTruthy();
     send("genere les documents");
     await act(async () => { release(); });
     await waitFor(() => expect(savedProject()?.runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(3));
     expect(savedProject()?.project).toBeNull();
+    expect(savedProject()?.conversationConfirmationReceipts?.[0]).toEqual(receipt);
+    expect(savedProject()?.conversationConfirmationReceipts?.[0]?.targetAssistantTurnId).toBe(receipt?.targetAssistantTurnId);
     expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(0);
   });
 
@@ -178,8 +191,11 @@ describe("natural confirmation while the real workspace Working Draft is pending
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send("oui je valide");
+    await waitFor(() => expect(savedProject()?.conversationConfirmationReceipts).toHaveLength(1));
+    const receipt = savedProject()?.conversationConfirmationReceipts?.[0];
     await act(async () => { release(); });
     await waitFor(() => expect(savedProject()?.workingDraftFailure).toBeTruthy());
+    expect(savedProject()?.conversationConfirmationReceipts?.[0]).toEqual(receipt);
     expect(screen.queryByText(/Votre confirmation n’a pas été appliquée/)).not.toBeInTheDocument();
     expect(savedProject()?.project).toBeNull();
   });
@@ -235,6 +251,9 @@ describe("natural confirmation while the real workspace Working Draft is pending
     await backgroundStarted;
     send(mixed);
     expect(savedProject()?.project).toBeNull();
+    await waitFor(() => expect(savedProject()?.conversationConfirmationReceipts).toHaveLength(1));
+    expect(savedProject()?.conversationConfirmationReceipts?.[0]).toMatchObject({ classification: "CONFIRM",
+      qualified: true, separableContinuation: true });
     await act(async () => { release(); });
     await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.conversation.turns.at(-1)?.content === mixed
       && !request.prepareWorkingDraft)).toBe(true));
@@ -256,6 +275,9 @@ describe("natural confirmation while the real workspace Working Draft is pending
     await screen.findByText("LOCAL_SYNTHETIC — étude ECV et âge proposée, sans adoption.");
     await backgroundStarted;
     send(mixed);
+    await waitFor(() => expect(savedProject()?.runtimeTurns.some(turn => turn.role === "USER" && turn.content === mixed)).toBe(true));
+    expect(savedProject()?.conversationConfirmationReceipts).toHaveLength(0);
+    expect(screen.queryByTestId("conversation-confirmation-receipt")).not.toBeInTheDocument();
     await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.conversation.turns.at(-1)?.content === mixed)).toBe(true));
     await act(async () => { release(); });
     expect(savedProject()?.project).toBeNull();

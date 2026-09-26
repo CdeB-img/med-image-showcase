@@ -1,4 +1,5 @@
 import { decodeSessionStorage } from "./session-storage-codec";
+import { logicalDigest } from "../../knowledge-engine/canonical";
 import { rehydrateStudyProposal } from "./study-proposal-standard";
 import type {
   ScientificInterpretationContributionEnvelope,
@@ -237,6 +238,8 @@ export type FunctionalResetSession = {
   workingDraftFailure?: string | null;
   /** Local preparation receipts. Scientific review and Project adoption remain owned elsewhere. */
   workingDraftPreparations?: readonly WorkingDraftPreparation[];
+  /** A source-bound conversational act, never a Human Decision or Project adoption. */
+  conversationConfirmationReceipts?: readonly ConversationConfirmationReceipt[];
   studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
@@ -288,6 +291,105 @@ export type WorkingDraftPreparation = Readonly<{
   code: string | null;
   updatedAt: string;
 }>;
+
+export type ConversationConfirmationReceipt = Readonly<{
+  confirmationReceiptId: string;
+  sessionId: string;
+  userTurnId: string;
+  targetAssistantTurnId: string;
+  classification: "CONFIRM";
+  qualified: boolean;
+  separableContinuation: boolean;
+  baseProjectId: string;
+  baseProjectVersion: string | null;
+  baseProjectDigest: string | null;
+  sourceConversationDigest: string;
+  createdAt: string;
+  preparationSourceTurnRef: string;
+}>;
+
+const conversationPrefixDigest = (conversationId: string, turns: readonly ScientificInterpretationTurn[]) =>
+  logicalDigest({ conversationId, turns: turns.map(({ turnId, role, content, createdAt }) => ({ turnId, role, content, createdAt })) });
+
+/** Bind only to the assistant turn produced by the preparation's source turn.
+ * Recency of arbitrary assistant text is never authority for a confirmation. */
+export const recordConversationConfirmationReceipt = (
+  session: FunctionalResetSession, userTurn: ScientificInterpretationTurn,
+  decision: Readonly<{ act: "CONFIRM" | "REFUSE"; qualified: boolean; separableContinuation: boolean }> | null,
+): FunctionalResetSession => {
+  // A mixed correction has no provable whole-proposal target. Keep its user
+  // turn, but do not manufacture a bound agreement from its lexical prefix.
+  if (decision?.act !== "CONFIRM" || userTurn.role !== "USER"
+    || decision.qualified && !decision.separableContinuation) return session;
+  const preparation = [...session.workingDraftPreparations ?? []].reverse()
+    .find(attempt => attempt.status === "PREPARING");
+  if (!preparation) return session;
+  const sourceIndex = session.runtimeTurns.findIndex(turn => turn.turnId === preparation.sourceTurnRef && turn.role === "USER");
+  if (sourceIndex < 0) return session;
+  const following = session.runtimeTurns.slice(sourceIndex + 1);
+  const target = following.find(turn => turn.role === "NOXIA");
+  const latestAssistant = [...session.runtimeTurns].reverse().find(turn => turn.role === "NOXIA");
+  if (!target || target.turnId !== latestAssistant?.turnId
+    || following.some(turn => turn.role === "USER" && following.indexOf(turn) < following.indexOf(target))) return session;
+  const previous = session.conversationConfirmationReceipts?.find(receipt => receipt.userTurnId === userTurn.turnId);
+  if (previous) return session;
+  const baseProjectVersion = session.project?.versionId ?? null;
+  const baseProjectDigest = session.project?.projectDigest ?? null;
+  const receipt: ConversationConfirmationReceipt = {
+    confirmationReceiptId: `conversation-confirmation:${logicalDigest({ sessionId: session.sessionId,
+      userTurnId: userTurn.turnId, targetAssistantTurnId: target.turnId })}`,
+    sessionId: session.sessionId, userTurnId: userTurn.turnId, targetAssistantTurnId: target.turnId,
+    classification: "CONFIRM", qualified: decision.qualified,
+    separableContinuation: decision.separableContinuation,
+    baseProjectId: session.project?.projectId ?? session.projectId,
+    baseProjectVersion, baseProjectDigest,
+    sourceConversationDigest: conversationPrefixDigest(session.conversationId, [...session.runtimeTurns, userTurn]),
+    createdAt: userTurn.createdAt, preparationSourceTurnRef: preparation.sourceTurnRef,
+  };
+  return { ...session, conversationConfirmationReceipts: [...session.conversationConfirmationReceipts ?? [], receipt] };
+};
+
+export type ConversationConfirmationReceiptStatus = "RECORDED" | "REVIEW_READY" | "PREPARATION_FAILED" | "SUPERSEDED" | "INTERRUPTED/UNKNOWN";
+
+export const conversationConfirmationReceiptStatus = (
+  session: FunctionalResetSession, receipt: ConversationConfirmationReceipt,
+): ConversationConfirmationReceiptStatus => {
+  const preparation = session.workingDraftPreparations?.find(attempt => attempt.sourceTurnRef === receipt.preparationSourceTurnRef);
+  if (!preparation) return "INTERRUPTED/UNKNOWN";
+  if (preparation.status === "FAILED") return "PREPARATION_FAILED";
+  if (preparation.status === "SUPERSEDED") return "SUPERSEDED";
+  if (preparation.status === "UNKNOWN/INTERRUPTED") return "INTERRUPTED/UNKNOWN";
+  if (preparation.status === "PREPARING") return "RECORDED";
+  const invitation = session.entries.some(entry => entry.kind === "TEXT" && entry.reviewInvitation
+    && entry.reviewInvitation.projectId === receipt.baseProjectId
+    && entry.reviewInvitation.sourceTurnRef === receipt.preparationSourceTurnRef
+    && entry.reviewInvitation.sourceResponseRef === receipt.targetAssistantTurnId
+    && entry.reviewInvitation.sourceProjectVersion === receipt.baseProjectVersion
+    && entry.reviewInvitation.sourceProjectDigest === receipt.baseProjectDigest);
+  return invitation ? "REVIEW_READY" : "INTERRUPTED/UNKNOWN";
+};
+
+const readConversationConfirmationReceipts = (session: FunctionalResetSession): readonly ConversationConfirmationReceipt[] =>
+  Array.isArray(session.conversationConfirmationReceipts) ? session.conversationConfirmationReceipts.filter(receipt => {
+    if (!receipt || receipt.sessionId !== session.sessionId || receipt.classification !== "CONFIRM"
+      || typeof receipt.confirmationReceiptId !== "string"
+      || typeof receipt.qualified !== "boolean" || typeof receipt.separableContinuation !== "boolean"
+      || typeof receipt.userTurnId !== "string" || typeof receipt.targetAssistantTurnId !== "string"
+      || typeof receipt.preparationSourceTurnRef !== "string" || typeof receipt.createdAt !== "string"
+      || typeof receipt.sourceConversationDigest !== "string" || typeof receipt.baseProjectId !== "string"
+      || !(receipt.baseProjectVersion === null || typeof receipt.baseProjectVersion === "string")
+      || !(receipt.baseProjectDigest === null || typeof receipt.baseProjectDigest === "string")) return false;
+    const userIndex = session.runtimeTurns.findIndex(turn => turn.turnId === receipt.userTurnId && turn.role === "USER");
+    const targetIndex = session.runtimeTurns.findIndex(turn => turn.turnId === receipt.targetAssistantTurnId && turn.role === "NOXIA");
+    const preparationIndex = session.runtimeTurns.findIndex(turn => turn.turnId === receipt.preparationSourceTurnRef && turn.role === "USER");
+    return receipt.baseProjectId === session.projectId
+      && receipt.confirmationReceiptId === `conversation-confirmation:${logicalDigest({ sessionId: session.sessionId,
+        userTurnId: receipt.userTurnId, targetAssistantTurnId: receipt.targetAssistantTurnId })}`
+      && preparationIndex >= 0 && targetIndex > preparationIndex && userIndex > targetIndex
+      && session.runtimeTurns.slice(preparationIndex + 1, targetIndex).every(turn => turn.role !== "USER")
+      && session.workingDraftPreparations?.some(attempt => attempt.sourceTurnRef === receipt.preparationSourceTurnRef)
+      && receipt.sourceConversationDigest === conversationPrefixDigest(session.conversationId, session.runtimeTurns.slice(0, userIndex + 1));
+  }) : [];
 
 const readWorkingDraftPreparations = (value: unknown): readonly WorkingDraftPreparation[] =>
   Array.isArray(value) ? value.filter((item): item is WorkingDraftPreparation => Boolean(item)
@@ -392,6 +494,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     currentContribution: null,
     pendingContribution: null,
     retainedContributionCandidates: [],
+    conversationConfirmationReceipts: [],
     projectAuthority: {
       actorRef: `${sessionId}:CURRENT_RESEARCHER`,
       mandateRef: "PROJECT_OWNER",
@@ -514,6 +617,7 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
         .map(attempt => attempt.status === "PREPARING" ? {
           ...attempt, status: "UNKNOWN/INTERRUPTED" as const, code: "WORKING_DRAFT_INTERRUPTED", updatedAt: new Date().toISOString(),
         } : attempt),
+      conversationConfirmationReceipts: readConversationConfirmationReceipts(session),
       studyProposal: rehydrateStudyProposal(session.studyProposal, session.project),
       retainedContributionCandidates: session.retainedContributionCandidates ?? [],
       observabilityInteraction: session.observabilityInteraction ?? null,
