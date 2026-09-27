@@ -51,7 +51,7 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)?.durableFailure;
-      const code = error instanceof ProductBridgeClientError ? error.code : "WORKING_DRAFT_FAILED";
+      const code = error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code : "WORKING_DRAFT_FAILED";
       const unknown = code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
         || ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH"].includes(durableFailure?.lastConfirmedDurableState ?? "")
         || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? ""));
@@ -91,6 +91,8 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     const read = async () => {
       // This is bounded observation of an existing operation, never an execution retry.
       for (let poll = 0; poll < 150 && alive; poll += 1) {
+        if (latest.current.sessionId !== initial.sessionId
+          || latest.current.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === id)?.decision !== "PENDING") return;
         const result = await readWorkingDraftPreparation({ sessionId: initial.sessionId, clientRequestId: id,
           sourceTurnRef: preparation.sourceTurnRef, sourceResponseRef: preparation.recovery!.sourceResponseRef,
           compositionResponseRef: preparation.recovery!.compositionResponseRef }, controller.signal);

@@ -18,6 +18,7 @@ export type ProjectPreparationCheckpoint = Readonly<{
   capturedAt: string;
   requestDigest: string;
   inputDigest: string;
+  previousDraftDigest: string;
   /** One immutable technical input snapshot, not an alternative Project authority.
    * The captured Project is required to replay native review owners after a base change.
    * Network transport continues to use the existing verified Project snapshot resolver.
@@ -44,18 +45,26 @@ export const preparationCheckpointValid = (session: FunctionalResetSession, chec
   return checkpoint.contract === "EXPLICIT_PROJECT_PREPARATION_V1" && checkpoint.sessionId === session.sessionId
     && checkpoint.projectId === session.projectId && cutoff >= 0
     && logicalDigest(checkpoint.request) === checkpoint.requestDigest
+    && logicalDigest(checkpoint.previousDraft) === checkpoint.previousDraftDigest
     && workingDraftInputDigest(checkpoint.request) === checkpoint.inputDigest
     && logicalDigest(session.runtimeTurns.slice(0, cutoff + 1)) === logicalDigest(checkpoint.request.conversation.turns);
 };
 export const activeProjectPreparation = (session: FunctionalResetSession) =>
   [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint
-    && ["PREPARING", "UNKNOWN/INTERRUPTED"].includes(p.status));
+    && p.decision !== "ABANDONED" && ["PREPARING", "UNKNOWN/INTERRUPTED"].includes(p.status));
+/** A local review/adoption acknowledgement is not a server Chat response proof. */
+export const canCaptureProjectPreparation = (session: FunctionalResetSession): boolean => {
+  const source = [...session.runtimeTurns].reverse().find(turn => turn.role === "USER");
+  const recovery = source && workingDraftRecoveryIdentity(session, source.turnId);
+  return Boolean(recovery && /^noxia-turn:[a-f\d-]{36}$/iu.test(recovery.sourceResponseRef)
+    && session.runtimeTurns.at(-1)?.role === "NOXIA");
+};
 export const captureProjectPreparation = (session: FunctionalResetSession, now = new Date().toISOString()): WorkingDraftPreparation => {
   const active = activeProjectPreparation(session);
   if (active) return active;
   const source = [...session.runtimeTurns].reverse().find(t => t.role === "USER");
   const recovery = source && workingDraftRecoveryIdentity(session, source.turnId);
-  if (!source || !recovery || session.runtimeTurns.at(-1)?.role !== "NOXIA") throw new Error("PREPARATION_CHAT_RESPONSE_REQUIRED");
+  if (!source || !recovery || !canCaptureProjectPreparation(session)) throw new Error("PREPARATION_CHAT_RESPONSE_REQUIRED");
   const sourceIndex = session.runtimeTurns.findIndex(t => t.turnId === source.turnId);
   const prior = [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint
     && p.sourceTurnRef === source.turnId && p.decision !== "ABANDONED");
@@ -76,6 +85,7 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
     decision: "PENDING", checkpoint: { contract: "EXPLICIT_PROJECT_PREPARATION_V1", preparationId,
       sessionId: session.sessionId, projectId: session.projectId, cutoffTurnId: recovery.compositionResponseRef,
       capturedAt: now, inputDigest, requestDigest: logicalDigest(request), request,
+      previousDraftDigest: logicalDigest(session.workingDraft ?? null),
       previousDraft: session.workingDraft ? structuredClone(session.workingDraft) : null } };
 };
 export const addProjectPreparation = (session: FunctionalResetSession, preparation: WorkingDraftPreparation): FunctionalResetSession => {
@@ -131,6 +141,7 @@ export const projectPreparationReview = (session: FunctionalResetSession) => {
   const p = [...session.workingDraftPreparations ?? []].reverse().find(item => item.result && item.decision === "PENDING");
   if (!p?.checkpoint || !p.result) return null;
   const cp = p.checkpoint;
+  if (!preparationCheckpointValid(session, cp)) return null;
   const base = inputSession(session, cp);
   const prepared = validatePreparedWorkingReview({ ...base, studyProposal: p.result.composition, workingDraft: p.result.workingDraft });
   if (!prepared) return null;

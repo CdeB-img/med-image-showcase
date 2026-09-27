@@ -367,10 +367,9 @@ export const recordConversationConfirmationReceipt = (
   // turn, but do not manufacture a bound agreement from its lexical prefix.
   if (decision?.act !== "CONFIRM" || userTurn.role !== "USER"
     || decision.qualified && !decision.separableContinuation) return session;
-  const preparation = [...session.workingDraftPreparations ?? []].reverse()
-    .find(attempt => attempt.status === "PREPARING");
-  if (!preparation) return session;
-  const sourceIndex = session.runtimeTurns.findIndex(turn => turn.turnId === preparation.sourceTurnRef && turn.role === "USER");
+  // A receipt proves assent to the displayed exchange, not to an older active batch.
+  const sourceTurnRef = [...session.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId;
+  const sourceIndex = session.runtimeTurns.findIndex(turn => turn.turnId === sourceTurnRef && turn.role === "USER");
   if (sourceIndex < 0) return session;
   const following = session.runtimeTurns.slice(sourceIndex + 1);
   const target = following.find(turn => turn.role === "NOXIA");
@@ -390,7 +389,7 @@ export const recordConversationConfirmationReceipt = (
     baseProjectId: session.project?.projectId ?? session.projectId,
     baseProjectVersion, baseProjectDigest,
     sourceConversationDigest: conversationPrefixDigest(session.conversationId, [...session.runtimeTurns, userTurn]),
-    createdAt: userTurn.createdAt, preparationSourceTurnRef: preparation.sourceTurnRef,
+    createdAt: userTurn.createdAt, preparationSourceTurnRef: sourceTurnRef!,
   };
   return { ...session, conversationConfirmationReceipts: [...session.conversationConfirmationReceipts ?? [], receipt] };
 };
@@ -401,7 +400,7 @@ export const conversationConfirmationReceiptStatus = (
   session: FunctionalResetSession, receipt: ConversationConfirmationReceipt,
 ): ConversationConfirmationReceiptStatus => {
   const preparation = session.workingDraftPreparations?.find(attempt => attempt.sourceTurnRef === receipt.preparationSourceTurnRef);
-  if (!preparation) return "INTERRUPTED/UNKNOWN";
+  if (!preparation || preparation.status === "NO_CHANGE") return "RECORDED";
   if (preparation.status === "FAILED") return "PREPARATION_FAILED";
   if (preparation.status === "SUPERSEDED") return "SUPERSEDED";
   if (preparation.status === "UNKNOWN/INTERRUPTED") return "INTERRUPTED/UNKNOWN";
@@ -433,7 +432,6 @@ const readConversationConfirmationReceipts = (session: FunctionalResetSession): 
         userTurnId: receipt.userTurnId, targetAssistantTurnId: receipt.targetAssistantTurnId })}`
       && preparationIndex >= 0 && targetIndex > preparationIndex && userIndex > targetIndex
       && session.runtimeTurns.slice(preparationIndex + 1, targetIndex).every(turn => turn.role !== "USER")
-      && session.workingDraftPreparations?.some(attempt => attempt.sourceTurnRef === receipt.preparationSourceTurnRef)
       && receipt.sourceConversationDigest === conversationPrefixDigest(session.conversationId, session.runtimeTurns.slice(0, userIndex + 1));
   }) : [];
 
@@ -669,7 +667,14 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
       workingDraftPreparations: readWorkingDraftPreparations(session.workingDraftPreparations)
-        .map(attempt => attempt.status === "PREPARING" ? {
+        .map(attempt => attempt.checkpoint && (!attempt.checkpoint.request
+          || !Object.prototype.hasOwnProperty.call(attempt.checkpoint, "previousDraft")
+          || attempt.checkpoint.sessionId !== session.sessionId
+          || attempt.checkpoint.projectId !== session.projectId
+          || logicalDigest(attempt.checkpoint.request) !== attempt.checkpoint.requestDigest
+          || logicalDigest(attempt.checkpoint.previousDraft) !== attempt.checkpoint.previousDraftDigest)
+          ? { ...attempt, status: "FAILED" as const, code: "PREPARATION_CHECKPOINT_MISMATCH", result: undefined }
+          : attempt.status === "PREPARING" ? {
           ...attempt, status: "UNKNOWN/INTERRUPTED" as const, code: "WORKING_DRAFT_INTERRUPTED", updatedAt: new Date().toISOString(),
         } : attempt),
       conversationConfirmationReceipts: readConversationConfirmationReceipts(session),

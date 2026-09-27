@@ -1,3 +1,4 @@
+import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -33,7 +34,7 @@ const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNT
 const sessionFor = (text: string = DOMAINS[1].text) => {
   const session = createFunctionalResetSession();
   session.runtimeTurns = [{ turnId: "u1", role: "USER", content: text, createdAt: session.createdAt },
-    { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — architecture proposée, non adoptée.", createdAt: session.createdAt }];
+    { turnId: "noxia-turn:11111111-1111-4111-8111-111111111111", role: "NOXIA", content: "LOCAL_SYNTHETIC — architecture proposée, non adoptée.", createdAt: session.createdAt }];
   return session;
 };
 const requestFor = (s: FunctionalResetSession): ProductBridgeRequest => ({ apiVersion: "1.0.0", conversation: {
@@ -47,106 +48,20 @@ const multimodal = { ...DOMAINS[2], id: "MULTIMODAL", text: "Je veux une cohorte
 const call = async (r: ProductBridgeRequest, provider: typeof fetch, on = true) => executeProtocolDesignerBridge({ body: r,
   apiKey: null, openAiApiKey: "LOCAL_SYNTHETIC", chatRuntime: "TERRA", autonomousProjectBuild: on,
   fetchImpl: provider, providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" });
+const checkpointSession = (initial: FunctionalResetSession, update: WorkingDraftUpdate) => {
+  const preparation = captureProjectPreparation(initial);
+  const accepted = acceptWorkingDraftUpdate(update, preparation.checkpoint!.request);
+  return consumeProjectPreparation(addProjectPreparation(initial, preparation), preparation.checkpoint!.preparationId,
+    { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+};
 const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { name: "Votre message" }), { target: { value: text } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
-  it("keeps one original provider dispatch through unmount and remount while recovering its persisted result", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    let release!: () => void;
-    let started!: () => void;
-    const held = new Promise<void>(resolve => { release = resolve; });
-    const backgroundStarted = new Promise<void>(resolve => { started = resolve; });
-    const provider = vi.fn<typeof fetch>(async (_url, init) => {
-      const payload = JSON.parse(String(init?.body));
-      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("LOCAL_SYNTHETIC — projet proposé.");
-      started();
-      await held;
-      const packet = JSON.parse(payload.input);
-      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
-        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
-    });
-    let completed: ProductBridgeResponse | null = null;
-    bridge.mockImplementation(async (request: ProductBridgeRequest) => {
-      const result = await call({ ...request, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
-      if (request.prepareWorkingDraft) completed = result.body as ProductBridgeResponse;
-      return result.body;
-    });
-    let saved = createFunctionalResetSession();
-    const persist = (next: FunctionalResetSession) => { saved = next; persistFunctionalResetSession(localStorage, next); return true; };
-    const first = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={persist} /></HelmetProvider>);
-    send(DOMAINS[1].text);
-    await screen.findByText("LOCAL_SYNTHETIC — projet proposé.");
-    await backgroundStarted;
-    expect(saved.workingDraftPreparations?.at(-1)).toMatchObject({ status: "PREPARING",
-      recovery: { sourceResponseRef: expect.stringMatching(/^noxia-turn:/) } });
-    first.unmount();
-    const afterReload = loadFunctionalResetSession(localStorage);
-    expect(afterReload.workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
-    recoveryRead.mockImplementation(async () => completed ? { state: "COMPLETED", result: {
-      workingDraftUpdate: completed.workingDraftUpdate, workingStudyProposal: completed.workingStudyProposal,
-    } } : { state: "IN_PROGRESS" });
-    const second = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={afterReload} onSessionChange={persist} /></HelmetProvider>);
-    await waitFor(() => expect(recoveryRead).toHaveBeenCalledTimes(1));
-    second.unmount();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={loadFunctionalResetSession(localStorage)}
-      onSessionChange={persist} /></HelmetProvider>);
-    await waitFor(() => expect(recoveryRead).toHaveBeenCalledTimes(2));
-    expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
-    release();
-    await waitFor(() => expect(completed).not.toBeNull());
-    await waitFor(() => expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1), { timeout: 5000 });
-    expect(bridge).toHaveBeenCalledTimes(2);
-    expect(provider).toHaveBeenCalledTimes(2);
-    expect(saved.project).toBeNull();
-    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
-  }, 10000);
-
-  it("recovers the same completed Working Draft after reload, then creates one review without adoption or DOC", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    const source = sessionFor();
-    const request = requestFor(source), update = updateFor(request);
-    const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const identity = workingDraftRecoveryIdentity(source, "u1")!;
-    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt, identity);
-    const assent = { turnId: "u-confirm", role: "USER" as const, content: "ça me convient", createdAt: source.createdAt };
-    const withReceipt = recordConversationConfirmationReceipt(preparing, assent,
-      { act: "CONFIRM", qualified: false, separableContinuation: false });
-    persistFunctionalResetSession(localStorage, { ...withReceipt, runtimeTurns: [...withReceipt.runtimeTurns, assent] });
-    let saved = loadFunctionalResetSession(localStorage);
-    expect(saved.workingDraftPreparations?.[0]?.status).toBe("UNKNOWN/INTERRUPTED");
-    recoveryRead.mockResolvedValueOnce({ state: "IN_PROGRESS" }).mockResolvedValueOnce({ state: "COMPLETED",
-      result: { workingDraftUpdate: update, workingStudyProposal: composition } });
-    const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
-      saved = next; persistFunctionalResetSession(localStorage, next); return true;
-    }} /></HelmetProvider>);
-    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("PREPARING"));
-    expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
-    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status,
-      JSON.stringify({ failure: saved.workingDraftFailure, recoveryCalls: recoveryRead.mock.calls.length,
-        proposal: saved.studyProposal?.sourceResponseRef, draftFailure: saved.workingDraft?.failure })).toBe("READY_FOR_REVIEW"),
-    { timeout: 5000 });
-    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
-    expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW");
-    expect(saved.conversationConfirmationReceipts).toEqual(withReceipt.conversationConfirmationReceipts);
-    expect(saved.project).toBeNull();
-    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
-    expect(recoveryRead).toHaveBeenCalledTimes(2);
-    expect(bridge).not.toHaveBeenCalled();
-    view.unmount();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={loadFunctionalResetSession(localStorage)}
-      onSessionChange={next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; }} /></HelmetProvider>);
-    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
-    expect(recoveryRead).toHaveBeenCalledTimes(2);
-    expect(saved.project).toBeNull();
-  });
-
   it.each(["FAILED", "UNKNOWN"])("restores %s after reload without a second Working Draft dispatch", async state => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const source = sessionFor();
-    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
-      workingDraftRecoveryIdentity(source, "u1")!);
+    const preparing = addProjectPreparation(source, captureProjectPreparation(source));
     persistFunctionalResetSession(localStorage, preparing);
     let saved = loadFunctionalResetSession(localStorage);
     recoveryRead.mockResolvedValue(state === "FAILED"
@@ -164,8 +79,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const source = sessionFor(), request = requestFor(source), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
-      workingDraftRecoveryIdentity(source, "u1")!);
+    const preparing = addProjectPreparation(source, captureProjectPreparation(source));
     persistFunctionalResetSession(localStorage, preparing);
     let saved = loadFunctionalResetSession(localStorage);
     recoveryRead.mockResolvedValue({ state: "COMPLETED", result: {
@@ -175,18 +89,16 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     expect(saved.workingDraftPreparations?.[0]?.code).toBe("STUDY_PROPOSAL_STALE_PROJECT");
-    expect(saved.workingDraftFailure).toBe("STUDY_PROPOSAL_STALE_PROJECT");
     expect(screen.queryByTestId("project-review-invitation")).toBeNull();
     expect(saved.project).toBeNull();
     expect(bridge).not.toHaveBeenCalled();
   });
 
-  it("supersedes a recovered result after an unrelated new turn instead of showing an adoptable review", async () => {
+  it("keeps a recovered result after a new turn and requires per-group review", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const source = sessionFor(), request = requestFor(source), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
-      workingDraftRecoveryIdentity(source, "u1")!);
+    const preparing = addProjectPreparation(source, captureProjectPreparation(source));
     persistFunctionalResetSession(localStorage, { ...preparing, runtimeTurns: [...preparing.runtimeTurns,
       { turnId: "later-turn", role: "USER", content: "Nouvelle étude indépendante.", createdAt: source.createdAt }] });
     let saved = loadFunctionalResetSession(localStorage);
@@ -194,8 +106,8 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       result: { workingDraftUpdate: update, workingStudyProposal: composition } });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
-    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("SUPERSEDED"));
-    expect(screen.queryByTestId("project-review-invitation")).toBeNull();
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
+    expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();
     expect(saved.project).toBeNull();
     expect(bridge).not.toHaveBeenCalled();
   });
@@ -220,7 +132,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     send(text);
     await screen.findByText("LOCAL_SYNTHETIC — premier échange scientifique conservé.");
-    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(1));
     expect(bridge.mock.calls[0][0].prepareWorkingDraft).not.toBe(true);
     expect(bridge.mock.calls[0][0].conversation.turns.at(-1).content).toBe(text);
     expect(saved.project).toBeNull();
@@ -436,247 +348,12 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await call(r, provider, false)).status).toBe(422); expect(provider).not.toHaveBeenCalled();
     expect(prepareTerraConversation(r).instruction).not.toContain("CONSTRUCTION CONTINUE ACTIVE");
   });
-  it("a failed background owner leaves the response and previously prepared draft intact", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    vi.spyOn(console, "warn").mockImplementation(() => undefined);
-    const s = sessionFor(), r = requestFor(s), update = updateFor(r), composition = acceptWorkingDraftUpdate(update, r).composition!;
-    const previous = prepareContinuousWorkingDraft(s, composition, update, prepareWorkingDraftRequest(r).inputDigest);
-    let saved = { ...s, studyProposal: composition, workingDraft: previous };
-    bridge.mockImplementation(async req => {
-      if (req.prepareWorkingDraft) throw new Error("LOCAL_SYNTHETIC_BACKGROUND_FAILURE");
-      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — discussion préservée.")))).body;
-    });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next as typeof saved; return true; }} /></HelmetProvider>);
-    send("Pourquoi retenir ce modèle ?"); await screen.findByText("LOCAL_SYNTHETIC — discussion préservée.");
-    await waitFor(() => expect(saved.workingDraft?.failure).toBe("LOCAL_SYNTHETIC_BACKGROUND_FAILURE"));
-    expect(saved.studyProposal.digest).toBe(composition.digest); expect(saved.workingDraft.readyReview).toEqual(previous.readyReview);
-    expect(saved.project).toBeNull(); expect(screen.queryByRole("dialog")).toBeNull();
-  });
-  it("keeps a first preparation failure visible without erasing Chat or creating a Project", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    vi.spyOn(console, "warn").mockImplementation(() => undefined);
-    bridge.mockImplementation(async req => {
-      if (req.prepareWorkingDraft) throw new Error("LOCAL_SYNTHETIC_FIRST_FAILURE");
-      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — Chat intact.")))).body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={s => { saved = s; return true; }} /></HelmetProvider>);
-    send(DOMAINS[1].text); await screen.findByText("LOCAL_SYNTHETIC — Chat intact.");
-    await waitFor(() => expect(saved.workingDraftFailure).toBe("LOCAL_SYNTHETIC_FIRST_FAILURE"));
-    expect(screen.queryByTestId("continuous-working-draft-indicator")).toBeNull();
-    expect(screen.queryByText(/discussion et le brouillon sont conservés/i)).toBeNull();
-    expect(saved.project).toBeNull(); expect(saved.studyProposal).toBeFalsy(); expect(bridge).toHaveBeenCalledTimes(2);
-  });
-  it("synchronizes a new choice before opening mixed recording review, without persistent extraction", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    const provider = vi.fn<typeof fetch>(async (_url, init) => {
-      const payload = JSON.parse(String(init?.body));
-      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("LOCAL_SYNTHETIC — suivi corrigé.");
-      const packet = JSON.parse(payload.input), proposal = controlledStudyProposal(packet.contextDigest, DOMAINS[1]);
-      proposal.atoms.find(a => a.area === "TIMING")!.content = "Temps candidat corrigé à six mois";
-      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
-    });
-    bridge.mockImplementation(async req => {
-      expect(req.evaluatePersistentDelta).toBe(false);
-      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={s => { saved = s; return true; }} /></HelmetProvider>);
-    send("je retiens cette architecture mais ajoute une visite à six mois, montre-moi ce qui va être enregistré");
-    await waitFor(() => expect(saved.pendingContribution).not.toBeNull());
-    expect(saved.pendingContribution!.scientificContent.candidateObjects.some(o => o.content === "Temps candidat corrigé à six mois")).toBe(true);
-    expect(saved.project).toBeNull(); expect(bridge).toHaveBeenCalledTimes(2);
-  });
-  it("keeps a failed draft non-adopted and reports that a review request produced no confirmable choices", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    bridge.mockImplementation(async req => {
-      const provider = vi.fn<typeof fetch>(async (_url, init) => response(JSON.parse(String(init?.body)).instructions.includes("Tu prépares en arrière-plan")
-        ? JSON.stringify({ requestType: "INSUFFICIENT", proposal: null, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] })
-        : "LOCAL_SYNTHETIC — discussion conservée, revue non prête."));
-      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
-    });
-    const s = { ...sessionFor(), workingDraftFailure: "LOCAL_SYNTHETIC_PREVIOUS_OWNER_FAILURE" };
-    let saved: FunctionalResetSession = s;
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={s} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
-    send("je retiens cette architecture, montre-moi ce qui va être enregistré");
-    expect(screen.queryByText(/discussion et le brouillon sont conservés/i)).toBeNull();
-    await screen.findByText("LOCAL_SYNTHETIC — discussion conservée, revue non prête.");
-    expect(bridge.mock.calls[0][0].prepareWorkingDraft).not.toBe(true); expect(saved.project).toBeNull();
-    expect(saved.pendingContribution).toBeNull();
-    await waitFor(() => expect(saved.workingDraftFailure).toBe("WORKING_DRAFT_NO_CONFIRMABLE_UPDATE"));
-    expect(saved.workingDraftPreparations?.at(-1)).toMatchObject({ status: "FAILED", code: "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE" });
-    expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
-  });
-
-  it("delivers native text while background is pending, then exposes the final review without a preparation click", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    let release!: () => void;
-    const waiting = new Promise<void>(resolve => { release = resolve; });
-    const provider = vi.fn<typeof fetch>(async (_url, init) => {
-      const payload = JSON.parse(String(init?.body));
-      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("LOCAL_SYNTHETIC — réponse visible avant préparation.");
-      await waiting;
-      const packet = JSON.parse(payload.input);
-      return response(JSON.stringify({ ...updateFor(requestFor(sessionFor())), proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
-        explicitDecisions: [], inferredAtomRefs: [] }));
-    });
-    bridge.mockImplementation(async r => { const result = await call({ ...r, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body; });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={s => { saved = s; return true; }} /></HelmetProvider>);
-    send(DOMAINS[1].text);
-    await screen.findByText("LOCAL_SYNTHETIC — réponse visible avant préparation.");
-    expect(saved.project).toBeNull(); expect(screen.queryByRole("dialog")).toBeNull();
-    expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();
-    release(); await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
-    await waitFor(() => expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled());
-    expect(screen.queryByRole("button", { name: "Revoir les choix" })).toBeNull();
-    expect(screen.queryByRole("button", { name: "Préparer l’enregistrement" })).toBeNull();
-    expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/décisions? prêtes? à confirmer/i);
-    expect(screen.getByTestId("project-finalization-card")).toHaveTextContent(/points? reste(?:nt)? à définir/i);
-    expect(bridge).toHaveBeenCalledTimes(2);
-    expect(saved.project).toBeNull(); expect(screen.queryByTestId("continuous-working-draft-indicator")).toBeNull();
-  });
-
-  it.each(["oui", "ça me convient", "valide tout"])("confirms a prepared checkpoint naturally with %s, without generating documents", async answer => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    bridge.mockImplementation(async req => {
-      const result = await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — confirmation entendue.")));
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
-    });
-    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
-    const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
-    let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
-    expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled();
-    send(answer);
-    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
-    expect(saved.runtimeTurns.filter(turn => turn.role === "USER").at(-1)?.content).toBe(answer);
-    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
-    expect(bridge).toHaveBeenCalledTimes(1);
-    expect(bridge.mock.calls[0][0].conversation.turns.at(-1).content).toBe(answer);
-    expect(screen.getByRole("textbox", { name: "Votre message" })).toHaveValue("");
-  });
-
-  it("adopts the ECV study checkpoint from the human mixed confirmation and carries France into the next discussion", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    const confirmation = "oui c'est bien tout ça je valide. ce sera en france";
-    const provider = vi.fn<typeof fetch>(async (_url, init) => {
-      const payload = JSON.parse(String(init?.body));
-      if (!payload.instructions.includes("Tu prépares en arrière-plan"))
-        return response("LOCAL_SYNTHETIC — structure scientifique proposée ; le cadre français reste à préciser.");
-      const packet = JSON.parse(payload.input), proposal = controlledStudyProposal(packet.contextDigest, DOMAINS[0]);
-      if (String(payload.input).includes("M12")) proposal.atoms.find(atom => atom.ref === "timing")!.content = "Une visite supplémentaire à M12";
-      if (String(payload.input).includes("ce sera en france")) proposal.atoms.find(atom => atom.ref === "practical")!.content = "Étude conduite en France";
-      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal,
-        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
-    });
-    bridge.mockImplementation(async request => {
-      if (request.documentDraftRequest) {
-        const project = request.currentProject!, source = request.documentDraftRequest;
-        const packet = prepareDrciDraftPack(project, source);
-        const generated = { documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `LOCAL_SYNTHETIC ${kind}`,
-          sections: [{ title: "Dossier de travail", paragraphs: [kind === "PROTOCOL_SYNOPSIS"
-            ? "Texte synthétique de qualification mécanique sans validation scientifique humaine. ".repeat(65)
-            : packet.sourceFacts[0].content], sourceRefs: [packet.sourceFacts[0].ref] }], missingElements: [] })),
-          crfRows: source.crf.fields.map((field, index) => ({ variableRef: field.canonicalVariableId, variableId: `FIELD_${index}`, label: field.label,
-            domain: "À préciser", visit: "À préciser", definition: field.label, entryType: "Texte", unit: null, categories: null,
-            dataOrigin: "UNSPECIFIED", source: "À préciser", required: "À préciser", condition: null, derivedFrom: [],
-            derivation: null, controls: [], analysisImpact: null, specificationStatus: "UNSPECIFIED" })) };
-        return { apiVersion: "1.0.0", assistantReply: "Dossier de travail disponible.",
-          assistantTurn: { turnId: "doc-answer", role: "NOXIA", content: "Dossier de travail disponible." },
-          observability: { providerCalls: [] }, documentDraftPack: materializeDrciDraftPack(generated, { project, packet, generatedAt: saved.updatedAt }) };
-      }
-      const result = await call({ ...request, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
-      return result.body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
-      saved = next; persistFunctionalResetSession(localStorage, next); return true;
-    }} /></HelmetProvider>);
-    send(DOMAINS[0].text);
-    await waitFor(() => expect(saved.workingDraft?.readyReview).toBeTruthy());
-    expect(saved.project).toBeNull();
-    expect(screen.getByTestId("project-document-action")).toHaveTextContent("Validez d’abord des choix dans le projet.");
-    expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
-
-    send(confirmation);
-    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
-    expect(saved.project?.revision).toBe(1);
-    expect(loadFunctionalResetSession(localStorage).project?.projectDigest).toBe(saved.project?.projectDigest);
-    expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
-    expect(screen.getByTestId("project-cockpit-counts")).not.toHaveTextContent("0 élément confirmé");
-    expect(screen.getByTestId("project-group-scientific-question")).toHaveTextContent(/ECV|âge/i);
-    await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
-    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
-    await waitFor(() => expect(bridge.mock.calls.some(([request]) => request.currentProject?.revision === 1
-      && request.prepareWorkingDraft && request.conversation.turns.some(turn => turn.content === confirmation))).toBe(true));
-    await waitFor(() => expect(saved.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
-      .some(object => object.content.includes("en France"))).toBe(true));
-    expect(saved.runtimeTurns.filter(turn => turn.role === "USER" && turn.content === confirmation)).toHaveLength(1);
-    expect(bridge.mock.calls.some(([request]) => Boolean(request.documentDraftRequest))).toBe(false);
-
-    fireEvent.click(screen.getByTestId("project-document-action").querySelector("button")!);
-    await waitFor(() => expect(saved.drciDraftPacks, JSON.stringify(saved.documents.lastFailure)).toHaveLength(1));
-    const firstPack = saved.drciDraftPacks![0];
-    expect(firstPack.project.projectVersion).toBe(saved.project?.versionId);
-    await waitFor(() => expect(screen.getByTestId("document-generation-1")).toHaveTextContent("Documents V1 disponibles"));
-
-    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
-    send("Je veux aussi une visite à M12.");
-    await waitFor(() => expect(saved.workingDraft?.readyReview?.contribution.scientificContent.candidateObjects
-      .some(object => object.content.includes("M12"))).toBe(true));
-    expect(saved.project?.revision).toBe(1);
-    expect(saved.drciDraftPacks).toEqual([firstPack]);
-    send("je valide");
-    await waitFor(() => expect(saved.project?.revision).toBe(2));
-    const currentObjects = ensureCanonicalProjectState(saved.project!).objects.filter(object => object.actuality === "CURRENT");
-    expect(currentObjects.some(object => object.content.includes("en France"))).toBe(true);
-    expect(currentObjects.some(object => object.content.includes("M12"))).toBe(true);
-    expect(currentObjects.some(object => object.content.includes("Volontaires sains de différents âges"))).toBe(true);
-    expect(saved.drciDraftPacks).toEqual([firstPack]);
-    expect(bridge.mock.calls.filter(([request]) => Boolean(request.documentDraftRequest))).toHaveLength(1);
-    fireEvent.click(screen.getByTestId("project-document-action").querySelector("button")!);
-    await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
-    expect(saved.drciDraftPacks![0]).toEqual(firstPack);
-    expect(saved.drciDraftPacks![1].project.projectVersion).toBe(saved.project?.versionId);
-    expect(saved.drciDraftPacks![1].project.projectDigest).toBe(saved.project?.projectDigest);
-    await waitFor(() => expect(screen.getByTestId("document-generation-1")).toBeInTheDocument());
-    expect(screen.getByTestId("document-generation-2")).toHaveTextContent("Documents V2 disponibles");
-  });
-
-  it("binds 'tout sauf le point 3' to the visible checkpoint and keeps the excluded decision out of Project", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    bridge.mockImplementation(async req => {
-      const result = await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — sélection entendue.")));
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
-    });
-    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
-    const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
-    let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
-    const excludedRef = reviewDecisionRefsInDisplayOrder(workingDraft.readyReview!.candidate)[2]!;
-    const excludedGroup = contributionDecisionScopeGroups(workingDraft.readyReview!.candidate, null).find(group => group.includes(excludedRef))!;
-    expect(excludedGroup.length).toBeGreaterThan(0);
-    send("tout sauf le point 3");
-    await waitFor(() => expect(saved.project?.confirmationDecision.status).toBe("ADOPTED"));
-    expect(saved.project?.confirmationDecision.targets).not.toContain(excludedRef);
-    expect(saved.project?.confirmationDecision.targets.some(ref => excludedGroup.includes(ref))).toBe(false);
-    expect(saved.studyProposal?.state).toBe("REVIEW_REQUIRED");
-    expect(bridge).toHaveBeenCalledTimes(1);
-  });
-
   it("uses one explicit action, preserves adopted Project on transport failure, and retrieves the same request without another adoption", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
-    let saved: FunctionalResetSession = { ...initial, studyProposal: composition, workingDraft };
+    let saved: FunctionalResetSession = checkpointSession(initial, update);
     bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
 
@@ -714,7 +391,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
-    let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
+    let saved: FunctionalResetSession=checkpointSession(initial,update);
     bridge.mockImplementation(async (req: ProductBridgeRequest) => {
       const project=req.currentProject!, source=req.documentDraftRequest!, packet=prepareDrciDraftPack(project,source);
       const generated={documents:DRCI_DOCUMENT_KINDS.map(kind=>({kind,title:`LOCAL_SYNTHETIC ${kind}`,
@@ -865,7 +542,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
-    let saved: FunctionalResetSession={...initial,studyProposal:composition,workingDraft};
+    let saved: FunctionalResetSession=checkpointSession(initial,update);
     vi.spyOn(documentaryConversation,"acquireDocumentKnowledge").mockImplementationOnce(()=>{throw new Error("KNOWLEDGE_BINDING_INVALID");});
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
@@ -885,7 +562,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={{...initial,studyProposal:composition,workingDraft}} onSessionChange={()=>true} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={checkpointSession(initial,update)} onSessionChange={()=>true} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
@@ -893,124 +570,6 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await screen.findByTestId("document-generation-recovery");
     expect(screen.queryByRole("button",{name:"Retrouver les documents"})).toBeNull();
     expect(bridge).toHaveBeenCalledTimes(1);
-  });
-
-  it("starts the next foreground while the previous background is pending and rejects the late stale commit", async () => {
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    let releaseFirstBackground!: () => void;
-    const firstBackgroundGate = new Promise<void>(resolve => { releaseFirstBackground = resolve; });
-    let backgroundCalls = 0;
-    bridge.mockImplementation(async req => {
-      if (!req.prepareWorkingDraft) {
-        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
-        const provider = vi.fn<typeof fetch>().mockResolvedValue(response(`LOCAL_SYNTHETIC — foreground ${latest.content}`));
-        const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
-        if (result.status !== 200) throw new Error(JSON.stringify(result.body));
-        return result.body;
-      }
-      backgroundCalls += 1;
-      if (backgroundCalls === 1) await firstBackgroundGate;
-      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
-      const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
-        ...updateFor(req),
-        proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
-        explicitDecisions: [],
-        inferredAtomRefs: [],
-      })));
-      const result = await call({ ...req, apiVersion: "1.0.0" }, provider);
-      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
-      return result.body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
-    send(DOMAINS[1].text);
-    await screen.findByText(`LOCAL_SYNTHETIC — foreground ${DOMAINS[1].text}`);
-    await waitFor(() => expect(backgroundCalls).toBe(1));
-    const followUp = "Je conserve ce design et je veux maintenant préciser la visite à six mois.";
-    send(followUp);
-    await screen.findByText(`LOCAL_SYNTHETIC — foreground ${followUp}`);
-    expect(backgroundCalls).toBe(1);
-    expect(bridge.mock.calls.filter(([request]) => !request.prepareWorkingDraft)).toHaveLength(2);
-    releaseFirstBackground();
-    await waitFor(() => expect(backgroundCalls).toBe(2));
-    await waitFor(() => expect(saved.workingDraft?.sourceUserTurnRef)
-      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId));
-    expect(saved.workingDraftFailure).toBeNull();
-    expect(saved.project).toBeNull();
-    expect(bridge).toHaveBeenCalledTimes(4);
-  });
-
-  it("qualifies the 10s foreground / 70s background synthetic timeline without blocking the next turn", async () => {
-    vi.useFakeTimers();
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    let backgroundCalls = 0;
-    bridge.mockImplementation(async req => {
-      const delay = req.prepareWorkingDraft ? 70_000 : 10_000;
-      if (req.prepareWorkingDraft) backgroundCalls += 1;
-      await new Promise(resolve => setTimeout(resolve, delay));
-      if (!req.prepareWorkingDraft) {
-        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
-        return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>()
-          .mockResolvedValue(response(`LOCAL_SYNTHETIC_TIMELINE — ${latest.content}`)))).body;
-      }
-      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
-      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
-        ...updateFor(req), proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
-        explicitDecisions: [], inferredAtomRefs: [],
-      }))))).body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
-    send(DOMAINS[1].text);
-    await act(async () => { await vi.advanceTimersByTimeAsync(10_000); });
-    expect(screen.getByText(`LOCAL_SYNTHETIC_TIMELINE — ${DOMAINS[1].text}`)).toBeInTheDocument();
-    expect(backgroundCalls).toBe(1);
-    const followUp = "Je précise le calendrier sans attendre la préparation précédente.";
-    send(followUp);
-    await act(async () => { await vi.advanceTimersByTimeAsync(10_000); });
-    expect(screen.getByText(`LOCAL_SYNTHETIC_TIMELINE — ${followUp}`)).toBeInTheDocument();
-    expect(backgroundCalls).toBe(1);
-    await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
-    expect(backgroundCalls).toBe(2);
-    await act(async () => { await vi.advanceTimersByTimeAsync(70_000); });
-    expect(saved.workingDraft?.sourceUserTurnRef)
-      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId);
-    expect(saved.workingDraftFailure).toBeNull();
-  });
-
-  it("keeps the foreground first when a 20s Chat is followed by a 5s background", async () => {
-    vi.useFakeTimers();
-    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    let backgroundCalls = 0;
-    bridge.mockImplementation(async req => {
-      await new Promise(resolve => setTimeout(resolve, req.prepareWorkingDraft ? 5_000 : 20_000));
-      if (!req.prepareWorkingDraft) {
-        const latest = [...req.conversation.turns].reverse().find(turn => turn.role === "USER")!;
-        return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>()
-          .mockResolvedValue(response(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${latest.content}`)))).body;
-      }
-      backgroundCalls += 1;
-      const packet = JSON.parse(prepareWorkingDraftRequest(req).context);
-      return (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify({
-        ...updateFor(req), proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
-        explicitDecisions: [], inferredAtomRefs: [],
-      }))))).body;
-    });
-    let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
-    send(DOMAINS[1].text);
-    await act(async () => { await vi.advanceTimersByTimeAsync(19_999); });
-    expect(screen.queryByText(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${DOMAINS[1].text}`)).not.toBeInTheDocument();
-    expect(backgroundCalls).toBe(0);
-    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
-    expect(screen.getByText(`LOCAL_SYNTHETIC_REVERSED_TIMELINE — ${DOMAINS[1].text}`)).toBeInTheDocument();
-    expect(backgroundCalls).toBe(0);
-    await act(async () => { await vi.advanceTimersByTimeAsync(4_999); });
-    expect(backgroundCalls).toBe(0);
-    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
-    expect(backgroundCalls).toBe(1);
-    expect(saved.workingDraft?.sourceUserTurnRef)
-      .toBe([...saved.runtimeTurns].reverse().find(turn => turn.role === "USER")?.turnId);
   });
 
   it("does not start a background preparation when the foreground fails", async () => {

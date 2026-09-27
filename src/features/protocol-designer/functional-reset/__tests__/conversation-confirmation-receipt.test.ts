@@ -62,6 +62,13 @@ describe("source-bound conversation confirmation receipt", () => {
     expect(workingDraftRecoveryStillBound({ ...pending, runtimeTurns: [source, proposal,
       { ...localReply, content: "Autre proposition." }] }, pending.workingDraftPreparations![0]!)).toBe(false);
   });
+  it("binds a later assent to its own displayed exchange while an older batch is active", () => {
+    const s = preparingSession();
+    s.runtimeTurns = [...s.runtimeTurns, { ...source, turnId: "later-user" }, { ...proposal, turnId: "later-assistant" }];
+    const receipt = recordConversationConfirmationReceipt(s, assent, confirm).conversationConfirmationReceipts!.at(-1)!;
+    expect(receipt.targetAssistantTurnId).toBe("later-assistant");
+    expect(receipt.preparationSourceTurnRef).toBe("later-user");
+  });
   it("records exactly one immutable turn-to-proposal binding before the Working Draft finishes", () => {
     const session = recorded();
     const receipt = session.conversationConfirmationReceipts?.[0];
@@ -132,6 +139,8 @@ describe("source-bound conversation confirmation receipt", () => {
       .toBe("SUPERSEDED");
     expect(recordConversationConfirmationReceipt({ ...preparingSession(), runtimeTurns: [source, proposal,
       { ...assent, turnId: "intervening-user" }, newer] },
-    { ...assent, turnId: "later-confirm" }, confirm).conversationConfirmationReceipts).toEqual([]);
+    { ...assent, turnId: "later-confirm" }, confirm).conversationConfirmationReceipts).toMatchObject([{
+      userTurnId: "later-confirm", targetAssistantTurnId: newer.turnId, preparationSourceTurnRef: "intervening-user",
+    }]);
   });
 });

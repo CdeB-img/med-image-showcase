@@ -30,6 +30,7 @@ export class ProductBridgeClientError extends Error {
     message: string,
     readonly diagnostic: LanguageProjectionContractFailureDiagnostic | null = null,
     readonly observability: ProviderCallRequestObservability | null = null,
+    readonly preparationFailureCode: string | null = null,
   ) { super(message); }
 }
 
@@ -146,6 +147,8 @@ export const requestProtocolDesignerBridge = async (
     value?.error?.message ?? "Conversation momentanément indisponible.",
     null,
     responseObservability(value),
+    request.prepareWorkingDraft && typeof value?.error?.details?.[0] === "string"
+      && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(value.error.details[0]) ? value.error.details[0] : null,
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION || typeof value?.assistantReply !== "string") {
     throw new ProductBridgeClientError("INVALID_PRODUCT_BRIDGE_RESPONSE", "Réponse conversationnelle invalide.", null, responseObservability(value));
