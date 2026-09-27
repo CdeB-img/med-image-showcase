@@ -1,4 +1,4 @@
-import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation } from "../project-preparation-lifecycle";
+import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -25,6 +25,8 @@ import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 import { preflightWorkingDraftKnowledgeSource } from "@/features/scientific-thinking/contextual-reasoning-input";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { readNaturalCandidateDecision } from "../natural-conversation-policy";
 
 const bridge = vi.hoisted(() => vi.fn());
 const recoveryRead = vi.hoisted(() => vi.fn());
@@ -39,9 +41,15 @@ const sessionFor = (text: string = DOMAINS[1].text) => {
     { turnId: "noxia-turn:11111111-1111-4111-8111-111111111111", role: "NOXIA", content: "LOCAL_SYNTHETIC — architecture proposée, non adoptée.", createdAt: session.createdAt }];
   return session;
 };
-const requestFor = (s: FunctionalResetSession): ProductBridgeRequest => ({ apiVersion: "1.0.0", conversation: {
+const requestFor = (s: FunctionalResetSession): ProductBridgeRequest => { const latest = [...s.runtimeTurns].reverse().find(t => t.role === "USER")!;
+  const response = workingDraftRecoveryIdentity(s, latest.turnId);
+  return ({ apiVersion: "1.0.0", conversation: {
   conversationId: s.conversationId, language: "fr", turns: s.runtimeTurns }, currentProject: s.project,
-  evaluatePersistentDelta: false, prepareWorkingDraft: true, ...(s.studyProposal ? { studyProposalContext: s.studyProposal } : {}) });
+  evaluatePersistentDelta: false, prepareWorkingDraft: true,
+  ...(!readNaturalCandidateDecision(latest.content) && response ? { workingDraftScientificSource: {
+    kind: "BOUND_USER_TURN" as const, sourceUserTurnId: latest.turnId, sourceResponseTurnId: response.sourceResponseRef,
+    sourceDigest: logicalDigest(latest.content) } } : {}),
+  ...(s.studyProposal ? { studyProposalContext: s.studyProposal } : {}) }); };
 const updateFor = (r: ProductBridgeRequest, domain: typeof DOMAINS[number] | typeof multimodal = DOMAINS[1]): WorkingDraftUpdate => ({ requestType: "STUDY_UPDATE",
   proposal: controlledStudyProposal(prepareWorkingDraftRequest(r).inputDigest, domain as typeof DOMAINS[number]),
   explicitDecisions: [{ atomRef: "design", sourceTurnRef: "u1", quote: domain.text }], inferredAtomRefs: [], rejectedAtomRefs: [] });
@@ -60,6 +68,96 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  const confirmedTurn = (content: string) => {
+    const initial = sessionFor();
+    const user = { turnId: "u2", role: "USER" as const, content, createdAt: initial.createdAt };
+    const receipt = recordConversationConfirmationReceipt(initial, user, readNaturalCandidateDecision(content));
+    return { ...receipt, runtimeTurns: [...initial.runtimeTurns, user,
+      { turnId: "noxia-turn:22222222-2222-4222-8222-222222222222", role: "NOXIA" as const,
+        content: "LOCAL_SYNTHETIC — suite de la discussion.", createdAt: initial.createdAt }] };
+  };
+  it.each(["ok", "oui je valide", "oui je valide. ce sera en France", "ça me convient; excluons aussi les fumeurs"])(
+    "binds Knowledge to the presented scientific source, not the confirming turn: %s", content => {
+      const session = confirmedTurn(content), preparation = captureProjectPreparation(session), request = preparation.checkpoint!.request;
+      expect(preparation.sourceTurnRef).toBe("u2");
+      expect(preparation.checkpoint!.conversationCutoffTurnId).toBe("noxia-turn:22222222-2222-4222-8222-222222222222");
+      expect(preparation.checkpoint!.preparationTrigger).toBe("EXPLICIT_PROJECT_PREPARATION_ACTION");
+      expect(request.workingDraftScientificSource).toMatchObject({ kind: "BOUND_USER_TURN", sourceUserTurnId: "u1" });
+      expect(preflightWorkingDraftKnowledgeSource(request).content).toBe(session.runtimeTurns[0]!.content);
+      expect(JSON.parse(prepareWorkingDraftRequest(request).context).RECENT_CONVERSATION.at(-2).content).toBe(content);
+      expect(preparationCheckpointValid(session, preparation.checkpoint!)).toBe(true);
+      persistFunctionalResetSession(localStorage, addProjectPreparation(session, preparation));
+      expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.[0]?.checkpoint?.scientificSourceIdentity)
+        .toEqual(request.workingDraftScientificSource);
+      const later = { ...session, runtimeTurns: [...session.runtimeTurns,
+        { turnId: "u3", role: "USER" as const, content: "Nouvelle question indépendante.", createdAt: session.createdAt }] };
+      expect(preparationCheckpointValid(later, preparation.checkpoint!)).toBe(true);
+      expect(preparation.checkpoint!.scientificSourceIdentity).toEqual(request.workingDraftScientificSource);
+    });
+  it("fails closed when the source turn, response or digest no longer belongs to this checkpoint", () => {
+    const request = captureProjectPreparation(confirmedTurn("ok")).checkpoint!.request;
+    const source = request.workingDraftScientificSource!;
+    expect(source.kind).toBe("BOUND_USER_TURN");
+    if (source.kind !== "BOUND_USER_TURN") return;
+    for (const replacement of [
+      { ...source, sourceUserTurnId: "turn:other-session" },
+      { ...source, sourceResponseTurnId: "noxia-turn:other-session" },
+      { ...source, sourceDigest: "ke1-forged" },
+    ]) expect(() => preflightWorkingDraftKnowledgeSource({ ...request,
+      workingDraftScientificSource: replacement })).toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+  });
+  it("retains an inseparable mixed correction without claiming an unproven scientific source", () => {
+    const session = confirmedTurn("ça me convient, et excluons aussi les fumeurs");
+    const request = captureProjectPreparation(session).checkpoint!.request;
+    expect(request.conversation.turns.at(-2)?.content).toBe("ça me convient, et excluons aussi les fumeurs");
+    expect(request.workingDraftScientificSource).toBeUndefined();
+    expect(() => preflightWorkingDraftKnowledgeSource(request)).toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+    expect(session.project).toBeNull();
+  });
+  it("replays the P2-shaped last 'ok' through the real Working Draft owner with the earlier Knowledge source", () => {
+    const session = confirmedTurn("ok"), request = captureProjectPreparation(session).checkpoint!.request;
+    const update = updateFor(request);
+    const accepted = acceptWorkingDraftUpdate(update, request);
+    expect(accepted.composition).not.toBeNull();
+    expect(preflightWorkingDraftKnowledgeSource(request).content).toBe(session.runtimeTurns[0]!.content);
+    expect(request.conversation.turns.at(-2)?.content).toBe("ok");
+    expect(accepted.composition!.sourceTurnRef).toBe("u2");
+  });
+  it("reuses a current explicitly bound scientific proposal when an old session has no confirmation receipt", () => {
+    const initial = sessionFor(), first = requestFor(initial);
+    const proposal = acceptWorkingDraftUpdate(updateFor(first), first).composition!;
+    const session = { ...initial, studyProposal: proposal, runtimeTurns: [...initial.runtimeTurns,
+      { turnId: "u2", role: "USER" as const, content: "ok", createdAt: initial.createdAt },
+      { turnId: "noxia-turn:22222222-2222-4222-8222-222222222222", role: "NOXIA" as const,
+        content: "LOCAL_SYNTHETIC — réponse de suite.", createdAt: initial.createdAt }] };
+    const request = captureProjectPreparation(session).checkpoint!.request;
+    expect(request.workingDraftScientificSource).toMatchObject({ kind: "BOUND_USER_TURN", sourceUserTurnId: "u1" });
+    expect(preflightWorkingDraftKnowledgeSource(request).content).toBe(initial.runtimeTurns[0]!.content);
+  });
+  it("uses the adopted canonical Project question when a later assent has no bound receipt", () => {
+    const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const draft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    const ready = draft.readyReview!;
+    const project = confirmResearchProjectContribution({ contribution: ready.contribution, current: null,
+      projectId: initial.projectId, authority: initial.projectAuthority, confirmedAt: initial.updatedAt,
+      reviewedProjection: ready.candidate.humanReviewProjection,
+      selectedChangeRefs: ready.candidate.humanReviewProjection.coveredChangeRefs,
+      confirmationSourceRefs: ["human-review-button"] });
+    const questions = ensureCanonicalProjectState(project).objects.filter(o =>
+      o.actuality === "CURRENT" && o.objectType === "SCIENTIFIC_QUESTION");
+    expect(questions).toHaveLength(1);
+    const session = { ...initial, project, runtimeTurns: [...initial.runtimeTurns,
+      { turnId: "u2", role: "USER" as const, content: "ok", createdAt: initial.createdAt },
+      { turnId: "noxia-turn:22222222-2222-4222-8222-222222222222", role: "NOXIA" as const,
+        content: "LOCAL_SYNTHETIC — réponse conservée.", createdAt: initial.createdAt }] };
+    const captured = captureProjectPreparation(session), source = captured.checkpoint!.scientificSourceIdentity;
+    expect(source).toMatchObject({ kind: "CURRENT_PROJECT_QUESTION", projectId: project.projectId,
+      versionId: project.versionId, projectDigest: project.projectDigest });
+    expect(preflightWorkingDraftKnowledgeSource(captured.checkpoint!.request).content).toBe(questions[0]!.content);
+    expect(() => preflightWorkingDraftKnowledgeSource({ ...captured.checkpoint!.request,
+      currentProject: { ...project, projectDigest: "ke1-wrong" } })).toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+  });
   it("normalizes only a uniquely owned area before the native owner and Human Review", () => {
     const s = sessionFor(), r = requestFor(s), raw = updateFor(r);
     const timing = raw.proposal!.atoms.find(atom => atom.area === "TIMING")!;
@@ -102,7 +200,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const s = sessionFor("ok"), preparation = captureProjectPreparation(s), request = preparation.checkpoint!.request;
     expect(preparation.sourceTurnRef).toBe("u1");
     expect(preparation.checkpoint!.cutoffTurnId).toBe("noxia-turn:11111111-1111-4111-8111-111111111111");
-    expect(() => preflightWorkingDraftKnowledgeSource(request.conversation.turns))
+    expect(() => preflightWorkingDraftKnowledgeSource(request))
       .toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
     const provider = vi.fn<typeof fetch>();
     const guard = createMemoryProtocolDesignerGuardForTests();
@@ -126,7 +224,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
 
   it("accepts a valid bound Knowledge source and dispatches the synthetic Working Draft once", async () => {
     const r = requestFor(sessionFor()), provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(updateFor(r))));
-    expect(preflightWorkingDraftKnowledgeSource(r.conversation.turns)).toBe("u1");
+    expect(preflightWorkingDraftKnowledgeSource(r).source).toMatchObject({ sourceUserTurnId: "u1" });
     expect((await call(r, provider)).status).toBe(200);
     expect(provider).toHaveBeenCalledTimes(1);
   });

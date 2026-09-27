@@ -967,6 +967,11 @@ export type ProductBridgeRequest = {
   evaluatePersistentDelta: boolean;
   /** Non-adopting ST preparation, gated by server configuration. */
   prepareWorkingDraft?: boolean;
+  /** Immutable Knowledge source for an explicit preparation; distinct from its latest conversation turn. */
+  workingDraftScientificSource?:
+    | Readonly<{ kind: "BOUND_USER_TURN"; sourceUserTurnId: string; sourceResponseTurnId: string; sourceDigest: string }>
+    | Readonly<{ kind: "CURRENT_PROJECT_QUESTION"; projectId: string; versionId: string;
+      projectDigest: string; objectVersionId: string; sourceDigest: string }>;
   /** Read-only rejected proposals from the existing working composition history. */
   workingDraftHistory?: import("./functional-reset/continuous-project-build.js").WorkingDraftMetadata["history"];
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
@@ -1870,6 +1875,17 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || typeof record.evaluatePersistentDelta !== "boolean"
     || (record.prepareWorkingDraft !== undefined && (typeof record.prepareWorkingDraft !== "boolean"
       || record.prepareWorkingDraft && (record.evaluatePersistentDelta || record.documentDraftRequest !== undefined)))
+    || (record.workingDraftScientificSource !== undefined && (!record.prepareWorkingDraft
+      || !record.workingDraftScientificSource || typeof record.workingDraftScientificSource !== "object"
+      || !(["BOUND_USER_TURN", "CURRENT_PROJECT_QUESTION"] as const).includes(record.workingDraftScientificSource.kind)
+      || typeof record.workingDraftScientificSource.sourceDigest !== "string"
+      || (record.workingDraftScientificSource.kind === "BOUND_USER_TURN"
+        ? typeof record.workingDraftScientificSource.sourceUserTurnId !== "string"
+          || typeof record.workingDraftScientificSource.sourceResponseTurnId !== "string"
+        : typeof record.workingDraftScientificSource.projectId !== "string"
+          || typeof record.workingDraftScientificSource.versionId !== "string"
+          || typeof record.workingDraftScientificSource.projectDigest !== "string"
+          || typeof record.workingDraftScientificSource.objectVersionId !== "string")))
     || (record.workingDraftHistory !== undefined && (!Array.isArray(record.workingDraftHistory)
       || record.workingDraftHistory.length > 120 || !record.workingDraftHistory.every(h => h && h.status === "REJECTED"
         && h.atom && typeof h.atom.ref === "string" && typeof h.atom.content === "string" && h.atom.content.length <= 600)))

@@ -36,7 +36,7 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     const id = preparation.checkpoint.preparationId;
     const prepared = addProjectPreparation(source, preparation);
     let preflightFailed = false;
-    try { preflightWorkingDraftKnowledgeSource(preparation.checkpoint.request.conversation.turns); }
+    try { preflightWorkingDraftKnowledgeSource(preparation.checkpoint.request); }
     catch { preflightFailed = true; }
     const beforeDispatch = preflightFailed
       ? transitionProjectPreparation(prepared, id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;

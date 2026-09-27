@@ -1,4 +1,4 @@
-import { prepareStandardContextualReasoningRequest } from "../../scientific-thinking/contextual-reasoning-input.js";
+import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "../../scientific-thinking/contextual-reasoning-input.js";
 import { z } from "zod/v4";
 import { isExplicitProjectRecordingRequest } from "./natural-conversation-policy.js";
 import { logicalDigest } from "../../knowledge-engine/canonical.js";
@@ -79,6 +79,7 @@ export const validatePreparedWorkingReview = (session: WorkingDraftSession, allo
 
 export const workingDraftInputDigest = (request: ProductBridgeRequest) => logicalDigest({
   turns: request.conversation.turns, project: studyProposalBinding(request.currentProject),
+  scientificSource: request.workingDraftScientificSource ?? null,
   previous: request.studyProposalContext?.digest ?? null, rejected: request.workingDraftHistory ?? [],
 });
 
@@ -284,7 +285,8 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
     conversationId: request.conversation.conversationId, proposalTurn: reply, selectionTurn: user,
     createdAt: reply.createdAt ?? user.createdAt ?? new Date().toISOString(), preparingReview: true });
   const ownerContext = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
-    sessionId: request.conversation.conversationId });
+    sessionId: request.conversation.conversationId,
+    workingDraftKnowledgeSource: preflightWorkingDraftKnowledgeSource(request) });
   const composition = acceptContextualStudyProposal(update.proposal, { contextDigest: workingDraftInputDigest(request),
     sourceTurnRef: user.turnId, sourceResponseRef: reply.turnId, sourceProject: studyProposalBinding(request.currentProject),
     // Open/unselected branches remain working proposals. Only the native scope

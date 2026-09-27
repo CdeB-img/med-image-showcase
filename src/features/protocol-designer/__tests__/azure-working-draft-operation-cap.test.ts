@@ -7,6 +7,7 @@ import {
 import { languageProjectionIdentityDigest, type LanguageProjectionRequest } from "../conversation-language-gateway";
 import type { ProductBridgeRequest } from "../product-bridge";
 import { resolveOpenAIProviderRuntimeConfiguration } from "../../../../server/protocol-designer-openai-provider-config";
+import { logicalDigest } from "../../knowledge-engine/canonical";
 
 const azure = resolveOpenAIProviderRuntimeConfiguration({
   OPENAI_PROVIDER: "azure",
@@ -17,7 +18,9 @@ const azure = resolveOpenAIProviderRuntimeConfiguration({
 
 const conversationRequest = (workingDraft: boolean): ProductBridgeRequest => ({
   apiVersion: "1.0.0", currentProject: null, evaluatePersistentDelta: false,
-  ...(workingDraft ? { prepareWorkingDraft: true } : {}),
+  ...(workingDraft ? { prepareWorkingDraft: true,
+    workingDraftScientificSource: { kind: "BOUND_USER_TURN" as const, sourceUserTurnId: "u1",
+      sourceResponseTurnId: "a1", sourceDigest: logicalDigest("Étude prospective sur une mesure d'imagerie à deux visites.") } } : {}),
   conversation: { conversationId: "local-cap-test", language: "fr", turns: [
     { turnId: "u1", role: "USER", content: "Étude prospective sur une mesure d'imagerie à deux visites." },
     { turnId: "a1", role: "NOXIA", content: "La comparaison des deux visites reste à préciser." },

@@ -6,11 +6,14 @@ import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest } from "../continu
 import { createFunctionalResetSession } from "../session";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 
 const fixture = () => {
   const session = createFunctionalResetSession();
   const request: ProductBridgeRequest = { apiVersion: "1.0.0", currentProject: null,
     evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    workingDraftScientificSource: { kind: "BOUND_USER_TURN", sourceUserTurnId: "u1", sourceResponseTurnId: "a1",
+      sourceDigest: logicalDigest(DOMAINS[1].text) },
     conversation: { conversationId: session.conversationId, language: "fr", turns: [
       { turnId: "u1", role: "USER", content: DOMAINS[1].text },
       { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — proposition de travail non adoptée." },

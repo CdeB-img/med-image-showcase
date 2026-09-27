@@ -12,7 +12,9 @@ const preparation = (domain: typeof DOMAINS[number] = DOMAINS[1]) => {
   session.runtimeTurns = [{ turnId: "u1", role: "USER", content: domain.text, createdAt: session.createdAt },
     { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — architecture de travail, non adoptée.", createdAt: session.createdAt }];
   const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns },
-    currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true };
+    currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    workingDraftScientificSource: { kind: "BOUND_USER_TURN", sourceUserTurnId: "u1", sourceResponseTurnId: "a1",
+      sourceDigest: logicalDigest(domain.text) } };
   const packet = prepareWorkingDraftRequest(request);
   const proposal = controlledStudyProposal(packet.inputDigest, domain);
   proposal.atoms.forEach(a => { a.dependencyQualifications = a.dependsOn.map(ref => ({ ref, kind: "HARD_BLOCKING_DEPENDENCY", rationale: "Prérequis scientifique indispensable." })); });

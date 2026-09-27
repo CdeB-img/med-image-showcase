@@ -3,14 +3,18 @@ import { prepareTerraConversation } from "@/features/scientific-thinking/scienti
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 
 // Controlled candidates qualify provenance mechanics, never provider competence.
 const fixture = (first: string, second = "Je laisse les détails ouverts.") => {
   const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: { conversationId: "source-binding",
     language: "fr", turns: [
+      { turnId: "u0", role: "USER", content: DOMAINS[1].text }, { turnId: "a0", role: "NOXIA", content: "Contexte scientifique lié." },
       { turnId: "u1", role: "USER", content: first }, { turnId: "a1", role: "NOXIA", content: "Proposition non adoptée." },
       { turnId: "u2", role: "USER", content: second }, { turnId: "a2", role: "NOXIA", content: "Les détails restent ouverts." },
-    ] }, currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true };
+    ] }, currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    workingDraftScientificSource: { kind: "BOUND_USER_TURN", sourceUserTurnId: "u0", sourceResponseTurnId: "a0",
+      sourceDigest: logicalDigest(DOMAINS[1].text) } };
   const update: WorkingDraftUpdate = { requestType: "STUDY_UPDATE",
     proposal: controlledStudyProposal(prepareWorkingDraftRequest(request).inputDigest, DOMAINS[1]),
     explicitDecisions: [{ atomRef: "design", sourceTurnRef: "u1", quote: first }], inferredAtomRefs: [], rejectedAtomRefs: [] };

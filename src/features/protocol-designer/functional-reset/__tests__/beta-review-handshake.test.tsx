@@ -5,6 +5,7 @@ import { createFunctionalResetSession, loadFunctionalResetSession, persistFuncti
 import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest } from "../continuous-project-build";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 
 afterEach(() => { cleanup(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 
@@ -23,7 +24,9 @@ describe("beta review handshake", () => {
     ]);
     const request = { apiVersion: "1.0.0" as const,
       conversation: { conversationId: session.conversationId, language: "fr" as const, turns: session.runtimeTurns },
-      currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true };
+      currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+      workingDraftScientificSource: { kind: "BOUND_USER_TURN" as const, sourceUserTurnId: "u1",
+        sourceResponseTurnId: "a1", sourceDigest: logicalDigest(userTurns[0]) } };
     const packet = prepareWorkingDraftRequest(request);
     const proposal = controlledStudyProposal(packet.inputDigest, DOMAINS[0]);
     for (const option of proposal.arbitrations[0].options) option.atomRefs.push("endpoint");
@@ -59,7 +62,9 @@ describe("beta review handshake", () => {
       { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — proposition de travail.", createdAt: session.createdAt },
     ];
     const request = { apiVersion: "1.0.0" as const, conversation: { conversationId: session.conversationId, language: "fr" as const, turns: session.runtimeTurns }, currentProject: null,
-      evaluatePersistentDelta: false, prepareWorkingDraft: true };
+      evaluatePersistentDelta: false, prepareWorkingDraft: true,
+      workingDraftScientificSource: { kind: "BOUND_USER_TURN" as const, sourceUserTurnId: "u1",
+        sourceResponseTurnId: "a1", sourceDigest: logicalDigest(DOMAINS[0].text) } };
     const proposal = controlledStudyProposal(prepareWorkingDraftRequest(request).inputDigest, DOMAINS[0]);
     proposal.atoms.find(atom => atom.ref === "eligibility")!.content = "Vérifier avant l’examen l’absence de contre-indication à l’IRM selon les règles de sécurité applicables; la procédure exacte reste à définir.";
     for (const atom of proposal.atoms.slice(-15)) atom.status = "OPEN_DECISION";

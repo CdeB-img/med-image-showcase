@@ -271,7 +271,7 @@ export const executeProtocolDesignerBridge = async (input: {
     if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA") return { status: 422, body: {
       apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "AUTONOMOUS_PROJECT_BUILD_OFF", message: "La préparation automatique est désactivée." } } };
     try {
-      preflightWorkingDraftKnowledgeSource(request.conversation.turns);
+      preflightWorkingDraftKnowledgeSource(request);
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareWorkingDraftRequest(request);
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
@@ -929,7 +929,7 @@ export const handleProtocolDesignerBridge = async (
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
   if (workingDraftRequest?.prepareWorkingDraft) {
-    try { preflightWorkingDraftKnowledgeSource(workingDraftRequest.conversation.turns); }
+    try { preflightWorkingDraftKnowledgeSource(workingDraftRequest); }
     catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
       error: { code: "WORKING_DRAFT_PREPARATION_FAILED",
         message: "La source scientifique liée à cette préparation n'est pas conforme. La conversation et le projet sont conservés.",

@@ -5,9 +5,13 @@ import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge.js";
 import { prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDraftInputDigest,
   type WorkingDraftMetadata } from "./continuous-project-build.js";
-import { workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
+import { readConversationConfirmationReceipts, workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
   type ProjectReviewInvitation } from "./session.js";
 import type { StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
+import { ensureCanonicalProjectState } from "../../research-project-construction/canonical-project-backbone.js";
+import { readNaturalCandidateDecision } from "./natural-conversation-policy.js";
+import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input.js";
+import { assertStudyProposalCurrent } from "./study-proposal-standard.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -15,6 +19,9 @@ export type ProjectPreparationCheckpoint = Readonly<{
   sessionId: string;
   projectId: string;
   cutoffTurnId: string;
+  conversationCutoffTurnId?: string;
+  preparationTrigger?: "EXPLICIT_PROJECT_PREPARATION_ACTION";
+  scientificSourceIdentity?: ProductBridgeRequest["workingDraftScientificSource"];
   capturedAt: string;
   requestDigest: string;
   inputDigest: string;
@@ -45,9 +52,42 @@ export const preparationCheckpointValid = (session: FunctionalResetSession, chec
   return checkpoint.contract === "EXPLICIT_PROJECT_PREPARATION_V1" && checkpoint.sessionId === session.sessionId
     && checkpoint.projectId === session.projectId && cutoff >= 0
     && logicalDigest(checkpoint.request) === checkpoint.requestDigest
+    && (checkpoint.preparationTrigger === undefined || checkpoint.preparationTrigger === "EXPLICIT_PROJECT_PREPARATION_ACTION")
+    && (checkpoint.conversationCutoffTurnId === undefined || checkpoint.conversationCutoffTurnId === checkpoint.cutoffTurnId)
+    && logicalDigest(checkpoint.scientificSourceIdentity ?? null) === logicalDigest(checkpoint.request.workingDraftScientificSource ?? null)
     && logicalDigest(checkpoint.previousDraft) === checkpoint.previousDraftDigest
     && workingDraftInputDigest(checkpoint.request) === checkpoint.inputDigest
     && logicalDigest(session.runtimeTurns.slice(0, cutoff + 1)) === logicalDigest(checkpoint.request.conversation.turns);
+};
+/** Selects only an already linked conversation response or the adopted canonical question. */
+const scientificSourceForPreparation = (session: FunctionalResetSession,
+  trigger: FunctionalResetSession["runtimeTurns"][number]): NonNullable<ProductBridgeRequest["workingDraftScientificSource"]> | null => {
+  const decision = readNaturalCandidateDecision(trigger.content);
+  const receipt = decision?.act === "CONFIRM"
+    ? readConversationConfirmationReceipts(session).find(item => item.userTurnId === trigger.turnId)
+    : null;
+  let proposal = decision?.act === "CONFIRM" && session.studyProposal?.state === "CURRENT"
+    ? session.studyProposal : null;
+  if (proposal) try { assertStudyProposalCurrent(proposal, session.project); }
+  catch { proposal = null; }
+  const sourceRef = receipt?.preparationSourceTurnRef ?? proposal?.sourceTurnRef;
+  const linkedUser = sourceRef
+    ? session.runtimeTurns.find(turn => turn.role === "USER" && turn.turnId === sourceRef)
+    : decision?.act === "CONFIRM" ? null : trigger;
+  const linkedResponse = linkedUser && workingDraftRecoveryIdentity(session, linkedUser.turnId);
+  if (linkedUser && linkedResponse && (!receipt || receipt.targetAssistantTurnId === linkedResponse.sourceResponseRef)
+    && (!proposal || receipt || proposal.sourceResponseRef === linkedResponse.sourceResponseRef
+      || proposal.sourceResponseRef === linkedResponse.compositionResponseRef))
+    return { kind: "BOUND_USER_TURN", sourceUserTurnId: linkedUser.turnId,
+      sourceResponseTurnId: receipt?.targetAssistantTurnId ?? proposal?.sourceResponseRef ?? linkedResponse.sourceResponseRef,
+      sourceDigest: logicalDigest(linkedUser.content) };
+  if (!session.project) return null;
+  const questions = ensureCanonicalProjectState(session.project).objects.filter(object =>
+    object.actuality === "CURRENT" && object.objectType === "SCIENTIFIC_QUESTION");
+  if (questions.length !== 1) return null;
+  return { kind: "CURRENT_PROJECT_QUESTION", projectId: session.project.projectId,
+    versionId: session.project.versionId, projectDigest: session.project.projectDigest,
+    objectVersionId: questions[0]!.objectVersionId, sourceDigest: logicalDigest(questions[0]!.content) };
 };
 export const activeProjectPreparation = (session: FunctionalResetSession) =>
   [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint
@@ -72,8 +112,10 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
   const conversation = { conversationId: session.conversationId, language: "fr" as const,
     turns: session.runtimeTurns.slice(0, session.runtimeTurns.findIndex(t => t.turnId === recovery.compositionResponseRef) + 1) };
   if (conversation.turns.length <= sourceIndex + 1) throw new Error("PREPARATION_CHAT_RESPONSE_REQUIRED");
+  const scientificSourceIdentity = scientificSourceForPreparation(session, source);
   const scientificRequest: ProductBridgeRequest = { apiVersion: "1.0.0", conversation,
     currentProject: session.project, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    ...(scientificSourceIdentity ? { workingDraftScientificSource: scientificSourceIdentity } : {}),
     workingDraftHistory: (session.workingDraft?.history ?? []).filter(h => h.status === "REJECTED"),
     ...(session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}) };
   const inputDigest = workingDraftInputDigest(scientificRequest);
@@ -84,6 +126,8 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
   return { sourceTurnRef: source.turnId, status: "PREPARING", code: null, updatedAt: now, recovery,
     decision: "PENDING", checkpoint: { contract: "EXPLICIT_PROJECT_PREPARATION_V1", preparationId,
       sessionId: session.sessionId, projectId: session.projectId, cutoffTurnId: recovery.compositionResponseRef,
+      conversationCutoffTurnId: recovery.compositionResponseRef,
+      preparationTrigger: "EXPLICIT_PROJECT_PREPARATION_ACTION", scientificSourceIdentity,
       capturedAt: now, inputDigest, requestDigest: logicalDigest(request), request,
       previousDraftDigest: logicalDigest(session.workingDraft ?? null),
       previousDraft: session.workingDraft ? structuredClone(session.workingDraft) : null } };

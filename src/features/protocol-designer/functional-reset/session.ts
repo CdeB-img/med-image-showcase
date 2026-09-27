@@ -414,7 +414,7 @@ export const conversationConfirmationReceiptStatus = (
   return invitation ? "REVIEW_READY" : "INTERRUPTED/UNKNOWN";
 };
 
-const readConversationConfirmationReceipts = (session: FunctionalResetSession): readonly ConversationConfirmationReceipt[] =>
+export const readConversationConfirmationReceipts = (session: FunctionalResetSession): readonly ConversationConfirmationReceipt[] =>
   Array.isArray(session.conversationConfirmationReceipts) ? session.conversationConfirmationReceipts.filter(receipt => {
     if (!receipt || receipt.sessionId !== session.sessionId || receipt.classification !== "CONFIRM"
       || typeof receipt.confirmationReceiptId !== "string"
