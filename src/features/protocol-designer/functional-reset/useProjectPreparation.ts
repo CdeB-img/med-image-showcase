@@ -6,6 +6,7 @@ import { recordProductErrorBoundary } from "./end-to-end-trace-adapter";
 import { activeProjectPreparation, addProjectPreparation, captureProjectPreparation, consumeProjectPreparation,
   preparationCheckpointValid, transitionProjectPreparation } from "./project-preparation-lifecycle";
 import { appendFunctionalResetProviderCallRecords, persistFunctionalResetSession, type FunctionalResetSession } from "./session";
+import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input";
 
 type Options = {
   enabled: boolean; session: FunctionalResetSession; latest: MutableRefObject<FunctionalResetSession>;
@@ -34,15 +35,21 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     if (!preparation.checkpoint || source.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId)) return;
     const id = preparation.checkpoint.preparationId;
     const prepared = addProjectPreparation(source, preparation);
+    let preflightFailed = false;
+    try { preflightWorkingDraftKnowledgeSource(preparation.checkpoint.request.conversation.turns); }
+    catch { preflightFailed = true; }
+    const beforeDispatch = preflightFailed
+      ? transitionProjectPreparation(prepared, id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;
     try {
       if (options.current.save) {
-        if (options.current.save(prepared) === false) throw new Error("SAVE_FAILED");
-      } else persistFunctionalResetSession(window.localStorage, prepared);
+        if (options.current.save(beforeDispatch) === false) throw new Error("SAVE_FAILED");
+      } else persistFunctionalResetSession(window.localStorage, beforeDispatch);
     } catch {
       update(source.sessionId, () => transitionProjectPreparation(prepared, id, "FAILED", "WORKING_DRAFT_PREPARATION_SAVE_FAILED"));
       return;
     }
-    update(source.sessionId, () => prepared);
+    update(source.sessionId, () => beforeDispatch);
+    if (preflightFailed) return;
     const records: ProviderCallRecord[] = [];
     try {
       const response = await requestProtocolDesignerBridge(preparation.checkpoint.request);

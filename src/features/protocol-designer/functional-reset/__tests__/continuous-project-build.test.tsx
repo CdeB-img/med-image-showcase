@@ -7,7 +7,8 @@ import { createCanaryCampaignPolicy } from "../../../../../server/protocol-desig
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
-import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
+import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
 import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
@@ -23,6 +24,7 @@ import { contributionDecisionScopeGroups } from "@/features/research-project-con
 import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
+import { preflightWorkingDraftKnowledgeSource } from "@/features/scientific-thinking/contextual-reasoning-input";
 
 const bridge = vi.hoisted(() => vi.fn());
 const recoveryRead = vi.hoisted(() => vi.fn());
@@ -58,6 +60,94 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it("normalizes only a uniquely owned area before the native owner and Human Review", () => {
+    const s = sessionFor(), r = requestFor(s), raw = updateFor(r);
+    const timing = raw.proposal!.atoms.find(atom => atom.area === "TIMING")!;
+    const original = structuredClone(timing);
+    timing.owner = "IMAGING";
+    const unchangedRaw = JSON.stringify(raw);
+    const trace = vi.spyOn(console, "info").mockImplementation(() => {});
+    const accepted = acceptWorkingDraftUpdate(raw, r);
+    expect(JSON.stringify(raw)).toBe(unchangedRaw);
+    expect(accepted.update.proposal!.atoms.find(atom => atom.ref === timing.ref))
+      .toEqual({ ...original, owner: "STUDY_DESIGN" });
+    expect(trace).toHaveBeenCalledWith("WORKING_DRAFT_OWNER_AREA_NORMALIZED", expect.objectContaining({
+      changes: [{ ref: timing.ref, area: "TIMING", fromOwner: "IMAGING", toOwner: "STUDY_DESIGN" }],
+    }));
+    const next = consumeProjectPreparation(addProjectPreparation(s, captureProjectPreparation(s)),
+      captureProjectPreparation(s).checkpoint!.preparationId,
+      { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    expect(next.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW");
+    expect(next.workingDraftPreparations?.[0]?.result?.composition.proposal.atoms.find(atom => atom.ref === timing.ref)?.content)
+      .toBe(original.content);
+    expect(next.project).toBeNull();
+  });
+
+  it("leaves correct owners unchanged and refuses ambiguous or unknown areas", () => {
+    const r = requestFor(sessionFor()), correct = updateFor(r);
+    const trace = vi.spyOn(console, "info").mockImplementation(() => {});
+    expect(acceptWorkingDraftUpdate(correct, r).update.proposal).toEqual(correct.proposal);
+    expect(trace).not.toHaveBeenCalled();
+    const ambiguous = structuredClone(correct);
+    ambiguous.proposal!.atoms.find(atom => atom.area === "MEASUREMENTS")!.owner = "STUDY_DESIGN";
+    expect(() => acceptWorkingDraftUpdate(ambiguous, r)).toThrow("STUDY_PROPOSAL_OWNER_SCOPE_INVALID");
+    expect(ambiguous.proposal!.atoms.find(atom => atom.area === "MEASUREMENTS")!.owner).toBe("STUDY_DESIGN");
+    const unknown = structuredClone(correct) as unknown as { proposal: { atoms: { area: string }[] } };
+    unknown.proposal.atoms[0].area = "UNREGISTERED_AREA";
+    expect(() => acceptWorkingDraftUpdate(unknown, r)).toThrow();
+    expect(trace).not.toHaveBeenCalled();
+  });
+
+  it("rejects the paid P2-shaped 'ok' checkpoint before durable admission or provider dispatch", async () => {
+    const s = sessionFor("ok"), preparation = captureProjectPreparation(s), request = preparation.checkpoint!.request;
+    expect(preparation.sourceTurnRef).toBe("u1");
+    expect(preparation.checkpoint!.cutoffTurnId).toBe("noxia-turn:11111111-1111-4111-8111-111111111111");
+    expect(() => preflightWorkingDraftKnowledgeSource(request.conversation.turns))
+      .toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+    const provider = vi.fn<typeof fetch>();
+    const guard = createMemoryProtocolDesignerGuardForTests();
+    const admit = vi.fn(guard.prepareRequest);
+    let status = 0; let body: unknown;
+    const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(value) { body = value; } };
+    try {
+      await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json",
+        origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr" }, body: request }, response,
+      { VERCEL_ENV: "preview", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA",
+        VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, { durableGuard: { ...guard, prepareRequest: admit }, fetchImpl: provider });
+      expect(status).toBe(422);
+      expect(body).toMatchObject({ error: { code: "WORKING_DRAFT_PREPARATION_FAILED",
+        details: ["WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID"] } });
+      expect(admit).not.toHaveBeenCalled();
+      expect(provider).not.toHaveBeenCalled();
+      expect((await call(request, provider)).status).toBe(422);
+      expect(provider).not.toHaveBeenCalled();
+    } finally { await guard.close(); }
+  });
+
+  it("accepts a valid bound Knowledge source and dispatches the synthetic Working Draft once", async () => {
+    const r = requestFor(sessionFor()), provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(updateFor(r))));
+    expect(preflightWorkingDraftKnowledgeSource(r.conversation.turns)).toBe("u1");
+    expect((await call(r, provider)).status).toBe(200);
+    expect(provider).toHaveBeenCalledTimes(1);
+  });
+
+  it("persists the explicit no-dispatch failure across reload for a short bound source", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
+    vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let saved = sessionFor("ok");
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]).toMatchObject({
+      status: "FAILED", code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
+    }));
+    expect(bridge).not.toHaveBeenCalled();
+    expect(saved.project).toBeNull();
+    expect(screen.getByText(/Aucune génération payante n’a été lancée/)).toBeTruthy();
+    expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.[0]).toMatchObject({
+      status: "FAILED", code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
+    });
+  });
   it.each(["FAILED", "UNKNOWN"])("restores %s after reload without a second Working Draft dispatch", async state => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const source = sessionFor();

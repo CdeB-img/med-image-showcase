@@ -1,4 +1,4 @@
-import { executeKnowledgeEngine } from "../knowledge-engine/engine.js";
+import { executeKnowledgeEngine, prepareKnowledgeEngineRequest } from "../knowledge-engine/engine.js";
 import { extractScientificObjectTerms } from "../knowledge-engine/concept-resolver.js";
 import { projectScientificContributionToV1IfAllowed } from "../scientific-interpretation/v1-compatibility.js";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "../scientific-interpretation/contracts.js";
@@ -6,6 +6,20 @@ import { buildImagingDesignInput } from "../imaging-study-designer/input.js";
 import { executeImagingStudyDesigner } from "../imaging-study-designer/engine.js";
 import { buildScientificThinkingInput } from "./input.js";
 import { buildContextualReasoningRequest } from "./contextual-reasoning.js";
+
+/** Validate the Knowledge input already fixed by a Working Draft checkpoint, before a paid dispatch. */
+export const preflightWorkingDraftKnowledgeSource = (turns: readonly ScientificInterpretationTurn[]) => {
+  const latest = [...turns].reverse().find(turn => turn.role === "USER");
+  if (!latest) throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+  try {
+    prepareKnowledgeEngineRequest({ originalQuestion: latest.content,
+      scientificObjectTerms: extractScientificObjectTerms(turns.filter(turn => turn.role === "USER")
+        .map(turn => turn.content).join("\n")), createdAt: latest.createdAt });
+  } catch {
+    throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+  }
+  return latest.turnId;
+};
 
 /** Read-only existing owner inputs; no second semantic extractor or clinical map. */
 export const prepareStandardContextualReasoningRequest = (input: {

@@ -23,6 +23,20 @@ const responseSchema = z.object({
   inferredAtomRefs: z.array(z.string()).max(60),
   rejectedAtomRefs: z.array(z.string()).max(60),
 }).strict();
+
+/** Correct only owner/area pairs whose native area has one possible owner. */
+export const normalizeUnambiguousOwnerAreas = (proposal: z.infer<typeof contextualStudyProposalSchema>) => {
+  const normalized: { ref: string; area: string; fromOwner: string; toOwner: string }[] = [];
+  for (const atom of proposal.atoms) {
+    if (studyProposalOwnerAreas(atom.owner).includes(atom.area)) continue;
+    const owners = studyProposalAtomSchema.shape.owner.options.filter(owner => studyProposalOwnerAreas(owner).includes(atom.area));
+    if (owners.length !== 1) continue;
+    const fromOwner = atom.owner;
+    atom.owner = owners[0];
+    normalized.push({ ref: atom.ref, area: atom.area, fromOwner, toOwner: atom.owner });
+  }
+  return normalized;
+};
 export type WorkingDraftUpdate = z.infer<typeof responseSchema>;
 export type WorkingDraftMetadata = {
   compositionDigest: string;
@@ -230,6 +244,7 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
     return { update, composition: null };
   }
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
+  const ownerAreaNormalizations = normalizeUnambiguousOwnerAreas(update.proposal);
   const user = [...request.conversation.turns].reverse().find(t => t.role === "USER")!;
   const reply = [...request.conversation.turns].reverse().find(t => t.role === "NOXIA");
   if (!reply) throw new Error("WORKING_DRAFT_VISIBLE_REPLY_REQUIRED");
@@ -276,6 +291,9 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
     // receives specialized qualification, with exactly the handoffs built for it.
     scopedAtomRefs: contribution.scientificContent.candidateObjects.map(item => item.evidenceRefs!.find(ref => atoms.has(ref))!),
     ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: request.conversation.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"),
+  });
+  if (ownerAreaNormalizations.length) console.info("WORKING_DRAFT_OWNER_AREA_NORMALIZED", {
+    clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: ownerAreaNormalizations,
   });
   return { update, composition };
 };

@@ -4,7 +4,7 @@ import { prepareDrciDraftPack, materializeDrciDraftPack, type RetainedDrciProtoc
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../src/features/query-navigation/current-turn-navigation.js";
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
-import { prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
+import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
 import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, scientificCollaboratorInstruction, readScientificCollaboratorReply, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { hasSufficientStudyIntent, acceptContextualStudyProposal } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
@@ -271,6 +271,7 @@ export const executeProtocolDesignerBridge = async (input: {
     if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA") return { status: 422, body: {
       apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "AUTONOMOUS_PROJECT_BUILD_OFF", message: "La préparation automatique est désactivée." } } };
     try {
+      preflightWorkingDraftKnowledgeSource(request.conversation.turns);
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareWorkingDraftRequest(request);
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
@@ -925,6 +926,16 @@ export const handleProtocolDesignerBridge = async (
         observability: providerCallRequestObservability([]),
       });
     }
+  }
+  const workingDraftRequest = parseProductBridgeRequest(body);
+  if (workingDraftRequest?.prepareWorkingDraft) {
+    try { preflightWorkingDraftKnowledgeSource(workingDraftRequest.conversation.turns); }
+    catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "WORKING_DRAFT_PREPARATION_FAILED",
+        message: "La source scientifique liée à cette préparation n'est pas conforme. La conversation et le projet sont conservés.",
+        details: ["WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID"] },
+      observability: providerCallRequestObservability([]),
+    }); }
   }
   try {
     const publicAdmission = await durableGuard.prepareRequest({

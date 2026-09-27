@@ -102,10 +102,15 @@ export const executeKnowledgeRequest = (rawRequest: KnowledgeRequest): Knowledge
   return executeValidatedKnowledgeRequest(request, request);
 };
 
-export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeResult => {
+/** Build the same native request without executing the local Knowledge pipeline. */
+export const prepareKnowledgeEngineRequest = (input: ExecuteKnowledgeInput): KnowledgeRequest => {
   const declaredTerms = input.scientificObjectTerms ?? [];
   const extractedTerms = extractScientificObjectTerms(input.originalQuestion);
   const terms = [...declaredTerms, ...extractedTerms].filter((item, index, values) => values.findIndex((candidate) => comparableScientificText(candidate.term) === comparableScientificText(item.term)) === index);
-  const request = createKnowledgeRequest({ ...input, scientificObjectTerms: terms });
+  return createKnowledgeRequest({ ...input, scientificObjectTerms: terms });
+};
+
+export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeResult => {
+  const request = prepareKnowledgeEngineRequest(input);
   return executeValidatedKnowledgeRequest(request, input);
 };
