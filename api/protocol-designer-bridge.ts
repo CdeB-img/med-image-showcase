@@ -809,6 +809,50 @@ export const handleProtocolDesignerBridge = async (
       return response.status(failure.status).json({ error: { code: failure.code } });
     }
   }
+  if (body && typeof body === "object" && !Array.isArray(body)
+    && "operation" in body && body.operation === "READ_WORKING_DRAFT_PREPARATION") {
+    if (environment.VERCEL_ENV !== "preview") return response.status(404).json({ error: { code: "NOT_FOUND" } });
+    const lookup = body as Record<string, unknown>;
+    if (Buffer.byteLength(JSON.stringify(body)) > 1024
+      || Object.keys(lookup).sort().join(",") !== "compositionResponseRef,operation,sessionId,sourceResponseRef,sourceTurnRef"
+      || typeof lookup.sessionId !== "string" || typeof lookup.sourceTurnRef !== "string"
+      || typeof lookup.sourceResponseRef !== "string" || typeof lookup.compositionResponseRef !== "string") {
+      return response.status(400).json({ error: { code: "WORKING_DRAFT_RECOVERY_REQUEST_INVALID" } });
+    }
+    const connection = durableGuardConnectionString(environment);
+    if (!connection && !dependencies.durableGuard) {
+      return response.status(503).json({ error: { code: "PUBLIC_DURABLE_STORE_UNAVAILABLE" } });
+    }
+    try {
+      const guard = dependencies.durableGuard ?? sharedPostgresProtocolDesignerDurableGuard(connection!,
+        durableGuardSessionRequestLimit(environment), durableGuardPublicBudget(environment));
+      const result = await guard.readWorkingDraftPreparation({ headers: request.headers,
+        remoteAddress: request.socket?.remoteAddress, sessionId: lookup.sessionId,
+        sourceTurnRef: lookup.sourceTurnRef, sourceResponseRef: lookup.sourceResponseRef });
+      if (result.state === "REJECTED") return response.status(result.status).json({ error: { code: result.code } });
+      if (result.state !== "COMPLETED") return response.status(200).json({
+        contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: result.state,
+        ...(result.state === "FAILED" ? { errorCode: result.errorCode } : {}),
+      });
+      const saved = result.response;
+      if (!saved || typeof saved !== "object" || Array.isArray(saved)
+        || (saved as ProductBridgeResponse).apiVersion !== PRODUCT_BRIDGE_API_VERSION) {
+        return response.status(200).json({ contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: "UNKNOWN" });
+      }
+      const bridgeResult = saved as ProductBridgeResponse;
+      const composition = bridgeResult.workingStudyProposal;
+      if (composition && (composition.sourceTurnRef !== lookup.sourceTurnRef
+        || composition.sourceResponseRef !== lookup.compositionResponseRef)) {
+        return response.status(200).json({ contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: "UNKNOWN" });
+      }
+      return response.status(200).json({ contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: "COMPLETED",
+        result: { workingDraftUpdate: bridgeResult.workingDraftUpdate ?? null,
+          workingStudyProposal: composition ?? null } });
+    } catch (error) {
+      const code = error instanceof DurablePublicGuardError ? error.code : "PUBLIC_DURABLE_STORE_UNAVAILABLE";
+      return response.status(503).json({ error: { code } });
+    }
+  }
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
   }

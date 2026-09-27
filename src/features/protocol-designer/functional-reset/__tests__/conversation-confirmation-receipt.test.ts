@@ -6,6 +6,8 @@ import {
   persistFunctionalResetSession,
   recordConversationConfirmationReceipt,
   recordWorkingDraftPreparation,
+  workingDraftRecoveryIdentity,
+  workingDraftRecoveryStillBound,
   type FunctionalResetSession,
 } from "../session";
 
@@ -27,6 +29,39 @@ const recorded = () => {
 beforeEach(() => localStorage.clear());
 
 describe("source-bound conversation confirmation receipt", () => {
+  it("keeps the exact preparation binding across assent and reload without making it adoption", () => {
+    const initial = preparingSession();
+    const recovery = workingDraftRecoveryIdentity(initial, source.turnId);
+    expect(recovery).toMatchObject({ sourceResponseRef: proposal.turnId,
+      baseProjectId: initial.projectId, baseProjectVersion: null, baseProjectDigest: null });
+    const pending = recordWorkingDraftPreparation(initial, source.turnId, "PREPARING", null, timestamp, recovery!);
+    const withAssent = recordConversationConfirmationReceipt(pending, assent, confirm);
+    const completeConversation = { ...withAssent, runtimeTurns: [...withAssent.runtimeTurns, assent] };
+    persistFunctionalResetSession(localStorage, completeConversation);
+    const reloaded = loadFunctionalResetSession(localStorage);
+    expect(reloaded.workingDraftPreparations?.[0]?.recovery).toEqual(recovery);
+    expect(reloaded.workingDraftPreparations?.[0]?.status).toBe("UNKNOWN/INTERRUPTED");
+    const observedRunning = recordWorkingDraftPreparation(reloaded, source.turnId, "PREPARING");
+    expect(observedRunning.workingDraftPreparations?.[0]?.status).toBe("PREPARING");
+    expect(recordWorkingDraftPreparation(observedRunning, source.turnId, "FAILED", "RECOVERED_FAILURE")
+      .workingDraftPreparations?.[0]?.status).toBe("FAILED");
+    expect(workingDraftRecoveryStillBound(reloaded, reloaded.workingDraftPreparations![0]!)).toBe(true);
+    expect(reloaded.project).toBeNull();
+    expect(workingDraftRecoveryStillBound({ ...reloaded, runtimeTurns: [source,
+      { ...proposal, content: "Proposition modifiée." }, assent] }, reloaded.workingDraftPreparations![0]!)).toBe(false);
+  });
+  it("keeps the server Chat proof distinct from a later local reply used by a compound turn", () => {
+    const localReply = { turnId: "local-adoption-reply", role: "NOXIA" as const,
+      content: "Projet confirmé ; suite à structurer.", createdAt: timestamp };
+    const initial = { ...createFunctionalResetSession(timestamp), runtimeTurns: [source, proposal, localReply] };
+    const recovery = workingDraftRecoveryIdentity(initial, source.turnId);
+    expect(recovery).toMatchObject({ sourceResponseRef: proposal.turnId,
+      compositionResponseRef: localReply.turnId });
+    const pending = recordWorkingDraftPreparation(initial, source.turnId, "PREPARING", null, timestamp, recovery!);
+    expect(workingDraftRecoveryStillBound(pending, pending.workingDraftPreparations![0]!)).toBe(true);
+    expect(workingDraftRecoveryStillBound({ ...pending, runtimeTurns: [source, proposal,
+      { ...localReply, content: "Autre proposition." }] }, pending.workingDraftPreparations![0]!)).toBe(false);
+  });
   it("records exactly one immutable turn-to-proposal binding before the Working Draft finishes", () => {
     const session = recorded();
     const receipt = session.conversationConfirmationReceipts?.[0];

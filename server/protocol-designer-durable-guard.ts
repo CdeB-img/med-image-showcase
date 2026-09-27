@@ -57,6 +57,12 @@ export type DurablePublicRequestPreparation =
   | DurablePublicRequestContext
   | DurableRecoveredResponse;
 
+export type DurableWorkingDraftRecovery =
+  | Readonly<{ state: "IN_PROGRESS" | "UNKNOWN" }>
+  | Readonly<{ state: "COMPLETED"; response: unknown }>
+  | Readonly<{ state: "FAILED"; errorCode: string | null }>
+  | Readonly<{ state: "REJECTED"; status: 403 | 404; code: string }>;
+
 export interface PublicProtocolDesignerDurableGuard {
   prepareRequest(input: Readonly<{
     headers: Headers;
@@ -65,6 +71,9 @@ export interface PublicProtocolDesignerDurableGuard {
   }>): Promise<DurablePublicRequestPreparation>;
   createBudgetedFetch(context: DurablePublicRequestContext, fetchImpl?: typeof fetch, openAIInputCountApiKey?: string): typeof fetch;
   completeRequest(context: DurablePublicRequestContext, status: number, body: unknown): Promise<void>;
+  readWorkingDraftPreparation(input: Readonly<{
+    headers: Headers; remoteAddress?: string; sessionId: string; sourceTurnRef: string; sourceResponseRef: string;
+  }>): Promise<DurableWorkingDraftRecovery>;
   close(): Promise<void>;
 }
 
@@ -1075,7 +1084,81 @@ export const createPostgresProtocolDesignerDurableGuard = (
     });
   };
 
-  return Object.freeze({ prepareRequest, createBudgetedFetch, completeRequest, close: () => sql.end({ timeout: 5 }) });
+  const readWorkingDraftPreparation: PublicProtocolDesignerDurableGuard["readWorkingDraftPreparation"] = async (input) => {
+    const { sessionId, sourceTurnRef, sourceResponseRef } = input;
+    if (!sessionId || sessionId.length > 240 || !sourceTurnRef.startsWith("turn:") || sourceTurnRef.length > 240
+      || !/^noxia-turn:[a-f\d-]{36}$/iu.test(sourceResponseRef)) {
+      return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
+    }
+    const clientRequestId = `working-draft:${sourceTurnRef}`;
+    const admissionKey = hash(`${sessionId}\u0000${clientRequestId}`);
+    const sessionKey = hash(sessionId);
+    const clientKey = hash(clientAddress(input.headers, input.remoteAddress));
+    try {
+      // The prior Chat response supplies an unguessable server-issued proof of
+      // the exact proposal. Session ID and client address alone are insufficient.
+      const chatAdmissionKey = hash(`${sessionId}\u0000product-bridge:${sourceTurnRef}`);
+      const chat = await sql`
+        select a.session_key_hash, a.state, a.response_status, a.response_body,
+          s.client_key_hash
+        from noxia_durable.public_bridge_admission a
+        join noxia_durable.public_guard_session s on s.session_key_hash = a.session_key_hash
+        where a.admission_key = ${chatAdmissionKey}
+      `;
+      const foreground = chat[0];
+      const priorBody = object(foreground?.response_body) ? foreground.response_body : null;
+      const priorTurn = priorBody && object(priorBody.assistantTurn) ? priorBody.assistantTurn : null;
+      if (!foreground || foreground.session_key_hash !== sessionKey || foreground.client_key_hash !== clientKey
+        || foreground.state !== "COMPLETED" || asNumber(foreground.response_status) !== 200
+        || priorTurn?.turnId !== sourceResponseRef) {
+        return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
+      }
+      const admissions = await sql`
+        select a.state, a.response_status, a.response_body, a.created_at,
+          a.session_key_hash, a.client_request_id_hash, s.client_key_hash
+        from noxia_durable.public_bridge_admission a
+        join noxia_durable.public_guard_session s on s.session_key_hash = a.session_key_hash
+        where a.admission_key = ${admissionKey}
+      `;
+      const admission = admissions[0];
+      // Return the same answer for an absent operation and a different session/client.
+      if (!admission || admission.session_key_hash !== sessionKey || admission.client_key_hash !== clientKey
+        || admission.client_request_id_hash !== hash(clientRequestId)) {
+        return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
+      }
+      if (admission.state === "COMPLETED") {
+        if (asNumber(admission.response_status) !== 200) {
+          const body = object(admission.response_body) ? admission.response_body : null;
+          const error = body && object(body.error) ? body.error.code : null;
+          return { state: "FAILED", errorCode: typeof error === "string" ? error : null };
+        }
+        return admission.response_body === null
+          ? { state: "UNKNOWN" } : { state: "COMPLETED", response: admission.response_body };
+      }
+      const operations = await sql`
+        select state, count_failure_code, count_lease_expires_at,
+          dispatch_lease_expires_at, dispatched_at
+        from noxia_durable.public_provider_operation
+        where admission_key = ${admissionKey} and operation_index = 0
+      `;
+      const operation = operations[0];
+      if (operation?.state === "COUNT_FAILED") return {
+        state: "FAILED", errorCode: typeof operation.count_failure_code === "string" ? operation.count_failure_code : null,
+      };
+      if (["COUNT_UNKNOWN_AFTER_DISPATCH", "UNKNOWN_AFTER_DISPATCH", "INPUT_TOKEN_DIVERGENCE",
+        "QUALIFICATION_INVALID", "CONSUMED"].includes(String(operation?.state))) return { state: "UNKNOWN" };
+      const lease = operation?.state === "COUNT_DISPATCHED" ? operation.count_lease_expires_at
+        : operation?.state === "DISPATCHED" ? operation.dispatch_lease_expires_at : null;
+      const expiresAt = lease ? new Date(lease as string).getTime()
+        : new Date(admission.created_at as string).getTime() + PROVIDER_DISPATCH_LEASE_MS;
+      return expiresAt > Date.now() ? { state: "IN_PROGRESS" } : { state: "UNKNOWN" };
+    } catch {
+      throw new DurablePublicGuardError("PUBLIC_DURABLE_STORE_UNAVAILABLE");
+    }
+  };
+
+  return Object.freeze({ prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation,
+    close: () => sql.end({ timeout: 5 }) });
 };
 
 export const durableGuardConnectionString = (environment: Record<string, string | undefined>) => (
@@ -1130,6 +1213,7 @@ export const sharedPostgresProtocolDesignerDurableGuard = (
  */
 export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesignerDurableGuard => {
   const completed = new Map<string, { requestDigest: string; status: number; body: unknown }>();
+  const prepared = new Map<string, DurablePublicRequestContext>();
   const prepareRequest: PublicProtocolDesignerDurableGuard["prepareRequest"] = async (input) => {
     const identity = publicIdentity(input.body);
     if (!identity) return denial("PUBLIC_SESSION_REQUIRED");
@@ -1152,6 +1236,7 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       body: input.body,
     });
     if ("code" in admission) return admission;
+    prepared.set(context.admissionKey, context);
     return Object.freeze({ ...context, sessionKey: admission.sessionKey });
   };
   return Object.freeze({
@@ -1164,6 +1249,25 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
         throw new DurablePublicGuardError("PUBLIC_COMPLETED_RESULT_DIVERGENCE");
       }
       completed.set(context.admissionKey, { requestDigest: context.requestDigest, status, body });
+    },
+    readWorkingDraftPreparation: async (input): Promise<DurableWorkingDraftRecovery> => {
+      const clientRequestId = `working-draft:${input.sourceTurnRef}`;
+      const key = hash(`${input.sessionId}\u0000${clientRequestId}`);
+      const context = prepared.get(key);
+      const chatKey = hash(`${input.sessionId}\u0000product-bridge:${input.sourceTurnRef}`);
+      const chat = completed.get(chatKey);
+      const chatBody = object(chat?.body) ? chat.body : null;
+      const assistantTurn = chatBody && object(chatBody.assistantTurn) ? chatBody.assistantTurn : null;
+      if (!context || context.sessionKey !== hash(input.sessionId)
+        || context.clientKey !== hash(clientAddress(input.headers, input.remoteAddress))
+        || chat?.status !== 200 || assistantTurn?.turnId !== input.sourceResponseRef) {
+        return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
+      }
+      const result = completed.get(key);
+      return !result ? { state: "IN_PROGRESS" }
+        : result.status !== 200 ? { state: "FAILED", errorCode: object(result.body) && object(result.body.error)
+          && typeof result.body.error.code === "string" ? result.body.error.code : null }
+          : { state: "COMPLETED", response: result.body };
     },
     async close() {},
   });

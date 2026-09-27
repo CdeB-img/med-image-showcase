@@ -19,7 +19,8 @@ const send = (text: string) => {
   fireEvent.change(screen.getByRole("textbox", { name: "Votre message" }), { target: { value: text } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
-const wirePublicHandler = (provider: typeof fetch, durableGuard: PublicProtocolDesignerDurableGuard = createMemoryProtocolDesignerGuardForTests()) => {
+const wirePublicHandler = (provider: typeof fetch, durableGuard: PublicProtocolDesignerDurableGuard = createMemoryProtocolDesignerGuardForTests(),
+  extraEnvironment: Record<string, string> = {}) => {
   const requests: ProductBridgeRequest[] = [];
   vi.stubGlobal("fetch", vi.fn<typeof fetch>(async (url, init) => {
     expect(url).toBe("/api/protocol-designer-bridge");
@@ -27,7 +28,8 @@ const wirePublicHandler = (provider: typeof fetch, durableGuard: PublicProtocolD
     let status = 0, output: unknown;
     await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr" }, body }, {
       setHeader() {}, status(value) { status = value; return this; }, json(value) { output = value; },
-    }, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON" },
+    }, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON",
+      ...extraEnvironment },
     { fetchImpl: provider, durableGuard });
     return new Response(JSON.stringify(output), { status, headers: { "content-type": "application/json" } });
   }));
@@ -44,6 +46,7 @@ const concurrentUiTestGuard = (): PublicProtocolDesignerDurableGuard => {
     },
     createBudgetedFetch(_context, fetchImpl = fetch) { return fetchImpl; },
     async completeRequest() {},
+    async readWorkingDraftPreparation() { throw new Error("NO_RECOVERY_IN_THIS_TEST"); },
     async close() {},
   };
 };
@@ -261,7 +264,7 @@ describe("independent Standard workspace through public admission", () => {
     expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
   });
 
-  it("marks an in-flight preparation interrupted on reload without asserting a review", async () => {
+  it("recovers an in-flight preparation after reload and preserves an honest terminal failure", async () => {
     let release!: () => void;
     const pending = new Promise<void>(resolve => { release = resolve; });
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
@@ -271,7 +274,7 @@ describe("independent Standard workspace through public admission", () => {
       return response(JSON.stringify({ requestType: "INSUFFICIENT", proposal: null,
         explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
     });
-    wirePublicHandler(provider);
+    wirePublicHandler(provider, createMemoryProtocolDesignerGuardForTests(), { VERCEL_ENV: "preview" });
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Structuration du projet en cours…");
@@ -281,9 +284,14 @@ describe("independent Standard workspace through public admission", () => {
     const reloaded = loadFunctionalResetSession(localStorage);
     expect(preparationFor(reloaded, turnRef)?.status).toBe("UNKNOWN/INTERRUPTED");
     mount(reloaded);
-    expect(screen.getByRole("alert")).toHaveTextContent(/préparation a été interrompue/iu);
+    await waitFor(() => expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument());
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
     await act(async () => { release(); });
+    await waitFor(() => expect(preparationFor(loadFunctionalResetSession(localStorage), turnRef)?.status).toBe("FAILED"),
+      { timeout: 5000 });
+    expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
+    expect(provider).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
   });
 
   it("keeps a failed foreground out of scientific context and retries the same logical user turn after reload", async () => {

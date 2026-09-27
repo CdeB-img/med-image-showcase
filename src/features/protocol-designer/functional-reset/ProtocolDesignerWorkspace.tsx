@@ -18,6 +18,7 @@ import type { ScientificInterpretationContributionEnvelope, ScientificInterpreta
 import {
   ProductBridgeClientError,
   ensureServerProjectSnapshot,
+  readWorkingDraftPreparation,
   requestConversationLanguageProjection,
   requestProtocolDesignerBridge,
 } from "@/features/protocol-designer/product-bridge-client";
@@ -26,6 +27,7 @@ import {
   naturalConversationContext,
   type ProductBridgeLanguageBoundary,
   type ProductBridgeRequest,
+  type ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
 import {
   appendLanguageProjectionFailure,
@@ -168,6 +170,8 @@ import {
   recordConversationConfirmationReceipt,
   recordWorkingDraftPreparation,
   conversationConfirmationReceiptStatus,
+  workingDraftRecoveryIdentity,
+  workingDraftRecoveryStillBound,
   productEntryPromptForIntent,
   resolveGovernedPostAdoptionReceipt,
   shouldMediatePostAdoptionQuery,
@@ -1991,12 +1995,176 @@ export default function ProtocolDesignerWorkspace({
     event.preventDefault();
     await submitText(draft.trim());
   };
+  const boundWorkingDraftConfirmationTurnRef = (state: FunctionalResetSession, sourceTurnRef: string): string | undefined => {
+    const preparation = state.workingDraftPreparations?.find(attempt => attempt.sourceTurnRef === sourceTurnRef);
+    const lastUser = [...state.runtimeTurns].reverse().find(turn => turn.role === "USER");
+    const receipt = state.conversationConfirmationReceipts?.find(item =>
+      item.userTurnId === lastUser?.turnId && item.preparationSourceTurnRef === sourceTurnRef
+      && item.targetAssistantTurnId === preparation?.recovery?.sourceResponseRef
+      && item.baseProjectId === preparation?.recovery?.baseProjectId
+      && item.baseProjectVersion === preparation?.recovery?.baseProjectVersion
+      && item.baseProjectDigest === preparation?.recovery?.baseProjectDigest);
+    return receipt?.userTurnId;
+  };
+  const consumeWorkingDraftBridgeResult = (base: FunctionalResetSession, userTurn: ScientificInterpretationTurn,
+    response: Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">) => {
+    const state = latestSessionRef.current;
+    const preparation = state.workingDraftPreparations?.find(attempt => attempt.sourceTurnRef === userTurn.turnId);
+    const lastUser = [...state.runtimeTurns].reverse().find(turn => turn.role === "USER");
+    const boundAssent = boundWorkingDraftConfirmationTurnRef(state, userTurn.turnId);
+    if (state.sessionId !== base.sessionId || !preparation || !workingDraftRecoveryStillBound(state, preparation)
+      || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "") && !boundAssent
+      || response.workingStudyProposal && (response.workingStudyProposal.sourceTurnRef !== userTurn.turnId
+        || response.workingStudyProposal.sourceResponseRef !== preparation.recovery?.compositionResponseRef)) {
+      setSession(latest => latest.sessionId === base.sessionId
+        ? recordWorkingDraftPreparation(latest, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : latest);
+      return;
+    }
+    if (!response.workingStudyProposal || !response.workingDraftUpdate) {
+      const code = response.workingDraftUpdate?.requestType === "STUDY_UPDATE"
+        ? "WORKING_DRAFT_PROPOSAL_MISSING" : "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE";
+      setSession(latest => {
+        if (latest.sessionId !== base.sessionId) return latest;
+        const failed = recordWorkingDraftPreparation(latest, userTurn.turnId, "FAILED", code);
+        return { ...failed, workingDraftFailure: code,
+          workingDraft: latest.workingDraft ? { ...latest.workingDraft, sourceUserTurnRef: userTurn.turnId, failure: code } : null };
+      });
+      return;
+    }
+    const composition = response.workingStudyProposal;
+    if (state.studyProposal?.digest === composition.digest && state.workingDraft?.sourceUserTurnRef === userTurn.turnId
+      && state.workingDraft.compositionDigest === composition.digest) return;
+    const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate,
+      composition.proposal.contextDigest);
+    const prepared = workingDraft.readyReview;
+    const oldReviewRef = state.workingDraft?.readyReview?.contribution.identity.contributionId;
+    const previousRetained = oldReviewRef ? markContributionCandidateNonCurrent({ retained: state.retainedContributionCandidates ?? [],
+      candidateRef: oldReviewRef, actuality: "SUPERSEDED", reasonRef: userTurn.turnId, recordedAt: new Date().toISOString() }) : state.retainedContributionCandidates ?? [];
+    const retained = prepared ? retainValidatedContributionCandidate({ retained: previousRetained,
+      ...prepared, validation: { valid: true, blocks: [] }, validatorRef: "STUDY_PROPOSAL_AND_PRJ_OWNER",
+      sourceTurnRef: userTurn.turnId, baseProject: state.project, dependencyBindings: [], traceRunId: null, retainedAt: new Date().toISOString() }) : previousRetained;
+    const openReview = prepared && isExplicitProjectRecordingRequest(userTurn.content) && !isWorkingDraftReviewOnlyRequest(userTurn.content);
+    const outcome = prepared && !workingDraft.failure ? state
+      : recordWorkingDraftPreparation(state, userTurn.turnId, "FAILED", workingDraft.failure ?? "WORKING_REVIEW_NOT_READY");
+    const next = { ...outcome, studyProposal: composition, workingDraft,
+      workingDraftFailure: prepared && !workingDraft.failure ? null : workingDraft.failure ?? "WORKING_REVIEW_NOT_READY",
+      pendingContribution: openReview ? prepared.contribution : state.pendingContribution?.identity.contributionId === oldReviewRef ? null : state.pendingContribution,
+      currentContribution: openReview ? prepared.contribution : state.currentContribution,
+      entries: openReview ? [...state.entries, { entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
+        contribution: prepared.contribution, candidate: prepared.candidate, status: "PENDING" as const, createdAt: new Date().toISOString() }] : state.entries,
+      retainedContributionCandidates: retained, updatedAt: new Date().toISOString() };
+    latestSessionRef.current = next;
+    setSession(latest => latest.sessionId === next.sessionId
+      ? { ...next, workingDraftPreparations: latest.workingDraftPreparations ?? next.workingDraftPreparations }
+      : latest);
+  };
+  const consumeWorkingDraftBridgeResultRef = useRef(consumeWorkingDraftBridgeResult);
+  consumeWorkingDraftBridgeResultRef.current = consumeWorkingDraftBridgeResult;
+
+  useEffect(() => {
+    if (!autonomousProjectBuild) return;
+    const initial = latestSessionRef.current;
+    const preparation = initial.workingDraftPreparations?.at(-1);
+    if (!preparation?.recovery || !["PREPARING", "UNKNOWN/INTERRUPTED"].includes(preparation.status)) return;
+    const source = initial.runtimeTurns.find(turn => turn.turnId === preparation.sourceTurnRef && turn.role === "USER");
+    if (!source || !workingDraftRecoveryStillBound(initial, preparation)) {
+      setSession(current => current.sessionId === initial.sessionId
+        ? recordWorkingDraftPreparation(current, preparation.sourceTurnRef, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : current);
+      return;
+    }
+    const controller = new AbortController();
+    let active = true;
+    pendingBackgroundJobsRef.current += 1;
+    setWorkingDraftBusy(true);
+    const run = async () => {
+      while (active) {
+        const current = latestSessionRef.current;
+        const attempt = current.workingDraftPreparations?.find(item => item.sourceTurnRef === preparation.sourceTurnRef);
+        if (current.sessionId !== initial.sessionId || !attempt
+          || !["PREPARING", "UNKNOWN/INTERRUPTED"].includes(attempt.status)) return;
+        if (!workingDraftRecoveryStillBound(current, attempt)) {
+          setSession(state => state.sessionId === initial.sessionId
+            ? recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : state);
+          return;
+        }
+        const result = await readWorkingDraftPreparation({ sessionId: current.sessionId,
+          sourceTurnRef: preparation.sourceTurnRef, sourceResponseRef: attempt.recovery!.sourceResponseRef,
+          compositionResponseRef: attempt.recovery!.compositionResponseRef }, controller.signal);
+        if (!active) return;
+        if (result.state === "IN_PROGRESS") {
+          setSession(state => state.sessionId === initial.sessionId
+            && state.workingDraftPreparations?.find(item => item.sourceTurnRef === preparation.sourceTurnRef)?.status === "UNKNOWN/INTERRUPTED"
+            ? { ...recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "PREPARING"), workingDraftFailure: null }
+            : state);
+          await new Promise<void>(resolve => window.setTimeout(resolve, 2000));
+          continue;
+        }
+        if (result.state === "COMPLETED") {
+          const latest = latestSessionRef.current;
+          const compositionIndex = latest.runtimeTurns.findIndex(turn => turn.turnId === attempt.recovery!.compositionResponseRef);
+          if (compositionIndex < 0) {
+            setSession(state => state.sessionId === initial.sessionId
+              ? recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : state);
+            return;
+          }
+          try {
+            consumeWorkingDraftBridgeResultRef.current({ ...latest,
+              runtimeTurns: latest.runtimeTurns.slice(0, compositionIndex + 1) }, source, result.result);
+          } catch (error) {
+            const code = error instanceof Error ? error.message : "WORKING_DRAFT_OWNER_FAILED";
+            setSession(state => state.sessionId === initial.sessionId
+              ? { ...recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "FAILED", code), workingDraftFailure: code }
+              : state);
+          }
+          return;
+        }
+        setSession(state => {
+          if (state.sessionId !== initial.sessionId) return state;
+          if (result.state === "FAILED") {
+            const code = result.errorCode ?? "WORKING_DRAFT_FAILED";
+            return { ...recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "FAILED", code), workingDraftFailure: code };
+          }
+          return { ...recordWorkingDraftPreparation(state, preparation.sourceTurnRef, "UNKNOWN/INTERRUPTED",
+            "WORKING_DRAFT_RECOVERY_UNKNOWN"), workingDraftFailure: "WORKING_DRAFT_RECOVERY_UNKNOWN" };
+        });
+        return;
+      }
+    };
+    void run().catch((error: unknown) => {
+      if (!active) return;
+      const code = error instanceof ProductBridgeClientError ? error.code : "WORKING_DRAFT_RECOVERY_UNAVAILABLE";
+      setSession(current => current.sessionId === initial.sessionId
+        ? { ...recordWorkingDraftPreparation(current, preparation.sourceTurnRef, "UNKNOWN/INTERRUPTED", code),
+          workingDraftFailure: code } : current);
+    }).finally(() => {
+      pendingBackgroundJobsRef.current = Math.max(0, pendingBackgroundJobsRef.current - 1);
+      if (active) setWorkingDraftBusy(pendingBackgroundJobsRef.current > 0);
+    });
+    return () => { active = false; controller.abort(); };
+  }, [autonomousProjectBuild, session.sessionId]);
+
   const updateBackgroundWorkingDraft = (foreground: FunctionalResetSession, userTurn: ScientificInterpretationTurn) => {
+    const recovery = workingDraftRecoveryIdentity(foreground, userTurn.turnId);
+    if (!recovery) {
+      setSession(state => ({ ...state, workingDraftFailure: "WORKING_DRAFT_RECOVERY_IDENTITY_UNAVAILABLE" }));
+      return;
+    }
+    const preparedSession = recordWorkingDraftPreparation(foreground, userTurn.turnId, "PREPARING",
+      null, new Date().toISOString(), recovery);
+    try {
+      // The identity must survive even a reload immediately after dispatch.
+      if (onSessionChange) {
+        if (onSessionChange(preparedSession) === false) throw new Error("WORKING_DRAFT_PREPARATION_SAVE_FAILED");
+      } else persistFunctionalResetSession(window.localStorage, preparedSession);
+    } catch {
+      setSession(state => ({ ...state, workingDraftFailure: "WORKING_DRAFT_PREPARATION_SAVE_FAILED" }));
+      return;
+    }
+    latestSessionRef.current = preparedSession;
     const previousJob = backgroundDraftJobRef.current;
     pendingBackgroundJobsRef.current += 1;
     setWorkingDraftBusy(true);
-    setSession(state => state.sessionId === foreground.sessionId
-      ? recordWorkingDraftPreparation(state, userTurn.turnId, "PREPARING") : state);
+    setSession(preparedSession);
     const job = (async () => {
       if (previousJob) await previousJob;
       const records: ProviderCallRecord[] = [];
@@ -2015,52 +2183,7 @@ export default function ProtocolDesignerWorkspace({
           observabilityContext: { sessionId: current.sessionId, conversationId: current.conversationId, turnId: userTurn.turnId,
             clientRequestId: `working-draft:${userTurn.turnId}`, testSessionId: null } });
         records.push(...response.observability.providerCalls ?? []);
-        if (!response.workingStudyProposal || !response.workingDraftUpdate) {
-          setSession(state => {
-            if (state.sessionId !== current.sessionId) return state;
-            if ([...state.runtimeTurns].reverse().find(t => t.role === "USER")?.turnId !== userTurn.turnId)
-              return recordWorkingDraftPreparation(state, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_TURN");
-            const code = response.workingDraftUpdate?.requestType === "STUDY_UPDATE"
-              ? "WORKING_DRAFT_PROPOSAL_MISSING" : "WORKING_DRAFT_NO_CONFIRMABLE_UPDATE";
-            const failed = recordWorkingDraftPreparation(state, userTurn.turnId, "FAILED", code);
-            return { ...failed, workingDraftFailure: code,
-              workingDraft: state.workingDraft ? { ...state.workingDraft, sourceUserTurnRef: userTurn.turnId, failure: code } : null };
-          });
-          return;
-        }
-        {
-          const state = latestSessionRef.current;
-          const lastUser = [...state.runtimeTurns].reverse().find(t => t.role === "USER");
-          if (state.sessionId !== current.sessionId || state.project?.versionId !== current.project?.versionId
-            || lastUser?.turnId !== userTurn.turnId && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) {
-            setSession(latest => latest.sessionId === current.sessionId
-              ? recordWorkingDraftPreparation(latest, userTurn.turnId, "SUPERSEDED", "WORKING_DRAFT_STALE_CONTEXT") : latest);
-            return;
-          }
-          const composition = response.workingStudyProposal!;
-          const workingDraft = prepareContinuousWorkingDraft(current, composition, response.workingDraftUpdate!, composition.proposal.contextDigest);
-          const prepared = workingDraft.readyReview;
-          const oldReviewRef = state.workingDraft?.readyReview?.contribution.identity.contributionId;
-          const previousRetained = oldReviewRef ? markContributionCandidateNonCurrent({ retained: state.retainedContributionCandidates ?? [],
-            candidateRef: oldReviewRef, actuality: "SUPERSEDED", reasonRef: userTurn.turnId, recordedAt: new Date().toISOString() }) : state.retainedContributionCandidates ?? [];
-          const retained = prepared ? retainValidatedContributionCandidate({ retained: previousRetained,
-            ...prepared, validation: { valid: true, blocks: [] }, validatorRef: "STUDY_PROPOSAL_AND_PRJ_OWNER",
-            sourceTurnRef: userTurn.turnId, baseProject: state.project, dependencyBindings: [], traceRunId: null, retainedAt: new Date().toISOString() }) : previousRetained;
-          const openReview = prepared && isExplicitProjectRecordingRequest(userTurn.content) && !isWorkingDraftReviewOnlyRequest(userTurn.content);
-          const outcome = prepared && !workingDraft.failure ? state
-            : recordWorkingDraftPreparation(state, userTurn.turnId, "FAILED", workingDraft.failure ?? "WORKING_REVIEW_NOT_READY");
-          const next = { ...outcome, studyProposal: composition, workingDraft,
-            workingDraftFailure: prepared && !workingDraft.failure ? null : workingDraft.failure ?? "WORKING_REVIEW_NOT_READY",
-            pendingContribution: openReview ? prepared.contribution : state.pendingContribution?.identity.contributionId === oldReviewRef ? null : state.pendingContribution,
-            currentContribution: openReview ? prepared.contribution : state.currentContribution,
-            entries: openReview ? [...state.entries, { entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
-              contribution: prepared.contribution, candidate: prepared.candidate, status: "PENDING" as const, createdAt: new Date().toISOString() }] : state.entries,
-            retainedContributionCandidates: retained, updatedAt: new Date().toISOString() };
-          latestSessionRef.current = next;
-          setSession(latest => latest.sessionId === next.sessionId
-            ? { ...next, workingDraftPreparations: latest.workingDraftPreparations ?? next.workingDraftPreparations }
-            : latest);
-        }
+        consumeWorkingDraftBridgeResult(current, userTurn, response);
       } catch (error) {
         if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
         const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)
@@ -4259,7 +4382,8 @@ export default function ProtocolDesignerWorkspace({
 
   const preparedFinalization = autonomousProjectBuild && Boolean(session.workingDraft) && !workingDraftBusy
     && !session.workingDraftFailure && !session.workingDraft?.failure
-    ? validatePreparedWorkingReview(session)
+    ? validatePreparedWorkingReview(session,
+      boundWorkingDraftConfirmationTurnRef(session, session.workingDraft!.sourceUserTurnRef))
     : null;
   const latestConfirmationReceipt = session.conversationConfirmationReceipts?.at(-1);
   const latestUserTurn = [...session.runtimeTurns].reverse().find(turn => turn.role === "USER");
@@ -4306,7 +4430,8 @@ export default function ProtocolDesignerWorkspace({
     if (!autonomousProjectBuild || workingDraftBusy || !preparedFinalization) return;
     const expected = projectReviewInvitation(session, preparedFinalization);
     setSession(current => {
-      const ready = validatePreparedWorkingReview(current);
+      const ready = validatePreparedWorkingReview(current, current.workingDraft
+        ? boundWorkingDraftConfirmationTurnRef(current, current.workingDraft.sourceUserTurnRef) : undefined);
       if (!ready || !sameProjectReviewInvitation(projectReviewInvitation(current, ready), expected)) return current;
       const sourceTurnRef = current.workingDraft?.sourceUserTurnRef;
       const invitationPresent = current.entries.some(entry => entry.kind === "TEXT" && entry.reviewInvitation

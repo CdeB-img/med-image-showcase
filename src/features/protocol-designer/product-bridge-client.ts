@@ -33,6 +33,39 @@ export class ProductBridgeClientError extends Error {
   ) { super(message); }
 }
 
+export type WorkingDraftRecoveryStatus =
+  | Readonly<{ state: "IN_PROGRESS" | "UNKNOWN" }>
+  | Readonly<{ state: "FAILED"; errorCode: string | null }>
+  | Readonly<{ state: "COMPLETED"; result: Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal"> }>;
+
+export const readWorkingDraftPreparation = async (identity: Readonly<{
+  sessionId: string; sourceTurnRef: string; sourceResponseRef: string; compositionResponseRef: string;
+}>, signal?: AbortSignal): Promise<WorkingDraftRecoveryStatus> => {
+  const response = await fetch("/api/protocol-designer-bridge", {
+    method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", signal,
+    body: JSON.stringify({ operation: "READ_WORKING_DRAFT_PREPARATION", ...identity }),
+  });
+  const value: unknown = await response.json().catch(() => null);
+  if (!response.ok || !value || typeof value !== "object" || Array.isArray(value)) {
+    const code = value && typeof value === "object" && "error" in value && value.error
+      && typeof value.error === "object" && "code" in value.error && typeof value.error.code === "string"
+      ? value.error.code : "WORKING_DRAFT_RECOVERY_UNAVAILABLE";
+    throw new ProductBridgeClientError(code, "La préparation du projet ne peut pas être vérifiée pour cette session.");
+  }
+  const recovered = value as Record<string, unknown>;
+  if (recovered.contract !== "WORKING_DRAFT_PREPARATION_RECOVERY") {
+    throw new ProductBridgeClientError("WORKING_DRAFT_RECOVERY_RESPONSE_INVALID", "État de préparation invalide.");
+  }
+  if (recovered.state === "IN_PROGRESS" || recovered.state === "UNKNOWN") return { state: recovered.state };
+  if (recovered.state === "FAILED") return { state: "FAILED",
+    errorCode: typeof recovered.errorCode === "string" ? recovered.errorCode : null };
+  if (recovered.state === "COMPLETED" && recovered.result && typeof recovered.result === "object") {
+    return { state: "COMPLETED", result: recovered.result as
+      Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal"> };
+  }
+  throw new ProductBridgeClientError("WORKING_DRAFT_RECOVERY_RESPONSE_INVALID", "État de préparation invalide.");
+};
+
 type SnapshotRef = Readonly<{ projectId: string; versionId: string; projectDigest: string }>;
 type SnapshotRegistration = Readonly<{ proof: string; ref: SnapshotRef }>;
 const snapshotProofKey = (sessionId: string, projectId: string) =>

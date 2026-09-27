@@ -186,7 +186,9 @@ describe("verified immutable Project transport", () => {
     };
     const guard: PublicProtocolDesignerDurableGuard = { prepareRequest,
       createBudgetedFetch: () => { throw new Error("PROVIDER_MUST_NOT_DISPATCH"); },
-      completeRequest: async () => { throw new Error("NO_ADMISSION_TO_COMPLETE"); }, close: async () => undefined };
+      completeRequest: async () => { throw new Error("NO_ADMISSION_TO_COMPLETE"); },
+      readWorkingDraftPreparation: async () => { throw new Error("NO_RECOVERY_IN_THIS_TEST"); },
+      close: async () => undefined };
     const provider = vi.fn<typeof fetch>();
     let status = 0;
     const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json() {} };

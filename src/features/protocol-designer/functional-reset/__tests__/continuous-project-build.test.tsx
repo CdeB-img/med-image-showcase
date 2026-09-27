@@ -11,7 +11,8 @@ import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkin
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction/canonical-project-backbone";
-import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
+import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession,
+  recordConversationConfirmationReceipt, recordWorkingDraftPreparation, workingDraftRecoveryIdentity } from "../session";
 import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
@@ -23,8 +24,10 @@ import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 
 const bridge = vi.hoisted(() => vi.fn());
-vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
-afterEach(() => { cleanup(); bridge.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
+const recoveryRead = vi.hoisted(() => vi.fn());
+vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
+  requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: recoveryRead }));
+afterEach(() => { cleanup(); bridge.mockReset(); recoveryRead.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const sessionFor = (text: string = DOMAINS[1].text) => {
@@ -48,6 +51,155 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it("keeps one original provider dispatch through unmount and remount while recovering its persisted result", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let release!: () => void;
+    let started!: () => void;
+    const held = new Promise<void>(resolve => { release = resolve; });
+    const backgroundStarted = new Promise<void>(resolve => { started = resolve; });
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("LOCAL_SYNTHETIC — projet proposé.");
+      started();
+      await held;
+      const packet = JSON.parse(payload.input);
+      return response(JSON.stringify({ requestType: "STUDY_UPDATE", proposal: controlledStudyProposal(packet.contextDigest, DOMAINS[1]),
+        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
+    });
+    let completed: ProductBridgeResponse | null = null;
+    bridge.mockImplementation(async (request: ProductBridgeRequest) => {
+      const result = await call({ ...request, apiVersion: "1.0.0" }, provider);
+      if (result.status !== 200) throw new Error(JSON.stringify(result.body));
+      if (request.prepareWorkingDraft) completed = result.body as ProductBridgeResponse;
+      return result.body;
+    });
+    let saved = createFunctionalResetSession();
+    const persist = (next: FunctionalResetSession) => { saved = next; persistFunctionalResetSession(localStorage, next); return true; };
+    const first = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={persist} /></HelmetProvider>);
+    send(DOMAINS[1].text);
+    await screen.findByText("LOCAL_SYNTHETIC — projet proposé.");
+    await backgroundStarted;
+    expect(saved.workingDraftPreparations?.at(-1)).toMatchObject({ status: "PREPARING",
+      recovery: { sourceResponseRef: expect.stringMatching(/^noxia-turn:/) } });
+    first.unmount();
+    const afterReload = loadFunctionalResetSession(localStorage);
+    expect(afterReload.workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
+    recoveryRead.mockImplementation(async () => completed ? { state: "COMPLETED", result: {
+      workingDraftUpdate: completed.workingDraftUpdate, workingStudyProposal: completed.workingStudyProposal,
+    } } : { state: "IN_PROGRESS" });
+    const second = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={afterReload} onSessionChange={persist} /></HelmetProvider>);
+    await waitFor(() => expect(recoveryRead).toHaveBeenCalledTimes(1));
+    second.unmount();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={loadFunctionalResetSession(localStorage)}
+      onSessionChange={persist} /></HelmetProvider>);
+    await waitFor(() => expect(recoveryRead).toHaveBeenCalledTimes(2));
+    expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
+    release();
+    await waitFor(() => expect(completed).not.toBeNull());
+    await waitFor(() => expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1), { timeout: 5000 });
+    expect(bridge).toHaveBeenCalledTimes(2);
+    expect(provider).toHaveBeenCalledTimes(2);
+    expect(saved.project).toBeNull();
+    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
+  }, 10000);
+
+  it("recovers the same completed Working Draft after reload, then creates one review without adoption or DOC", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const source = sessionFor();
+    const request = requestFor(source), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const identity = workingDraftRecoveryIdentity(source, "u1")!;
+    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt, identity);
+    const assent = { turnId: "u-confirm", role: "USER" as const, content: "ça me convient", createdAt: source.createdAt };
+    const withReceipt = recordConversationConfirmationReceipt(preparing, assent,
+      { act: "CONFIRM", qualified: false, separableContinuation: false });
+    persistFunctionalResetSession(localStorage, { ...withReceipt, runtimeTurns: [...withReceipt.runtimeTurns, assent] });
+    let saved = loadFunctionalResetSession(localStorage);
+    expect(saved.workingDraftPreparations?.[0]?.status).toBe("UNKNOWN/INTERRUPTED");
+    recoveryRead.mockResolvedValueOnce({ state: "IN_PROGRESS" }).mockResolvedValueOnce({ state: "COMPLETED",
+      result: { workingDraftUpdate: update, workingStudyProposal: composition } });
+    const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
+      saved = next; persistFunctionalResetSession(localStorage, next); return true;
+    }} /></HelmetProvider>);
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("PREPARING"));
+    expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument();
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status,
+      JSON.stringify({ failure: saved.workingDraftFailure, recoveryCalls: recoveryRead.mock.calls.length,
+        proposal: saved.studyProposal?.sourceResponseRef, draftFailure: saved.workingDraft?.failure })).toBe("READY_FOR_REVIEW"),
+    { timeout: 5000 });
+    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
+    expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW");
+    expect(saved.conversationConfirmationReceipts).toEqual(withReceipt.conversationConfirmationReceipts);
+    expect(saved.project).toBeNull();
+    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
+    expect(recoveryRead).toHaveBeenCalledTimes(2);
+    expect(bridge).not.toHaveBeenCalled();
+    view.unmount();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={loadFunctionalResetSession(localStorage)}
+      onSessionChange={next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; }} /></HelmetProvider>);
+    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
+    expect(recoveryRead).toHaveBeenCalledTimes(2);
+    expect(saved.project).toBeNull();
+  });
+
+  it.each(["FAILED", "UNKNOWN"])("restores %s after reload without a second Working Draft dispatch", async state => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const source = sessionFor();
+    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
+      workingDraftRecoveryIdentity(source, "u1")!);
+    persistFunctionalResetSession(localStorage, preparing);
+    let saved = loadFunctionalResetSession(localStorage);
+    recoveryRead.mockResolvedValue(state === "FAILED"
+      ? { state, errorCode: "WORKING_DRAFT_PROVIDER_FAILED" } : { state });
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status)
+      .toBe(state === "FAILED" ? "FAILED" : "UNKNOWN/INTERRUPTED"));
+    expect(bridge).not.toHaveBeenCalled();
+    expect(saved.project).toBeNull();
+    expect(saved.drciDraftPacks ?? []).toHaveLength(0);
+  });
+
+  it("marks a recovered provider result FAILED when the scientific owner rejects it", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const source = sessionFor(), request = requestFor(source), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
+      workingDraftRecoveryIdentity(source, "u1")!);
+    persistFunctionalResetSession(localStorage, preparing);
+    let saved = loadFunctionalResetSession(localStorage);
+    recoveryRead.mockResolvedValue({ state: "COMPLETED", result: {
+      workingDraftUpdate: update, workingStudyProposal: { ...composition, state: "REVIEW_REQUIRED" },
+    } });
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    expect(saved.workingDraftPreparations?.[0]?.code).toBe("STUDY_PROPOSAL_STALE_PROJECT");
+    expect(saved.workingDraftFailure).toBe("STUDY_PROPOSAL_STALE_PROJECT");
+    expect(screen.queryByTestId("project-review-invitation")).toBeNull();
+    expect(saved.project).toBeNull();
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
+  it("supersedes a recovered result after an unrelated new turn instead of showing an adoptable review", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const source = sessionFor(), request = requestFor(source), update = updateFor(request);
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    const preparing = recordWorkingDraftPreparation(source, "u1", "PREPARING", null, source.createdAt,
+      workingDraftRecoveryIdentity(source, "u1")!);
+    persistFunctionalResetSession(localStorage, { ...preparing, runtimeTurns: [...preparing.runtimeTurns,
+      { turnId: "later-turn", role: "USER", content: "Nouvelle étude indépendante.", createdAt: source.createdAt }] });
+    let saved = loadFunctionalResetSession(localStorage);
+    recoveryRead.mockResolvedValue({ state: "COMPLETED",
+      result: { workingDraftUpdate: update, workingStudyProposal: composition } });
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("SUPERSEDED"));
+    expect(screen.queryByTestId("project-review-invitation")).toBeNull();
+    expect(saved.project).toBeNull();
+    expect(bridge).not.toHaveBeenCalled();
+  });
+
   it.each([
     "Je veux comparer la répétabilité de plusieurs mesures de rugosité sur des plaques. Je retiens ce schéma.",
     "Je veux comparer un traitement au placebo par randomisation en aveugle. Je retiens ce schéma.",

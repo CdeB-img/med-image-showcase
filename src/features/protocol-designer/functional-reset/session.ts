@@ -290,6 +290,14 @@ export type WorkingDraftPreparation = Readonly<{
   status: WorkingDraftPreparationStatus;
   code: string | null;
   updatedAt: string;
+  recovery?: Readonly<{
+    sourceResponseRef: string;
+    compositionResponseRef: string;
+    sourceConversationDigest: string;
+    baseProjectId: string;
+    baseProjectVersion: string | null;
+    baseProjectDigest: string | null;
+  }>;
 }>;
 
 export type ConversationConfirmationReceipt = Readonly<{
@@ -310,6 +318,40 @@ export type ConversationConfirmationReceipt = Readonly<{
 
 const conversationPrefixDigest = (conversationId: string, turns: readonly ScientificInterpretationTurn[]) =>
   logicalDigest({ conversationId, turns: turns.map(({ turnId, role, content, createdAt }) => ({ turnId, role, content, createdAt })) });
+
+export const workingDraftRecoveryIdentity = (
+  session: FunctionalResetSession, sourceTurnRef: string,
+): NonNullable<WorkingDraftPreparation["recovery"]> | null => {
+  const sourceIndex = session.runtimeTurns.findIndex(turn => turn.turnId === sourceTurnRef && turn.role === "USER");
+  const nextUserIndex = session.runtimeTurns.findIndex((turn, index) => index > sourceIndex && turn.role === "USER");
+  const responseIndexes = session.runtimeTurns.flatMap((turn, index) => index > sourceIndex
+    && (nextUserIndex < 0 || index < nextUserIndex) && turn.role === "NOXIA" ? [index] : []);
+  const responseIndex = responseIndexes[0] ?? -1;
+  const compositionResponseIndex = responseIndexes.at(-1) ?? -1;
+  if (sourceIndex < 0 || responseIndex < 0
+    || session.runtimeTurns.slice(sourceIndex + 1, responseIndex).some(turn => turn.role === "USER")) return null;
+  return {
+    sourceResponseRef: session.runtimeTurns[responseIndex]!.turnId,
+    compositionResponseRef: session.runtimeTurns[compositionResponseIndex]!.turnId,
+    sourceConversationDigest: conversationPrefixDigest(session.conversationId, session.runtimeTurns.slice(0, compositionResponseIndex + 1)),
+    baseProjectId: session.project?.projectId ?? session.projectId,
+    baseProjectVersion: session.project?.versionId ?? null,
+    baseProjectDigest: session.project?.projectDigest ?? null,
+  };
+};
+
+export const workingDraftRecoveryStillBound = (
+  session: FunctionalResetSession, preparation: WorkingDraftPreparation,
+): boolean => {
+  const expected = workingDraftRecoveryIdentity(session, preparation.sourceTurnRef);
+  return Boolean(expected && preparation.recovery
+    && expected.sourceResponseRef === preparation.recovery.sourceResponseRef
+    && expected.compositionResponseRef === preparation.recovery.compositionResponseRef
+    && expected.sourceConversationDigest === preparation.recovery.sourceConversationDigest
+    && expected.baseProjectId === preparation.recovery.baseProjectId
+    && expected.baseProjectVersion === preparation.recovery.baseProjectVersion
+    && expected.baseProjectDigest === preparation.recovery.baseProjectDigest);
+};
 
 /** Bind only to the assistant turn produced by the preparation's source turn.
  * Recency of arbitrary assistant text is never authority for a confirmation. */
@@ -395,19 +437,28 @@ const readWorkingDraftPreparations = (value: unknown): readonly WorkingDraftPrep
   Array.isArray(value) ? value.filter((item): item is WorkingDraftPreparation => Boolean(item)
     && typeof item === "object" && typeof item.sourceTurnRef === "string"
     && ["PREPARING", "READY_FOR_REVIEW", "FAILED", "SUPERSEDED", "UNKNOWN/INTERRUPTED"].includes(item.status)
-    && (item.code === null || typeof item.code === "string") && typeof item.updatedAt === "string") : [];
+    && (item.code === null || typeof item.code === "string") && typeof item.updatedAt === "string"
+    && (!item.recovery || typeof item.recovery.sourceResponseRef === "string"
+      && typeof item.recovery.compositionResponseRef === "string"
+      && typeof item.recovery.sourceConversationDigest === "string"
+      && typeof item.recovery.baseProjectId === "string"
+      && (item.recovery.baseProjectVersion === null || typeof item.recovery.baseProjectVersion === "string")
+      && (item.recovery.baseProjectDigest === null || typeof item.recovery.baseProjectDigest === "string"))) : [];
 
 export const recordWorkingDraftPreparation = (
   session: FunctionalResetSession, sourceTurnRef: string, status: WorkingDraftPreparationStatus,
-  code: string | null = null, updatedAt = new Date().toISOString(),
+  code: string | null = null, updatedAt = new Date().toISOString(), recovery?: WorkingDraftPreparation["recovery"],
 ): FunctionalResetSession => {
   const attempts = session.workingDraftPreparations ?? [];
   const index = attempts.findIndex(attempt => attempt.sourceTurnRef === sourceTurnRef);
-  const receipt: WorkingDraftPreparation = { sourceTurnRef, status, code, updatedAt };
+  const receipt: WorkingDraftPreparation = { sourceTurnRef, status, code, updatedAt,
+    ...(recovery ?? attempts[index]?.recovery ? { recovery: recovery ?? attempts[index]?.recovery } : {}) };
   if (index < 0) return { ...session, workingDraftPreparations: [...attempts, receipt] };
   const current = attempts[index]!;
   if (status !== "PREPARING" && current.status !== "PREPARING"
-    && !(status === "READY_FOR_REVIEW" && current.status === "UNKNOWN/INTERRUPTED")) return session;
+    && !(current.status === "UNKNOWN/INTERRUPTED"
+      && ["READY_FOR_REVIEW", "FAILED", "SUPERSEDED"].includes(status))) return session;
+  if (status === "PREPARING" && current.status !== "PREPARING" && current.status !== "UNKNOWN/INTERRUPTED") return session;
   return { ...session, workingDraftPreparations: attempts.map((attempt, i) => i === index ? receipt : attempt) };
 };
 
