@@ -68,12 +68,13 @@ export const prepareStandardContextualReasoningRequest = (input: {
   const knowledgeSource = input.workingDraftKnowledgeSource ?? { content: latest.content, createdAt: latest.createdAt };
   const knowledge = executeKnowledgeEngine({ originalQuestion: knowledgeSource.content,
     scientificObjectTerms: extractScientificObjectTerms(visibleUsers), createdAt: knowledgeSource.createdAt });
-  const scientificInput = buildScientificThinkingInput(intent, context.preservedScientificTerms, context.detectedRelationships, knowledge,
+  const scientificIntent = { ...intent, originalQuestion: knowledgeSource.content };
+  const scientificInput = buildScientificThinkingInput(scientificIntent, context.preservedScientificTerms, context.detectedRelationships, knowledge,
     { sessionId: input.sessionId, contextVersion: context.contextVersion });
   const conversationInput = buildScientificThinkingInput({ ...intent, originalQuestion: visibleUsers },
     context.preservedScientificTerms, context.detectedRelationships, knowledge, { sessionId: input.sessionId });
   const methods = [...new Set([...scientificInput.methodsMentioned, ...conversationInput.methodsMentioned])];
-  const imagingInput = methods.length ? buildImagingDesignInput(intent, context.preservedScientificTerms,
+  const imagingInput = methods.length ? buildImagingDesignInput(scientificIntent, context.preservedScientificTerms,
     context.detectedRelationships, knowledge, null, { sessionId: input.sessionId, contextVersion: context.contextVersion }) : null;
   if (imagingInput) imagingInput.methodPreferences = [...new Set([...imagingInput.methodPreferences, ...methods])];
   const imaging = imagingInput ? { input: imagingInput, result: executeImagingStudyDesigner(imagingInput) } : null;

@@ -9,7 +9,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-libra
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
-import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkingDraftAdvice, isWorkingDraftReviewOnlyRequest, validatePreparedWorkingReview, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, type WorkingDraftUpdate } from "../continuous-project-build";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction/canonical-project-backbone";
@@ -24,8 +24,9 @@ import { contributionDecisionScopeGroups } from "@/features/research-project-con
 import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
-import { preflightWorkingDraftKnowledgeSource } from "@/features/scientific-thinking/contextual-reasoning-input";
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "@/features/scientific-thinking/contextual-reasoning-input";
+import { buildStudyProposalSelectionContribution } from "../study-proposal-standard";
+import { logicalDigest, normalizeScientificText } from "@/features/knowledge-engine/canonical";
 import { readNaturalCandidateDecision } from "../natural-conversation-policy";
 
 const bridge = vi.hoisted(() => vi.fn());
@@ -68,8 +69,8 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
-  const confirmedTurn = (content: string) => {
-    const initial = sessionFor();
+  const confirmedTurn = (content: string, sourceText: string = DOMAINS[1].text) => {
+    const initial = sessionFor(sourceText);
     const user = { turnId: "u2", role: "USER" as const, content, createdAt: initial.createdAt };
     const receipt = recordConversationConfirmationReceipt(initial, user, readNaturalCandidateDecision(content));
     return { ...receipt, runtimeTurns: [...initial.runtimeTurns, user,
@@ -122,6 +123,84 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(preflightWorkingDraftKnowledgeSource(request).content).toBe(session.runtimeTurns[0]!.content);
     expect(request.conversation.turns.at(-2)?.content).toBe("ok");
     expect(accepted.composition!.sourceTurnRef).toBe("u2");
+  });
+  it.each(["ok", "oui", "ça me convient"])("uses the checkpoint scientific source across Knowledge and Scientific Thinking after %s", assent => {
+    const initial = sessionFor();
+    const initialRequest = requestFor(initial);
+    const composition = acceptWorkingDraftUpdate(updateFor(initialRequest), initialRequest).composition!;
+    const session = confirmedTurn(assent);
+    const request = captureProjectPreparation(session).checkpoint!.request;
+    const knowledgeSource = preflightWorkingDraftKnowledgeSource(request);
+    const contribution = buildStudyProposalSelectionContribution({ composition, ...recommendedWorkingScope(composition),
+      project: null, projectId: session.projectId, conversationId: session.conversationId,
+      proposalTurn: session.runtimeTurns[1]!, selectionTurn: session.runtimeTurns[2]!, createdAt: session.createdAt,
+      preparingReview: true });
+    const prepared = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
+      sessionId: session.conversationId, workingDraftKnowledgeSource: knowledgeSource });
+    expect(prepared).not.toBeNull();
+    expect(knowledgeSource.content).toBe(initial.runtimeTurns[0]!.content);
+    expect(prepared!.scientificInput.originalExpression).toBe(knowledgeSource.content);
+    if (prepared!.request.imaging) expect(prepared!.request.imaging.input.originalExpression).toBe(knowledgeSource.content);
+  });
+  it("keeps the same source in the Imaging handoff for a confirmed cardiac MRI study", () => {
+    const initial = sessionFor(DOMAINS[0].text);
+    const initialRequest = requestFor(initial);
+    const composition = acceptWorkingDraftUpdate(updateFor(initialRequest, DOMAINS[0]), initialRequest).composition!;
+    const session = confirmedTurn("ok", DOMAINS[0].text);
+    const request = captureProjectPreparation(session).checkpoint!.request;
+    const knowledgeSource = preflightWorkingDraftKnowledgeSource(request);
+    const contribution = buildStudyProposalSelectionContribution({ composition, ...recommendedWorkingScope(composition),
+      project: null, projectId: session.projectId, conversationId: session.conversationId,
+      proposalTurn: session.runtimeTurns[1]!, selectionTurn: session.runtimeTurns[2]!, createdAt: session.createdAt,
+      preparingReview: true });
+    const prepared = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
+      sessionId: session.conversationId, workingDraftKnowledgeSource: knowledgeSource });
+    expect(prepared?.scientificInput.originalExpression).toBe(normalizeScientificText(knowledgeSource.content));
+    expect(prepared?.request.imaging?.input.originalExpression).toBe(normalizeScientificText(knowledgeSource.content));
+  });
+  it("keeps the human-shaped decade instruction as source when the trigger is 'ok'", () => {
+    const sourceText = "ajoutes juste la tranche d'age par dizaine";
+    const session = confirmedTurn("ok", sourceText);
+    const preparation = captureProjectPreparation(session);
+    const request = preparation.checkpoint!.request;
+    const knowledgeSource = preflightWorkingDraftKnowledgeSource(request);
+    const update = updateFor(request, DOMAINS[0]);
+    update.explicitDecisions = [];
+    expect(knowledgeSource.content).toBe(sourceText);
+    const accepted = acceptWorkingDraftUpdate(update, request);
+    expect(accepted.composition?.sourceTurnRef).toBe("u2");
+    const next = consumeProjectPreparation(addProjectPreparation(session, preparation),
+      preparation.checkpoint!.preparationId,
+      { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    expect(next.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW");
+    expect(next.project).toBeNull();
+  });
+  it("does not substitute an ambiguous compound correction with the previous source", () => {
+    const request = captureProjectPreparation(confirmedTurn("ok, mais finalement excluons aussi les anciens fumeurs")).checkpoint!.request;
+    expect(request.workingDraftScientificSource).toBeUndefined();
+    expect(() => preflightWorkingDraftKnowledgeSource(request)).toThrow("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
+  });
+  it("keeps the same Scientific Thinking source after reload and later conversation", () => {
+    const session = confirmedTurn("ok"), preparation = captureProjectPreparation(session);
+    persistFunctionalResetSession(localStorage, addProjectPreparation(session, preparation));
+    const restored = loadFunctionalResetSession(localStorage);
+    const checkpoint = restored.workingDraftPreparations?.[0]?.checkpoint;
+    expect(checkpoint).toBeDefined();
+    const later = { ...restored, runtimeTurns: [...restored.runtimeTurns,
+      { turnId: "u3", role: "USER" as const, content: "Une correction ultérieure à examiner séparément.", createdAt: restored.createdAt }] };
+    expect(preparationCheckpointValid(later, checkpoint!)).toBe(true);
+    const request = checkpoint!.request, source = preflightWorkingDraftKnowledgeSource(request);
+    const initial = sessionFor(), initialRequest = requestFor(initial);
+    const composition = acceptWorkingDraftUpdate(updateFor(initialRequest), initialRequest).composition!;
+    const contribution = buildStudyProposalSelectionContribution({ composition, ...recommendedWorkingScope(composition),
+      project: null, projectId: restored.projectId, conversationId: restored.conversationId,
+      proposalTurn: request.conversation.turns[1]!, selectionTurn: request.conversation.turns[2]!, createdAt: restored.createdAt,
+      preparingReview: true });
+    const prepared = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
+      sessionId: restored.conversationId, workingDraftKnowledgeSource: source });
+    expect(source.content).toBe(session.runtimeTurns[0]!.content);
+    expect(prepared?.scientificInput.originalExpression).toBe(source.content);
+    expect(checkpoint!.scientificSourceIdentity).toEqual(preparation.checkpoint!.scientificSourceIdentity);
   });
   it("reuses a current explicitly bound scientific proposal when an old session has no confirmation receipt", () => {
     const initial = sessionFor(), first = requestFor(initial);
