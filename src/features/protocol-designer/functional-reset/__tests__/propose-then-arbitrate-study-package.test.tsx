@@ -41,7 +41,8 @@ const commit = (optionRefs: string[] = ["classes-option"], atomRefs: string[] = 
   const project = confirmResearchProjectContribution({ contribution, current: null, projectId: session.projectId, authority: session.projectAuthority,
     confirmedAt: session.createdAt, reviewedProjection: candidate.humanReviewProjection, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs,
     confirmationSourceRefs: [selectionTurn.turnId] });
-  const next = propagateStudyProposalDecision(bundle, project, selectedStudyProposalAtoms(bundle, optionRefs, atomRefs), optionRefs, selectionTurn);
+  const next = propagateStudyProposalDecision(bundle, project, candidate, null,
+    selectedStudyProposalAtoms(bundle, optionRefs, atomRefs), optionRefs, selectionTurn);
   return { bundle, session, contribution, candidate, project, next };
 };
 const runBridge = async (request: Omit<ProductBridgeRequest, "apiVersion">, domain: typeof DOMAINS[number] = DOMAINS[0], emptyKnowledgeClaim = false) => {

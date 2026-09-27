@@ -3293,8 +3293,12 @@ export default function ProtocolDesignerWorkspace({
       const updatedStudyProposal = partialProposalSelection && proposalSelection
         ? requireStudyProposalReview(proposalSelection.composition, project)
         : proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
+        proposalSelection.candidate, session.project,
         selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn)
-        : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution, naturalDecision?.userTurn) : session.studyProposal;
+        : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution,
+          reviewEntry?.kind === "REVIEW" && reviewEntry.candidate
+            ? reviewEntry.candidate : prepareResearchProjectContributionCandidate(contribution, session.project),
+          session.project, naturalDecision?.userTurn) : session.studyProposal;
       const current = latestSessionRef.current;
       if (current.sessionId !== session.sessionId || current.project?.versionId !== session.project?.versionId)
         throw new Error("PROJECT_CHANGED_DURING_HUMAN_REVIEW");

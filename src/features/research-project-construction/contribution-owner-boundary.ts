@@ -1486,6 +1486,55 @@ export const prepareResearchProjectContributionCandidate = (
   };
 };
 
+/** Verify the complete PRJ-declared materialization of selected source items.
+ * A source item may yield several canonical objects; consumers must not infer
+ * their identities from the source semantic key. */
+export const assertResearchProjectSourceMaterialization = (input: {
+  candidate: ResearchProjectContributionCandidate;
+  project: ResearchProjectOwnerProjection;
+  sourceItemRefs: readonly string[];
+}) => {
+  const { candidate, project } = input;
+  if (!input.sourceItemRefs.length || new Set(input.sourceItemRefs).size !== input.sourceItemRefs.length
+    || candidate.contributionRef !== project.contributionRef
+    || candidate.contributionDigest !== project.contributionDigest
+    || candidate.changeSet.baseProjectVersion !== project.previousVersionId
+    || project.confirmationDecision.status !== "ADOPTED"
+    || candidate.humanReviewProjection.status !== "COMPLETE") {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_BINDING_INVALID");
+  }
+  const sourceRefs = new Set(input.sourceItemRefs);
+  const declared = candidate.canonicalChangeSet.objectChanges.filter(change => change.candidate
+    && change.candidate.sourceItemRefs.some(ref => sourceRefs.has(ref)));
+  if (!declared.length || declared.some(change => change.operation === "REMOVE")
+    || new Set(declared.map(change => change.objectId)).size !== declared.length) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_UNPROVEN");
+  }
+  const covered = new Set(candidate.humanReviewProjection.coveredChangeRefs);
+  const current = ensureCanonicalProjectState(project).objects.filter(object => object.actuality === "CURRENT");
+  const actual = current.filter(object => object.sourceContributionRef === candidate.contributionRef
+    && object.sourceItemRefs.some(ref => sourceRefs.has(ref)));
+  if (actual.length !== declared.length || new Set(actual.map(object => object.objectId)).size !== declared.length) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_INCOMPLETE");
+  }
+  return declared.map(change => {
+    const expected = change.candidate!;
+    const object = actual.find(object => object.objectId === change.objectId);
+    if (!covered.has(change.changeRef) || !object
+      || object.objectType !== expected.objectType || object.sectionId !== expected.sectionId
+      || object.content !== expected.content || object.semanticKey !== expected.semanticKey
+      || object.scientificRole !== expected.scientificRole
+      || object.sourceContributionRef !== expected.sourceContributionRef
+      || logicalDigest(object.sourceItemRefs) !== logicalDigest(expected.sourceItemRefs)
+      || logicalDigest(object.provenance) !== logicalDigest(expected.provenance)
+      || logicalDigest(object.projection) !== logicalDigest(expected.projection)
+      || !object.decisionRefs.includes(project.confirmationDecision.decisionId)) {
+      throw new Error("STUDY_PROPOSAL_MATERIALIZATION_INCOMPLETE");
+    }
+    return object;
+  });
+};
+
 /** Native dependency components, derived from the already validated review. */
 export const contributionDecisionScopeGroups = (candidate: ResearchProjectContributionCandidate, current: ResearchProjectOwnerProjection | null = null): string[][] => {
   const c = candidate.canonicalChangeSet;

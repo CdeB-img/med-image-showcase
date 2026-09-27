@@ -5,7 +5,7 @@ import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import { canonicalizeScientificContribution } from "../../scientific-interpretation/canonical.js";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
 import { ensureCanonicalProjectState } from "../../research-project-construction/canonical-project-backbone.js";
-import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
+import { assertResearchProjectSourceMaterialization, type ResearchProjectContributionCandidate, type ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import { calculateStudyProposalScenarios, contextualStudyProposalSchema, hardStudyProposalDependencies, studyProposalOptionDecisionRefs, type ProposalProjectBinding, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 
@@ -202,28 +202,39 @@ export const buildStudyProposalSelectionContribution = (input: {
     decisionBoundary: { decisionRequired: true, decisionEnvelopeRef: null, permittedHumanDispositions: ["ACCEPT_WORKING_BASIS", "REJECT", "DEFER", "REOPEN", "PARTIAL_SELECTION", "ROUTE_TO_SPECIALIST"], projectWriteAuthorized: false } });
 };
 
-export const propagateStudyProposalDecision = (composition: StudyProposalComposition, project: ResearchProjectOwnerProjection, adoptedRefs: readonly string[], selectedOptionRefs: readonly string[], sourceTurn?: ScientificInterpretationTurn) => {
+export const propagateStudyProposalDecision = (composition: StudyProposalComposition, project: ResearchProjectOwnerProjection,
+  candidate: ResearchProjectContributionCandidate, previousProject: ResearchProjectOwnerProjection | null,
+  adoptedRefs: readonly string[], selectedOptionRefs: readonly string[], sourceTurn?: ScientificInterpretationTurn) => {
   const objects = ensureCanonicalProjectState(project).objects.filter(o => o.actuality === "CURRENT");
   const adoptionSourceRefs = { ...composition.adoptionSourceRefs };
+  const newlyMaterialized = new Set<string>();
   for (const ref of adoptedRefs) {
     const atom = composition.proposal.atoms.find(a => a.ref === ref);
-    const sourceRefs = [studyProposalAtomItemRef(composition, ref), ...(atom?.userChangeRefs ?? []),
-      ...(composition.adoptionSourceRefs?.[ref] ?? [])];
-    const semanticIdentity = `${project.projectId}:study-strategy:${atom?.semanticKey}`;
-    // New PRJ objects can gain a presentation prefix while retaining their
-    // source item. A later full draft can restate an unchanged current object
-    // with a fresh proposal ref, so its stable identity and exact content bind
-    // that already-adopted decision without inventing new provenance.
-    const object = objects.find(o => o.objectId === semanticIdentity
-      && (sourceRefs.some(r => o.sourceItemRefs.includes(r)) || o.content === atom?.content));
-    if (!object) throw new Error("STUDY_PROPOSAL_ADOPTION_NOT_IN_CANONICAL_PROJECT");
-    adoptionSourceRefs[ref] = object.sourceItemRefs;
+    if (!atom) throw new Error("STUDY_PROPOSAL_ADOPTION_NOT_IN_CANONICAL_PROJECT");
+    const possibleRefs = [studyProposalAtomItemRef(composition, ref), ...(atom.userChangeRefs ?? [])];
+    const declaredRefs = new Set(candidate.canonicalChangeSet.objectChanges.flatMap(change => change.candidate?.sourceItemRefs ?? []));
+    const sourceItemRefs = possibleRefs.filter(sourceRef => declaredRefs.has(sourceRef));
+    const materialized = assertResearchProjectSourceMaterialization({ candidate, project, sourceItemRefs });
+    if (materialized.some(object => object.projection.sourceProposedType !== atom.targetType)) {
+      throw new Error("STUDY_PROPOSAL_MATERIALIZATION_TYPE_MISMATCH");
+    }
+    adoptionSourceRefs[ref] = sourceItemRefs;
+    newlyMaterialized.add(ref);
   }
   const adoptedAtomRefs = [...new Set([...composition.adoptedAtomRefs, ...adoptedRefs])].filter(ref => {
-    const atom = composition.proposal.atoms.find(a => a.ref === ref);
-    return objects.some(o => o.objectId === `${project.projectId}:study-strategy:${atom?.semanticKey}`
-      && ((adoptionSourceRefs[ref] ?? [studyProposalAtomItemRef(composition, ref)]).some(r => o.sourceItemRefs.includes(r))
-        || o.content === atom?.content));
+    if (newlyMaterialized.has(ref)) return true;
+    if (!previousProject || logicalDigest(studyProposalBinding(previousProject)) !== logicalDigest(composition.sourceProject)) {
+      throw new Error("STUDY_PROPOSAL_PREVIOUS_PROJECT_BINDING_INVALID");
+    }
+    const sourceRefs = adoptionSourceRefs[ref] ?? [studyProposalAtomItemRef(composition, ref)];
+    const previousObjects = ensureCanonicalProjectState(previousProject).objects.filter(object => object.actuality === "CURRENT"
+      && object.sourceItemRefs.some(sourceRef => sourceRefs.includes(sourceRef)));
+    if (!previousObjects.length || previousObjects.some(previous => !objects.some(object => object.objectId === previous.objectId
+      && object.objectType === previous.objectType && object.content === previous.content
+      && object.semanticKey === previous.semanticKey && object.sourceItemRefs.some(sourceRef => sourceRefs.includes(sourceRef))))) {
+      throw new Error("STUDY_PROPOSAL_PREVIOUS_MATERIALIZATION_LOST");
+    }
+    return true;
   });
   const unavailableOptionRefs = [...new Set([...composition.unavailableOptionRefs.filter(r => !selectedOptionRefs.includes(r)), ...composition.proposal.arbitrations
     .filter(a => a.selection === "ONE" && a.options.some(o => selectedOptionRefs.includes(o.ref)))
@@ -252,7 +263,8 @@ export const projectStudyProposalDisposition = (composition: StudyProposalCompos
 
 /** Both native review and bundle adoption terminate in the same propagator. */
 export const propagateFreeformStudyProposalDecision = (composition: StudyProposalComposition, project: ResearchProjectOwnerProjection,
-  contribution: ScientificInterpretationContributionEnvelope, sourceTurn?: ScientificInterpretationTurn): StudyProposalComposition => {
+  contribution: ScientificInterpretationContributionEnvelope, candidate: ResearchProjectContributionCandidate,
+  previousProject: ResearchProjectOwnerProjection | null, sourceTurn?: ScientificInterpretationTurn): StudyProposalComposition => {
   if (composition.recomputation?.contributionRef !== contribution.identity.contributionId) return requireStudyProposalReview(composition, project);
   const objects = ensureCanonicalProjectState(project).objects.filter(o => o.actuality === "CURRENT");
   const adoptedRefs = composition.recomputation.changedAtomRefs.filter(ref => {
@@ -261,5 +273,6 @@ export const propagateFreeformStudyProposalDecision = (composition: StudyProposa
   });
   if (!adoptedRefs.length || adoptedRefs.length !== composition.recomputation.changedAtomRefs.length) return requireStudyProposalReview(composition, project);
   const selectedOptions = composition.proposal.arbitrations.flatMap(a => a.options.filter(o => o.atomRefs.some(r => adoptedRefs.includes(r))).map(o => o.ref));
-  return propagateStudyProposalDecision(composition, project, adoptedRefs, selectedOptions, sourceTurn ?? [...contribution.source.turns].reverse().find(t => t.role === "USER"));
+  return propagateStudyProposalDecision(composition, project, candidate, previousProject, adoptedRefs, selectedOptions,
+    sourceTurn ?? [...contribution.source.turns].reverse().find(t => t.role === "USER"));
 };

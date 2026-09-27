@@ -73,7 +73,7 @@ describe("primary endpoint dependency qualification", () => {
     expect(project.canonicalState.objects.some(object => object.actuality === "CURRENT" && object.objectType === "CANONICAL_VARIABLE" && object.content.includes("résultat quantitatif"))).toBe(true);
     expect(project.canonicalState.objects.some(object => object.actuality === "CURRENT" && object.objectType === "ENDPOINT" && object.content.includes("Résultat quantitatif"))).toBe(true);
     expect(buildCanonicalCrfPackage(project).fields.some(field => field.label.includes("résultat quantitatif"))).toBe(true);
-    const bound = propagateStudyProposalDecision(composition, project,
+    const bound = propagateStudyProposalDecision(composition, project, ready.candidate, null,
       selectedStudyProposalAtoms(composition, scope.selectedOptionRefs, scope.selectedAtomRefs), scope.selectedOptionRefs, fixture.session.runtimeTurns[0]);
     expect(bound.sourceProject?.projectDigest).toBe(project.projectDigest);
     expect(bound.proposal.atoms.find(atom => atom.ref === "technical-acquisition")?.status).toBe("OPEN_DECISION");

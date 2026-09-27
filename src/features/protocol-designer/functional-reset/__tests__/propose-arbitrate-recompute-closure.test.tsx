@@ -47,7 +47,8 @@ const adopt = (bundle: StudyProposalComposition, session: FunctionalResetSession
   const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
   const project = confirmResearchProjectContribution({ contribution, current: session.project, projectId: session.projectId, authority: session.projectAuthority, confirmedAt: session.createdAt,
     reviewedProjection: candidate.humanReviewProjection, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: [turn.turnId] });
-  return { project, composition: propagateStudyProposalDecision(bundle, project, selectedStudyProposalAtoms(bundle, options, atoms), options, turn) };
+  return { project, composition: propagateStudyProposalDecision(bundle, project, candidate, session.project,
+    selectedStudyProposalAtoms(bundle, options, atoms), options, turn) };
 };
 const CASES = [
   { id: "A", text: "non finalement je veux uniquement des personnes qui n'ont jamais fumé", atom: "eligibility-smoking", type: "ELIGIBILITY_CRITERION", content: "Inclure uniquement des personnes n'ayant jamais fumé" },
@@ -101,7 +102,8 @@ const confirmFreeform = (session: FunctionalResetSession, project: NonNullable<F
   const contribution = response.persistentExtraction.contribution!; const candidate = prepareResearchProjectContributionCandidate(contribution, project);
   const nextProject = confirmResearchProjectContribution({ contribution, current: project, projectId: session.projectId, authority: session.projectAuthority,
     confirmedAt: session.createdAt, reviewedProjection: candidate.humanReviewProjection, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["human-freeform-confirmation"] });
-  return { project: nextProject, composition: propagateFreeformStudyProposalDecision(response.scientificConversation!.studyProposal!, nextProject, contribution) };
+  return { project: nextProject, composition: propagateFreeformStudyProposalDecision(response.scientificConversation!.studyProposal!, nextProject,
+    contribution, candidate, project) };
 };
 
 describe("Propose/arbitrate/recompute — native offline closure", () => {
