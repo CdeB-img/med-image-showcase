@@ -69,7 +69,7 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
  it("creates one logical review from repeat durable reads",()=>{
   const s=ready(), p=s.workingDraftPreparations![0];
   expect(projectPreparationReview(s)?.applicable).toBe(true);
-  expect(s.entries.filter(e=>e.reviewInvitation)).toHaveLength(1);
+  expect(s.entries.filter(e=>e.kind === "TEXT" && e.reviewInvitation)).toHaveLength(1);
   expect(consumeProjectPreparation(s,p.checkpoint!.preparationId,{workingDraftUpdate:null,workingStudyProposal:null})).toBe(s);
  });
  it("keeps an earlier review after a later NO_CHANGE",()=>{

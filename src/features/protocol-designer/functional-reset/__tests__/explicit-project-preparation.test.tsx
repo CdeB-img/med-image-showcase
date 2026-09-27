@@ -9,7 +9,7 @@ import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 const bridge = vi.hoisted(() => vi.fn());
 const read = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
-  requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: read, ensureServerProjectSnapshot: vi.fn() }));
+  requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: read, ensureServerProjectSnapshot: vi.fn(async () => undefined) }));
 afterEach(() => { cleanup(); vi.unstubAllEnvs(); vi.restoreAllMocks(); bridge.mockReset(); read.mockReset(); localStorage.clear(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));

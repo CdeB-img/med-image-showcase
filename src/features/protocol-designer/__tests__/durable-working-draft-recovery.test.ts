@@ -83,6 +83,23 @@ describe("exact Working Draft recovery binding", () => {
     await guard.close();
   });
 
+  it.each([
+    [{ error: { code: "WORKING_DRAFT_PROVIDER_FAILED", details: ["STUDY_PROPOSAL_DEPENDENCY_CYCLE"] } }, { state: "FAILED", errorCode: "STUDY_PROPOSAL_DEPENDENCY_CYCLE" }],
+    [{ error: { code: "WORKING_DRAFT_PROVIDER_FAILED" }, observability: { providerCalls: [{ durableFailure: { lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" } }] } }, { state: "UNKNOWN" }],
+    [{ error: { code: "WORKING_DRAFT_PROVIDER_FAILED" }, observability: { providerCalls: [{ durableFailure: { bodyRead: true, providerResponseStatus: "incomplete", incompleteReason: "max_output_tokens", lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" } }] } }, { state: "FAILED", errorCode: "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" }],
+  ])("preserves owner failure versus unknown provider outcome in the read projection", async (body, expected) => {
+    const guard=createMemoryProtocolDesignerGuardForTests();
+    const sessionId=`protocol-designer-session:${randomUUID()}`,sourceTurnRef=`turn:${randomUUID()}`,sourceResponseRef=`noxia-turn:${randomUUID()}`;
+    const headers={"x-forwarded-for":"203.0.113.189"};
+    const chat=await guard.prepareRequest({headers,body:admissionBody(sessionId,sourceTurnRef,`product-bridge:${sourceTurnRef}`)});
+    if (!("admitted" in chat && chat.admitted)) throw Error("NO_CHAT");
+    await guard.completeRequest(chat,200,{assistantTurn:{turnId:sourceResponseRef}});
+    const wd=await guard.prepareRequest({headers,body:admissionBody(sessionId,sourceTurnRef,`working-draft:${sourceTurnRef}`)});
+    if (!("admitted" in wd && wd.admitted)) throw Error("NO_WD");
+    await guard.completeRequest(wd,503,body);
+    expect(await guard.readWorkingDraftPreparation({headers,sessionId,sourceTurnRef,sourceResponseRef})).toEqual(expected);
+    await guard.close();
+  });
   it("restores an existing failed admission without creating another provider operation", async () => {
     const guard = createMemoryProtocolDesignerGuardForTests();
     const sessionId = `protocol-designer-session:${randomUUID()}`;

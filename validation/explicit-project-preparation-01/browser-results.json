@@ -1,0 +1,68 @@
+{
+  "reports": [
+    {
+      "outcome": "VALID",
+      "terminal": "READY_FOR_REVIEW",
+      "checkpointIdentical": true,
+      "hardReloads": 4,
+      "logicalReviews": 1,
+      "providerRedispatch": 0,
+      "pageErrors": 0,
+      "sqlRestart": true,
+      "navigationReentries": 1
+    },
+    {
+      "outcome": "CYCLE",
+      "terminal": "FAILED",
+      "checkpointIdentical": true,
+      "hardReloads": 3,
+      "logicalReviews": 0,
+      "providerRedispatch": 0,
+      "pageErrors": 0,
+      "sqlRestart": true,
+      "navigationReentries": 1
+    },
+    {
+      "outcome": "NO_CHANGE",
+      "terminal": "NO_CHANGE",
+      "checkpointIdentical": true,
+      "hardReloads": 3,
+      "logicalReviews": 0,
+      "providerRedispatch": 0,
+      "pageErrors": 0,
+      "sqlRestart": true,
+      "navigationReentries": 1
+    },
+    {
+      "outcome": "TRUNCATED",
+      "terminal": "FAILED",
+      "checkpointIdentical": true,
+      "hardReloads": 3,
+      "logicalReviews": 0,
+      "providerRedispatch": 0,
+      "pageErrors": 0,
+      "sqlRestart": true,
+      "navigationReentries": 1
+    },
+    {
+      "outcome": "TIMEOUT",
+      "terminal": "UNKNOWN/INTERRUPTED",
+      "checkpointIdentical": true,
+      "hardReloads": 3,
+      "logicalReviews": 0,
+      "providerRedispatch": 0,
+      "pageErrors": 0,
+      "sqlRestart": true,
+      "navigationReentries": 1
+    }
+  ],
+  "stats": {
+    "chat": 5,
+    "wd": 5,
+    "count": 10,
+    "read": 22,
+    "done": 5,
+    "doc": 0
+  },
+  "LIVE_PROVIDER_CALLS": 0
+}

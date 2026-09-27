@@ -1,0 +1,110 @@
+{
+  "baseline": "d7a903cb8da5f9fea124103ee278f302867d7a0a",
+  "testFiles": 19,
+  "tests": 278,
+  "passed": 278,
+  "failed": 0,
+  "suites": [
+    {
+      "path": "src/features/document-projection/__tests__/drci-draft-pack.test.tsx",
+      "status": "passed",
+      "tests": 51
+    },
+    {
+      "path": "src/features/document-projection/__tests__/drci-renderer-domain-independence.test.ts",
+      "status": "passed",
+      "tests": 3
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/azure-working-draft-operation-cap.test.ts",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/durable-provider-failure-capture.test.ts",
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/durable-public-handler.test.ts",
+      "status": "passed",
+      "tests": 16
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/durable-working-draft-recovery.test.ts",
+      "status": "passed",
+      "tests": 8
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/project-snapshot-resolver.test.ts",
+      "status": "passed",
+      "tests": 8
+    },
+    {
+      "path": "src/features/research-project-construction/__tests__/decisions-versioning-change.test.ts",
+      "status": "passed",
+      "tests": 5
+    },
+    {
+      "path": "src/features/research-project-construction/__tests__/human-review-relation-projection.test.ts",
+      "status": "passed",
+      "tests": 1
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx",
+      "status": "passed",
+      "tests": 38
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/conversation-confirmation-receipt.test.ts",
+      "status": "passed",
+      "tests": 8
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/durable-provider-trace02-capture.test.ts",
+      "status": "passed",
+      "tests": 5
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/explicit-project-preparation.test.tsx",
+      "status": "passed",
+      "tests": 17
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/pending-natural-confirmation.test.tsx",
+      "status": "passed",
+      "tests": 31
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/project-persistence-oai-02.test.ts",
+      "status": "passed",
+      "tests": 10
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/project-preparation-lifecycle.test.ts",
+      "status": "passed",
+      "tests": 15
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/working-draft-adoptable-review.test.ts",
+      "status": "passed",
+      "tests": 28
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/working-draft-provider-contract.test.ts",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/working-draft-source-binding.test.ts",
+      "status": "passed",
+      "tests": 10
+    }
+  ],
+  "typecheck": "PASS",
+  "affectedLint": "PASS",
+  "benchLint": "PASS",
+  "build": "PASS",
+  "diffCheck": "PASS",
+  "providerCalls": 0
+}

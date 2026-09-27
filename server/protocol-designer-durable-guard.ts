@@ -123,6 +123,26 @@ const canonicalJson = (value: unknown): string => {
 };
 
 const object = (value: unknown): value is JsonObject => Boolean(value) && typeof value === "object" && !Array.isArray(value);
+// Read projection only: a terminal HTTP error does not prove the provider operation failed.
+const recoveredWorkingDraftFailure = (value: unknown, operationState?: unknown, providerBody?: unknown): DurableWorkingDraftRecovery => {
+  const body = object(value) ? value : null;
+  const observability = body && object(body.observability) ? body.observability : null;
+  const records = Array.isArray(observability?.providerCalls) ? observability.providerCalls : [];
+  const diagnostics = records.flatMap(record => object(record) && object(record.durableFailure) ? [record.durableFailure] : []);
+  const observed = typeof providerBody === "string" ? safeProviderResponseStatus(providerBody)
+    : diagnostics.find(d => d.bodyRead === true && ["incomplete", "failed"].includes(String(d.providerResponseStatus)));
+  if (observed?.providerResponseStatus === "incomplete") return { state: "FAILED",
+    errorCode: observed.incompleteReason === "max_output_tokens" ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : "WORKING_DRAFT_PROVIDER_INCOMPLETE" };
+  if (observed?.providerResponseStatus === "failed") return { state: "FAILED", errorCode: "WORKING_DRAFT_PROVIDER_FAILED" };
+  const states = [operationState, ...records.map(record => object(record) && object(record.durableFailure)
+    ? record.durableFailure.lastConfirmedDurableState : null)];
+  if (states.some(state => ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH", "INPUT_TOKEN_DIVERGENCE", "QUALIFICATION_INVALID"].includes(String(state)))) return { state: "UNKNOWN" };
+  const error = body && object(body.error) ? body.error : null;
+  const detail = Array.isArray(error?.details) ? error.details[0] : null;
+  const code = typeof detail === "string" && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(detail) ? detail : error?.code;
+  return { state: "FAILED", errorCode: typeof code === "string" ? code : null };
+};
+
 
 const publicIdentity = (body: unknown) => {
   if (!object(body)) return null;
@@ -1129,9 +1149,9 @@ export const createPostgresProtocolDesignerDurableGuard = (
       }
       if (admission.state === "COMPLETED") {
         if (asNumber(admission.response_status) !== 200) {
-          const body = object(admission.response_body) ? admission.response_body : null;
-          const error = body && object(body.error) ? body.error.code : null;
-          return { state: "FAILED", errorCode: typeof error === "string" ? error : null };
+          const operations = await sql`select state, provider_response_body from noxia_durable.public_provider_operation
+            where admission_key = ${admissionKey} and operation_index = 0`;
+          return recoveredWorkingDraftFailure(admission.response_body, operations[0]?.state, operations[0]?.provider_response_body);
         }
         return admission.response_body === null
           ? { state: "UNKNOWN" } : { state: "COMPLETED", response: admission.response_body };
@@ -1267,8 +1287,7 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       }
       const result = completed.get(key);
       return !result ? { state: "IN_PROGRESS" }
-        : result.status !== 200 ? { state: "FAILED", errorCode: object(result.body) && object(result.body.error)
-          && typeof result.body.error.code === "string" ? result.body.error.code : null }
+        : result.status !== 200 ? recoveredWorkingDraftFailure(result.body)
           : { state: "COMPLETED", response: result.body };
     },
     async close() {},

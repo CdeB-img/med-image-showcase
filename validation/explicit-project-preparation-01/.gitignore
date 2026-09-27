@@ -1,0 +1,5 @@
+*.log
+baseline-contract.json
+consolidated.json
+browser-replay-evidence/
+paid-doc-contract-replay.ts

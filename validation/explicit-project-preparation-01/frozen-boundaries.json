@@ -1,0 +1,41 @@
+{
+  "baseline": "d7a903cb8da5f9fea124103ee278f302867d7a0a",
+  "unchanged": [
+    {
+      "path": "api/protocol-designer-openai-extraction-provider.ts",
+      "sha256": "ddf24a0e0e8e23e54e639dfe3bb8498085ee71e228dd8021b410452660e9a2e2",
+      "unchanged": true
+    },
+    {
+      "path": "server/protocol-designer-openai-provider-config.ts",
+      "sha256": "f6ce36a7f9a908a5c519550525dbf8eaae160f157ade4126914aa599f6bf071e",
+      "unchanged": true
+    },
+    {
+      "path": "server/protocol-designer-public-guard.ts",
+      "sha256": "39a700a9e02b7e2cd9fc4ae2fd8e745eab55cfa9929737b96c103dfb42fae38b",
+      "unchanged": true
+    },
+    {
+      "path": "server/protocol-designer-canary-policy.ts",
+      "sha256": "2c089ccb97e573df7a0ab02a4bcd6325f779abbff68b6560dc3cf5c7168af223",
+      "unchanged": true
+    },
+    {
+      "path": "server/protocol-designer-project-snapshot.ts",
+      "sha256": "2693851fa0f3a9844bdd1d10c1dcd172b8c68824ccbc45f96044fe24b0737395",
+      "unchanged": true
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/continuous-project-build.ts",
+      "sha256": "2085b1268537a7c66709260003e657966ac3e60eb4b5a5314004b10ee93711f4",
+      "unchanged": true
+    },
+    {
+      "path": "src/features/document-projection/drci-draft-contract.ts",
+      "sha256": "af841d044d6e230273fcea253d20d1e6aaf395a945dfe5054fbb5f8192cda17c",
+      "unchanged": true
+    }
+  ],
+  "canonicalProjectAndDocDiff": []
+}

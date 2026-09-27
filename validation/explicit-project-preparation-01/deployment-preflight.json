@@ -1,0 +1,12 @@
+{
+  "productionCommit": "333b8afa5c9c2c1254ffe6fbecc07f9d3656b72f",
+  "productionDeploymentId": "dpl_CrZmn9PB9ULuKwjNxdZMETFQ1U9P",
+  "productionBranch": "main",
+  "productionEnvironmentMetadataDigest": "de6ee807ce1c03ec41b85586a4ccf97cc38c73a6b1bb5593ac378b70bc213b04",
+  "previewProvider": "azure",
+  "previewRuntime": "TERRA",
+  "previewExplicitPreparationFlag": "ON",
+  "previewSessionLimit": 16,
+  "previewSoftStop": "default 1 USD; no matching branch override",
+  "configurationChanges": 0
+}

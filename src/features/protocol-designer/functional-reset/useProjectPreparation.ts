@@ -51,10 +51,12 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)?.durableFailure;
-      const code = error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code : "WORKING_DRAFT_FAILED";
-      const unknown = code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
+      const knownProviderFailure = durableFailure?.bodyRead && ["incomplete", "failed"].includes(durableFailure.providerResponseStatus ?? "");
+      const code = durableFailure?.providerResponseStatus === "incomplete" && durableFailure.incompleteReason === "max_output_tokens"
+        ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code : "WORKING_DRAFT_FAILED";
+      const unknown = !knownProviderFailure && (code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
         || ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH"].includes(durableFailure?.lastConfirmedDurableState ?? "")
-        || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? ""));
+        || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? "")));
       update(source.sessionId, state => {
         let next = transitionProjectPreparation(state, id, unknown ? "UNKNOWN/INTERRUPTED" : "FAILED", code);
         if (durableFailure) try {
