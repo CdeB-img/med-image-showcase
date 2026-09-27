@@ -39,7 +39,7 @@ export type WorkingDraftRecoveryStatus =
   | Readonly<{ state: "COMPLETED"; result: Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal"> }>;
 
 export const readWorkingDraftPreparation = async (identity: Readonly<{
-  sessionId: string; sourceTurnRef: string; sourceResponseRef: string; compositionResponseRef: string;
+  sessionId: string; sourceTurnRef: string; sourceResponseRef: string; compositionResponseRef: string; clientRequestId?: string;
 }>, signal?: AbortSignal): Promise<WorkingDraftRecoveryStatus> => {
   const response = await fetch("/api/protocol-designer-bridge", {
     method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", signal,

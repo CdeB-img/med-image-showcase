@@ -814,7 +814,8 @@ export const handleProtocolDesignerBridge = async (
     if (environment.VERCEL_ENV !== "preview") return response.status(404).json({ error: { code: "NOT_FOUND" } });
     const lookup = body as Record<string, unknown>;
     if (Buffer.byteLength(JSON.stringify(body)) > 1024
-      || Object.keys(lookup).sort().join(",") !== "compositionResponseRef,operation,sessionId,sourceResponseRef,sourceTurnRef"
+      || Object.keys(lookup).filter(key => key !== "clientRequestId").sort().join(",") !== "compositionResponseRef,operation,sessionId,sourceResponseRef,sourceTurnRef"
+      || lookup.clientRequestId !== undefined && typeof lookup.clientRequestId !== "string"
       || typeof lookup.sessionId !== "string" || typeof lookup.sourceTurnRef !== "string"
       || typeof lookup.sourceResponseRef !== "string" || typeof lookup.compositionResponseRef !== "string") {
       return response.status(400).json({ error: { code: "WORKING_DRAFT_RECOVERY_REQUEST_INVALID" } });
@@ -828,7 +829,8 @@ export const handleProtocolDesignerBridge = async (
         durableGuardSessionRequestLimit(environment), durableGuardPublicBudget(environment));
       const result = await guard.readWorkingDraftPreparation({ headers: request.headers,
         remoteAddress: request.socket?.remoteAddress, sessionId: lookup.sessionId,
-        sourceTurnRef: lookup.sourceTurnRef, sourceResponseRef: lookup.sourceResponseRef });
+        sourceTurnRef: lookup.sourceTurnRef, sourceResponseRef: lookup.sourceResponseRef,
+        clientRequestId: lookup.clientRequestId as string | undefined });
       if (result.state === "REJECTED") return response.status(result.status).json({ error: { code: result.code } });
       if (result.state !== "COMPLETED") return response.status(200).json({
         contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: result.state,

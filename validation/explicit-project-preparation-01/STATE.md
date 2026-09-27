@@ -30,3 +30,6 @@ Real browser hard reload, shared SQL recovery, exact paid DOC replay, final cons
 Scientific dependency cycles remain owner failures.
 DOC pack Vn received after adoption Vn+1: publication debt, not changed here.
 Cross-network recovery bound to existing client identity; no new auth scope.
+
+## Milestone 2
+Session-owned immutable request checkpoint and pure transitions implemented. Technical recovery lookup accepts a bound checkpoint identity suffix; existing server Chat proof/session/client checks remain. Ten pure transition tests and five memory/route recovery tests pass. App typecheck passes. Hook is prepared but not connected to Workspace until milestone 3. No claim of SQL or browser qualification yet.

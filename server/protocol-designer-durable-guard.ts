@@ -72,7 +72,7 @@ export interface PublicProtocolDesignerDurableGuard {
   createBudgetedFetch(context: DurablePublicRequestContext, fetchImpl?: typeof fetch, openAIInputCountApiKey?: string): typeof fetch;
   completeRequest(context: DurablePublicRequestContext, status: number, body: unknown): Promise<void>;
   readWorkingDraftPreparation(input: Readonly<{
-    headers: Headers; remoteAddress?: string; sessionId: string; sourceTurnRef: string; sourceResponseRef: string;
+    headers: Headers; remoteAddress?: string; sessionId: string; sourceTurnRef: string; sourceResponseRef: string; clientRequestId?: string;
   }>): Promise<DurableWorkingDraftRecovery>;
   close(): Promise<void>;
 }
@@ -1090,7 +1090,8 @@ export const createPostgresProtocolDesignerDurableGuard = (
       || !/^noxia-turn:[a-f\d-]{36}$/iu.test(sourceResponseRef)) {
       return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
     }
-    const clientRequestId = `working-draft:${sourceTurnRef}`;
+    const clientRequestId = input.clientRequestId ?? `working-draft:${sourceTurnRef}`;
+    if (!validWorkingDraftReadRequestId(sourceTurnRef, clientRequestId)) return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
     const admissionKey = hash(`${sessionId}\u0000${clientRequestId}`);
     const sessionKey = hash(sessionId);
     const clientKey = hash(clientAddress(input.headers, input.remoteAddress));
@@ -1251,7 +1252,8 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       completed.set(context.admissionKey, { requestDigest: context.requestDigest, status, body });
     },
     readWorkingDraftPreparation: async (input): Promise<DurableWorkingDraftRecovery> => {
-      const clientRequestId = `working-draft:${input.sourceTurnRef}`;
+      const clientRequestId = input.clientRequestId ?? `working-draft:${input.sourceTurnRef}`;
+      if (!validWorkingDraftReadRequestId(input.sourceTurnRef, clientRequestId)) return { state: "REJECTED", status: 404, code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" };
       const key = hash(`${input.sessionId}\u0000${clientRequestId}`);
       const context = prepared.get(key);
       const chatKey = hash(`${input.sessionId}\u0000product-bridge:${input.sourceTurnRef}`);
@@ -1272,3 +1274,7 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
     async close() {},
   });
 };
+
+// A checkpoint adds an identity suffix; it never replaces the server-issued Chat proof.
+const validWorkingDraftReadRequestId = (source: string, id: string) => id === `working-draft:${source}`
+  || id.startsWith(`working-draft:${source}:checkpoint:`) && /^ke1-[a-f0-9]{16}$/.test(id.slice(`working-draft:${source}:checkpoint:`.length));

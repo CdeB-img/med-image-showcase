@@ -284,8 +284,12 @@ export type FunctionalResetSession = {
   conversationLanguageGateway: Readonly<ConversationLanguageGatewayState>;
 };
 
-export type WorkingDraftPreparationStatus = "PREPARING" | "READY_FOR_REVIEW" | "FAILED" | "SUPERSEDED" | "UNKNOWN/INTERRUPTED";
+export type WorkingDraftPreparationStatus = "PREPARING" | "READY_FOR_REVIEW" | "FAILED" | "SUPERSEDED" | "UNKNOWN/INTERRUPTED" | "NO_CHANGE";
 export type WorkingDraftPreparation = Readonly<{
+  checkpoint?: import("./project-preparation-lifecycle.js").ProjectPreparationCheckpoint;
+  result?: import("./project-preparation-lifecycle.js").ProjectPreparationResult;
+  decision?: import("./project-preparation-lifecycle.js").ProjectPreparationDecision;
+  postCutoffBlocker?: string;
   sourceTurnRef: string;
   status: WorkingDraftPreparationStatus;
   code: string | null;
@@ -436,7 +440,7 @@ const readConversationConfirmationReceipts = (session: FunctionalResetSession): 
 const readWorkingDraftPreparations = (value: unknown): readonly WorkingDraftPreparation[] =>
   Array.isArray(value) ? value.filter((item): item is WorkingDraftPreparation => Boolean(item)
     && typeof item === "object" && typeof item.sourceTurnRef === "string"
-    && ["PREPARING", "READY_FOR_REVIEW", "FAILED", "SUPERSEDED", "UNKNOWN/INTERRUPTED"].includes(item.status)
+    && ["PREPARING", "READY_FOR_REVIEW", "FAILED", "SUPERSEDED", "UNKNOWN/INTERRUPTED", "NO_CHANGE"].includes(item.status)
     && (item.code === null || typeof item.code === "string") && typeof item.updatedAt === "string"
     && (!item.recovery || typeof item.recovery.sourceResponseRef === "string"
       && typeof item.recovery.compositionResponseRef === "string"

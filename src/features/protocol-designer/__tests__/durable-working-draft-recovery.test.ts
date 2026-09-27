@@ -8,7 +8,7 @@ const admissionBody = (sessionId: string, turnId: string, clientRequestId: strin
 });
 
 describe("exact Working Draft recovery binding", () => {
-  it("exposes only the exact sanitized result in Preview with no provider dispatch", async () => {
+  it.each(["", ":checkpoint:ke1-1234567890abcdef"])("exposes the exact sanitized result without dispatch: %s", async suffix => {
     const guard = createMemoryProtocolDesignerGuardForTests();
     const sessionId = `protocol-designer-session:${randomUUID()}`;
     const sourceTurnRef = `turn:${randomUUID()}`;
@@ -20,10 +20,10 @@ describe("exact Working Draft recovery binding", () => {
     if (!("admitted" in chat && chat.admitted)) throw new Error("CHAT_ADMISSION_MISSING");
     await guard.completeRequest(chat, 200, { assistantTurn: { turnId: sourceResponseRef } });
     const working = await guard.prepareRequest({ headers,
-      body: admissionBody(sessionId, sourceTurnRef, `working-draft:${sourceTurnRef}`) });
+      body: admissionBody(sessionId, sourceTurnRef, `working-draft:${sourceTurnRef}${suffix}`) });
     if (!("admitted" in working && working.admitted)) throw new Error("WORKING_ADMISSION_MISSING");
     const identity = { operation: "READ_WORKING_DRAFT_PREPARATION", sessionId,
-      sourceTurnRef, sourceResponseRef, compositionResponseRef };
+      sourceTurnRef, sourceResponseRef, compositionResponseRef, clientRequestId: `working-draft:${sourceTurnRef}${suffix}` };
     const provider = vi.fn<typeof fetch>();
     const read = async (body: unknown, environment: Record<string, string> = { VERCEL_ENV: "preview" }) => {
       let status = 0;
@@ -51,7 +51,7 @@ describe("exact Working Draft recovery binding", () => {
     expect(provider).not.toHaveBeenCalled();
     await guard.close();
   });
-  it("reads the same running and completed operation only with the persisted Chat turn proof", async () => {
+  it.each(["", ":checkpoint:ke1-1234567890abcdef"])("requires persisted Chat proof for every read: %s", async suffix => {
     const guard = createMemoryProtocolDesignerGuardForTests();
     const sessionId = `protocol-designer-session:${randomUUID()}`;
     const sourceTurnRef = `turn:${randomUUID()}`;
@@ -63,10 +63,10 @@ describe("exact Working Draft recovery binding", () => {
     if (!("admitted" in chat && chat.admitted)) throw new Error("CHAT_ADMISSION_MISSING");
     await guard.completeRequest(chat, 200, { assistantTurn: { turnId: sourceResponseRef } });
     const working = await guard.prepareRequest({ headers,
-      body: admissionBody(sessionId, sourceTurnRef, `working-draft:${sourceTurnRef}`) });
+      body: admissionBody(sessionId, sourceTurnRef, `working-draft:${sourceTurnRef}${suffix}`) });
     expect("admitted" in working && working.admitted).toBe(true);
     if (!("admitted" in working && working.admitted)) throw new Error("WORKING_ADMISSION_MISSING");
-    const identity = { headers, sessionId, sourceTurnRef, sourceResponseRef };
+    const identity = { headers, sessionId, sourceTurnRef, sourceResponseRef, clientRequestId: `working-draft:${sourceTurnRef}${suffix}` };
     expect(await guard.readWorkingDraftPreparation(identity)).toEqual({ state: "IN_PROGRESS" });
     expect(await guard.readWorkingDraftPreparation({ ...identity, sourceResponseRef: `noxia-turn:${randomUUID()}` }))
       .toMatchObject({ state: "REJECTED" });
