@@ -37,6 +37,39 @@ export const normalizeUnambiguousOwnerAreas = (proposal: z.infer<typeof contextu
   }
   return normalized;
 };
+/** A planned outcome variable can have a stable identity before every input
+ * acquisition is operationally specified. Keep the input's real blocking
+ * dependency; only its link to the already named outcome is a refinement of
+ * the planned calculation, not a prerequisite for declaring that outcome. */
+export const normalizeUnresolvedOutcomeInputDependencies = (proposal: z.infer<typeof contextualStudyProposalSchema>) => {
+  const byRef = new Map(proposal.atoms.map(atom => [atom.ref, atom]));
+  const normalized: { dependent: string; input: string }[] = [];
+  for (const atom of proposal.atoms) {
+    if (atom.targetType !== "CANONICAL_VARIABLE" || atom.status === "OPEN_DECISION"
+      || !atom.variableRoles.includes("OUTCOME_VARIABLE") || !atom.dependencyQualifications) continue;
+    for (const qualification of atom.dependencyQualifications) {
+      if (qualification.kind !== "HARD_BLOCKING_DEPENDENCY") continue;
+      const input = byRef.get(qualification.ref);
+      if (!input || input.targetType !== "CANONICAL_VARIABLE" || input.status === "OPEN_DECISION"
+        || input.owner !== atom.owner || !input.plannedSource || input.plannedMethod !== null) continue;
+      // Only the isolated operational acquisition is eligible. Another hard
+      // prerequisite may express a genuinely unresolved scientific choice.
+      const inputHardRefs = hardStudyProposalDependencies(input);
+      if (inputHardRefs.length !== 1) continue;
+      const acquisition = byRef.get(inputHardRefs[0]);
+      if (acquisition?.targetType !== "ACQUISITION" || acquisition.status !== "OPEN_DECISION"
+        || acquisition.plannedMethod !== null || acquisition.plannedSource !== input.plannedSource
+        || !hardStudyProposalDependencies(acquisition).some(anchorRef => {
+          const anchor = byRef.get(anchorRef);
+          return anchor?.status !== "OPEN_DECISION" && anchor?.plannedSource === input.plannedSource
+            && (anchor.targetType === "IMAGING_MODALITY" || anchor.targetType === "ACQUISITION");
+        })) continue;
+      qualification.kind = "SOFT_REFINEMENT_DEPENDENCY";
+      normalized.push({ dependent: atom.ref, input: input.ref });
+    }
+  }
+  return normalized;
+};
 export type WorkingDraftUpdate = z.infer<typeof responseSchema>;
 export type WorkingDraftMetadata = {
   compositionDigest: string;
@@ -246,6 +279,7 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   }
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
   const ownerAreaNormalizations = normalizeUnambiguousOwnerAreas(update.proposal);
+  const outcomeInputNormalizations = normalizeUnresolvedOutcomeInputDependencies(update.proposal);
   const user = [...request.conversation.turns].reverse().find(t => t.role === "USER")!;
   const reply = [...request.conversation.turns].reverse().find(t => t.role === "NOXIA");
   if (!reply) throw new Error("WORKING_DRAFT_VISIBLE_REPLY_REQUIRED");
@@ -296,6 +330,9 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   });
   if (ownerAreaNormalizations.length) console.info("WORKING_DRAFT_OWNER_AREA_NORMALIZED", {
     clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: ownerAreaNormalizations,
+  });
+  if (outcomeInputNormalizations.length) console.info("WORKING_DRAFT_OUTCOME_INPUT_DEPENDENCY_NORMALIZED", {
+    clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: outcomeInputNormalizations,
   });
   return { update, composition };
 };
