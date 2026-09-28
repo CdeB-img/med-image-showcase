@@ -15,6 +15,8 @@ import {
 } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
+import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
+import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice-dictation-contract";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
@@ -1013,6 +1015,7 @@ export default function ProtocolDesignerWorkspace({
   const [documentProgressExpanded, setDocumentProgressExpanded] = useState(true);
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
+  const pendingVoiceCaretRef = useRef<number | null>(null);
   const conversationScrollRef = useRef<HTMLDivElement>(null);
   const [conversationScrolled, setConversationScrolled] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
@@ -1039,7 +1042,22 @@ export default function ProtocolDesignerWorkspace({
     if (!textarea) return;
     textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, Math.min(window.innerWidth < 640 ? window.innerHeight * 0.28 : window.innerHeight * 0.35, 12 * 22))}px`;
+    if (pendingVoiceCaretRef.current !== null) {
+      textarea.focus();
+      textarea.setSelectionRange(pendingVoiceCaretRef.current, pendingVoiceCaretRef.current);
+      pendingVoiceCaretRef.current = null;
+    }
   }, [draft]);
+
+  const insertVoiceTranscript = (transcript: string) => {
+    const textarea = composerRef.current;
+    const requestedCaret = textarea?.selectionStart;
+    setDraft((current) => {
+      const insertion = insertDictationAtCaret(current, transcript, requestedCaret ?? current.length);
+      pendingVoiceCaretRef.current = insertion.caret;
+      return insertion.text;
+    });
+  };
 
   useEffect(() => {
     try {
@@ -4559,7 +4577,7 @@ export default function ProtocolDesignerWorkspace({
             >Préparer l’enregistrement</button>}
             {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}
             <label htmlFor="protocol-designer-message" className="sr-only">Votre message</label>
-            <div className="flex items-end gap-2 rounded-2xl border bg-background p-2 shadow-sm focus-within:ring-2 focus-within:ring-ring">
+            <div className="flex flex-wrap items-end gap-2 rounded-2xl border bg-background p-2 shadow-sm focus-within:ring-2 focus-within:ring-ring">
               <textarea
                 ref={composerRef}
                 id="protocol-designer-message"
@@ -4574,8 +4592,9 @@ export default function ProtocolDesignerWorkspace({
                 rows={3}
                 maxLength={4_000}
                 placeholder={correctionMode ? "Ce que je souhaite corriger…" : productEntryPromptForIntent(activeRouteIntent)}
-                className="min-h-[4.5rem] max-h-[28dvh] flex-1 resize-none overflow-y-auto bg-transparent px-3 py-2 text-sm outline-none sm:max-h-[min(35dvh,16.5rem)] lg:resize-y"
+                className="min-h-[4.5rem] max-h-[28dvh] min-w-0 basis-full resize-none overflow-y-auto bg-transparent px-3 py-2 text-sm outline-none sm:max-h-[min(35dvh,16.5rem)] sm:basis-0 sm:flex-1 lg:resize-y"
               />
+              <VoiceDictationControl disabled={busy} language="fr-FR" onTranscript={insertVoiceTranscript} />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
             </div>
           </form>
