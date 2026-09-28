@@ -85,6 +85,53 @@ export type WorkingDraftMetadata = {
   failure: string | null;
 };
 
+/** Safe, non-authoritative observation of the PRJ-owned candidate. Never part of Working Draft state. */
+export type WorkingReviewOwnerObservation = Readonly<{
+  subtype: "NO_NET_CHANGE" | "STRUCTURAL_CONFLICT" | "REVIEW_PROJECTION_INCOMPLETE" | "OWNER_VALIDATION_FAILED" | "READY";
+  candidateStatus: string;
+  canonicalStatus: string;
+  reviewProjectionStatus: string;
+  netChangeCount: number;
+  additionCount: number;
+  updateCount: number;
+  removeCount: number;
+  conflictCount: number;
+  firstConflictId: string | null;
+  firstConflictCode: string | null;
+  expectedReviewDecisionCount: number;
+  actualReviewDecisionCount: number;
+  contributionRef: string | null;
+}>;
+
+export const summarizeWorkingReviewOwnerCandidate = (
+  candidate: ReturnType<typeof prepareResearchProjectContributionCandidate>,
+): WorkingReviewOwnerObservation => {
+  const changes = [
+    ...candidate.canonicalChangeSet.objectChanges,
+    ...candidate.canonicalChangeSet.relationChanges,
+    ...candidate.canonicalChangeSet.temporalQualificationChanges,
+    ...candidate.canonicalChangeSet.expectedVariableOccasionChanges,
+    ...candidate.canonicalChangeSet.legacyTemporalChanges,
+  ];
+  return {
+    subtype: candidate.status === "NO_NET_CHANGE" ? "NO_NET_CHANGE"
+      : candidate.status === "BLOCKED_BY_STRUCTURAL_CONFLICT" ? "STRUCTURAL_CONFLICT"
+        : candidate.status === "REVIEW_PROJECTION_INCOMPLETE" ? "REVIEW_PROJECTION_INCOMPLETE" : "READY",
+    candidateStatus: candidate.status, canonicalStatus: candidate.canonicalChangeSet.status,
+    reviewProjectionStatus: candidate.humanReviewProjection.status,
+    netChangeCount: changes.length,
+    additionCount: changes.filter(change => change.operation === "ADD").length,
+    updateCount: changes.filter(change => change.operation === "REPLACE").length,
+    removeCount: changes.filter(change => change.operation === "REMOVE").length,
+    conflictCount: candidate.canonicalChangeSet.conflicts.length,
+    firstConflictId: candidate.canonicalChangeSet.conflicts[0]?.conflictId ?? null,
+    firstConflictCode: candidate.canonicalChangeSet.conflicts[0]?.code ?? null,
+    expectedReviewDecisionCount: candidate.humanReviewProjection.expectedChangeRefs.length,
+    actualReviewDecisionCount: candidate.humanReviewProjection.coveredChangeRefs.length,
+    contributionRef: candidate.contributionRef,
+  };
+};
+
 export const isWorkingDraftReviewOnlyRequest = (text: string) => isExplicitProjectRecordingRequest(text)
   && !/\b(?:ajout\w*|chang\w*|remplac\w*|corrig\w*|modifi\w*|sauf|uniquement|seulement|inclu\w*|exclu\w*|mais|prefer\w*|plut[oô]t|finalement|sans|avec)\b|\d/iu.test(text);
 
@@ -339,7 +386,8 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   return { update, composition };
 };
 
-export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, composition: StudyProposalComposition, update: WorkingDraftUpdate, inputDigest: string): WorkingDraftMetadata => {
+export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, composition: StudyProposalComposition, update: WorkingDraftUpdate,
+  inputDigest: string, observation?: { current: WorkingReviewOwnerObservation | null }): WorkingDraftMetadata => {
   assertStudyProposalCurrent(composition, session.project);
   const origins: WorkingDraftMetadata["origins"] = {};
   for (const atom of composition.proposal.atoms) origins[atom.ref] = atom.status === "OPEN_DECISION" ? "OPEN"
@@ -359,9 +407,19 @@ export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, comp
       project: session.project, projectId: session.projectId, conversationId: session.conversationId,
       proposalTurn: reply, selectionTurn: user, createdAt: reply.createdAt ?? session.updatedAt, preparingReview: true });
     const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
+    if (observation) try { observation.current = summarizeWorkingReviewOwnerCandidate(candidate); }
+    catch { /* A TRACE projection cannot change the PRJ candidate outcome. */ }
     if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error("WORKING_REVIEW_OWNER_NOT_READY");
     readyReview = { contribution, candidate };
-  } catch (error) { failure = error instanceof Error ? error.message : "WORKING_REVIEW_FAILED"; }
+  } catch (error) {
+    failure = error instanceof Error ? error.message : "WORKING_REVIEW_FAILED";
+    if (observation && !observation.current) observation.current = {
+      subtype: "OWNER_VALIDATION_FAILED", candidateStatus: "UNKNOWN", canonicalStatus: "UNKNOWN", reviewProjectionStatus: "UNKNOWN",
+      netChangeCount: 0, additionCount: 0, updateCount: 0, removeCount: 0, conflictCount: 0,
+      firstConflictId: null, firstConflictCode: null, expectedReviewDecisionCount: 0,
+      actualReviewDecisionCount: 0, contributionRef: null,
+    };
+  }
   const open = composition.proposal.atoms.filter(a => a.status === "OPEN_DECISION");
   const ready = (areas: string[]): WorkingDraftMetadata["readiness"]["PROTOCOL"] => ({
     status: readyReview && areas.every(area => composition.proposal.atoms.some(a => a.area === area && a.status !== "OPEN_DECISION")) ? "WORKING_DRAFT" : "OPEN",

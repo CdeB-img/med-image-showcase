@@ -7,6 +7,7 @@ import { activeProjectPreparation, addProjectPreparation, captureProjectPreparat
   preparationCheckpointValid, transitionProjectPreparation } from "./project-preparation-lifecycle";
 import { appendFunctionalResetProviderCallRecords, persistFunctionalResetSession, type FunctionalResetSession } from "./session";
 import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input";
+import { recordProjectPreparationTrace } from "./project-preparation-trace";
 
 type Options = {
   enabled: boolean; session: FunctionalResetSession; latest: MutableRefObject<FunctionalResetSession>;
@@ -39,13 +40,20 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     try { preflightWorkingDraftKnowledgeSource(preparation.checkpoint.request); }
     catch { preflightFailed = true; }
     const beforeDispatch = preflightFailed
-      ? transitionProjectPreparation(prepared, id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;
+      ? transitionProjectPreparation(recordProjectPreparationTrace(prepared, preparation.checkpoint,
+        "WORKING_DRAFT_VALIDATION", "FAILED", { code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
+          failureFunction: "preflightWorkingDraftKnowledgeSource", failureInvariant: "WORKING_DRAFT_KNOWLEDGE_SOURCE",
+          attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;
     try {
       if (options.current.save) {
         if (options.current.save(beforeDispatch) === false) throw new Error("SAVE_FAILED");
       } else persistFunctionalResetSession(window.localStorage, beforeDispatch);
     } catch {
-      update(source.sessionId, () => transitionProjectPreparation(prepared, id, "FAILED", "WORKING_DRAFT_PREPARATION_SAVE_FAILED"));
+      update(source.sessionId, () => transitionProjectPreparation(recordProjectPreparationTrace(prepared,
+        preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
+          code: "WORKING_DRAFT_PREPARATION_SAVE_FAILED", failureFunction: "persistFunctionalResetSession",
+          failureInvariant: "PRE_DISPATCH_CHECKPOINT_PERSISTED", attribution: "ROOT_CAUSE_PROVEN",
+        }), id, "FAILED", "WORKING_DRAFT_PREPARATION_SAVE_FAILED"));
       return;
     }
     update(source.sessionId, () => beforeDispatch);
@@ -56,7 +64,19 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
       const response = await requestProtocolDesignerBridge(preparation.checkpoint.request);
       bridgeResponseReceived = true;
       records.push(...response.observability.providerCalls ?? []);
-      update(source.sessionId, state => consumeProjectPreparation(state, id, response));
+      update(source.sessionId, state => {
+        let next = state;
+        for (const record of records) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
+          "PROVIDER_RESPONSE_RECEIVED", record.status === "FAILED" ? "FAILED" : "SUCCEEDED", {
+            code: record.status === "FAILED" ? "PROVIDER_OPERATION_FAILED" : "PROVIDER_OPERATION_SUCCEEDED",
+            metadata: { providerCallId: record.callId, invocationId: record.durableFailure?.operationKey ?? null,
+              providerHttpStatus: record.durableFailure?.providerHttpStatus ?? null,
+              generationProvider: record.durableFailure?.generationProvider ?? null },
+            ...(record.status === "FAILED" ? { failureFunction: "providerOperation",
+              failureInvariant: "PROVIDER_OPERATION_SUCCEEDED", attribution: record.durableFailure ? "ROOT_CAUSE_PROVEN" as const : "SYMPTOM_ONLY" as const } : {}),
+          });
+        return consumeProjectPreparation(next, id, response);
+      });
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)?.durableFailure;
@@ -72,6 +92,22 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? "")));
       update(source.sessionId, state => {
         let next = transitionProjectPreparation(state, id, unknown ? "UNKNOWN/INTERRUPTED" : "FAILED", code);
+        if (responseUnverified) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
+          "CLIENT_RESPONSE_CONSUMED", "UNKNOWN", { code: "CLIENT_RESPONSE_NOT_CONSUMED",
+            metadata: { boundedStatus: "SERVER_OUTCOME_UNVERIFIED" } });
+        for (const record of records) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
+          "PROVIDER_RESPONSE_RECEIVED", record.status === "FAILED" ? "FAILED" : "SUCCEEDED", {
+            code: record.status === "FAILED" ? "PROVIDER_OPERATION_FAILED" : "PROVIDER_OPERATION_SUCCEEDED",
+            metadata: { providerCallId: record.callId, invocationId: record.durableFailure?.operationKey ?? null,
+              providerHttpStatus: record.durableFailure?.providerHttpStatus ?? null,
+              generationProvider: record.durableFailure?.generationProvider ?? null },
+            ...(record.status === "FAILED" ? { failureFunction: "providerOperation",
+              failureInvariant: "PROVIDER_OPERATION_SUCCEEDED", attribution: record.durableFailure ? "ROOT_CAUSE_PROVEN" as const : "SYMPTOM_ONLY" as const } : {}),
+          });
+        if (code === "PUBLIC_SESSION_BUDGET_CLOSED" || code === "PUBLIC_SESSION_BUDGET_REJECTED")
+          next = recordProjectPreparationTrace(next, preparation.checkpoint!, "ADMISSION_REJECTED", "FAILED", {
+            code, failureFunction: "durableProviderAdmission", failureInvariant: "SESSION_BUDGET_ACCEPTED",
+            attribution: "ROOT_CAUSE_PROVEN" });
         if (durableFailure) try {
           next = { ...next, scientificExecutionTraceLedger: recordProductErrorBoundary({
             ledger: next.scientificExecutionTraceLedger, traceRunId: createProductTraceRunId(source.sessionId, preparation.sourceTurnRef),
@@ -100,12 +136,18 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     if (!preparation?.checkpoint || !preparation.recovery) return;
     const id = preparation.checkpoint.preparationId;
     if (!preparationCheckpointValid(initial, preparation.checkpoint)) {
-      updateRef.current(initial.sessionId, s => transitionProjectPreparation(s, id, "FAILED", "PREPARATION_CHECKPOINT_MISMATCH"));
+      updateRef.current(initial.sessionId, s => transitionProjectPreparation(recordProjectPreparationTrace(s,
+        preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
+          code: "PREPARATION_CHECKPOINT_MISMATCH", failureFunction: "preparationCheckpointValid",
+          failureInvariant: "IMMUTABLE_PREPARATION_CHECKPOINT", attribution: "ROOT_CAUSE_PROVEN",
+        }), id, "FAILED", "PREPARATION_CHECKPOINT_MISMATCH"));
       return;
     }
     const controller = new AbortController();
     let alive = true;
     const read = async () => {
+      updateRef.current(initial.sessionId, state => recordProjectPreparationTrace(state, preparation.checkpoint!,
+        "DURABLE_RECOVERY_STARTED", "STARTED", { code: "BOUND_PREPARATION_RECOVERY_READ" }));
       // This is bounded observation of an existing operation, never an execution retry.
       for (let poll = 0; poll < 150 && alive; poll += 1) {
         if (latest.current.sessionId !== initial.sessionId
@@ -118,10 +160,19 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
           await new Promise<void>(resolve => window.setTimeout(resolve, 2000));
           continue;
         }
-        updateRef.current(initial.sessionId, state => result.state === "COMPLETED"
-          ? consumeProjectPreparation(state, id, result.result)
-          : transitionProjectPreparation(state, id, result.state === "FAILED" ? "FAILED" : "UNKNOWN/INTERRUPTED",
-            result.state === "FAILED" ? result.errorCode : "WORKING_DRAFT_RECOVERY_UNKNOWN"));
+        updateRef.current(initial.sessionId, state => {
+          const observed = recordProjectPreparationTrace(state, preparation.checkpoint!, "DURABLE_RECOVERY_COMPLETED",
+            result.state === "COMPLETED" ? "SUCCEEDED" : result.state === "FAILED" ? "FAILED" : "UNKNOWN", {
+              code: result.state === "COMPLETED" ? "DURABLE_OPERATION_COMPLETED"
+                : result.state === "FAILED" ? "DURABLE_OPERATION_FAILED" : "DURABLE_OPERATION_UNKNOWN",
+              ...(result.state === "FAILED" ? { failureFunction: "readWorkingDraftPreparation",
+                failureInvariant: "DURABLE_OPERATION_SUCCEEDED", attribution: "SYMPTOM_ONLY" as const } : {}),
+            });
+          return result.state === "COMPLETED"
+            ? consumeProjectPreparation(observed, id, result.result, "DURABLE_RECOVERY")
+            : transitionProjectPreparation(observed, id, result.state === "FAILED" ? "FAILED" : "UNKNOWN/INTERRUPTED",
+              result.state === "FAILED" ? result.errorCode : "WORKING_DRAFT_RECOVERY_UNKNOWN");
+        });
         return;
       }
       if (alive) updateRef.current(initial.sessionId, s => transitionProjectPreparation(s, id, "UNKNOWN/INTERRUPTED", "WORKING_DRAFT_RECOVERY_OBSERVATION_ENDED"));

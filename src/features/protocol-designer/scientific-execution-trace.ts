@@ -202,6 +202,18 @@ export type ScientificProductTraceStage =
   | "RESPONSE_LOCALIZED"
   | "PROJECT_CANDIDATE_EXTRACTED"
   | "PROJECT_CANDIDATE_VALIDATED"
+  | "CLIENT_PREPARATION_START"
+  | "BRIDGE_REQUEST_CREATED"
+  | "BRIDGE_RESPONSE_RECEIVED"
+  | "CLIENT_RESPONSE_CONSUMED"
+  | "DURABLE_RECOVERY_STARTED"
+  | "DURABLE_RECOVERY_COMPLETED"
+  | "ADMISSION_REJECTED"
+  | "PROVIDER_RESPONSE_RECEIVED"
+  | "WORKING_DRAFT_VALIDATION"
+  | "PROJECT_DELTA_VALIDATION"
+  | "REVIEW_PROJECTION_VALIDATION"
+  | "READY_FOR_REVIEW"
   | "HUMAN_REVIEW_PRESENTED"
   | "HUMAN_DECISION_RECORDED"
   | "PROJECT_VERSION_CREATED"
@@ -843,6 +855,26 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "incompleteReason",
   "lastConfirmedDurableState",
   "generationProvider",
+  "clientPreparationId",
+  "candidateStatus",
+  "canonicalStatus",
+  "reviewProjectionStatus",
+  "netChangeCount",
+  "additionCount",
+  "updateCount",
+  "removeCount",
+  "conflictCount",
+  "firstConflictId",
+  "firstConflictCode",
+  "expectedReviewDecisionCount",
+  "actualReviewDecisionCount",
+  "failureFunction",
+  "failureInvariant",
+  "errorSubtype",
+  "attributionConfidence",
+  "providerCallId",
+  "internalErrorCode",
+  "publicErrorCode",
 ]);
 
 const assertNoForbiddenData = (value: unknown, path = "trace") => {
@@ -1032,6 +1064,18 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "RESPONSE_LOCALIZED",
   "PROJECT_CANDIDATE_EXTRACTED",
   "PROJECT_CANDIDATE_VALIDATED",
+  "CLIENT_PREPARATION_START",
+  "BRIDGE_REQUEST_CREATED",
+  "BRIDGE_RESPONSE_RECEIVED",
+  "CLIENT_RESPONSE_CONSUMED",
+  "DURABLE_RECOVERY_STARTED",
+  "DURABLE_RECOVERY_COMPLETED",
+  "ADMISSION_REJECTED",
+  "PROVIDER_RESPONSE_RECEIVED",
+  "WORKING_DRAFT_VALIDATION",
+  "PROJECT_DELTA_VALIDATION",
+  "REVIEW_PROJECTION_VALIDATION",
+  "READY_FOR_REVIEW",
   "HUMAN_REVIEW_PRESENTED",
   "HUMAN_DECISION_RECORDED",
   "PROJECT_VERSION_CREATED",
