@@ -91,7 +91,7 @@ describe("OpenAI/Azure provider switch", () => {
     expect(mapOpenAIModelForDestination("gpt-5.6-sol", "azure")).toBe("gpt-5.6-sol");
   });
 
-  it("counts the Azure payload through OpenAI for the observed qualified deployment", () => {
+  it("retains historical qualifications but refuses cross-provider network counting", () => {
     const configuration = resolveOpenAIProviderRuntimeConfiguration(azureEnvironment);
     const endpoint = configuration.transport!.responsesEndpoint;
     const body = JSON.stringify({
@@ -111,22 +111,19 @@ describe("OpenAI/Azure provider switch", () => {
       outputTokenUpperBound: 8000,
     });
     expect(boundCanaryProviderCall(endpoint, body)!.upperBoundUsd).toBeGreaterThan(6);
-    expect(openAIInputCountRequest({ endpoint, method: "POST", body })).toEqual({
-      endpoint: `${OPENAI_RESPONSES_ENDPOINT}/input_tokens`,
-      method: "POST",
-      body: JSON.stringify({ model: "gpt-5.6-sol", instructions: "instruction", input: "contexte", reasoning: { effort: "medium" } }),
-    });
-    expect(configuration.countApiKey).toBe("openai-count-secret-for-local-test");
+    expect(() => openAIInputCountRequest({ endpoint, method: "POST", body }))
+      .toThrow("OPENAI_INPUT_COUNT_ENDPOINT_UNAVAILABLE");
+    expect(configuration).not.toHaveProperty("countApiKey");
     expect(azureInputCountQualification("gpt-5.6-sol")).toBeTruthy();
     expect(azureInputCountQualification("gpt-5.6-terra")).toBeTruthy();
     expect(azureInputCountQualification("gpt-6-sol")).toBeNull();
   });
 
-  it("requires the independent OpenAI count credential for Azure", () => {
-    expect(() => resolveOpenAIProviderRuntimeConfiguration({
+  it("does not require a direct OpenAI credential for Azure generation", () => {
+    expect(resolveOpenAIProviderRuntimeConfiguration({
       ...azureEnvironment,
       OPENAI_API_KEY: "",
-    })).toThrow("AZURE_OPENAI_PRECOUNT_API_KEY_MISSING");
+    })).toMatchObject({ apiKey: "azure-secret-for-local-test", transport: { destination: "azure" } });
   });
 
   it("rolls back to OpenAI by configuration only", () => {

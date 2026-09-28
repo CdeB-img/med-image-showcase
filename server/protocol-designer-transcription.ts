@@ -117,13 +117,11 @@ export const handleProtocolDesignerTranscription = async (
   if (!validOrigin(request.headers)) return response.status(403).json({ error: { code: "ORIGIN_NOT_ALLOWED" } });
   const parsed = parseRequestBody(request.body);
   if (!parsed) return response.status(400).json({ error: { code: "INVALID_AUDIO_REQUEST" } });
-  let runtime: ReturnType<typeof resolveOpenAIProviderRuntimeConfiguration>;
-  try { runtime = resolveOpenAIProviderRuntimeConfiguration(environment); }
+  try { resolveOpenAIProviderRuntimeConfiguration(environment); }
   catch { return response.status(503).json({ error: { code: "TRANSCRIPTION_CONFIGURATION_INVALID" } }); }
-  // Azure conversation deployments retain the existing OpenAI key used by the
-  // qualified transport for input counting. STT remains on the dedicated OpenAI
-  // audio endpoint; no provider credential reaches the browser.
-  const apiKey = runtime.transport ? runtime.countApiKey : runtime.apiKey;
+  // STT is an independent, still-active OpenAI consumer. Azure generation no
+  // longer needs this credential; audio transport and browser isolation remain unchanged.
+  const apiKey = environment.OPENAI_API_KEY?.trim();
   if (!apiKey) return response.status(503).json({ error: { code: "TRANSCRIPTION_UNAVAILABLE" } });
   try {
     const text = await executeProtocolDesignerTranscription({ ...parsed, apiKey,

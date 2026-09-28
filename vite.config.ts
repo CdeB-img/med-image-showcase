@@ -13,7 +13,7 @@ import {
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;
   openAiApiKey: string | null;
-  openAiCountApiKey?: string;
+  openAiTranscriptionApiKey?: string;
   openAiTransport?: OpenAIProviderTransport;
   geminiModel: string | null;
   openAiExtractionModel: string | null;
@@ -36,7 +36,8 @@ export const resolveLocalProductBridgeConfiguration = (
   return {
     apiKey: configuredValue("GEMINI_API_KEY", processEnvironment, fileEnvironment),
     openAiApiKey: openAiProvider.apiKey,
-    ...(openAiProvider.countApiKey ? { openAiCountApiKey: openAiProvider.countApiKey } : {}),
+    ...(openAiProvider.transport && configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment)
+      ? { openAiTranscriptionApiKey: configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment)! } : {}),
     ...(openAiProvider.transport ? { openAiTransport: openAiProvider.transport } : {}),
     geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
     openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
@@ -103,7 +104,7 @@ export const localProductBridge = (
             && body.currentProject && typeof body.currentProject === "object" && "projectId" in body.currentProject
             && typeof body.currentProject.projectId === "string" ? body.currentProject.projectId : null,
         } : {}),
-        secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? "", configuration.openAiCountApiKey ?? ""],
+        secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? "", configuration.openAiTranscriptionApiKey ?? ""],
         context: body && typeof body === "object" && "observabilityContext" in body
           ? body.observabilityContext : null,
       });
@@ -116,7 +117,7 @@ export const localProductBridge = (
           json(value) { response.end(JSON.stringify(value)); },
         }, { NODE_ENV: "production", GEMINI_API_KEY: configuration.apiKey ?? undefined,
           OPENAI_PROVIDER: configuration.openAiTransport?.destination,
-          OPENAI_API_KEY: configuration.openAiTransport ? configuration.openAiCountApiKey : configuration.openAiApiKey ?? undefined,
+          OPENAI_API_KEY: configuration.openAiTransport ? configuration.openAiTranscriptionApiKey : configuration.openAiApiKey ?? undefined,
           AZURE_OPENAI_API_KEY: configuration.openAiTransport?.destination === "azure" ? configuration.openAiApiKey ?? undefined : undefined,
           AZURE_OPENAI_PROJECT_ENDPOINT: configuration.openAiTransport?.destination === "azure"
             ? configuration.openAiTransport.responsesEndpoint.slice(0, -"/openai/v1/responses".length) : undefined,

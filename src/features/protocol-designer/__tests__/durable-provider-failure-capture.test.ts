@@ -4,6 +4,13 @@ import {
   type PublicProtocolDesignerDurableGuard,
 } from "../../../../server/protocol-designer-durable-guard";
 import { readDurableProviderFailureDiagnostic } from "../provider-call-observability";
+import { AZURE_LOCAL_INPUT_POLICY, boundPublicProviderCall } from "../../../../server/protocol-designer-local-token-admission";
+import { executeProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
+import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge";
+import { createFunctionalResetSession } from "../functional-reset/session";
+import { addProjectPreparation, captureProjectPreparation, consumeProjectPreparation, projectPreparationReview } from "../functional-reset/project-preparation-lifecycle";
+import { prepareWorkingDraftRequest } from "../functional-reset/continuous-project-build";
+import { controlledStudyProposal, DOMAINS } from "../functional-reset/__tests__/study-proposal-fixtures";
 
 type Row = Record<string, unknown>;
 type SqlTag = ((parts: TemplateStringsArray, ...values: unknown[]) => Promise<Row[]>) & {
@@ -19,6 +26,7 @@ type FakeStore = {
   rate: Row | null;
   failSettlement: boolean;
   initialAdmissionCount: number;
+  historicalAnomalyCode?: string;
   sql: SqlTag;
 };
 let store: FakeStore;
@@ -61,9 +69,15 @@ const fakeStore = (): FakeStore => {
       db.gate ??= { state: "OPEN", count_qualification_ref: values[2], invalidated_at: null, anomaly_operation_key: null };
       return [];
     }
-    if (sql.includes("select state, count_qualification_ref")) return db.gate ? [db.gate] : [];
+    if (sql.includes("select local_admission_state, local_admission_policy")) return db.gate ? [db.gate] : [];
     if (sql.includes("update noxia_durable.public_provider_equivalence_gate")) {
-      if (db.gate) Object.assign(db.gate, { state: "CLOSED", anomaly_operation_key: values[0], invalidated_at: values[1] });
+      if (db.gate && sql.includes("set local_admission_policy") && !db.gate.local_admission_policy && !db.gate.local_admission_state) {
+        Object.assign(db.gate, { local_admission_policy: values[0],
+          local_admission_state: db.gate.state === "OPEN" || db.historicalAnomalyCode === "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE"
+            ? "OPEN" : "CLOSED", local_policy_activated_at: values[1] });
+      } else if (db.gate && sql.includes("set local_admission_state = 'closed'")) {
+        Object.assign(db.gate, { local_admission_state: "CLOSED", local_anomaly_operation_key: values[0], local_invalidated_at: values[1] });
+      }
       return [];
     }
     if (sql.includes("insert into noxia_durable.public_provider_operation")) {
@@ -72,8 +86,10 @@ const fakeStore = (): FakeStore => {
         endpoint_digest: values[5], payload_digest: values[6], configuration_digest: values[7],
         state: counted ? "COUNT_PENDING" : "RESERVED", reserved_upper_bound_usd: counted ? 0 : values[8],
         count_payload_digest: counted ? values[8] : null, counted_input_tokens: null,
-        count_provider: counted ? values[11] : null, generation_provider: counted ? values[12] : null,
-        generation_model: counted ? values[13] : null, count_qualification_ref: counted ? values[14] : null };
+        count_provider: counted ? values[11] : null, generation_provider: counted ? values[12] : values[11],
+        generation_model: counted ? values[13] : values[12], count_qualification_ref: counted ? values[14] : null,
+        input_admission_policy: counted ? null : values[13], local_estimated_input_tokens: counted ? null : values[14],
+        input_token_upper_bound: counted ? null : values[15] };
       return [db.operation];
     }
     if (sql.includes("select * from noxia_durable.public_provider_operation")
@@ -104,6 +120,10 @@ const fakeStore = (): FakeStore => {
         db.operation.measured_cost_usd = values[0];
         db.operation.committed_cost_upper_bound_usd = values[1];
         db.operation.provider_http_status = values[4];
+        db.operation.post_usage_input_tokens = values[2];
+        db.operation.input_token_delta = values[3];
+        db.operation.provider_response_body = values[5];
+        db.operation.provider_response_headers = values[6];
       } else if (sql.includes("set state = ?")) {
         db.operation.state = values[0];
         db.operation.qualification_failure_code = values[1];
@@ -151,7 +171,7 @@ let guard: PublicProtocolDesignerDurableGuard;
 beforeEach(() => { store = fakeStore(); guard = createPostgresProtocolDesignerDurableGuard("postgres://synthetic", { sessionRequestLimit: 512 }); });
 afterEach(async () => { await guard.close(); });
 
-const run = async (provider: typeof fetch, options: { sessionId?: string; clientRequestId?: string; endpoint?: string } = {}) => {
+const run = async (provider: typeof fetch, options: { sessionId?: string; clientRequestId?: string; endpoint?: string; body?: string } = {}) => {
   const sessionId = options.sessionId ?? "synthetic-session";
   const clientRequestId = options.clientRequestId ?? "synthetic-request";
   const prepared = await guard.prepareRequest({ headers: { "x-forwarded-for": "203.0.113.9" }, body: {
@@ -159,10 +179,10 @@ const run = async (provider: typeof fetch, options: { sessionId?: string; client
       turnId: "synthetic-turn", clientRequestId },
   } });
   if (!("admitted" in prepared) || !prepared.admitted) throw new Error("SYNTHETIC_PREPARE_FAILED");
-  const budgeted = guard.createBudgetedFetch(prepared, provider, "SYNTHETIC_COUNT_ONLY");
+  const budgeted = guard.createBudgetedFetch(prepared, provider);
   const controller = new AbortController();
   try {
-    const response = await budgeted(options.endpoint ?? ENDPOINT, { method: "POST", body: requestBody, signal: controller.signal,
+    const response = await budgeted(options.endpoint ?? ENDPOINT, { method: "POST", body: options.body ?? requestBody, signal: controller.signal,
       noxiaProviderObservation: { ...observation, context: { ...observation.context, sessionId, clientRequestId } } } as RequestInit);
     return { response, diagnostic: null, error: null };
   } catch (error) {
@@ -171,12 +191,104 @@ const run = async (provider: typeof fetch, options: { sessionId?: string; client
 };
 
 describe("durable provider terminal failure capture with the real guard and offline SQL/fetch doubles", () => {
+  it.each(["short", "rich"])("reaches READY_FOR_REVIEW through the real guard/bridge/owners for synthetic %s input", async size => {
+    const session = createFunctionalResetSession();
+    session.runtimeTurns = [{ turnId: "u1", role: "USER", createdAt: session.updatedAt,
+      content: size === "short" ? "Étude synthétique chez des adultes." :
+        "Étude synthétique chez des adultes. " + "Paramètre synthétique complémentaire à qualifier. ".repeat(24) }];
+    const calls: string[] = [];
+    const dispatch = async (body: ProductBridgeRequest) => {
+      const admission = await guard.prepareRequest({ headers: { "x-forwarded-for": "203.0.113.9" }, body });
+      if (!("admitted" in admission) || !admission.admitted) throw new Error("SYNTHETIC_ADMISSION_FAILED");
+      const provider = vi.fn<typeof fetch>(async (url) => {
+        calls.push(String(url));
+        expect(String(url)).toBe(ENDPOINT);
+        const output = body.prepareWorkingDraft ? JSON.stringify({ requestType: "STUDY_UPDATE",
+          proposal: controlledStudyProposal(prepareWorkingDraftRequest(body).inputDigest, DOMAINS[1]),
+          explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }) : "Proposition synthétique non adoptée.";
+        return new Response(JSON.stringify({ model: "gpt-5.6-sol", status: "completed", output_text: output,
+          usage: { input_tokens: 6214, output_tokens: 2000 } }), { status: 200 });
+      });
+      const result = await executeProtocolDesignerBridge({ body, apiKey: null, openAiApiKey: "SYNTHETIC_AZURE_ONLY",
+        openAiTransport: { destination: "azure", responsesEndpoint: ENDPOINT }, chatRuntime: "TERRA", autonomousProjectBuild: true,
+        fetchImpl: guard.createBudgetedFetch(admission, provider) });
+      expect(result.status).toBe(200);
+      expect(store.operation).toMatchObject({ state: "COMPLETED_RECEIVED", counted_input_tokens: null,
+        generation_provider: "AZURE_OPENAI", post_usage_input_tokens: 6214 });
+      return result.body as ProductBridgeResponse;
+    };
+    const conversation = await dispatch({ apiVersion: "1.0.0", currentProject: null, evaluatePersistentDelta: false,
+      conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns },
+      observabilityContext: { sessionId: session.sessionId, conversationId: session.conversationId,
+        turnId: "u1", clientRequestId: "synthetic-conversation", testSessionId: null } });
+    session.runtimeTurns.push(conversation.assistantTurn);
+    const preparation = captureProjectPreparation(session);
+    // The SQL double stores one operation slot; retain the same session ledger across both requests.
+    store.operation = null; store.admission = null;
+    const workingDraft = await dispatch(preparation.checkpoint!.request);
+    const ready = consumeProjectPreparation(addProjectPreparation(session, preparation), preparation.checkpoint!.preparationId, workingDraft);
+    expect(ready.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW");
+    expect(projectPreparationReview(ready)?.applicable).toBe(true);
+    expect(ready.project).toBeNull();
+    expect(calls).toEqual([ENDPOINT, ENDPOINT]);
+  });
+
+  it.each(["PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE", "PUBLIC_AZURE_GENERATION_MODEL_DRIFT", "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING"])(
+    "migrates %s without changing historical evidence or reopening a session", async code => {
+      store.gate = { state: "CLOSED", count_qualification_ref: "historical", anomaly_operation_key: "historical-operation",
+        invalidated_at: "2026-09-27T00:00:00Z" };
+      store.historicalAnomalyCode = code;
+      const historical = { ...store.gate };
+      const provider = vi.fn(async () => generation());
+      const result = await run(provider);
+      expect(store.gate).toMatchObject(historical);
+      if (code === "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE") {
+        expect(result.error).toBeNull();
+        expect(provider).toHaveBeenCalledOnce();
+        expect(store.gate?.local_admission_state).toBe("OPEN");
+      } else {
+        expect(result.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_LOCAL_ADMISSION_CLOSED");
+        expect(provider).not.toHaveBeenCalled();
+        expect(store.gate?.local_admission_state).toBe("CLOSED");
+      }
+    });
+
+  it("does not reset a closed session, release an unknown reservation or redispatch an unknown operation", async () => {
+    const failed = await run(vi.fn(async () => { throw new TypeError("synthetic"); }));
+    expect(failed.diagnostic?.lastConfirmedDurableState).toBe("UNKNOWN_AFTER_DISPATCH");
+    const reserve = store.session?.committed_cost_upper_bound_usd;
+    const provider = vi.fn(async () => generation());
+    await run(provider);
+    expect(provider).not.toHaveBeenCalled();
+    expect(store.session?.committed_cost_upper_bound_usd).toBe(reserve);
+    store.session!.provider_gate_closed = true;
+    store.operation = null;
+    store.admission = null;
+    const next = await run(provider, { clientRequestId: "second-request" });
+    expect(next.diagnostic?.structuredErrorCode).toBe("PUBLIC_SESSION_BUDGET_CLOSED");
+    expect(provider).not.toHaveBeenCalled();
+    expect(store.session?.provider_gate_closed).toBe(true);
+    expect(store.session?.committed_cost_upper_bound_usd).toBe(reserve);
+  });
+
+  it("retains the durable soft stop before any Azure network call", async () => {
+    await run(vi.fn(async () => generation()));
+    Object.assign(store.session!, { measured_cost_usd: 1, committed_cost_upper_bound_usd: 1 });
+    store.admission = null;
+    store.operation = null;
+    const provider = vi.fn(async () => generation());
+    const next = await run(provider, { clientRequestId: "second-request" });
+    expect(next.diagnostic?.structuredErrorCode).toBe("PUBLIC_PROVIDER_DENIED_SOFT_STOP");
+    expect(provider).not.toHaveBeenCalled();
+    expect(store.session?.provider_gate_closed).toBe(true);
+  });
+
   it("A: retains input-count HTTP 400 without Azure dispatch or reservation", async () => {
     const calls: string[] = [];
     const result = await run(vi.fn(async (input) => {
       calls.push(String(input));
       return new Response("synthetic rejection", { status: 400 });
-    }));
+    }), { endpoint: "https://api.openai.com/v1/responses" });
     expect(calls).toEqual([COUNT_ENDPOINT]);
     expect(result.diagnostic).toMatchObject({ phase: "PRECOUNT", structuredErrorCode: "PUBLIC_PROVIDER_INPUT_COUNT_HTTP_400",
       inputCountHttpStatus: 400, precountStarted: true, precountCompleted: false,
@@ -187,7 +299,8 @@ describe("durable provider terminal failure capture with the real guard and offl
 
   it.each([{ name: "timeout", cause: "AbortError", code: "PUBLIC_PROVIDER_INPUT_COUNT_TIMEOUT" },
     { name: "network", cause: "TypeError", code: "PUBLIC_PROVIDER_INPUT_COUNT_NETWORK_FAILURE" }])("B: distinguishes input-count $name", async ({ cause, code }) => {
-    const result = await run(vi.fn(async () => { throw Object.assign(new Error("synthetic"), { name: cause }); }));
+    const result = await run(vi.fn(async () => { throw Object.assign(new Error("synthetic"), { name: cause }); }),
+      { endpoint: "https://api.openai.com/v1/responses" });
     expect(result.diagnostic).toMatchObject({ phase: "PRECOUNT", structuredErrorCode: code,
       safeExceptionClass: cause, dispatchAttempted: false, lastConfirmedDurableState: "COUNT_FAILED" });
     expect(store.operation?.state).toBe("COUNT_FAILED");
@@ -198,7 +311,7 @@ describe("durable provider terminal failure capture with the real guard and offl
       ? countSuccess() : generation());
     store.initialAdmissionCount = 512;
     // An exhausted session is detected inside ensureAdmission, after exact count.
-    const result = await run(provider);
+    const result = await run(provider, { endpoint: "https://api.openai.com/v1/responses" });
     expect(result.diagnostic?.phase).toBe("RESERVATION");
     expect(result.diagnostic?.structuredErrorCode).toBe("PUBLIC_SESSION_LIMITED");
     expect(result.diagnostic?.dispatchAttempted).toBe(false);
@@ -212,9 +325,9 @@ describe("durable provider terminal failure capture with the real guard and offl
       if (String(input) === COUNT_ENDPOINT) return countSuccess();
       throw Object.assign(new Error("synthetic"), { name: cause });
     }));
-    expect(calls).toEqual([COUNT_ENDPOINT, ENDPOINT]);
+    expect(calls).toEqual([ENDPOINT]);
     expect(result.diagnostic).toMatchObject({ phase: "DISPATCHED", structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
-      safeExceptionClass: cause, precountCompleted: true, reservationConfirmed: true,
+      safeExceptionClass: cause, precountCompleted: false, reservationConfirmed: true,
       dispatchAttempted: true, headersReceived: false, lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
     expect(store.operation?.state).toBe("UNKNOWN_AFTER_DISPATCH");
     expect(Number(store.session?.committed_cost_upper_bound_usd)).toBeGreaterThan(0);
@@ -250,42 +363,45 @@ describe("durable provider terminal failure capture with the real guard and offl
     expect(store.operation?.state).toBe("UNKNOWN_AFTER_DISPATCH");
   });
 
-  it("I: preserves input-count divergence and closes the existing pair gate", async () => {
+  it("I: closes local policy on an observed conservative envelope overrun", async () => {
     const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT ? countSuccess()
-      : generation({ input: INPUT + 1 })));
-    expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", structuredErrorCode: "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE",
-      lastConfirmedDurableState: "INPUT_TOKEN_DIVERGENCE", headersReceived: true, bodyRead: true });
-    expect(store.operation?.state).toBe("INPUT_TOKEN_DIVERGENCE");
-    expect(store.gate?.state).toBe("CLOSED");
+      : generation({ input: boundPublicProviderCall(ENDPOINT, requestBody)!.inputTokenUpperBound + 1 })));
+    expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", structuredErrorCode: "PUBLIC_AZURE_LOCAL_INPUT_BOUND_EXCEEDED",
+      lastConfirmedDurableState: "QUALIFICATION_INVALID", headersReceived: true, bodyRead: true });
+    expect(store.operation?.state).toBe("QUALIFICATION_INVALID");
+    expect(store.gate?.local_admission_state).toBe("CLOSED");
+    expect(store.gate?.state).toBe("OPEN");
     expect(store.session?.provider_gate_closed).toBe(true);
   });
 
-  it("A: settles an exact 12,984-token Azure count without closing the shared gate", async () => {
+  it("A: settles actual Azure usage independently from its local estimate", async () => {
     const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT
-      ? countSuccess(12_984) : generation({ input: 12_984 })));
+      ? countSuccess(12_984) : generation({ input: 1298 })));
     expect(result.error).toBeNull();
-    expect(store.operation).toMatchObject({ state: "COMPLETED_RECEIVED", counted_input_tokens: 12_984 });
+    expect(store.operation).toMatchObject({ state: "COMPLETED_RECEIVED", counted_input_tokens: null,
+      post_usage_input_tokens: 1298, input_admission_policy: AZURE_LOCAL_INPUT_POLICY });
+    expect(store.operation?.input_token_delta).toBe(1298 - Number(store.operation?.local_estimated_input_tokens));
     expect(store.gate?.state).toBe("OPEN");
     expect(store.session?.provider_gate_closed).toBe(false);
   });
 
-  it("B/F: a measured 12,984-token mismatch closes the pair and denies another session before counting", async () => {
+  it("B/F: an envelope overrun closes the pair and denies another session before dispatch", async () => {
     const first = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT
-      ? countSuccess(12_984) : generation({ input: 12_985 })));
-    expect(first.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE");
-    expect(store.gate?.state).toBe("CLOSED");
-    const invalidatedAt = store.gate?.invalidated_at;
-    const anomalyOperationKey = store.gate?.anomaly_operation_key;
+      ? countSuccess(12_984) : generation({ input: 100_000 })));
+    expect(first.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_LOCAL_INPUT_BOUND_EXCEEDED");
+    expect(store.gate?.local_admission_state).toBe("CLOSED");
+    const invalidatedAt = store.gate?.local_invalidated_at;
+    const anomalyOperationKey = store.gate?.local_anomaly_operation_key;
     store.session = null;
     store.admission = null;
     store.operation = null;
     const provider = vi.fn(async () => countSuccess());
     const second = await run(provider, { sessionId: "second-session", clientRequestId: "second-request" });
-    expect(second.diagnostic).toMatchObject({ phase: "PRECOUNT",
-      structuredErrorCode: "PUBLIC_AZURE_INPUT_COUNT_EQUIVALENCE_CLOSED", dispatchAttempted: false });
+    expect(second.diagnostic).toMatchObject({ phase: "RESERVATION",
+      structuredErrorCode: "PUBLIC_AZURE_LOCAL_ADMISSION_CLOSED", dispatchAttempted: false });
     expect(provider).not.toHaveBeenCalled();
-    expect(store.gate).toMatchObject({ state: "CLOSED", invalidated_at: invalidatedAt,
-      anomaly_operation_key: anomalyOperationKey });
+    expect(store.gate).toMatchObject({ local_admission_state: "CLOSED", local_invalidated_at: invalidatedAt,
+      local_anomaly_operation_key: anomalyOperationKey });
   });
 
   it.each([{ name: "absent", omitUsage: true }, { name: "zero", input: 0 }])(
@@ -297,7 +413,8 @@ describe("durable provider terminal failure capture with the real guard and offl
         providerResponseStatus: "incomplete", incompleteReason: "content_filter",
         structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
         lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
-      expect(store.operation).toMatchObject({ state: "UNKNOWN_AFTER_DISPATCH", counted_input_tokens: 12_984 });
+      expect(store.operation).toMatchObject({ state: "UNKNOWN_AFTER_DISPATCH", counted_input_tokens: null,
+        input_admission_policy: AZURE_LOCAL_INPUT_POLICY });
       expect(store.operation?.provider_response_body).toContain('"reason":"content_filter"');
       expect(store.operation?.measured_cost_usd).toBeUndefined();
       expect(Number(store.session?.committed_cost_upper_bound_usd)).toBeGreaterThan(0);
@@ -309,10 +426,10 @@ describe("durable provider terminal failure capture with the real guard and offl
       store.admission = null;
       store.operation = null;
       const provider = vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
-        ? countSuccess(12_984) : generation({ input: 12_984 }));
+        ? countSuccess(12_984) : generation({ input: 1298 }));
       const following = await run(provider, { sessionId: "second-session", clientRequestId: "second-request" });
       expect(following.error).toBeNull();
-      expect(provider).toHaveBeenCalledTimes(2);
+      expect(provider).toHaveBeenCalledOnce();
       expect(store.gate?.state).toBe("OPEN");
     });
 
@@ -321,7 +438,7 @@ describe("durable provider terminal failure capture with the real guard and offl
       ? countSuccess() : generation({ model: "another-model" })));
     expect(result.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_GENERATION_MODEL_DRIFT");
     expect(store.operation?.state).toBe("QUALIFICATION_INVALID");
-    expect(store.gate?.state).toBe("CLOSED");
+    expect(store.gate?.local_admission_state).toBe("CLOSED");
   });
 
   it("E: changing the endpoint on the same operation is rejected before provider dispatch", async () => {
@@ -334,13 +451,13 @@ describe("durable provider terminal failure capture with the real guard and offl
     expect(provider).not.toHaveBeenCalled();
   });
 
-  it.each([{ responseStatus: "completed", input: 0 }, { responseStatus: "incomplete", input: INPUT + 1 }])(
+  it.each([{ responseStatus: "completed", input: 0 }, { responseStatus: "incomplete", input: 100_000 }])(
     "preserves fail-closed for contradictory Azure usage: $responseStatus/$input", async ({ responseStatus, input }) => {
       const result = await run(vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
         ? countSuccess() : generation({ responseStatus, input })));
       expect(result.diagnostic?.structuredErrorCode).toBe(responseStatus === "completed"
-        ? "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING" : "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE");
-      expect(store.gate?.state).toBe("CLOSED");
+        ? "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING" : "PUBLIC_AZURE_LOCAL_INPUT_BOUND_EXCEEDED");
+      expect(store.gate?.local_admission_state).toBe("CLOSED");
     });
 
   it("J: reports UNKNOWN when a settlement write itself fails", async () => {

@@ -3,11 +3,11 @@ import {
   ABSOLUTE_HARD_CAMPAIGN_BOUND_USD,
   MEASURED_COST_SOFT_STOP_USD,
   addCanaryCosts,
-  boundCanaryProviderCall,
   canaryBudgetAdmission,
   settleCanaryProviderCall,
 } from "./protocol-designer-canary-policy.js";
 import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
+import { boundPublicProviderCall } from "./protocol-designer-local-token-admission.js";
 
 export const PUBLIC_PROTOCOL_DESIGNER_RATE_LIMIT = Object.freeze({ requests: 6, windowMs: 60_000 });
 export const PUBLIC_PROTOCOL_DESIGNER_SESSION_REQUEST_LIMIT = 8;
@@ -126,7 +126,7 @@ export const createPublicProtocolDesignerBudgetedFetch = (sessionKey: string, fe
     if (!state || state.providerGateClosed) throw new Error("PUBLIC_SESSION_BUDGET_CLOSED");
     if (state.providerCallInFlight) throw new Error("PUBLIC_CONCURRENT_PROVIDER_CALL_DENIED");
     const request = providerRequest(input, init);
-    const bound = request.body === null ? null : boundCanaryProviderCall(request.endpoint, request.body);
+    const bound = request.body === null ? null : boundPublicProviderCall(request.endpoint, request.body);
     const admission = canaryBudgetAdmission(state.committedCostUsd, bound, state.measuredCostUsd, PUBLIC_PROTOCOL_DESIGNER_BUDGET);
     if (admission !== "ADMITTED" || !bound) {
       state.providerGateClosed = true;

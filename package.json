@@ -207,6 +207,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
+    "js-tiktoken": "1.0.21",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
     "postgres": "^3.4.9",

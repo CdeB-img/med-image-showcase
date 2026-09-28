@@ -99,7 +99,9 @@ export type CanaryCallBound = Readonly<{
   pricingSnapshotDate: string;
   inputTokenUpperBound: number;
   outputTokenUpperBound: number;
-  inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT" | "PROVIDER_EXACT_INPUT_COUNT";
+  inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT" | "PROVIDER_EXACT_INPUT_COUNT" | "LOCAL_CONSERVATIVE_ESTIMATE";
+  localEstimatedInputTokens?: number;
+  inputAdmissionPolicy?: string;
   outputBoundBasis: "REQUEST_MAX_OUTPUT_INCLUDES_REASONING" | "DOCUMENTED_MODEL_OUTPUT_LIMIT";
   maximumInputRatePerMillionUsd: number;
   maximumOutputRatePerMillionUsd: number;

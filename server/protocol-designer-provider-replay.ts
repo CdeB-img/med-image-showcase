@@ -17,6 +17,7 @@ import {
   mapOpenAIModelForEndpoint,
   openAIInputCountEndpoint,
   openAIProviderDestinationFromEndpoint,
+  OPENAI_RESPONSES_ENDPOINT,
 } from "./protocol-designer-openai-provider-config.js";
 
 // Validation consumers share campaign accounting without extending the
@@ -41,7 +42,7 @@ const purposeModel = (purpose: keyof typeof canaryPurposeModels, policy?: Canary
 
 // Count only the input-affecting fields of the exact, stateless generation
 // request. The journal owns count provenance and money; this is not a transport.
-export const openAIInputCountRequest = (request: { endpoint: string; method: string; body: string }) => {
+const projectOpenAIInputCountRequest = (request: { endpoint: string; method: string; body: string }, historicalReadOnly = false) => {
   if (!isOpenAIResponsesEndpoint(request.endpoint) || !boundCanaryProviderCall(request.endpoint, request.body))
     throw new CanaryAdmissionError("CANARY_INPUT_COUNT_PAYLOAD_UNQUALIFIED");
   const payload = JSON.parse(request.body);
@@ -51,8 +52,11 @@ export const openAIInputCountRequest = (request: { endpoint: string; method: str
   }
   const input = Object.fromEntries(["model", "instructions", "input", "reasoning", "text"]
     .filter((key) => payload[key] !== undefined).map((key) => [key, payload[key]]));
-  return { endpoint: openAIInputCountEndpoint(request.endpoint), method: "POST", body: JSON.stringify(input) };
+  return { endpoint: historicalReadOnly && openAIProviderDestinationFromEndpoint(request.endpoint) === "azure"
+    ? `${OPENAI_RESPONSES_ENDPOINT}/input_tokens` : openAIInputCountEndpoint(request.endpoint), method: "POST", body: JSON.stringify(input) };
 };
+export const openAIInputCountRequest = (request: { endpoint: string; method: string; body: string }) =>
+  projectOpenAIInputCountRequest(request);
 export const readOpenAIInputTokenCount = (response: { status: number; body: string } | null) => {
   if (!response || response.status < 200 || response.status >= 300) return null;
   try {
@@ -328,7 +332,7 @@ export const readCanaryState = async (root: string, campaignId: string, campaign
         if (campaignPolicy?.exactInputCounting && (!proof || !storedCount
           || proof.inputTokens !== storedCount.inputTokens || proof.requestDigest !== digest(storedCount.request)
           || storedCount.logicalCallId !== admission.logicalCallId + ":count"
-          || digest(openAIInputCountRequest(exchange.request)) !== proof.requestDigest
+          || digest(projectOpenAIInputCountRequest(exchange.request, true)) !== proof.requestDigest
           || proof.inputTokens > campaignPolicy.exactInputCounting.maxInputTokens)) throw new Error("count proof");
         if (!campaignPolicy?.exactInputCounting && proof) throw new Error("unexpected count proof");
         const bound = boundCanaryProviderCall(exchange.request.endpoint, exchange.request.body, proof?.inputTokens);

@@ -958,7 +958,7 @@ export const handleProtocolDesignerBridge = async (
       error: { code: publicAdmission.code, message: publicAdmission.message },
       observability: providerCallRequestObservability([]),
     });
-    const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch, openAiProvider.countApiKey);
+    const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch);
     const result = await executeProtocolDesignerBridge({
       body,
       apiKey: environment.GEMINI_API_KEY?.trim() || null,

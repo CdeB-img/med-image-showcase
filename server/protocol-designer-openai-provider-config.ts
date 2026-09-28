@@ -1,8 +1,7 @@
 export const OPENAI_RESPONSES_ENDPOINT = "https://api.openai.com/v1/responses";
 
-// Only the observed provider/deployment pairs from the bounded 2026-09-22
-// qualification may use OpenAI precount for Azure generation. A future model
-// needs a new qualification entry and pricing snapshot, not a transport change.
+// Historical qualification identities retained for the legacy gate/evidence.
+// Current Azure generation uses local admission, never OpenAI network precount.
 const AZURE_INPUT_COUNT_QUALIFICATIONS: Readonly<Record<string, string>> = Object.freeze({
   "gpt-5.6-sol": "OPENAI_COUNT_AZURE_GENERATION_GPT_5_6_SOL_2026_09_22",
   "gpt-5.6-terra": "OPENAI_COUNT_AZURE_GENERATION_GPT_5_6_TERRA_2026_09_22",
@@ -20,7 +19,6 @@ export type OpenAIProviderTransport = Readonly<{
 
 export type OpenAIProviderRuntimeConfiguration = Readonly<{
   apiKey: string | null;
-  countApiKey?: string;
   transport?: OpenAIProviderTransport;
 }>;
 
@@ -62,7 +60,7 @@ export const isOpenAIInputCountEndpoint = (endpoint: string) => (
 );
 
 export const supportsOpenAIExactInputCount = (responsesEndpoint: string) => (
-  isOpenAIResponsesEndpoint(responsesEndpoint)
+  responsesEndpoint === OPENAI_RESPONSES_ENDPOINT
 );
 
 export const openAIInputCountEndpoint = (responsesEndpoint: string) => {
@@ -96,11 +94,8 @@ export const resolveOpenAIProviderRuntimeConfiguration = (
   if (selected !== "azure") throw new Error("OPENAI_PROVIDER_INVALID");
   const projectEndpoint = environment.AZURE_OPENAI_PROJECT_ENDPOINT?.trim();
   if (!projectEndpoint) throw new Error("AZURE_OPENAI_PROJECT_ENDPOINT_MISSING");
-  const countApiKey = environment.OPENAI_API_KEY?.trim();
-  if (!countApiKey) throw new Error("AZURE_OPENAI_PRECOUNT_API_KEY_MISSING");
   return {
     apiKey: environment.AZURE_OPENAI_API_KEY?.trim() || null,
-    countApiKey,
     transport: Object.freeze({ destination: "azure", responsesEndpoint: azureOpenAIResponsesEndpoint(projectEndpoint) }),
   };
 };

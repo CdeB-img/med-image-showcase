@@ -143,10 +143,10 @@ describe("P1-UX-RESTORE-01H-R — local provider bridge parity", () => {
       OPENAI_PROVIDER: "azure",
       AZURE_OPENAI_PROJECT_ENDPOINT: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod",
       AZURE_OPENAI_API_KEY: "dummy-azure-process-key",
-      OPENAI_API_KEY: "dummy-openai-count-key",
+      OPENAI_API_KEY: "dummy-openai-stt-key",
     }, {})).toMatchObject({
       openAiApiKey: "dummy-azure-process-key",
-      openAiCountApiKey: "dummy-openai-count-key",
+      openAiTranscriptionApiKey: "dummy-openai-stt-key",
       openAiTransport: {
         destination: "azure",
         responsesEndpoint: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod/openai/v1/responses",

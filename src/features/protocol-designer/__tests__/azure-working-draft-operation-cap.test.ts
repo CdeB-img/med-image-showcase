@@ -13,7 +13,6 @@ const azure = resolveOpenAIProviderRuntimeConfiguration({
   OPENAI_PROVIDER: "azure",
   AZURE_OPENAI_PROJECT_ENDPOINT: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod",
   AZURE_OPENAI_API_KEY: "local-test-azure-key",
-  OPENAI_API_KEY: "local-test-openai-key",
 });
 
 const conversationRequest = (workingDraft: boolean): ProductBridgeRequest => ({
