@@ -2,7 +2,7 @@ import Ajv from "ajv";
 import { describe, expect, it } from "vitest";
 import { buildOpenAITerraConversationPayload } from "../../../../../api/protocol-designer-openai-extraction-provider";
 import { openAIInputCountRequest } from "../../../../../server/protocol-designer-provider-replay";
-import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest, resolveWorkingDraftSourceQuote } from "../continuous-project-build";
 import { createFunctionalResetSession } from "../session";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
@@ -43,13 +43,17 @@ describe("background provider contract follows the native owner", () => {
     expect(validate({ ...wire, explicitDecisions: [{ ...decision, sourceTurnRef: "u1" }] })).toBe(false);
   });
 
-  it("keeps exact multiline and decimal source passages available without rewriting or authorizing duplicate source ids", () => {
+  it("transports multiline and decimal source passages without controls, source rewriting or duplicate source ids", () => {
     const { request } = fixture();
     request.conversation.turns[0].content = "Comparer A\ncontre B à 1.5 mg. Le reste est ouvert.";
     const packet = prepareWorkingDraftRequest(request);
     const text = JSON.stringify(packet.outputSchema);
-    expect(text).toContain(JSON.stringify("Comparer A\ncontre B à 1.5 mg."));
-    expect(text).toContain(JSON.stringify(request.conversation.turns[0].content));
+    expect(text).toContain(JSON.stringify("Comparer A contre B à 1.5 mg."));
+    expect(text).toContain(JSON.stringify("Comparer A contre B à 1.5 mg. Le reste est ouvert."));
+    expect(text).not.toContain(JSON.stringify(request.conversation.turns[0].content));
+    expect(JSON.parse(packet.context).RECENT_CONVERSATION[0].content).toBe(request.conversation.turns[0].content);
+    expect(resolveWorkingDraftSourceQuote(request.conversation.turns[0].content, "Comparer A contre B à 1.5 mg.")?.quote)
+      .toBe("Comparer A\ncontre B à 1.5 mg.");
     const before = JSON.stringify(request);
     prepareWorkingDraftRequest(request);
     expect(JSON.stringify(request)).toBe(before);

@@ -439,6 +439,54 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(acceptWorkingDraftUpdate(update, r).update.explicitDecisions[0]!.quote).toBe(source);
     expect(JSON.stringify(r)).toBe(before);
   });
+  it.each(["\n", "\r\n", "\t", " \r\n\t\n  "])("uses layout-safe strict-schema quotes and restores their immutable source (%j)", separator => {
+    const source = DOMAINS[1].text.split(" ").join(separator);
+    const request = requestFor(sessionFor(source)), before = JSON.stringify(request);
+    const prepared = prepareWorkingDraftRequest(request);
+    const decisions = prepared.outputSchema.properties!.explicitDecisions as {
+      items: { properties: { quote: { enum: string[] } } };
+    };
+    const quotes = decisions.items.properties.quote.enum;
+    expect(quotes).toContain(DOMAINS[1].text);
+    expect(quotes.every(quote => !/[\r\n\t]/u.test(quote))).toBe(true);
+    for (const quote of quotes) expect(resolveWorkingDraftSourceQuote(source, quote)).not.toBeNull();
+    expect(JSON.parse(prepared.context).RECENT_CONVERSATION[0].content).toBe(source);
+    const update = updateFor(request);
+    update.explicitDecisions[0]!.quote = DOMAINS[1].text;
+    expect(acceptWorkingDraftUpdate(update, request).update.explicitDecisions[0]!.quote).toBe(source);
+    expect(JSON.stringify(request)).toBe(before);
+  });
+  it("keeps single-line strict-schema quotes unchanged", () => {
+    const prepared = prepareWorkingDraftRequest(requestFor(sessionFor()));
+    const decisions = prepared.outputSchema.properties!.explicitDecisions as {
+      items: { properties: { quote: { enum: string[] } } };
+    };
+    expect(decisions.items.properties.quote.enum).toContain(DOMAINS[1].text);
+  });
+  it("takes multiline strict-schema output to native review without adopting Project", async () => {
+    const source = DOMAINS[1].text.replace(/ /gu, "\r\n\t");
+    const initial = sessionFor(source), captured = captureProjectPreparation(initial);
+    const request = captured.checkpoint!.request;
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      const quotes: string[] = payload.text.format.schema.properties.explicitDecisions.items.properties.quote.enum;
+      // Model the exact Azure 400 found in Preview, not only JSON validity.
+      if (quotes.some(quote => /[\r\n\t]/u.test(quote))) return new Response(JSON.stringify({
+        error: { type: "invalid_request_error", code: "invalid_json_schema", param: "text.format.schema" },
+      }), { status: 400 });
+      expect(quotes).toContain(DOMAINS[1].text);
+      return response(JSON.stringify(updateFor(request)));
+    });
+    const result = await call(request, provider);
+    expect(provider).toHaveBeenCalledTimes(1);
+    expect(result.status).toBe(200);
+    if (result.status !== 200) return;
+    const next = consumeProjectPreparation(addProjectPreparation(initial, captured),
+      captured.checkpoint!.preparationId, result.body as ProductBridgeResponse);
+    expect(next.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW");
+    expect(next.project).toBeNull();
+    expect(next.runtimeTurns[0]!.content).toBe(source);
+  });
   it("projects open scientific atoms separately from referential ambiguity and preserves QRY outcomes", () => {
     const s = sessionFor(), r = requestFor(s), update = updateFor(r);
     update.proposal!.atoms.find(a => a.area === "MEASUREMENTS")!.status = "OPEN_DECISION";
