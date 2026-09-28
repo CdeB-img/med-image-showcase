@@ -39,6 +39,20 @@ describe("environment-scoped public soft stop", () => {
     expect(canaryBudgetAdmission(ledger.committed, bound, ledger.measured, budget)).toBe("ADMITTED");
     expect(ledger).toEqual({ measured: 1.065185, committed: 1.49809 });
   });
+  it("admits a later preparation after the observed settled Preview session without weakening either budget gate", () => {
+    // Sanitized durable ledger after one preparation, one document version and later conversation.
+    // The rejected request left no operation row, so its exact reservation is unavailable.
+    const measured = 1.0376186;
+    const committed = 1.08398;
+    const representativePreparation = { upperBoundUsd: 1.1 } as CanaryCallBound;
+    const previewBudget = durableGuardPublicBudget(preview);
+    expect(canaryBudgetAdmission(committed, representativePreparation, measured, durableGuardPublicBudget({ VERCEL_ENV: "preview" })))
+      .toBe("DENIED_SOFT_STOP");
+    expect(canaryBudgetAdmission(committed, representativePreparation, measured, previewBudget)).toBe("ADMITTED");
+    expect(canaryBudgetAdmission(3.1, representativePreparation, 3, previewBudget)).toBe("DENIED_SOFT_STOP");
+    expect(canaryBudgetAdmission(5.1, representativePreparation, measured, previewBudget)).toBe("DENIED_HARD_BUDGET");
+    expect(canaryBudgetAdmission(committed, null, measured, previewBudget)).toBe("DENIED_UNKNOWN_UPPER_BOUND");
+  });
   it("uses the same three-dollar policy in Production without changing the six-dollar hard cap", () => {
     const ledger = { measured: 1.065185, committed: 1.49809 };
     const budget = durableGuardPublicBudget(production);

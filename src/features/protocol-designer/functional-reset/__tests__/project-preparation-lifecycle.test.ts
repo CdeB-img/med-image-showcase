@@ -94,4 +94,27 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
   expect(p.checkpoint!.request.currentProject?.projectDigest).toBe(project.projectDigest);
   expect(p.checkpoint!.previousDraftDigest).toBeTruthy();
  });
+ it("takes a second preparation to review after human adoption without adopting Project v2",()=>{
+  const first=ready(),review=projectPreparationReview(first)!;
+  expect(review.applicable).toBe(true);
+  const project=confirmResearchProjectContribution({contribution:review.prepared.contribution,current:null,
+   projectId:first.projectId,authority:first.projectAuthority,confirmedAt:first.updatedAt,
+   reviewedProjection:review.prepared.candidate.humanReviewProjection});
+  expect(project.revision).toBe(1);
+  const continued={...first,project,runtimeTurns:[...first.runtimeTurns,
+   {turnId:"turn:next",role:"USER" as const,content:"Précision synthétique complémentaire sur les critères.",createdAt:first.updatedAt},
+   {turnId:"noxia-turn:22222222-2222-4222-8222-222222222222",role:"NOXIA" as const,
+    content:"Précision discutée, non adoptée.",createdAt:first.updatedAt}]};
+  const preparation=captureProjectPreparation(continued),request=preparation.checkpoint!.request;
+  const proposal=controlledStudyProposal(workingDraftInputDigest(request),DOMAINS[0]);
+  proposal.atoms.find(atom=>atom.ref==="eligibility")!.content="Critère complémentaire synthétique proposé pour revue";
+  const accepted=acceptWorkingDraftUpdate({requestType:"STUDY_UPDATE",proposal,explicitDecisions:[],
+   inferredAtomRefs:[],rejectedAtomRefs:[]},request);
+  const second=consumeProjectPreparation(addProjectPreparation(continued,preparation),
+   preparation.checkpoint!.preparationId,{workingDraftUpdate:accepted.update,workingStudyProposal:accepted.composition});
+  expect(second.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW");
+  expect(projectPreparationReview(second)?.applicable).toBe(true);
+  expect(second.project).toBe(project);
+  expect(second.project?.revision).toBe(1);
+ });
 });
