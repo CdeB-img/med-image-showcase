@@ -2,9 +2,11 @@ import { describe, expect, it, vi } from "vitest";
 import {
   handleProtocolDesignerTranscription,
   type TranscriptionApiResponse,
-} from "../../../../api/protocol-designer-transcription";
+} from "../../../../server/protocol-designer-transcription";
+import { handleProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
 
 const requestBody = {
+  operation: "TRANSCRIBE_VOICE_INPUT",
   audioBase64: Buffer.from("synthetic non-sensitive audio").toString("base64"),
   mimeType: "audio/webm;codecs=opus",
   language: "fr-FR",
@@ -35,7 +37,7 @@ describe("Protocol Designer transcription endpoint", () => {
       return new Response(JSON.stringify({ text: "IRM cardiaque, ECV et hématocrite." }), { status: 200 });
     });
     const capture = responseCapture();
-    await handleProtocolDesignerTranscription({ method: "POST", headers: {
+    await handleProtocolDesignerBridge({ method: "POST", headers: {
       "content-type": "application/json", origin: "https://preview.example", host: "preview.example",
     }, body: requestBody }, capture.response, { OPENAI_API_KEY: "LOCAL_SYNTHETIC" }, { fetchImpl: provider });
     expect(capture.read()).toEqual({ status: 200, body: { text: "IRM cardiaque, ECV et hématocrite." } });

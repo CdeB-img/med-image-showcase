@@ -64,6 +64,10 @@ import {
   sharedPostgresProjectSnapshotStore,
   type ProtocolDesignerProjectSnapshotStore,
 } from "../server/protocol-designer-project-snapshot.js";
+import {
+  handleProtocolDesignerTranscription,
+  isProtocolDesignerTranscriptionRequest,
+} from "../server/protocol-designer-transcription.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -759,6 +763,11 @@ export const handleProtocolDesignerBridge = async (
     durableGuard?: PublicProtocolDesignerDurableGuard;
     projectSnapshotStore?: ProtocolDesignerProjectSnapshotStore } = {},
 ) => {
+  if (isProtocolDesignerTranscriptionRequest(request.body)) {
+    return handleProtocolDesignerTranscription(request, response, environment, {
+      fetchImpl: dependencies.fetchImpl,
+    });
+  }
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
   if (request.method !== "POST") return response.status(405).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "METHOD_NOT_ALLOWED", message: "Méthode non autorisée." } });

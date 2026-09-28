@@ -39,12 +39,13 @@ export const requestProtocolDesignerTranscription = async (
   else options.signal?.addEventListener("abort", abortFromCaller, { once: true });
   const timer = window.setTimeout(() => { timedOut = true; controller.abort(); }, TRANSCRIPTION_TIMEOUT_MS);
   try {
-    const response = await fetch("/api/protocol-designer-transcription", {
+    const response = await fetch("/api/protocol-designer-bridge", {
       method: "POST",
       headers: { "content-type": "application/json" },
       credentials: "same-origin",
       signal: controller.signal,
       body: JSON.stringify({
+        operation: "TRANSCRIBE_VOICE_INPUT",
         audioBase64: await blobToBase64(audio),
         mimeType: audio.type || "audio/webm",
         language: options.language ?? "fr",

@@ -33,7 +33,7 @@ describe("Protocol Designer voice dictation V1 integration", () => {
     const initial = createFunctionalResetSession();
     let current = initial;
     const fetchMock = vi.fn<typeof fetch>(async (url) => {
-      expect(url).toBe("/api/protocol-designer-transcription");
+      expect(url).toBe("/api/protocol-designer-bridge");
       return new Response(JSON.stringify({ text: "dictée ECV" }), { status: 200 });
     });
     vi.stubGlobal("fetch", fetchMock);
