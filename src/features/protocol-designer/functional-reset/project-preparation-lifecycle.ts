@@ -7,7 +7,7 @@ import { prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDr
   type WorkingDraftMetadata } from "./continuous-project-build.js";
 import { readConversationConfirmationReceipts, workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
   type ProjectReviewInvitation } from "./session.js";
-import type { StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
+import { assertStudyProposalOptionBindings, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import { ensureCanonicalProjectState } from "../../research-project-construction/canonical-project-backbone.js";
 import { readNaturalCandidateDecision } from "./natural-conversation-policy.js";
 import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input.js";
@@ -177,6 +177,10 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
         attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "PREPARATION_RESULT_BINDING_MISMATCH");
   try {
     const base = inputSession(observed, cp);
+    assertStudyProposalOptionBindings(composition.proposal);
+    observed = recordProjectPreparationTrace(observed, cp, "WORKING_DRAFT_VALIDATION", "SUCCEEDED", {
+      code: "STUDY_PROPOSAL_OPTION_BINDING_VALID",
+    });
     const ownerObservation: { current: WorkingReviewOwnerObservation | null } = { current: null };
     const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate, cp.inputDigest, ownerObservation);
     const diagnostic = ownerObservation.current;

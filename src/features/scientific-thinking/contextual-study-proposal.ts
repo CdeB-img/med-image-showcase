@@ -139,6 +139,17 @@ export const studyProposalOwnerAreas = (owner: StudyProposalAtom["owner"]): read
       : owner === "DATA_MANAGEMENT" ? ["DESCRIPTION"] : ["MEASUREMENTS", "ENDPOINTS"];
 };
 
+/** Check option references before any consumer can dereference them. */
+export const assertStudyProposalOptionBindings = (proposal: ContextualStudyProposal) => {
+  const atoms = new Set(proposal.atoms.map(atom => atom.ref));
+  for (const arbitration of proposal.arbitrations) {
+    if (arbitration.options.some(option => option.atomRefs.some(ref => !atoms.has(ref)))
+      || arbitration.recommendedRefs.some(ref => !arbitration.options.some(option => option.ref === ref))
+      || arbitration.selection === "ONE" && arbitration.recommendedRefs.length > 1)
+      throw new Error("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+  }
+};
+
 export const acceptContextualStudyProposal = (raw: unknown, input: {
   contextDigest: string; sourceTurnRef: string; sourceResponseRef: string; sourceProject: ProposalProjectBinding;
   applicableEvidenceRefs: readonly string[];
@@ -168,11 +179,7 @@ export const acceptContextualStudyProposal = (raw: unknown, input: {
   const visit = (id: string) => { if (active.has(id)) throw new Error("STUDY_PROPOSAL_DEPENDENCY_CYCLE");
     if (visited.has(id)) return; active.add(id); atoms.get(id)!.dependsOn.forEach(visit); active.delete(id); visited.add(id); };
   proposal.atoms.forEach(a => visit(a.ref));
-  for (const arbitration of proposal.arbitrations) {
-    if (arbitration.options.some(o => o.atomRefs.some(r => !atoms.has(r)))
-      || arbitration.recommendedRefs.some(r => !arbitration.options.some(o => o.ref === r))
-      || arbitration.selection === "ONE" && arbitration.recommendedRefs.length > 1) throw new Error("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
-  }
+  assertStudyProposalOptionBindings(proposal);
   for (const scenario of proposal.dimensioningScenarios) {
     if (scenario.branchAtomRefs.some(r => !atoms.has(r)) || scenario.input.assumptions.some(a =>
       a.provenance === "EVIDENCE_SUPPORTED_PROPOSAL" && !input.applicableEvidenceRefs.includes(a.sourceRef))) throw new Error("STUDY_PROPOSAL_DIMENSIONING_SOURCE_INVALID");

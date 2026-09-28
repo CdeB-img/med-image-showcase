@@ -4,7 +4,7 @@ import { isExplicitProjectRecordingRequest } from "./natural-conversation-policy
 import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import { CANONICAL_PROJECT_OBJECT_TYPES } from "../../research-project-construction/canonical-project-backbone.js";
 import { prepareResearchProjectContributionCandidate } from "../../research-project-construction/contribution-owner-boundary.js";
-import { acceptContextualStudyProposal, hardStudyProposalDependencies, studyProposalOptionDecisionRefs, studyDependencyQualificationSchema, studyProposalOwnerAreas, studyProposalAtomSchema, studyArbitrationSchema, contextualStudyProposalSchema, STUDY_PROPOSAL_MANDATE, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
+import { acceptContextualStudyProposal, assertStudyProposalOptionBindings, hardStudyProposalDependencies, studyProposalOptionDecisionRefs, studyDependencyQualificationSchema, studyProposalOwnerAreas, studyProposalAtomSchema, studyArbitrationSchema, contextualStudyProposalSchema, STUDY_PROPOSAL_MANDATE, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import { prepareTerraConversation } from "../../scientific-thinking/scientific-collaborator-conversation.js";
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 import type { ProductBridgeRequest } from "../product-bridge.js";
@@ -69,6 +69,31 @@ export const normalizeUnresolvedOutcomeInputDependencies = (proposal: z.infer<ty
     }
   }
   return normalized;
+};
+/** An entirely unbound, unselected alternative has no scientific decision to
+ * project. Quarantine only that branch; mixed or recommended bindings still
+ * fail closed in the Scientific Thinking validator. */
+export const quarantineUnboundOptionalArbitrations = (
+  proposal: z.infer<typeof contextualStudyProposalSchema>,
+  previous: StudyProposalComposition | null | undefined,
+) => {
+  const atomRefs = new Set(proposal.atoms.map(atom => atom.ref));
+  const previousAtomRefs = new Set(previous?.proposal.atoms.map(atom => atom.ref) ?? []);
+  const referencedElsewhere = new Set([
+    ...proposal.atoms.flatMap(atom => atom.dependsOn),
+    ...proposal.dimensioningScenarios.flatMap(scenario => [scenario.analysisAtomRef, ...scenario.branchAtomRefs]),
+  ]);
+  const quarantined: string[] = [];
+  proposal.arbitrations = proposal.arbitrations.filter(arbitration => {
+    const bindings = arbitration.options.flatMap(option => option.atomRefs);
+    const entirelyUnbound = bindings.every(ref => !atomRefs.has(ref)
+      && !previousAtomRefs.has(ref) && !referencedElsewhere.has(ref));
+    if (!entirelyUnbound || proposal.arbitrations.length - quarantined.length <= 1 || arbitration.recommendedRefs.length
+      || previous?.proposal.arbitrations.some(prior => prior.ref === arbitration.ref)) return true;
+    quarantined.push(arbitration.ref);
+    return false;
+  });
+  return quarantined;
 };
 export type WorkingDraftUpdate = z.infer<typeof responseSchema>;
 export type WorkingDraftMetadata = {
@@ -329,6 +354,8 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
   const ownerAreaNormalizations = normalizeUnambiguousOwnerAreas(update.proposal);
   const outcomeInputNormalizations = normalizeUnresolvedOutcomeInputDependencies(update.proposal);
+  const unboundOptionalArbitrations = quarantineUnboundOptionalArbitrations(update.proposal, request.studyProposalContext);
+  assertStudyProposalOptionBindings(update.proposal);
   const user = [...request.conversation.turns].reverse().find(t => t.role === "USER")!;
   const reply = [...request.conversation.turns].reverse().find(t => t.role === "NOXIA");
   if (!reply) throw new Error("WORKING_DRAFT_VISIBLE_REPLY_REQUIRED");
@@ -382,6 +409,9 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   });
   if (outcomeInputNormalizations.length) console.info("WORKING_DRAFT_OUTCOME_INPUT_DEPENDENCY_NORMALIZED", {
     clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: outcomeInputNormalizations,
+  });
+  if (unboundOptionalArbitrations.length) console.info("WORKING_DRAFT_UNBOUND_OPTIONAL_ARBITRATION_QUARANTINED", {
+    clientRequestId: request.observabilityContext?.clientRequestId ?? null, arbitrationRefs: unboundOptionalArbitrations,
   });
   return { update, composition };
 };

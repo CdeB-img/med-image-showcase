@@ -27,7 +27,7 @@ import * as documentaryConversation from "../documentary-conversation";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "@/features/scientific-thinking/contextual-reasoning-input";
-import { buildStudyProposalSelectionContribution } from "../study-proposal-standard";
+import { buildStudyProposalSelectionContribution, propagateStudyProposalDecision, selectedStudyProposalAtoms } from "../study-proposal-standard";
 import { logicalDigest, normalizeScientificText } from "@/features/knowledge-engine/canonical";
 import { readNaturalCandidateDecision } from "../natural-conversation-policy";
 import { createProductTraceRunId } from "../../scientific-execution-trace";
@@ -785,6 +785,139 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       selectedChangeRefs: ready.candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["human-review-button"] });
     expect(project.projectId).toBe(s.projectId); expect(project.confirmationDecision.status).toBe("ADOPTED");
     persistFunctionalResetSession(localStorage, { ...s, project }); expect(loadFunctionalResetSession(localStorage).project?.versionId).toBe(project.versionId);
+  });
+  it("keeps a second fibrosis Working Draft reviewable when a new unselected allocation arbitration has only orphan atom refs", () => {
+    const firstText = "je veux créer un projet sur la fibrose normale. évaluer l'évolution de la fibrose en fonction de l'age en prenant plusieurs patients sains de différentes tranche d'age et en leur faisant passer une irm cardiaque et en évaluant l'ECV pour chacun d'eux. C'est donc une étude sur volontaire sains sans rémunération";
+    const first = sessionFor(firstText);
+    const firstRequest = requestFor(first), firstUpdate = updateFor(firstRequest, DOMAINS[0]);
+    firstUpdate.explicitDecisions = [{ atomRef: "design", sourceTurnRef: "u1", quote: firstText }];
+    for (const ref of ["eligibility-metabolic", "eligibility-smoking", "sport"])
+      firstUpdate.proposal!.atoms.find(atom => atom.ref === ref)!.status = "OPEN_DECISION";
+    const firstReady = checkpointSession(first, firstUpdate);
+    expect(firstReady.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW");
+    expect(firstReady.project).toBeNull();
+    const firstTraceRunId = createProductTraceRunId(first.sessionId, "u1");
+    expect(buildTraceInspectorRunProjection({ ledger: firstReady.scientificExecutionTraceLedger,
+      traceRunId: firstTraceRunId }).events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
+    const firstReview = projectPreparationReview(firstReady)!.prepared!;
+    const projectV1 = confirmResearchProjectContribution({ contribution: firstReview.contribution,
+      current: null, projectId: first.projectId, authority: first.projectAuthority, confirmedAt: first.updatedAt,
+      reviewedProjection: firstReview.candidate.humanReviewProjection,
+      selectedChangeRefs: firstReview.candidate.humanReviewProjection.coveredChangeRefs,
+      confirmationSourceRefs: ["human-review-button:1"] });
+    expect(projectV1.revision).toBe(1);
+    const noQryAction = { currentAction: null } as NonNullable<FunctionalResetSession["queryNavigation"]>;
+    const firstLedger = traceAdapter.recordProjectAdoptionTrace({ ledger: firstReady.scientificExecutionTraceLedger,
+      traceRunId: firstTraceRunId, conversationId: first.conversationId, recordedAt: first.updatedAt,
+      contribution: firstReview.contribution, project: projectV1, previousProjectExisted: false,
+      queryNavigation: noQryAction, documents: firstReady.documents });
+    const firstTraceStages = buildTraceInspectorRunProjection({ ledger: firstLedger,
+      traceRunId: firstTraceRunId }).events.map(event => event.stage);
+    expect(firstTraceStages).toContain("HUMAN_DECISION_RECORDED");
+    expect(firstTraceStages).toContain("PROJECT_VERSION_CREATED");
+
+    const secondText = "le protocole sera conduit en france sur des sujets sains, pas de mineurs, tranche d'ages par dizaine. il faut exclure les pathologies fibrotique diabete hta ... ainsi que les fumeurs, évaluer l'aspect sportif";
+    const firstComposition = firstReady.studyProposal!;
+    const firstScope = recommendedWorkingScope(firstComposition);
+    const adoptedProposal = propagateStudyProposalDecision(firstComposition, projectV1, firstReview.candidate, null,
+      selectedStudyProposalAtoms(firstComposition, firstScope.selectedOptionRefs, firstScope.selectedAtomRefs),
+      firstScope.selectedOptionRefs, first.runtimeTurns[0]);
+    const second: FunctionalResetSession = { ...firstReady, project: projectV1, studyProposal: adoptedProposal,
+      scientificExecutionTraceLedger: firstLedger,
+      runtimeTurns: [...firstReady.runtimeTurns,
+        { turnId: "u2", role: "USER", content: secondText, createdAt: firstReady.updatedAt },
+        { turnId: "noxia-turn:22222222-2222-4222-8222-222222222222", role: "NOXIA", content: "LOCAL_SYNTHETIC — changements candidats, non adoptés.", createdAt: firstReady.updatedAt }] };
+    const secondRequest = requestFor(second), secondUpdate = updateFor(secondRequest, DOMAINS[0]);
+    const proposal = secondUpdate.proposal!;
+    proposal.atoms.find(atom => atom.ref === "population")!.content = "Volontaires sains adultes en France";
+    Object.assign(proposal.atoms.find(atom => atom.ref === "age-classes")!, {
+      area: "RECRUITMENT", content: "Tranches d'âge par décennie pour le recrutement",
+    });
+    proposal.atoms.find(atom => atom.ref === "eligibility-metabolic")!.content = "Exclure les maladies fibrosantes, le diabète et l'hypertension";
+    proposal.atoms.find(atom => atom.ref === "eligibility-smoking")!.content = "Exclure les fumeurs ; le statut des anciens fumeurs reste à définir";
+    proposal.atoms.find(atom => atom.ref === "sport")!.content = "Évaluer l'activité sportive ; instrument et période à définir";
+    proposal.atoms.push({ ...proposal.atoms.find(atom => atom.ref === "bounds")!, ref: "open-age-allocation",
+      semanticKey: "open-age-allocation", content: "Déterminer si les effectifs par décennie seront équilibrés ou seulement couverts" });
+    const openTemplate = proposal.atoms.find(atom => atom.ref === "bounds")!;
+    while (proposal.atoms.length < 60) {
+      const ref = `rich-open-${proposal.atoms.length}`;
+      proposal.atoms.push({ ...openTemplate, ref, semanticKey: ref,
+        content: `Précision opérationnelle ${ref} non décidée` });
+    }
+    expect(proposal.atoms).toHaveLength(60);
+    proposal.arbitrations.find(arbitration => arbitration.ref === "age-strategy")!.options =
+      proposal.arbitrations.find(arbitration => arbitration.ref === "age-strategy")!.options.filter(option => option.ref !== "classes-option");
+    proposal.arbitrations = proposal.arbitrations.filter(arbitration => arbitration.ref !== "allocation-choice");
+    proposal.arbitrations.push({ ref: "arb-allocation", label: "Allocation par décennie", rationale: "Choix non exprimé",
+      selection: "ONE", material: false, reversible: true, affectedBranches: ["RECRUITMENT"],
+      options: [
+        { ref: "opt-quotas", label: "Quotas proches entre décennies", benefits: "Couverture", limits: "Recrutement", consequences: "Quotas", atomRefs: ["alloc-quotas"] },
+        { ref: "opt-coverage", label: "Couverture sans quotas équilibrés", benefits: "Souplesse", limits: "Déséquilibre", consequences: "Couverture", atomRefs: ["alloc-coverage"] },
+      ], recommendedRefs: [] });
+    secondUpdate.explicitDecisions = ["population", "age-classes", "eligibility-metabolic", "eligibility-smoking", "sport"]
+      .map(atomRef => ({ atomRef, sourceTurnRef: "u2", quote: secondText }));
+    const accepted = acceptWorkingDraftUpdate(secondUpdate, secondRequest);
+    expect(accepted.composition!.proposal.arbitrations.some(arbitration => arbitration.ref === "arb-allocation")).toBe(false);
+    expect(accepted.composition!.proposal.atoms.find(atom => atom.ref === "open-age-allocation")?.status).toBe("OPEN_DECISION");
+    const secondPreparation = captureProjectPreparation(second);
+    const secondReady = consumeProjectPreparation(addProjectPreparation(second, secondPreparation),
+      secondPreparation.checkpoint!.preparationId,
+      { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    expect(secondReady.workingDraftPreparations?.at(-1)?.status,
+      secondReady.workingDraftPreparations?.at(-1)?.code ?? "NO_CODE").toBe("READY_FOR_REVIEW");
+    expect(secondReady.project?.versionId).toBe(projectV1.versionId);
+    const secondTraceRunId = createProductTraceRunId(second.sessionId, "u2");
+    const secondReadyTrace = buildTraceInspectorRunProjection({ ledger: secondReady.scientificExecutionTraceLedger,
+      traceRunId: secondTraceRunId });
+    expect(secondReadyTrace.events.map(event => event.stage)).toContain("WORKING_DRAFT_VALIDATION");
+    expect(secondReadyTrace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
+    expect(secondReadyTrace.firstFailure).toBeNull();
+    const secondReview = projectPreparationReview(secondReady)!.prepared!;
+    const projectV2 = confirmResearchProjectContribution({ contribution: secondReview.contribution,
+      current: projectV1, projectId: first.projectId, authority: first.projectAuthority, confirmedAt: second.updatedAt,
+      reviewedProjection: secondReview.candidate.humanReviewProjection,
+      selectedChangeRefs: secondReview.candidate.humanReviewProjection.coveredChangeRefs,
+      confirmationSourceRefs: ["human-review-button:2"] });
+    expect(projectV2.revision).toBe(2);
+    expect(projectV2.versionId).not.toBe(projectV1.versionId);
+    expect(projectV1.revision).toBe(1);
+    expect(JSON.stringify(projectV2)).toContain("Exclure les maladies fibrosantes");
+    const secondLedger = traceAdapter.recordProjectAdoptionTrace({ ledger: secondReady.scientificExecutionTraceLedger,
+      traceRunId: secondTraceRunId, conversationId: second.conversationId, recordedAt: second.updatedAt,
+      contribution: secondReview.contribution, project: projectV2, previousProjectExisted: true,
+      queryNavigation: noQryAction, documents: secondReady.documents });
+    const secondTraceStages = buildTraceInspectorRunProjection({ ledger: secondLedger,
+      traceRunId: secondTraceRunId }).events.map(event => event.stage);
+    expect(secondTraceStages).toContain("HUMAN_DECISION_RECORDED");
+    expect(secondTraceStages).toContain("PROJECT_VERSION_REVISED");
+  });
+  it("still rejects a recommended, partially bound, or inherited orphan arbitration", () => {
+    const first = sessionFor(DOMAINS[0].text), request = requestFor(first);
+    const addOrphan = (update: WorkingDraftUpdate) => {
+      update.proposal!.arbitrations.push({ ref: "arb-allocation", label: "Allocation", rationale: "Choix",
+        selection: "ONE", material: false, reversible: true, affectedBranches: ["RECRUITMENT"],
+        options: [{ ref: "opt-quotas", label: "Quotas", benefits: "Couverture", limits: "Effort",
+          consequences: "Quotas", atomRefs: ["alloc-quotas"] }], recommendedRefs: [] });
+      return update;
+    };
+    const recommended = addOrphan(updateFor(request, DOMAINS[0]));
+    recommended.proposal!.arbitrations.at(-1)!.recommendedRefs = ["opt-quotas"];
+    expect(() => acceptWorkingDraftUpdate(recommended, request)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    const partial = addOrphan(updateFor(request, DOMAINS[0]));
+    partial.proposal!.arbitrations.at(-1)!.options[0]!.atomRefs.push("allocation");
+    expect(() => acceptWorkingDraftUpdate(partial, request)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    const inherited = addOrphan(updateFor(request, DOMAINS[0]));
+    const previous = acceptWorkingDraftUpdate(updateFor(request, DOMAINS[0]), request).composition!;
+    previous.proposal.arbitrations.push({ ...inherited.proposal!.arbitrations.at(-1)! });
+    expect(() => acceptWorkingDraftUpdate(inherited, { ...request, studyProposalContext: previous }))
+      .toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    const stale = addOrphan(updateFor(request, DOMAINS[0]));
+    stale.proposal!.arbitrations = stale.proposal!.arbitrations.filter(arbitration => arbitration.ref !== "allocation-choice");
+    stale.proposal!.atoms = stale.proposal!.atoms.filter(atom => atom.ref !== "allocation");
+    stale.proposal!.arbitrations.at(-1)!.options[0]!.atomRefs = ["allocation"];
+    const priorValid = acceptWorkingDraftUpdate(updateFor(request, DOMAINS[0]), request).composition!;
+    expect(() => acceptWorkingDraftUpdate(stale, { ...request, studyProposalContext: priorValid }))
+      .toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
   });
   it("supersedes only changed atoms, preserves branches and prevents open dependencies from entering review", () => {
     const s = sessionFor(), r = requestFor(s), first = updateFor(r), composition = acceptWorkingDraftUpdate(first, r).composition!;
