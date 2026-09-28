@@ -170,6 +170,7 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  projectHumanDecisionForBridgeTrace,
   recordConversationConfirmationReceipt,
   conversationConfirmationReceiptStatus,
   productEntryPromptForIntent,
@@ -1199,7 +1200,7 @@ export default function ProtocolDesignerWorkspace({
           projectChangeSetCandidate: null,
           canonicalProjectChangeSetCandidate: null,
           humanReviewProjection: null,
-          humanDecision: job.project.confirmationDecision,
+          humanDecision: projectHumanDecisionForBridgeTrace(job.project.confirmationDecision),
           projectVersionBefore: job.project.versionId,
           projectVersionAfter: job.project.versionId,
           qryNeedBefore: null,
@@ -3295,17 +3296,23 @@ export default function ProtocolDesignerWorkspace({
       const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
         ? reviewEntry.traceRunId
         : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
-      const scientificExecutionTraceLedger = recordProjectAdoptionTrace({
-        ledger: naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger,
-        traceRunId: correlatedTraceRunId,
-        conversationId: session.conversationId,
-        recordedAt: now,
-        contribution,
-        project,
-        previousProjectExisted: Boolean(session.project),
-        queryNavigation,
-        documents,
-      });
+      let scientificExecutionTraceLedger = naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger;
+      try {
+        scientificExecutionTraceLedger = recordProjectAdoptionTrace({
+          ledger: scientificExecutionTraceLedger,
+          traceRunId: correlatedTraceRunId,
+          conversationId: session.conversationId,
+          recordedAt: now,
+          contribution,
+          project,
+          previousProjectExisted: Boolean(session.project),
+          queryNavigation,
+          documents,
+        });
+      } catch (error) {
+        // TRACE is observational: a projection failure must not veto a valid human adoption.
+        console.warn("PROJECT_ADOPTION_TRACE_PROJECTION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
+      }
       const partialProposalSelection = Boolean(proposalSelection && naturalDecision?.selectedChangeRefs
         && naturalDecision.selectedChangeRefs.length < proposalSelection.candidate.humanReviewProjection.coveredChangeRefs.length);
       const updatedStudyProposal = partialProposalSelection && proposalSelection
@@ -3417,7 +3424,7 @@ export default function ProtocolDesignerWorkspace({
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
         ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
-          ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
+          ? { ...trace, humanDecision: projectHumanDecisionForBridgeTrace(project.confirmationDecision), projectVersionAfter: project.versionId }
           : trace),
         scientificExecutionTraceLedger,
         conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
@@ -3656,7 +3663,7 @@ export default function ProtocolDesignerWorkspace({
           }] : []),
         ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
-          ? { ...trace, humanDecision: decision, projectVersionAfter: current.project?.versionId ?? null }
+          ? { ...trace, humanDecision: projectHumanDecisionForBridgeTrace(decision), projectVersionAfter: current.project?.versionId ?? null }
           : trace),
         scientificExecutionTraceLedger,
         conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,

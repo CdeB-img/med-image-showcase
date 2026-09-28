@@ -809,6 +809,11 @@ const recordHumanDecision = (input: {
   status: input.decision.status,
   owner: "HUMAN",
   durationMs: 0,
+  ...(input.decision.reason ? { technicalMetadata: {
+    decisionReasonDigest: logicalDigest(input.decision.reason),
+    decisionReasonLength: input.decision.reason.length,
+    boundedStatus: "DIGEST_ONLY",
+  } } : {}),
   envelope: {
     stage: "HUMAN_DECISION_RECORDED",
     responsibilityOwner: "HUMAN",
@@ -819,7 +824,7 @@ const recordHumanDecision = (input: {
     componentVersion: input.decision.envelopeVersion,
     input: [input.source],
     output: [{ ref: input.decision.decisionId, version: String(input.decision.version), digest: "UNKNOWN" }],
-    reasonCode: input.decision.reason ?? input.decision.status,
+    reasonCode: input.decision.reason ? "HUMAN_DECISION_REASON_PROJECTED" : input.decision.status,
     completedAt: input.recordedAt,
     conversationId: input.conversationId,
     ...(input.project ? { project: projectBinding(input.project) } : {}),

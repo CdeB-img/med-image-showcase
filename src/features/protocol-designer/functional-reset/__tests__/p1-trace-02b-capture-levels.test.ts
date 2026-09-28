@@ -267,6 +267,23 @@ describe("P1-TRACE-02B — capture levels and progressive escalation", () => {
     console.info(`P1_TRACE_02B_FORENSIC_OVERHEAD_MS=${forensicOverheadMs.toFixed(3)}`);
   });
 
+  it("still rejects unbounded scientific text supplied directly by a TRACE caller", () => {
+    const traceRunId = createProductTraceRunId(SESSION_ID, "turn:unbounded-direct-trace-caller");
+    const { ledger } = startProductTraceRun({
+      ledger: createScientificExecutionTraceLedger(SESSION_ID), traceRunId,
+      turnId: "turn:unbounded-direct-trace-caller", conversationId: CONVERSATION_ID,
+      startedAt: OBSERVED_AT, sourceDigest: "synthetic-source-digest",
+    });
+    expect(() => appendProductTraceStage({
+      ledger, traceRunId, timestamp: OBSERVED_AT, status: "ADOPTED", owner: "HUMAN",
+      envelope: {
+        stage: "HUMAN_DECISION_RECORDED", responsibilityOwner: "HUMAN", decisionOwner: "HUMAN",
+        executor: "SYNTHETIC_TECHNICAL_COMPONENT", componentId: "HUMAN_DECISION_ENVELOPE",
+        reasonCode: "scientific reason ".repeat(70),
+      },
+    })).toThrow("SCIENTIFIC_TRACE_UNBOUNDED_TEXT_FORBIDDEN");
+  });
+
   it("rejects secrets, API keys, authorization headers and non-allowlisted forensic classifications", () => {
     const traceRunId = createProductTraceRunId(SESSION_ID, "turn:p1-trace-02b-security");
     const configuration = createScientificTraceCaptureConfiguration({ captureLevel: "LEVEL_3_FORENSIC", captureReason: "OTHER" });

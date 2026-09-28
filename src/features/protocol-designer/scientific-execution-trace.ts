@@ -820,6 +820,8 @@ const FORBIDDEN_VALUE = /(-----BEGIN [A-Z ]*PRIVATE KEY-----|\bBearer\s+[A-Za-z0
 const DIAGNOSTIC_CODE = /^[A-Z0-9][A-Z0-9_.:@/-]{1,255}$/;
 const TECHNICAL_METADATA_KEYS = new Set([
   "boundedStatus",
+  "decisionReasonDigest",
+  "decisionReasonLength",
   "callerRef",
   "entryDigest",
   "entryId",

@@ -184,6 +184,24 @@ export type ConversationEntry =
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string; turnId?: string; failureCode?: string };
 
+export type HumanDecisionBridgeTraceProjection = Readonly<{
+  decisionId: string;
+  version: number;
+  status: HumanDecisionEnvelope["status"];
+  reasonDigest: string | null;
+  reasonLength: number;
+  reasonStatus: "DIGEST_ONLY" | "ABSENT";
+}>;
+
+export const projectHumanDecisionForBridgeTrace = (decision: Readonly<HumanDecisionEnvelope>): HumanDecisionBridgeTraceProjection => ({
+  decisionId: decision.decisionId,
+  version: decision.version,
+  status: decision.status,
+  reasonDigest: decision.reason ? logicalDigest(decision.reason) : null,
+  reasonLength: decision.reason?.length ?? 0,
+  reasonStatus: decision.reason ? "DIGEST_ONLY" : "ABSENT",
+});
+
 export type ProductBridgeTrace = {
   turnId: string;
   traceRunId?: string;
@@ -202,7 +220,7 @@ export type ProductBridgeTrace = {
   projectChangeSetCandidate: ContributionProjectChangeSet | null;
   canonicalProjectChangeSetCandidate: CanonicalProjectChangeSet | null;
   humanReviewProjection: HumanReviewProjection | null;
-  humanDecision: HumanDecisionEnvelope | null;
+  humanDecision: HumanDecisionBridgeTraceProjection | null;
   projectVersionBefore: string | null;
   projectVersionAfter: string | null;
   qryNeedBefore: string | null;

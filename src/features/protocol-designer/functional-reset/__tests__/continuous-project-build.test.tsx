@@ -14,11 +14,13 @@ import { prepareTerraConversation } from "@/features/scientific-thinking/scienti
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction/canonical-project-backbone";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession,
+  projectHumanDecisionForBridgeTrace,
   recordConversationConfirmationReceipt, recordWorkingDraftPreparation, workingDraftRecoveryIdentity } from "../session";
 import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
+import * as traceAdapter from "../end-to-end-trace-adapter";
 import { reviewDecisionRefsInDisplayOrder } from "../ContributionReview";
 import { contributionDecisionScopeGroups } from "@/features/research-project-construction/contribution-owner-boundary";
 import * as documentaryConversation from "../documentary-conversation";
@@ -381,6 +383,89 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(trace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
     expect(trace.events.map(event => event.stage)).not.toContain("BRIDGE_RESPONSE_RECEIVED");
     expect(trace.firstFailure).toBeNull();
+  });
+
+  it("adopts a large human review without copying its canonical decision reason into TRACE", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(DOMAINS[0].text);
+    const traceRunId = createProductTraceRunId(initial.sessionId, "u1");
+    initial.bridgeTraces.push({ turnId: "u1", traceRunId, requestKind: "USER_TURN", raw: "[MINIMIZED:SOURCE_TEXT]",
+      assistantReply: "[MINIMIZED:ASSISTANT_REPLY]", persistentExtractionCalled: false,
+      persistentExtractionStatus: "NOT_REQUESTED", providerArtifact: null, wireCandidate: null,
+      persistentCandidate: null, deterministicValidation: null, projectChangeSetCandidate: null,
+      canonicalProjectChangeSetCandidate: null, humanReviewProjection: null, humanDecision: null,
+      projectVersionBefore: null, projectVersionAfter: null, qryNeedBefore: null, qryNeedAfter: null,
+      provider: "NONE", model: "NONE", conversationLatencyMs: 0, extractionLatencyMs: null, calls: 0 });
+    const checkpoint = captureProjectPreparation(initial).checkpoint!;
+    const update = updateFor(checkpoint.request, DOMAINS[0]);
+    const template = update.proposal!.atoms.find(atom => atom.ref === "practical")!;
+    while (update.proposal!.atoms.length < 52) {
+      const index = update.proposal!.atoms.length;
+      update.proposal!.atoms.push({ ...template, ref: `review-${index}`, semanticKey: `review-${index}`,
+        content: `Détail opérationnel synthétique ${index}`, dependsOn: [], dependencyQualifications: [] });
+    }
+    const optionRefs = new Set(update.proposal!.arbitrations.flatMap(arbitration => arbitration.options.flatMap(option => option.atomRefs)));
+    update.explicitDecisions = update.proposal!.atoms.filter(atom => !optionRefs.has(atom.ref)).map(atom => ({
+      atomRef: atom.ref, sourceTurnRef: "u1", quote: DOMAINS[0].text,
+    }));
+    const accepted = acceptWorkingDraftUpdate(update, checkpoint.request);
+    bridge.mockResolvedValueOnce({ observability: { providerCalls: [] },
+      workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
+    const review = projectPreparationReview(saved)!.prepared!.candidate;
+    const coveredRefs = review.humanReviewProjection.coveredChangeRefs;
+    expect(reviewDecisionRefsInDisplayOrder(review).length).toBeGreaterThanOrEqual(35);
+    saved.bridgeTraces[0]!.projectChangeSetCandidate = review.changeSet;
+    const canonicalReason = `Décision partielle : changements confirmés ${coveredRefs.join(", ")} ; changements refusés .`;
+    expect(canonicalReason.length).toBeGreaterThan(1024);
+    expect(saved.bridgeTraces.map(trace => ({ turnId: trace.turnId, traceRunId: trace.traceRunId }))).toContainEqual({
+      turnId: accepted.composition!.sourceTurnRef, traceRunId: createProductTraceRunId(saved.sessionId, "u1"),
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    expect(saved.project?.confirmationDecision.reason).toBe(canonicalReason);
+    expect(saved.project?.versionId).toBeTruthy();
+    expect(projectHumanDecisionForBridgeTrace(saved.project!.confirmationDecision)).toEqual({
+      decisionId: saved.project!.confirmationDecision.decisionId, version: saved.project!.confirmationDecision.version,
+      status: "ADOPTED", reasonDigest: logicalDigest(canonicalReason), reasonLength: canonicalReason.length,
+      reasonStatus: "DIGEST_ONLY",
+    });
+    expect(saved.bridgeTraces[0]?.humanDecision).toMatchObject({ decisionId: saved.project!.confirmationDecision.decisionId,
+      reasonDigest: logicalDigest(canonicalReason), reasonLength: canonicalReason.length, reasonStatus: "DIGEST_ONLY" });
+    expect(JSON.stringify(saved.bridgeTraces)).not.toContain(canonicalReason);
+    const events = saved.scientificExecutionTraceLedger.events.filter(event => event.runId === traceRunId);
+    expect(events.map(event => event.common?.stage)).toContain("READY_FOR_REVIEW");
+    expect(events.map(event => event.common?.stage)).toContain("PROJECT_VERSION_CREATED");
+    const decisionEvent = events.find(event => event.common?.stage === "HUMAN_DECISION_RECORDED")!;
+    expect(decisionEvent.common?.reasonCode).toBe("HUMAN_DECISION_REASON_PROJECTED");
+    expect(decisionEvent.common?.output[0]?.ref).toBe(saved.project?.confirmationDecision.decisionId);
+    expect(decisionEvent.technicalMetadata).toMatchObject({ decisionReasonDigest: logicalDigest(canonicalReason),
+      decisionReasonLength: canonicalReason.length, boundedStatus: "DIGEST_ONLY" });
+    expect(JSON.stringify(saved.scientificExecutionTraceLedger)).not.toContain(canonicalReason);
+    expect(buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger, traceRunId }).firstFailure).toBeNull();
+  });
+
+  it("does not convert a TRACE projection error into failed Project confirmation", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), update = updateFor(requestFor(initial));
+    let saved = checkpointSession(initial, update);
+    vi.spyOn(traceAdapter, "recordProjectAdoptionTrace").mockImplementationOnce(() => {
+      throw new Error("SCIENTIFIC_TRACE_UNBOUNDED_TEXT_FORBIDDEN");
+    });
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
+    expect(saved.workingDraftPreparations?.[0]?.decision).toBe("ADOPTED");
+    expect(warning).toHaveBeenCalledWith("PROJECT_ADOPTION_TRACE_PROJECTION_FAILED", "SCIENTIFIC_TRACE_UNBOUNDED_TEXT_FORBIDDEN");
   });
 
   it("links one GPT-6 receipt to the preparation trace without duplicating its accounting", async () => {
