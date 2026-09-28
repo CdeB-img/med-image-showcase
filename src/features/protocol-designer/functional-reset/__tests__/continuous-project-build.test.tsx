@@ -28,6 +28,10 @@ import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasonin
 import { buildStudyProposalSelectionContribution } from "../study-proposal-standard";
 import { logicalDigest, normalizeScientificText } from "@/features/knowledge-engine/canonical";
 import { readNaturalCandidateDecision } from "../natural-conversation-policy";
+import { createProductTraceRunId } from "../../scientific-execution-trace";
+import { buildTraceInspectorRunProjection } from "../../../validation-architecture/trace-structural-validation";
+import { PROVIDER_CALL_OBSERVABILITY_CONTRACT, PROVIDER_CALL_OBSERVABILITY_VERSION,
+  PROVIDER_PRICING_SNAPSHOT_DATE, providerCallRequestObservability, type ProviderCallRecord } from "../../provider-call-observability";
 
 const bridge = vi.hoisted(() => vi.fn());
 const recoveryRead = vi.hoisted(() => vi.fn());
@@ -370,6 +374,101 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(recoveryRead).toHaveBeenCalled();
     expect(projectPreparationReview(saved)?.applicable).toBe(true);
     expect(saved.project).toBeNull();
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.events.map(event => event.stage)).toContain("DURABLE_RECOVERY_STARTED");
+    expect(trace.events.map(event => event.stage)).toContain("DURABLE_RECOVERY_COMPLETED");
+    expect(trace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
+    expect(trace.events.map(event => event.stage)).not.toContain("BRIDGE_RESPONSE_RECEIVED");
+    expect(trace.firstFailure).toBeNull();
+  });
+
+  it("links one GPT-6 receipt to the preparation trace without duplicating its accounting", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), checkpoint = captureProjectPreparation(initial).checkpoint!;
+    const accepted = acceptWorkingDraftUpdate(updateFor(checkpoint.request), checkpoint.request);
+    const record: ProviderCallRecord = {
+      contract: PROVIDER_CALL_OBSERVABILITY_CONTRACT, contractVersion: PROVIDER_CALL_OBSERVABILITY_VERSION,
+      callId: "provider-call:gpt6-integrated-synthetic", provider: "OPENAI",
+      modelRequested: "gpt-6-sol", modelReturned: "gpt-6-sol", modelVersion: "gpt-6-sol",
+      purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium",
+      context: { sessionId: initial.sessionId, conversationId: initial.conversationId, turnId: "u1",
+        clientRequestId: checkpoint.preparationId, testSessionId: null },
+      usage: { inputTokens: 1_000, cachedInputTokens: 0, cacheWriteTokens: 0,
+        outputTokens: 100, reasoningTokens: 20, totalTokens: 1_100 },
+      latencyMs: 1, retryIndex: 0, retryReason: null, status: "SUCCEEDED", failureReason: null,
+      providerRequestId: "synthetic-request", providerResponseId: "synthetic-response",
+      estimatedCostUsd: 0.003, pricingSnapshotDate: "2026-09-28",
+      startedAt: initial.createdAt, completedAt: initial.createdAt,
+    };
+    bridge.mockResolvedValueOnce({ observability: { providerCalls: [record] },
+      workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
+    const providerRecords = saved.bridgeTraces.flatMap(item => item.providerCallRecords ?? []);
+    expect(providerRecords).toEqual([record]);
+    expect(saved.bridgeTraces.at(-1)?.cumulativeSessionCostUsd).toBe(0.003);
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    const linked = trace.events.filter(event => event.stage === "PROVIDER_RESPONSE_RECEIVED");
+    expect(linked).toHaveLength(1);
+    expect(linked[0]?.technicalMetadata.providerCallId).toBe(record.callId);
+    expect(trace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
+    expect(trace.firstFailure).toBeNull();
+  });
+
+  it("attributes a budget admission rejection before any provider operation", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockRejectedValueOnce(new ProductBridgeClientError("PUBLIC_SESSION_BUDGET_CLOSED", "LOCAL_SYNTHETIC", null, null,
+      "PUBLIC_SESSION_BUDGET_CLOSED"));
+    let saved = sessionFor();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.firstFailure).toMatchObject({ stage: "ADMISSION_REJECTED", owner: "DURABLE_PROVIDER_BUDGET",
+      internalCode: "PUBLIC_SESSION_BUDGET_CLOSED", attribution: "ROOT_CAUSE_PROVEN" });
+    expect(saved.project).toBeNull();
+  });
+
+  it("attributes a provider HTTP 400 to the provider boundary, without copying its payload", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), checkpoint = captureProjectPreparation(initial).checkpoint!;
+    const diagnostic = { contract: "DURABLE_PROVIDER_TERMINAL_FAILURE" as const, clientRequestId: checkpoint.preparationId,
+      operationKey: "a".repeat(64), sessionId: initial.sessionId, turnId: "u1", providerCallId: "provider-call:synthetic",
+      generationProvider: "AZURE_OPENAI" as const, phase: "HEADERS_RECEIVED" as const, precountStarted: true,
+      precountCompleted: true, reservationConfirmed: true, dispatchAttempted: true, headersReceived: true, bodyRead: true,
+      inputCountHttpStatus: null, providerHttpStatus: 400, providerResponseStatus: "failed" as const,
+      incompleteReason: null, structuredErrorCode: "PROVIDER_HTTP_ERROR", safeExceptionClass: null,
+      abortSignalAborted: false, lastConfirmedDurableState: "COMPLETED_RECEIVED" };
+    const record: ProviderCallRecord = { contract: PROVIDER_CALL_OBSERVABILITY_CONTRACT,
+      contractVersion: PROVIDER_CALL_OBSERVABILITY_VERSION, callId: "provider-call:synthetic", provider: "OPENAI",
+      modelRequested: "LOCAL_SYNTHETIC", modelReturned: null, modelVersion: "LOCAL_SYNTHETIC",
+      purpose: "SCIENTIFIC_THINKING_PROPOSAL", reasoningEffort: "medium",
+      context: { sessionId: initial.sessionId, conversationId: initial.conversationId, turnId: "u1",
+        clientRequestId: checkpoint.preparationId, testSessionId: null },
+      usage: { inputTokens: null, cachedInputTokens: null, cacheWriteTokens: null, outputTokens: null,
+        reasoningTokens: null, totalTokens: null }, latencyMs: 1, retryIndex: 0, retryReason: null,
+      status: "FAILED", failureReason: "PROVIDER_HTTP_ERROR", providerRequestId: null, providerResponseId: null,
+      estimatedCostUsd: null, pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
+      startedAt: initial.createdAt, completedAt: initial.createdAt, durableFailure: diagnostic };
+    bridge.mockRejectedValueOnce(new ProductBridgeClientError("PROVIDER_HTTP_ERROR", "LOCAL_SYNTHETIC", null,
+      providerCallRequestObservability([record]), "PROVIDER_HTTP_ERROR"));
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.firstFailure).toMatchObject({ stage: "PROVIDER_RESPONSE_RECEIVED", owner: "PROVIDER_BOUNDARY",
+      attribution: "ROOT_CAUSE_PROVEN" });
+    expect(trace.events.find(event => event.stage === "PROVIDER_RESPONSE_RECEIVED")?.technicalMetadata).toMatchObject({
+      providerHttpStatus: 400, providerCallId: "provider-call:synthetic" });
+    expect(JSON.stringify(trace)).not.toContain("LOCAL_SYNTHETIC_FOREGROUND_RESPONSE_LOST");
   });
 
   it("marks a recovered provider result FAILED when the scientific owner rejects it", async () => {

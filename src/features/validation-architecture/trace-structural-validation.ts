@@ -7,6 +7,7 @@ import {
   type ScientificProductTraceStage,
   type ScientificTraceCaptureLevel,
   type ScientificTraceForensicPayload,
+  type ScientificTraceTechnicalMetadata,
 } from "@/features/protocol-designer/scientific-execution-trace";
 import { stableValidationStringify, validationDigest, validationUniqueSorted } from "./canonical";
 
@@ -68,6 +69,8 @@ export type TraceInspectorEventProjection = Readonly<{
   outputRefs: readonly Readonly<{ ref: string; version: string; digest: string }>[];
   status: string;
   reasonCode: string;
+  errorCode: string | null;
+  technicalMetadata: ScientificTraceTechnicalMetadata;
   durationMs: number | null;
   upstreamEventId: string;
   dependencies: readonly string[];
@@ -99,6 +102,16 @@ export type TraceInspectorRunProjection = Readonly<{
   diagnostics: readonly TraceStructuralDiagnostic[];
   firstUnexplainedDivergenceStage: ScientificProductTraceStage | null;
   firstUnexplainedDivergenceEventId: string | null;
+  firstFailure: Readonly<{
+    stage: ScientificProductTraceStage;
+    owner: string;
+    function: string;
+    invariant: string;
+    internalCode: string;
+    publicCode: string;
+    subtype: string;
+    attribution: "ROOT_CAUSE_PROVEN" | "SYMPTOM_ONLY";
+  }> | null;
   ownerFacts: TraceOwnerFacts;
   inspectorMutatesProduct: false;
   inspectorCallsProvider: false;
@@ -355,6 +368,8 @@ export const buildTraceInspectorRunProjection = (input: {
     outputRefs: Object.freeze(common.output.map((reference) => Object.freeze({ ...reference }))),
     status: common.status,
     reasonCode: common.reasonCode,
+    errorCode: native.error?.code ?? null,
+    technicalMetadata: Object.freeze({ ...native.technicalMetadata }),
     durationMs: common.durationMs,
     upstreamEventId: common.upstreamEventId,
     dependencies: Object.freeze([...common.dependencies]),
@@ -372,6 +387,17 @@ export const buildTraceInspectorRunProjection = (input: {
   const diagnostics = diagnoseScientificTraceRun(input);
   const firstUnexplained = events.find((event) => diagnostics.some((finding) => finding.code === "UNEXPLAINED_DIMENSION_LOSS"
     && finding.evidenceEventIds.includes(event.eventId))) ?? null;
+  const failed = events.find((event) => event.status === "FAILED") ?? null;
+  const firstFailure = failed ? Object.freeze({
+    stage: failed.stage,
+    owner: failed.responsibilityOwner,
+    function: String(failed.technicalMetadata.failureFunction ?? "UNKNOWN"),
+    invariant: String(failed.technicalMetadata.failureInvariant ?? "UNKNOWN"),
+    internalCode: String(failed.technicalMetadata.internalErrorCode ?? failed.errorCode ?? "UNKNOWN"),
+    publicCode: String(failed.technicalMetadata.publicErrorCode ?? failed.errorCode ?? "UNKNOWN"),
+    subtype: String(failed.technicalMetadata.errorSubtype ?? "UNKNOWN"),
+    attribution: failed.technicalMetadata.attributionConfidence === "ROOT_CAUSE_PROVEN" ? "ROOT_CAUSE_PROVEN" as const : "SYMPTOM_ONLY" as const,
+  }) : null;
   const latestProject = [...pairs].reverse().find(({ common }) => !isMissing(common.projectId) && !isMissing(common.projectVersion));
   const turns = validationUniqueSorted(pairs.map(({ common }) => common.turnId).filter((turnId) => !isMissing(turnId)));
   return Object.freeze({
@@ -390,6 +416,7 @@ export const buildTraceInspectorRunProjection = (input: {
     diagnostics,
     firstUnexplainedDivergenceStage: firstUnexplained?.stage ?? null,
     firstUnexplainedDivergenceEventId: firstUnexplained?.eventId ?? null,
+    firstFailure,
     ownerFacts: ownerFactsFor(pairs.map((pair) => pair.common)),
     inspectorMutatesProduct: false,
     inspectorCallsProvider: false,

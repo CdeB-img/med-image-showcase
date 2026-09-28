@@ -294,7 +294,7 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
               (_, ref: string) => `[[FACT:${refs.get(ref)}]]`)),
           })),
         })), crfRows: context.INCLUDE_CRF_ROWS ? data.crfRows.map(row => ({ ...row, variableRef: refs.get(row.variableRef) })) : [] };
-        return new Response(JSON.stringify({ status: "completed", model: destination === "azure" ? "gpt-5.6-sol" : "gpt-5.6-terra",
+        return new Response(JSON.stringify({ status: "completed", model: destination === "azure" ? "gpt-6-sol" : "gpt-5.6-terra",
           output_text: JSON.stringify(value) }));
       };
       const result = await executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", fetchImpl, undefined, undefined,
@@ -310,11 +310,11 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
       const payload = JSON.parse(String(init?.body));
       const context = JSON.parse(payload.input);
       scopes.push(context.DOCUMENT_SCOPE.join("+"));
-      if (context.INCLUDE_CRF_ROWS) return new Response(JSON.stringify({ status: "incomplete", model: "gpt-5.6-sol",
+      if (context.INCLUDE_CRF_ROWS) return new Response(JSON.stringify({ status: "incomplete", model: "gpt-6-sol",
         incomplete_details: { reason: "max_output_tokens" }, usage: { input_tokens: 100, output_tokens: 8000 } }));
       const protocol = { ...generated().documents.find(doc => doc.kind === "PROTOCOL_FULL")!,
         sections: [{ title: "Rationnel", paragraphs: ["LOCAL_SYNTHETIC"], sourceRefs: [] }] };
-      return new Response(JSON.stringify({ status: "completed", model: "gpt-5.6-sol",
+      return new Response(JSON.stringify({ status: "completed", model: "gpt-6-sol",
         output_text: JSON.stringify({ documents: [protocol], crfRows: [] }) }));
     };
     await expect(executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", fetchImpl, undefined, undefined,

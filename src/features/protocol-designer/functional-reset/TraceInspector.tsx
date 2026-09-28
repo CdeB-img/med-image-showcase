@@ -47,10 +47,14 @@ const EventDetail = ({ event }: { event: TraceInspectorEventProjection }) => <de
       <LabelValue label="Component" value={event.component.componentId} />
       <LabelValue label="Component version" value={event.component.componentVersion} />
       <LabelValue label="Reason code" value={event.reasonCode} />
+      <LabelValue label="Internal error" value={event.errorCode} />
       <LabelValue label="Duration" value={event.durationMs == null ? "UNKNOWN" : `${event.durationMs} ms`} />
       <LabelValue label="Upstream event" value={event.upstreamEventId} />
       <LabelValue label="Dependencies" value={event.dependencies.length ? event.dependencies.join(", ") : "NONE"} />
     </dl>
+    {Object.keys(event.technicalMetadata).length > 0 && <dl className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+      {Object.entries(event.technicalMetadata).map(([key, value]) => <LabelValue key={key} label={key} value={value == null ? null : String(value)} />)}
+    </dl>}
     <div className="grid gap-3 lg:grid-cols-2">
       <ReferenceList label="Input refs / versions / digests" references={event.inputRefs} />
       <ReferenceList label="Output refs / versions / digests" references={event.outputRefs} />
@@ -214,6 +218,14 @@ export default function TraceInspector({ ledger }: Props) {
           <LabelValue label="Project identity" value={run.projectId} />
           <LabelValue label="Project version" value={run.projectVersion} />
           <LabelValue label="Project digest" value={run.projectDigest} />
+          <LabelValue label="FIRST_FAILED_STAGE" value={run.firstFailure?.stage ?? "NONE"} />
+          <LabelValue label="FIRST_FAILED_OWNER" value={run.firstFailure?.owner ?? "NONE"} />
+          <LabelValue label="FIRST_FAILED_FUNCTION" value={run.firstFailure?.function ?? "NONE"} />
+          <LabelValue label="FIRST_FAILED_INVARIANT" value={run.firstFailure?.invariant ?? "NONE"} />
+          <LabelValue label="INTERNAL_ERROR_CODE" value={run.firstFailure?.internalCode ?? "NONE"} />
+          <LabelValue label="PUBLIC_ERROR_CODE" value={run.firstFailure?.publicCode ?? "NONE"} />
+          <LabelValue label="ERROR_SUBTYPE" value={run.firstFailure?.subtype ?? "NONE"} />
+          <LabelValue label="ATTRIBUTION" value={run.firstFailure?.attribution ?? "NONE"} />
         </dl>
 
         <div>

@@ -1,6 +1,7 @@
 export const PROVIDER_CALL_OBSERVABILITY_CONTRACT = "PROTOCOL_DESIGNER_PROVIDER_CALL_OBSERVABILITY" as const;
 export const PROVIDER_CALL_OBSERVABILITY_VERSION = "1.0.0" as const;
 export const PROVIDER_PRICING_SNAPSHOT_DATE = "2026-09-14" as const;
+export const OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS = 272_000;
 
 export type ProtocolDesignerProvider = "OPENAI" | "GOOGLE_GEMINI";
 export type ProviderCallPurpose = "LANGUAGE_PROJECTION" | "PERSISTENT_DELTA" | "CONVERSATION_REALIZATION" | "SCIENTIFIC_THINKING_PROPOSAL" | "DOCUMENT_PROJECTION";
@@ -121,7 +122,7 @@ export type ProviderCallRecord = Readonly<{
   providerRequestId: string | null;
   providerResponseId: string | null;
   estimatedCostUsd: number | null;
-  pricingSnapshotDate: typeof PROVIDER_PRICING_SNAPSHOT_DATE;
+  pricingSnapshotDate: string;
   startedAt: string;
   completedAt: string;
   durableFailure?: DurableProviderFailureDiagnostic;
@@ -152,34 +153,46 @@ export const providerCallRequestMetadata = (
 }) : undefined;
 
 type Pricing = Readonly<{
+  snapshotDate: string;
   inputPerMillionUsd: number;
   cachedInputPerMillionUsd: number;
   outputPerMillionUsd: number;
   cacheWritePerMillionUsd?: number;
 }>;
 
-// Official standard-tier text-token prices observed on 2026-09-14.
-// The dated snapshot makes estimates reproducible; it is not a billing authority.
+// Official standard-tier text-token prices. Per-model dates keep historical
+// receipts reproducible when one model changes without redating the others.
 const PRICING_BY_MODEL: Readonly<Record<string, Pricing>> = Object.freeze({
+  "gpt-6-sol": Object.freeze({
+    snapshotDate: "2026-09-28",
+    inputPerMillionUsd: 2.00,
+    cachedInputPerMillionUsd: 0.20,
+    cacheWritePerMillionUsd: 2.50,
+    outputPerMillionUsd: 10.00,
+  }),
   "gpt-5.6-sol": Object.freeze({
+    snapshotDate: "2026-09-14",
     inputPerMillionUsd: 4.00,
     cachedInputPerMillionUsd: 0.40,
     cacheWritePerMillionUsd: 5.00,
     outputPerMillionUsd: 20.00,
   }),
   "gpt-5.6-luna": Object.freeze({
+    snapshotDate: "2026-09-14",
     inputPerMillionUsd: 0.20,
     cachedInputPerMillionUsd: 0.02,
     cacheWritePerMillionUsd: 0.25,
     outputPerMillionUsd: 1.20,
   }),
   "gpt-5.6-terra": Object.freeze({
+    snapshotDate: "2026-09-14",
     inputPerMillionUsd: 2.00,
     cachedInputPerMillionUsd: 0.20,
     cacheWritePerMillionUsd: 2.50,
     outputPerMillionUsd: 12.00,
   }),
   "gemini-3.5-flash-lite": Object.freeze({
+    snapshotDate: "2026-09-14",
     inputPerMillionUsd: 0.30,
     cachedInputPerMillionUsd: 0.03,
     outputPerMillionUsd: 2.50,
@@ -205,11 +218,15 @@ export const estimateProviderCallCostUsd = (
     Math.max(0, nonNegative(usage.inputTokens) - cached),
   );
   const uncached = Math.max(0, nonNegative(usage.inputTokens) - cached - cacheWrite);
+  const longContext = model === "gpt-6-sol"
+    && nonNegative(usage.inputTokens) > OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS;
+  const inputMultiplier = longContext ? 2 : 1;
+  const outputMultiplier = longContext ? 1.5 : 1;
   const cost = (
-    uncached * pricing.inputPerMillionUsd
-    + cached * pricing.cachedInputPerMillionUsd
-    + cacheWrite * (pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd)
-    + nonNegative(usage.outputTokens) * pricing.outputPerMillionUsd
+    uncached * pricing.inputPerMillionUsd * inputMultiplier
+    + cached * pricing.cachedInputPerMillionUsd * inputMultiplier
+    + cacheWrite * (pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * inputMultiplier
+    + nonNegative(usage.outputTokens) * pricing.outputPerMillionUsd * outputMultiplier
   ) / 1_000_000;
   return Number(cost.toFixed(10));
 };
@@ -239,6 +256,9 @@ export const materializeProviderCallRecord = (input: Readonly<{
   durableFailure?: DurableProviderFailureDiagnostic | null;
 }>): ProviderCallRecord => {
   const modelVersion = input.modelReturned ?? input.modelRequested;
+  const pricingSnapshotDate = providerModelPricing(modelVersion)?.snapshotDate
+    ?? providerModelPricing(input.modelRequested)?.snapshotDate
+    ?? PROVIDER_PRICING_SNAPSHOT_DATE;
   const estimatedCostUsd = estimateProviderCallCostUsd(modelVersion, input.usage)
     ?? estimateProviderCallCostUsd(input.modelRequested, input.usage);
   return Object.freeze({
@@ -261,7 +281,7 @@ export const materializeProviderCallRecord = (input: Readonly<{
     providerRequestId: input.providerRequestId,
     providerResponseId: input.providerResponseId,
     estimatedCostUsd,
-    pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
+    pricingSnapshotDate,
     startedAt: input.startedAt,
     completedAt: input.completedAt,
     ...(input.durableFailure ? { durableFailure: readDurableProviderFailureDiagnostic(input.durableFailure) ?? undefined } : {}),

@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 import { createFunctionalResetSession, persistFunctionalResetSession, loadFunctionalResetSession, type FunctionalResetSession } from "../session";
 import { activeProjectPreparation, addProjectPreparation, captureProjectPreparation, consumeProjectPreparation,
   preparationCheckpointValid, transitionProjectPreparation } from "../project-preparation-lifecycle";
+import { createProductTraceRunId } from "../../scientific-execution-trace";
+import { buildTraceInspectorRunProjection } from "../../../validation-architecture/trace-structural-validation";
+import { recordProjectPreparationTrace } from "../project-preparation-trace";
 const source = (): FunctionalResetSession => ({ ...createFunctionalResetSession(), runtimeTurns: [
   { role: "USER", turnId: "turn:one", content: "Étude synthétique", createdAt: "2026-09-27T00:00:00Z" },
   { role: "NOXIA", turnId: "noxia-turn:11111111-1111-4111-8111-111111111111", content: "Proposition synthétique", createdAt: "2026-09-27T00:00:01Z" },
@@ -54,7 +57,7 @@ describe("session-owned immutable checkpoint transitions", () => {
 });
 
 // Scientific construction and canonical adoption stay in their real owners.
-import {acceptWorkingDraftUpdate, workingDraftInputDigest} from "../continuous-project-build";
+import {acceptWorkingDraftUpdate, summarizeWorkingReviewOwnerCandidate, workingDraftInputDigest} from "../continuous-project-build";
 import {projectPreparationReview} from "../project-preparation-lifecycle";
 import {controlledStudyProposal,DOMAINS} from "./study-proposal-fixtures";
 import {confirmResearchProjectContribution} from "../../../research-project-construction";
@@ -71,6 +74,13 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
   expect(projectPreparationReview(s)?.applicable).toBe(true);
   expect(s.entries.filter(e=>e.kind === "TEXT" && e.reviewInvitation)).toHaveLength(1);
   expect(consumeProjectPreparation(s,p.checkpoint!.preparationId,{workingDraftUpdate:null,workingStudyProposal:null})).toBe(s);
+  const run = buildTraceInspectorRunProjection({ ledger: s.scientificExecutionTraceLedger,
+    traceRunId: createProductTraceRunId(s.sessionId, p.sourceTurnRef) });
+  expect(run.events.map(event => event.stage)).toContain("PROJECT_DELTA_VALIDATION");
+  expect(run.events.map(event => event.stage)).toContain("REVIEW_PROJECTION_VALIDATION");
+  expect(run.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
+  expect(run.firstFailure).toBeNull();
+  expect(JSON.stringify(run)).not.toContain("Étude synthétique");
  });
  it("keeps an earlier review after a later NO_CHANGE",()=>{
   const s=ready(), before=s.workingDraftPreparations![0].result;
@@ -93,5 +103,59 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
   const p=captureProjectPreparation(next);
   expect(p.checkpoint!.request.currentProject?.projectDigest).toBe(project.projectDigest);
   expect(p.checkpoint!.previousDraftDigest).toBeTruthy();
+ });
+ it("keeps a repeated adopted proposal non-adopting and attributes its owner outcome",()=>{
+  const first=ready(), review=projectPreparationReview(first)!;
+  const project=confirmResearchProjectContribution({contribution:review.prepared.contribution,current:null,
+   projectId:first.projectId,authority:first.projectAuthority,confirmedAt:first.updatedAt,
+   reviewedProjection:review.prepared.candidate.humanReviewProjection});
+  const continued={...first,project,runtimeTurns:[...first.runtimeTurns,
+   {turnId:"turn:repeat",role:"USER" as const,content:"Même projet sans modification.",createdAt:first.updatedAt},
+   {turnId:"noxia-turn:22222222-2222-4222-8222-222222222222",role:"NOXIA" as const,
+    content:"Aucune modification proposée.",createdAt:first.updatedAt}]};
+  const preparation=captureProjectPreparation(continued), request=preparation.checkpoint!.request;
+  const accepted=acceptWorkingDraftUpdate({requestType:"STUDY_UPDATE",
+   proposal:controlledStudyProposal(workingDraftInputDigest(request),DOMAINS[0]),
+   explicitDecisions:[],inferredAtomRefs:[],rejectedAtomRefs:[]},request);
+  const second=consumeProjectPreparation(addProjectPreparation(continued,preparation),
+   preparation.checkpoint!.preparationId,{workingDraftUpdate:accepted.update,workingStudyProposal:accepted.composition});
+  expect(second.project).toBe(project);
+  const trace=buildTraceInspectorRunProjection({ledger:second.scientificExecutionTraceLedger,
+   traceRunId:createProductTraceRunId(second.sessionId,"turn:repeat")});
+  expect(trace.events.some(event=>event.stage==="PROJECT_DELTA_VALIDATION")).toBe(true);
+  expect(second.workingDraftPreparations?.at(-1)?.code).toBe("WORKING_REVIEW_OWNER_NOT_READY");
+  expect(trace.firstFailure?.subtype).toBe("NO_NET_CHANGE");
+ });
+ it("keeps structural conflict and incomplete review as distinct PRJ observations",()=>{
+  const candidate=projectPreparationReview(ready())!.prepared.candidate;
+  const conflict={conflictId:"project-conflict:synthetic",code:"CONFLICTING_ADOPTED_STATE" as const,
+   message:"LOCAL_SYNTHETIC",existingRefs:["object:prior"],candidateRefs:["object:new"],status:"BLOCKING" as const};
+  const structural=summarizeWorkingReviewOwnerCandidate({...candidate,status:"BLOCKED_BY_STRUCTURAL_CONFLICT",
+   canonicalChangeSet:{...candidate.canonicalChangeSet,status:"BLOCKED_BY_STRUCTURAL_CONFLICT",conflicts:[conflict]}});
+  expect(structural).toMatchObject({subtype:"STRUCTURAL_CONFLICT",conflictCount:1,
+   firstConflictCode:"CONFLICTING_ADOPTED_STATE"});
+  expect(JSON.stringify(structural)).not.toContain("LOCAL_SYNTHETIC");
+  const incomplete=summarizeWorkingReviewOwnerCandidate({...candidate,status:"REVIEW_PROJECTION_INCOMPLETE",
+   humanReviewProjection:{...candidate.humanReviewProjection,status:"INCOMPLETE",
+    missingChangeRefs:[candidate.humanReviewProjection.expectedChangeRefs[0]!],coveredChangeRefs:[]}});
+  expect(incomplete).toMatchObject({subtype:"REVIEW_PROJECTION_INCOMPLETE",reviewProjectionStatus:"INCOMPLETE",
+   actualReviewDecisionCount:0});
+  expect(incomplete.expectedReviewDecisionCount).toBeGreaterThan(0);
+ });
+ it.each([
+  ["PROJECT_DELTA_VALIDATION","STRUCTURAL_CONFLICT","STRUCTURAL_CONFLICT"],
+  ["REVIEW_PROJECTION_VALIDATION","REVIEW_PROJECTION_INCOMPLETE","REVIEW_CHANGE_COVERAGE_COMPLETE"],
+ ] as const)("projects forced %s failure without scientific content",(stage,subtype,invariant)=>{
+  const s=source(), p=captureProjectPreparation(s), cp=p.checkpoint!;
+  const recorded=recordProjectPreparationTrace(addProjectPreparation(s,p),cp,stage,"FAILED",{
+   code:"WORKING_REVIEW_OWNER_NOT_READY",publicCode:"WORKING_REVIEW_OWNER_NOT_READY",
+   failureFunction:"prepareResearchProjectContributionCandidate",failureInvariant:invariant,
+   attribution:"ROOT_CAUSE_PROVEN",metadata:{errorSubtype:subtype,conflictCount:subtype==="STRUCTURAL_CONFLICT"?1:0,
+    expectedReviewDecisionCount:2,actualReviewDecisionCount:subtype==="REVIEW_PROJECTION_INCOMPLETE"?1:2}});
+  const trace=buildTraceInspectorRunProjection({ledger:recorded.scientificExecutionTraceLedger,
+   traceRunId:createProductTraceRunId(s.sessionId,p.sourceTurnRef)});
+  expect(trace.firstFailure).toMatchObject({stage,owner:"RESEARCH_PROJECT",subtype,
+   invariant,attribution:"ROOT_CAUSE_PROVEN"});
+  expect(JSON.stringify(trace)).not.toContain("Étude synthétique");
  });
 });

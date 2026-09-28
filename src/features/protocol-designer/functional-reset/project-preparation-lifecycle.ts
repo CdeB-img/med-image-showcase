@@ -12,6 +12,8 @@ import { ensureCanonicalProjectState } from "../../research-project-construction
 import { readNaturalCandidateDecision } from "./natural-conversation-policy.js";
 import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input.js";
 import { assertStudyProposalCurrent } from "./study-proposal-standard.js";
+import { recordProjectPreparationTrace } from "./project-preparation-trace.js";
+import type { WorkingReviewOwnerObservation } from "./continuous-project-build.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -134,7 +136,9 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
 };
 export const addProjectPreparation = (session: FunctionalResetSession, preparation: WorkingDraftPreparation): FunctionalResetSession => {
   if (!preparation.checkpoint || session.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId)) return session;
-  return { ...session, workingDraftPreparations: [...session.workingDraftPreparations ?? [], preparation] };
+  let next: FunctionalResetSession = { ...session, workingDraftPreparations: [...session.workingDraftPreparations ?? [], preparation] };
+  next = recordProjectPreparationTrace(next, preparation.checkpoint, "CLIENT_PREPARATION_START", "STARTED", { code: "EXPLICIT_PROJECT_PREPARATION_ACTION" });
+  return recordProjectPreparationTrace(next, preparation.checkpoint, "BRIDGE_REQUEST_CREATED", "SUCCEEDED", { code: "IMMUTABLE_PREPARATION_CHECKPOINT" });
 };
 export const transitionProjectPreparation = (session: FunctionalResetSession, id: string,
   status: WorkingDraftPreparation["status"], code: string | null = null): FunctionalResetSession => ({
@@ -143,43 +147,98 @@ export const transitionProjectPreparation = (session: FunctionalResetSession, id
       ? { ...p, status, code, updatedAt: new Date().toISOString() } : p),
 });
 export const consumeProjectPreparation = (session: FunctionalResetSession, id: string,
-  response: Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">): FunctionalResetSession => {
+  response: Pick<ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">,
+  transport: "FOREGROUND" | "DURABLE_RECOVERY" = "FOREGROUND"): FunctionalResetSession => {
   const p = session.workingDraftPreparations?.find(item => item.checkpoint?.preparationId === id);
   if (!p?.checkpoint || p.result || !["PREPARING", "UNKNOWN/INTERRUPTED"].includes(p.status)) return session;
   const cp = p.checkpoint;
-  if (!preparationCheckpointValid(session, cp)) return transitionProjectPreparation(session, id, "FAILED", "PREPARATION_CHECKPOINT_MISMATCH");
+  let observed = transport === "FOREGROUND"
+    ? recordProjectPreparationTrace(session, cp, "BRIDGE_RESPONSE_RECEIVED", "SUCCEEDED", { code: "BRIDGE_RESPONSE_RECEIVED" })
+    : session;
+  if (transport === "FOREGROUND") observed = recordProjectPreparationTrace(observed, cp,
+    "CLIENT_RESPONSE_CONSUMED", "SUCCEEDED", { code: "PREPARATION_RESPONSE_CONSUMED" });
+  if (!preparationCheckpointValid(session, cp)) return transitionProjectPreparation(recordProjectPreparationTrace(observed, cp,
+    "WORKING_DRAFT_VALIDATION", "FAILED", { code: "PREPARATION_CHECKPOINT_MISMATCH", failureFunction: "preparationCheckpointValid",
+      failureInvariant: "IMMUTABLE_PREPARATION_CHECKPOINT", attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "PREPARATION_CHECKPOINT_MISMATCH");
   if (!response.workingStudyProposal || !response.workingDraftUpdate) {
-    return transitionProjectPreparation(session, id,
+    if (!response.workingDraftUpdate || response.workingDraftUpdate.requestType === "STUDY_UPDATE")
+      observed = recordProjectPreparationTrace(observed, cp, "WORKING_DRAFT_VALIDATION", "FAILED", {
+        code: "WORKING_DRAFT_PROPOSAL_MISSING", failureFunction: "consumeProjectPreparation",
+        failureInvariant: "STUDY_UPDATE_AND_COMPOSITION_REQUIRED", attribution: "ROOT_CAUSE_PROVEN" });
+    return transitionProjectPreparation(observed, id,
       response.workingDraftUpdate && response.workingDraftUpdate.requestType !== "STUDY_UPDATE" ? "NO_CHANGE" : "FAILED",
       response.workingDraftUpdate && response.workingDraftUpdate.requestType !== "STUDY_UPDATE" ? null : "WORKING_DRAFT_PROPOSAL_MISSING");
   }
   const composition = response.workingStudyProposal;
   if (composition.sourceTurnRef !== p.sourceTurnRef || composition.sourceResponseRef !== p.recovery?.compositionResponseRef
-    || composition.proposal.contextDigest !== cp.inputDigest) return transitionProjectPreparation(session, id, "FAILED", "PREPARATION_RESULT_BINDING_MISMATCH");
+    || composition.proposal.contextDigest !== cp.inputDigest) return transitionProjectPreparation(recordProjectPreparationTrace(observed, cp,
+      "WORKING_DRAFT_VALIDATION", "FAILED", { code: "PREPARATION_RESULT_BINDING_MISMATCH",
+        failureFunction: "consumeProjectPreparation", failureInvariant: "COMPOSITION_CHECKPOINT_BINDING",
+        attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "PREPARATION_RESULT_BINDING_MISMATCH");
   try {
-    const base = inputSession(session, cp);
-    const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate, cp.inputDigest);
-    if (!workingDraft.readyReview || workingDraft.failure) return transitionProjectPreparation(session, id, "FAILED", workingDraft.failure ?? "WORKING_REVIEW_NOT_READY");
+    const base = inputSession(observed, cp);
+    const ownerObservation: { current: WorkingReviewOwnerObservation | null } = { current: null };
+    const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate, cp.inputDigest, ownerObservation);
+    const diagnostic = ownerObservation.current;
+    if (diagnostic) {
+      const metadata = {
+        candidateStatus: diagnostic.candidateStatus, canonicalStatus: diagnostic.canonicalStatus,
+        reviewProjectionStatus: diagnostic.reviewProjectionStatus, netChangeCount: diagnostic.netChangeCount,
+        additionCount: diagnostic.additionCount, updateCount: diagnostic.updateCount, removeCount: diagnostic.removeCount,
+        conflictCount: diagnostic.conflictCount, firstConflictId: diagnostic.firstConflictId,
+        firstConflictCode: diagnostic.firstConflictCode,
+        expectedReviewDecisionCount: diagnostic.expectedReviewDecisionCount,
+        actualReviewDecisionCount: diagnostic.actualReviewDecisionCount, errorSubtype: diagnostic.subtype,
+      };
+      const projectFailed = ["NO_NET_CHANGE", "STRUCTURAL_CONFLICT", "OWNER_VALIDATION_FAILED"].includes(diagnostic.subtype);
+      observed = recordProjectPreparationTrace(observed, cp, "PROJECT_DELTA_VALIDATION", projectFailed ? "FAILED" : "SUCCEEDED", {
+        code: projectFailed ? "WORKING_REVIEW_OWNER_NOT_READY" : diagnostic.canonicalStatus,
+        metadata, ...(projectFailed ? { publicCode: "WORKING_REVIEW_OWNER_NOT_READY",
+          failureFunction: diagnostic.subtype === "OWNER_VALIDATION_FAILED" ? "prepareContinuousWorkingDraft" : "prepareResearchProjectContributionCandidate",
+          failureInvariant: diagnostic.subtype === "NO_NET_CHANGE" ? "NET_CANONICAL_CHANGE_REQUIRED"
+            : diagnostic.subtype === "STRUCTURAL_CONFLICT" ? "CANONICAL_PROJECT_NO_STRUCTURAL_CONFLICT" : "UNKNOWN",
+          attribution: diagnostic.subtype === "OWNER_VALIDATION_FAILED" ? "SYMPTOM_ONLY" as const : "ROOT_CAUSE_PROVEN" as const } : {}),
+      });
+      if (!projectFailed) observed = recordProjectPreparationTrace(observed, cp, "REVIEW_PROJECTION_VALIDATION",
+        diagnostic.subtype === "REVIEW_PROJECTION_INCOMPLETE" ? "FAILED" : "SUCCEEDED", {
+          code: diagnostic.subtype === "REVIEW_PROJECTION_INCOMPLETE" ? "WORKING_REVIEW_OWNER_NOT_READY" : diagnostic.reviewProjectionStatus,
+          metadata, ...(diagnostic.subtype === "REVIEW_PROJECTION_INCOMPLETE" ? {
+            publicCode: "WORKING_REVIEW_OWNER_NOT_READY", failureFunction: "validateHumanReviewProjectionCoverage",
+            failureInvariant: "REVIEW_CHANGE_COVERAGE_COMPLETE", attribution: "ROOT_CAUSE_PROVEN" as const,
+          } : {}),
+        });
+    }
+    if (!workingDraft.readyReview || workingDraft.failure) return transitionProjectPreparation(observed, id, "FAILED", workingDraft.failure ?? "WORKING_REVIEW_NOT_READY");
     const prepared = validatePreparedWorkingReview({ ...base, studyProposal: composition, workingDraft });
-    if (!prepared) return transitionProjectPreparation(session, id, "FAILED", "WORKING_REVIEW_BINDING_INVALID");
+    if (!prepared) return transitionProjectPreparation(recordProjectPreparationTrace(observed, cp,
+      "WORKING_DRAFT_VALIDATION", "FAILED", { code: "WORKING_REVIEW_BINDING_INVALID",
+        failureFunction: "validatePreparedWorkingReview", failureInvariant: "PREPARED_REVIEW_REVALIDATION",
+        attribution: "SYMPTOM_ONLY" }), id, "FAILED", "WORKING_REVIEW_BINDING_INVALID");
     const binding: ProjectReviewInvitation = { sessionId: session.sessionId, conversationId: session.conversationId,
       projectId: cp.projectId, sourceProjectVersion: cp.request.currentProject?.versionId ?? null,
       sourceProjectDigest: cp.request.currentProject?.projectDigest ?? null,
       sourceTurnRef: composition.sourceTurnRef, sourceResponseRef: composition.sourceResponseRef,
       compositionDigest: composition.digest, reviewScopeDigest: workingDraft.reviewScopeDigest!,
       candidateRef: prepared.contribution.identity.contributionId, contributionDigest: prepared.contribution.identity.contributionDigest };
-    const transitioned = transitionProjectPreparation(session, id, "READY_FOR_REVIEW");
+    observed = recordProjectPreparationTrace(observed, cp, "READY_FOR_REVIEW", "SUCCEEDED", { code: "READY_FOR_REVIEW" });
+    const transitioned = transitionProjectPreparation(observed, id, "READY_FOR_REVIEW");
     const currentBase = (session.project?.projectDigest ?? null) === binding.sourceProjectDigest;
     return { ...transitioned,
       ...(currentBase ? { studyProposal: composition, workingDraft, workingDraftFailure: null } : {}),
       workingDraftPreparations: transitioned.workingDraftPreparations!.map(item => item.checkpoint?.preparationId === id
         ? { ...item, result: { composition, workingDraft } } : item),
-      entries: session.entries.some(e => e.entryId === `preparation-review:${id}`) ? session.entries : [...session.entries, {
+      entries: observed.entries.some(e => e.entryId === `preparation-review:${id}`) ? observed.entries : [...observed.entries, {
         entryId: `preparation-review:${id}`, kind: "TEXT", role: "NOXIA", createdAt: new Date().toISOString(),
         content: "La préparation est terminée. Consultez les choix proposés puis validez explicitement la revue pour mettre à jour le projet.",
         reviewInvitation: binding }],
     };
-  } catch (error) { return transitionProjectPreparation(session, id, "FAILED", error instanceof Error ? error.message : "WORKING_DRAFT_OWNER_FAILED"); }
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "WORKING_DRAFT_OWNER_FAILED";
+    return transitionProjectPreparation(recordProjectPreparationTrace(observed, cp, "WORKING_DRAFT_VALIDATION", "FAILED", {
+      code: /^[A-Z][A-Z0-9_]+$/.test(code) ? code : "WORKING_DRAFT_OWNER_FAILED",
+      failureFunction: "consumeProjectPreparation", failureInvariant: "UNKNOWN", attribution: "SYMPTOM_ONLY",
+    }), id, "FAILED", code);
+  }
 };
 export const projectPreparationReview = (session: FunctionalResetSession) => {
   const p = [...session.workingDraftPreparations ?? []].reverse().find(item => item.result && item.decision === "PENDING");

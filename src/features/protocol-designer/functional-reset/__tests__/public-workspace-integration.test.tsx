@@ -132,7 +132,7 @@ describe("independent Standard workspace through public admission", () => {
       const payload = JSON.parse(String(init?.body));
       if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
       if (failure === "INCOMPLETE_MAX_OUTPUT") return new Response(JSON.stringify({ status: "incomplete",
-        incomplete_details: { reason: "max_output_tokens" }, model: "gpt-5.6-sol",
+        incomplete_details: { reason: "max_output_tokens" }, model: "gpt-6-sol",
         usage: { input_tokens: 100, output_tokens: 8000 } }));
       const proposal = controlledStudyProposal(JSON.parse(payload.input).contextDigest, DOMAINS[1]);
       const measurement = proposal.atoms.find(atom => atom.ref === "measurement")!;

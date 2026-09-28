@@ -71,7 +71,7 @@ export const openAIInputCountEndpoint = (responsesEndpoint: string) => {
 export const mapOpenAIModelForDestination = (model: string, destination: OpenAIProviderDestination) => {
   if (destination === "openai") return model;
   if (model === "gpt-5.6-luna") return "gpt-5.6-terra";
-  if (model === "gpt-5.6-terra") return "gpt-5.6-sol";
+  if (model === "gpt-5.6-terra") return "gpt-6-sol";
   return model;
 };
 

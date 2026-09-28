@@ -177,6 +177,15 @@ describe("V1 long-horizon provider observability", () => {
     })).toBeNull();
   });
 
+  it("prices GPT-6 Sol short/long context and keeps Terra unchanged", () => {
+    const shortUsage = { inputTokens: 1_000, cachedInputTokens: 200, cacheWriteTokens: 100,
+      outputTokens: 100, reasoningTokens: 20, totalTokens: 1_100 };
+    expect(estimateProviderCallCostUsd("gpt-6-sol", shortUsage)).toBe(0.00269);
+    expect(estimateProviderCallCostUsd("gpt-5.6-terra", shortUsage)).toBe(0.00289);
+    expect(estimateProviderCallCostUsd("gpt-6-sol", { ...shortUsage, inputTokens: 273_000,
+      cachedInputTokens: 0, cacheWriteTokens: 0, totalTokens: 273_100 })).toBe(1.0935);
+  });
+
   it("keeps the cumulative session cost monotonic after the UI trace window is truncated", () => {
     const completed = {
       ...emptyRecordForTest,
