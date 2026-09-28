@@ -1,4 +1,4 @@
-import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid } from "../project-preparation-lifecycle";
+import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid, projectPreparationReview } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -340,6 +340,36 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(bridge).not.toHaveBeenCalled();
     expect(saved.project).toBeNull();
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
+  });
+
+  it("recovers a rich completed STUDY_UPDATE when the foreground HTTP response is lost", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(DOMAINS[0].text), request = requestFor(initial), update = updateFor(request, DOMAINS[0]);
+    const template = update.proposal!.atoms.find(atom => atom.ref === "practical")!;
+    while (update.proposal!.atoms.length < 52) {
+      const index = update.proposal!.atoms.length;
+      update.proposal!.atoms.push({ ...template, ref: `rich-${index}`, semanticKey: `rich-${index}`,
+        content: `Détail opérationnel synthétique ${index}`, dependsOn: [], dependencyQualifications: [] });
+    }
+    const optionRefs = new Set(update.proposal!.arbitrations.flatMap(a => a.options.flatMap(o => o.atomRefs)));
+    update.explicitDecisions = update.proposal!.atoms.filter(atom => !optionRefs.has(atom.ref)).slice(0, 23).map(atom => ({
+      atomRef: atom.ref, sourceTurnRef: "u1", quote: DOMAINS[0].text,
+    }));
+    const composition = acceptWorkingDraftUpdate(update, request).composition!;
+    expect(composition.proposal.atoms).toHaveLength(52);
+    expect(update.explicitDecisions).toHaveLength(23);
+    bridge.mockRejectedValueOnce(new TypeError("LOCAL_SYNTHETIC_FOREGROUND_RESPONSE_LOST"));
+    recoveryRead.mockResolvedValueOnce({ state: "IN_PROGRESS" }).mockResolvedValue({ state: "COMPLETED",
+      result: { workingDraftUpdate: update, workingStudyProposal: composition } });
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"), { timeout: 5000 });
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(recoveryRead).toHaveBeenCalled();
+    expect(projectPreparationReview(saved)?.applicable).toBe(true);
+    expect(saved.project).toBeNull();
   });
 
   it("marks a recovered provider result FAILED when the scientific owner rejects it", async () => {

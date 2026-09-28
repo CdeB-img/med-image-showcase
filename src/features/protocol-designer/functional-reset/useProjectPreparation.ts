@@ -51,17 +51,23 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     update(source.sessionId, () => beforeDispatch);
     if (preflightFailed) return;
     const records: ProviderCallRecord[] = [];
+    let bridgeResponseReceived = false;
     try {
       const response = await requestProtocolDesignerBridge(preparation.checkpoint.request);
+      bridgeResponseReceived = true;
       records.push(...response.observability.providerCalls ?? []);
       update(source.sessionId, state => consumeProjectPreparation(state, id, response));
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       const durableFailure = [...records].reverse().find(record => record.status === "FAILED" && record.durableFailure)?.durableFailure;
       const knownProviderFailure = durableFailure?.bodyRead && ["incomplete", "failed"].includes(durableFailure.providerResponseStatus ?? "");
+      // A lost browser response does not determine the durable operation's
+      // outcome. Only the existing bound recovery read may resolve it.
+      const responseUnverified = !(error instanceof ProductBridgeClientError) && !bridgeResponseReceived;
       const code = durableFailure?.providerResponseStatus === "incomplete" && durableFailure.incompleteReason === "max_output_tokens"
-        ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code : "WORKING_DRAFT_FAILED";
-      const unknown = !knownProviderFailure && (code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
+        ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code
+          : responseUnverified ? "WORKING_DRAFT_RESPONSE_UNVERIFIED" : "WORKING_DRAFT_FAILED";
+      const unknown = responseUnverified || !knownProviderFailure && (code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
         || ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH"].includes(durableFailure?.lastConfirmedDurableState ?? "")
         || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? "")));
       update(source.sessionId, state => {
@@ -85,6 +91,8 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     }
   };
   const updateRef = useRef(update); updateRef.current = update;
+  const active = activeProjectPreparation(session);
+  const recoveryKey = active?.status === "UNKNOWN/INTERRUPTED" ? active.checkpoint?.preparationId ?? null : null;
   useEffect(() => {
     if (!enabled) return;
     const initial = latest.current;
@@ -123,6 +131,6 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         error instanceof ProductBridgeClientError ? error.code : "WORKING_DRAFT_RECOVERY_UNAVAILABLE"));
     });
     return () => { alive = false; controller.abort(); };
-  }, [enabled, session.sessionId, latest]);
+  }, [enabled, session.sessionId, latest, recoveryKey]);
   return { start, busy: activeProjectPreparation(session)?.status === "PREPARING" };
 }
