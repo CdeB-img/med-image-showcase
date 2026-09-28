@@ -11,6 +11,7 @@ import {
   mapOpenAIModelForDestination,
   resolveOpenAIProviderRuntimeConfiguration,
 } from "../../../../server/protocol-designer-openai-provider-config";
+import type { ProviderCallRecord } from "../provider-call-observability";
 
 const azureEnvironment = {
   OPENAI_PROVIDER: "azure",
@@ -58,6 +59,7 @@ describe("OpenAI/Azure provider switch", () => {
 
   it("changes only destination, authentication and deployment model for Azure", async () => {
     const configuration = resolveOpenAIProviderRuntimeConfiguration(azureEnvironment);
+    const records: ProviderCallRecord[] = [];
     const provider = vi.fn<typeof fetch>(async (url, init) => {
       expect(url).toBe("https://noxia-01.services.ai.azure.com/api/projects/noxia-prod/openai/v1/responses");
       expect(init?.headers).toEqual({
@@ -66,7 +68,7 @@ describe("OpenAI/Azure provider switch", () => {
       });
       const body = JSON.parse(String(init?.body));
       expect(body).toMatchObject({
-        model: "gpt-5.6-sol",
+        model: "gpt-6-sol",
         instructions: "instruction",
         input: "contexte",
         reasoning: { effort: "medium" },
@@ -74,28 +76,34 @@ describe("OpenAI/Azure provider switch", () => {
         store: false,
         service_tier: "default",
       });
-      return response("gpt-5.6-sol");
+      return response("gpt-6-sol");
     });
 
     await executeOpenAITerraConversation(
       { instruction: "instruction", context: "contexte" },
       configuration.apiKey!,
       provider,
-      undefined,
+      { context: { sessionId: "synthetic-session", conversationId: "synthetic-conversation",
+        turnId: "synthetic-turn", clientRequestId: "synthetic-request", testSessionId: null },
+      purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null,
+      onRecord: record => records.push(record) },
       configuration.transport,
     );
 
     expect(provider).toHaveBeenCalledOnce();
     expect(mapOpenAIModelForDestination("gpt-5.6-luna", "azure")).toBe("gpt-5.6-terra");
-    expect(mapOpenAIModelForDestination("gpt-5.6-terra", "azure")).toBe("gpt-5.6-sol");
+    expect(mapOpenAIModelForDestination("gpt-5.6-terra", "azure")).toBe("gpt-6-sol");
     expect(mapOpenAIModelForDestination("gpt-5.6-sol", "azure")).toBe("gpt-5.6-sol");
+    expect(records).toHaveLength(1);
+    expect(records[0]).toMatchObject({ modelRequested: "gpt-6-sol", modelReturned: "gpt-6-sol",
+      modelVersion: "gpt-6-sol", pricingSnapshotDate: "2026-09-28", reasoningEffort: "medium" });
   });
 
   it("retains historical qualifications but refuses cross-provider network counting", () => {
     const configuration = resolveOpenAIProviderRuntimeConfiguration(azureEnvironment);
     const endpoint = configuration.transport!.responsesEndpoint;
     const body = JSON.stringify({
-      model: "gpt-5.6-sol",
+      model: "gpt-6-sol",
       instructions: "instruction",
       input: "contexte",
       reasoning: { effort: "medium" },
@@ -106,13 +114,14 @@ describe("OpenAI/Azure provider switch", () => {
 
     expect(boundCanaryProviderCall(endpoint, body)).toMatchObject({
       provider: "OPENAI",
-      model: "gpt-5.6-sol",
-      inputTokenUpperBound: 1_050_000,
+      model: "gpt-6-sol",
+      contextTokenLimit: 1_050_000,
+      inputTokenUpperBound: 922_000,
       outputTokenUpperBound: 8000,
     });
-    expect(boundCanaryProviderCall(endpoint, body)!.upperBoundUsd).toBeGreaterThan(6);
+    expect(boundCanaryProviderCall(endpoint, body)!.upperBoundUsd).toBe(4.73);
     expect(() => openAIInputCountRequest({ endpoint, method: "POST", body }))
-      .toThrow("OPENAI_INPUT_COUNT_ENDPOINT_UNAVAILABLE");
+      .toThrow("CANARY_AZURE_INPUT_COUNT_MODEL_PAIR_UNQUALIFIED");
     expect(configuration).not.toHaveProperty("countApiKey");
     expect(azureInputCountQualification("gpt-5.6-sol")).toBeTruthy();
     expect(azureInputCountQualification("gpt-5.6-terra")).toBeTruthy();

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
-import { providerModelPricing, PROVIDER_PRICING_SNAPSHOT_DATE } from "../src/features/protocol-designer/provider-call-observability.js";
+import { OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS, providerModelPricing } from "../src/features/protocol-designer/provider-call-observability.js";
 import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
 
 export const SINGLE_ATTEMPT_FAIL_CLOSED = "SINGLE_ATTEMPT_FAIL_CLOSED" as const;
@@ -12,16 +12,18 @@ export const CANARY_BUDGET_POLICY = Object.freeze({
   measuredCostSoftStopUsd: MEASURED_COST_SOFT_STOP_USD,
 });
 
-// Published model ceilings, checked 2026-09-14. Deliberately NOT a byte/token
+// Published model ceilings, checked 2026-09-28. Deliberately NOT a byte/token
 // heuristic: schemas and provider formatting are not fully countable locally.
 // https://developers.openai.com/api/docs/models/gpt-5.6-luna
 // https://developers.openai.com/api/docs/models/gpt-5.6-terra
 // https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite
-const limits: Readonly<Record<string, { input: number; output: number }>> = {
-  "gpt-5.6-sol": { input: 1_050_000, output: 128_000 },
-  "gpt-5.6-luna": { input: 1_050_000, output: 128_000 },
-  "gpt-5.6-terra": { input: 1_050_000, output: 128_000 },
-  "gemini-3.5-flash-lite": { input: 1_048_576, output: 65_536 },
+// `input` is the provider's maximum input, distinct from the total context.
+const limits: Readonly<Record<string, { context: number; input: number; output: number }>> = {
+  "gpt-6-sol": { context: 1_050_000, input: 922_000, output: 128_000 },
+  "gpt-5.6-sol": { context: 1_050_000, input: 1_050_000, output: 128_000 },
+  "gpt-5.6-luna": { context: 1_050_000, input: 1_050_000, output: 128_000 },
+  "gpt-5.6-terra": { context: 1_050_000, input: 1_050_000, output: 128_000 },
+  "gemini-3.5-flash-lite": { context: 1_048_576, input: 1_048_576, output: 65_536 },
 };
 const unitsPerUsd = 1_000_000_000;
 const ceilUnits = (usd: number) => Math.ceil(usd * unitsPerUsd);
@@ -45,7 +47,7 @@ export type CanaryCampaignPolicy = Readonly<{
   exactInputCounting?: Readonly<{ maxInputTokens: number; maxGenerationAttempts: number; maxTokenCountRequests: number; maxProviderHttpRequests: number }>;
   policyDigest: string;
 }>;
-export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
+export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-6-sol", "gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
 const policyHash = (value: unknown) => createHash("sha256").update(stableStringify(value)).digest("hex");
 const campaignIdValid = (value: unknown): value is string => typeof value === "string" && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(value);
 
@@ -97,6 +99,7 @@ export type CanaryCallBound = Readonly<{
   model: string;
   provider: "OPENAI" | "GOOGLE_GEMINI";
   pricingSnapshotDate: string;
+  contextTokenLimit: number;
   inputTokenUpperBound: number;
   outputTokenUpperBound: number;
   inputBoundBasis: "DOCUMENTED_MODEL_CONTEXT_LIMIT" | "PROVIDER_EXACT_INPUT_COUNT" | "LOCAL_CONSERVATIVE_ESTIMATE";
@@ -120,7 +123,7 @@ export const boundCanaryProviderCall = (endpoint: string, body: string, countedI
   const geminiMatch = /^https:\/\/generativelanguage.googleapis.com\/v1beta\/models\/(gemini-3\.5-flash-lite):generateContent$/.exec(endpoint);
   if (!openai && !geminiMatch) return null;
   const model = openai ? payload.model : geminiMatch![1];
-  if (typeof model !== "string" || (openai && !["gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra"].includes(model))) return null;
+  if (typeof model !== "string" || (openai && !["gpt-6-sol", "gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra"].includes(model))) return null;
   const pricing = providerModelPricing(model);
   const limit = limits[model];
   if (!pricing || !limit) return null;
@@ -150,13 +153,13 @@ export const boundCanaryProviderCall = (endpoint: string, body: string, countedI
   // Worst input class is a cache write, never a discounted cache hit.
   if (countedInputTokens !== undefined && (!openai || !integer(countedInputTokens) || countedInputTokens < 1 || countedInputTokens > limit.input)) return null;
   const inputTokens = countedInputTokens ?? limit.input;
-  const longContext = openai && inputTokens > 272_000;
+  const longContext = openai && inputTokens > OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS;
   const inputRate = Math.max(pricing.inputPerMillionUsd, pricing.cachedInputPerMillionUsd,
     pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * (longContext ? 2 : 1);
   const outputRate = pricing.outputPerMillionUsd * (longContext ? 1.5 : 1);
   return Object.freeze({
-    model, provider: openai ? "OPENAI" : "GOOGLE_GEMINI", pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
-    inputTokenUpperBound: inputTokens, outputTokenUpperBound: output,
+    model, provider: openai ? "OPENAI" : "GOOGLE_GEMINI", pricingSnapshotDate: pricing.snapshotDate,
+    contextTokenLimit: limit.context, inputTokenUpperBound: inputTokens, outputTokenUpperBound: output,
     inputBoundBasis: countedInputTokens === undefined ? "DOCUMENTED_MODEL_CONTEXT_LIMIT" : "PROVIDER_EXACT_INPUT_COUNT",
     outputBoundBasis: openai ? "REQUEST_MAX_OUTPUT_INCLUDES_REASONING" : "DOCUMENTED_MODEL_OUTPUT_LIMIT",
     maximumInputRatePerMillionUsd: inputRate, maximumOutputRatePerMillionUsd: outputRate,
@@ -211,8 +214,8 @@ export const settleCanaryProviderCall = (bound: CanaryCallBound, responseBody: s
   const cached = openai ? detail.cached_tokens ?? 0 : usage.cachedContentTokenCount ?? 0;
   const written = openai ? detail.cache_write_tokens ?? 0 : 0;
   if (!integer(cached) || !integer(written) || cached + written > input) return null;
-  const inputMultiplier = openai && input > 272_000 ? 2 : 1;
-  const outputRate = pricing.outputPerMillionUsd * (openai && input > 272_000 ? 1.5 : 1);
+  const inputMultiplier = openai && input > OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS ? 2 : 1;
+  const outputRate = pricing.outputPerMillionUsd * (openai && input > OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS ? 1.5 : 1);
   const measuredCostUsd = ((input - cached - written) * pricing.inputPerMillionUsd * inputMultiplier
     + cached * pricing.cachedInputPerMillionUsd * inputMultiplier
     + written * (pricing.cacheWritePerMillionUsd ?? pricing.inputPerMillionUsd) * inputMultiplier

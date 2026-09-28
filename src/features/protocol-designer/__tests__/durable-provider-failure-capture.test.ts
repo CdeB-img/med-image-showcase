@@ -155,13 +155,13 @@ const fakeStore = (): FakeStore => {
 const ENDPOINT = "https://synthetic.services.ai.azure.com/api/projects/qualification/openai/v1/responses";
 const COUNT_ENDPOINT = "https://api.openai.com/v1/responses/input_tokens";
 const INPUT = 100;
-const requestBody = JSON.stringify({ model: "gpt-5.6-sol", instructions: "synthetic", input: "synthetic",
+const requestBody = JSON.stringify({ model: "gpt-6-sol", instructions: "synthetic", input: "synthetic",
   reasoning: { effort: "medium" }, max_output_tokens: 8_000, store: false, service_tier: "default" });
 const observation = { purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0,
   context: { sessionId: "synthetic-session", turnId: "synthetic-turn", clientRequestId: "synthetic-request" } };
 const countSuccess = (tokens = INPUT) => new Response(JSON.stringify({ object: "response.input_tokens", input_tokens: tokens }), { status: 200 });
 const generation = (options: { status?: number; responseStatus?: string; input?: number; reason?: string; model?: string; omitUsage?: boolean } = {}) =>
-  new Response(JSON.stringify({ model: options.model ?? "gpt-5.6-sol", status: options.responseStatus ?? "completed",
+  new Response(JSON.stringify({ model: options.model ?? "gpt-6-sol", status: options.responseStatus ?? "completed",
     ...(options.reason ? { incomplete_details: { reason: options.reason } } : {}),
     ...(!options.omitUsage ? { usage: { input_tokens: options.input ?? INPUT, output_tokens: 30,
       total_tokens: (options.input ?? INPUT) + 30 } } : {}) }),
@@ -206,7 +206,7 @@ describe("durable provider terminal failure capture with the real guard and offl
         const output = body.prepareWorkingDraft ? JSON.stringify({ requestType: "STUDY_UPDATE",
           proposal: controlledStudyProposal(prepareWorkingDraftRequest(body).inputDigest, DOMAINS[1]),
           explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }) : "Proposition synthétique non adoptée.";
-        return new Response(JSON.stringify({ model: "gpt-5.6-sol", status: "completed", output_text: output,
+        return new Response(JSON.stringify({ model: "gpt-6-sol", status: "completed", output_text: output,
           usage: { input_tokens: 6214, output_tokens: 2000 } }), { status: 200 });
       });
       const result = await executeProtocolDesignerBridge({ body, apiKey: null, openAiApiKey: "SYNTHETIC_AZURE_ONLY",
@@ -214,7 +214,7 @@ describe("durable provider terminal failure capture with the real guard and offl
         fetchImpl: guard.createBudgetedFetch(admission, provider) });
       expect(result.status).toBe(200);
       expect(store.operation).toMatchObject({ state: "COMPLETED_RECEIVED", counted_input_tokens: null,
-        generation_provider: "AZURE_OPENAI", post_usage_input_tokens: 6214 });
+        generation_provider: "AZURE_OPENAI", generation_model: "gpt-6-sol", post_usage_input_tokens: 6214 });
       return result.body as ProductBridgeResponse;
     };
     const conversation = await dispatch({ apiVersion: "1.0.0", currentProject: null, evaluatePersistentDelta: false,
@@ -231,6 +231,9 @@ describe("durable provider terminal failure capture with the real guard and offl
     expect(projectPreparationReview(ready)?.applicable).toBe(true);
     expect(ready.project).toBeNull();
     expect(calls).toEqual([ENDPOINT, ENDPOINT]);
+    expect(store.gate).toMatchObject({ state: "OPEN", local_admission_state: "OPEN",
+      local_admission_policy: AZURE_LOCAL_INPUT_POLICY,
+      count_qualification_ref: "AZURE_LOCAL_ADMISSION_GPT_6_SOL_2026_09_28" });
   });
 
   it.each(["PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE", "PUBLIC_AZURE_GENERATION_MODEL_DRIFT", "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING"])(

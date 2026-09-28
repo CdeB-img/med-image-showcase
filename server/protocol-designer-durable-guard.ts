@@ -299,10 +299,13 @@ const lockSession = async (tx: TransactionQuery, context: DurablePublicRequestCo
 // stays intact for history and older deployments. New policy is independently
 // fail-closed for model/usage/envelope anomalies; no session is reopened.
 const assertAzureLocalAdmissionOpen = async (tx: TransactionQuery, endpointDigest: string, model: string) => {
+  const qualificationRef = azureInputCountQualification(model)
+    ?? (model === "gpt-6-sol" ? "AZURE_LOCAL_ADMISSION_GPT_6_SOL_2026_09_28" : null);
+  if (!qualificationRef) throw new DurablePublicGuardError("PUBLIC_AZURE_LOCAL_ADMISSION_UNQUALIFIED_MODEL");
   await tx`
     insert into noxia_durable.public_provider_equivalence_gate
       (generation_endpoint_digest, generation_model, count_qualification_ref, state)
-    values (${endpointDigest}, ${model}, ${azureInputCountQualification(model)}, 'OPEN')
+    values (${endpointDigest}, ${model}, ${qualificationRef}, 'OPEN')
     on conflict (generation_endpoint_digest, generation_model) do nothing
   `;
   await tx`

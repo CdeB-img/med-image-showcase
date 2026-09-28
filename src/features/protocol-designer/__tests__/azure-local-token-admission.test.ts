@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { boundPublicProviderCall, AZURE_LOCAL_INPUT_POLICY } from "../../../../server/protocol-designer-local-token-admission";
-import { canaryBudgetAdmission, settleCanaryProviderCall } from "../../../../server/protocol-designer-canary-policy";
+import { boundCanaryProviderCall, canaryBudgetAdmission, settleCanaryProviderCall } from "../../../../server/protocol-designer-canary-policy";
 import { buildOpenAITerraConversationPayload } from "../../../../api/protocol-designer-openai-extraction-provider";
 import { prepareWorkingDraftRequest } from "../functional-reset/continuous-project-build";
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import type { ProductBridgeRequest } from "../product-bridge";
 
 const endpoint = "https://synthetic.services.ai.azure.com/api/projects/qualification/openai/v1/responses";
-const payload = (input = "Texte synthétique sans donnée personnelle.") => ({ model: "gpt-5.6-sol",
+const payload = (input = "Texte synthétique sans donnée personnelle.") => ({ model: "gpt-6-sol",
   instructions: "Instructions synthétiques.", input, store: false, service_tier: "default", max_output_tokens: 24_000 });
 const bound = (input?: string) => boundPublicProviderCall(endpoint, JSON.stringify(payload(input)))!;
 
@@ -16,7 +16,9 @@ describe("Azure local admission without a second provider", () => {
     const text = "Été — 心臓 🫀 <|endoftext|>";
     expect(bound(text)).toEqual(bound(text));
     expect(bound(text)).toMatchObject({ inputAdmissionPolicy: AZURE_LOCAL_INPUT_POLICY,
-      inputBoundBasis: "LOCAL_CONSERVATIVE_ESTIMATE", outputTokenUpperBound: 24_000 });
+      inputBoundBasis: "LOCAL_CONSERVATIVE_ESTIMATE", contextTokenLimit: 1_050_000,
+      outputTokenUpperBound: 24_000 });
+    expect(bound(text).inputTokenUpperBound).toBeLessThanOrEqual(922_000);
     expect(bound(text).localEstimatedInputTokens).toBeGreaterThan(0);
     expect(bound(text).inputTokenUpperBound).toBeGreaterThan(bound(text).localEstimatedInputTokens!);
     expect(bound(text).inputTokenUpperBound).toBe(2 * Buffer.byteLength(JSON.stringify(payload(text))) + 8192);
@@ -32,6 +34,11 @@ describe("Azure local admission without a second provider", () => {
 
   it.each(["unknown", "gpt-5.6-luna"])("denies an unqualified Azure model %s", model => {
     expect(boundPublicProviderCall(endpoint, JSON.stringify({ ...payload(), model }))).toBeNull();
+  });
+
+  it("retains the historical Sol identity for receipts and one-line binding rollback", () => {
+    expect(boundPublicProviderCall(endpoint, JSON.stringify({ ...payload(), model: "gpt-5.6-sol" })))
+      .toMatchObject({ model: "gpt-5.6-sol" });
   });
 
   it("denies excessive context, unknown shapes, references, tools and media before dispatch", () => {
@@ -57,12 +64,19 @@ describe("Azure local admission without a second provider", () => {
     const response = { model: reservation.model, status: "completed", usage: {
       input_tokens: 1000, output_tokens: 100, input_tokens_details: { cached_tokens: 0 } } };
     expect(settleCanaryProviderCall(reservation, JSON.stringify(response))).toMatchObject({
-      inputTokens: 1000, billableOutputTokens: 100, measuredCostUsd: 0.006, committedCostUpperBoundUsd: 0.007 });
+      inputTokens: 1000, billableOutputTokens: 100, measuredCostUsd: 0.003, committedCostUpperBoundUsd: 0.0035 });
     for (const change of [{ usage: null }, { status: "incomplete", incomplete_details: { reason: "content_filter" } },
       { model: "unknown" }, { usage: { input_tokens: reservation.inputTokenUpperBound + 1, output_tokens: 1 } },
       { usage: { input_tokens: 1, output_tokens: 24_001 } }]) {
       expect(settleCanaryProviderCall(reservation, JSON.stringify({ ...response, ...change }))).toBeNull();
     }
+  });
+
+  it("settles a GPT-6 long-context usage with the governed premium", () => {
+    const reservation = boundCanaryProviderCall(endpoint, JSON.stringify(payload()), 273_000)!;
+    expect(settleCanaryProviderCall(reservation, JSON.stringify({ model: "gpt-6-sol", status: "completed",
+      usage: { input_tokens: 273_000, output_tokens: 100, input_tokens_details: { cached_tokens: 0 } } })))
+      .toMatchObject({ measuredCostUsd: 1.0935, committedCostUpperBoundUsd: 1.3665 });
   });
 
   it.each(["short", "rich"])("admits unchanged real Conversation/Working Draft builders for synthetic %s input", (size) => {
@@ -79,7 +93,7 @@ describe("Azure local admission without a second provider", () => {
     const packet = prepareWorkingDraftRequest(request);
     for (const workingDraft of [false, true]) {
       const body = { ...buildOpenAITerraConversationPayload(workingDraft ? packet : { instruction: packet.instruction, context: packet.context }),
-        model: "gpt-5.6-sol", max_output_tokens: workingDraft ? 24_000 : 8000 };
+        model: "gpt-6-sol", max_output_tokens: workingDraft ? 24_000 : 8000 };
       const reservation = boundPublicProviderCall(endpoint, JSON.stringify(body));
       expect(reservation).not.toBeNull();
       expect(canaryBudgetAdmission(0, reservation, 0)).toBe("ADMITTED");
