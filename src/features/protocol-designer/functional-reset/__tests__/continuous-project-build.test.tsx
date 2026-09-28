@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { createRecordedProtocolDesignerFetch } from "../../../../../server/protocol-designer-provider-replay";
 import { createCanaryCampaignPolicy } from "../../../../../server/protocol-designer-canary-policy";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
@@ -687,7 +687,9 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await screen.findByTestId("study-deliverable-workspace");
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
-    expect(screen.getByTestId("document-generation-1")).toHaveTextContent("Documents V1 disponibles · projet version 1");
+    let history = screen.getByTestId("document-generation-history");
+    expect(within(history).getByText("Génération 1")).toBeInTheDocument();
+    expect(screen.getByTestId("document-history-project-v1")).toHaveTextContent("Project V1 · version courante");
     if (saveDocuments === "saved") expect(saved.drciDraftPacks?.[0].project).toEqual({ projectId: saved.project?.projectId,
       projectVersion: saved.project?.versionId, projectDigest: saved.project?.projectDigest });
     for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
@@ -695,8 +697,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     if (saveDocuments === "saved") {
       fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
       await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
-      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
-      expect(screen.getByTestId("document-generation-2")).toHaveTextContent("Documents V2 disponibles");
+      expect(saved.drciDraftPacks?.map((pack) => pack.documentGeneration?.generationNumber)).toEqual([1, 2]);
+      history = screen.getByTestId("document-generation-history");
+      expect(within(history).getByText("Génération 1")).toBeInTheDocument();
+      expect(within(history).getByText("Génération 2")).toBeInTheDocument();
       const previousEntries = saved.entries.length;
       bridge.mockRejectedValueOnce(new Error("LOCAL_SYNTHETIC_DOC_FAILURE"));
       fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
@@ -704,8 +708,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       expect(saved.drciDraftPacks).toHaveLength(2);
       expect(saved.project?.revision).toBe(1);
       expect(saved.entries).toHaveLength(previousEntries);
-      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
-      expect(screen.getByTestId("document-generation-2")).toBeInTheDocument();
+      history = screen.getByTestId("document-generation-history");
+      expect(within(history).getByText("Génération 1")).toBeInTheDocument();
+      expect(within(history).getByText("Génération 2")).toBeInTheDocument();
+      expect(within(history).queryByText("Génération 3")).toBeNull();
     }
   });
 

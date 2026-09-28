@@ -8,6 +8,7 @@ import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-pro
 import { rehydrateProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
 import { validateDocumentEvidence } from "@/features/document-projection/scientific-document-revision";
 import { encodeSessionStorage } from "./session-storage-codec";
+import { normalizeDrciDraftPackGenerations } from "@/features/document-projection/drci-draft-contract";
 
 export const PROJECT_SESSION_PREFIX = `${FUNCTIONAL_RESET_STORAGE_KEY}::project::`;
 export const ACTIVE_PROJECT_STORAGE_KEY = "noxia:protocol-designer:active-project";
@@ -59,7 +60,11 @@ export const saveProjectSession = (storage: Storage, saved: SavedProjectSession,
     throw new Error("La sauvegarde ne correspond pas à ce projet.");
   }
   if (storage.getItem(saved.key) !== saved.raw) throw new Error("Ce projet a changé dans un autre écran. Rouvrez sa version enregistrée avant de poursuivre.");
-  const raw = encodeSessionStorage(session);
+  const normalizedSession = {
+    ...session,
+    drciDraftPacks: normalizeDrciDraftPackGenerations(session.drciDraftPacks ?? []),
+  };
+  const raw = encodeSessionStorage(normalizedSession);
   // One atomic Storage write preserves the entire session; no secondary scientific database or lossy reconstruction.
   storage.setItem(saved.key, raw);
   return raw;

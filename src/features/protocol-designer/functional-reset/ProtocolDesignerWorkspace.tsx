@@ -3,6 +3,7 @@ import { canCaptureProjectPreparation, projectPreparationReview, recordPreparati
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { recommendedWorkingScope } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
+import { appendDrciDocumentGeneration, nextDrciDocumentGenerationNumber } from "@/features/document-projection/drci-draft-contract";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -81,6 +82,7 @@ import {
   functionalProtocolProjection,
   markFunctionalResetDocumentFailure,
   refreshFunctionalResetDocumentPortfolio,
+  type StudyDeliverablePortfolio,
 } from "@/features/document-projection";
 import {
   buildPreProjectNavigationDecision,
@@ -3964,7 +3966,11 @@ export default function ProtocolDesignerWorkspace({
         const resume = async () => {
           if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
           documentGenerationInFlightRef.current = true;
-          setDocumentGenerationVersion((sourceSession.drciDraftPacks ?? []).filter(pack => pack.project.projectId === sourceSession.project!.projectId).length + 1);
+          setDocumentGenerationVersion(nextDrciDocumentGenerationNumber(sourceSession.drciDraftPacks ?? [], {
+            projectId: sourceSession.project!.projectId,
+            projectVersion: sourceSession.project!.versionId,
+            projectDigest: sourceSession.project!.projectDigest,
+          }));
           setDocumentGenerationStartedAt(Date.now());
           setDocumentGenerationElapsed(0);
           setDocumentGenerationComplete(false);
@@ -3978,8 +3984,13 @@ export default function ProtocolDesignerWorkspace({
             const pack = response.documentDraftPack;
             if (!pack || !latest.project || latest.sessionId !== sourceSession.sessionId || !isDrciDraftPackCurrent(pack, latest.project))
               throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
+            const generationPortfolio = projectDrciDraftPackPortfolio(buildStudyDeliverablePortfolio({
+              project: latest.project,
+              protocolProjection: protocol,
+              generatedAt: pack.generatedAt,
+            }), pack, latest.project);
             const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
-              drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
+              drciDraftPacks: appendDrciDocumentGeneration(latest.drciDraftPacks ?? [], pack, generationPortfolio), openDocumentProjectionId: null,
               documentRetryUnsafe: false,
               entries: latest.entries,
               updatedAt: now };
@@ -4157,7 +4168,8 @@ export default function ProtocolDesignerWorkspace({
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
       generatedAt: currentProtocolProjection?.requestedAt ?? session.project.adoptedAt });
     const pack = [...session.drciDraftPacks ?? []].reverse().find((item) => isDrciDraftPackCurrent(item, session.project!));
-    return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
+    return (pack?.documentGeneration?.portfolioSnapshot as StudyDeliverablePortfolio | null | undefined)
+      ?? (pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio);
   }, [currentProtocolProjection, session.project, session.drciDraftPacks]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
@@ -4587,7 +4599,7 @@ export default function ProtocolDesignerWorkspace({
       data-testid="document-generation-progress">
       <button type="button" className="flex min-h-8 w-full items-center justify-between gap-2 text-left text-sm font-semibold"
         aria-expanded={documentProgressExpanded} onClick={() => setDocumentProgressExpanded(value => !value)}>
-        <span>Documents V{documentGenerationVersion} {documentGenerationComplete ? "disponibles" : "en cours"}</span>
+        <span>Génération {documentGenerationVersion} {documentGenerationComplete ? "disponible" : "en cours"}</span>
         <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
       </button>
       {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">

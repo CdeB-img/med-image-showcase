@@ -260,9 +260,138 @@ export type DrciDraftPack = Readonly<{
   reusedProtocolEvidenceRef: string | null;
   evidenceContent?: DocumentEvidenceContent;
   preparationBinding: string;
+  /** Portfolio-generation identity. Optional only while reading packs created before Lot B. */
+  documentGeneration?: DrciDocumentGeneration;
   synopsisRevision?: import("./synopsis-revision.js").SynopsisRevisionProvenance;
   humanRevision?: DrciHumanPackRevision;
 }>;
+
+export const DRCI_DOCUMENT_GENERATION_CONTRACT_VERSION = "1.0.0" as const;
+export type DrciDocumentGenerationPortfolioSnapshot = Readonly<{
+  contract: "V1_STUDY_DELIVERABLE_PORTFOLIO";
+  contractVersion: "1.0.0";
+  portfolioId: string;
+  projectRef: Readonly<{ projectId: string; projectVersion: string; projectDigest: string }>;
+  generatedAt: string;
+  artifacts: readonly Readonly<{
+    artifactId: string;
+    kind: string;
+    name: string;
+    status: "READY" | "PARTIAL" | "MISSING_DECISION" | "NOT_APPLICABLE" | "PROFILE_REQUIRED" | "STALE";
+    files: readonly Readonly<{
+      fileName: string;
+      format: "HTML" | "MARKDOWN" | "CSV" | "JSON";
+      mimeType: string;
+      content: string;
+    }>[];
+  }>[];
+  manifest: Readonly<{
+    portfolioId: string;
+    generatedAt: string;
+    project: Readonly<{ projectId: string; projectVersion: string; projectDigest: string }>;
+  }>;
+}>;
+export type DrciDocumentGeneration = Readonly<{
+  contract: "DRCI_DOCUMENT_GENERATION";
+  contractVersion: typeof DRCI_DOCUMENT_GENERATION_CONTRACT_VERSION;
+  generationId: string;
+  /** Starts at one for each exact Project version/digest binding. */
+  generationNumber: number;
+  identitySource: "RECORDED_AT_GENERATION" | "LEGACY_PACK_MIGRATION";
+  /** Null only for a pre-Lot-B pack whose full historical portfolio was never persisted. */
+  portfolioSnapshot: DrciDocumentGenerationPortfolioSnapshot | null;
+}>;
+
+type DrciGenerationProjectBinding = Readonly<{
+  projectId: string;
+  projectVersion: string;
+  projectDigest: string;
+}>;
+
+const documentGenerationBindingKey = (binding: DrciGenerationProjectBinding) => logicalDigest(binding);
+const documentGenerationId = (pack: DrciDraftPack, generationNumber: number) => `document-generation:${logicalDigest({
+  project: pack.project,
+  generatedAt: pack.generatedAt,
+  packDigest: pack.packDigest,
+  generationNumber,
+})}`;
+
+const assertDocumentGenerationSnapshot = (pack: DrciDraftPack, generation: DrciDocumentGeneration) => {
+  const snapshot = generation.portfolioSnapshot;
+  if (!snapshot) return;
+  if (snapshot.contract !== "V1_STUDY_DELIVERABLE_PORTFOLIO"
+    || snapshot.projectRef.projectId !== pack.project.projectId
+    || snapshot.projectRef.projectVersion !== pack.project.projectVersion
+    || snapshot.projectRef.projectDigest !== pack.project.projectDigest
+    || snapshot.generatedAt !== pack.generatedAt
+    || snapshot.manifest.portfolioId !== snapshot.portfolioId
+    || snapshot.manifest.generatedAt !== snapshot.generatedAt
+    || logicalDigest(snapshot.manifest.project) !== logicalDigest(snapshot.projectRef)) {
+    throw new Error("DRCI_DOCUMENT_GENERATION_PORTFOLIO_MISMATCH");
+  }
+};
+
+/**
+ * Stabilizes pre-Lot-B entries from the immutable evidence that actually exists:
+ * retained array order, Project binding, generatedAt and packDigest. It never
+ * invents a missing portfolio snapshot.
+ */
+export const normalizeDrciDraftPackGenerations = (packs: readonly DrciDraftPack[]): readonly DrciDraftPack[] => {
+  const nextByBinding = new Map<string, number>();
+  const generationIds = new Set<string>();
+  return packs.map((pack) => {
+    const bindingKey = documentGenerationBindingKey(pack.project);
+    const expectedNumber = (nextByBinding.get(bindingKey) ?? 0) + 1;
+    const stored = pack.documentGeneration;
+    if (stored && (stored.contract !== "DRCI_DOCUMENT_GENERATION"
+      || stored.contractVersion !== DRCI_DOCUMENT_GENERATION_CONTRACT_VERSION
+      || stored.generationNumber !== expectedNumber
+      || stored.generationId !== documentGenerationId(pack, stored.generationNumber)
+      || !["RECORDED_AT_GENERATION", "LEGACY_PACK_MIGRATION"].includes(stored.identitySource))) {
+      throw new Error("DRCI_DOCUMENT_GENERATION_IDENTITY_INVALID");
+    }
+    const generation: DrciDocumentGeneration = stored ?? {
+      contract: "DRCI_DOCUMENT_GENERATION",
+      contractVersion: DRCI_DOCUMENT_GENERATION_CONTRACT_VERSION,
+      generationId: documentGenerationId(pack, expectedNumber),
+      generationNumber: expectedNumber,
+      identitySource: "LEGACY_PACK_MIGRATION",
+      portfolioSnapshot: null,
+    };
+    if (generationIds.has(generation.generationId)) throw new Error("DRCI_DOCUMENT_GENERATION_IDENTITY_DUPLICATE");
+    assertDocumentGenerationSnapshot(pack, generation);
+    generationIds.add(generation.generationId);
+    nextByBinding.set(bindingKey, generation.generationNumber);
+    return stored ? pack : { ...pack, documentGeneration: generation };
+  });
+};
+
+export const nextDrciDocumentGenerationNumber = (
+  packs: readonly DrciDraftPack[],
+  project: DrciGenerationProjectBinding,
+) => normalizeDrciDraftPackGenerations(packs)
+  .filter((pack) => documentGenerationBindingKey(pack.project) === documentGenerationBindingKey(project))
+  .reduce((highest, pack) => Math.max(highest, pack.documentGeneration!.generationNumber), 0) + 1;
+
+export const appendDrciDocumentGeneration = (
+  packs: readonly DrciDraftPack[],
+  pack: DrciDraftPack,
+  portfolioSnapshot: DrciDocumentGenerationPortfolioSnapshot,
+): readonly DrciDraftPack[] => {
+  if (pack.documentGeneration) throw new Error("DRCI_DOCUMENT_GENERATION_ALREADY_ASSIGNED");
+  const normalized = normalizeDrciDraftPackGenerations(packs);
+  const generationNumber = nextDrciDocumentGenerationNumber(normalized, pack.project);
+  const documentGeneration: DrciDocumentGeneration = {
+    contract: "DRCI_DOCUMENT_GENERATION",
+    contractVersion: DRCI_DOCUMENT_GENERATION_CONTRACT_VERSION,
+    generationId: documentGenerationId(pack, generationNumber),
+    generationNumber,
+    identitySource: "RECORDED_AT_GENERATION",
+    portfolioSnapshot,
+  };
+  assertDocumentGenerationSnapshot(pack, documentGeneration);
+  return [...normalized, { ...pack, documentGeneration }];
+};
 
 /** Extends the existing DOC revision provenance to native packs; never a Project change. */
 export type DrciHumanRevisionEntry = {
@@ -486,7 +615,10 @@ export const materializeDrciDraftPack = (value: unknown, input: {
 };
 
 export const isDrciDraftPackCurrent = (pack: DrciDraftPack, project: ResearchProjectOwnerProjection) => {
-  const { packDigest, ...material } = pack;
+  // Lot-B history metadata is persisted beside the immutable pack but is not
+  // part of the provider-produced pack digest established before generation
+  // numbering exists.
+  const { packDigest, documentGeneration: _documentGeneration, ...material } = pack;
   return pack.project.projectId === project.projectId && pack.project.projectVersion === project.versionId
     && pack.project.projectDigest === project.projectDigest && packDigest === logicalDigest(material);
 };

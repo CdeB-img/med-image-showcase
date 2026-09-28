@@ -14,6 +14,7 @@ import {
   createEmptyFunctionalResetDocumentPortfolio,
   type FunctionalResetDocumentPortfolio,
 } from "@/features/document-projection";
+import { normalizeDrciDraftPackGenerations } from "@/features/document-projection/drci-draft-contract";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
@@ -680,6 +681,7 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
       conversationConfirmationReceipts: readConversationConfirmationReceipts(session),
       studyProposal: rehydrateStudyProposal(session.studyProposal, session.project),
       retainedContributionCandidates: session.retainedContributionCandidates ?? [],
+      drciDraftPacks: normalizeDrciDraftPackGenerations(session.drciDraftPacks ?? []),
       observabilityInteraction: session.observabilityInteraction ?? null,
       imagingInteraction: session.imagingInteraction ?? null,
       biostatisticsInteraction: session.biostatisticsInteraction ?? null,
@@ -711,7 +713,10 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
 };
 
 export const persistFunctionalResetSession = (storage: Storage, session: FunctionalResetSession) => {
-  storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify(session));
+  storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify({
+    ...session,
+    drciDraftPacks: normalizeDrciDraftPackGenerations(session.drciDraftPacks ?? []),
+  }));
 };
 
 export const clearFunctionalResetSession = (storage: Storage) => storage.removeItem(FUNCTIONAL_RESET_STORAGE_KEY);

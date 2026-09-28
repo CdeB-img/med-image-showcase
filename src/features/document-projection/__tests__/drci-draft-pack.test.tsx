@@ -661,7 +661,17 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const saved = createProjectSession(localStorage, "DRCI"); saved.session.projectId = project.projectId; const candidate = pack();
     saveProjectSession(localStorage, saved, { ...saved.session, projectId: project.projectId, project, drciDraftPacks: [candidate] });
     const reopened = readProjectSessions(localStorage).projects[0].session;
-    expect(reopened.drciDraftPacks).toEqual([candidate]); expect(reopened.project?.projectDigest).toBe(project.projectDigest);
+    const reopenedPack = reopened.drciDraftPacks?.[0];
+    expect(reopenedPack).toBeDefined();
+    const { documentGeneration, ...persistedPack } = reopenedPack!;
+    expect(persistedPack).toEqual(JSON.parse(JSON.stringify(candidate)));
+    expect(documentGeneration).toMatchObject({
+      contract: "DRCI_DOCUMENT_GENERATION",
+      generationNumber: 1,
+      identitySource: "LEGACY_PACK_MIGRATION",
+      portfolioSnapshot: null,
+    });
+    expect(reopened.project?.projectDigest).toBe(project.projectDigest);
   });
   it("actually opens each document in a dedicated, sandboxed reading surface", () => {
     render(<StudyDeliverableWorkspace portfolio={projectDrciDraftPackPortfolio(portfolio(), pack(), project)} onClose={() => undefined} />);

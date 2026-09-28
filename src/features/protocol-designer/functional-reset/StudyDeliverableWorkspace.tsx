@@ -8,7 +8,10 @@ import {
   type StudyDeliverableFile,
 } from "@/features/document-projection";
 import { drciDraftPackFiles } from "@/features/document-projection/drci-draft-pack";
-import type { DrciDraftPack } from "@/features/document-projection/drci-draft-contract";
+import {
+  normalizeDrciDraftPackGenerations,
+  type DrciDraftPack,
+} from "@/features/document-projection/drci-draft-contract";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
@@ -27,23 +30,78 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export const documentGenerationsForProject = (packs: readonly DrciDraftPack[], projectId: string | undefined) =>
-  packs.filter((pack) => pack.project.projectId === projectId).map((pack, index) => ({
-    documentGenerationId: `${pack.project.projectId}:document-generation:${index + 1}`,
-    documentVersion: index + 1,
-    projectId: pack.project.projectId,
-    projectVersionId: pack.project.projectVersion,
-    projectDigest: pack.project.projectDigest,
-    createdAt: pack.generatedAt,
-    status: "AVAILABLE" as const,
-    documentDraftPack: pack,
-  }));
+type HistoricalArtifact = Readonly<{
+  artifactId: string;
+  kind: string;
+  name: string;
+  status: StudyDeliverableStatus;
+  files: readonly StudyDeliverableFile[];
+}>;
+
+export type DocumentGenerationHistoryItem = Readonly<{
+  documentGenerationId: string;
+  generationNumber: number;
+  projectId: string;
+  projectVersionId: string;
+  projectDigest: string;
+  createdAt: string;
+  identitySource: "RECORDED_AT_GENERATION" | "LEGACY_PACK_MIGRATION";
+  historicalPortfolioComplete: boolean;
+  artifacts: readonly HistoricalArtifact[];
+  documentDraftPack: DrciDraftPack;
+}>;
+
+const legacyPackArtifacts = (pack: DrciDraftPack): readonly HistoricalArtifact[] => drciDraftPackFiles(pack).map((document) => ({
+  artifactId: `legacy-document-generation:${pack.packDigest}:${document.kind}`,
+  kind: document.kind,
+  name: document.title,
+  // DRCI_DRAFT_PACK_V1 is explicitly a working pack pending human review.
+  status: "PARTIAL",
+  files: [
+    { fileName: `${document.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: document.html },
+    { fileName: `${document.kind.toLowerCase()}.md`, format: "MARKDOWN", mimeType: "text/markdown;charset=utf-8", content: document.markdown },
+  ],
+}));
+
+export const documentGenerationsForProject = (
+  packs: readonly DrciDraftPack[],
+  projectId: string | undefined,
+): readonly DocumentGenerationHistoryItem[] => normalizeDrciDraftPackGenerations(packs)
+  .filter((pack) => pack.project.projectId === projectId)
+  .map((pack) => {
+    const generation = pack.documentGeneration!;
+    return {
+      documentGenerationId: generation.generationId,
+      generationNumber: generation.generationNumber,
+      projectId: pack.project.projectId,
+      projectVersionId: pack.project.projectVersion,
+      projectDigest: pack.project.projectDigest,
+      createdAt: pack.generatedAt,
+      identitySource: generation.identitySource,
+      historicalPortfolioComplete: Boolean(generation.portfolioSnapshot),
+      artifacts: generation.portfolioSnapshot?.artifacts ?? legacyPackArtifacts(pack),
+      documentDraftPack: pack,
+    };
+  });
+
+const projectVersionLabel = (versionId: string) => versionId.match(/:version:(\d+)$/u)?.[1] ?? versionId.split(":").at(-1) ?? versionId;
 
 export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, documentPacks = [], projectId }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
   const generations = documentGenerationsForProject(documentPacks, projectId);
+  const currentGeneration = [...generations].reverse().find((generation) => generation.projectVersionId === portfolio.projectRef.projectVersion
+    && generation.projectDigest === portfolio.projectRef.projectDigest);
+  const versionGroups = [...generations.reduce((groups, generation) => {
+    const key = `${generation.projectVersionId}\u0000${generation.projectDigest}`;
+    const found = groups.get(key);
+    if (found) found.generations.push(generation);
+    else groups.set(key, { key, projectVersionId: generation.projectVersionId, projectDigest: generation.projectDigest,
+      generations: [generation] as DocumentGenerationHistoryItem[] });
+    return groups;
+  }, new Map<string, { key: string; projectVersionId: string; projectDigest: string; generations: DocumentGenerationHistoryItem[] }>()).values()].reverse();
+
   return <section
     aria-labelledby="study-deliverable-workspace-title"
     className="min-w-0 rounded-3xl border bg-background shadow-sm"
@@ -59,7 +117,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
           <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {availableCount} livrable{availableCount > 1 ? "s" : ""} téléchargeable{availableCount > 1 ? "s" : ""} depuis le projet version {portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.
+            {availableCount} livrable{availableCount > 1 ? "s" : ""} téléchargeable{availableCount > 1 ? "s" : ""} depuis le projet version {projectVersionLabel(portfolio.projectRef.projectVersion)}. Les éléments ouverts restent signalés et ne sont pas inventés.
           </p>
         </div>
         <button
@@ -74,18 +132,6 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     </header>
 
     {portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {generations.length > 0 && <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires" data-testid="document-generation-history">
-      <h3 className="font-semibold">Versions documentaires</h3>
-      <ul className="mt-3 space-y-3">{[...generations].reverse().map((generation) => <li key={generation.documentGenerationId} className="rounded-xl border p-3" data-testid={`document-generation-${generation.documentVersion}`}>
-        <p className="text-sm font-medium">Documents V{generation.documentVersion} disponibles · projet version {generation.projectVersionId.split(":").at(-1)}</p>
-        <p className="mt-1 text-xs text-muted-foreground">{new Date(generation.createdAt).toLocaleString("fr-FR")} · {generation.projectDigest === portfolio.projectRef.projectDigest ? "Version courante" : "Version historique"}</p>
-        <div className="mt-2 flex flex-wrap gap-2">{drciDraftPackFiles(generation.documentDraftPack).map((document) => <button key={document.kind} type="button"
-          className="min-h-10 rounded-lg border px-3 text-xs font-medium"
-          onClick={() => { setOpenTitle(`Documents V${generation.documentVersion} · ${document.title}`); setOpenFile({ fileName: `${document.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: document.html }); }}>
-          Ouvrir {document.title}
-        </button>)}</div>
-      </li>)}</ul>
-    </section>}
     {openFile && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
       <div className="mb-3 flex items-center justify-between gap-3"><h3 className="font-semibold">{openTitle}</h3>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-sm" onClick={() => setOpenFile(null)}>Fermer le document</button></div>
@@ -126,6 +172,54 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
         </article>;
       })}
     </div>
+
+    {versionGroups.length > 0 && <section className="border-t px-5 py-5 sm:px-6" aria-label="Historique documentaire" data-testid="document-generation-history">
+      <h3 className="text-lg font-semibold">Historique</h3>
+      <p className="mt-1 text-sm text-muted-foreground">Chaque génération conserve les fichiers et le rattachement à la version du projet qui l’a produite.</p>
+      <div className="mt-4 space-y-3">{versionGroups.map((group) => {
+        const version = projectVersionLabel(group.projectVersionId);
+        const isCurrentProjectVersion = group.projectVersionId === portfolio.projectRef.projectVersion
+          && group.projectDigest === portfolio.projectRef.projectDigest;
+        return <details key={group.key} open={isCurrentProjectVersion} className="rounded-xl border p-3" data-testid={`document-history-project-v${version}`}>
+          <summary className="cursor-pointer font-semibold">Project V{version}{isCurrentProjectVersion ? " · version courante" : ""}</summary>
+          <ol className="mt-3 space-y-3">{[...group.generations].reverse().map((generation) => {
+            const isCurrentGeneration = generation.documentGenerationId === currentGeneration?.documentGenerationId;
+            return <li key={generation.documentGenerationId} className="rounded-lg bg-muted/35 p-3"
+              data-testid={`document-generation-${generation.documentGenerationId}`} data-generation-id={generation.documentGenerationId}>
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <p className="text-sm font-semibold">Génération {generation.generationNumber}</p>
+                <span className="text-xs font-medium text-muted-foreground">{isCurrentGeneration ? "Document actuel" : "Historique"}</span>
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">{new Date(generation.createdAt).toLocaleString("fr-FR")}</p>
+              {!generation.historicalPortfolioComplete && <p className="mt-2 text-xs text-amber-900">Archive antérieure au nouvel historique : seuls les documents effectivement conservés dans cette génération sont proposés.</p>}
+              <ul className="mt-3 space-y-2">{generation.artifacts.map((artifact) => {
+                const artifactStatus = statusPresentation[artifact.status];
+                const preferredFile = artifact.files.find((file) => file.format === "HTML") ?? artifact.files[0];
+                return <li key={artifact.artifactId} className="rounded-lg border bg-background p-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-sm font-medium">{artifact.name}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${artifactStatus.className}`}>{artifactStatus.label}</span>
+                  </div>
+                  {preferredFile && <div className="mt-2 flex flex-wrap gap-2">
+                    <button type="button" className="min-h-9 rounded-lg border px-2.5 text-xs font-medium"
+                      aria-label={`Ouvrir ${artifact.name} — Project V${version}, génération ${generation.generationNumber}`}
+                      onClick={() => { setOpenTitle(`Project V${version} · Génération ${generation.generationNumber} · ${artifact.name}`); setOpenFile(preferredFile); }}>
+                      Ouvrir
+                    </button>
+                    {artifact.files.map((file) => <button key={file.fileName} type="button"
+                      className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium"
+                      aria-label={`Télécharger ${file.fileName} — Project V${version}, génération ${generation.generationNumber}`}
+                      onClick={() => downloadStudyDeliverableFile(file)}>
+                      <Download className="h-3.5 w-3.5" /> Télécharger {file.format}
+                    </button>)}
+                  </div>}
+                </li>;
+              })}</ul>
+            </li>;
+          })}</ol>
+        </details>;
+      })}</div>
+    </section>}
 
     <footer className="border-t px-5 py-4 text-xs leading-relaxed text-muted-foreground sm:px-6">
       Source : version confirmée du projet. Cette vue ne modifie ni le projet ni les décisions scientifiques. Le dossier réglementaire ne revendique aucune conformité juridictionnelle.
