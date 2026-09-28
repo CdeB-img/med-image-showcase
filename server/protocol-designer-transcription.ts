@@ -1,4 +1,4 @@
-import { resolveOpenAIProviderRuntimeConfiguration } from "../server/protocol-designer-openai-provider-config.js";
+import { resolveOpenAIProviderRuntimeConfiguration } from "./protocol-designer-openai-provider-config.js";
 
 export type TranscriptionApiRequest = {
   method?: string;
@@ -15,6 +15,7 @@ const OPENAI_TRANSCRIPTIONS_ENDPOINT = "https://api.openai.com/v1/audio/transcri
 const DEFAULT_TRANSCRIPTION_MODEL = "gpt-4o-transcribe";
 const MAX_AUDIO_BYTES = 3_000_000;
 const PROVIDER_TIMEOUT_MS = 60_000;
+export const PROTOCOL_DESIGNER_TRANSCRIPTION_OPERATION = "TRANSCRIBE_VOICE_INPUT" as const;
 const ALLOWED_MIME_TYPES = new Set([
   "audio/webm", "audio/mp4", "audio/mpeg", "audio/mp3", "audio/mpga", "audio/m4a",
   "audio/ogg", "audio/wav", "audio/x-wav", "audio/flac", "audio/aac",
@@ -40,14 +41,23 @@ const validOrigin = (headers: TranscriptionApiRequest["headers"]) => {
 const normalizedMimeType = (value: unknown) => typeof value === "string"
   ? value.split(";", 1)[0].trim().toLocaleLowerCase("en-US") : "";
 
-const parseRequestBody = (body: unknown) => {
+const requestObject = (body: unknown) => {
   let parsed = body;
   if (typeof parsed === "string") {
     try { parsed = JSON.parse(parsed); } catch { return null; }
   }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
-  const value = parsed as Record<string, unknown>;
-  if (Object.keys(value).sort().join(",") !== "audioBase64,language,mimeType"
+  return parsed as Record<string, unknown>;
+};
+
+export const isProtocolDesignerTranscriptionRequest = (body: unknown) => (
+  requestObject(body)?.operation === PROTOCOL_DESIGNER_TRANSCRIPTION_OPERATION
+);
+
+const parseRequestBody = (body: unknown) => {
+  const value = requestObject(body);
+  if (!value || Object.keys(value).sort().join(",") !== "audioBase64,language,mimeType,operation"
+    || value.operation !== PROTOCOL_DESIGNER_TRANSCRIPTION_OPERATION
     || typeof value.audioBase64 !== "string" || typeof value.language !== "string") return null;
   const mimeType = normalizedMimeType(value.mimeType);
   if (!ALLOWED_MIME_TYPES.has(mimeType) || !/^[a-z]{2}(?:-[A-Z]{2})?$/u.test(value.language)) return null;
