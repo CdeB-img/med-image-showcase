@@ -58,12 +58,12 @@ const fakeStore = (): FakeStore => {
       return [];
     }
     if (sql.includes("insert into noxia_durable.public_provider_equivalence_gate")) {
-      db.gate ??= { state: "OPEN", count_qualification_ref: values[2] };
+      db.gate ??= { state: "OPEN", count_qualification_ref: values[2], invalidated_at: null, anomaly_operation_key: null };
       return [];
     }
     if (sql.includes("select state, count_qualification_ref")) return db.gate ? [db.gate] : [];
     if (sql.includes("update noxia_durable.public_provider_equivalence_gate")) {
-      if (db.gate) db.gate.state = "CLOSED";
+      if (db.gate) Object.assign(db.gate, { state: "CLOSED", anomaly_operation_key: values[0], invalidated_at: values[1] });
       return [];
     }
     if (sql.includes("insert into noxia_durable.public_provider_operation")) {
@@ -96,6 +96,7 @@ const fakeStore = (): FakeStore => {
       else if (sql.includes("set state = 'unknown_after_dispatch'")) {
         db.operation.state = "UNKNOWN_AFTER_DISPATCH";
         if (sql.includes("provider_http_status")) db.operation.provider_http_status = values[0];
+        if (sql.includes("provider_response_body")) db.operation.provider_response_body = values[1];
       } else if (sql.includes("set state = 'count_unknown_after_dispatch'")) db.operation.state = "COUNT_UNKNOWN_AFTER_DISPATCH";
       else if (sql.includes("set state = 'completed_received'")) {
         if (db.failSettlement) throw new Error("SYNTHETIC_SQL_SETTLEMENT_FAILURE");
@@ -138,28 +139,31 @@ const requestBody = JSON.stringify({ model: "gpt-5.6-sol", instructions: "synthe
   reasoning: { effort: "medium" }, max_output_tokens: 8_000, store: false, service_tier: "default" });
 const observation = { purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0,
   context: { sessionId: "synthetic-session", turnId: "synthetic-turn", clientRequestId: "synthetic-request" } };
-const countSuccess = () => new Response(JSON.stringify({ object: "response.input_tokens", input_tokens: INPUT }), { status: 200 });
-const generation = (options: { status?: number; responseStatus?: string; input?: number; reason?: string } = {}) =>
-  new Response(JSON.stringify({ model: "gpt-5.6-sol", status: options.responseStatus ?? "completed",
+const countSuccess = (tokens = INPUT) => new Response(JSON.stringify({ object: "response.input_tokens", input_tokens: tokens }), { status: 200 });
+const generation = (options: { status?: number; responseStatus?: string; input?: number; reason?: string; model?: string; omitUsage?: boolean } = {}) =>
+  new Response(JSON.stringify({ model: options.model ?? "gpt-5.6-sol", status: options.responseStatus ?? "completed",
     ...(options.reason ? { incomplete_details: { reason: options.reason } } : {}),
-    usage: { input_tokens: options.input ?? INPUT, output_tokens: 30, total_tokens: (options.input ?? INPUT) + 30 } }),
+    ...(!options.omitUsage ? { usage: { input_tokens: options.input ?? INPUT, output_tokens: 30,
+      total_tokens: (options.input ?? INPUT) + 30 } } : {}) }),
   { status: options.status ?? 200 });
 
 let guard: PublicProtocolDesignerDurableGuard;
 beforeEach(() => { store = fakeStore(); guard = createPostgresProtocolDesignerDurableGuard("postgres://synthetic", { sessionRequestLimit: 512 }); });
 afterEach(async () => { await guard.close(); });
 
-const run = async (provider: typeof fetch) => {
+const run = async (provider: typeof fetch, options: { sessionId?: string; clientRequestId?: string; endpoint?: string } = {}) => {
+  const sessionId = options.sessionId ?? "synthetic-session";
+  const clientRequestId = options.clientRequestId ?? "synthetic-request";
   const prepared = await guard.prepareRequest({ headers: { "x-forwarded-for": "203.0.113.9" }, body: {
-    observabilityContext: { sessionId: "synthetic-session", conversationId: "synthetic-conversation",
-      turnId: "synthetic-turn", clientRequestId: "synthetic-request" },
+    observabilityContext: { sessionId, conversationId: "synthetic-conversation",
+      turnId: "synthetic-turn", clientRequestId },
   } });
   if (!("admitted" in prepared) || !prepared.admitted) throw new Error("SYNTHETIC_PREPARE_FAILED");
   const budgeted = guard.createBudgetedFetch(prepared, provider, "SYNTHETIC_COUNT_ONLY");
   const controller = new AbortController();
   try {
-    const response = await budgeted(ENDPOINT, { method: "POST", body: requestBody, signal: controller.signal,
-      noxiaProviderObservation: observation } as RequestInit);
+    const response = await budgeted(options.endpoint ?? ENDPOINT, { method: "POST", body: requestBody, signal: controller.signal,
+      noxiaProviderObservation: { ...observation, context: { ...observation.context, sessionId, clientRequestId } } } as RequestInit);
     return { response, diagnostic: null, error: null };
   } catch (error) {
     return { response: null, diagnostic: readDurableProviderFailureDiagnostic(error), error };
@@ -224,6 +228,7 @@ describe("durable provider terminal failure capture with the real guard and offl
       headersReceived: true, bodyRead: true, structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
       lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
     expect(store.operation?.state).toBe("UNKNOWN_AFTER_DISPATCH");
+    expect(store.gate?.state).toBe("OPEN");
   });
 
   it("G: distinguishes unreadable response body after headers", async () => {
@@ -254,6 +259,89 @@ describe("durable provider terminal failure capture with the real guard and offl
     expect(store.gate?.state).toBe("CLOSED");
     expect(store.session?.provider_gate_closed).toBe(true);
   });
+
+  it("A: settles an exact 12,984-token Azure count without closing the shared gate", async () => {
+    const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT
+      ? countSuccess(12_984) : generation({ input: 12_984 })));
+    expect(result.error).toBeNull();
+    expect(store.operation).toMatchObject({ state: "COMPLETED_RECEIVED", counted_input_tokens: 12_984 });
+    expect(store.gate?.state).toBe("OPEN");
+    expect(store.session?.provider_gate_closed).toBe(false);
+  });
+
+  it("B/F: a measured 12,984-token mismatch closes the pair and denies another session before counting", async () => {
+    const first = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT
+      ? countSuccess(12_984) : generation({ input: 12_985 })));
+    expect(first.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE");
+    expect(store.gate?.state).toBe("CLOSED");
+    const invalidatedAt = store.gate?.invalidated_at;
+    const anomalyOperationKey = store.gate?.anomaly_operation_key;
+    store.session = null;
+    store.admission = null;
+    store.operation = null;
+    const provider = vi.fn(async () => countSuccess());
+    const second = await run(provider, { sessionId: "second-session", clientRequestId: "second-request" });
+    expect(second.diagnostic).toMatchObject({ phase: "PRECOUNT",
+      structuredErrorCode: "PUBLIC_AZURE_INPUT_COUNT_EQUIVALENCE_CLOSED", dispatchAttempted: false });
+    expect(provider).not.toHaveBeenCalled();
+    expect(store.gate).toMatchObject({ state: "CLOSED", invalidated_at: invalidatedAt,
+      anomaly_operation_key: anomalyOperationKey });
+  });
+
+  it.each([{ name: "absent", omitUsage: true }, { name: "zero", input: 0 }])(
+    "C: incomplete/content_filter with $name usage is local and non-qualifying", async ({ omitUsage, input }) => {
+      const result = await run(vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
+        ? countSuccess(12_984) : generation({ responseStatus: "incomplete", reason: "content_filter",
+          input: input ?? undefined, omitUsage })));
+      expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", providerHttpStatus: 200,
+        providerResponseStatus: "incomplete", incompleteReason: "content_filter",
+        structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
+        lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
+      expect(store.operation).toMatchObject({ state: "UNKNOWN_AFTER_DISPATCH", counted_input_tokens: 12_984 });
+      expect(store.operation?.provider_response_body).toContain('"reason":"content_filter"');
+      expect(store.operation?.measured_cost_usd).toBeUndefined();
+      expect(Number(store.session?.committed_cost_upper_bound_usd)).toBeGreaterThan(0);
+      expect(store.session?.provider_gate_closed).toBe(false);
+      expect(store.gate?.state).toBe("OPEN");
+
+      // A separate operation may still qualify; the filtered result never becomes its proof.
+      store.session = null;
+      store.admission = null;
+      store.operation = null;
+      const provider = vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
+        ? countSuccess(12_984) : generation({ input: 12_984 }));
+      const following = await run(provider, { sessionId: "second-session", clientRequestId: "second-request" });
+      expect(following.error).toBeNull();
+      expect(provider).toHaveBeenCalledTimes(2);
+      expect(store.gate?.state).toBe("OPEN");
+    });
+
+  it("E: Azure model drift still closes the pair", async () => {
+    const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT
+      ? countSuccess() : generation({ model: "another-model" })));
+    expect(result.diagnostic?.structuredErrorCode).toBe("PUBLIC_AZURE_GENERATION_MODEL_DRIFT");
+    expect(store.operation?.state).toBe("QUALIFICATION_INVALID");
+    expect(store.gate?.state).toBe("CLOSED");
+  });
+
+  it("E: changing the endpoint on the same operation is rejected before provider dispatch", async () => {
+    const first = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT ? countSuccess() : generation()));
+    expect(first.error).toBeNull();
+    const provider = vi.fn(async () => countSuccess());
+    const second = await run(provider, { endpoint:
+      "https://synthetic.services.ai.azure.com/api/projects/different/openai/v1/responses" });
+    expect(second.diagnostic?.structuredErrorCode).toBe("PUBLIC_STALE_OPERATION_REJECTED");
+    expect(provider).not.toHaveBeenCalled();
+  });
+
+  it.each([{ responseStatus: "completed", input: 0 }, { responseStatus: "incomplete", input: INPUT + 1 }])(
+    "preserves fail-closed for contradictory Azure usage: $responseStatus/$input", async ({ responseStatus, input }) => {
+      const result = await run(vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
+        ? countSuccess() : generation({ responseStatus, input })));
+      expect(result.diagnostic?.structuredErrorCode).toBe(responseStatus === "completed"
+        ? "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING" : "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE");
+      expect(store.gate?.state).toBe("CLOSED");
+    });
 
   it("J: reports UNKNOWN when a settlement write itself fails", async () => {
     store.failSettlement = true;

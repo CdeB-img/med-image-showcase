@@ -978,15 +978,19 @@ export const createPostgresProtocolDesignerDurableGuard = (
           } catch { /* Fail closed below when Azure usage cannot be verified. */ }
           const usage = object(providerBody?.usage) ? providerBody.usage : null;
           const postInput = usage?.input_tokens;
+          const measuredInput = typeof postInput === "number" && Number.isSafeInteger(postInput) && postInput > 0
+            ? postInput : null;
+          // An incomplete/failed response with no positive usage cannot prove a token-count mismatch.
+          // Keep its reservation and terminal operation, but do not invalidate the shared qualification.
+          const nonQualifyingResponse = (providerBody?.status === "incomplete" || providerBody?.status === "failed")
+            && (postInput === undefined || postInput === null || postInput === 0);
           if (!providerBody) {
             qualificationFailureCode = "PUBLIC_AZURE_RESPONSE_UNREADABLE";
           } else if (typeof providerBody.model !== "string" || providerBody.model !== current.generation_model) {
             qualificationFailureCode = "PUBLIC_AZURE_GENERATION_MODEL_DRIFT";
-          } else if (!Number.isSafeInteger(postInput) || typeof postInput !== "number"
-            || postInput <= 0 || current.counted_input_tokens === null) {
+          } else if (current.counted_input_tokens === null || (measuredInput === null && !nonQualifyingResponse)) {
             qualificationFailureCode = "PUBLIC_AZURE_POST_USAGE_INPUT_TOKENS_MISSING";
-          } else if (typeof postInput === "number" && current.counted_input_tokens !== null
-            && postInput !== asNumber(current.counted_input_tokens)) {
+          } else if (measuredInput !== null && measuredInput !== asNumber(current.counted_input_tokens)) {
             qualificationFailureCode = "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE";
           }
           if (qualificationFailureCode) {
