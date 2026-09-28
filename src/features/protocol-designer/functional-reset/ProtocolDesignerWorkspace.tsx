@@ -54,6 +54,7 @@ import {
   type MultilingualUserTurn,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
+import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import type { ProviderCallRecord, ProviderCallRequestObservability } from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
@@ -4271,7 +4272,7 @@ export default function ProtocolDesignerWorkspace({
       <header className="sticky top-16 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
         <div className="mx-auto flex max-w-[1480px] flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA · Protocol Designer</p>
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA · Protocol Designer<DeployedCommitVersion /></p>
             <div className="mt-1 flex min-w-0 items-center gap-2">
               <h1 className="truncate text-2xl font-bold tracking-tight sm:text-3xl">{projectionMode === "EXPERT" ? "Diagnostic technique" : hasNamedProject ? workspaceTitle : "Construisons votre projet scientifique"}</h1>
               {projectionMode === "STANDARD" && onRenameProject && <button type="button" onClick={onRenameProject} aria-label={`Renommer ${workspaceTitle}`} className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"><Pencil className="h-4 w-4" /></button>}

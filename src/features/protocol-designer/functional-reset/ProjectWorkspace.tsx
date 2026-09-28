@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import type { ScientificTraceCaptureConfiguration } from "../scientific-execution-trace";
 import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
+import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import ProtocolDesignerWorkspace from "./ProtocolDesignerWorkspace";
 import ProjectAdministrationForm, { ResearcherProfileForm } from "./ProjectAdministrationForm";
 import { documentAdministrationFrom, emptyLocalProfile, emptyProjectAdministration, type LocalProjectMetadata } from "./project-administration";
@@ -202,7 +203,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
             }
             catch (failure) { setError(String(failure)); }
           }} /> : <div className="mx-auto max-w-5xl space-y-6">
-            <header><p className="text-xs font-semibold tracking-[.2em] text-primary">NOXIA · PROTOCOL DESIGNER</p><h1 className="mt-2 text-3xl font-bold">Mes projets</h1>
+            <header><p className="text-xs font-semibold tracking-[.2em] text-primary">NOXIA · PROTOCOL DESIGNER<DeployedCommitVersion /></p><h1 className="mt-2 text-3xl font-bold">Mes projets</h1>
               <p className="mt-3 max-w-2xl text-sm text-muted-foreground">Projets enregistrés dans ce navigateur.</p>
             </header>
             {list.unreadable.length > 0 && <p role="alert" className="rounded-xl border border-amber-400 p-4 text-sm">{list.unreadable.length} sauvegarde(s) illisible(s) sont conservées sans remplacement. Leur contenu nécessite une récupération avant réouverture.</p>}

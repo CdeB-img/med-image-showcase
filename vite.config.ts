@@ -156,8 +156,8 @@ export default defineConfig(({ mode }) => {
   // normal runtime silently; no browser field may weaken the campaign policy.
   const canary = resolveCanaryExecution(process.env);
   const evidenceRoot = path.resolve(process.env.PROTOCOL_DESIGNER_EVIDENCE_DIR || ".provider-evidence.local");
-  const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() || environment.VERCEL_GIT_COMMIT_SHA?.trim() || "";
-  const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
+  const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() ?? "";
+  const buildGitSha = /^[0-9a-f]{40}$/i.test(deploymentGitSha) ? deploymentGitSha.toLowerCase() : "";
   return {
     base: "/",
     plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot, canary, fetch,

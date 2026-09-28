@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
+import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import { ArrowRight, BookOpenCheck, CheckCircle2, CircleAlert } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -40,7 +41,7 @@ export default function ProtocolDesigner() {
         <div className="relative mx-auto max-w-6xl">
           <Breadcrumb items={[{ label: "Accueil", path: "/" }, { label: "Protocol Designer" }]} />
           <div className="mt-10 max-w-4xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Protocol Designer</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Protocol Designer<DeployedCommitVersion /></p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">De votre question de recherche à un protocole scientifique sourcé</h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">Structurez l’étude, confrontez les choix aux sources scientifiques, produisez les documents puis révisez le protocole au fil des décisions.</p>
             <Link to="/protocol-designer/demo" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
