@@ -1,4 +1,4 @@
-import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
+import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate, WorkingDraftArbitrationCollisionError } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 import { rehydrateStudyProposal, planStudyProposalRecomputation, assertScopedStudyProposalRecomputation, completeStudyProposalRecomputation } from "../src/features/protocol-designer/functional-reset/study-proposal-standard.js";
 import { prepareDrciDraftPack, materializeDrciDraftPack, type RetainedDrciProtocol } from "../src/features/document-projection/drci-draft-contract.js";
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
@@ -292,9 +292,16 @@ export const executeProtocolDesignerBridge = async (input: {
           ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
     } catch (error) {
       console.warn("WORKING_DRAFT_OWNER_PREPARATION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
+      const safeId = (value: string) => /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,119}$/u.test(value);
+      const collision = error instanceof WorkingDraftArbitrationCollisionError
+        && safeId(error.explicitDecisionId) && safeId(error.arbitrationId)
+        && ["UNSELECTED_OPTION", "HARD_DEPENDENCY_NOT_SATISFIED"].includes(error.atomBindingStatus)
+        ? { contract: "WORKING_DRAFT_ARBITRATION_COLLISION_DIAGNOSTIC", explicitDecisionId: error.explicitDecisionId,
+          arbitrationId: error.arbitrationId, atomBindingStatus: error.atomBindingStatus } : null;
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
         error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: "La discussion et le dernier brouillon sont conservés.",
-          details: [error instanceof Error ? error.message : "UNKNOWN"] }, observability: providerCallRequestObservability(providerCalls) } };
+          details: [error instanceof Error ? error.message : "UNKNOWN"], ...(collision ? { workingDraftDiagnostic: collision } : {}) },
+        observability: providerCallRequestObservability(providerCalls) } };
     }
   }
   if (request.documentDraftRequest !== undefined) {

@@ -31,6 +31,7 @@ export class ProductBridgeClientError extends Error {
     readonly diagnostic: LanguageProjectionContractFailureDiagnostic | null = null,
     readonly observability: ProviderCallRequestObservability | null = null,
     readonly preparationFailureCode: string | null = null,
+    readonly preparationFailureDiagnostic: Readonly<{ explicitDecisionId: string; arbitrationId: string; atomBindingStatus: "UNSELECTED_OPTION" | "HARD_DEPENDENCY_NOT_SATISFIED" }> | null = null,
   ) { super(message); }
 }
 
@@ -149,6 +150,13 @@ export const requestProtocolDesignerBridge = async (
     responseObservability(value),
     request.prepareWorkingDraft && typeof value?.error?.details?.[0] === "string"
       && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(value.error.details[0]) ? value.error.details[0] : null,
+    request.prepareWorkingDraft && value?.error?.workingDraftDiagnostic?.contract === "WORKING_DRAFT_ARBITRATION_COLLISION_DIAGNOSTIC"
+      && [value.error.workingDraftDiagnostic.explicitDecisionId, value.error.workingDraftDiagnostic.arbitrationId]
+        .every((id: unknown) => typeof id === "string" && /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,119}$/u.test(id))
+      && ["UNSELECTED_OPTION", "HARD_DEPENDENCY_NOT_SATISFIED"].includes(value.error.workingDraftDiagnostic.atomBindingStatus)
+      ? { explicitDecisionId: value.error.workingDraftDiagnostic.explicitDecisionId,
+        arbitrationId: value.error.workingDraftDiagnostic.arbitrationId,
+        atomBindingStatus: value.error.workingDraftDiagnostic.atomBindingStatus } : null,
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION || typeof value?.assistantReply !== "string") {
     throw new ProductBridgeClientError("INVALID_PRODUCT_BRIDGE_RESPONSE", "Réponse conversationnelle invalide.", null, responseObservability(value));

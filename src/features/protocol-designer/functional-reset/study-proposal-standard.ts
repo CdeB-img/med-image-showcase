@@ -112,6 +112,34 @@ export const rehydrateStudyProposal = (value: unknown, project: ResearchProjectO
     return { ...composition, dimensioning: activeStudyProposalDimensioning(composition) };
   } catch { return null; }
 };
+/** A singleton baseline option can express a premise required by every other
+ * alternative. Keep that option visible, but allow its premise in the stable
+ * review scope without choosing any of the narrower alternatives. */
+export const commonBaselineOptionAtomRefs = (proposal: StudyProposalComposition["proposal"], unavailableOptionRefs: readonly string[] = []): ReadonlySet<string> => {
+  const atoms = new Map(proposal.atoms.map(atom => [atom.ref, atom]));
+  const optionRefs = new Set(proposal.arbitrations.flatMap(arbitration => arbitration.options.flatMap(option => option.atomRefs)));
+  const requires = (start: string, prerequisite: string, seen = new Set<string>()): boolean => {
+    if (seen.has(start)) return false;
+    seen.add(start);
+    return hardStudyProposalDependencies(atoms.get(start)!).some(ref => ref === prerequisite || atoms.has(ref) && requires(ref, prerequisite, new Set(seen)));
+  };
+  const result = new Set<string>();
+  for (const arbitration of proposal.arbitrations) {
+    if (arbitration.selection !== "ONE" || arbitration.options.length < 2) continue;
+    for (const baseline of arbitration.options.filter(option => option.atomRefs.length === 1)) {
+      const ref = baseline.atomRefs[0]!, atom = atoms.get(ref);
+      if (unavailableOptionRefs.includes(baseline.ref)) continue;
+      if (!atom || atom.status === "OPEN_DECISION" || hardStudyProposalDependencies(atom).some(dep => optionRefs.has(dep))) continue;
+      if (arbitration.options.filter(option => option.atomRefs.includes(ref)).length !== 1) continue;
+      if (!arbitration.options.filter(option => option.ref !== baseline.ref).every(option => option.atomRefs.some(other =>
+        other !== ref && atoms.get(other)?.status !== "OPEN_DECISION" && requires(other, ref)))) continue;
+      // A different arbitration may still govern this atom independently.
+      if (proposal.arbitrations.some(other => other.ref !== arbitration.ref && other.options.some(option => option.atomRefs.includes(ref)))) continue;
+      result.add(ref);
+    }
+  }
+  return result;
+};
 export const selectedStudyProposalAtoms = (composition: StudyProposalComposition, selectedOptionRefs: readonly string[], selectedAtomRefs: readonly string[] = []) => {
   if (!selectedOptionRefs.length && !selectedAtomRefs.length) throw new Error("STUDY_PROPOSAL_EMPTY_SELECTION");
   const options = composition.proposal.arbitrations.flatMap(a => a.options);
@@ -119,7 +147,8 @@ export const selectedStudyProposalAtoms = (composition: StudyProposalComposition
     || selectedOptionRefs.some(r => !options.some(o => o.ref === r) || composition.unavailableOptionRefs.includes(r))
     || selectedAtomRefs.some(r => !composition.proposal.atoms.some(a => a.ref === r))) throw new Error("STUDY_PROPOSAL_SELECTION_INVALID");
   const optionAtomRefs = new Set(options.flatMap(o => o.atomRefs));
-  if (selectedAtomRefs.some(r => optionAtomRefs.has(r))) throw new Error("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
+  const commonBaselineRefs = commonBaselineOptionAtomRefs(composition.proposal, composition.unavailableOptionRefs);
+  if (selectedAtomRefs.some(r => optionAtomRefs.has(r) && !commonBaselineRefs.has(r))) throw new Error("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
   for (const arbitration of composition.proposal.arbitrations) {
     if (arbitration.selection === "ONE" && arbitration.options.filter(o => selectedOptionRefs.includes(o.ref)).length > 1) throw new Error("STUDY_PROPOSAL_EXCLUSIVE_SELECTION_INVALID");
   }

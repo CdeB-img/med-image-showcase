@@ -28,6 +28,49 @@ const qualify = (p: ReturnType<typeof preparation>, parent: string, child: strin
 const accepted = (p: ReturnType<typeof preparation>) => acceptWorkingDraftUpdate(p.update, p.request).composition!;
 
 describe("adoptable parent decisions with unadopted open refinements — native owners", () => {
+  it("keeps the explicit sport objective in first Project review while its three narrower uses remain alternatives", () => {
+    const p = preparation(DOMAINS[0]);
+    p.session.runtimeTurns[0].content += " ; évaluer l'aspect sportif";
+    p.request = { ...p.request, workingDraftScientificSource: { ...p.request.workingDraftScientificSource!,
+      sourceDigest: logicalDigest(p.session.runtimeTurns[0].content) } };
+    p.packet = prepareWorkingDraftRequest(p.request);
+    p.proposal.contextDigest = p.packet.inputDigest;
+    const clone = (source: string, ref: string, content: string, status: "NOXIA_PROPOSAL" | "OPEN_DECISION" = "NOXIA_PROPOSAL") => ({
+      ...structuredClone(p.proposal.atoms.find(atom => atom.ref === source)!), ref, semanticKey: ref, content, status,
+      dependsOn: [] as string[], dependencyQualifications: [] as { ref: string; kind: "HARD_BLOCKING_DEPENDENCY"; rationale: string }[],
+    });
+    p.proposal.atoms.push(clone("objective", "o2", "Évaluer la pratique sportive des volontaires"),
+      clone("sport", "xsport", "Mesurer la pratique sportive"),
+      clone("analysis", "asport", "Décrire et envisager un ajustement sur la pratique sportive"),
+      clone("eligibility", "elsport", "Restreindre la population selon la pratique sportive"),
+      clone("objective", "od3", "Méthode de mesure sportive à préciser", "OPEN_DECISION"));
+    qualify(p, "xsport", "o2", "HARD_BLOCKING_DEPENDENCY");
+    qualify(p, "asport", "xsport", "HARD_BLOCKING_DEPENDENCY");
+    qualify(p, "elsport", "xsport", "HARD_BLOCKING_DEPENDENCY");
+    qualify(p, "od3", "o2", "HARD_BLOCKING_DEPENDENCY");
+    const template = p.proposal.arbitrations[0];
+    p.proposal.arbitrations.push({ ...structuredClone(template), ref: "arb-sport", label: "Place de la pratique sportive",
+      recommendedRefs: ["opt-sport-adj"], options: [
+        { ...structuredClone(template.options[0]), ref: "opt-sport-desc", label: "Décrire sans ajuster ni exclure", atomRefs: ["o2"] },
+        { ...structuredClone(template.options[0]), ref: "opt-sport-adj", label: "Décrire et envisager un ajustement", atomRefs: ["asport"] },
+        { ...structuredClone(template.options[0]), ref: "opt-sport-select", label: "Restreindre selon la pratique sportive", atomRefs: ["elsport"] },
+      ] });
+    p.update.explicitDecisions = [{ atomRef: "o2", sourceTurnRef: "u1", quote: "évaluer l'aspect sportif" }];
+    const composition = accepted(p), scope = recommendedWorkingScope(composition);
+    expect(scope.selectedAtomRefs).toContain("o2");
+    expect(scope.selectedOptionRefs).toContain("opt-sport-adj");
+    expect(scope.selectedOptionRefs).not.toContain("opt-sport-desc");
+    expect(selectedStudyProposalAtoms(composition, scope.selectedOptionRefs, scope.selectedAtomRefs)).toContain("o2");
+    const draft = prepareContinuousWorkingDraft(p.session, composition, p.update, p.packet.inputDigest);
+    expect(draft.failure).toBeNull();
+    expect(draft.readyReview?.contribution.scientificContent.candidateObjects.some(item => item.content === "Évaluer la pratique sportive des volontaires")).toBe(true);
+    expect(draft.readyReview?.contribution.scientificContent.candidateObjects.some(item => item.content === "Restreindre la population selon la pratique sportive")).toBe(false);
+    expect(draft.readyReview?.contribution.scientificContent.clarificationNeeds.some(item => item.content === "Méthode de mesure sportive à préciser")).toBe(true);
+    expect(p.session.project).toBeNull();
+    const unavailable = { ...composition, unavailableOptionRefs: ["opt-sport-desc"] };
+    expect(recommendedWorkingScope(unavailable).selectedAtomRefs).not.toContain("o2");
+    expect(() => selectedStudyProposalAtoms(unavailable, ["opt-sport-adj"], ["o2"])).toThrow("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
+  });
   it("keeps an explicit premise common to two unresolved options in the persisted review", () => {
     const p = preparation();
     const endpoint = p.proposal.atoms.find(a => a.ref === "endpoint")!;
@@ -68,7 +111,10 @@ describe("adoptable parent decisions with unadopted open refinements — native 
     const p = preparation(domain);
     p.update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: domain.text }];
     p.proposal.arbitrations[0].options[1].atomRefs.push("endpoint");
-    expect(() => accepted(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+    expect(() => accepted(p)).toThrow(expect.objectContaining({
+      message: "WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION", explicitDecisionId: "endpoint",
+      arbitrationId: "age-strategy", atomBindingStatus: "UNSELECTED_OPTION",
+    }));
     expect(p.session.project).toBeNull();
   });
   it("does not lift a shared explicit atom that still depends on an exclusive option", () => {

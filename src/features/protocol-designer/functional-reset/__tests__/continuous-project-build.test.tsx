@@ -314,6 +314,22 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(provider).toHaveBeenCalledTimes(1);
   });
 
+  it("returns only bounded identifiers for a rejected explicit-decision binding", async () => {
+    const request = requestFor(sessionFor()), update = updateFor(request);
+    update.explicitDecisions = [{ atomRef: "endpoint", sourceTurnRef: "u1", quote: DOMAINS[1].text }];
+    update.proposal!.arbitrations[0].options[1].atomRefs.push("endpoint");
+    const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(update)));
+    const result = await call(request, provider);
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: {
+      details: ["WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION"],
+      workingDraftDiagnostic: { contract: "WORKING_DRAFT_ARBITRATION_COLLISION_DIAGNOSTIC",
+        explicitDecisionId: "endpoint", arbitrationId: "age-strategy", atomBindingStatus: "UNSELECTED_OPTION" },
+    } });
+    expect(JSON.stringify((result.body as { error: unknown }).error)).not.toContain(DOMAINS[1].text);
+    expect(provider).toHaveBeenCalledTimes(1);
+  });
+
   it("persists the explicit no-dispatch failure across reload for a short bound source", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
     vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
@@ -503,6 +519,27 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(linked[0]?.technicalMetadata.providerCallId).toBe(record.callId);
     expect(trace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
     expect(trace.firstFailure).toBeNull();
+  });
+
+  it("records the exact bounded arbitration collision after a successful provider response", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    bridge.mockRejectedValueOnce(new ProductBridgeClientError("WORKING_DRAFT_PREPARATION_FAILED", "LOCAL_SYNTHETIC", null,
+      null, "WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION", {
+        explicitDecisionId: "o2", arbitrationId: "arb-sport", atomBindingStatus: "UNSELECTED_OPTION",
+      }));
+    let saved = sessionFor();
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.firstFailure).toMatchObject({ stage: "WORKING_DRAFT_VALIDATION",
+      internalCode: "WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION", attribution: "ROOT_CAUSE_PROVEN" });
+    expect(trace.events.find(event => event.stage === "WORKING_DRAFT_VALIDATION")?.technicalMetadata).toMatchObject({
+      explicitDecisionId: "o2", arbitrationId: "arb-sport", atomBindingStatus: "UNSELECTED_OPTION",
+    });
+    expect(JSON.stringify(trace)).not.toContain(DOMAINS[1].text);
+    expect(saved.project).toBeNull();
   });
 
   it("attributes a budget admission rejection before any provider operation", async () => {

@@ -9,7 +9,7 @@ import { prepareTerraConversation } from "../../scientific-thinking/scientific-c
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 import type { ProductBridgeRequest } from "../product-bridge.js";
 import type { ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
-import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, studyProposalBinding } from "./study-proposal-standard.js";
+import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
   runtimeTurns: ScientificInterpretationTurn[]; updatedAt: string; studyProposal?: StudyProposalComposition | null; workingDraft?: WorkingDraftMetadata | null };
@@ -270,12 +270,13 @@ export const recommendedWorkingScope = (composition: StudyProposalComposition) =
   const excluded = new Set([...composition.adoptedAtomRefs, ...composition.dispositions?.flatMap(d => d.atomRefs) ?? []]);
   const options = composition.proposal.arbitrations.flatMap(a => a.options);
   const optionAtoms = new Set(options.flatMap(o => o.atomRefs));
+  const commonBaselineRefs = commonBaselineOptionAtomRefs(composition.proposal, composition.unavailableOptionRefs);
   let selectedOptions = composition.proposal.arbitrations.flatMap(a => a.recommendedRefs)
     .filter(r => !composition.unavailableOptionRefs.includes(r));
   let selected = new Set<string>();
   // Repeat option closure too: a removed option cannot satisfy another parent.
   while (true) {
-    selected = new Set([...composition.proposal.atoms.filter(a => !optionAtoms.has(a.ref)).map(a => a.ref),
+    selected = new Set([...composition.proposal.atoms.filter(a => !optionAtoms.has(a.ref) || commonBaselineRefs.has(a.ref)).map(a => a.ref),
       ...options.filter(o => selectedOptions.includes(o.ref)).flatMap(o => studyProposalOptionDecisionRefs(composition.proposal, o))].filter(r => !excluded.has(r)));
     let changed = true;
     while (changed) { changed = false; for (const a of composition.proposal.atoms) if (selected.has(a.ref)
@@ -286,7 +287,7 @@ export const recommendedWorkingScope = (composition: StudyProposalComposition) =
     if (safeOptions.length === selectedOptions.length) break;
     selectedOptions = safeOptions;
   }
-  return { selectedOptionRefs: selectedOptions, selectedAtomRefs: [...selected].filter(r => !optionAtoms.has(r)) };
+  return { selectedOptionRefs: selectedOptions, selectedAtomRefs: [...selected].filter(r => !optionAtoms.has(r) || commonBaselineRefs.has(r)) };
 };
 
 export const workingDraftReviewCoverage = (composition: StudyProposalComposition) => {
@@ -301,6 +302,12 @@ export const workingDraftReviewCoverage = (composition: StudyProposalComposition
         : hardStudyProposalDependencies(a).some(r => !selected.has(r) && !composition.adoptedAtomRefs.includes(r)) ? "HARD_DEPENDENCY_NOT_SATISFIED" : "UNSELECTED_OPTION" })),
   };
 };
+
+export class WorkingDraftArbitrationCollisionError extends Error {
+  constructor(readonly explicitDecisionId: string, readonly arbitrationId: string, readonly atomBindingStatus: string) {
+    super("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+  }
+}
 
 /** An explicit choice repeated in every alternative is common ground, not an
  * alternative. Lift only independently adoptable atoms; exclusive choices and
@@ -387,9 +394,11 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   const explicitRefs = new Set(update.explicitDecisions.map(decision => decision.atomRef));
   const optionRefs = new Set(update.proposal.arbitrations.flatMap(arbitration =>
     arbitration.options.flatMap(option => option.atomRefs)));
-  if (workingDraftReviewCoverage(provisional).excluded.some(atom =>
-    atom.reason !== "OPEN_DECISION_NOT_ADOPTED" && optionRefs.has(atom.ref) && explicitRefs.has(atom.ref)))
-    throw new Error("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+  const hidden = workingDraftReviewCoverage(provisional).excluded.find(atom =>
+    atom.reason !== "OPEN_DECISION_NOT_ADOPTED" && optionRefs.has(atom.ref) && explicitRefs.has(atom.ref));
+  if (hidden) throw new WorkingDraftArbitrationCollisionError(hidden.ref,
+    update.proposal.arbitrations.find(arbitration => arbitration.options.some(option => option.atomRefs.includes(hidden.ref)))!.ref,
+    hidden.reason);
   const contribution = buildStudyProposalSelectionContribution({ composition: provisional, ...recommendedWorkingScope(provisional),
     project: request.currentProject, projectId: request.currentProject?.projectId ?? `discussion:${request.conversation.conversationId}`,
     conversationId: request.conversation.conversationId, proposalTurn: reply, selectionTurn: user,

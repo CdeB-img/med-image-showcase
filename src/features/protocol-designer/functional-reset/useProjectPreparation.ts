@@ -92,6 +92,14 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         || records.some(record => record.status === "FAILED" && ["TIMEOUT", "NETWORK_FAILURE"].includes(record.failureReason ?? "")));
       update(source.sessionId, state => {
         let next = transitionProjectPreparation(state, id, unknown ? "UNKNOWN/INTERRUPTED" : "FAILED", code);
+        const collision = error instanceof ProductBridgeClientError && code === "WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION"
+          ? error.preparationFailureDiagnostic : null;
+        if (collision) next = recordProjectPreparationTrace(next, preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
+          code, failureFunction: "acceptWorkingDraftUpdate", failureInvariant: "EXPLICIT_DECISION_REVIEW_COVERAGE",
+          attribution: "ROOT_CAUSE_PROVEN", metadata: { errorSubtype: "ARBITRATION_HIDES_EXPLICIT_DECISION",
+            explicitDecisionId: collision.explicitDecisionId, arbitrationId: collision.arbitrationId,
+            atomBindingStatus: collision.atomBindingStatus },
+        });
         if (responseUnverified) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
           "CLIENT_RESPONSE_CONSUMED", "UNKNOWN", { code: "CLIENT_RESPONSE_NOT_CONSUMED",
             metadata: { boundedStatus: "SERVER_OUTCOME_UNVERIFIED" } });
