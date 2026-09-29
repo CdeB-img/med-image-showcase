@@ -203,6 +203,26 @@ describe("PROJECT-SPINE-01 — canonical Research Project backbone", () => {
     expect(JSON.stringify(initial)).toBe(before);
   });
 
+  it.each([
+    ["core design", "Étude observationnelle transversale.", "Étude longitudinale avec suivi répété."],
+    ["centre setting", "Conduire cette étude dans un seul centre.", "Conduire cette étude dans plusieurs centres."],
+  ])("keeps a true %s contradiction blocked in Project v2", (_label, adoptedText, proposedText) => {
+    const initial = adopt(contributionFor({ raw: adoptedText, changes: [
+      change({ candidateRef: "design:adopted", proposedType: "STUDY_DESIGN", content: adoptedText, sourceText: adoptedText }),
+    ] }));
+    const proposal = contributionFor({ raw: proposedText, current: initial, changes: [
+      change({ candidateRef: "design:competing", proposedType: "STUDY_DESIGN", content: proposedText, sourceText: proposedText }),
+    ] });
+    const candidate = prepareResearchProjectContributionCandidate(proposal, initial);
+    expect(candidate.status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
+    expect(candidate.canonicalChangeSet.conflicts).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: "CONFLICTING_ADOPTED_STATE" }),
+    ]));
+    const frozenV1 = JSON.stringify(initial);
+    expect(() => adopt(proposal, initial)).toThrow("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
+    expect(JSON.stringify(initial)).toBe(frozenV1);
+  });
+
   it("keeps user-stated, user-adopted proposal and owner-supported provenance distinct", () => {
     const directRaw = "L'étude sera multicentrique.";
     const direct = adopt(contributionFor({ raw: directRaw, changes: [

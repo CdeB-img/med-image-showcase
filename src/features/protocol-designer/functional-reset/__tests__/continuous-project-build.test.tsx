@@ -838,6 +838,13 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     proposal.atoms.find(atom => atom.ref === "sport")!.content = "Évaluer l'activité sportive ; instrument et période à définir";
     proposal.atoms.push({ ...proposal.atoms.find(atom => atom.ref === "bounds")!, ref: "open-age-allocation",
       semanticKey: "open-age-allocation", content: "Déterminer si les effectifs par décennie seront équilibrés ou seulement couverts" });
+    proposal.atoms.push({ ...structuredClone(proposal.atoms.find(atom => atom.ref === "design")!),
+      ref: "centre-setting", semanticKey: "centre-setting", content: "Conduire cette étude dans un seul centre.",
+      status: "STRONG_CONTEXTUAL_INFERENCE", userChangeRefs: [], dependsOn: [], dependencyQualifications: [] });
+    proposal.atoms.push({ ...structuredClone(proposal.atoms.find(atom => atom.ref === "ecv")!),
+      ref: "ecv-per-slice", semanticKey: "ecv-per-slice", content: "Mesurer aussi l'ECV séparément par coupe.",
+      userChangeRefs: [], dependsOn: ["hematocrit"], dependencyQualifications: [{ ref: "hematocrit",
+        kind: "HARD_BLOCKING_DEPENDENCY", rationale: "L'ECV par coupe nécessite l'hématocrite." }] });
     const openTemplate = proposal.atoms.find(atom => atom.ref === "bounds")!;
     while (proposal.atoms.length < 60) {
       const ref = `rich-open-${proposal.atoms.length}`;
@@ -873,6 +880,13 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(secondReadyTrace.events.map(event => event.stage)).toContain("READY_FOR_REVIEW");
     expect(secondReadyTrace.firstFailure).toBeNull();
     const secondReview = projectPreparationReview(secondReady)!.prepared!;
+    expect(secondReview.candidate.canonicalChangeSet.conflicts).toEqual([]);
+    expect(secondReview.candidate.canonicalChangeSet.objectChanges).toEqual(expect.arrayContaining([
+      expect.objectContaining({ operation: "ADD", candidate: expect.objectContaining({ content: "Conduire cette étude dans un seul centre." }) }),
+      expect.objectContaining({ operation: "ADD", candidate: expect.objectContaining({ content: "Mesurer aussi l'ECV séparément par coupe." }) }),
+      expect.objectContaining({ operation: "REPLACE", candidate: expect.objectContaining({ content: "Volontaires sains adultes en France" }) }),
+    ]));
+    const v1Frozen = JSON.stringify(projectV1);
     const projectV2 = confirmResearchProjectContribution({ contribution: secondReview.contribution,
       current: projectV1, projectId: first.projectId, authority: first.projectAuthority, confirmedAt: second.updatedAt,
       reviewedProjection: secondReview.candidate.humanReviewProjection,
@@ -881,6 +895,12 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(projectV2.revision).toBe(2);
     expect(projectV2.versionId).not.toBe(projectV1.versionId);
     expect(projectV1.revision).toBe(1);
+    expect(JSON.stringify(projectV1)).toBe(v1Frozen);
+    expect(projectV2.canonicalState?.objects.some(object => object.actuality === "CURRENT"
+      && object.content === "Conduire cette étude dans un seul centre.")).toBe(true);
+    expect(projectV2.canonicalState?.relations.some(relation => relation.actuality === "CURRENT"
+      && relation.sourceObjectRef.endsWith(":ecv-per-slice")
+      && relation.targetObjectRef.endsWith(":hematocrit"))).toBe(true);
     expect(JSON.stringify(projectV2)).toContain("Exclure les maladies fibrosantes");
     const secondLedger = traceAdapter.recordProjectAdoptionTrace({ ledger: secondReady.scientificExecutionTraceLedger,
       traceRunId: secondTraceRunId, conversationId: second.conversationId, recordedAt: second.updatedAt,

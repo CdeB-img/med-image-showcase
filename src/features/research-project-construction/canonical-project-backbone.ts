@@ -508,9 +508,17 @@ const activeRelations = (state: CanonicalResearchProjectState | null) => (state?
 const activeTemporalQualifications = (state: CanonicalResearchProjectState | null) => (state?.temporalQualifications ?? []).filter((qualification) => qualification.actuality === "CURRENT");
 const activeExpectedVariableOccasions = (state: CanonicalResearchProjectState | null) => (state?.expectedVariableOccasions ?? []).filter((occasion) => occasion.actuality === "CURRENT");
 
-const structuralSlot = (object: Pick<CanonicalProjectObjectVersion, "objectType" | "scientificRole">) => {
+const structuralSlot = (object: Pick<CanonicalProjectObjectVersion, "objectType" | "scientificRole" | "content">) => {
   if (object.objectType === "SCIENTIFIC_QUESTION") return "SCIENTIFIC_QUESTION";
-  if (object.objectType === "STUDY_DESIGN") return "STUDY_DESIGN";
+  if (object.objectType === "STUDY_DESIGN") {
+    // Centre count is a setting of the design, not an alternative to its
+    // observational/temporal architecture. Unknown or mixed descriptions stay
+    // in the exclusive core slot and therefore fail closed.
+    const content = object.content.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+    const centreSetting = /\b(?:monocentri\w*|multicentri\w*|un seul centre|plusieurs centres|single[ -]cent(?:er|re)|multi[ -]cent(?:er|re))\b/.test(content);
+    const coreDesign = /\b(?:transversal\w*|longitudinal\w*|randomis\w*|observationnel\w*|interventionnel\w*|prospectif\w*|retrospectif\w*|cross[ -]sectional)\b/.test(content);
+    return centreSetting && !coreDesign ? "STUDY_DESIGN_CENTRE_SETTING" : "STUDY_DESIGN";
+  }
   if (object.objectType === "ENDPOINT" && /PRIMARY|PRINCIPAL/.test(object.scientificRole?.toLocaleUpperCase("en-US") ?? "")) return "PRIMARY_ENDPOINT";
   return null;
 };
@@ -713,6 +721,15 @@ export const buildCanonicalProjectChangeSet = (input: {
     candidateObjectRefs.set(object.objectId, object.objectId);
     for (const sourceRef of object.sourceItemRefs) candidateObjectRefs.set(sourceRef, object.objectId);
   }
+  // A new proposal revision gives an unchanged item a new source ref. Bind
+  // that ref to its stable canonical identity before validating relations;
+  // an absent or removed identity must still fail the endpoint guard.
+  for (const item of new Set(items.values())) {
+    if (!item.semanticIdentity || item.epistemicBoundary.activeState === false || candidateObjectRefs.has(item.itemId)) continue;
+    const existing = currentObjects.find((object) => object.objectId === item.semanticIdentity);
+    if (existing && !objectChanges.some((change) => change.objectId === existing.objectId && change.operation === "REMOVE"))
+      candidateObjectRefs.set(item.itemId, existing.objectId);
+  }
 
   const relationChanges: CanonicalProjectRelationChange[] = input.contribution.scientificContent.candidateRelations
     .flatMap<CanonicalProjectRelationChange>((relation): CanonicalProjectRelationChange[] => {
@@ -720,6 +737,10 @@ export const buildCanonicalProjectChangeSet = (input: {
       const targetObjectRef = candidateObjectRefs.get(relation.targetItemId) ?? relation.targetItemId;
       const relationId = relation.relationId || `project-relation:${logicalDigest({ sourceObjectRef, targetObjectRef, type: relation.relationType })}`;
       const previous = activeRelations(input.current).find((candidate) => candidate.relationId === relationId) ?? null;
+      const equivalent = activeRelations(input.current).find((candidate) => candidate.relationType === relation.relationType
+        && candidate.sourceObjectRef === sourceObjectRef && candidate.targetObjectRef === targetObjectRef
+        && candidate.polarity === relation.polarity
+        && candidate.epistemicState === epistemicState(relation.epistemicBoundary)) ?? null;
       if (relation.epistemicBoundary.activeState === false) return previous ? [{
         changeRef: `relation-change:${logicalDigest({ contribution: input.contribution.identity.contributionId, relationId, operation: "REMOVE" })}`,
         operation: "REMOVE" as const,
@@ -727,6 +748,7 @@ export const buildCanonicalProjectChangeSet = (input: {
         previousVersionRef: previous.relationVersionId,
         candidate: null,
       }] : [];
+      if (!previous && equivalent) return [];
       if (previous
         && previous.relationType === relation.relationType
         && previous.sourceObjectRef === sourceObjectRef
