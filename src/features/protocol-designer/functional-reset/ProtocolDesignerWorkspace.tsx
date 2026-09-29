@@ -4547,6 +4547,8 @@ export default function ProtocolDesignerWorkspace({
                   ? "Cette préparation historique a été remplacée ; son résultat ne peut pas être validé."
                   : session.workingDraftPreparations?.at(-1)?.status === "NO_CHANGE"
                     ? "Cet échange ne crée pas de nouveaux choix à valider. La conversation et le dernier projet sont conservés."
+                  : ["WORKING_DRAFT_PROVIDER_INCOMPLETE", "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS"].includes(session.workingDraftPreparations?.at(-1)?.code ?? "")
+                    ? "La génération de cette préparation s’est interrompue côté fournisseur. Aucun nouveau projet n’a été créé ; la conversation et le dernier projet sont conservés."
                   : session.workingDraftPreparations?.at(-1)?.code === "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID"
                     ? "La source liée à cette préparation ne satisfait pas le contrat d’entrée scientifique. Aucune génération payante n’a été lancée ; la conversation et le projet sont conservés."
                   : session.workingDraftPreparations?.at(-1)?.code?.includes("DEPENDENCY_CYCLE")

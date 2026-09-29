@@ -210,6 +210,7 @@ export type ScientificProductTraceStage =
   | "DURABLE_RECOVERY_COMPLETED"
   | "ADMISSION_REJECTED"
   | "PROVIDER_RESPONSE_RECEIVED"
+  | "PROVIDER_RESULT_VALIDATION"
   | "WORKING_DRAFT_VALIDATION"
   | "PROJECT_DELTA_VALIDATION"
   | "REVIEW_PROJECTION_VALIDATION"
@@ -855,6 +856,8 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "providerHttpStatus",
   "providerResponseStatus",
   "incompleteReason",
+  "financialSettlement",
+  "productResult",
   "lastConfirmedDurableState",
   "generationProvider",
   "clientPreparationId",
@@ -1077,6 +1080,7 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "DURABLE_RECOVERY_COMPLETED",
   "ADMISSION_REJECTED",
   "PROVIDER_RESPONSE_RECEIVED",
+  "PROVIDER_RESULT_VALIDATION",
   "WORKING_DRAFT_VALIDATION",
   "PROJECT_DELTA_VALIDATION",
   "REVIEW_PROJECTION_VALIDATION",

@@ -12,6 +12,7 @@ import {
   boundCanaryProviderCall,
   canaryBudgetAdmission,
   settleCanaryProviderCall,
+  settleKnownIncompleteProviderUsage,
 } from "./protocol-designer-canary-policy.js";
 import {
   openAIInputCountRequest,
@@ -441,6 +442,8 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       state text not null check (state in (
         'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
         'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+        'INCOMPLETE_CONTENT_FILTERED', 'INCOMPLETE_MAX_OUTPUT_TOKENS', 'INCOMPLETE_OTHER',
+        'INCOMPLETE_UNSETTLED', 'PROVIDER_HTTP_FAILED', 'PROVIDER_RESULT_FAILED', 'PROVIDER_USAGE_UNSETTLED',
         'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
       )),
       reserved_upper_bound_usd numeric(18, 10) not null check (reserved_upper_bound_usd >= 0),
@@ -474,6 +477,8 @@ export const migrateProtocolDesignerDurableGuard = async (sql: Sql) => {
       check (state in (
         'COUNT_PENDING', 'COUNT_DISPATCHED', 'COUNT_COMPLETED', 'COUNT_FAILED', 'COUNT_UNKNOWN_AFTER_DISPATCH',
         'RESERVED', 'DISPATCHED', 'COMPLETED_RECEIVED', 'VALIDATED', 'CONSUMED', 'UNKNOWN_AFTER_DISPATCH',
+        'INCOMPLETE_CONTENT_FILTERED', 'INCOMPLETE_MAX_OUTPUT_TOKENS', 'INCOMPLETE_OTHER',
+        'INCOMPLETE_UNSETTLED', 'PROVIDER_HTTP_FAILED', 'PROVIDER_RESULT_FAILED', 'PROVIDER_USAGE_UNSETTLED',
         'INPUT_TOKEN_DIVERGENCE', 'QUALIFICATION_INVALID'
       ));
     alter table noxia_durable.public_provider_operation
@@ -830,6 +835,10 @@ export const createPostgresProtocolDesignerDurableGuard = (
             return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
           }
           if (existing?.state === "UNKNOWN_AFTER_DISPATCH") return { denial: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" };
+          if (existing?.state?.startsWith("INCOMPLETE_")) return { denial: "PUBLIC_PROVIDER_INCOMPLETE" };
+          if (existing?.state === "PROVIDER_HTTP_FAILED") return { denial: "PUBLIC_PROVIDER_HTTP_FAILURE" };
+          if (existing?.state === "PROVIDER_RESULT_FAILED") return { denial: "PUBLIC_PROVIDER_RESULT_FAILED" };
+          if (existing?.state === "PROVIDER_USAGE_UNSETTLED") return { denial: "PUBLIC_PROVIDER_USAGE_UNVERIFIED" };
           if (existing?.state === "INPUT_TOKEN_DIVERGENCE") return { denial: "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" };
           if (existing?.state === "QUALIFICATION_INVALID") return { denial: existing.qualification_failure_code ?? "PUBLIC_AZURE_QUALIFICATION_INVALID" };
           if (existing?.state === "RESERVED") return existing;
@@ -985,7 +994,16 @@ export const createPostgresProtocolDesignerDurableGuard = (
       progress.phase = "SETTLEMENT";
       Object.assign(progress, safeProviderResponseStatus(responseBody));
 
-      const settlement = response.ok && bound ? settleCanaryProviderCall(bound, responseBody) : null;
+      const incomplete = response.ok && progress.providerResponseStatus === "incomplete";
+      const incompleteState = progress.incompleteReason === "content_filter" ? "INCOMPLETE_CONTENT_FILTERED"
+        : progress.incompleteReason === "max_output_tokens" ? "INCOMPLETE_MAX_OUTPUT_TOKENS" : "INCOMPLETE_OTHER";
+      const settlement = response.ok && bound
+        ? incomplete ? settleKnownIncompleteProviderUsage(bound, responseBody)
+          : settleCanaryProviderCall(bound, responseBody) : null;
+      const unsettledState = incomplete ? "INCOMPLETE_UNSETTLED"
+        : !response.ok ? "PROVIDER_HTTP_FAILED"
+          : progress.providerResponseStatus === "completed" ? "PROVIDER_USAGE_UNSETTLED"
+            : progress.providerResponseStatus === "failed" ? "PROVIDER_RESULT_FAILED" : "UNKNOWN_AFTER_DISPATCH";
       const responseHeaders = safeResponseHeaders(response);
       let qualificationFailureCode: string | null = null;
       await sql.begin(async (tx) => {
@@ -1053,7 +1071,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
         if (!settlement) {
           await tx`
             update noxia_durable.public_provider_operation
-            set state = 'UNKNOWN_AFTER_DISPATCH', provider_http_status = ${response.status},
+            set state = ${unsettledState}, provider_http_status = ${response.status},
                 provider_response_body = ${responseBody}, provider_response_headers = ${tx.json(responseHeaders)},
                 provider_response_digest = ${hash(responseBody)}, completed_at = ${new Date()}, updated_at = ${new Date()}
             where operation_key = ${operationKey}
@@ -1063,7 +1081,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
         const reserved = asNumber(current.reserved_upper_bound_usd);
         await tx`
           update noxia_durable.public_provider_operation
-          set state = 'COMPLETED_RECEIVED', measured_cost_usd = ${settlement.measuredCostUsd},
+          set state = ${incomplete ? incompleteState : "COMPLETED_RECEIVED"}, measured_cost_usd = ${settlement.measuredCostUsd},
               committed_cost_upper_bound_usd = ${settlement.committedCostUpperBoundUsd},
               post_usage_input_tokens = ${azureGeneration ? settlement.inputTokens : null},
               input_token_delta = ${azureGeneration ? settlement.inputTokens - asNumber(current.local_estimated_input_tokens) : null},
@@ -1082,9 +1100,16 @@ export const createPostgresProtocolDesignerDurableGuard = (
       });
       progress.lastConfirmedDurableState = qualificationFailureCode
         ? qualificationFailureCode === "PUBLIC_AZURE_INPUT_TOKEN_DIVERGENCE" ? "INPUT_TOKEN_DIVERGENCE" : "QUALIFICATION_INVALID"
-        : settlement ? "COMPLETED_RECEIVED" : "UNKNOWN_AFTER_DISPATCH";
+        : settlement ? incomplete ? incompleteState : "COMPLETED_RECEIVED" : unsettledState;
       if (qualificationFailureCode) throw new DurablePublicGuardError(qualificationFailureCode);
-      if (!settlement) throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
+      if (incomplete) {
+        progress.phase = "PROVIDER_RESULT_VALIDATION";
+        throw new DurablePublicGuardError("PUBLIC_PROVIDER_INCOMPLETE");
+      }
+      if (!settlement) throw new DurablePublicGuardError(!response.ok ? "PUBLIC_PROVIDER_HTTP_FAILURE"
+        : unsettledState === "PROVIDER_USAGE_UNSETTLED" ? "PUBLIC_PROVIDER_USAGE_UNVERIFIED"
+          : unsettledState === "PROVIDER_RESULT_FAILED" ? "PUBLIC_PROVIDER_RESULT_FAILED"
+          : "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH");
       return response;
       } catch (error) {
         // This is diagnostic-only: the same error, durable state, and public response continue unchanged.

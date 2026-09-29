@@ -149,7 +149,7 @@ const callOpenAIResponses = async (input: {
     const durableFailure = readDurableProviderFailureDiagnostic(error);
     // A local admission denial is not a network failure. Retain only known
     // codes, never arbitrary exception text (which could contain credentials).
-    const guardCode = error instanceof Error && /^(PUBLIC_SESSION_BUDGET_CLOSED|PUBLIC_CONCURRENT_PROVIDER_CALL_DENIED|PUBLIC_PROVIDER_DENIED_(INVALID_BUDGET_POLICY|UNKNOWN_CUMULATIVE_COST|SOFT_STOP|UNKNOWN_UPPER_BOUND|HARD_BUDGET))$/.test(error.message)
+    const guardCode = error instanceof Error && /^(PUBLIC_SESSION_BUDGET_CLOSED|PUBLIC_CONCURRENT_PROVIDER_CALL_DENIED|PUBLIC_PROVIDER_(INCOMPLETE|HTTP_FAILURE|RESULT_FAILED|USAGE_UNVERIFIED)|PUBLIC_PROVIDER_DENIED_(INVALID_BUDGET_POLICY|UNKNOWN_CUMULATIVE_COST|SOFT_STOP|UNKNOWN_UPPER_BOUND|HARD_BUDGET))$/.test(error.message)
       ? error.message : null;
     const failureReason = error !== null && typeof error === "object" && "name" in error && error.name === "AbortError" ? "TIMEOUT"
       : guardCode ?? (response ? "RESPONSE_BODY_READ_FAILURE" : "NETWORK_FAILURE");
@@ -163,7 +163,7 @@ const callOpenAIResponses = async (input: {
     });
     throw new ProductBridgeProviderError(
       input.stage,
-      response?.status ?? null,
+      response?.status ?? durableFailure?.providerHttpStatus ?? null,
       failureReason,
       "Provider request failed.",
       null,

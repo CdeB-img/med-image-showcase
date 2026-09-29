@@ -593,6 +593,48 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(JSON.stringify(trace)).not.toContain("LOCAL_SYNTHETIC_FOREGROUND_RESPONSE_LOST");
   });
 
+  it("separates a settled filtered response from a usable Working Draft and network failure", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor(), checkpoint = captureProjectPreparation(initial).checkpoint!;
+    const diagnostic = { contract: "DURABLE_PROVIDER_TERMINAL_FAILURE" as const, clientRequestId: checkpoint.preparationId,
+      operationKey: "a".repeat(64), sessionId: initial.sessionId, turnId: "u1", providerCallId: "provider-call:filtered",
+      generationProvider: "AZURE_OPENAI" as const, phase: "PROVIDER_RESULT_VALIDATION" as const,
+      precountStarted: false, precountCompleted: false, reservationConfirmed: true, dispatchAttempted: true,
+      headersReceived: true, bodyRead: true, inputCountHttpStatus: null, providerHttpStatus: 200,
+      providerResponseStatus: "incomplete" as const, incompleteReason: "content_filter" as const,
+      structuredErrorCode: "PUBLIC_PROVIDER_INCOMPLETE", safeExceptionClass: null, abortSignalAborted: false,
+      lastConfirmedDurableState: "INCOMPLETE_CONTENT_FILTERED" };
+    const record: ProviderCallRecord = { contract: PROVIDER_CALL_OBSERVABILITY_CONTRACT,
+      contractVersion: PROVIDER_CALL_OBSERVABILITY_VERSION, callId: "provider-call:filtered", provider: "OPENAI",
+      modelRequested: "gpt-6-sol", modelReturned: null, modelVersion: "gpt-6-sol",
+      purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium",
+      context: { sessionId: initial.sessionId, conversationId: initial.conversationId, turnId: "u1",
+        clientRequestId: checkpoint.preparationId, testSessionId: null },
+      usage: { inputTokens: null, cachedInputTokens: null, cacheWriteTokens: null, outputTokens: null,
+        reasoningTokens: null, totalTokens: null }, latencyMs: 1, retryIndex: 0, retryReason: null,
+      status: "FAILED", failureReason: "PUBLIC_PROVIDER_INCOMPLETE", providerRequestId: null, providerResponseId: null,
+      estimatedCostUsd: null, pricingSnapshotDate: PROVIDER_PRICING_SNAPSHOT_DATE,
+      startedAt: initial.createdAt, completedAt: initial.createdAt, durableFailure: diagnostic };
+    bridge.mockRejectedValueOnce(new ProductBridgeClientError("WORKING_DRAFT_PREPARATION_FAILED", "LOCAL_SYNTHETIC", null,
+      providerCallRequestObservability([record]), "CONVERSATION:PUBLIC_PROVIDER_INCOMPLETE"));
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    expect(saved.workingDraftPreparations?.[0]?.code).toBe("WORKING_DRAFT_PROVIDER_INCOMPLETE");
+    expect(screen.getByText(/La génération de cette préparation s’est interrompue côté fournisseur/u)).toBeInTheDocument();
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.events.find(event => event.stage === "PROVIDER_RESPONSE_RECEIVED")?.status).toBe("SUCCEEDED");
+    expect(trace.firstFailure).toMatchObject({ stage: "PROVIDER_RESULT_VALIDATION", owner: "PROVIDER_BOUNDARY",
+      internalCode: "WORKING_DRAFT_PROVIDER_INCOMPLETE", attribution: "ROOT_CAUSE_PROVEN" });
+    expect(trace.events.find(event => event.stage === "PROVIDER_RESULT_VALIDATION")?.technicalMetadata).toMatchObject({
+      providerHttpStatus: 200, providerResponseStatus: "incomplete", incompleteReason: "content_filter",
+      financialSettlement: "SETTLED", productResult: "UNUSABLE" });
+    expect(saved.project).toBeNull();
+    expect(JSON.stringify(trace)).not.toContain("LOCAL_SYNTHETIC_FOREGROUND_RESPONSE_LOST");
+  });
+
   it("marks a recovered provider result FAILED when the scientific owner rejects it", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const source = sessionFor(), request = requestFor(source), update = updateFor(request);

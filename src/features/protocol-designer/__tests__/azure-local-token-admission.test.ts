@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { boundPublicProviderCall, AZURE_LOCAL_INPUT_POLICY } from "../../../../server/protocol-designer-local-token-admission";
-import { boundCanaryProviderCall, canaryBudgetAdmission, settleCanaryProviderCall } from "../../../../server/protocol-designer-canary-policy";
+import { boundCanaryProviderCall, canaryBudgetAdmission, settleCanaryProviderCall, settleKnownIncompleteProviderUsage } from "../../../../server/protocol-designer-canary-policy";
 import { buildOpenAITerraConversationPayload } from "../../../../api/protocol-designer-openai-extraction-provider";
 import { prepareWorkingDraftRequest } from "../functional-reset/continuous-project-build";
 import { logicalDigest } from "../../knowledge-engine/canonical";
@@ -70,6 +70,19 @@ describe("Azure local admission without a second provider", () => {
       { usage: { input_tokens: 1, output_tokens: 24_001 } }]) {
       expect(settleCanaryProviderCall(reservation, JSON.stringify({ ...response, ...change }))).toBeNull();
     }
+  });
+
+  it("accounts for known incomplete usage without approving an incomplete result", () => {
+    const reservation = bound();
+    const incomplete = { model: reservation.model, status: "incomplete", incomplete_details: { reason: "content_filter" },
+      usage: { input_tokens: 6340, output_tokens: 10238, input_tokens_details: { cached_tokens: 0 } } };
+    expect(settleCanaryProviderCall(reservation, JSON.stringify(incomplete))).toBeNull();
+    expect(settleKnownIncompleteProviderUsage(reservation, JSON.stringify(incomplete))).toMatchObject({
+      inputTokens: 6340, billableOutputTokens: 10238,
+    });
+    expect(settleKnownIncompleteProviderUsage(reservation, JSON.stringify({ ...incomplete, usage: null }))).toBeNull();
+    expect(settleKnownIncompleteProviderUsage(reservation, JSON.stringify({ ...incomplete, status: "completed" }))).toBeNull();
+    expect(settleKnownIncompleteProviderUsage(reservation, JSON.stringify({ ...incomplete, model: "unknown" }))).toBeNull();
   });
 
   it("settles a GPT-6 long-context usage with the governed premium", () => {

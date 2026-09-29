@@ -124,6 +124,16 @@ const fakeStore = (): FakeStore => {
         db.operation.input_token_delta = values[3];
         db.operation.provider_response_body = values[5];
         db.operation.provider_response_headers = values[6];
+      } else if (sql.includes("set state = ?") && sql.includes("measured_cost_usd =")) {
+        if (db.failSettlement) throw new Error("SYNTHETIC_SQL_SETTLEMENT_FAILURE");
+        Object.assign(db.operation, { state: values[0], measured_cost_usd: values[1],
+          committed_cost_upper_bound_usd: values[2], post_usage_input_tokens: values[3], input_token_delta: values[4],
+          provider_http_status: values[5], provider_response_body: values[6], provider_response_headers: values[7],
+          provider_response_digest: values[8], settled_at: values[10] });
+      } else if (sql.includes("set state = ?") && sql.includes("provider_response_body")
+        && !sql.includes("qualification_failure_code")) {
+        Object.assign(db.operation, { state: values[0], provider_http_status: values[1],
+          provider_response_body: values[2], provider_response_headers: values[3], provider_response_digest: values[4] });
       } else if (sql.includes("set state = ?")) {
         db.operation.state = values[0];
         db.operation.qualification_failure_code = values[1];
@@ -160,11 +170,11 @@ const requestBody = JSON.stringify({ model: "gpt-6-sol", instructions: "syntheti
 const observation = { purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0,
   context: { sessionId: "synthetic-session", turnId: "synthetic-turn", clientRequestId: "synthetic-request" } };
 const countSuccess = (tokens = INPUT) => new Response(JSON.stringify({ object: "response.input_tokens", input_tokens: tokens }), { status: 200 });
-const generation = (options: { status?: number; responseStatus?: string; input?: number; reason?: string; model?: string; omitUsage?: boolean } = {}) =>
+const generation = (options: { status?: number; responseStatus?: string; input?: number; output?: number; reason?: string; model?: string; omitUsage?: boolean } = {}) =>
   new Response(JSON.stringify({ model: options.model ?? "gpt-6-sol", status: options.responseStatus ?? "completed",
     ...(options.reason ? { incomplete_details: { reason: options.reason } } : {}),
-    ...(!options.omitUsage ? { usage: { input_tokens: options.input ?? INPUT, output_tokens: 30,
-      total_tokens: (options.input ?? INPUT) + 30 } } : {}) }),
+    ...(!options.omitUsage ? { usage: { input_tokens: options.input ?? INPUT, output_tokens: options.output ?? 30,
+      total_tokens: (options.input ?? INPUT) + (options.output ?? 30) } } : {}) }),
   { status: options.status ?? 200 });
 
 let guard: PublicProtocolDesignerDurableGuard;
@@ -337,14 +347,22 @@ describe("durable provider terminal failure capture with the real guard and offl
     expect(store.session?.provider_gate_closed).toBe(false);
   });
 
-  it("F: distinguishes HTTP 500 with headers and preserved reserve", async () => {
+  it.each([400, 500])("F: distinguishes HTTP %i with headers and preserved reserve", async status => {
     const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT ? countSuccess()
-      : new Response(JSON.stringify({ error: { type: "server_error" } }), { status: 500 })));
-    expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", providerHttpStatus: 500,
-      headersReceived: true, bodyRead: true, structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
-      lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
-    expect(store.operation?.state).toBe("UNKNOWN_AFTER_DISPATCH");
+      : new Response(JSON.stringify({ error: { type: "provider_error" } }), { status })));
+    expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", providerHttpStatus: status,
+      headersReceived: true, bodyRead: true, structuredErrorCode: "PUBLIC_PROVIDER_HTTP_FAILURE",
+      lastConfirmedDurableState: "PROVIDER_HTTP_FAILED" });
+    expect(store.operation?.state).toBe("PROVIDER_HTTP_FAILED");
     expect(store.gate?.state).toBe("OPEN");
+  });
+
+  it("F: a received failed provider status is terminal, not an unknown dispatch", async () => {
+    const result = await run(vi.fn(async () => generation({ responseStatus: "failed", omitUsage: true })));
+    expect(result.diagnostic).toMatchObject({ providerHttpStatus: 200, providerResponseStatus: "failed",
+      structuredErrorCode: "PUBLIC_PROVIDER_RESULT_FAILED", lastConfirmedDurableState: "PROVIDER_RESULT_FAILED" });
+    expect(store.operation?.state).toBe("PROVIDER_RESULT_FAILED");
+    expect(Number(store.session?.committed_cost_upper_bound_usd)).toBeGreaterThan(0);
   });
 
   it("G: distinguishes unreadable response body after headers", async () => {
@@ -360,10 +378,64 @@ describe("durable provider terminal failure capture with the real guard and offl
   it("H: records incomplete/max_output_tokens separately from a network failure", async () => {
     const result = await run(vi.fn(async (input) => String(input) === COUNT_ENDPOINT ? countSuccess()
       : generation({ responseStatus: "incomplete", reason: "max_output_tokens" })));
-    expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", headersReceived: true, bodyRead: true,
+    expect(result.diagnostic).toMatchObject({ phase: "PROVIDER_RESULT_VALIDATION", headersReceived: true, bodyRead: true,
       providerResponseStatus: "incomplete", incompleteReason: "max_output_tokens",
-      structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH" });
-    expect(store.operation?.state).toBe("UNKNOWN_AFTER_DISPATCH");
+      structuredErrorCode: "PUBLIC_PROVIDER_INCOMPLETE", lastConfirmedDurableState: "INCOMPLETE_MAX_OUTPUT_TOKENS" });
+    expect(store.operation?.state).toBe("INCOMPLETE_MAX_OUTPUT_TOKENS");
+    expect(Number(store.operation?.measured_cost_usd)).toBeGreaterThan(0);
+    expect(store.operation?.settled_at).toBeTruthy();
+  });
+
+  it("settles the historical content-filter usage shape without a Working Draft or redispatch", async () => {
+    const body = JSON.stringify({ ...JSON.parse(requestBody), max_output_tokens: 24_000 });
+    const provider = vi.fn(async () => generation({ responseStatus: "incomplete", reason: "content_filter",
+      input: 6_340, output: 10_238 }));
+    const result = await run(provider, { body });
+    expect(result.response).toBeNull();
+    expect(result.diagnostic).toMatchObject({ phase: "PROVIDER_RESULT_VALIDATION", providerHttpStatus: 200,
+      providerResponseStatus: "incomplete", incompleteReason: "content_filter",
+      structuredErrorCode: "PUBLIC_PROVIDER_INCOMPLETE", lastConfirmedDurableState: "INCOMPLETE_CONTENT_FILTERED" });
+    expect(store.operation).toMatchObject({ state: "INCOMPLETE_CONTENT_FILTERED", post_usage_input_tokens: 6_340 });
+    expect(store.operation?.provider_response_body).toContain('"status":"incomplete"');
+    expect(store.operation?.provider_response_digest).toMatch(/^[a-f0-9]{64}$/u);
+    expect(store.operation?.settled_at).toBeTruthy();
+    expect(Number(store.session?.measured_cost_usd)).toBeGreaterThan(0);
+    expect(Number(store.session?.committed_cost_upper_bound_usd)).toBeLessThan(Number(store.operation?.reserved_upper_bound_usd));
+    expect(provider).toHaveBeenCalledOnce();
+    const measured = store.session?.measured_cost_usd;
+    const committed = store.session?.committed_cost_upper_bound_usd;
+    const secondProvider = vi.fn(async () => generation());
+    const duplicate = await run(secondProvider, { body });
+    expect(duplicate.diagnostic?.structuredErrorCode).toBe("PUBLIC_PROVIDER_INCOMPLETE");
+    expect(secondProvider).not.toHaveBeenCalled();
+    expect(store.session?.measured_cost_usd).toBe(measured);
+    expect(store.session?.committed_cost_upper_bound_usd).toBe(committed);
+  });
+
+  it("returns a bounded incomplete-provider error through the Working Draft bridge", async () => {
+    const session = createFunctionalResetSession();
+    session.runtimeTurns = [{ turnId: "u1", role: "USER", createdAt: session.updatedAt,
+      content: "Étude synthétique chez des adultes." },
+    { turnId: "noxia-turn:11111111-1111-4111-8111-111111111111", role: "NOXIA", createdAt: session.updatedAt,
+      content: "Proposition synthétique non adoptée." }];
+    const request = captureProjectPreparation(session).checkpoint!.request;
+    const admission = await guard.prepareRequest({ headers: { "x-forwarded-for": "203.0.113.9" }, body: request });
+    if (!("admitted" in admission) || !admission.admitted) throw new Error("SYNTHETIC_ADMISSION_FAILED");
+    const provider = vi.fn(async () => generation({ responseStatus: "incomplete", reason: "content_filter",
+      input: 6_340, output: 10_238 }));
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "SYNTHETIC_AZURE_ONLY",
+      openAiTransport: { destination: "azure", responsesEndpoint: ENDPOINT }, chatRuntime: "TERRA", autonomousProjectBuild: true,
+      fetchImpl: guard.createBudgetedFetch(admission, provider) });
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: { code: "WORKING_DRAFT_PREPARATION_FAILED",
+      details: ["CONVERSATION:PUBLIC_PROVIDER_INCOMPLETE"] },
+    observability: { providerCalls: [{ durableFailure: { providerHttpStatus: 200,
+      providerResponseStatus: "incomplete", incompleteReason: "content_filter",
+      lastConfirmedDurableState: "INCOMPLETE_CONTENT_FILTERED" } }] } });
+    expect(JSON.stringify(result.body)).not.toContain("content_filters");
+    expect(JSON.stringify(result.body)).not.toContain("hate");
+    expect(store.operation?.state).toBe("INCOMPLETE_CONTENT_FILTERED");
+    expect(provider).toHaveBeenCalledOnce();
   });
 
   it("I: closes local policy on an observed conservative envelope overrun", async () => {
@@ -407,16 +479,15 @@ describe("durable provider terminal failure capture with the real guard and offl
       local_anomaly_operation_key: anomalyOperationKey });
   });
 
-  it.each([{ name: "absent", omitUsage: true }, { name: "zero", input: 0 }])(
-    "C: incomplete/content_filter with $name usage is local and non-qualifying", async ({ omitUsage, input }) => {
+  it("C: incomplete/content_filter with absent usage holds its reservation and is non-qualifying", async () => {
       const result = await run(vi.fn(async (endpoint) => String(endpoint) === COUNT_ENDPOINT
         ? countSuccess(12_984) : generation({ responseStatus: "incomplete", reason: "content_filter",
-          input: input ?? undefined, omitUsage })));
-      expect(result.diagnostic).toMatchObject({ phase: "SETTLEMENT", providerHttpStatus: 200,
+          omitUsage: true })));
+      expect(result.diagnostic).toMatchObject({ phase: "PROVIDER_RESULT_VALIDATION", providerHttpStatus: 200,
         providerResponseStatus: "incomplete", incompleteReason: "content_filter",
-        structuredErrorCode: "PUBLIC_PROVIDER_RESULT_UNKNOWN_AFTER_DISPATCH",
-        lastConfirmedDurableState: "UNKNOWN_AFTER_DISPATCH" });
-      expect(store.operation).toMatchObject({ state: "UNKNOWN_AFTER_DISPATCH", counted_input_tokens: null,
+        structuredErrorCode: "PUBLIC_PROVIDER_INCOMPLETE",
+        lastConfirmedDurableState: "INCOMPLETE_UNSETTLED" });
+      expect(store.operation).toMatchObject({ state: "INCOMPLETE_UNSETTLED", counted_input_tokens: null,
         input_admission_policy: AZURE_LOCAL_INPUT_POLICY });
       expect(store.operation?.provider_response_body).toContain('"reason":"content_filter"');
       expect(store.operation?.measured_cost_usd).toBeUndefined();

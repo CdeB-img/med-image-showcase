@@ -6,7 +6,7 @@ export const OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS = 272_000;
 export type ProtocolDesignerProvider = "OPENAI" | "GOOGLE_GEMINI";
 export type ProviderCallPurpose = "LANGUAGE_PROJECTION" | "PERSISTENT_DELTA" | "CONVERSATION_REALIZATION" | "SCIENTIFIC_THINKING_PROPOSAL" | "DOCUMENT_PROJECTION";
 export type DurableProviderFailurePhase = "PRECOUNT" | "RESERVATION" | "PRE_DISPATCH" | "DISPATCHED"
-  | "HEADERS_RECEIVED" | "BODY_READ" | "SETTLEMENT" | "UNKNOWN";
+  | "HEADERS_RECEIVED" | "BODY_READ" | "SETTLEMENT" | "PROVIDER_RESULT_VALIDATION" | "UNKNOWN";
 export type DurableProviderFailureDiagnostic = Readonly<{
   contract: "DURABLE_PROVIDER_TERMINAL_FAILURE";
   clientRequestId: string | null;
@@ -47,11 +47,13 @@ export const readDurableProviderFailureDiagnostic = (value: unknown): DurablePro
     && (/^(PUBLIC|CANARY|PROVIDER)_[A-Z0-9_]+$/u.test(item.structuredErrorCode)
       || item.structuredErrorCode === "QUALIFICATION_INVALID" || item.structuredErrorCode === "INPUT_TOKEN_DIVERGENCE")
     ? item.structuredErrorCode : null;
-  const phase = ["PRECOUNT", "RESERVATION", "PRE_DISPATCH", "DISPATCHED", "HEADERS_RECEIVED", "BODY_READ", "SETTLEMENT", "UNKNOWN"]
+  const phase = ["PRECOUNT", "RESERVATION", "PRE_DISPATCH", "DISPATCHED", "HEADERS_RECEIVED", "BODY_READ", "SETTLEMENT", "PROVIDER_RESULT_VALIDATION", "UNKNOWN"]
     .includes(String(item.phase)) ? item.phase! : "UNKNOWN";
   const state = ["COUNT_PENDING", "COUNT_DISPATCHED", "COUNT_COMPLETED", "COUNT_FAILED", "COUNT_UNKNOWN_AFTER_DISPATCH",
     "RESERVED", "DISPATCHED", "COMPLETED_RECEIVED", "VALIDATED", "CONSUMED", "UNKNOWN_AFTER_DISPATCH",
-    "INPUT_TOKEN_DIVERGENCE", "QUALIFICATION_INVALID", "UNKNOWN"].includes(String(item.lastConfirmedDurableState))
+    "INPUT_TOKEN_DIVERGENCE", "QUALIFICATION_INVALID", "INCOMPLETE_CONTENT_FILTERED",
+    "INCOMPLETE_MAX_OUTPUT_TOKENS", "INCOMPLETE_OTHER", "INCOMPLETE_UNSETTLED",
+    "PROVIDER_HTTP_FAILED", "PROVIDER_RESULT_FAILED", "PROVIDER_USAGE_UNSETTLED", "UNKNOWN"].includes(String(item.lastConfirmedDurableState))
     ? item.lastConfirmedDurableState! : "UNKNOWN";
   const httpStatus = (status: unknown) => Number.isSafeInteger(status) && (status as number) >= 100
     && (status as number) <= 599 ? status as number : null;

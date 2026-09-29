@@ -1344,6 +1344,10 @@ export const recordProductErrorBoundary = (input: {
       providerHttpStatus: failure.providerHttpStatus,
       providerResponseStatus: failure.providerResponseStatus,
       incompleteReason: failure.incompleteReason,
+      financialSettlement: failure.providerResponseStatus === "incomplete"
+        ? ["INCOMPLETE_CONTENT_FILTERED", "INCOMPLETE_MAX_OUTPUT_TOKENS", "INCOMPLETE_OTHER"]
+          .includes(failure.lastConfirmedDurableState) ? "SETTLED" : "UNSETTLED" : null,
+      productResult: failure.providerResponseStatus === "incomplete" ? "UNUSABLE" : null,
       lastConfirmedDurableState: failure.lastConfirmedDurableState,
       generationProvider: failure.generationProvider,
     } : {}),

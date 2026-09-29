@@ -84,8 +84,10 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
       // A lost browser response does not determine the durable operation's
       // outcome. Only the existing bound recovery read may resolve it.
       const responseUnverified = !(error instanceof ProductBridgeClientError) && !bridgeResponseReceived;
-      const code = durableFailure?.providerResponseStatus === "incomplete" && durableFailure.incompleteReason === "max_output_tokens"
-        ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code
+      const code = durableFailure?.providerResponseStatus === "incomplete"
+        ? durableFailure.incompleteReason === "max_output_tokens"
+          ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" : "WORKING_DRAFT_PROVIDER_INCOMPLETE"
+        : error instanceof ProductBridgeClientError ? error.preparationFailureCode ?? error.code
           : responseUnverified ? "WORKING_DRAFT_RESPONSE_UNVERIFIED" : "WORKING_DRAFT_FAILED";
       const unknown = responseUnverified || !knownProviderFailure && (code.includes("UNKNOWN_AFTER_DISPATCH") || code.includes("TIMEOUT") || code.includes("NETWORK_FAILURE")
         || ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH"].includes(durableFailure?.lastConfirmedDurableState ?? "")
@@ -103,14 +105,30 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         if (responseUnverified) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
           "CLIENT_RESPONSE_CONSUMED", "UNKNOWN", { code: "CLIENT_RESPONSE_NOT_CONSUMED",
             metadata: { boundedStatus: "SERVER_OUTCOME_UNVERIFIED" } });
-        for (const record of records) next = recordProjectPreparationTrace(next, preparation.checkpoint!,
-          "PROVIDER_RESPONSE_RECEIVED", record.status === "FAILED" ? "FAILED" : "SUCCEEDED", {
-            code: record.status === "FAILED" ? "PROVIDER_OPERATION_FAILED" : "PROVIDER_OPERATION_SUCCEEDED",
+        for (const record of records) {
+          const received = record.durableFailure?.providerHttpStatus === 200
+            && record.durableFailure.providerResponseStatus === "incomplete"
+            && record.durableFailure.headersReceived === true && record.durableFailure.bodyRead === true;
+          next = recordProjectPreparationTrace(next, preparation.checkpoint!,
+          "PROVIDER_RESPONSE_RECEIVED", received || record.status === "SUCCEEDED" ? "SUCCEEDED" : "FAILED", {
+            code: received ? "PROVIDER_RESPONSE_RECEIVED" : record.status === "FAILED" ? "PROVIDER_OPERATION_FAILED" : "PROVIDER_OPERATION_SUCCEEDED",
             metadata: { providerCallId: record.callId, invocationId: record.durableFailure?.operationKey ?? null,
               providerHttpStatus: record.durableFailure?.providerHttpStatus ?? null,
               generationProvider: record.durableFailure?.generationProvider ?? null },
-            ...(record.status === "FAILED" ? { failureFunction: "providerOperation",
+            ...(!received && record.status === "FAILED" ? { failureFunction: "providerOperation",
               failureInvariant: "PROVIDER_OPERATION_SUCCEEDED", attribution: record.durableFailure ? "ROOT_CAUSE_PROVEN" as const : "SYMPTOM_ONLY" as const } : {}),
+          });
+        }
+        if (knownProviderFailure && durableFailure?.providerResponseStatus === "incomplete")
+          next = recordProjectPreparationTrace(next, preparation.checkpoint!, "PROVIDER_RESULT_VALIDATION", "FAILED", {
+            code, failureFunction: "callOpenAIResponses", failureInvariant: "PROVIDER_RESULT_COMPLETED",
+            attribution: "ROOT_CAUSE_PROVEN", metadata: {
+              providerHttpStatus: durableFailure.providerHttpStatus, providerResponseStatus: "incomplete",
+              incompleteReason: durableFailure.incompleteReason, financialSettlement:
+                ["INCOMPLETE_CONTENT_FILTERED", "INCOMPLETE_MAX_OUTPUT_TOKENS", "INCOMPLETE_OTHER"]
+                  .includes(durableFailure.lastConfirmedDurableState) ? "SETTLED" : "UNSETTLED",
+              productResult: "UNUSABLE",
+            },
           });
         if (code === "PUBLIC_SESSION_BUDGET_CLOSED" || code === "PUBLIC_SESSION_BUDGET_REJECTED")
           next = recordProjectPreparationTrace(next, preparation.checkpoint!, "ADMISSION_REJECTED", "FAILED", {

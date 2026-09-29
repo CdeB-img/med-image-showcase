@@ -8,13 +8,13 @@ import type { FunctionalResetSession } from "./session.js";
 export type PreparationTraceStage = Extract<ScientificProductTraceStage,
   "CLIENT_PREPARATION_START" | "BRIDGE_REQUEST_CREATED" | "BRIDGE_RESPONSE_RECEIVED" | "CLIENT_RESPONSE_CONSUMED"
   | "DURABLE_RECOVERY_STARTED" | "DURABLE_RECOVERY_COMPLETED" | "ADMISSION_REJECTED"
-  | "PROVIDER_RESPONSE_RECEIVED" | "WORKING_DRAFT_VALIDATION" | "PROJECT_DELTA_VALIDATION"
+  | "PROVIDER_RESPONSE_RECEIVED" | "PROVIDER_RESULT_VALIDATION" | "WORKING_DRAFT_VALIDATION" | "PROJECT_DELTA_VALIDATION"
   | "REVIEW_PROJECTION_VALIDATION" | "READY_FOR_REVIEW">;
 
 const stageOwner = (stage: PreparationTraceStage): { owner: ScientificTraceOwner; responsibilityOwner: string; executor: string } => {
   if (stage === "PROJECT_DELTA_VALIDATION" || stage === "REVIEW_PROJECTION_VALIDATION")
     return { owner: "RESEARCH_PROJECT", responsibilityOwner: "RESEARCH_PROJECT", executor: "PRJ001_CONTRIBUTION_OWNER" };
-  if (stage === "PROVIDER_RESPONSE_RECEIVED")
+  if (stage === "PROVIDER_RESPONSE_RECEIVED" || stage === "PROVIDER_RESULT_VALIDATION")
     return { owner: "CONVERSATION_MODEL", responsibilityOwner: "PROVIDER_BOUNDARY", executor: "DURABLE_PROVIDER_OPERATION" };
   if (stage === "ADMISSION_REJECTED")
     return { owner: "CONVERSATION_MODEL", responsibilityOwner: "DURABLE_PROVIDER_BUDGET", executor: "DURABLE_PROVIDER_ADMISSION" };
