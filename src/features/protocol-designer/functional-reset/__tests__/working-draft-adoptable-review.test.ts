@@ -30,11 +30,13 @@ const accepted = (p: ReturnType<typeof preparation>) => acceptWorkingDraftUpdate
 describe("adoptable parent decisions with unadopted open refinements — native owners", () => {
   it("keeps the explicit sport objective in first Project review while its three narrower uses remain alternatives", () => {
     const p = preparation(DOMAINS[0]);
-    p.session.runtimeTurns[0].content += " ; évaluer l'aspect sportif";
+    p.session.runtimeTurns[0].content += " Le protocole sera conduit en France, chez des adultes de 20 à 89 ans sans mineurs, répartis par décennies. Exclure les pathologies fibrosantes, le diabète, l'HTA et les fumeurs ; évaluer l'aspect sportif.";
     p.request = { ...p.request, workingDraftScientificSource: { ...p.request.workingDraftScientificSource!,
       sourceDigest: logicalDigest(p.session.runtimeTurns[0].content) } };
     p.packet = prepareWorkingDraftRequest(p.request);
     p.proposal.contextDigest = p.packet.inputDigest;
+    p.proposal.atoms.find(atom => atom.ref === "population")!.content = "Volontaires sains adultes de 20 à 89 ans recrutés en France";
+    p.proposal.atoms.find(atom => atom.ref === "age-classes")!.content = "Classes décennales entre 20 et 89 ans ; allocation et analyse à arbitrer";
     const clone = (source: string, ref: string, content: string, status: "NOXIA_PROPOSAL" | "OPEN_DECISION" = "NOXIA_PROPOSAL") => ({
       ...structuredClone(p.proposal.atoms.find(atom => atom.ref === source)!), ref, semanticKey: ref, content, status,
       dependsOn: [] as string[], dependencyQualifications: [] as { ref: string; kind: "HARD_BLOCKING_DEPENDENCY"; rationale: string }[],
@@ -67,6 +69,17 @@ describe("adoptable parent decisions with unadopted open refinements — native 
     expect(draft.readyReview?.contribution.scientificContent.candidateObjects.some(item => item.content === "Restreindre la population selon la pratique sportive")).toBe(false);
     expect(draft.readyReview?.contribution.scientificContent.clarificationNeeds.some(item => item.content === "Méthode de mesure sportive à préciser")).toBe(true);
     expect(p.session.project).toBeNull();
+    persistFunctionalResetSession(localStorage, { ...p.session, studyProposal: composition, workingDraft: draft });
+    const ready = validatePreparedWorkingReview(loadFunctionalResetSession(localStorage));
+    expect(ready).not.toBeNull();
+    const adopted = confirmResearchProjectContribution({ contribution: ready!.contribution, current: null,
+      projectId: p.session.projectId, authority: p.session.projectAuthority, confirmedAt: p.session.updatedAt,
+      reviewedProjection: ready!.candidate.humanReviewProjection,
+      selectedChangeRefs: ready!.candidate.humanReviewProjection.coveredChangeRefs });
+    expect(adopted.revision).toBe(1);
+    expect(adopted.canonicalState.objects.some(object => object.content === "Évaluer la pratique sportive des volontaires")).toBe(true);
+    expect(adopted.canonicalState.objects.some(object => object.content === "Restreindre la population selon la pratique sportive")).toBe(false);
+    expect(adopted.canonicalState.objects.some(object => object.content === "Méthode de mesure sportive à préciser")).toBe(false);
     const unavailable = { ...composition, unavailableOptionRefs: ["opt-sport-desc"] };
     expect(recommendedWorkingScope(unavailable).selectedAtomRefs).not.toContain("o2");
     expect(() => selectedStudyProposalAtoms(unavailable, ["opt-sport-adj"], ["o2"])).toThrow("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
