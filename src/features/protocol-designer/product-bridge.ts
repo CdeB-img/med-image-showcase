@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { STUDY_PROPOSAL_CAPACITY } from "../scientific-thinking/study-proposal-capacity.js";
 export type { StudyProposalComposition } from "../scientific-thinking/contextual-study-proposal.js";
 import { z as deltaZ } from "zod/v4";
 import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
@@ -1887,7 +1888,7 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
           || typeof record.workingDraftScientificSource.projectDigest !== "string"
           || typeof record.workingDraftScientificSource.objectVersionId !== "string")))
     || (record.workingDraftHistory !== undefined && (!Array.isArray(record.workingDraftHistory)
-      || record.workingDraftHistory.length > 120 || !record.workingDraftHistory.every(h => h && h.status === "REJECTED"
+      || record.workingDraftHistory.length > STUDY_PROPOSAL_CAPACITY.maxRejectedHistoryEntries || !record.workingDraftHistory.every(h => h && h.status === "REJECTED"
         && h.atom && typeof h.atom.ref === "string" && typeof h.atom.content === "string" && h.atom.content.length <= 600)))
     || (record.requestKind !== undefined && !["USER_TURN", "POST_ADOPTION_QRY_CONTINUATION"].includes(record.requestKind))
     || !record.conversation

@@ -9,6 +9,7 @@ import { prepareTerraConversation } from "../../scientific-thinking/scientific-c
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 import type { ProductBridgeRequest } from "../product-bridge.js";
 import type { ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
+import { STUDY_PROPOSAL_CAPACITY } from "../../scientific-thinking/study-proposal-capacity.js";
 import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
@@ -21,9 +22,11 @@ type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; pro
 const responseSchema = z.object({
   requestType: z.enum(["STUDY_UPDATE", "TARGETED_QUESTION", "INSUFFICIENT"]),
   proposal: contextualStudyProposalSchema.nullable(),
-  explicitDecisions: z.array(z.object({ atomRef: z.string(), sourceTurnRef: z.string(), quote: z.string().min(1) }).strict()).max(60),
-  inferredAtomRefs: z.array(z.string()).max(60),
-  rejectedAtomRefs: z.array(z.string()).max(60),
+  explicitDecisions: z.array(z.object({ atomRef: z.string(), sourceTurnRef: z.string(), quote: z.string().min(1) }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
+  inferredAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
+  rejectedAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
+  // Complete-snapshot metadata, not a delta. Optional on historical outputs.
+  supersededAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms).optional(),
 }).strict();
 
 /** Correct only owner/area pairs whose native area has one possible owner. */
@@ -210,13 +213,13 @@ export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBr
   const explicitDecision = sourceBindings.length === 1 ? sourceBindings[0]!
     : sourceBindings.length > 1 ? z.union(sourceBindings as [typeof sourceBindings[number], typeof sourceBindings[number], ...typeof sourceBindings[number][]])
       : responseSchema.shape.explicitDecisions.element;
-  const wire = responseSchema.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length ? 60 : 0), proposal: contextualStudyProposalSchema.extend({
+  const wire = responseSchema.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0), proposal: contextualStudyProposalSchema.extend({
     contextDigest: z.literal(inputDigest),
     atoms: contextualStudyProposalSchema.shape.atoms.element.extend({
       // This owner currently admits no qualified external evidence. USER
       // quotations belong to explicitDecisions, never scientific evidenceRefs.
       evidenceRefs: z.array(z.string()).max(0),
-    }).array().min(8).max(60),
+    }).array().min(STUDY_PROPOSAL_CAPACITY.minAtoms).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   }).nullable() });
   const { $schema: _dialect, ...schema } = z.toJSONSchema(wire, {
     io: "input", target: "draft-7", reused: "inline", unrepresentable: "throw",
@@ -262,7 +265,7 @@ Le schéma fournit les citations admissibles pour chaque sourceTurnRef, avec uni
 La citation doit exprimer le choix de l'atome concerné, pas seulement mentionner un sujet voisin : conserve son objet, ses conditions, sa polarité et son statut ouvert. Une correction remplace seulement ce qu'elle corrige ; elle ne confirme pas les recommandations voisines. Une répétition peut citer le tour qui la contient effectivement, sans déplacer une autre décision. Un choix explicitement laissé ouvert reste OPEN_DECISION, même si NOXIA propose une option. Une citation exacte n'autorise aucune substitution de mesure ou de procédure.
 Pour cette composition de travail, ajoute à CHAQUE atome dependencyQualifications:[{ref,kind,rationale}], exactement une qualification pour CHAQUE lien dependsOn (liste vide sans dépendance). HARD_BLOCKING_DEPENDENCY : sans le prérequis la décision n'a pas de sens autonome, devient contradictoire, change d'unité scientifique ou viole une exigence du propriétaire. SOFT_REFINEMENT_DEPENDENCY : précision nécessaire à l'exécution/finalisation, mais le parent a déjà un sens scientifique autonome. OPTIONAL_DETAIL : enrichissement facultatif. Ne transforme jamais tous les OPEN en soft. Ne supprime aucun lien pour rendre la revue adoptable. Sépare un choix conceptuel stable et sa spécification opérationnelle ouverte en deux atomes avec des contenus autonomes ; ne qualifie pas tout le parent OPEN uniquement parce qu'une précision reste inconnue. Un comparateur contradictoire, une unité changeant le sens ou une option exclusive indécise reste bloquant. Si previousStudyProposal existe, conserve les atomes et références non affectés ; actualise uniquement les décisions modifiées et leurs conséquences, sans recommencer l'étude.
 Respecte exclusivement nativeContractValues : area est une catégorie native, variableRoles ne contient que les rôles natifs et affectedBranches désigne les familles de branches natives, jamais des références d'atomes. N'invente aucun enum. Respecte ownerAreas pour chaque couple owner/area : l'attribution d'une temporalité appartient au propriétaire natif de TIMING, indépendamment de la modalité scientifique. content≤600 caractères, rationale≤1600, chaque understanding≤300. recruitmentNotice et participantQuestionnaireIntroduction sont des chaînes non vides, jamais null : une indication des éléments restant à préciser suffit, sans rédiger de document ni questionnaire. analysisMethod=null hors méthode calculatoire native applicable.
-Réponds UNIQUEMENT avec l'enveloppe JSON {requestType,proposal,explicitDecisions:[{atomRef,sourceTurnRef,quote}],inferredAtomRefs:[],rejectedAtomRefs:[]}. Chaque explicitDecision cite littéralement un passage d'un tour USER réel qui exprime ce choix ; une inférence ou recommandation n'est jamais une décision explicite. Les inferredAtomRefs désignent seulement les inférences fortes. Les rejetés désignent des atomes de previousStudyProposal retirés par un refus USER explicite. Ne confonds pas une explication ciblée avec une correction. Statuts natifs inchangés ; tous les éléments restent non adoptés. Pas de scénario de dimensionnement numérique sans inputs défendables. Fournis les atomes nécessaires à la couverture scientifique dans les bornes du contrat natif, sans quota éditorial qui ferait omettre des décisions ; dépendances acycliques et pas de longs aperçus documentaires. contextDigest doit être recopié exactement.
+Réponds UNIQUEMENT avec l'enveloppe JSON {requestType,proposal,explicitDecisions:[{atomRef,sourceTurnRef,quote}],inferredAtomRefs:[],rejectedAtomRefs:[],supersededAtomRefs:[]}. Chaque explicitDecision cite littéralement un passage d'un tour USER réel qui exprime ce choix ; une inférence ou recommandation n'est jamais une décision explicite. Les inferredAtomRefs désignent seulement les inférences fortes. Les rejetés désignent des atomes de previousStudyProposal retirés par un refus USER explicite. Le snapshot STUDY_UPDATE est complet et autonome : chaque atome antérieur encore courant est retenu, explicitement rejeté, ou déclaré dans supersededAtomRefs avec exactement un nouvel atome de remplacement émis ayant les mêmes semanticKey et targetType. Une référence conservée peut recevoir une modification candidate ; aucune ancienne référence absente ne sera reconstruite localement. N'utilise pas une supersession pour supprimer une branche non affectée, fusionner des données distinctes ou contourner le plafond. Ne confonds pas une explication ciblée avec une correction. Statuts natifs inchangés ; tous les éléments restent non adoptés. Pas de scénario de dimensionnement numérique sans inputs défendables. Fournis les atomes nécessaires à la couverture scientifique dans les bornes du contrat natif, sans quota éditorial qui ferait omettre des décisions ; dépendances acycliques et pas de longs aperçus documentaires. contextDigest doit être recopié exactement.
 GRAPHE DE PRÉREQUIS : dependsOn va de l'atome dépendant vers son prérequis ; il ne représente pas toute relation scientifique. Pour chaque lien, identifie ce que le prérequis rend possible : HARD_BLOCKING_DEPENDENCY si son absence empêche l'interprétation ou l'adoption scientifique du dépendant ; SOFT_REFINEMENT_DEPENDENCY ou OPTIONAL_DETAIL uniquement pour un raffinement ou détail orienté, sans blocage du choix autonome. Une contextualisation, une précision d'indication, un contexte de sélection ou une conséquence ne crée pas à elle seule un prérequis inverse : conserve cette information dans content/rationale, sans fabriquer un dependsOn réciproque. Réévalue les liens hérités lorsque les choix évoluent ; conserver les branches non affectées ne signifie pas recopier un lien devenu purement contextuel. Si un prérequis dépend déjà directement ou indirectement du dépendant, n'ajoute pas le lien inverse. Examine le sens des deux relations, sans supprimer arbitrairement une arête ni affaiblir un vrai prérequis HARD. Si un atome mélange un prérequis et sa conséquence, sépare ces concepts avec les atomes/types natifs nécessaires, en conservant leur matière scientifique et leurs qualifications. Avant émission, vérifie l'absence de tout cycle, y compris SOFT/OPTIONAL et mixte ; un changement de qualification ne résout pas un cycle.
 RÉDACTION BACKGROUND COMPACTE : conserve intégralement les décisions, distinctions scientifiques, liens, qualifications et arbitrages utiles. La concision porte sur leur explication, jamais sur leur suppression. Une justification ne répète pas le contenu : rationale d'atome ≤180 caractères, rationale de dépendance ≤100, rationale d'arbitrage ≤180 ; benefits/limits/consequences ≤140 chacun, understanding ≤150 chacun. proposal.reply ≤120 caractères car non affiché ; recruitmentNotice et participantQuestionnaireIntroduction ≤120 chacun, sans aperçu documentaire. N'ajoute pas de scénario chiffré pour remplir une rubrique. Les branches non affectées conservent leur contenu et leurs références ; ne les reformule pas pour le style. Ne tronque aucun texte ni lien pour respecter ces cibles ; garde une explication plus longue si elle est indispensable à son sens. Émets du JSON sans indentation ni commentaires.`;
   return { context, instruction, inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns) };
@@ -354,10 +357,37 @@ export const resolveWorkingDraftSourceQuote = (source: string, quote: string): {
   return { quote: source.slice(rawStart, rawEnd), start: rawStart, end: rawEnd };
 };
 
+/** Check the complete emitted snapshot, without importing an old atom. */
+export const assertWorkingDraftSnapshotContinuity = (update: WorkingDraftUpdate, request: ProductBridgeRequest) => {
+  const previous = request.studyProposalContext;
+  const atoms = update.proposal?.atoms ?? [];
+  const rejected = new Set(update.rejectedAtomRefs);
+  const superseded = update.supersededAtomRefs ?? [];
+  const replacementRefs = new Set<string>();
+  if (new Set(superseded).size !== superseded.length) throw new Error("WORKING_DRAFT_SUPERSESSION_INVALID");
+  for (const ref of superseded) {
+    const old = previous?.proposal.atoms.find(atom => atom.ref === ref);
+    const replacements = old ? atoms.filter(atom => atom.ref !== ref && atom.semanticKey === old.semanticKey
+      && atom.targetType === old.targetType) : [];
+    if (!old || rejected.has(ref) || atoms.some(atom => atom.ref === ref) || replacements.length !== 1
+      || previous!.proposal.atoms.filter(atom => atom.semanticKey === old.semanticKey && atom.targetType === old.targetType).length !== 1
+      || replacementRefs.has(replacements[0]!.ref))
+      throw new Error("WORKING_DRAFT_SUPERSESSION_INVALID");
+    replacementRefs.add(replacements[0]!.ref);
+  }
+  const noLongerCurrent = new Set([
+    ...previous?.dispositions?.filter(d => d.status === "REJECTED").flatMap(d => d.atomRefs) ?? [],
+    ...request.workingDraftHistory?.filter(h => h.status === "REJECTED").map(h => h.atom.ref) ?? [],
+  ]);
+  if (previous?.proposal.atoms.some(old => !noLongerCurrent.has(old.ref) && !atoms.some(atom => atom.ref === old.ref)
+    && !rejected.has(old.ref) && !superseded.includes(old.ref))) throw new Error("WORKING_DRAFT_SNAPSHOT_CONTINUITY_INVALID");
+};
+
 export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeRequest) => {
   const update = responseSchema.parse(raw);
   if (update.requestType !== "STUDY_UPDATE") {
-    if (update.proposal || update.explicitDecisions.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");
+    if (update.proposal || update.explicitDecisions.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length
+      || update.supersededAtomRefs?.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");
     return { update, composition: null };
   }
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
@@ -384,6 +414,7 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   if (update.proposal.atoms.some(a => rejectedHistory.some(h => h.atom.content === a.content || h.atom.ref === a.ref))) throw new Error("WORKING_DRAFT_REJECTED_REACTIVATED");
   const unavailable = new Set(previous?.dispositions?.filter(d => d.status === "REJECTED").flatMap(d => d.atomRefs) ?? []);
   if (update.proposal.atoms.some(a => unavailable.has(a.ref))) throw new Error("WORKING_DRAFT_REJECTED_REACTIVATED");
+  assertWorkingDraftSnapshotContinuity(update, request);
   // Native specialized inputs are prepared from a non-adopted contribution.
   // This temporary composition never escapes the owner qualification below.
   const sourceProject = studyProposalBinding(request.currentProject);

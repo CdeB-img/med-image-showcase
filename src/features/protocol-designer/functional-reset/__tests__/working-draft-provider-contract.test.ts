@@ -20,7 +20,7 @@ const fixture = () => {
     ] } };
   const packet = prepareWorkingDraftRequest(request);
   const proposal = controlledStudyProposal(packet.inputDigest, DOMAINS[1]);
-  const update = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] };
+  const update = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [], supersededAtomRefs: [] };
   return { request, packet, update };
 };
 
@@ -82,6 +82,9 @@ describe("background provider contract follows the native owner", () => {
     });
     expect(validate(update), JSON.stringify(validate.errors)).toBe(true);
     expect(() => acceptWorkingDraftUpdate(update, request)).not.toThrow();
+    const { supersededAtomRefs: _historicalSupersession, ...withoutSupersession } = structuredClone(update);
+    expect(validate(withoutSupersession)).toBe(false);
+    expect(() => acceptWorkingDraftUpdate(withoutSupersession, request)).not.toThrow();
     const historical = structuredClone(update);
     for (const atom of historical.proposal.atoms) delete atom.plannedSource;
     expect(validate(historical)).toBe(false);

@@ -7,12 +7,13 @@ import { acceptStudyStrategyCandidates, buildContextualStudyDesignCompetence } f
 import { acceptImagingStudyStrategyCandidates } from "../imaging-study-designer/contextual-proposals.js";
 import { qualifyCandidateCollection } from "../observability-measurement/candidate-collection.js";
 import type { ContextualReasoningRequest } from "./contextual-reasoning.js";
+import { STUDY_PROPOSAL_CAPACITY } from "./study-proposal-capacity.js";
 
 // A bounded contribution of the existing Scientific Thinking capability. This
 // composition is neither a new owner nor a Project/PD-003 object.
 const text = z.string().trim().min(1).max(1600);
 const ref = z.string().trim().min(1).max(250);
-const refs = z.array(ref).max(60);
+const refs = z.array(ref).max(STUDY_PROPOSAL_CAPACITY.maxAtoms);
 export const studyDependencyQualificationSchema = z.object({
   ref, kind: z.enum(["HARD_BLOCKING_DEPENDENCY", "SOFT_REFINEMENT_DEPENDENCY", "OPTIONAL_DETAIL"]),
   rationale: text,
@@ -25,7 +26,7 @@ export const studyProposalAtomSchema = z.object({
   status: z.enum(["NOXIA_PROPOSAL", "STRONG_CONTEXTUAL_INFERENCE", "PROVISIONAL_ASSUMPTION", "EVIDENCE_SUPPORTED_PROPOSAL", "OPEN_DECISION"]),
   evidenceRefs: refs, dependsOn: refs,
   // Absent on historical candidates: every dependency remains hard by default.
-  dependencyQualifications: z.array(studyDependencyQualificationSchema).max(60).optional(),
+  dependencyQualifications: z.array(studyDependencyQualificationSchema).max(STUDY_PROPOSAL_CAPACITY.maxAtoms).optional(),
   variableRoles: z.array(z.enum(["EXCLUSION_VARIABLE", "DESCRIPTIVE_VARIABLE", "ADJUSTMENT_COVARIATE", "STRATIFICATION_VARIABLE", "OUTCOME_VARIABLE", "EXPOSURE_VARIABLE"])).max(6),
   unit: z.string().max(100).nullable(),
   strataCount: z.number().int().min(2).max(100).nullable(),
@@ -41,8 +42,8 @@ export const studyArbitrationSchema = z.object({
   selection: z.enum(["ONE", "INDEPENDENT"]),
   material: z.boolean(), reversible: z.boolean(),
   affectedBranches: z.array(z.enum(["DESIGN", "RECRUITMENT", "COLLECTION", "ANALYSIS", "DIMENSIONING", "DOCUMENTS"])).min(1).max(6),
-  options: z.array(z.object({ ref, label: z.string().trim().min(1).max(220), benefits: text, limits: text, consequences: text, atomRefs: refs.min(1) }).strict()).min(1).max(5),
-  recommendedRefs: refs.max(5),
+  options: z.array(z.object({ ref, label: z.string().trim().min(1).max(220), benefits: text, limits: text, consequences: text, atomRefs: refs.min(1) }).strict()).min(1).max(STUDY_PROPOSAL_CAPACITY.maxOptionsPerArbitration),
+  recommendedRefs: refs.max(STUDY_PROPOSAL_CAPACITY.maxOptionsPerArbitration),
 }).strict();
 const assumption = z.object({ parameter: ref, value: z.number().finite(), provenance: z.enum(["PROVISIONAL_ASSUMPTION", "USER_ASSUMPTION", "EVIDENCE_SUPPORTED_PROPOSAL"]), sourceRef: ref }).strict();
 export const fDimensioningInputSchema = z.object({
@@ -55,11 +56,11 @@ export const fDimensioningInputSchema = z.object({
 export const contextualStudyProposalSchema = z.object({
   contract: z.literal("SCIENTIFIC_THINKING_STUDY_PROPOSAL_1"), contextDigest: ref,
   reply: text, understanding: z.array(z.string().trim().min(1).max(300)).min(1).max(6),
-  atoms: z.array(studyProposalAtomSchema).min(8).max(60),
-  arbitrations: z.array(studyArbitrationSchema).min(1).max(8),
+  atoms: z.array(studyProposalAtomSchema).min(STUDY_PROPOSAL_CAPACITY.minAtoms).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
+  arbitrations: z.array(studyArbitrationSchema).min(1).max(STUDY_PROPOSAL_CAPACITY.maxArbitrations),
   recruitmentNotice: text, participantQuestionnaireIntroduction: text,
   participantArtifactsApplicable: z.boolean(),
-  dimensioningScenarios: z.array(z.object({ ref, label: text, branchAtomRefs: refs.min(1), analysisAtomRef: ref.optional(), input: fDimensioningInputSchema }).strict()).max(5),
+  dimensioningScenarios: z.array(z.object({ ref, label: text, branchAtomRefs: refs.min(1), analysisAtomRef: ref.optional(), input: fDimensioningInputSchema }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxDimensioningScenarios),
   candidateIsAdopted: z.literal(false), projectWriteAuthorized: z.literal(false),
 }).strict();
 export type StudyProposalAtom = z.infer<typeof studyProposalAtomSchema>;

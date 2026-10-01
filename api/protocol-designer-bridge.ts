@@ -7,6 +7,7 @@ import { realizeGovernedConversation } from "../src/features/query-navigation/go
 import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
 import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, scientificCollaboratorInstruction, readScientificCollaboratorReply, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
+import { STUDY_PROPOSAL_CAPACITY } from "../src/features/scientific-thinking/study-proposal-capacity.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
@@ -280,7 +281,8 @@ export const executeProtocolDesignerBridge = async (input: {
       const packet = prepareWorkingDraftRequest(request);
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall },
-        input.openAiTransport, input.openAiTransport?.destination === "azure" ? { maxOutputTokens: 24_000, timeoutMs: 300_000 } : undefined);
+        input.openAiTransport, { maxOutputTokens: STUDY_PROPOSAL_CAPACITY.workingDraftMaxOutputTokens,
+          ...(input.openAiTransport?.destination === "azure" ? { timeoutMs: 300_000 } : {}) });
       const result = acceptWorkingDraftUpdate(JSON.parse(generated.value), request);
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: "",
         assistantTurn: { turnId: `working-draft:${observationContext.clientRequestId}`, role: "NOXIA", content: "", createdAt },

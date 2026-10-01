@@ -8,6 +8,7 @@ import { languageProjectionIdentityDigest, type LanguageProjectionRequest } from
 import type { ProductBridgeRequest } from "../product-bridge";
 import { resolveOpenAIProviderRuntimeConfiguration } from "../../../../server/protocol-designer-openai-provider-config";
 import { logicalDigest } from "../../knowledge-engine/canonical";
+import { STUDY_PROPOSAL_CAPACITY } from "../../scientific-thinking/study-proposal-capacity";
 
 const azure = resolveOpenAIProviderRuntimeConfiguration({
   OPENAI_PROVIDER: "azure",
@@ -66,8 +67,8 @@ const observedResponseTimeouts = async (run: () => Promise<unknown>) => {
 };
 
 describe.each([
-  { provider: "OPENAI", transport: undefined, expectedWorkingDraftCap: 8000, expectedWorkingDraftTimeout: 120_000 },
-  { provider: "AZURE", transport: azure.transport, expectedWorkingDraftCap: 24000, expectedWorkingDraftTimeout: 300_000 },
+  { provider: "OPENAI", transport: undefined, expectedWorkingDraftCap: STUDY_PROPOSAL_CAPACITY.workingDraftMaxOutputTokens, expectedWorkingDraftTimeout: 120_000 },
+  { provider: "AZURE", transport: azure.transport, expectedWorkingDraftCap: STUDY_PROPOSAL_CAPACITY.workingDraftMaxOutputTokens, expectedWorkingDraftTimeout: 300_000 },
 ])("$provider operation-scoped output cap and timeout", ({ transport, expectedWorkingDraftCap, expectedWorkingDraftTimeout }) => {
   it("keeps Chat at 8000/120s and scopes the Working Draft cap and timeout", async () => {
     for (const workingDraft of [false, true]) {
