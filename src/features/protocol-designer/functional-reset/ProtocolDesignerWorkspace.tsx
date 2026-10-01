@@ -3328,7 +3328,7 @@ export default function ProtocolDesignerWorkspace({
         ? requireStudyProposalReview(proposalSelection.composition, project)
         : proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
         proposalSelection.candidate, session.project,
-        selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn)
+        selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn, contribution)
         : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution,
           reviewEntry?.kind === "REVIEW" && reviewEntry.candidate
             ? reviewEntry.candidate : prepareResearchProjectContributionCandidate(contribution, session.project),

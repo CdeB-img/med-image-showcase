@@ -12,6 +12,7 @@ import {
   applyCanonicalProjectChangeSet,
   buildCanonicalProjectChangeSet,
   canonicalProjectObjectType,
+  retainedCanonicalSourceProjection,
   temporalValueItem,
   ensureCanonicalProjectState,
   projectSectionsFromCanonicalState,
@@ -1493,6 +1494,8 @@ export const assertResearchProjectSourceMaterialization = (input: {
   candidate: ResearchProjectContributionCandidate;
   project: ResearchProjectOwnerProjection;
   sourceItemRefs: readonly string[];
+  previousProject?: ResearchProjectOwnerProjection | null;
+  contribution?: ScientificInterpretationContributionEnvelope;
 }) => {
   const { candidate, project } = input;
   if (!input.sourceItemRefs.length || new Set(input.sourceItemRefs).size !== input.sourceItemRefs.length
@@ -1506,7 +1509,9 @@ export const assertResearchProjectSourceMaterialization = (input: {
   const sourceRefs = new Set(input.sourceItemRefs);
   const declared = candidate.canonicalChangeSet.objectChanges.filter(change => change.candidate
     && change.candidate.sourceItemRefs.some(ref => sourceRefs.has(ref)));
-  if (!declared.length || declared.some(change => change.operation === "REMOVE")
+  const retainedDeclarations = candidate.changeSet.changes.filter(change => change.operation === "NO_CHANGE"
+    && change.proposedElement?.sourceItemIds.some(ref => sourceRefs.has(ref)));
+  if (declared.some(change => change.operation === "REMOVE")
     || new Set(declared.map(change => change.objectId)).size !== declared.length) {
     throw new Error("STUDY_PROPOSAL_MATERIALIZATION_UNPROVEN");
   }
@@ -1517,7 +1522,7 @@ export const assertResearchProjectSourceMaterialization = (input: {
   if (actual.length !== declared.length || new Set(actual.map(object => object.objectId)).size !== declared.length) {
     throw new Error("STUDY_PROPOSAL_MATERIALIZATION_INCOMPLETE");
   }
-  return declared.map(change => {
+  const materialized = declared.map(change => {
     const expected = change.candidate!;
     const object = actual.find(object => object.objectId === change.objectId);
     if (!covered.has(change.changeRef) || !object
@@ -1533,6 +1538,68 @@ export const assertResearchProjectSourceMaterialization = (input: {
     }
     return object;
   });
+  // NO_CHANGE has no canonical delta or new adoption. Its new proposal source
+  // may resolve only through the owner's declared unchanged projection and an
+  // identical, still-current object from the exact previous Project version.
+  // Preserve that object's original source, version and human decision refs.
+  const previous = input.previousProject;
+  const projected = input.contribution ? projectValueElements(input.contribution)
+    .filter(element => element.sourceItemIds.some(ref => sourceRefs.has(ref))) : [];
+  const rawRetained = previous && input.contribution ? contributionItems(input.contribution)
+    .filter(item => sourceRefs.has(item.itemId)
+      && !projected.some(element => element.sourceItemIds.includes(item.itemId)))
+    .flatMap(item => {
+      const projection = retainedCanonicalSourceProjection(item, input.contribution!, ensureCanonicalProjectState(previous));
+      return projection ? [projection] : [];
+    }) : [];
+  const expectedRetained = [...projected, ...rawRetained]
+    .filter(element => !declared.some(change => change.objectId === element.elementId));
+  if ([...sourceRefs].some(ref => !declared.some(change => change.candidate!.sourceItemRefs.includes(ref))
+    && !expectedRetained.some(element => element.sourceItemIds.includes(ref)))) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_UNPROVEN");
+  }
+  if (!declared.length && !expectedRetained.length) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_UNPROVEN");
+  }
+  if (expectedRetained.length && (!previous || previous.projectId !== project.projectId
+    || previous.versionId !== candidate.changeSet.baseProjectVersion
+    || candidate.changeSet.sourceContributionRef !== candidate.contributionRef
+    || candidate.changeSet.sourceContributionDigest !== candidate.contributionDigest
+    || input.contribution?.identity.contributionId !== candidate.contributionRef
+    || input.contribution.identity.contributionDigest !== candidate.contributionDigest)) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_BINDING_INVALID");
+  }
+  const previousObjects = previous ? ensureCanonicalProjectState(previous).objects.filter(object => object.actuality === "CURRENT") : [];
+  const retained = expectedRetained.map(expected => {
+    const declarations = retainedDeclarations.filter(change => change.proposedElement!.sourceItemIds
+      .some(ref => expected.sourceItemIds.includes(ref) && sourceRefs.has(ref)));
+    const old = previousObjects.find(object => object.objectId === expected.elementId);
+    const object = current.find(object => object.objectId === old?.objectId);
+    if (declarations.some(change => {
+      const before = change.previousElement, after = change.proposedElement!;
+      return !before || change.sourceContributionRef !== candidate.contributionRef
+        || before.elementId !== after.elementId
+        || elementValueKey(change.targetSectionId, before) !== elementValueKey(change.targetSectionId, after)
+        || folded(before.sourceStudyRole ?? "") !== folded(after.sourceStudyRole ?? "")
+        || folded(before.sourceProposedType ?? "") !== folded(after.sourceProposedType ?? "")
+        || folded(before.sourcePolarity ?? "") !== folded(after.sourcePolarity ?? "");
+    })
+      || !old || !object || !old.sourceItemRefs.length
+      || declarations.length > 0 && !declarations.some(change => change.previousElement!.sourceItemIds.some(ref => old.sourceItemRefs.includes(ref)))
+      || old.objectType !== canonicalProjectObjectType({ proposedType: expected.sourceProposedType ?? null, studyRole: expected.sourceStudyRole ?? null })
+      || folded(old.content) !== folded(expected.content)
+      || folded(old.scientificRole ?? "") !== folded(expected.sourceStudyRole ?? "")
+      || candidate.canonicalChangeSet.objectChanges.some(value => value.objectId === old.objectId)
+      || logicalDigest(object) !== logicalDigest(old)) {
+      throw new Error("STUDY_PROPOSAL_MATERIALIZATION_INCOMPLETE");
+    }
+    return object;
+  });
+  const result = [...materialized, ...retained];
+  if (new Set(result.map(object => object.objectId)).size !== result.length) {
+    throw new Error("STUDY_PROPOSAL_MATERIALIZATION_UNPROVEN");
+  }
+  return result;
 };
 
 /** Native dependency components, derived from the already validated review. */

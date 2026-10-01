@@ -1,15 +1,16 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { confirmResearchProjectContribution } from "@/features/research-project-construction";
+import { assertResearchProjectSourceMaterialization, confirmResearchProjectContribution } from "@/features/research-project-construction";
 import * as humanDecision from "../../human-decision";
 import * as canonicalOwner from "@/features/research-project-construction/canonical-project-backbone";
+import * as materializationOwner from "@/features/research-project-construction/contribution-owner-boundary";
 import * as scientificTrace from "../../scientific-execution-trace";
 import { createProductTraceRunId, rehydrateScientificExecutionTraceLedger } from "../../scientific-execution-trace";
 import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest, recommendedWorkingScope } from "../continuous-project-build";
 import { addProjectPreparation, captureProjectPreparation, consumeProjectPreparation, projectPreparationReview, recordPreparationDecision } from "../project-preparation-lifecycle";
-import { propagateStudyProposalDecision, selectedStudyProposalAtoms } from "../study-proposal-standard";
-import { createFunctionalResetSession, type FunctionalResetSession } from "../session";
+import { propagateStudyProposalDecision, selectedStudyProposalAtoms, studyProposalAtomItemRef } from "../study-proposal-standard";
+import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
 import { createProjectAdoptionTrace, sanitizedAdoptionStackTop } from "../project-adoption-trace";
 import * as legacyTrace from "../end-to-end-trace-adapter";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
@@ -26,7 +27,7 @@ const ready = (base: FunctionalResetSession, add = false) => {
   const proposal = controlledStudyProposal(prepareWorkingDraftRequest(request).inputDigest, DOMAINS[1]);
   const optionalRefs = new Set(proposal.arbitrations.flatMap(a => a.options
     .filter(o => !a.recommendedRefs.includes(o.ref)).flatMap(o => o.atomRefs)));
-  const updatedAtoms = add ? proposal.atoms.filter(a => a.status !== "OPEN_DECISION" && !optionalRefs.has(a.ref)) : [];
+  const updatedAtoms = add ? proposal.atoms.filter(a => a.ref === "practical" && !optionalRefs.has(a.ref)) : [];
   for (const atom of updatedAtoms) atom.content += " — précision synthétique explicitement confirmée";
   const accepted = acceptWorkingDraftUpdate({ requestType: "STUDY_UPDATE", proposal,
     explicitDecisions: updatedAtoms.map(a => ({
@@ -73,9 +74,32 @@ const mount = (initial: FunctionalResetSession, persist = (_next: FunctionalRese
 const failure = (state: FunctionalResetSession) => adoptionEvents(state).find(e => e.status === "FAILED")!;
 
 describe("passive Project-v2 adoption TRACE — no provider calls", () => {
+  it("resolves the complete retained snapshot through the native materialization owner", () => {
+    const initial = secondReady(), review = projectPreparationReview(initial)!;
+    const candidate = review.prepared.candidate;
+    const project = confirmResearchProjectContribution({ contribution: review.prepared.contribution, current: initial.project,
+      projectId: initial.projectId, authority: initial.projectAuthority, confirmedAt: initial.updatedAt,
+      reviewedProjection: candidate.humanReviewProjection, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs });
+    const invalid = candidate.changeSet.changes.filter(change => change.operation === "NO_CHANGE").flatMap(change => {
+      try { assertResearchProjectSourceMaterialization({ candidate, project, previousProject: initial.project,
+        contribution: review.prepared.contribution, sourceItemRefs: change.proposedElement!.sourceItemIds }); return []; }
+      catch (error) { return [{ identity: change.semanticIdentity, previousId: change.previousElement?.elementId,
+        proposedId: change.proposedElement?.elementId, error: (error as Error).message }]; }
+    });
+    expect(invalid).toEqual([]);
+    const scope = recommendedWorkingScope(review.composition);
+    const declared = new Set(review.prepared.contribution.scientificContent.candidateObjects.map(item => item.itemId));
+    expect(selectedStudyProposalAtoms(review.composition, scope.selectedOptionRefs, scope.selectedAtomRefs)
+      .filter(ref => !declared.has(studyProposalAtomItemRef(review.composition, ref)))).toEqual([]);
+    propagateStudyProposalDecision(review.composition, project, candidate, initial.project,
+      selectedStudyProposalAtoms(review.composition, scope.selectedOptionRefs, scope.selectedAtomRefs), scope.selectedOptionRefs,
+      initial.runtimeTurns.find(turn => turn.turnId === "u2"), review.prepared.contribution);
+  });
   it("READY_FOR_REVIEW → confirmation → envelope → apply → write → v2, with v1 immutable and complete scope", async () => {
     const initial = secondReady(), before = JSON.stringify(initial.project);
-    const review = projectPreparationReview(initial)!, get = mount(initial);
+    const review = projectPreparationReview(initial)!, get = mount(initial, next => {
+      persistFunctionalResetSession(localStorage, next); return true;
+    });
     await waitFor(() => expect(get().project?.revision).toBe(2));
     expect(JSON.stringify(initial.project)).toBe(before);
     expect(adoptionEvents(get()).map(e => e.common?.stage)).toEqual([
@@ -89,8 +113,35 @@ describe("passive Project-v2 adoption TRACE — no provider calls", () => {
       coveredChangeRefCount: review.prepared.candidate.humanReviewProjection.coveredChangeRefs.length,
       submittedChangeRefCount: review.prepared.candidate.humanReviewProjection.coveredChangeRefs.length });
     expect(provider).not.toHaveBeenCalled();
+    expect(loadFunctionalResetSession(localStorage, undefined, true).project).toEqual(get().project);
+    expect(get().studyProposal?.sourceProject?.versionId).toBe(get().project?.versionId);
+    expect(adoptionEvents(get()).filter(event => event.status === "FAILED").map(event => ({ owner: event.technicalMetadata.firstFailedOwner,
+      fn: event.technicalMetadata.failureFunction, code: event.technicalMetadata.internalErrorCode }))).toEqual([]);
+    // The synthetic preparation has no bridgeTrace correlation. Exercise the
+    // existing adapter explicitly with the same already-created native run.
+    const projectionLedger = legacyTrace.recordProjectAdoptionTrace({ ledger: get().scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(initial.sessionId, "u2"), conversationId: initial.conversationId,
+      recordedAt: get().updatedAt, contribution: get().currentContribution!, project: get().project!,
+      previousProjectExisted: true, queryNavigation: get().queryNavigation!, documents: get().documents });
+    expect(projectionLedger.events.find(event => event.common?.stage === "PROJECT_VERSION_REVISED")?.status)
+      .toBe("PROJECTED_PENDING_PERSISTENCE");
     expect(rehydrateScientificExecutionTraceLedger(JSON.parse(JSON.stringify(get().scientificExecutionTraceLedger))))
       .toEqual(get().scientificExecutionTraceLedger);
+  });
+
+  it("an invalid source binding remains fail-closed: v2 projected only, no version write or partial adoption", async () => {
+    const initial = secondReady(), before = JSON.stringify(initial.project), validate = materializationOwner.assertResearchProjectSourceMaterialization;
+    vi.spyOn(materializationOwner, "assertResearchProjectSourceMaterialization")
+      .mockImplementation(input => validate({ ...input, sourceItemRefs: [] }));
+    const get = mount(initial, next => { persistFunctionalResetSession(localStorage, next); return true; });
+    await waitFor(() => expect(failure(get())).toBeDefined());
+    expect(failure(get()).technicalMetadata).toMatchObject({ failureFunction: "propagateStudyProposalDecision",
+      failureInvariant: "PROJECT_SOURCE_MATERIALIZATION_VALID", internalErrorCode: "STUDY_PROPOSAL_MATERIALIZATION_BINDING_INVALID" });
+    expect(adoptionEvents(get()).some(event => event.common?.stage === "PROJECT_VERSION_WRITE_STARTED")).toBe(false);
+    expect(JSON.stringify(get().project)).toBe(before);
+    expect(loadFunctionalResetSession(localStorage, undefined, true).project?.versionId).toBe(initial.project?.versionId);
+    expect(projectPreparationReview(get())).not.toBeNull();
+    expect(provider).not.toHaveBeenCalled();
   });
 
   it("records the exact envelope-construction failure before apply", async () => {

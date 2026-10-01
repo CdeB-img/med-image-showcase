@@ -582,6 +582,27 @@ const rawObjectCandidateFrom = (
   };
 };
 
+/** Read-only native projection for an unchanged source not represented by a
+ * section element. Resolve its identity through the same canonical source refs
+ * as the delta owner; ambiguous or absent identities are not materialization. */
+export const retainedCanonicalSourceProjection = (
+  item: ScientificContributionItem,
+  contribution: ScientificInterpretationContributionEnvelope,
+  current: CanonicalResearchProjectState,
+): ResearchProjectElement | null => {
+  if (item.epistemicBoundary.activeState === false || temporalValueItem(item)) return null;
+  const refs = [item.semanticIdentity, item.itemId, ...(item.previousItemIds ?? [])]
+    .filter((ref): ref is string => Boolean(ref));
+  const matches = activeObjects(current).filter(object => refs.includes(object.objectId)
+    || refs.some(ref => object.sourceItemRefs.includes(ref)));
+  if (matches.length !== 1) return null;
+  const previous = matches[0], candidate = rawObjectCandidateFrom(item, contribution, previous.objectId);
+  return previous.objectType === candidate.objectType
+    && normalized(previous.content) === normalized(candidate.content)
+    && normalized(previous.scientificRole ?? "") === normalized(candidate.scientificRole ?? "")
+    ? candidate.projection : null;
+};
+
 const objectCandidateFrom = (
   change: ContributionProjectChangeSet["changes"][number],
   item: ScientificContributionItem | null,

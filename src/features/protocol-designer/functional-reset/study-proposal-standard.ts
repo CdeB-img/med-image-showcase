@@ -233,21 +233,29 @@ export const buildStudyProposalSelectionContribution = (input: {
 
 export const propagateStudyProposalDecision = (composition: StudyProposalComposition, project: ResearchProjectOwnerProjection,
   candidate: ResearchProjectContributionCandidate, previousProject: ResearchProjectOwnerProjection | null,
-  adoptedRefs: readonly string[], selectedOptionRefs: readonly string[], sourceTurn?: ScientificInterpretationTurn) => {
+  adoptedRefs: readonly string[], selectedOptionRefs: readonly string[], sourceTurn?: ScientificInterpretationTurn,
+  contribution?: ScientificInterpretationContributionEnvelope) => {
   const objects = ensureCanonicalProjectState(project).objects.filter(o => o.actuality === "CURRENT");
   const adoptionSourceRefs = { ...composition.adoptionSourceRefs };
   const newlyMaterialized = new Set<string>();
+  const declaredRefs = new Set([...candidate.canonicalChangeSet.objectChanges.flatMap(change => change.candidate?.sourceItemRefs ?? []),
+    ...(contribution?.scientificContent.candidateObjects.map(item => item.itemId) ?? [])]);
+  if (previousProject && logicalDigest(studyProposalBinding(previousProject)) !== logicalDigest(composition.sourceProject)) {
+    throw new Error("STUDY_PROPOSAL_PREVIOUS_PROJECT_BINDING_INVALID");
+  }
   for (const ref of adoptedRefs) {
     const atom = composition.proposal.atoms.find(a => a.ref === ref);
     if (!atom) throw new Error("STUDY_PROPOSAL_ADOPTION_NOT_IN_CANONICAL_PROJECT");
     const possibleRefs = [studyProposalAtomItemRef(composition, ref), ...(atom.userChangeRefs ?? [])];
-    const declaredRefs = new Set(candidate.canonicalChangeSet.objectChanges.flatMap(change => change.candidate?.sourceItemRefs ?? []));
     const sourceItemRefs = possibleRefs.filter(sourceRef => declaredRefs.has(sourceRef));
-    const materialized = assertResearchProjectSourceMaterialization({ candidate, project, sourceItemRefs });
+    const materialized = assertResearchProjectSourceMaterialization({ candidate, project, sourceItemRefs, previousProject, contribution });
     if (materialized.some(object => object.projection.sourceProposedType !== atom.targetType)) {
       throw new Error("STUDY_PROPOSAL_MATERIALIZATION_TYPE_MISMATCH");
     }
-    adoptionSourceRefs[ref] = sourceItemRefs;
+    // Only the Project owner can prove retained materialization. Persist its
+    // actual canonical sources, not a new alias absent from the adopted object.
+    adoptionSourceRefs[ref] = [...new Set([...sourceItemRefs.filter(sourceRef => materialized.some(object => object.sourceItemRefs.includes(sourceRef))),
+      ...materialized.filter(object => object.sourceContributionRef !== candidate.contributionRef).flatMap(object => object.sourceItemRefs)])];
     newlyMaterialized.add(ref);
   }
   const adoptedAtomRefs = [...new Set([...composition.adoptedAtomRefs, ...adoptedRefs])].filter(ref => {
@@ -303,5 +311,5 @@ export const propagateFreeformStudyProposalDecision = (composition: StudyProposa
   if (!adoptedRefs.length || adoptedRefs.length !== composition.recomputation.changedAtomRefs.length) return requireStudyProposalReview(composition, project);
   const selectedOptions = composition.proposal.arbitrations.flatMap(a => a.options.filter(o => o.atomRefs.some(r => adoptedRefs.includes(r))).map(o => o.ref));
   return propagateStudyProposalDecision(composition, project, candidate, previousProject, adoptedRefs, selectedOptions,
-    sourceTurn ?? [...contribution.source.turns].reverse().find(t => t.role === "USER"));
+    sourceTurn ?? [...contribution.source.turns].reverse().find(t => t.role === "USER"), contribution);
 };

@@ -863,7 +863,7 @@ export const recordProjectAdoptionTrace = (input: {
     ledger,
     traceRunId,
     timestamp: input.recordedAt,
-    status: "CREATED",
+    status: "PROJECTED_PENDING_PERSISTENCE",
     owner: "RESEARCH_PROJECT",
     durationMs: 0,
     envelope: {
