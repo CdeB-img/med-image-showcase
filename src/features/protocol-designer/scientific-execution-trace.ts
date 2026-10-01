@@ -215,6 +215,12 @@ export type ScientificProductTraceStage =
   | "PROJECT_DELTA_VALIDATION"
   | "REVIEW_PROJECTION_VALIDATION"
   | "READY_FOR_REVIEW"
+  | "HUMAN_CONFIRMATION_RECEIVED"
+  | "HUMAN_DECISION_ENVELOPE_CREATED"
+  | "PROJECT_APPLY_STARTED"
+  | "PROJECT_VERSION_WRITE_STARTED"
+  | "PROJECT_VERSION_WRITE_SUCCEEDED"
+  | "PROJECT_VERSION_WRITE_FAILED"
   | "HUMAN_REVIEW_PRESENTED"
   | "HUMAN_DECISION_RECORDED"
   | "PROJECT_VERSION_CREATED"
@@ -889,6 +895,23 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "providerCallId",
   "internalErrorCode",
   "publicErrorCode",
+  "sessionId",
+  "reviewId",
+  "reviewDigest",
+  "humanAttemptId",
+  "canonicalReviewDecisionCount",
+  "visibleChoiceCount",
+  "coveredChangeRefCount",
+  "submittedChangeRefCount",
+  "expectedProjectVersion",
+  "actualProjectVersion",
+  "expectedProjectDigest",
+  "actualProjectDigest",
+  "humanDecisionEnvelopeId",
+  "humanDecisionEnvelopeDigest",
+  "firstFailedStage",
+  "firstFailedOwner",
+  "sanitizedStackTop",
 ]);
 
 const assertNoForbiddenData = (value: unknown, path = "trace") => {
@@ -1091,6 +1114,12 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "PROJECT_DELTA_VALIDATION",
   "REVIEW_PROJECTION_VALIDATION",
   "READY_FOR_REVIEW",
+  "HUMAN_CONFIRMATION_RECEIVED",
+  "HUMAN_DECISION_ENVELOPE_CREATED",
+  "PROJECT_APPLY_STARTED",
+  "PROJECT_VERSION_WRITE_STARTED",
+  "PROJECT_VERSION_WRITE_SUCCEEDED",
+  "PROJECT_VERSION_WRITE_FAILED",
   "HUMAN_REVIEW_PRESENTED",
   "HUMAN_DECISION_RECORDED",
   "PROJECT_VERSION_CREATED",

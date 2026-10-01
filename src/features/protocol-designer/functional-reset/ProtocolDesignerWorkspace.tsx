@@ -1,5 +1,6 @@
 import { useProjectPreparation } from "./useProjectPreparation";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
+import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { recommendedWorkingScope } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
@@ -3209,6 +3210,7 @@ export default function ProtocolDesignerWorkspace({
     naturalDecision?: NaturalContributionDecisionContext,
     proposalSelection?: Readonly<{ composition: StudyProposalComposition; selectedOptions: readonly string[]; selectedAtoms: readonly string[];
       expectedDigest: string; contribution: ScientificInterpretationContributionEnvelope; candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> }>,
+    adoptionTrace?: ProjectAdoptionTrace,
   ) => {
     const session = latestSessionRef.current;
     if (busy && !naturalDecision) return false;
@@ -3246,7 +3248,9 @@ export default function ProtocolDesignerWorkspace({
         reviewedProjection: reviewEntry?.kind === "REVIEW"
           ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection
           : undefined,
+        observeAdoption: adoptionTrace?.observeOwner,
       });
+      adoptionTrace?.at("PROJECT_APPLY_STARTED", "confirmContribution", "PROJECT_ADOPTION_DERIVED_STATE_VALID");
       const settledRefs = [...(naturalDecision?.selectedChangeRefs ?? []), ...(naturalDecision?.refusedChangeRefs ?? []), ...(naturalDecision?.correctionChangeRefs ?? [])];
       const originalRecord = retainedBeforeDecision.find(record => record.candidateRef === contributionId);
       const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
@@ -3297,7 +3301,7 @@ export default function ProtocolDesignerWorkspace({
       const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
         ? reviewEntry.traceRunId
         : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
-      let scientificExecutionTraceLedger = naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger;
+      let scientificExecutionTraceLedger = adoptionTrace?.ledger() ?? naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger;
       try {
         scientificExecutionTraceLedger = recordProjectAdoptionTrace({
           ledger: scientificExecutionTraceLedger,
@@ -3310,12 +3314,16 @@ export default function ProtocolDesignerWorkspace({
           queryNavigation,
           documents,
         });
+        adoptionTrace?.useLedger(scientificExecutionTraceLedger);
       } catch (error) {
         // TRACE is observational: a projection failure must not veto a valid human adoption.
         console.warn("PROJECT_ADOPTION_TRACE_PROJECTION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
+        adoptionTrace?.projectionFailed(error, session.project);
+        scientificExecutionTraceLedger = adoptionTrace?.ledger() ?? scientificExecutionTraceLedger;
       }
       const partialProposalSelection = Boolean(proposalSelection && naturalDecision?.selectedChangeRefs
         && naturalDecision.selectedChangeRefs.length < proposalSelection.candidate.humanReviewProjection.coveredChangeRefs.length);
+      adoptionTrace?.at("PROJECT_APPLY_STARTED", "propagateStudyProposalDecision", "PROJECT_SOURCE_MATERIALIZATION_VALID");
       const updatedStudyProposal = partialProposalSelection && proposalSelection
         ? requireStudyProposalReview(proposalSelection.composition, project)
         : proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
@@ -3326,6 +3334,7 @@ export default function ProtocolDesignerWorkspace({
             ? reviewEntry.candidate : prepareResearchProjectContributionCandidate(contribution, session.project),
           session.project, naturalDecision?.userTurn) : session.studyProposal;
       const current = latestSessionRef.current;
+      adoptionTrace?.at("PROJECT_APPLY_STARTED", "confirmContribution", "PROJECT_BASE_UNCHANGED_DURING_HUMAN_REVIEW");
       if (current.sessionId !== session.sessionId || current.project?.versionId !== session.project?.versionId)
         throw new Error("PROJECT_CHANGED_DURING_HUMAN_REVIEW");
       let nextSession: FunctionalResetSession = {
@@ -3439,7 +3448,15 @@ export default function ProtocolDesignerWorkspace({
           && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);
         if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED");
       }
+      if (adoptionTrace && onSessionChange) {
+        adoptionTrace.writeStarted(project, current.project);
+        nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
+      }
       if (onSessionChange?.(nextSession) === false) throw new Error("PROJECT_PERSISTENCE_FAILED");
+      if (adoptionTrace && onSessionChange) {
+        adoptionTrace.writeSucceeded(project);
+        nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
+      }
       latestSessionRef.current = nextSession;
       setSession(nextSession);
       setReviewError(null);
@@ -3456,11 +3473,12 @@ export default function ProtocolDesignerWorkspace({
       return nextSession;
     } catch (error) {
       console.warn("PROJECT_CONFIRMATION_FAILED", error);
+      adoptionTrace?.fail(error, latestSessionRef.current.project);
       const workingReview = autonomousProjectBuild && Boolean(proposalSelection);
       if (workingReview) setReviewError("La validation du projet n’a pas abouti. Les choix restent disponibles dans cette revue.");
       setSession((current) => {
         const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
-        const scientificExecutionTraceLedger = correlatedTrace?.traceRunId
+        const scientificExecutionTraceLedger = adoptionTrace?.ledger() ?? (correlatedTrace?.traceRunId
           ? recordProductErrorBoundary({
             ledger: current.scientificExecutionTraceLedger,
             traceRunId: correlatedTrace.traceRunId,
@@ -3479,7 +3497,7 @@ export default function ProtocolDesignerWorkspace({
             sourceDigest: contribution.identity.contributionDigest,
             project: current.project,
           })
-          : current.scientificExecutionTraceLedger;
+          : current.scientificExecutionTraceLedger);
         return {
         ...current,
         entries: workingReview ? current.entries : [...current.entries, {
@@ -4114,9 +4132,13 @@ export default function ProtocolDesignerWorkspace({
   const confirmProject = async (selectedChangeRefs?: readonly string[]) => {
     const current = latestSessionRef.current;
     const review = projectPreparationReview(current);
+    const adoptionTrace = createProjectAdoptionTrace(current, review, selectedChangeRefs);
+    adoptionTrace.received();
     if (!review || !review.applicable || review.blocker || busy || workingDraftBusy
       || review.newerTurns.length > 0 && !selectedChangeRefs?.length) {
       setReviewError("Relisez le périmètre de cette préparation avant de confirmer. Une base incompatible exige une nouvelle préparation.");
+      adoptionTrace.fail(new Error("PROJECT_REVIEW_NOT_APPLICABLE"), current.project);
+      setSession(value => ({ ...value, scientificExecutionTraceLedger: adoptionTrace.ledger() }));
       return null;
     }
     const { prepared, composition, checkpoint } = review;
@@ -4124,20 +4146,31 @@ export default function ProtocolDesignerWorkspace({
     const scope = recommendedWorkingScope(composition);
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER",
       content: `Validation explicite de la préparation ${checkpoint.preparationId}`, createdAt: new Date().toISOString() };
+    try {
     const result = await confirmContribution(prepared.contribution.identity.contributionId, {
       userTurn, originalText: "Valider ces choix", gatewayState: current.conversationLanguageGateway,
-      traceLedger: current.scientificExecutionTraceLedger, stylePreference: null,
+      traceLedger: adoptionTrace.ledger(), stylePreference: null,
       selectedChangeRefs: selectedChangeRefs ?? prepared.candidate.humanReviewProjection.coveredChangeRefs,
       prepareRemainingTurn: false,
     }, { composition, selectedOptions: scope.selectedOptionRefs, selectedAtoms: scope.selectedAtomRefs,
-      expectedDigest: composition.digest, contribution: prepared.contribution, candidate: prepared.candidate });
+      expectedDigest: composition.digest, contribution: prepared.contribution, candidate: prepared.candidate }, adoptionTrace);
     if (result && typeof result === "object") {
       const adopted = recordPreparationDecision(result, checkpoint.preparationId, "ADOPTED");
       latestSessionRef.current = adopted;
       setSession(adopted);
       return adopted;
     }
+    if (result === false) {
+      adoptionTrace.fail(new Error("PROJECT_CONFIRMATION_OWNER_NOT_ENTERED"), latestSessionRef.current.project);
+      setSession(value => ({ ...value, scientificExecutionTraceLedger: adoptionTrace.ledger() }));
+    }
     return result;
+    } catch (error) {
+      // Preserve the existing rejection; only retain its passive observation.
+      adoptionTrace.fail(error, latestSessionRef.current.project);
+      setSession(value => ({ ...value, scientificExecutionTraceLedger: adoptionTrace.ledger() }));
+      throw error;
+    }
   };
 
   const reset = () => {

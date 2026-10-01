@@ -1617,6 +1617,15 @@ export const scopeResearchProjectContribution = (input: {
       input.contribution.identity.contributionId, input.reasonRef])] } };
 };
 
+/** Optional observation only; exceptions in a TRACE consumer cannot veto adoption. */
+export type ResearchProjectAdoptionObservation = Readonly<{
+  stage: "HUMAN_DECISION_ENVELOPE_CREATED" | "PROJECT_APPLY_STARTED";
+  status: "STARTED" | "SUCCEEDED";
+  failureFunction: string;
+  failureInvariant: string;
+  decision?: Readonly<HumanDecisionEnvelope>;
+}>;
+
 export const confirmResearchProjectContribution = (input: {
   contribution: ScientificInterpretationContributionEnvelope;
   current: ResearchProjectOwnerProjection | null;
@@ -1628,7 +1637,13 @@ export const confirmResearchProjectContribution = (input: {
   confirmationSourceRefs?: readonly string[];
   /** Explicit human partition of an already presented, separable native review. */
   selectedChangeRefs?: readonly string[];
+  observeAdoption?: (observation: ResearchProjectAdoptionObservation) => void;
 }): ResearchProjectOwnerProjection => {
+  const observe = (observation: ResearchProjectAdoptionObservation) => {
+    try { input.observeAdoption?.(observation); } catch { /* Passive TRACE only. */ }
+  };
+  observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "STARTED",
+    failureFunction: "prepareResearchProjectContributionCandidate", failureInvariant: "REVIEWED_CANDIDATE_APPLICABLE" });
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
   if (candidate.changeSet.effectiveChangeCount === 0 && candidate.canonicalChangeSet.status === "NO_NET_CHANGE") {
     if (input.current) return input.current;
@@ -1638,12 +1653,16 @@ export const confirmResearchProjectContribution = (input: {
     throw new Error("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
   }
   const reviewedProjection = input.reviewedProjection ?? candidate.humanReviewProjection;
+  observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "STARTED",
+    failureFunction: "validateHumanReviewProjectionCoverage", failureInvariant: "COMPLETE_HUMAN_REVIEW_COVERAGE" });
   const reviewCoverage = validateHumanReviewProjectionCoverage(candidate.canonicalChangeSet, reviewedProjection);
   if (reviewCoverage.status !== "COMPLETE") throw new Error("REVIEW_PROJECTION_INCOMPLETE");
   let canonicalChangeSet = candidate.canonicalChangeSet;
   let changeSet = candidate.changeSet;
   let sectionTemplate = candidate.proposedSections;
   if (input.selectedChangeRefs) {
+    observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "STARTED",
+      failureFunction: "scopedContributionChanges", failureInvariant: "SEPARABLE_REVIEWED_DECISION_SCOPE" });
     if (!input.reviewedProjection) throw new Error("REVIEW_PROJECTION_INCOMPLETE");
     canonicalChangeSet = scopedContributionChanges(candidate, input.selectedChangeRefs, input.current);
     const sourceRefs = new Set([...canonicalChangeSet.objectChanges, ...canonicalChangeSet.legacyTemporalChanges]
@@ -1657,6 +1676,8 @@ export const confirmResearchProjectContribution = (input: {
   }
   const revision = (input.current?.revision ?? 0) + 1;
   const versionId = `${input.projectId}:version:${revision}`;
+  observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "STARTED",
+    failureFunction: "createHumanDecisionCandidate", failureInvariant: "VALID_HUMAN_DECISION_ENVELOPE" });
   const pendingDecision = createHumanDecisionCandidate({
     decisionId: `project-contribution-decision:${logicalDigest({ projectId: input.projectId, contributionRef: candidate.contributionRef, revision })}`,
     gateId: "PRJ-CONTRIBUTION-INTAKE",
@@ -1674,6 +1695,8 @@ export const confirmResearchProjectContribution = (input: {
     engineSource: "RESEARCH_PROJECT",
     projectVersion: versionId,
   });
+  observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "STARTED",
+    failureFunction: "engageHumanDecision", failureInvariant: "EXPLICIT_MANDATED_HUMAN_CONFIRMATION" });
   const confirmationDecision = engageHumanDecision(pendingDecision, {
     status: "ADOPTED",
     actor: input.authority.actorRef,
@@ -1683,7 +1706,11 @@ export const confirmResearchProjectContribution = (input: {
     timestamp: input.confirmedAt,
   });
   if (confirmationDecision.status !== "ADOPTED") throw new Error("PRJ_CONTRIBUTION_CONFIRMATION_AUTHORITY_REQUIRED");
+  observe({ stage: "HUMAN_DECISION_ENVELOPE_CREATED", status: "SUCCEEDED",
+    failureFunction: "engageHumanDecision", failureInvariant: "EXPLICIT_MANDATED_HUMAN_CONFIRMATION", decision: confirmationDecision });
 
+  observe({ stage: "PROJECT_APPLY_STARTED", status: "STARTED",
+    failureFunction: "applyCanonicalProjectChangeSet", failureInvariant: "CANONICAL_PROJECT_CHANGE_SET_APPLICABLE" });
   const canonicalState = applyCanonicalProjectChangeSet({
     current: input.current ? ensureCanonicalProjectState(input.current) : null,
     changeSet: canonicalChangeSet,
@@ -1694,6 +1721,8 @@ export const confirmResearchProjectContribution = (input: {
     decision: confirmationDecision,
     decidedAt: input.confirmedAt,
   });
+  observe({ stage: "PROJECT_APPLY_STARTED", status: "SUCCEEDED",
+    failureFunction: "projectSectionsFromCanonicalState", failureInvariant: "CANONICAL_PROJECT_PROJECTION_VALID" });
   const projectedSections = projectSectionsFromCanonicalState(canonicalState, sectionTemplate);
   const selectedItemRefs = new Set(canonicalChangeSet.objectChanges.flatMap(change => change.candidate?.sourceItemRefs ?? []));
   const responsibilities = input.selectedChangeRefs ? candidate.specializedResponsibilities.map(responsibility => {
@@ -1703,6 +1732,8 @@ export const confirmResearchProjectContribution = (input: {
         ?? { ...responsibility, state: "NOT_TRIGGERED" as const, sourceItemIds: [] };
   }) : candidate.specializedResponsibilities;
 
+  observe({ stage: "PROJECT_APPLY_STARTED", status: "SUCCEEDED",
+    failureFunction: "researchProjectOwnerDigest", failureInvariant: "PROJECT_OWNER_DIGEST_VALID" });
   const projectDigest = researchProjectOwnerDigest({
     projectId: input.projectId, versionId, previousVersionId: input.current?.versionId ?? null,
     contributionDigest: candidate.contributionDigest, appliedChangeSet: changeSet,
