@@ -119,6 +119,18 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
               failureInvariant: "PROVIDER_OPERATION_SUCCEEDED", attribution: record.durableFailure ? "ROOT_CAUSE_PROVEN" as const : "SYMPTOM_ONLY" as const } : {}),
           });
         }
+        if (error instanceof ProductBridgeClientError && code === "STUDY_PROPOSAL_OPTION_BINDING_INVALID") {
+          const binding = error.optionBindingFailureDiagnostic;
+          next = recordProjectPreparationTrace(next, preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
+            code, failureFunction: "assertStudyProposalOptionBindings", failureInvariant: binding?.missingAtomRef
+              ? "EVERY_OPTION_ATOM_REF_RESOLVES" : "STUDY_PROPOSAL_OPTION_BINDINGS_VALID",
+            attribution: binding ? "ROOT_CAUSE_PROVEN" : "SYMPTOM_ONLY", metadata: {
+              errorCode: code, arbitrationId: binding?.arbitrationId ?? null, optionId: binding?.optionId ?? null,
+              missingAtomRef: binding?.missingAtomRef ?? null, recommended: binding?.recommended ?? null,
+              humanSelected: binding?.humanSelected ?? null, referenceOrigin: binding?.referenceOrigin ?? "UNKNOWN",
+            },
+          });
+        }
         if (knownProviderFailure && durableFailure?.providerResponseStatus === "incomplete")
           next = recordProjectPreparationTrace(next, preparation.checkpoint!, "PROVIDER_RESULT_VALIDATION", "FAILED", {
             code, failureFunction: "callOpenAIResponses", failureInvariant: "PROVIDER_RESULT_COMPLETED",

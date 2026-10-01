@@ -6,7 +6,7 @@ import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../
 import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "../src/features/scientific-thinking/contextual-reasoning-input.js";
 import { prepareScientificCollaboratorConversation, guardScientificCollaboratorLiteratureReply, scientificCollaboratorInstruction, readScientificCollaboratorReply, type ScientificConversationReceipt } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
-import { hasSufficientStudyIntent, acceptContextualStudyProposal } from "../src/features/scientific-thinking/contextual-study-proposal.js";
+import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
@@ -298,9 +298,27 @@ export const executeProtocolDesignerBridge = async (input: {
         && ["UNSELECTED_OPTION", "HARD_DEPENDENCY_NOT_SATISFIED"].includes(error.atomBindingStatus)
         ? { contract: "WORKING_DRAFT_ARBITRATION_COLLISION_DIAGNOSTIC", explicitDecisionId: error.explicitDecisionId,
           arbitrationId: error.arbitrationId, atomBindingStatus: error.atomBindingStatus } : null;
+      // This annotates a rejected full snapshot; it never imports an old atom.
+      const previous = request.studyProposalContext;
+      const priorOption = error instanceof StudyProposalOptionBindingError
+        ? previous?.proposal.arbitrations.find(arbitration => arbitration.ref === error.arbitrationId)
+          ?.options.find(option => option.ref === error.optionId) : null;
+      const boundedId = (value: string | null) => value && safeId(value)
+        && !/^(?:sk-|bearer|authorization|api[_-]?key)/iu.test(value) ? value : null;
+      const binding = error instanceof StudyProposalOptionBindingError ? {
+        contract: "WORKING_DRAFT_OPTION_BINDING_DIAGNOSTIC",
+        arbitrationId: boundedId(error.arbitrationId), optionId: boundedId(error.optionId),
+        missingAtomRef: boundedId(error.missingAtomRef), recommended: error.recommended,
+        humanSelected: Boolean(priorOption?.atomRefs.length
+          && priorOption.atomRefs.every(ref => previous?.adoptedAtomRefs.includes(ref))),
+        referenceOrigin: error.missingAtomRef && previous?.proposal.atoms.some(atom => atom.ref === error.missingAtomRef)
+          ? "PREVIOUS_PROPOSAL" : "UNKNOWN",
+      } : null;
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
         error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: "La discussion et le dernier brouillon sont conservés.",
-          details: [error instanceof Error ? error.message : "UNKNOWN"], ...(collision ? { workingDraftDiagnostic: collision } : {}) },
+          details: [error instanceof Error ? error.message : "UNKNOWN"],
+          ...(collision ? { workingDraftDiagnostic: collision } : {}),
+          ...(binding ? { workingDraftBindingDiagnostic: binding } : {}) },
         observability: providerCallRequestObservability(providerCalls) } };
     }
   }

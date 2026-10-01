@@ -139,14 +139,27 @@ export const studyProposalOwnerAreas = (owner: StudyProposalAtom["owner"]): read
       : owner === "DATA_MANAGEMENT" ? ["DESCRIPTION"] : ["MEASUREMENTS", "ENDPOINTS"];
 };
 
+/** Identifiers only: the invariant and public error code remain unchanged. */
+export class StudyProposalOptionBindingError extends Error {
+  constructor(readonly arbitrationId: string, readonly optionId: string | null,
+    readonly missingAtomRef: string | null, readonly recommended: boolean) {
+    super("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+  }
+}
+
 /** Check option references before any consumer can dereference them. */
 export const assertStudyProposalOptionBindings = (proposal: ContextualStudyProposal) => {
   const atoms = new Set(proposal.atoms.map(atom => atom.ref));
   for (const arbitration of proposal.arbitrations) {
-    if (arbitration.options.some(option => option.atomRefs.some(ref => !atoms.has(ref)))
-      || arbitration.recommendedRefs.some(ref => !arbitration.options.some(option => option.ref === ref))
-      || arbitration.selection === "ONE" && arbitration.recommendedRefs.length > 1)
-      throw new Error("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    for (const option of arbitration.options) {
+      const missing = option.atomRefs.find(ref => !atoms.has(ref));
+      if (missing !== undefined) throw new StudyProposalOptionBindingError(arbitration.ref, option.ref,
+        missing, arbitration.recommendedRefs.includes(option.ref));
+    }
+    const missingOption = arbitration.recommendedRefs.find(ref => !arbitration.options.some(option => option.ref === ref));
+    if (missingOption !== undefined) throw new StudyProposalOptionBindingError(arbitration.ref, missingOption, null, true);
+    if (arbitration.selection === "ONE" && arbitration.recommendedRefs.length > 1)
+      throw new StudyProposalOptionBindingError(arbitration.ref, null, null, true);
   }
 };
 

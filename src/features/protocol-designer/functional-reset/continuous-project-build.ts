@@ -16,6 +16,8 @@ type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; pro
 
 // Consumer preparation of the existing ST composition and PRJ contribution.
 // No canonical aggregate, provider transport, adoption or documentary generation.
+// STUDY_UPDATE carries a self-contained snapshot, not an implicit atom delta.
+// Previous proposal input is context/history; acceptance never fills its gaps.
 const responseSchema = z.object({
   requestType: z.enum(["STUDY_UPDATE", "TARGETED_QUESTION", "INSUFFICIENT"]),
   proposal: contextualStudyProposalSchema.nullable(),

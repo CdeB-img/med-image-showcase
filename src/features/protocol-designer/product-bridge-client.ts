@@ -24,6 +24,28 @@ const responseObservability = (value: unknown): ProviderCallRequestObservability
   return providerCallRequestObservability(observed.providerCalls as ProviderCallRecord[]);
 };
 
+export type WorkingDraftOptionBindingDiagnostic = Readonly<{
+  arbitrationId: string | null; optionId: string | null; missingAtomRef: string | null;
+  recommended: boolean; humanSelected: boolean;
+  referenceOrigin: "CURRENT_PROPOSAL" | "PREVIOUS_PROPOSAL" | "UNKNOWN";
+}>;
+
+/** Allowlist the transport diagnostic; never retain arbitrary provider fields. */
+export const readWorkingDraftOptionBindingDiagnostic = (value: unknown): WorkingDraftOptionBindingDiagnostic | null => {
+  if (!value || typeof value !== "object") return null;
+  const item = value as Record<string, unknown>;
+  const id = (value: unknown) => value === null || typeof value === "string"
+    && /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,119}$/u.test(value)
+    && !/^(?:sk-|bearer|authorization|api[_-]?key)/iu.test(value);
+  if (item.contract !== "WORKING_DRAFT_OPTION_BINDING_DIAGNOSTIC"
+    || ![item.arbitrationId, item.optionId, item.missingAtomRef].every(id)
+    || typeof item.recommended !== "boolean" || typeof item.humanSelected !== "boolean"
+    || !["CURRENT_PROPOSAL", "PREVIOUS_PROPOSAL", "UNKNOWN"].includes(String(item.referenceOrigin))) return null;
+  return { arbitrationId: item.arbitrationId as string | null, optionId: item.optionId as string | null,
+    missingAtomRef: item.missingAtomRef as string | null, recommended: item.recommended, humanSelected: item.humanSelected,
+    referenceOrigin: item.referenceOrigin as WorkingDraftOptionBindingDiagnostic["referenceOrigin"] };
+};
+
 export class ProductBridgeClientError extends Error {
   constructor(
     readonly code: string,
@@ -32,6 +54,7 @@ export class ProductBridgeClientError extends Error {
     readonly observability: ProviderCallRequestObservability | null = null,
     readonly preparationFailureCode: string | null = null,
     readonly preparationFailureDiagnostic: Readonly<{ explicitDecisionId: string; arbitrationId: string; atomBindingStatus: "UNSELECTED_OPTION" | "HARD_DEPENDENCY_NOT_SATISFIED" }> | null = null,
+    readonly optionBindingFailureDiagnostic: WorkingDraftOptionBindingDiagnostic | null = null,
   ) { super(message); }
 }
 
@@ -157,6 +180,8 @@ export const requestProtocolDesignerBridge = async (
       ? { explicitDecisionId: value.error.workingDraftDiagnostic.explicitDecisionId,
         arbitrationId: value.error.workingDraftDiagnostic.arbitrationId,
         atomBindingStatus: value.error.workingDraftDiagnostic.atomBindingStatus } : null,
+    request.prepareWorkingDraft && value?.error?.details?.[0] === "STUDY_PROPOSAL_OPTION_BINDING_INVALID"
+      ? readWorkingDraftOptionBindingDiagnostic(value?.error?.workingDraftBindingDiagnostic) : null,
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION || typeof value?.assistantReply !== "string") {
     throw new ProductBridgeClientError("INVALID_PRODUCT_BRIDGE_RESPONSE", "Réponse conversationnelle invalide.", null, responseObservability(value));

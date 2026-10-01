@@ -24,7 +24,9 @@ import * as traceAdapter from "../end-to-end-trace-adapter";
 import { reviewDecisionRefsInDisplayOrder } from "../ContributionReview";
 import { contributionDecisionScopeGroups } from "@/features/research-project-construction/contribution-owner-boundary";
 import * as documentaryConversation from "../documentary-conversation";
-import { ProductBridgeClientError } from "../../product-bridge-client";
+import { ProductBridgeClientError, readWorkingDraftOptionBindingDiagnostic } from "../../product-bridge-client";
+import { assertStudyProposalOptionBindings, StudyProposalOptionBindingError } from "@/features/scientific-thinking/contextual-study-proposal";
+import { realStudyUpdateClosure } from "./fixtures/study-update-closure-real-run";
 import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 import { preflightWorkingDraftKnowledgeSource, prepareStandardContextualReasoningRequest } from "@/features/scientific-thinking/contextual-reasoning-input";
 import { buildStudyProposalSelectionContribution, propagateStudyProposalDecision, selectedStudyProposalAtoms } from "../study-proposal-standard";
@@ -1017,6 +1019,155 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const priorValid = acceptWorkingDraftUpdate(updateFor(request, DOMAINS[0]), request).composition!;
     expect(() => acceptWorkingDraftUpdate(stale, { ...request, studyProposalContext: priorValid }))
       .toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+  });
+  it("requires unchanged referenced atoms to be explicitly re-emitted in the full snapshot", () => {
+    const request = requestFor(sessionFor()), update = updateFor(request);
+    const previous = acceptWorkingDraftUpdate(update, request).composition!;
+    const frozen = JSON.stringify(previous);
+    const nextRequest = { ...request, studyProposalContext: previous };
+    const full = updateFor(nextRequest);
+    const accepted = acceptWorkingDraftUpdate(full, nextRequest);
+    expect(accepted.composition!.proposal.atoms).toEqual(full.proposal!.atoms);
+    expect(JSON.stringify(previous)).toBe(frozen);
+    const omitted = structuredClone(full);
+    const ref = omitted.proposal!.arbitrations[0].options[0].atomRefs[0];
+    omitted.proposal!.atoms = omitted.proposal!.atoms.filter(atom => atom.ref !== ref);
+    expect(() => acceptWorkingDraftUpdate(omitted, nextRequest)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    expect(omitted.proposal!.atoms.some(atom => atom.ref === ref)).toBe(false);
+    expect(JSON.stringify(previous)).toBe(frozen);
+  });
+  it("does not resurrect a superseded or explicitly rejected atom behind a retained arbitration", () => {
+    const request = requestFor(sessionFor()), previous = acceptWorkingDraftUpdate(updateFor(request), request).composition!;
+    const nextRequest = { ...request, studyProposalContext: previous };
+    for (const rejected of [false, true]) {
+      const update = updateFor(nextRequest), ref = update.proposal!.arbitrations[0].options[0].atomRefs[0];
+      const old = update.proposal!.atoms.find(atom => atom.ref === ref)!;
+      update.proposal!.atoms = update.proposal!.atoms.filter(atom => atom.ref !== ref);
+      update.proposal!.atoms.push({ ...old, ref: "replacement-atom", semanticKey: "replacement-atom", content: "LOCAL_SYNTHETIC replacement" });
+      update.rejectedAtomRefs = rejected ? [ref] : [];
+      expect(() => acceptWorkingDraftUpdate(update, nextRequest)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+      expect(update.proposal!.atoms.some(atom => atom.ref === ref)).toBe(false);
+    }
+  });
+  it("does not carry forward an optional arbitration absent from a full snapshot", () => {
+    const request = requestFor(sessionFor()), previous = acceptWorkingDraftUpdate(updateFor(request), request).composition!;
+    const nextRequest = { ...request, studyProposalContext: previous }, update = updateFor(nextRequest);
+    const removed = update.proposal!.arbitrations.at(-1)!.ref;
+    update.proposal!.arbitrations = update.proposal!.arbitrations.filter(arbitration => arbitration.ref !== removed);
+    expect(acceptWorkingDraftUpdate(update, nextRequest).composition!.proposal.arbitrations.some(arbitration => arbitration.ref === removed)).toBe(false);
+    expect(previous.proposal.arbitrations.some(arbitration => arbitration.ref === removed)).toBe(true);
+  });
+  it("replays every exact real-run binding as a rejected self-contained snapshot, without resurrecting atoms", () => {
+    const proposal = updateFor(requestFor(sessionFor())).proposal!;
+    const atomTemplate = proposal.atoms[0], arbitrationTemplate = proposal.arbitrations[0];
+    proposal.atoms = realStudyUpdateClosure.atomRefs.map(ref => ({ ...atomTemplate, ref }));
+    proposal.arbitrations = realStudyUpdateClosure.arbitrations.map(arbitration => ({ ...arbitrationTemplate, ...arbitration,
+      options: arbitration.options.map(option => ({ ...arbitrationTemplate.options[0], ...option })) }));
+    const frozen = JSON.stringify(proposal);
+    expect(proposal.atoms).toHaveLength(60);
+    try { assertStudyProposalOptionBindings(proposal); throw new Error("EXPECTED_BINDING_FAILURE"); }
+    catch (error) {
+      expect(error).toBeInstanceOf(StudyProposalOptionBindingError);
+      expect(error).toMatchObject({ message: "STUDY_PROPOSAL_OPTION_BINDING_INVALID",
+        arbitrationId: "arb_primary_analysis", optionId: "opt_linear", missingAtomRef: "analysis_reg", recommended: true });
+    }
+    const invalid = proposal.arbitrations.flatMap(arbitration => arbitration.options.flatMap(option => option.atomRefs
+      .filter(ref => !proposal.atoms.some(atom => atom.ref === ref)).map(ref => [arbitration.ref, option.ref, ref])));
+    expect(invalid).toEqual([
+      ["arb_primary_analysis", "opt_linear", "analysis_reg"], ["arb_primary_analysis", "opt_anova", "analysis_anova"],
+      ["arb_sampling", "opt_quota", "sample_quota"], ["arb_sampling", "opt_flexible", "sample_flexible"],
+    ]);
+    expect(JSON.stringify(proposal)).toBe(frozen);
+  });
+  it("transports the binding rejection into passive TRACE after provider success, preserving Project v1", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const first = sessionFor(), firstRequest = requestFor(first), accepted = acceptWorkingDraftUpdate(updateFor(firstRequest), firstRequest);
+    const ready = prepareContinuousWorkingDraft(first, accepted.composition!, accepted.update, prepareWorkingDraftRequest(firstRequest).inputDigest).readyReview!;
+    const project = confirmResearchProjectContribution({ contribution: ready.contribution, current: null, projectId: first.projectId,
+      authority: first.projectAuthority, confirmedAt: first.updatedAt, reviewedProjection: ready.candidate.humanReviewProjection,
+      selectedChangeRefs: ready.candidate.humanReviewProjection.coveredChangeRefs, confirmationSourceRefs: ["human-review-button:1"] });
+    const scope = recommendedWorkingScope(accepted.composition!);
+    const adopted = propagateStudyProposalDecision(accepted.composition!, project, ready.candidate, null,
+      selectedStudyProposalAtoms(accepted.composition!, scope.selectedOptionRefs, scope.selectedAtomRefs), scope.selectedOptionRefs, first.runtimeTurns[0]);
+    const initial: FunctionalResetSession = { ...first, project, studyProposal: adopted };
+    const request = requestFor(initial), update = updateFor(request);
+    const arbitration = update.proposal!.arbitrations.find(arbitration => arbitration.recommendedRefs.length)!;
+    const option = arbitration.options.find(option => arbitration.recommendedRefs.includes(option.ref))!;
+    const missing = option.atomRefs[0];
+    update.proposal!.atoms = update.proposal!.atoms.filter(atom => atom.ref !== missing);
+    const frozen = JSON.stringify(project), priorFrozen = JSON.stringify(adopted);
+    const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(update)));
+    const result = await call(request, provider);
+    const body = result.body as { error: { code: string; details: string[]; workingDraftBindingDiagnostic: unknown };
+      observability: ReturnType<typeof providerCallRequestObservability> };
+    expect(result.status).toBe(422);
+    const diagnostic = readWorkingDraftOptionBindingDiagnostic(body.error.workingDraftBindingDiagnostic)!;
+    expect(diagnostic).toEqual({ arbitrationId: arbitration.ref, optionId: option.ref, missingAtomRef: missing,
+      recommended: true, humanSelected: true, referenceOrigin: "PREVIOUS_PROPOSAL" });
+    bridge.mockRejectedValueOnce(new ProductBridgeClientError(body.error.code, "LOCAL_SYNTHETIC", null,
+      body.observability, body.error.details[0], null, diagnostic));
+    let saved = initial;
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
+    const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
+    expect(trace.firstFailure).toMatchObject({ stage: "WORKING_DRAFT_VALIDATION", internalCode: "STUDY_PROPOSAL_OPTION_BINDING_INVALID",
+      function: "assertStudyProposalOptionBindings", invariant: "EVERY_OPTION_ATOM_REF_RESOLVES", attribution: "ROOT_CAUSE_PROVEN" });
+    expect(trace.events.find(event => event.stage === "WORKING_DRAFT_VALIDATION")?.technicalMetadata).toMatchObject({
+      errorCode: "STUDY_PROPOSAL_OPTION_BINDING_INVALID", ...diagnostic });
+    expect(trace.events.findIndex(event => event.stage === "PROVIDER_RESPONSE_RECEIVED"))
+      .toBeLessThan(trace.events.findIndex(event => event.stage === "WORKING_DRAFT_VALIDATION"));
+    expect(JSON.stringify(saved.project)).toBe(frozen); expect(saved.project).toBe(project); expect(saved.project?.revision).toBe(1);
+    expect(JSON.stringify(saved.studyProposal)).toBe(priorFrozen);
+    expect(JSON.stringify(trace)).not.toContain(DOMAINS[1].text);
+    expect(provider).toHaveBeenCalledTimes(1); expect(bridge).toHaveBeenCalledTimes(1); expect(recoveryRead).not.toHaveBeenCalled();
+  });
+  it("allowlists binding diagnostics and rejects scientific text or secret-shaped identifiers", () => {
+    const diagnostic = { contract: "WORKING_DRAFT_OPTION_BINDING_DIAGNOSTIC", arbitrationId: "arb-analysis", optionId: "opt-linear",
+      missingAtomRef: "missing", recommended: true, humanSelected: false, referenceOrigin: "UNKNOWN" };
+    expect(readWorkingDraftOptionBindingDiagnostic({ ...diagnostic, prompt: "PRIVATE_SCIENTIFIC_TEXT", authorization: "PRIVATE_SECRET" }))
+      .toEqual({ arbitrationId: "arb-analysis", optionId: "opt-linear", missingAtomRef: "missing", recommended: true,
+        humanSelected: false, referenceOrigin: "UNKNOWN" });
+    for (const missingAtomRef of ["scientific text\nwith content", "sk-PRIVATE_SECRET", "Bearer:PRIVATE_SECRET", "x".repeat(121)])
+      expect(readWorkingDraftOptionBindingDiagnostic({ ...diagnostic, missingAtomRef })).toBeNull();
+    expect(readWorkingDraftOptionBindingDiagnostic({ ...diagnostic, referenceOrigin: "PRIVATE_SCIENTIFIC_TEXT" })).toBeNull();
+  });
+  it("keeps invalid recommendation and exclusive-choice validation fail closed", () => {
+    const proposal = updateFor(requestFor(sessionFor())).proposal!;
+    proposal.arbitrations[0].recommendedRefs = ["missing-option"];
+    expect(() => assertStudyProposalOptionBindings(proposal)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    proposal.arbitrations[0].recommendedRefs = proposal.arbitrations[0].options.slice(0, 2).map(option => option.ref);
+    expect(() => assertStudyProposalOptionBindings(proposal)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+  });
+  it("redacts unsafe binding identifiers at the server boundary without changing the rejection", async () => {
+    const request = requestFor(sessionFor()), update = updateFor(request);
+    update.proposal!.arbitrations[0].ref = "PRIVATE_SCIENTIFIC_TEXT\nNOT_AN_IDENTIFIER";
+    update.proposal!.arbitrations[0].options[0].atomRefs = ["sk-PRIVATE_SECRET"];
+    const provider = vi.fn<typeof fetch>().mockResolvedValue(response(JSON.stringify(update)));
+    const result = await call(request, provider);
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: { details: ["STUDY_PROPOSAL_OPTION_BINDING_INVALID"],
+      workingDraftBindingDiagnostic: { arbitrationId: null, missingAtomRef: null, referenceOrigin: "UNKNOWN" } } });
+    const publicError = JSON.stringify((result.body as { error: unknown }).error);
+    expect(publicError).not.toContain("PRIVATE_SCIENTIFIC_TEXT"); expect(publicError).not.toContain("sk-PRIVATE_SECRET");
+    expect(publicError).not.toContain(DOMAINS[1].text);
+  });
+  it("reads the bounded server binding diagnostic through the actual bridge client", async () => {
+    const actualClient = await vi.importActual<typeof import("../../product-bridge-client")>("../../product-bridge-client");
+    const diagnostic = { contract: "WORKING_DRAFT_OPTION_BINDING_DIAGNOSTIC", arbitrationId: "arb-analysis", optionId: "opt-linear",
+      missingAtomRef: "analysis-reg", recommended: true, humanSelected: true, referenceOrigin: "PREVIOUS_PROPOSAL" };
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({
+      error: { code: "WORKING_DRAFT_PREPARATION_FAILED", details: ["STUDY_PROPOSAL_OPTION_BINDING_INVALID"],
+        workingDraftBindingDiagnostic: { ...diagnostic, rawCompletion: "PRIVATE_SCIENTIFIC_TEXT" } },
+    }), { status: 422 }));
+    const error = await actualClient.requestProtocolDesignerBridge(requestFor(sessionFor())).catch(error => error);
+    expect(error).toBeInstanceOf(ProductBridgeClientError);
+    expect(error.preparationFailureCode).toBe("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    expect(error.optionBindingFailureDiagnostic).toEqual({ arbitrationId: "arb-analysis", optionId: "opt-linear",
+      missingAtomRef: "analysis-reg", recommended: true, humanSelected: true, referenceOrigin: "PREVIOUS_PROPOSAL" });
+    expect(JSON.stringify(error.optionBindingFailureDiagnostic)).not.toContain("PRIVATE_SCIENTIFIC_TEXT");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
   it("supersedes only changed atoms, preserves branches and prevents open dependencies from entering review", () => {
     const s = sessionFor(), r = requestFor(s), first = updateFor(r), composition = acceptWorkingDraftUpdate(first, r).composition!;
