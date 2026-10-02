@@ -4,6 +4,7 @@ import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { buildProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone.js";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
+import { canonicalizeDrciCrfTechnicalIdentifiers, DRCI_CRF_VARIABLE_ID_PATTERN } from "./technical-identifiers.js";
 
 export const DRCI_DOCUMENT_KINDS = ["PROTOCOL_SYNOPSIS", "PROTOCOL_FULL", "CRF", "RECRUITMENT"] as const;
 export const drciProseWordCount = (paragraphs: readonly string[]) => paragraphs.join(" ")
@@ -53,7 +54,7 @@ const originAliases = { SITE_CLINIQUE: "SITE_RECORDED", LABORATOIRE: "LAB_RESULT
 const crfRowSchema = z.object({ variableRef: text, domain: text, definition: text, entryType: text,
   // Optional only for reading historical V1 packs. New operational DOC scopes
   // must supply these collection specifications without writing to Project.
-  variableId: z.string().regex(/^[A-Z][A-Z0-9_]{1,63}$/u).optional(), label: text.optional(), visit: text.optional(),
+  variableId: z.string().regex(DRCI_CRF_VARIABLE_ID_PATTERN).optional(), label: text.optional(), visit: text.optional(),
   condition: text.nullable().optional(), derivedFrom: z.array(text).max(25).optional(), analysisImpact: text.nullable().optional(),
   unit: text.nullable(), categories: z.union([text, z.array(text).min(1).max(50).transform(values => values.join(" ; "))]).nullable(),
   dataOrigin: z.preprocess(value => typeof value === "string" && value in originAliases
@@ -209,7 +210,7 @@ export const prepareDrciGenerationBatches = (packet: { context: string; instruct
     instruction: `${packet.instruction}\nFORMAT / SCOPE DE CETTE SORTIE : retourne uniquement les documents de DOCUMENT_SCOPE, tous complets. Le JSON contient uniquement documents et crfRows. Le runtime attribue binding, identités et provenance ; ne les reproduis pas. Les notes n du plan sont les textes exacts de DOCUMENT_PLAN_NOTES ; ne les utilise pas comme sourceRefs. Les références f sont des alias exacts : utilise-les uniquement dans sourceRefs et variableRef, jamais dans la prose. Les citations bibliographiques sont exclusivement [[CITE:sN]], après le claim soutenu par AVAILABLE_EVIDENCE.claims ; aucun auteur ni résultat inventé. Les refs s sont distinctes des refs f. Ne rédige pas de bibliographie : le runtime construit uniquement celle des sources citées. crfRows est vide pour PROTOCOL_FULL; il contient tous les champs natifs pour le scope CRF. Aucun résultat partiel n'est publié. Les négations scientifiques restent formulées normalement. Préserve la rédaction complète ; les spécifications de saisie restent courtes et les inconnus explicites.`,
     expand(value: unknown) {
       // Legacy model binding is inert metadata; runtime authority stays local.
-      const batch = z.object({ binding: z.unknown().optional(), documents: z.array(documentSchema).length(kinds.length), crfRows: z.array(crfRowSchema).max(100) }).strict().parse(normalizeEmptySectionMissingElements(value));
+      const batch = z.object({ binding: z.unknown().optional(), documents: z.array(documentSchema).length(kinds.length), crfRows: z.array(crfRowSchema).max(100) }).strict().parse(canonicalizeDrciCrfTechnicalIdentifiers(normalizeEmptySectionMissingElements(value)));
       if (new Set(batch.documents.map(d => d.kind)).size !== kinds.length || batch.documents.some(d => !(kinds as readonly string[]).includes(d.kind))
         || index === 0 && batch.crfRows.length) throw new Error("DRCI_BATCH_SCOPE_MISMATCH");
       if (index === 1 && context.DOCUMENT_SPECIFICATION === "DRCI_OPERATIONAL_V2") validateOperationalRows(batch.crfRows);
@@ -401,7 +402,7 @@ export const materializeDrciDraftPack = (value: unknown, input: {
     || logicalDigest(input.packet.sourceFacts) !== logicalDigest(nativeFacts)
     || logicalDigest(context.CURRENT_PROJECT.sourceFacts) !== logicalDigest(nativeFacts)) throw new Error("DRCI_RUNTIME_PROJECT_BINDING_MISMATCH");
   const evidenceContent = validateDrciEvidenceBinding(context.AVAILABLE_EVIDENCE, input.project);
-  const decoded = generatedSchema.parse(value);
+  const decoded = generatedSchema.parse(canonicalizeDrciCrfTechnicalIdentifiers(value));
   // A length repair preserves already-qualified document bytes. Presentation
   // normalization is not an admission gate and must not re-edit frozen scopes.
   const generated = !input.synopsisRevision && !input.humanRevision && context.DOCUMENT_SPECIFICATION === "DRCI_OPERATIONAL_V2"

@@ -13,6 +13,7 @@ import { renderProjection } from "./renderer";
 import { buildStandardProtocolPresentation } from "./standard-protocol-presentation";
 import { projectDocumentSourceFromFunctionalProject } from "./functional-reset-boundary";
 import type { DocumentProjection } from "./types";
+import { asciiIdentifierStem as slug } from "./technical-identifiers";
 
 export const STUDY_DELIVERABLE_PORTFOLIO_VERSION = "1.0.0" as const;
 
@@ -152,9 +153,6 @@ const listHtml = (values: readonly string[], empty = "À préciser.") => values.
 const documentHtml = (title: string, project: Readonly<ResearchProjectOwnerProjection>, body: string) => `<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escapeHtml(title)}</title></head>
 <body><main><header><h1>${escapeHtml(title)}</h1><p>Research Project ${escapeHtml(project.projectId)} · version ${escapeHtml(project.versionId)}</p><p>Projection en lecture seule ; toute information manquante reste explicitement ouverte.</p></header>${body}</main></body></html>`;
-
-const slug = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "")
-  .toLocaleLowerCase("fr-FR").replace(/[^a-z0-9]+/gu, "_").replace(/^_+|_+$/gu, "");
 
 const redcapFieldName = (label: string, variableId: string) => {
   // Keep the adapter on the conservative 26-character REDCap field-name
