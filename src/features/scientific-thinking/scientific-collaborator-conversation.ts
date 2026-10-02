@@ -1,4 +1,5 @@
 import { compactWorkingDraftAdvice } from "../protocol-designer/functional-reset/continuous-project-build.js";
+import type { ConversationContextPacketPreflight } from "../protocol-designer/provider-call-observability.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { executeKnowledgeEngine } from "../knowledge-engine/engine.js";
 import { extractScientificObjectTerms } from "../knowledge-engine/concept-resolver.js";
@@ -251,7 +252,8 @@ export const buildScientificCollaboratorPayload = (request: ScientificCollaborat
 });
 
 /** Read-only conversational view. It is never a Project candidate or a write. */
-export const prepareTerraConversation = (request: ProductBridgeRequest, autonomousProjectBuild = false) => {
+export const prepareTerraConversation = (request: ProductBridgeRequest, autonomousProjectBuild = false,
+  observeContextPacketPreflight?: (measurement: ConversationContextPacketPreflight) => void) => {
   const snapshot = request.currentProject ? buildProjectContextSnapshot({ project: request.currentProject }) : null;
   const turns = request.conversation.turns;
   const discussion = request.scientificDiscussionContext;
@@ -289,9 +291,62 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
     coverage: { transcript: "COMPLETE", project: "CURRENT_ONLY", history: "ON_REFERENCE_ONLY" },
   };
   const context = JSON.stringify(packet);
+  const packetTotalBytes = new TextEncoder().encode(context).length;
+  try {
+    if (observeContextPacketPreflight) {
+      const bytes = (value: unknown) => new TextEncoder().encode(JSON.stringify(value)).length;
+      const fieldBytes = (key: string, value: unknown) => bytes(key) + 1 + bytes(value);
+      const turnBytes = packet.RECENT_CONVERSATION.map(turn => bytes(turn));
+      const currentUserIndex = turns.reduce((last, turn, index) => turn.role === "USER" ? index : last, -1);
+      const currentUserMessageBytes = turnBytes[currentUserIndex] ?? 0;
+      const userHistoryBytes = turnBytes.reduce((total, size, index) => total
+        + (turns[index].role === "USER" && index !== currentUserIndex ? size : 0), 0);
+      const assistantHistoryBytes = turnBytes.reduce((total, size, index) => total
+        + (turns[index].role === "NOXIA" ? size : 0), 0);
+      const conversationHistoryBytes = userHistoryBytes + assistantHistoryBytes;
+      const largestTurnIndex = turnBytes.reduce((largest, size, index) => largest < 0 || size > turnBytes[largest] ? index : largest, -1);
+      // Static policy/coverage INSIDE the packet. Provider instructions are not
+      // part of this 80 kB gate and must not be added to its measured total.
+      const systemContextBytes = fieldBytes("HISTORY_POLICY", packet.HISTORY_POLICY) + fieldBytes("coverage", packet.coverage);
+      const project = packet.CURRENT_PROJECT;
+      const projectContextBytes = project ? fieldBytes("CURRENT_PROJECT", project) : 0;
+      const projectObjectsBytes = project ? fieldBytes("decisions", project.decisions) : 0;
+      const projectRelationsBytes = project ? fieldBytes("relations", project.relations) : 0;
+      const projectTemporalQualificationsBytes = project ? fieldBytes("temporalQualifications", project.temporalQualifications) : 0;
+      const projectOpenPointsBytes = project ? fieldBytes("openIssues", project.openIssues) : 0;
+      const qryContextBytes = compactQry ? fieldBytes("QRY", compactQry) : 0;
+      const workingStudyProposalBytes = packet.WORKING_STUDY_PROPOSAL ? fieldBytes("WORKING_STUDY_PROPOSAL", packet.WORKING_STUDY_PROPOSAL) : 0;
+      const workingNextActionBytes = packet.WORKING_NEXT_ACTION ? fieldBytes("WORKING_NEXT_ACTION", packet.WORKING_NEXT_ACTION) : 0;
+      const discussionContextBytes = fieldBytes("CURRENT_DISCUSSION", packet.CURRENT_DISCUSSION);
+      const openDecisionsBytes = fieldBytes("OPEN_DECISIONS", packet.OPEN_DECISIONS);
+      const specializedOwnerContextBytes = workingStudyProposalBytes + workingNextActionBytes + discussionContextBytes + openDecisionsBytes;
+      // Exact additive partition: current USER is excluded from history. JSON
+      // braces, commas, history key/array framing and remaining fields are OTHER.
+      // Nested detail counters are subsets, not extra bytes to add to the total.
+      const otherContextBytes = packetTotalBytes - systemContextBytes - currentUserMessageBytes
+        - conversationHistoryBytes - projectContextBytes - qryContextBytes - specializedOwnerContextBytes;
+      observeContextPacketPreflight(Object.freeze({
+        status: packetTotalBytes > 80_000 ? "FAILED" : "SUCCEEDED", limitBytes: 80_000, packetTotalBytes,
+        systemContextBytes, currentUserMessageBytes, conversationHistoryBytes, projectContextBytes, qryContextBytes,
+        specializedOwnerContextBytes, otherContextBytes,
+        conversationTurnCount: turns.length, userTurnCount: turns.filter(turn => turn.role === "USER").length,
+        assistantTurnCount: turns.filter(turn => turn.role === "NOXIA").length,
+        projectObjectCount: project?.decisions.length ?? 0, projectRelationCount: project?.relations.length ?? 0,
+        projectOpenPointCount: project?.openIssues.length ?? 0, qryNeedCount: new Set(selected?.navigationNeedRefs ?? []).size,
+        oldestIncludedTurnIndex: turns.length ? 0 : -1, newestIncludedTurnIndex: turns.length - 1, includedTurnCount: turns.length,
+        userHistoryBytes, assistantHistoryBytes, largestSingleTurnBytes: turnBytes[largestTurnIndex] ?? 0,
+        largestSingleTurnRole: turns[largestTurnIndex]?.role ?? null,
+        projectObjectsBytes, projectRelationsBytes, projectTemporalQualificationsBytes, projectOpenPointsBytes,
+        projectOtherBytes: projectContextBytes - projectObjectsBytes - projectRelationsBytes - projectTemporalQualificationsBytes - projectOpenPointsBytes,
+        workingStudyProposalBytes, workingNextActionBytes, discussionContextBytes, openDecisionsBytes,
+      }));
+    }
+  } catch {
+    // Passive observation: neither admission nor the original failure changes.
+  }
   // Preflight packet ceiling; exact provider counting owns the 24k total input cap.
   // Do not drop active decisions or silently turn missing memory into empty memory.
-  if (new TextEncoder().encode(context).length > 80_000) throw new Error("CONVERSATION_MEMORY_LIMIT");
+  if (packetTotalBytes > 80_000) throw new Error("CONVERSATION_MEMORY_LIMIT");
   const instruction = `Tu es NOXIA, le collaborateur scientifique du chercheur. Comprends son langage naturel, les références, les corrections, les refus et les questions directes. Réponds à son message avant de chercher la prochaine étape. Ne transforme pas le dialogue en checklist et ne répète pas le projet entier à chaque tour.
 Adapte ton initiative au type de demande et à la matière scientifique déjà disponible dans le dialogue. Évalue sémantiquement INTENT_INFORMATION_DENSITY, SCIENTIFIC_STRUCTURE_ALREADY_INFERABLE, NUMBER_OF_EXPLICIT_DECISIONS, NUMBER_OF_OPEN_HIGH_VALUE_ARBITRATIONS et USER_REQUEST_TYPE ; aucun mot-clé de domaine ni longueur du message ne détermine ce comportement.
 Si une intention d'étude contient suffisamment de matière, synthétise et propose immédiatement une première architecture substantielle : design raisonnablement inférable, objectif, organisation des observations et de leur temporalité, familles de critères et logique d'analyse adaptées. Relie ces éléments plutôt que de paraphraser le message. Priorise les choix déjà exprimés ; distingue les inférences réversibles et tes recommandations des décisions utilisateur. Identifie ensuite deux ou trois arbitrages à forte valeur, leurs conséquences et un ordre raisonnable pour les résoudre. Une inconnue n'annule pas les éléments déjà inférables : ne renvoie pas au chercheur la conception que tu peux proposer, et ne réduis pas la réponse à un problème suivi d'une question.

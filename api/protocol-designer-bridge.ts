@@ -42,6 +42,7 @@ import {
   providerCallRequestObservability,
   type ProviderCallObservationContext,
   type ProviderCallRecord,
+  type ConversationContextPacketPreflight,
 } from "../src/features/protocol-designer/provider-call-observability.js";
 import {
   protocolDesignerStandardConversationCallsAllowed,
@@ -367,10 +368,12 @@ export const executeProtocolDesignerBridge = async (input: {
   let terraConversation: Awaited<ReturnType<typeof executeOpenAITerraConversation>> | null = null;
   let terraPacket: ReturnType<typeof prepareTerraConversation> | null = null;
   let terraFailure: ProductBridgeResponse["conversationFailure"] = null;
+  let conversationContextPacketPreflight: ConversationContextPacketPreflight | null = null;
   if (input.chatRuntime === "TERRA") {
     try {
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
-      terraPacket = prepareTerraConversation(request, input.autonomousProjectBuild);
+      terraPacket = prepareTerraConversation(request, input.autonomousProjectBuild,
+        measurement => { conversationContextPacketPreflight = measurement; });
       terraConversation = await executeOpenAITerraConversation(terraPacket, input.openAiApiKey,
         input.fetchImpl, { context: observationContext, purpose: "CONVERSATION_REALIZATION",
           reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
@@ -578,7 +581,7 @@ export const executeProtocolDesignerBridge = async (input: {
         extractionModelReturned, extractionUsage, extractionAttempts,
         calls: providerCalls.length as 0 | 1 | 2 | 3, conversationCalls: providerCalls.some(call => call.purpose === "CONVERSATION_REALIZATION") ? 1 : 0,
         conversationResponseReceived: Boolean(terraConversation), projectWrites: 0,
-        ...providerCallRequestObservability(providerCalls) },
+        ...providerCallRequestObservability(providerCalls, conversationContextPacketPreflight) },
     } };
   }
 

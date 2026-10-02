@@ -9,6 +9,7 @@ import type {
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { PersistentExtractionProviderArtifact, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import type { DurableProviderFailureDiagnostic } from "@/features/protocol-designer/provider-call-observability";
+import { readConversationContextPacketPreflight } from "@/features/protocol-designer/provider-call-observability";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
 import type { resolveGovernedPostAdoptionReceipt } from "./session";
 import type { StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
@@ -1286,6 +1287,56 @@ export const recordArtifactGeneratedTrace = (input: {
       artifactId,
     },
   }).ledger;
+};
+
+/** Passive projection of server byte attribution, including pre-dispatch exits.
+ * The existing durable bridge response and TRACE ledger are the only stores. */
+export const recordConversationContextPacketPreflight = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string;
+  turnId: string;
+  conversationId: string;
+  observedAt: string;
+  sourceDigest: string;
+  measurement: unknown;
+  project?: Readonly<ResearchProjectOwnerProjection> | null;
+  captureConfiguration?: ScientificTraceCaptureConfiguration;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  try {
+    const measurement = readConversationContextPacketPreflight(input.measurement);
+    if (!measurement) return input.ledger;
+    let ledger = input.ledger;
+    const digest = logicalDigest(measurement);
+    if (ledger.events.some(event => event.runId === input.traceRunId
+      && event.common?.stage === "CONTEXT_PACKET_PREFLIGHT" && event.common.input.some(ref => ref.digest === digest))) return ledger;
+    if (!hasRun(ledger, input.traceRunId)) ledger = startProductTraceRun({
+      ledger, traceRunId: input.traceRunId, turnId: input.turnId, conversationId: input.conversationId,
+      startedAt: input.observedAt, sourceDigest: input.sourceDigest, captureConfiguration: input.captureConfiguration,
+    }).ledger;
+    const { status, ...metadata } = measurement;
+    return appendProductTraceStage({
+      ledger, traceRunId: input.traceRunId, timestamp: input.observedAt, status,
+      owner: "SCIENTIFIC_THINKING", durationMs: null,
+      ...(status === "FAILED" ? { error: { category: "OWNER_RUNTIME", code: "CONVERSATION_MEMORY_LIMIT" } } : {}),
+      technicalMetadata: { ...metadata, boundedStatus: status,
+        ...(status === "FAILED" ? { internalErrorCode: "CONVERSATION_MEMORY_LIMIT",
+          publicErrorCode: "CONVERSATION_MEMORY_LIMIT", failureFunction: "prepareTerraConversation",
+          failureInvariant: "UTF8_SERIALIZED_CONTEXT_PACKET_LE_80000_BYTES", attributionConfidence: "ROOT_CAUSE_PROVEN" } : {}),
+      },
+      envelope: {
+        stage: "CONTEXT_PACKET_PREFLIGHT", turnId: input.turnId, conversationId: input.conversationId,
+        responsibilityOwner: "SCIENTIFIC_THINKING", decisionOwner: "NOT_APPLICABLE",
+        executor: "PREPARE_TERRA_CONVERSATION", provider: "NONE", componentId: "CONVERSATION_CONTEXT_PACKET",
+        componentVersion: "1.0.0",
+        // Digest identifies ONLY the numeric measurement, not the hidden packet.
+        input: [{ ref: `context-packet:${input.turnId}`, version: "BYTE_ATTRIBUTION_V1", digest }],
+        reasonCode: status === "FAILED" ? "CONVERSATION_MEMORY_LIMIT" : "CONTEXT_PACKET_ADMITTED",
+        ...(input.project ? { project: projectBinding(input.project) } : {}),
+      },
+    }).ledger;
+  } catch {
+    return input.ledger;
+  }
 };
 
 export const recordProductErrorBoundary = (input: {

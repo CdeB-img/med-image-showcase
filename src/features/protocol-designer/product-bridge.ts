@@ -1071,6 +1071,7 @@ export type ProductBridgeResponse = {
       totalTokenCount?: number;
     } | null;
     providerCalls?: readonly ProviderCallRecord[];
+    conversationContextPacketPreflight?: import("./provider-call-observability.js").ConversationContextPacketPreflight;
     requestEstimatedCostUsd?: number;
     requestCostIncomplete?: boolean;
     unpricedCallCount?: number;

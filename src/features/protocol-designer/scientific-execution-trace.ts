@@ -1,4 +1,5 @@
 import { logicalDigest } from "@/features/knowledge-engine";
+import { CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS } from "./provider-call-observability";
 import type {
   ProjectContextSnapshot,
   SpecializedOwnerResult,
@@ -209,6 +210,7 @@ export type ScientificProductTraceStage =
   | "DURABLE_RECOVERY_STARTED"
   | "DURABLE_RECOVERY_COMPLETED"
   | "ADMISSION_REJECTED"
+  | "CONTEXT_PACKET_PREFLIGHT"
   | "PROVIDER_RESPONSE_RECEIVED"
   | "PROVIDER_RESULT_VALIDATION"
   | "WORKING_DRAFT_VALIDATION"
@@ -826,6 +828,8 @@ const ALLOWED_NON_SECRET_TOKEN_COUNT_FIELDS = new Set([
 const FORBIDDEN_VALUE = /(-----BEGIN [A-Z ]*PRIVATE KEY-----|\bBearer\s+[A-Za-z0-9._~+/=-]+|\bsk-[A-Za-z0-9_-]{8,}|\bAIza[A-Za-z0-9_-]{12,}|\b(?:authorization|proxy-authorization|cookie|set-cookie)\s*:)/i;
 const DIAGNOSTIC_CODE = /^[A-Z0-9][A-Z0-9_.:@/-]{1,255}$/;
 const TECHNICAL_METADATA_KEYS = new Set([
+  ...CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS,
+  "largestSingleTurnRole",
   "boundedStatus",
   "decisionReasonDigest",
   "decisionReasonLength",
@@ -1108,6 +1112,7 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "DURABLE_RECOVERY_STARTED",
   "DURABLE_RECOVERY_COMPLETED",
   "ADMISSION_REJECTED",
+  "CONTEXT_PACKET_PREFLIGHT",
   "PROVIDER_RESPONSE_RECEIVED",
   "PROVIDER_RESULT_VALIDATION",
   "WORKING_DRAFT_VALIDATION",

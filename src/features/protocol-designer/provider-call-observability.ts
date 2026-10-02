@@ -338,22 +338,69 @@ export const providerSessionCostSummary = (
   };
 };
 
+/** Numeric-only packet attribution, carried by the existing bridge observability.
+ * Sizes are UTF-8 JSON bytes, never provider tokens or scientific content. */
+export const CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS = Object.freeze([
+  "limitBytes", "packetTotalBytes", "systemContextBytes", "currentUserMessageBytes",
+  "conversationHistoryBytes", "projectContextBytes", "qryContextBytes", "specializedOwnerContextBytes",
+  "otherContextBytes", "conversationTurnCount", "userTurnCount", "assistantTurnCount",
+  "projectObjectCount", "projectRelationCount", "projectOpenPointCount", "qryNeedCount",
+  "oldestIncludedTurnIndex", "newestIncludedTurnIndex", "includedTurnCount",
+  "userHistoryBytes", "assistantHistoryBytes", "largestSingleTurnBytes",
+  "projectObjectsBytes", "projectRelationsBytes", "projectTemporalQualificationsBytes",
+  "projectOpenPointsBytes", "projectOtherBytes", "workingStudyProposalBytes",
+  "workingNextActionBytes", "discussionContextBytes", "openDecisionsBytes",
+] as const);
+export type ConversationContextPacketPreflight = Readonly<
+  Record<typeof CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS[number], number> & {
+    status: "SUCCEEDED" | "FAILED";
+    largestSingleTurnRole: "USER" | "NOXIA" | null;
+  }
+>;
+
+/** Allowlisted read boundary: arbitrary response fields cannot enter TRACE. */
+export const readConversationContextPacketPreflight = (value: unknown): ConversationContextPacketPreflight | null => {
+  try {
+    if (!value || typeof value !== "object") return null;
+    const item = value as Record<string, unknown>;
+    if (item.status !== "SUCCEEDED" && item.status !== "FAILED") return null;
+    if (item.largestSingleTurnRole !== null && item.largestSingleTurnRole !== "USER" && item.largestSingleTurnRole !== "NOXIA") return null;
+    const numbers = {} as Record<typeof CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS[number], number>;
+    for (const key of CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS) {
+      const number = item[key];
+      const minimum = key === "oldestIncludedTurnIndex" || key === "newestIncludedTurnIndex" ? -1 : 0;
+      if (typeof number !== "number" || !Number.isSafeInteger(number) || number < minimum) return null;
+      numbers[key] = number;
+    }
+    if (numbers.limitBytes !== 80_000 || (numbers.packetTotalBytes > numbers.limitBytes) !== (item.status === "FAILED")) return null;
+    return Object.freeze({ ...numbers, status: item.status,
+      largestSingleTurnRole: item.largestSingleTurnRole === "USER" ? "USER" : item.largestSingleTurnRole === "NOXIA" ? "NOXIA" : null });
+  } catch {
+    // Diagnostic failure cannot become an admission or product failure.
+    return null;
+  }
+};
+
 export type ProviderCallRequestObservability = Readonly<{
   providerCalls: readonly ProviderCallRecord[];
   requestEstimatedCostUsd: number;
   requestCostIncomplete: boolean;
   unpricedCallCount: number;
+  conversationContextPacketPreflight?: ConversationContextPacketPreflight;
 }>;
 
 export const providerCallRequestObservability = (
   records: readonly ProviderCallRecord[],
+  contextPacketPreflight?: ConversationContextPacketPreflight | null,
 ): ProviderCallRequestObservability => {
   const summary = providerSessionCostSummary(records);
+  const preflight = readConversationContextPacketPreflight(contextPacketPreflight);
   return {
     providerCalls: records,
     requestEstimatedCostUsd: summary.estimatedCostUsd,
     requestCostIncomplete: summary.costIncomplete,
     unpricedCallCount: summary.unpricedCallCount,
+    ...(preflight ? { conversationContextPacketPreflight: preflight } : {}),
   };
 };
 

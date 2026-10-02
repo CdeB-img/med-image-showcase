@@ -120,6 +120,7 @@ import {
   recordGovernedConversationTrace,
   recordPostAdoptionGovernedLocalRealization,
   recordProductErrorBoundary,
+  recordConversationContextPacketPreflight,
   recordContributionReviewPresentedTrace,
   recordCurrentProjectImpactNavigationTrace,
   recordRetainedContributionValidation,
@@ -2031,9 +2032,19 @@ export default function ProtocolDesignerWorkspace({
         throw new Error("Le projet a changé pendant cette réponse. Rouvrez son état courant ; aucune décision n'a été appliquée.");
       }
       const receivedAt = new Date().toISOString();
+      let contextTraceLedger = latest.scientificExecutionTraceLedger;
+      try {
+        contextTraceLedger = recordConversationContextPacketPreflight({
+          ledger: contextTraceLedger, traceRunId, turnId: userTurn.turnId, conversationId: session.conversationId,
+          observedAt: receivedAt, sourceDigest: logicalDigest(userTurn.content), project: session.project,
+          measurement: response.observability.conversationContextPacketPreflight,
+          captureConfiguration: traceCaptureConfiguration,
+        });
+      } catch { /* TRACE must never veto a received conversation result. */ }
       // Deliver native Chat text before any local transaction preparation. A
       // rejected candidate must never erase or replace this conversational turn.
       const delivered: FunctionalResetSession = { ...latest, pendingMixedUserTurnRef: null,
+        scientificExecutionTraceLedger: contextTraceLedger,
         runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
         entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
           role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,
