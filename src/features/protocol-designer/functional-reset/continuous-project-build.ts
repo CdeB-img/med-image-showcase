@@ -75,29 +75,61 @@ export const normalizeUnresolvedOutcomeInputDependencies = (proposal: z.infer<ty
   }
   return normalized;
 };
-/** An entirely unbound, unselected alternative has no scientific decision to
- * project. Quarantine only that branch; mixed or recommended bindings still
- * fail closed in the Scientific Thinking validator. */
-export const quarantineUnboundOptionalArbitrations = (
+/** Quarantine a whole invalid optional choice, never a reduced choice set.
+ * Retained/selected decisions and ambiguous branch promotion fail closed. */
+export const quarantineStructurallyInvalidOptionalArbitrations = (
   proposal: z.infer<typeof contextualStudyProposalSchema>,
   previous: StudyProposalComposition | null | undefined,
+  explicitAtomRefs: readonly string[],
+  hasPreviousProject = false,
 ) => {
-  const atomRefs = new Set(proposal.atoms.map(atom => atom.ref));
+  const atoms = new Map(proposal.atoms.map(atom => [atom.ref, atom]));
   const previousAtomRefs = new Set(previous?.proposal.atoms.map(atom => atom.ref) ?? []);
-  const referencedElsewhere = new Set([
-    ...proposal.atoms.flatMap(atom => atom.dependsOn),
-    ...proposal.dimensioningScenarios.flatMap(scenario => [scenario.analysisAtomRef, ...scenario.branchAtomRefs]),
-  ]);
-  const quarantined: string[] = [];
-  proposal.arbitrations = proposal.arbitrations.filter(arbitration => {
-    const bindings = arbitration.options.flatMap(option => option.atomRefs);
-    const entirelyUnbound = bindings.every(ref => !atomRefs.has(ref)
-      && !previousAtomRefs.has(ref) && !referencedElsewhere.has(ref));
-    if (!entirelyUnbound || proposal.arbitrations.length - quarantined.length <= 1 || arbitration.recommendedRefs.length
-      || previous?.proposal.arbitrations.some(prior => prior.ref === arbitration.ref)) return true;
-    quarantined.push(arbitration.ref);
-    return false;
-  });
+  const protectedRefs = new Set([...explicitAtomRefs, ...previous?.adoptedAtomRefs ?? []]);
+  const protectDependencies = (ref: string) => {
+    for (const dependency of atoms.get(ref)?.dependsOn ?? []) if (!protectedRefs.has(dependency)) {
+      protectedRefs.add(dependency); protectDependencies(dependency);
+    }
+  };
+  [...protectedRefs].forEach(protectDependencies);
+  const quarantined: NonNullable<StudyProposalComposition["quarantinedArbitrations"]>[number][] = [];
+  if (hasPreviousProject && !previous) return quarantined;
+  for (const arbitration of proposal.arbitrations) {
+    const invalidOptions = arbitration.options.filter(option => option.atomRefs.some(ref => !atoms.has(ref)));
+    if (!invalidOptions.length || invalidOptions.some(option => arbitration.recommendedRefs.includes(option.ref))
+      || arbitration.recommendedRefs.some(ref => !arbitration.options.some(option => option.ref === ref))
+      || arbitration.selection === "ONE" && arbitration.recommendedRefs.length > 1) continue;
+    const bindings = new Set(arbitration.options.flatMap(option => option.atomRefs));
+    const identityRefs = new Set([arbitration.ref, ...arbitration.options.map(option => option.ref)]);
+    const recommendedBindings = new Set(arbitration.options.filter(option => arbitration.recommendedRefs.includes(option.ref))
+      .flatMap(option => option.atomRefs));
+    // No inherited/human-bound alternative, explicit decision or dependent
+    // Project change may disappear through normalization. Unknowns stay open;
+    // removing an unselected non-open branch must not promote it into review.
+    if ([...bindings].some(ref => protectedRefs.has(ref) || previousAtomRefs.has(ref)
+      || atoms.get(ref)?.userChangeRefs?.length
+      || atoms.has(ref) && atoms.get(ref)!.status !== "OPEN_DECISION" && !recommendedBindings.has(ref))
+      || previous?.proposal.arbitrations.some(prior => prior.ref === arbitration.ref
+        || prior.options.some(option => identityRefs.has(option.ref)))
+      || proposal.arbitrations.some(other => other !== arbitration && other.options.some(option =>
+        option.atomRefs.some(ref => bindings.has(ref) || identityRefs.has(ref))))
+      || proposal.atoms.some(atom => atom.dependsOn.some(ref => identityRefs.has(ref)
+        || !atoms.has(ref) && bindings.has(ref)))
+      || proposal.dimensioningScenarios.some(scenario => [scenario.analysisAtomRef, ...scenario.branchAtomRefs]
+        .some(ref => ref !== undefined && (bindings.has(ref) || identityRefs.has(ref))))) continue;
+    // Preserve the existing identity/collection contracts, including bounded
+    // identifier-only provenance. A malformed identity is not a repair target.
+    const refs = [...proposal.atoms.map(atom => atom.ref), ...proposal.arbitrations.flatMap(a => [a.ref, ...a.options.map(o => o.ref)])];
+    if (new Set(refs).size !== refs.length || !/^[A-Za-z0-9][A-Za-z0-9:._/-]{0,249}$/u.test(arbitration.ref)) continue;
+    quarantined.push({ arbitrationId: arbitration.ref, invalidOptionCount: invalidOptions.length,
+      missingRefCount: new Set(invalidOptions.flatMap(option => option.atomRefs.filter(ref => !atoms.has(ref)))).size,
+      reason: "STRUCTURALLY_INVALID_OPTION_BINDING" });
+  }
+  // The native proposal still requires an arbitration. Do not choose which
+  // broken branch to retain, or weaken that existing collection contract.
+  if (quarantined.length === proposal.arbitrations.length) return [];
+  const removed = new Set(quarantined.map(item => item.arbitrationId));
+  proposal.arbitrations = proposal.arbitrations.filter(arbitration => !removed.has(arbitration.ref));
   return quarantined;
 };
 export type WorkingDraftUpdate = z.infer<typeof responseSchema>;
@@ -393,7 +425,8 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
   const ownerAreaNormalizations = normalizeUnambiguousOwnerAreas(update.proposal);
   const outcomeInputNormalizations = normalizeUnresolvedOutcomeInputDependencies(update.proposal);
-  const unboundOptionalArbitrations = quarantineUnboundOptionalArbitrations(update.proposal, request.studyProposalContext);
+  const quarantinedArbitrations = quarantineStructurallyInvalidOptionalArbitrations(update.proposal,
+    request.studyProposalContext, update.explicitDecisions.map(decision => decision.atomRef), Boolean(request.currentProject));
   assertStudyProposalOptionBindings(update.proposal);
   const user = [...request.conversation.turns].reverse().find(t => t.role === "USER")!;
   const reply = [...request.conversation.turns].reverse().find(t => t.role === "NOXIA");
@@ -452,10 +485,10 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   if (outcomeInputNormalizations.length) console.info("WORKING_DRAFT_OUTCOME_INPUT_DEPENDENCY_NORMALIZED", {
     clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: outcomeInputNormalizations,
   });
-  if (unboundOptionalArbitrations.length) console.info("WORKING_DRAFT_UNBOUND_OPTIONAL_ARBITRATION_QUARANTINED", {
-    clientRequestId: request.observabilityContext?.clientRequestId ?? null, arbitrationRefs: unboundOptionalArbitrations,
+  if (quarantinedArbitrations.length) console.info("WORKING_DRAFT_OPTIONAL_ARBITRATION_QUARANTINED", {
+    clientRequestId: request.observabilityContext?.clientRequestId ?? null, quarantinedArbitrations,
   });
-  return { update, composition };
+  return { update, composition: quarantinedArbitrations.length ? { ...composition, quarantinedArbitrations } : composition };
 };
 
 export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, composition: StudyProposalComposition, update: WorkingDraftUpdate,

@@ -93,6 +93,9 @@ export type StudyProposalComposition = Readonly<{
   dimensioning: readonly { ref: string; label: string; status: "CALCULATED" | "BLOCKED"; role?: "PRIMARY" | "ALTERNATIVE"; calculation: ReturnType<typeof calculateFDimensioning> | null; reason: string | null }[];
   ownerReceipts: readonly { owner: StudyProposalAtom["owner"]; atomRefs: readonly string[]; status: "CANDIDATES_NOT_ADOPTED"; projectWrites: 0 }[];
   qrySelection?: import("../query-navigation/contracts.js").NavigationSelection;
+  // Passive acceptance provenance, not a scientific choice or Project delta.
+  quarantinedArbitrations?: readonly { arbitrationId: string; invalidOptionCount: number; missingRefCount: number;
+    reason: "STRUCTURALLY_INVALID_OPTION_BINDING" }[];
   dispositions?: readonly { decisionRef: string; status: "REJECTED" | "DEFERRED"; atomRefs: readonly string[]; optionRefs: readonly string[] }[];
 }>;
 
