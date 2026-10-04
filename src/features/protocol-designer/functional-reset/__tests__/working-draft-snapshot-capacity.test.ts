@@ -43,6 +43,7 @@ const previousFor = () => {
   return { previous, request: { ...request, studyProposalContext: previous } };
 };
 const strictWireFor = (update: WorkingDraftUpdate) => ({ ...structuredClone(update),
+  retainedDiscussionBindings: update.retainedDiscussionBindings ?? [],
   explicitDecisions: update.explicitDecisions.map(decision => ({ ...decision, quote: decision.quote.replace(/\s+/gu, " ") })),
   proposal: { ...structuredClone(update.proposal!), atoms: update.proposal!.atoms.map(atom => ({ ...atom,
     dependencyQualifications: atom.dependencyQualifications ?? atom.dependsOn.map(ref =>

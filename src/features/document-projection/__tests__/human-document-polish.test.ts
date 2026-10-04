@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it } from 'vitest';
 import { logicalDigest } from '@/features/knowledge-engine/canonical';
 import type { ProjectSource } from '@/features/knowledge-engine/project-source-library';
@@ -7,6 +6,7 @@ import { documentBibliographyNeedsVerification, documentSourceLocator, validateD
 import { drciDraftPackFiles, sequentialDocumentSectionTitles } from '../drci-draft-pack';
 import { applyDrciHumanRevisionEntries, drciProseWordCount, materializeDrciDraftPack, pragmaticDimensioningOpenItems, prepareDrciDraftPack, validateDrciIndividualResultPolicy, type DrciDraftPack } from '../drci-draft-contract';
 import { createProjectSession, readProjectSessions, saveProjectSession } from '@/features/protocol-designer/functional-reset/project-workspace-storage';
+import { portableDrciFixture } from './portable-drci-fixture';
 const claim='Une mesure de reproductibilité nécessite de documenter sa précision dans le contexte étudié';
 const source:ProjectSource={source:{sourceId:'source:methodology:synthetic',revision:'1',title:'Measurement reproducibility.',status:'OFFICIAL_EFFECTIVE',doi:'10.1234/synthetic.001'},
  authors:['Auteur Méthode'],year:'2024',url:null,publicationType:'METHODOLOGY',origins:['EXISTING_CORPUS'],roles:['METHOD'],userRelevance:'NONE',interestHistory:[],knowledgeResultRefs:[],
@@ -84,13 +84,9 @@ describe('Generic standalone DOC polish, without domain-specific rules',()=>{
  });
 });
 
-const load=(path:string)=>JSON.parse(readFileSync(path,'utf8'));
-const originalRoot='validation/noxia-synopsis-revision-json-mode-input-fix-live-gate-01';
-const root='validation/noxia-drci-final-document-human-polish-no-reroll-01';
-const parent=load(`${originalRoot}/PACK_PROVISIONAL.json`) as DrciDraftPack;
-const revised=load(`${root}/PACK_PROVISIONAL.json`) as DrciDraftPack;
-const project=load('validation/noxia-drci-final-pack-generation-retry-01/PROJECT_IMMUTABLE.json');
-const packet=prepareDrciDraftPack(project,load('validation/noxia-drci-final-pack-generation-retry-01/NATIVE_DOC_SOURCE.json'));
+const fixture=portableDrciFixture();
+const {ancestor:parent,polished:revised,project}=fixture;
+const packet=prepareDrciDraftPack(project,fixture.source);
 const admit=(value={documents:revised.documents,crfRows:revised.crfRows},record=revised.humanRevision!)=>materializeDrciDraftPack(value,{project,packet,generatedAt:revised.generatedAt,
  reusedProtocolEvidenceRef:parent.reusedProtocolEvidenceRef,humanRevision:{parentPack:parent,record}});
 describe('Current human-revised pack: native admission, ancestry and persistence',()=>{
@@ -119,8 +115,12 @@ describe('Current human-revised pack: native admission, ancestry and persistence
   expect(drciProseWordCount(revised.documents.find(d=>d.kind==='PROTOCOL_SYNOPSIS')!.sections.flatMap(s=>s.paragraphs))).toBe(731);
   expect(synopsis.html.match(/<a href=/gu)).toHaveLength(revised.documents.find(d=>d.kind==='PROTOCOL_SYNOPSIS')!.sections.flatMap(s=>s.paragraphs).join(' ').match(/\[\[CITE:/gu)!.length);expect(synopsis.markdown).not.toContain('bibliographie à vérifier');
   expect(full.markdown).toContain('## 16. Références scientifiques');expect(full.markdown).toContain('## 17. À définir');
-  expect(full.markdown).toContain('Justification statistique de la cible de 150 participants et précision');
-  expect(full.markdown).toContain('coefficient de partition du contraste');expect(full.markdown).toContain('Neilan');expect(full.markdown).toContain('Rosmini');
+  expect(full.markdown).toContain('Justification statistique de la cible et précision');
+  expect(full.markdown).toContain('Cible pragmatique de faisabilité de 90 participants, non calculée.');
+  expect(full.markdown).toContain('coefficient de partition du contraste');
+  for(const source of revised.evidenceContent!.sources) expect(full.markdown).toContain(source.source.title);
+  expect(revised.sourceFacts.some(f=>f.epistemicState==='UNKNOWN')).toBe(true);
+  expect(revised.sourceFacts.some(f=>f.polarity==='NEGATED')).toBe(true);
   expect(files.find(f=>f.kind==='RECRUITMENT')!.markdown).toContain('délivrer systématiquement des résultats individuels');
   for(const fact of parent.sourceFacts.filter(f=>f.epistemicState==='UNKNOWN')) expect(revised.sourceFacts).toContainEqual(fact);
  });

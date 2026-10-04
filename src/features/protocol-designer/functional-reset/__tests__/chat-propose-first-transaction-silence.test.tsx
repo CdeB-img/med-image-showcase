@@ -11,6 +11,7 @@ import { isExplicitProjectRecordingRequest } from '../natural-conversation-polic
 import { createFunctionalResetSession, persistFunctionalResetSession, loadFunctionalResetSession } from '../session';
 import { adoptBehaviorContribution, richStudyContribution } from './p1-behavior-01a-contract-fixtures';
 import ProtocolDesignerWorkspace from '../ProtocolDesignerWorkspace';
+import { terraResultFixture } from './terra-result-fixture';
 
 const mocks = vi.hoisted(() => ({ bridge: vi.fn(), failPreparation: false }));
 vi.mock('../../product-bridge-client', async original => ({ ...await original<object>(), requestProtocolDesignerBridge: mocks.bridge }));
@@ -23,7 +24,7 @@ vi.mock('@/features/research-project-construction', async original => {
 });
 afterEach(() => { cleanup(); mocks.bridge.mockReset(); mocks.failPreparation = false; localStorage.clear(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const reply = 'LOCAL_SYNTHETIC — texte libre livré par le provider.\n\nAucune réponse scientifique attendue n’est encodée.';
-const native = () => new Response(JSON.stringify({ id: 'LOCAL_SYNTHETIC', model: 'gpt-5.6-terra', status: 'completed', output: [{ content: [{ type: 'output_text', text: reply }] }], usage: { input_tokens: 100, output_tokens: 30, total_tokens: 130 } }));
+const native = () => new Response(JSON.stringify({ id: 'LOCAL_SYNTHETIC', model: 'gpt-5.6-terra', status: 'completed', output: [{ content: [{ type: 'output_text', text: JSON.stringify(terraResultFixture(reply)) }] }], usage: { input_tokens: 100, output_tokens: 30, total_tokens: 130 } }));
 const call = async (r: ProductBridgeRequest, provider: typeof fetch) => {
   const result = await executeProtocolDesignerBridge({ body: r, apiKey: null, openAiApiKey: 'LOCAL_SYNTHETIC', chatRuntime: 'TERRA', fetchImpl: provider, providerAttemptPolicy: 'SINGLE_ATTEMPT_FAIL_CLOSED' });
   expect(result.status).toBe(200); return result.body as ProductBridgeResponse;
@@ -117,7 +118,7 @@ describe('Generic nominal scientific Chat — mechanics, pending human review', 
   });
   it('CONCISION_POLICY_PRESERVED + NO_LOCAL_WHAT_TEXT_SUBSTITUTION: no truncation', async () => {
     const long = 'LOCAL_SYNTHETIC '.repeat(500);
-    const provider = vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify({model: 'gpt-5.6-terra', output_text: long.trim()})));
+    const provider = vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify({model: 'gpt-5.6-terra', output_text: JSON.stringify(terraResultFixture(long.trim()))})));
     const r = {...bridgeRequest('Réponse détaillée demandée'), evaluatePersistentDelta: false};
     const result = await call(r, provider);
     expect(result.assistantReply).toBe(long.trim());
@@ -141,10 +142,11 @@ describe('Generic nominal scientific Chat — mechanics, pending human review', 
     expect(saved.entries.filter(e => e.kind === 'TEXT').at(-1)).toMatchObject({content: reply});
     expect(screen.getByTestId('conversation-composer')).toHaveClass('sticky');
   });
-  it('frozen HUMAN_EXACT Tor and follow-ups are tests only; nominal source has no domain patch', () => {
-    const frozen = JSON.parse(readFileSync('validation/noxia-chat-propose-first-transaction-silence-01/frozen-inputs.json', 'utf8'));
-    expect(frozen.messages).toHaveLength(3);
-    for (const text of frozen.messages) expect(isExplicitProjectRecordingRequest(text)).toBe(false);
+  it('portable synthetic non-recording trajectory; nominal source has no domain patch', () => {
+    // Intent-policy regression only; not a replay of the unavailable HUMAN_EXACT artifact.
+    const messages = [domains[2][1], 'Deux opérateurs indépendants utiliseront le même appareil.', 'La répétition reste prévue une semaine après.'];
+    expect(messages).toHaveLength(3);
+    for (const text of messages) expect(isExplicitProjectRecordingRequest(text)).toBe(false);
     for (const file of ['src/features/scientific-thinking/scientific-collaborator-conversation.ts', 'src/features/protocol-designer/functional-reset/natural-conversation-policy.ts']) expect(readFileSync(file, 'utf8')).not.toMatch(/ultratrail|Tor des Géants|IRM mobile/iu);
   });
 });

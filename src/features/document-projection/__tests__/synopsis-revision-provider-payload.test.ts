@@ -1,17 +1,15 @@
-import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { executeOpenAIDrciDraft } from "../../../../api/protocol-designer-openai-extraction-provider";
 import { boundCanaryProviderCall } from "../../../../server/protocol-designer-canary-policy";
 import { openAIInputCountRequest } from "../../../../server/protocol-designer-provider-replay";
 import { prepareSynopsisRevision } from "../synopsis-revision";
-import { type RetainedDrciProtocol, prepareDrciDraftPack } from "../drci-draft-contract";
+import { prepareDrciDraftPack } from "../drci-draft-contract";
+import { portableDrciFixture } from './portable-drci-fixture';
 
-// Exact, frozen qualification inputs; provider responses below are synthetic.
-const read = (path: string) => JSON.parse(readFileSync(path, "utf8"));
-const sourceRoot = "validation/noxia-drci-final-pack-generation-retry-01";
-const revisionRoot = "validation/noxia-drci-bounded-synopsis-revision-atomic-pack-01";
-const packet = prepareDrciDraftPack(read(`${sourceRoot}/PROJECT_IMMUTABLE.json`), read(`${sourceRoot}/NATIVE_DOC_SOURCE.json`));
-const retained = read(`${revisionRoot}/RETAINED_SOURCES.json`) as RetainedDrciProtocol;
+// Owner-built portable qualification inputs; no private/live run is imported.
+const fixture = portableDrciFixture();
+const packet = prepareDrciDraftPack(fixture.project, fixture.source);
+const retained = fixture.retained;
 const prepared = prepareSynopsisRevision(packet, retained.synopsisRevision!);
 const jsonInstruction = "Retourne uniquement le plan de révision au format JSON valide demandé.\n";
 
@@ -24,7 +22,7 @@ const jsonModeProvider = (payload: { input: string; text?: { format: { type: str
 describe("native synopsis revision JSON-mode input", () => {
   it("builds the actual provider payload with only the JSON input instruction added", async () => {
     const before = JSON.stringify(retained);
-    const selection = read(`${revisionRoot}/OFFLINE_SELECTION_FIXTURE.json`);
+    const selection = fixture.selection;
     const provider = vi.fn<typeof fetch>().mockImplementation(async (_endpoint, init) => {
       const payload = JSON.parse(init!.body as string);
       expect(jsonModeProvider(JSON.parse(openAIInputCountRequest({ endpoint: "https://api.openai.com/v1/responses",

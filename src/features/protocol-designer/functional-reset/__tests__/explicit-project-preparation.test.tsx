@@ -6,13 +6,14 @@ import type { ProductBridgeRequest } from "../../product-bridge";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { terraResultFixture } from "./terra-result-fixture";
 const bridge = vi.hoisted(() => vi.fn());
 const read = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
   requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: read, ensureServerProjectSnapshot: vi.fn(async () => undefined) }));
 afterEach(() => { cleanup(); vi.unstubAllEnvs(); vi.restoreAllMocks(); bridge.mockReset(); read.mockReset(); localStorage.clear(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
-  output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
+  output: [{ content: [{ type: "output_text", text: text.trim().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { name: "Votre message" }), { target: { value: text } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT" = "VALID") => {

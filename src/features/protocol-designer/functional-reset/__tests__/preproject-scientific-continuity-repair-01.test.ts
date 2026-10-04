@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildPersistentDeltaPayload } from "../../../../../api/protocol-designer-bridge-provider";
 import { logicalDigest } from "../../../knowledge-engine/canonical";
@@ -10,7 +8,7 @@ import { buildScientificDiscussionContext, retainValidatedContributionCandidate,
 import type { HumanDecisionEnvelope } from "../../human-decision";
 import { scientificDiscussionProviderContext, validateScientificDiscussionContext } from "../contribution-discussion-context";
 import { createFunctionalResetSession, persistFunctionalResetSession, loadFunctionalResetSession } from "../session";
-import { adoptBehaviorContribution, behaviorContribution, behaviorItem, behaviorTurn } from "./p1-behavior-01a-contract-fixtures";
+import { adoptBehaviorContribution, behaviorContribution, behaviorItem, behaviorRelation, behaviorTurn } from "./p1-behavior-01a-contract-fixtures";
 
 const AT = "2026-09-16T12:00:00.000Z";
 const turn = (id: string, content: string, role: "USER" | "NOXIA" = "USER"): ScientificInterpretationTurn => ({ turnId: id, role, content, createdAt: AT });
@@ -37,7 +35,31 @@ const proposal = (id: string, objects: PersistentProjectDeltaChange[], times: Pe
   return { source, record: retained[0] };
 };
 const projectContext = (p: ReturnType<typeof proposal>, messages: ScientificInterpretationTurn[], project: ResearchProjectOwnerProjection | null = null) => buildScientificDiscussionContext({ retained: [p.record], currentProject: project, conversationId: "continuity-test", runtimeTurns: [p.source, ...messages] });
-const recorded: { id: string; user: string; contribution: ScientificInterpretationContributionEnvelope; candidate: RetainedContributionCandidate["candidate"]; validation: RetainedContributionCandidate["validation"] }[] = JSON.parse(readFileSync(resolve("validation/protocol-designer-v1-source-coverage-actionable-review-repair-02/replayed-stages.json"), "utf8"));
+// Portable owner-built trajectories protect the same continuity properties;
+// they are synthetic regressions, not a reconstruction of a private human run.
+const recorded = (() => {
+  const make = (id: string, objects: PersistentProjectDeltaChange[], times: PersistentTemporalQualification[] = [], user?: string) => {
+    const p = proposal(id, objects, times);
+    const contribution = p.record.contribution;
+    contribution.source.conversationId = `audit-${id.slice(0,3)}`;
+    if (user) contribution.source.turns = [turn(id, user)];
+    return { id, user: user ?? p.source.content, contribution, candidate: prepareResearchProjectContributionCandidate(contribution, null), validation: p.record.validation };
+  };
+  const comparison = make('AVC-T01', [object('perfusion', 'Modèle perfusionnel'), object('metabolic', 'Modèle métabolique'),
+    ...['CBF','Tmax','OEF','CMRO2','TICI'].map(id=>object(id,id,'MEASUREMENT'))]);
+  const sourceId=(ref:string)=>comparison.contribution.scientificContent.candidateObjects.find(i=>i.semanticIdentity===ref)!.itemId;
+  comparison.contribution.scientificContent.candidateRelations = [behaviorRelation({ relationId: 'comparison', relationType: 'COMPARES_WITH', sourceItemId: sourceId('perfusion'), targetItemId: sourceId('metabolic'), turnId: 'AVC-T01' })];
+  comparison.candidate = prepareResearchProjectContributionCandidate(comparison.contribution, null);
+  return [comparison,
+    make('AVC-T02',[object('reference','IRM J1 référence','ACQUISITION','REFERENCE_STANDARD')],[time('reference','J1',1)]),
+    make('AVC-T03',[object('diffusion','Diffusion IRM','IMAGING_MODALITY','PRIMARY_REFERENCE_ARM')]),
+    make('AVC-T04',[object('comparison-control','Contrôle de la comparaison')],[],"en gardant la diffusion IRM comme comparaison secondaire et l'IRM J1 comme référence"),
+    make('AVC-T05',[object('continuation','Poursuivre la comparaison')]),
+    make('RHU-T01',[object('follow','Suivi à J3','ACQUISITION'),object('initial','Inclusion à J7','ACQUISITION'),object('avc','cohorte AVC','POPULATION'),object('idm','cohorte IDM','POPULATION')],[time('follow','J3',3),time('initial','J7',7)]),
+    make('RHU-T02',[object('follow-correction','Correction explicite du calendrier')],[],"ce n'est pas J3, c'est bien M3"),
+    make('RHU-T03',[object('continuity','Conserver les cohortes et le calendrier')],[],"oui garde le reste"),
+  ];
+})();
 const recordedTrajectory = (prefix: string, until: number) => {
   let retained: readonly RetainedContributionCandidate[] = [];
   const runtimeTurns: ScientificInterpretationTurn[] = [];
@@ -275,7 +297,7 @@ describe("N4 — retained scientific discussion before adoption", () => {
     const ctx = buildScientificDiscussionContext({ retained: ps.map(p => p.record), currentProject: null, conversationId: "continuity-test", runtimeTurns: [...ps.map(p => p.source), turn("next", "oui")] });
     expect(ctx.boundary).toBe("BOUND_EXCEEDED_CONTEXT_UNAVAILABLE"); expect(ctx.active).toEqual([]); expect(ctx.lastActiveCandidateRef).toBeNull();
   });
-  it("AVC T05 sends the perfusion/metabolic comparison, reference MRI and secondary diffusion", () => {
+  it("synthetic AVC T05 sends the perfusion/metabolic comparison, reference MRI and secondary diffusion", () => {
     const input = recordedTrajectory("AVC", 4);
     const t5 = recorded.find(r => r.id === "AVC-T05")!;
     input.runtimeTurns.push(t5.contribution.source.turns.find(t => t.role === "USER")!);
@@ -292,7 +314,7 @@ describe("N4 — retained scientific discussion before adoption", () => {
     expect(raw).toContain("PROPOSITIONS NOXIA RÉCENTES"); expect(raw).not.toContain("La formulation de cette étape n’a pas abouti");
     expect(discussion.projectWriteAuthorized).toBe(false); expect(discussion.baseProject).toBeNull(); expect(JSON.stringify(input)).toBe(before);
   });
-  it("RHU T03/T04 retain J7/M3 and never make J3 current again", () => {
+  it("synthetic RHU T03/T04 retain J7/M3 and never make J3 current again", () => {
     const input = recordedTrajectory("RHU", 3); input.runtimeTurns.push(turn("rhu-next", "oui garde le reste"));
     const ctx = buildScientificDiscussionContext(input);
     expect(ctx.boundary).toBe("COMPLETE");
@@ -302,7 +324,7 @@ describe("N4 — retained scientific discussion before adoption", () => {
     expect(ctx.history.some(h => /\bJ3\b/u.test(h.element.content))).toBe(true);
     expect(ctx.active.some(e => /cohorte AVC/iu.test(e.content))).toBe(true); expect(ctx.active.some(e => /cohorte IDM/iu.test(e.content))).toBe(true);
   });
-  it.each(recorded.map(r => r.id))("recorded %s remains compatible with the context projection, without replaying a provider", id => {
+  it.each(recorded.map(r => r.id))("synthetic %s remains compatible with the context projection, without replaying a provider", id => {
     const index = Number(id.slice(-2)); const input = recordedTrajectory(id.slice(0, 3), index);
     const ctx = buildScientificDiscussionContext(input);
     expect(validateScientificDiscussionContext(ctx, input)).toBe(true);

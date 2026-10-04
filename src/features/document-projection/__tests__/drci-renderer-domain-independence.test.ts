@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { drciDraftPackFiles, type DrciDraftPack } from "../drci-draft-pack";
+import { portableDrciFixture } from './portable-drci-fixture';
 
-const historical = JSON.parse(readFileSync("validation/noxia-drci-last-deterministic-document-cleanup-01/PACK_PROVISIONAL.json", "utf8")) as DrciDraftPack;
+const historical = portableDrciFixture().cleaned;
 describe("independent CRF rendering does not infer scientific rules from a domain keyword", () => {
   it.each([
     ["Méthode de cartographie rénale", "Cartes interprétables nécessaires ; aucun prélèvement sanguin.", "LGE sans exclusion de l’analyse principale."],

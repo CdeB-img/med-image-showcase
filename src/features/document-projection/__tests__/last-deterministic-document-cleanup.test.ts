@@ -1,17 +1,12 @@
-import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it } from 'vitest';
 import { logicalDigest } from '@/features/knowledge-engine/canonical';
 import { createProjectSession, readProjectSessions, saveProjectSession } from '@/features/protocol-designer/functional-reset/project-workspace-storage';
 import { drciDraftPackFiles, openParentCoveredByDetails } from '../drci-draft-pack';
-import { applyDrciHumanRevisionEntries, drciProseWordCount, materializeDrciDraftPack, prepareDrciDraftPack, type DrciDraftPack } from '../drci-draft-contract';
-const root='validation/noxia-drci-last-deterministic-document-cleanup-01';
-const parentRoot='validation/noxia-drci-final-document-human-polish-no-reroll-01';
-const load=(name:string)=>JSON.parse(readFileSync(name,'utf8'));
-const parent=load(`${root}/SOURCE_PACK_FROZEN.json`) as DrciDraftPack;
-const candidate=load(`${root}/PACK_PROVISIONAL.json`) as DrciDraftPack;
-const ancestor=load('validation/noxia-synopsis-revision-json-mode-input-fix-live-gate-01/PACK_PROVISIONAL.json') as DrciDraftPack;
-const project=load('validation/noxia-drci-final-pack-generation-retry-01/PROJECT_IMMUTABLE.json');
-const packet=prepareDrciDraftPack(project,load('validation/noxia-drci-final-pack-generation-retry-01/NATIVE_DOC_SOURCE.json'));
+import { applyDrciHumanRevisionEntries, drciProseWordCount, materializeDrciDraftPack, prepareDrciDraftPack } from '../drci-draft-contract';
+import { portableDrciFixture } from './portable-drci-fixture';
+const fixture=portableDrciFixture();
+const {polished:parent,cleaned:candidate,ancestor,project}=fixture;
+const packet=prepareDrciDraftPack(project,fixture.source);
 const data=()=>structuredClone({documents:candidate.documents,crfRows:candidate.crfRows});
 const admit=(record=candidate.humanRevision!,ancestors=[ancestor])=>materializeDrciDraftPack(data(),{project,packet,generatedAt:candidate.generatedAt,
  reusedProtocolEvidenceRef:parent.reusedProtocolEvidenceRef,humanRevision:{parentPack:parent,record,ancestorPacks:ancestors}});
@@ -54,20 +49,19 @@ describe('Exact final human document cleanup',()=>{
   expect(drciDraftPackFiles({...pack,sourceFacts:details.slice(0,1)})[0].markdown).toContain('☐ Stockage et durée de conservation');
  });
  it('keeps protocol and recruitment HTML/Markdown byte-identical, and changes the CRF only by the two OPEN entries',()=>{
-  // Historical human-approved exports remain immutable evidence even when the
-  // generic renderer evolves. Compare those bytes, not a new rendering.
-  const files=candidate.documents.map(doc=>({kind:doc.kind,
-   html:readFileSync(`${root}/documents/${doc.kind.toLowerCase()}.html`,'utf8'),
-   markdown:readFileSync(`${root}/documents/${doc.kind.toLowerCase()}.md`,'utf8')}));
+  // Synthetic native ancestors replace private historical exports. Compare the
+  // actual renderer byte-for-byte; historical human evidence is not rewritten.
+  const files=drciDraftPackFiles(candidate), parentFiles=drciDraftPackFiles(parent);
   for(const kind of ['PROTOCOL_FULL','RECRUITMENT'] as const){const file=files.find(f=>f.kind===kind)!;
-   expect(file.html).toBe(readFileSync(`${parentRoot}/documents/${kind.toLowerCase()}.html`,'utf8'));
-   expect(file.markdown).toBe(readFileSync(`${parentRoot}/documents/${kind.toLowerCase()}.md`,'utf8'));
+   expect(file.html).toBe(parentFiles.find(f=>f.kind===kind)!.html);
+   expect(file.markdown).toBe(parentFiles.find(f=>f.kind===kind)!.markdown);
    expect(candidate.documents.find(d=>d.kind===kind)).toEqual(parent.documents.find(d=>d.kind===kind));
   }
-  const current=files.find(f=>f.kind==='CRF')!;const oldHtml=readFileSync(`${parentRoot}/documents/crf.html`,'utf8');const oldMd=readFileSync(`${parentRoot}/documents/crf.md`,'utf8');
+  const current=files.find(f=>f.kind==='CRF')!;const oldHtml=parentFiles.find(f=>f.kind==='CRF')!.html;const oldMd=parentFiles.find(f=>f.kind==='CRF')!.markdown;
   expect(current.html).toBe(oldHtml.replace('<li>☐ Procédure PA</li>','').replace('<li>☐ Contraste et critères rénaux</li>',''));
   expect(current.markdown).toBe(oldMd.replace('- ☐ Procédure PA\n\n','').replace('- ☐ Contraste et critères rénaux\n\n',''));
-  expect(candidate.crfRows).toEqual(parent.crfRows);expect(candidate.crfRows).toHaveLength(25);
+  expect(candidate.crfRows).toEqual(parent.crfRows);expect(candidate.crfRows).toHaveLength(fixture.source.crf.fields.length);
+  expect(candidate.crfRows.map(r=>r.variableRef)).toEqual(fixture.source.crf.fields.map(f=>f.canonicalVariableId));
   expect(current.html.match(/class="process-field"/gu)).toHaveLength(8);
   expect(current.markdown.match(/☐ Procédure de mesure de la pression artérielle/gu)).toHaveLength(1);
   expect(current.markdown).toContain('☐ Agent et dose de contraste');expect(current.markdown).toContain('☐ Critères rénaux locaux');

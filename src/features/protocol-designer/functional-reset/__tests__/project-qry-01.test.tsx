@@ -132,26 +132,26 @@ const installNominalRuntime = (options: { failInitialContinuation?: boolean; dup
 
 const acceptPendingReview = async () => {
   await screen.findByTestId("functional-contribution-review");
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 };
 
 const createInitialProject = async () => {
   submit(COLCHICINE_03A_INITIAL);
   await acceptPendingReview();
-  await screen.findByText("Projet créé.");
-  await waitFor(() => expect(stored().bridgeTraces.at(-1)?.requestKind).toBe("POST_ADOPTION_QRY_CONTINUATION"));
+  await waitFor(() => expect(stored().project?.revision).toBe(1));
   return stored();
 };
 
 const updateProject = async () => {
   submit(UPDATE_RAW);
   await acceptPendingReview();
-  await screen.findByText("Projet mis à jour.");
-  await waitFor(() => expect(stored().bridgeTraces.at(-1)?.requestKind).toBe("POST_ADOPTION_QRY_CONTINUATION"));
+  await waitFor(() => expect(stored().project?.revision).toBe(2));
   return stored();
 };
 
-describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
+// The current owner explicitly removed automatic speaker selection on Project
+// writes. Qualify retained QRY + explicit mediation, not the superseded auto-call.
+describe("PROJECT-QRY-01 — retained navigation, explicit mediation and no adoption-triggered speaker", () => {
   beforeEach(() => {
     // Test-only transport gate: isolated mocked requests must not wait on the live rolling quota.
     vi.spyOn(productHybridProviderGate, "run").mockImplementation((operation) => operation());
@@ -160,82 +160,91 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
   });
   afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
-  it("Q01 initial Project creation invokes post-adoption QRY mediation", async () => {
+  it("Q01 initial Project creation preserves QRY without automatically invoking mediation", async () => {
     installNominalRuntime();
     renderDemo();
     const session = await createInitialProject();
-    expect(runtime.request.mock.calls.filter(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(1);
+    expect(runtime.request.mock.calls.filter(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(0);
     expect(session.queryNavigation?.status).toBe("QUESTION_READY");
   });
 
-  it("Q02 an existing Project update invokes the same post-adoption corridor", async () => {
+  it("Q02 an existing Project update does not automatically select a speaker either", async () => {
     installNominalRuntime();
     renderDemo();
     await createInitialProject();
     await updateProject();
-    expect(runtime.request.mock.calls.filter(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(2);
+    expect(runtime.request.mock.calls.filter(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(0);
   });
 
-  it("Q03 both paths bind QRY and mediation to the adopted Project version and digest", async () => {
+  it("S3 / Q03 both paths bind retained QRY to the adopted Project and preserve it through reload", async () => {
     installNominalRuntime();
     renderDemo();
     const created = await createInitialProject();
-    const initialRequest = runtime.request.mock.calls.find(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")?.[0];
-    expect(initialRequest.conversation.interactionContext).toMatchObject({
+    const frozenV1=JSON.stringify(created.project);
+    expect(created.queryNavigation).toMatchObject({
       projectVersion: created.project?.versionId,
       projectDigest: created.project?.projectDigest,
     });
     const updated = await updateProject();
-    const updateRequest = runtime.request.mock.calls.filter(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION").at(-1)?.[0];
-    expect(updateRequest.conversation.interactionContext).toMatchObject({
+    expect(updated.queryNavigation).toMatchObject({
       projectVersion: updated.project?.versionId,
       projectDigest: updated.project?.projectDigest,
     });
+    expect(JSON.stringify(created.project)).toBe(frozenV1);
+    const beforeReload = stored();
+    const callCount = runtime.request.mock.calls.length;
+    const restored = loadFunctionalResetSession(window.localStorage);
+    expect(restored.project).toEqual(beforeReload.project);
+    expect(restored.queryNavigation).toEqual(beforeReload.queryNavigation);
+    expect(created.project?.revision).toBe(1);
+    expect(updated.project?.revision).toBe(2);
+    cleanup(); renderDemo();
+    expect(stored().queryNavigation).toEqual(beforeReload.queryNavigation);
+    expect(runtime.request).toHaveBeenCalledTimes(callCount);
   });
 
   it("Q04 the initial active need survives the handoff unchanged", async () => {
     installNominalRuntime();
     renderDemo();
     const session = await createInitialProject();
-    const request = runtime.request.mock.calls.find(([candidate]) => candidate.requestKind === "POST_ADOPTION_QRY_CONTINUATION")?.[0];
-    expect(request.conversation.interactionContext.informationNeedRefs).toEqual(session.queryNavigation?.currentAction?.navigationNeedRefs);
-    expect(request.conversation.interactionContext.sourceActionRef).toBe(session.queryNavigation?.currentAction?.selectedActionId);
+    const current = currentGovernedNavigationInput({project:session.project!,navigation:session.queryNavigation!})!;
+    expect(current.selected.navigationNeedRefs).toEqual(session.queryNavigation?.currentAction?.navigationNeedRefs);
+    expect(current.selectedActionRef).toBe(session.queryNavigation?.currentAction?.selectedActionId);
   });
 
-  it("Q05 transport failure cannot resurrect a legacy WHAT or invent a zero-call receipt", async () => {
+  it("Q05 even an unavailable mediation mock is never called merely by adopting", async () => {
     installNominalRuntime({ failInitialContinuation: true });
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await acceptPendingReview();
-    await screen.findByText("Projet créé.");
-    await screen.findByText("NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.");
+    await waitFor(() => expect(stored().project?.revision).toBe(1));
     const session = stored();
     expect(session.project?.revision).toBe(1);
     expect(session.bridgeTraces.some((trace) => trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toBe(false);
     expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content === session.queryNavigation?.standardQuestion?.text)).toBe(false);
   });
 
-  it("Q06 a mediated continuation is returned after an existing Project update", async () => {
+  it("Q06 an existing Project update returns an adoption receipt, not unsolicited mediation", async () => {
     installNominalRuntime();
     renderDemo();
     await createInitialProject();
     const session = await updateProject();
-    expect(await screen.findByText(lastVisibleNoxiaText(session))).toBeInTheDocument();
-    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
-    expect(session.bridgeTraces.at(-1)?.continuationPresentationSource).toBe("GEMINI_MEDIATED");
+    expect(await screen.findAllByText(lastVisibleNoxiaText(session))).toHaveLength(2);
+    expect(lastVisibleNoxiaText(session)).toBe("Choix enregistrés dans le projet.");
+    expect(session.bridgeTraces.some(t=>t.requestKind==='POST_ADOPTION_QRY_CONTINUATION')).toBe(false);
   });
 
-  it("Q07 each continuation occurs after its Project creation or update feedback", async () => {
+  it("Q07 each adoption receipt occurs after its confirmed Review", async () => {
     installNominalRuntime();
     renderDemo();
     const created = await createInitialProject();
     const initialContinuation = lastVisibleNoxiaText(created);
     expect(created.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === initialContinuation))
-      .toBeGreaterThan(created.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === "Projet créé."));
+      .toBeGreaterThan(created.entries.findIndex((entry) => entry.kind === "REVIEW" && entry.status==='CONFIRMED'));
     const updated = await updateProject();
     const updatedContinuation = lastVisibleNoxiaText(updated);
-    expect(updated.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === updatedContinuation))
-      .toBeGreaterThan(updated.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === "Projet mis à jour."));
+    expect([...updated.entries].reverse().findIndex((entry) => entry.kind === "TEXT" && entry.content === updatedContinuation))
+      .toBeLessThan([...updated.entries].reverse().findIndex((entry) => entry.kind === "REVIEW" && entry.status==='CONFIRMED'));
   });
 
   it("Q08 review cleanup preserves the continuation entry", async () => {
@@ -243,7 +252,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     const session = await createInitialProject();
     expect(session.entries.some((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED")).toBe(true);
-    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
+    expect(lastVisibleNoxiaText(session)).toBe("Choix enregistrés dans le projet.");
   });
 
   it("Q09 workspace reload preserves the visible continuation", async () => {
@@ -256,15 +265,14 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(await screen.findByText(continuation)).toBeInTheDocument();
   });
 
-  it("Q10 owner-governed flow does not surface an ungoverned repeated provider text", async () => {
+  it("Q10 an adoption receipt neither repeats the provider nor invents a new scientific question", async () => {
     installNominalRuntime({ duplicateReply: "Même contenu visible." });
     renderDemo();
     const session = await createInitialProject();
     expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(0);
-    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content.includes("première compréhension structurée"))).toBe(true);
-    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
+    expect(lastVisibleNoxiaText(session)).toBe("Choix enregistrés dans le projet.");
     expect(new Set(session.entries.map((entry) => entry.entryId)).size).toBe(session.entries.length);
-    expect(screen.queryByText("Même contenu visible.")).not.toBeInTheDocument();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
   });
 
   it("Q11 no continuation is created when QRY has no useful need", () => {
@@ -284,17 +292,17 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(stored().pendingContribution).toBeNull();
   });
 
-  it("Q13 the current governed ASK continuation is compact and contains one question", async () => {
+  it("Q13 the adoption receipt is compact and does not manufacture an ASK action", async () => {
     installNominalRuntime();
     renderDemo();
     const session = await createInitialProject();
     const lastEntry = session.entries.at(-1);
     const content = lastEntry?.kind === "TEXT" ? lastEntry.content : "";
     expect(content.length).toBeLessThanOrEqual(240);
-    expect((content.match(/\?/g) ?? [])).toHaveLength(1);
+    expect((content.match(/\?/g) ?? [])).toHaveLength(0);
   });
 
-  it("Q14 post-adoption continuation performs no Project write", async () => {
+  it("Q14 QRY derivation and reload perform no additional Project write or provider call", async () => {
     let resolveContinuation: ((value: ReturnType<typeof responseWithoutPersistentDelta>) => void) | null = null;
     runtime.request.mockImplementation(async (request: {
       requestKind?: ProductBridgeRequest["requestKind"];
@@ -305,15 +313,13 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await acceptPendingReview();
-    await screen.findByText("Projet créé.");
+    await waitFor(() => expect(stored().project?.revision).toBe(1));
     const projectAfterDecision = JSON.stringify(stored().project);
-    expect(resolveContinuation).not.toBeNull();
-    const request = runtime.request.mock.calls.find(([item]) => item.requestKind === "POST_ADOPTION_QRY_CONTINUATION")![0];
-    const receipt = await governedContinuationReceipt(request);
-    resolveContinuation!(receipt);
-    await screen.findByText(receipt.assistantReply);
+    expect(resolveContinuation).toBeNull();
+    currentGovernedNavigationInput({project:stored().project!,navigation:stored().queryNavigation!});
+    loadFunctionalResetSession(window.localStorage);
     expect(JSON.stringify(stored().project)).toBe(projectAfterDecision);
-    expect(stored().bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, calls: 1 });
+    expect(runtime.request).toHaveBeenCalledTimes(1);
   });
 
   it("Q15 continuation routing invokes Gemini conversation only and never Terra extraction", async () => {
@@ -370,7 +376,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(within(screen.getByTestId("functional-research-project")).getByText("Version 1")).toBeInTheDocument();
   });
 
-  it("QRY-03 E01-E05 schedules mediation from the committed adoption event", async () => {
+  it("QRY-03 E01-E05 persists adoption without scheduling an autonomous scientific speaker", async () => {
     let adoptionCommittedBeforeRequest = false;
     let continuationRequests = 0;
     runtime.request.mockImplementation(async (request: {
@@ -397,10 +403,10 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await acceptPendingReview();
-    await waitFor(() => expect(stored().bridgeTraces.at(-1)?.requestKind).toBe("POST_ADOPTION_QRY_CONTINUATION"));
-    expect(lastVisibleNoxiaText(stored())).toMatch(/\?$/);
+    await waitFor(() => expect(stored().project?.revision).toBe(1));
+    expect(lastVisibleNoxiaText(stored())).toBe("Choix enregistrés dans le projet.");
 
-    expect(adoptionCommittedBeforeRequest).toBe(true);
-    expect(continuationRequests).toBe(1);
+    expect(adoptionCommittedBeforeRequest).toBe(false);
+    expect(continuationRequests).toBe(0);
   });
 });

@@ -20,7 +20,7 @@ const fixture = () => {
     ] } };
   const packet = prepareWorkingDraftRequest(request);
   const proposal = controlledStudyProposal(packet.inputDigest, DOMAINS[1]);
-  const update = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [], supersededAtomRefs: [] };
+  const update = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [], supersededAtomRefs: [], retainedDiscussionBindings: [] };
   return { request, packet, update };
 };
 
@@ -85,6 +85,9 @@ describe("background provider contract follows the native owner", () => {
     const { supersededAtomRefs: _historicalSupersession, ...withoutSupersession } = structuredClone(update);
     expect(validate(withoutSupersession)).toBe(false);
     expect(() => acceptWorkingDraftUpdate(withoutSupersession, request)).not.toThrow();
+    const { retainedDiscussionBindings: _historicalDiscussionBindings, ...withoutDiscussionBindings } = structuredClone(update);
+    expect(validate(withoutDiscussionBindings)).toBe(false);
+    expect(() => acceptWorkingDraftUpdate(withoutDiscussionBindings, request)).not.toThrow();
     const historical = structuredClone(update);
     for (const atom of historical.proposal.atoms) delete atom.plannedSource;
     expect(validate(historical)).toBe(false);

@@ -4,7 +4,7 @@ import { authorizeResearchProjectDocumentHandoff } from "@/features/research-pro
 import { adoptBehaviorContribution, behaviorAuthority, richStudyContribution } from "@/features/protocol-designer/functional-reset/__tests__/p1-behavior-01a-contract-fixtures";
 import { refreshFunctionalResetDocumentPortfolio } from "../functional-reset-boundary";
 import { buildCanonicalCrfPackage, buildStudyDeliverablePortfolio } from "../study-deliverable-portfolio";
-import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack, drciDraftPackFiles, projectDrciDraftPackPortfolio, isDrciDraftPackCurrent } from "../drci-draft-pack";
+import { DRCI_DOCUMENT_KINDS, prepareDrciDraftPack, materializeDrciDraftPack, drciDraftPackFiles, projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, type DrciDraftPack } from "../drci-draft-pack";
 import StudyDeliverableWorkspace from "@/features/protocol-designer/functional-reset/StudyDeliverableWorkspace";
 import ProtocolPreview from "@/features/protocol-designer/functional-reset/ProtocolPreview";
 import { createProjectSession, readProjectSessions, saveProjectSession } from "@/features/protocol-designer/functional-reset/project-workspace-storage";
@@ -17,7 +17,8 @@ import { mkdtemp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createCanaryCampaignPolicy, SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../server/protocol-designer-canary-policy";
-import { createRecordedProtocolDesignerFetch, readCanaryState } from "../../../../server/protocol-designer-provider-replay";
+import { createRecordedProtocolDesignerFetch, readCanaryState, readProtocolDesignerReplayRefs } from "../../../../server/protocol-designer-provider-replay";
+import { FileScientificInterpretationEvidenceStore } from "../../../../api/scientific-interpretation-evidence-store";
 import { executeKnowledgeEngine } from "@/features/knowledge-engine";
 import { collectProjectKnowledgeSources, emptyProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
 import { documentEvidenceSections, validateDocumentEvidence } from "../scientific-document-revision";
@@ -404,6 +405,42 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const blocked = vi.fn<typeof fetch>();
     await expect(executeOpenAIDrciDraft(packet(), "LOCAL_SYNTHETIC", blocked, instrumentation, wrong)).rejects.toThrow("RETAINED_PROTOCOL_SOURCE_MISMATCH");
     expect(blocked).not.toHaveBeenCalled();
+  });
+  it("S10 — companion failure is atomic, retains the paid protocol evidence and never replays a consumed call", async () => {
+    const policy = createCanaryCampaignPolicy({ campaignId: 'portable-doc-atomicity', maxSessions: 1, measuredSoftStopUsd: 3,
+      absoluteHardBoundUsd: 5, singleAttemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, allowedProviderModels: ['gpt-5.6-terra'], createdAt: at,
+      exactInputCounting: { maxInputTokens: 24000, maxGenerationAttempts: 2, maxTokenCountRequests: 2, maxProviderHttpRequests: 4 } });
+    const root = join(await mkdtemp(join(tmpdir(), 'noxia-doc-atomicity-')), `canary-${policy.campaignId}`);
+    const scopes: string[] = [];
+    const provider = vi.fn<typeof fetch>(async (url, init) => {
+      if (String(url).endsWith('input_tokens')) return new Response(JSON.stringify({ object: 'response.input_tokens', input_tokens: 100 }));
+      const context = JSON.parse(JSON.parse(String(init?.body)).input);
+      scopes.push(context.DOCUMENT_SCOPE.join('+'));
+      if (context.INCLUDE_CRF_ROWS) return new Response(JSON.stringify({ status: 'incomplete', model: 'gpt-5.6-terra', incomplete_details: { reason: 'max_output_tokens' }, usage: { input_tokens: 100, output_tokens: 100 } }));
+      return new Response(JSON.stringify({ status: 'completed', model: 'gpt-5.6-terra', output_text: JSON.stringify({ documents: [{ kind: 'PROTOCOL_FULL', title: 'Qualification atomique', sections: [{ title: 'Méthode', paragraphs: ['SYNTHETIC_PROTOCOL_SCOPE'], sourceRefs: [] }], missingElements: [] }], crfRows: [] }), usage: { input_tokens: 100, output_tokens: 100 } }));
+    });
+    const recorded = createRecordedProtocolDesignerFetch({ root, campaignPolicy: policy, canaryCampaignId: policy.campaignId, fetchImpl: provider });
+    const instrumentation = { context: { sessionId: 'S10', conversationId: 'S10', turnId: 'doc', clientRequestId: 'doc', testSessionId: null }, purpose: 'DOCUMENT_PROJECTION' as const, reasoningEffort: 'medium' as const, retryIndex: 0, retryReason: null, onRecord: () => undefined };
+    let publishedPack: DrciDraftPack | undefined;
+    await expect(executeOpenAIDrciDraft(packet(), 'SYNTHETIC_NO_CREDENTIAL', recorded, instrumentation).then(result => {
+      publishedPack = materializeDrciDraftPack(result.value, { project, packet: packet(), generatedAt: at });
+    })).rejects.toMatchObject({ providerStatus: 'incomplete:max_output_tokens' });
+    expect(publishedPack).toBeUndefined(); expect(scopes).toEqual(['PROTOCOL_FULL', 'PROTOCOL_SYNOPSIS+CRF+RECRUITMENT']);
+    // This existing offline canary ledger protects the reservation when the
+    // companion cannot settle; it must not reset the preceding paid evidence.
+    await expect(readCanaryState(root, policy.campaignId, policy)).rejects.toThrow('CANARY_STOP_UNKNOWN_OR_UNBOUNDED_ACTUAL_COST');
+    const refs = await readProtocolDesignerReplayRefs(root);
+    const store = new FileScientificInterpretationEvidenceStore(root);
+    const received = await Promise.all(refs.map(ref => store.read(ref)));
+    const protocol = received.find(record => JSON.stringify(record?.payload).includes('SYNTHETIC_PROTOCOL_SCOPE'))!;
+    expect(protocol).toBeDefined(); expect(protocol.payload).toHaveProperty('canarySettlement.measuredCostUsd');
+    const frozen = JSON.stringify(protocol);
+    // The current reader fails closed on the known incomplete companion; it
+    // does not manufacture a complete pack or erase the successful paid scope.
+    await expect(readRetainedDrciProtocolEvidence({ root, policy, packet: packet(), sessionId: 'S10' })).rejects.toThrow('CANARY_STOP_UNKNOWN_OR_UNBOUNDED_ACTUAL_COST');
+    await expect(executeOpenAIDrciDraft(packet(), 'SYNTHETIC_NO_CREDENTIAL', recorded, instrumentation)).rejects.toMatchObject({ providerStatus: 'NETWORK_FAILURE' });
+    expect(provider).toHaveBeenCalledTimes(4); expect(await readProtocolDesignerReplayRefs(root)).toEqual(refs);
+    expect(JSON.stringify(await store.read(protocol.rawOutputRef))).toBe(frozen);
   });
   it("normalizes equivalent CRF representations without changing content or accepting invalid origins", () => {
     const data = generated();
