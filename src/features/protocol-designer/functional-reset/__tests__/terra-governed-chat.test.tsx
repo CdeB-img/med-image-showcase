@@ -5,6 +5,7 @@ import { executeProtocolDesignerBridge, handleProtocolDesignerBridge } from "../
 import { publicProtocolDesignerGuardStateForTests, resetPublicProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-public-guard";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
+import { terraResultFixture } from "./terra-result-fixture";
 import { buildPersistentSourceCatalog, contributionFromPersistentDelta, validatePersistentProjectDelta, type ProductBridgeRequest, type ProductBridgeResponse } from "../../product-bridge";
 import { buildOpenAIPersistentDeltaPayload } from "../../../../../api/protocol-designer-openai-extraction-provider";
 import { prepareCompactTransaction } from "../../transaction-compaction";
@@ -19,7 +20,7 @@ const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
 afterEach(() => { vi.restoreAllMocks(); cleanup(); bridge.mockReset(); localStorage.clear(); vi.unstubAllEnvs(); resetPublicProtocolDesignerGuardForTests(); });
 const native = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
-  output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 20, total_tokens: 120 } }));
+  output: [{ content: [{ type: "output_text", text: text.trimStart().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 20, total_tokens: 120 } }));
 const call = async (r: ProductBridgeRequest, provider: typeof fetch) => executeProtocolDesignerBridge({ body: r, apiKey: null,
   openAiApiKey: "LOCAL_SYNTHETIC", chatRuntime: "TERRA", fetchImpl: provider, providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" });
 const send = (text: string) => { fireEvent.change(screen.getByRole("textbox"), { target: { value: text } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
@@ -81,7 +82,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
     }
     expect(contextByLength[1]).toEqual(contextByLength[0]); expect(contextByLength[2]).toEqual(contextByLength[0]);
   });
-  it("shows exact free text before any Project, without extraction, carrier, Gemini or QRY fallback", async () => {
+  it("shows exact free reply with same-call ST retention and no extraction/Gemini/QRY fallback", async () => {
     const r = { ...bridgeRequest("Discussion méthodologique libre"), evaluatePersistentDelta: false };
     const provider = vi.fn<typeof fetch>().mockResolvedValue(native("LOCAL_SYNTHETIC — proposition libre sans carrier."));
     const result = await call(r, provider); const body = result.body as ProductBridgeResponse;
@@ -90,7 +91,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
     expect(provider).toHaveBeenCalledTimes(1);
     const payload = JSON.parse(provider.mock.calls[0]![1]!.body as string);
     expect(payload).toMatchObject({ model: "gpt-5.6-terra", reasoning: { effort: "medium" }, store: false, service_tier: "default", max_output_tokens: 8000 });
-    expect(payload.text).toBeUndefined();
+    expect(payload.text.format).toMatchObject({ type: "json_schema", strict: true, name: "terra_scientific_contribution" });
   });
   it("keeps the native response when transaction preparation fails; no implicit write", async () => {
     const provider = vi.fn<typeof fetch>().mockResolvedValueOnce(native("LOCAL_SYNTHETIC — texte natif conservé."))
@@ -106,13 +107,12 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
     expect(body.conversationFailure).toBeTruthy(); expect(body.persistentExtraction.called).toBe(false);
     expect(body.assistantReply).toContain("n’a pas abouti"); expect(provider).toHaveBeenCalledTimes(1);
   });
-  it("retains all 15 turns, refusal and correction literally, with current-only Project projection", () => {
+  it("fails closed on an aged refusal without an owner receipt rather than reinjecting raw history", () => {
     const r = bridgeRequest("turn 1"); r.conversation.turns = Array.from({ length: 30 }, (_, i) => ({
       turnId: `t${i}`, role: i % 2 ? "NOXIA" : "USER", content: i === 10 ? "Je refuse cette option" : i === 24 ? "Finalement HTA incluse" : `Original ${i}` }));
-    const packet = JSON.parse(prepareTerraConversation(r).context);
-    expect(packet.RECENT_CONVERSATION).toHaveLength(30);
-    expect(packet.RECENT_CONVERSATION[10].content).toBe("Je refuse cette option"); expect(packet.RECENT_CONVERSATION[24].content).toBe("Finalement HTA incluse");
-    expect(packet.coverage.transcript).toBe("COMPLETE");
+    expect(() => prepareTerraConversation(r)).toThrow("CONTEXT_COVERAGE_INVARIANT_FAILED");
+    expect(r.conversation.turns[10].content).toBe("Je refuse cette option");
+    expect(r.conversation.turns[24].content).toBe("Finalement HTA incluse");
   });
   it("preserves assistant proposal and user assent as distinct provenance in native review", () => {
     const raw = "Je retiens cette proposition pour en préparer l’enregistrement";

@@ -14,6 +14,8 @@ import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/
 import { assertStudyProposalCurrent } from "./study-proposal-standard.js";
 import { recordProjectPreparationTrace } from "./project-preparation-trace.js";
 import type { WorkingReviewOwnerObservation } from "./continuous-project-build.js";
+import { bindRetainedDiscussionProposal } from "./contribution-discussion-retention.js";
+import { buildScientificDiscussionContext } from "./contribution-discussion-context.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -117,6 +119,11 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
   const scientificSourceIdentity = scientificSourceForPreparation(session, source);
   const scientificRequest: ProductBridgeRequest = { apiVersion: "1.0.0", conversation,
     currentProject: session.project, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    ...(session.scientificDiscussionRetention ? { scientificDiscussionContext: buildScientificDiscussionContext({
+      retained: session.retainedContributionCandidates ?? [], retention: session.scientificDiscussionRetention,
+      studyProposal: session.studyProposal, currentProject: session.project, conversationId: session.conversationId,
+      runtimeTurns: conversation.turns,
+    }) } : {}),
     ...(scientificSourceIdentity ? { workingDraftScientificSource: scientificSourceIdentity } : {}),
     workingDraftHistory: (session.workingDraft?.history ?? []).filter(h => h.status === "REJECTED"),
     ...(session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}) };
@@ -227,7 +234,10 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
     observed = recordProjectPreparationTrace(observed, cp, "READY_FOR_REVIEW", "SUCCEEDED", { code: "READY_FOR_REVIEW" });
     const transitioned = transitionProjectPreparation(observed, id, "READY_FOR_REVIEW");
     const currentBase = (session.project?.projectDigest ?? null) === binding.sourceProjectDigest;
+    const scientificDiscussionRetention = bindRetainedDiscussionProposal(session.scientificDiscussionRetention,
+      composition, response.workingDraftUpdate.retainedDiscussionBindings ?? []);
     return { ...transitioned,
+      scientificDiscussionRetention,
       ...(currentBase ? { studyProposal: composition, workingDraft, workingDraftFailure: null } : {}),
       workingDraftPreparations: transitioned.workingDraftPreparations!.map(item => item.checkpoint?.preparationId === id
         ? { ...item, result: { composition, workingDraft } } : item),

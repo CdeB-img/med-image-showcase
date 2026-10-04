@@ -12,6 +12,7 @@ import type { ScientificInterpretationTurn } from "../../scientific-interpretati
 import { STUDY_PROPOSAL_CAPACITY } from "../../scientific-thinking/study-proposal-capacity.js";
 import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
+import { retainedDiscussionProposalBindingsSchema } from "./contribution-discussion-retention.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
   runtimeTurns: ScientificInterpretationTurn[]; updatedAt: string; studyProposal?: StudyProposalComposition | null; workingDraft?: WorkingDraftMetadata | null };
 
@@ -27,6 +28,8 @@ const responseSchema = z.object({
   rejectedAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   // Complete-snapshot metadata, not a delta. Optional on historical outputs.
   supersededAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms).optional(),
+  // Historical outputs lack semantic bindings; absence is never disposal.
+  retainedDiscussionBindings: retainedDiscussionProposalBindingsSchema.optional(),
 }).strict();
 
 /** Correct only owner/area pairs whose native area has one possible owner. */
@@ -300,7 +303,8 @@ Respecte exclusivement nativeContractValues : area est une catégorie native, va
 Réponds UNIQUEMENT avec l'enveloppe JSON {requestType,proposal,explicitDecisions:[{atomRef,sourceTurnRef,quote}],inferredAtomRefs:[],rejectedAtomRefs:[],supersededAtomRefs:[]}. Chaque explicitDecision cite littéralement un passage d'un tour USER réel qui exprime ce choix ; une inférence ou recommandation n'est jamais une décision explicite. Les inferredAtomRefs désignent seulement les inférences fortes. Les rejetés désignent des atomes de previousStudyProposal retirés par un refus USER explicite. Le snapshot STUDY_UPDATE est complet et autonome : chaque atome antérieur encore courant est retenu, explicitement rejeté, ou déclaré dans supersededAtomRefs avec exactement un nouvel atome de remplacement émis ayant les mêmes semanticKey et targetType. Une référence conservée peut recevoir une modification candidate ; aucune ancienne référence absente ne sera reconstruite localement. N'utilise pas une supersession pour supprimer une branche non affectée, fusionner des données distinctes ou contourner le plafond. Ne confonds pas une explication ciblée avec une correction. Statuts natifs inchangés ; tous les éléments restent non adoptés. Pas de scénario de dimensionnement numérique sans inputs défendables. Fournis les atomes nécessaires à la couverture scientifique dans les bornes du contrat natif, sans quota éditorial qui ferait omettre des décisions ; dépendances acycliques et pas de longs aperçus documentaires. contextDigest doit être recopié exactement.
 GRAPHE DE PRÉREQUIS : dependsOn va de l'atome dépendant vers son prérequis ; il ne représente pas toute relation scientifique. Pour chaque lien, identifie ce que le prérequis rend possible : HARD_BLOCKING_DEPENDENCY si son absence empêche l'interprétation ou l'adoption scientifique du dépendant ; SOFT_REFINEMENT_DEPENDENCY ou OPTIONAL_DETAIL uniquement pour un raffinement ou détail orienté, sans blocage du choix autonome. Une contextualisation, une précision d'indication, un contexte de sélection ou une conséquence ne crée pas à elle seule un prérequis inverse : conserve cette information dans content/rationale, sans fabriquer un dependsOn réciproque. Réévalue les liens hérités lorsque les choix évoluent ; conserver les branches non affectées ne signifie pas recopier un lien devenu purement contextuel. Si un prérequis dépend déjà directement ou indirectement du dépendant, n'ajoute pas le lien inverse. Examine le sens des deux relations, sans supprimer arbitrairement une arête ni affaiblir un vrai prérequis HARD. Si un atome mélange un prérequis et sa conséquence, sépare ces concepts avec les atomes/types natifs nécessaires, en conservant leur matière scientifique et leurs qualifications. Avant émission, vérifie l'absence de tout cycle, y compris SOFT/OPTIONAL et mixte ; un changement de qualification ne résout pas un cycle.
 RÉDACTION BACKGROUND COMPACTE : conserve intégralement les décisions, distinctions scientifiques, liens, qualifications et arbitrages utiles. La concision porte sur leur explication, jamais sur leur suppression. Une justification ne répète pas le contenu : rationale d'atome ≤180 caractères, rationale de dépendance ≤100, rationale d'arbitrage ≤180 ; benefits/limits/consequences ≤140 chacun, understanding ≤150 chacun. proposal.reply ≤120 caractères car non affiché ; recruitmentNotice et participantQuestionnaireIntroduction ≤120 chacun, sans aperçu documentaire. N'ajoute pas de scénario chiffré pour remplir une rubrique. Les branches non affectées conservent leur contenu et leurs références ; ne les reformule pas pour le style. Ne tronque aucun texte ni lien pour respecter ces cibles ; garde une explication plus longue si elle est indispensable à son sens. Émets du JSON sans indentation ni commentaires.`;
-  return { context, instruction, inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns) };
+  return { context, instruction: instruction + `\nRÉTENTION SCIENTIFIQUE : retainedDiscussionBindings relie uniquement les éléments retainedMeaning actifs fournis aux atomRefs qui en préservent TOUT le sens, négations, conditions et incertitudes comprises. Reprends elementRef et sourceTurnRef exacts. Pas de similarité approximative ni de correspondance partielle. Si un élément reste non représenté, ne crée pas de binding : il reste actif. Ce lien ne ferme rien avant confirmation humaine et matérialisation native du Project. Aucun appel supplémentaire.`,
+    inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns) };
 };
 
 export const recommendedWorkingScope = (composition: StudyProposalComposition) => {
@@ -417,6 +421,9 @@ export const assertWorkingDraftSnapshotContinuity = (update: WorkingDraftUpdate,
 
 export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeRequest) => {
   const update = responseSchema.parse(raw);
+  if (update.retainedDiscussionBindings?.some(b => !request.scientificDiscussionContext?.retainedMeaning?.some(e =>
+    e.ref === b.elementRef && e.sourceTurnRef === b.sourceTurnRef)
+    || b.atomRefs.some(ref => !update.proposal?.atoms.some(a => a.ref === ref)))) throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
   if (update.requestType !== "STUDY_UPDATE") {
     if (update.proposal || update.explicitDecisions.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length
       || update.supersededAtomRefs?.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");

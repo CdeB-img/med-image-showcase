@@ -9,6 +9,7 @@ import { prepareScientificCollaboratorConversation, guardScientificCollaboratorL
 import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { STUDY_PROPOSAL_CAPACITY } from "../src/features/scientific-thinking/study-proposal-capacity.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
+import { terraScientificResultSchema, retainScientificDiscussionResult } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -368,6 +369,7 @@ export const executeProtocolDesignerBridge = async (input: {
   let terraConversation: Awaited<ReturnType<typeof executeOpenAITerraConversation>> | null = null;
   let terraPacket: ReturnType<typeof prepareTerraConversation> | null = null;
   let terraFailure: ProductBridgeResponse["conversationFailure"] = null;
+  let retainedScientificResult: ReturnType<typeof terraScientificResultSchema.parse> | undefined;
   let conversationContextPacketPreflight: ConversationContextPacketPreflight | null = null;
   if (input.chatRuntime === "TERRA") {
     try {
@@ -377,7 +379,24 @@ export const executeProtocolDesignerBridge = async (input: {
       terraConversation = await executeOpenAITerraConversation(terraPacket, input.openAiApiKey,
         input.fetchImpl, { context: observationContext, purpose: "CONVERSATION_REALIZATION",
           reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
+      try { retainedScientificResult = terraScientificResultSchema.parse(JSON.parse(terraConversation.value)); }
+      catch { throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID"); }
+      retainScientificDiscussionResult({ conversationId: request.conversation.conversationId,
+        runtimeTurns: [...request.conversation.turns, { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply }],
+        userTurn: latestUser, assistantTurn: { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply },
+        result: { ...retainedScientificResult, dispositions: [], candidateBindings: [] }, retained: [] });
+      for (const d of retainedScientificResult.dispositions) {
+        if (!request.scientificDiscussionContext?.retainedMeaning?.some(e => e.ref === d.elementRef)
+          || d.status === "SUPERSEDED" && !retainedScientificResult.userContribution.elements.some(e => e.id === d.replacementId))
+          throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
+      }
+      for (const b of retainedScientificResult.candidateBindings) {
+        const source = request.scientificDiscussionContext?.retainedMeaning?.find(e => e.ref === b.elementRef);
+        if (!source || !request.scientificDiscussionContext?.candidateBindingTargets?.some(t => t.candidateRef === b.candidateRef
+          && t.changeRef === b.changeRef && t.sourceTurnRefs.includes(source.sourceTurnRef))) throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
+      }
     } catch (error) {
+      terraConversation = null;
       terraFailure = { stage: "HOW", code: error instanceof ProductBridgeProviderError
         ? error.providerStatus ?? "CONVERSATION_PROVIDER_FAILURE" : error instanceof Error ? error.message : "CONVERSATION_PROVIDER_FAILURE",
         message: error instanceof Error && error.message === "CONVERSATION_MEMORY_LIMIT"
@@ -562,7 +581,7 @@ export const executeProtocolDesignerBridge = async (input: {
   }
 
   if (input.chatRuntime === "TERRA") {
-    const assistantReply = terraConversation?.value ?? terraFailure!.message;
+    const assistantReply = retainedScientificResult && terraConversation ? retainedScientificResult.reply : terraFailure!.message;
     return { status: 200, body: {
       apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply,
       assistantTurn: { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA", content: assistantReply, createdAt },
@@ -572,6 +591,7 @@ export const executeProtocolDesignerBridge = async (input: {
         contextDigest: terraPacket.contextDigest,
         providerInput: { systemInstruction: terraPacket.instruction, context: terraPacket.context },
         projectWrites: 0, projectWriteAuthorized: false,
+        retainedScientificResult,
       } : undefined,
       observability: { provider: "OPENAI", model: terraConversation?.modelReturned ?? terraConversation?.modelRequested ?? "gpt-5.6-terra", conversationProvider: "OPENAI",
         conversationModel: terraConversation?.modelReturned ?? terraConversation?.modelRequested ?? "gpt-5.6-terra",

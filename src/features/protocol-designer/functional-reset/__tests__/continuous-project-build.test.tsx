@@ -19,6 +19,9 @@ import { createFunctionalResetSession, loadFunctionalResetSession, persistFuncti
 import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { terraResultFixture } from "./terra-result-fixture";
+import { retainScientificDiscussionResult, activeScientificDiscussionRetention } from "../contribution-discussion-retention";
+import { buildScientificDiscussionContext } from "../contribution-discussion-context";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import ProjectWorkspace from "../ProjectWorkspace";
 import { ACTIVE_PROJECT_STORAGE_KEY, createProjectSession, readProjectSessions, saveProjectSession } from "../project-workspace-storage";
@@ -45,7 +48,7 @@ vi.mock("../../product-bridge-client", async original => ({ ...await original<ob
   requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: recoveryRead }));
 afterEach(() => { cleanup(); bridge.mockReset(); recoveryRead.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
-  output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
+  output: [{ content: [{ type: "output_text", text: text.trimStart().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const sessionFor = (text: string = DOMAINS[1].text) => {
   const session = createFunctionalResetSession();
   session.runtimeTurns = [{ turnId: "u1", role: "USER", content: text, createdAt: session.createdAt },
@@ -79,6 +82,65 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it("closes retained meaning through the same Working Draft response and actual explicit Review adoption, preserving its residual", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor();
+    const [userTurn, assistantTurn] = initial.runtimeTurns;
+    const semantic = terraResultFixture(assistantTurn.content);
+    semantic.userContribution = { coverage: "COMPLETE", nonPersistentReason: null, elements: [
+      { id: "design", content: "Condition scientifique de la conception", epistemicState: "USER_STATED", polarity: "AFFIRMED", conditions: [], linkedIds: [] },
+      { id: "residual", content: "Condition opérationnelle non représentée", epistemicState: "OPEN_UNKNOWN", polarity: "CONDITIONAL", conditions: ["À préciser"], linkedIds: [] },
+    ] };
+    semantic.assistantContribution = { coverage: "COMPLETE", nonPersistentReason: "NO_SCIENTIFIC_MEANING", elements: [] };
+    initial.scientificDiscussionRetention = retainScientificDiscussionResult({ conversationId: initial.conversationId,
+      runtimeTurns: initial.runtimeTurns, userTurn, assistantTurn, result: semantic, retained: [] });
+    const preparation = captureProjectPreparation(initial);
+    expect(JSON.parse(prepareWorkingDraftRequest(preparation.checkpoint!.request).context).CURRENT_DISCUSSION.retainedMeaning).toHaveLength(2);
+    const update = updateFor(preparation.checkpoint!.request);
+    update.retainedDiscussionBindings = [{ elementRef: initial.scientificDiscussionRetention.elements[0].ref,
+      atomRefs: ["design"], sourceTurnRef: userTurn.turnId }];
+    const accepted = acceptWorkingDraftUpdate(update, preparation.checkpoint!.request);
+    let saved = consumeProjectPreparation(addProjectPreparation(initial, preparation), preparation.checkpoint!.preparationId,
+      { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
+    expect(saved.workingDraftPreparations![0].status).toBe("READY_FOR_REVIEW");
+    expect(activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, [], null, saved.studyProposal)).toHaveLength(2);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    const active = activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, saved.retainedContributionCandidates ?? [], saved.project, saved.studyProposal);
+    expect(active.map(e => e.content)).toEqual(["Condition opérationnelle non représentée"]);
+    expect(saved.scientificDiscussionRetention!.elements[0].status).toBe("ADOPTED");
+    // A later Project version/compaction may change the binding view; adoption
+    // remains a closed lifecycle fact, not an invitation to re-propose history.
+    expect(activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, [], null, null).map(e => e.content))
+      .toEqual(["Condition opérationnelle non représentée"]);
+    expect(saved.scientificDiscussionRetention!.sourceCoverage).toHaveLength(4);
+    const adoptedDigest = saved.project!.projectDigest;
+    for (let i = 0; i < 7; i++) {
+      const user = { turnId: `post-adoption-${i}`, role: "USER" as const, content: "Merci.", createdAt: saved.updatedAt };
+      const assistant = { turnId: `ack-${i}`, role: "NOXIA" as const, content: "Accusé de réception.", createdAt: saved.updatedAt };
+      const turns = [...saved.runtimeTurns, user, assistant];
+      saved = { ...saved, runtimeTurns: turns, scientificDiscussionRetention: retainScientificDiscussionResult({
+        state: saved.scientificDiscussionRetention, conversationId: saved.conversationId, runtimeTurns: turns,
+        userTurn: user, assistantTurn: assistant, retained: saved.retainedContributionCandidates ?? [], result: {
+          ...terraResultFixture(assistant.content),
+          userContribution: { coverage: "COMPLETE", nonPersistentReason: "NO_SCIENTIFIC_MEANING", elements: [] },
+          assistantContribution: { coverage: "COMPLETE", nonPersistentReason: "NO_SCIENTIFIC_MEANING", elements: [] },
+        } }) };
+    }
+    const after = JSON.parse(prepareTerraConversation({ apiVersion: "1.0.0",
+      conversation: { conversationId: saved.conversationId, language: "fr", turns: saved.runtimeTurns },
+      currentProject: saved.project, evaluatePersistentDelta: false,
+      scientificDiscussionContext: buildScientificDiscussionContext({ retained: saved.retainedContributionCandidates ?? [],
+        retention: saved.scientificDiscussionRetention, studyProposal: saved.studyProposal,
+        currentProject: saved.project, conversationId: saved.conversationId, runtimeTurns: saved.runtimeTurns }),
+    }).context);
+    expect(after.CURRENT_DISCUSSION.retainedMeaning.map(e => e.content)).toEqual(["Condition opérationnelle non représentée"]);
+    expect(after.RECENT_CONVERSATION.some(t => t.ref === userTurn.turnId)).toBe(false);
+    expect(after.UNPROJECTED_USER_CONTEXT).toBeUndefined();
+    expect(saved.project!.projectDigest).toBe(adoptedDigest);
+    expect(bridge).not.toHaveBeenCalled();
+  });
   it.each([false, true])("keeps adoption committed when only the navigation pointer fails (initial Project present: %s)", async existingProject => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial = sessionFor();

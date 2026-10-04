@@ -222,7 +222,7 @@ const callOpenAIResponses = async (input: {
   return { body, httpStatus: response.status, latencyMs, requestId, endpoint, modelRequested };
 };
 
-type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown> };
+type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown>; outputSchemaName?: string };
 type TerraConversationRequestOptions = Readonly<{ maxOutputTokens?: number; timeoutMs?: number }>;
 
 export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket, options?: TerraConversationRequestOptions) => ({
@@ -234,7 +234,7 @@ export const buildOpenAITerraConversationPayload = (packet: TerraConversationPac
   store: false,
   service_tier: "default",
   ...(packet.outputSchema ? { text: { format: {
-    type: "json_schema", name: "continuous_working_draft", strict: true, schema: packet.outputSchema,
+    type: "json_schema", name: packet.outputSchemaName ?? "continuous_working_draft", strict: true, schema: packet.outputSchema,
   } } } : {}),
 } as const);
 

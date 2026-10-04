@@ -5,7 +5,7 @@ import { z as deltaZ } from "zod/v4";
 import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
 import { buildScientificCollaboratorPayload } from "../scientific-thinking/scientific-collaborator-conversation.js";
-import { classifyScientificStatementPurpose } from "./functional-reset/natural-conversation-policy.js";
+import { classifyScientificStatementPurpose, RECENT_NATURAL_TURN_LIMIT, recentNaturalConversationEntries } from "./functional-reset/natural-conversation-policy.js";
 import { buildContextualReasoningProviderPayload } from "../scientific-thinking/contextual-reasoning.js";
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
@@ -272,7 +272,8 @@ Ne choisis aucune autre question, ne rends pas mutuellement exclusives des dimen
 
 Pas de JSON. Pas de labels internes. Pas de description de l'architecture NOXIA. Réponds directement à l'utilisateur.`;
 
-const recentNaturalConversationTurns = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.conversation.turns.slice(-10);
+export { RECENT_NATURAL_TURN_LIMIT };
+export const recentNaturalConversationTurns = (request: Omit<ProductBridgeRequest, "apiVersion">) => recentNaturalConversationEntries(request.conversation.turns);
 
 const frenchWorkingTurnContent = (
   request: Omit<ProductBridgeRequest, "apiVersion">,

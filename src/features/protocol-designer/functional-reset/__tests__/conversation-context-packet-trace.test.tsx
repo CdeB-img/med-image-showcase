@@ -10,6 +10,7 @@ import * as traceOwner from "../../scientific-execution-trace";
 import * as traceAdapter from "../end-to-end-trace-adapter";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
+import { declaredNonScientificRetentionFixture } from "./terra-result-fixture";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
@@ -84,7 +85,8 @@ describe("passive context packet projection through existing TRACE", () => {
     vi.spyOn(console, "debug").mockImplementation(() => undefined);
     const session = createFunctionalResetSession();
     session.runtimeTurns = Array.from({ length: 24 }, (_, i) => ({ turnId: `synthetic-old-${i}`, role: "NOXIA" as const,
-      content: "LOCAL_SYNTHETIC_OLD_CONTENT".repeat(150), createdAt: AT }));
+      content: "LOCAL_SYNTHETIC_OLD_CONTENT".repeat(400), createdAt: AT }));
+    session.scientificDiscussionRetention = declaredNonScientificRetentionFixture({ conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns });
     const historyBefore = JSON.stringify(session.runtimeTurns);
     const documentsBefore = JSON.stringify(session.documents);
     const projectBefore = session.project;

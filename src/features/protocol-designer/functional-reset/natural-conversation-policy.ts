@@ -297,3 +297,6 @@ export const buildConciseAdoptionReply = (input: {
   const gap = input.stylePreference ? nextMaterialProjectGap(input.project)?.question ?? null : null;
   return [receipt, style, gap].filter(Boolean).join(" ");
 };
+/** Shared existing natural-window contract: entries, not exchanges. */
+export const RECENT_NATURAL_TURN_LIMIT = 10;
+export const recentNaturalConversationEntries = <T>(turns: readonly T[]): T[] => turns.slice(-RECENT_NATURAL_TURN_LIMIT);

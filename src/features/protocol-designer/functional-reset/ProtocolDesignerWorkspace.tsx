@@ -110,6 +110,7 @@ import {
   buildScientificDiscussionContext,
   type RetainedContributionCandidate,
 } from "./contribution-lifecycle";
+import { retainScientificDiscussionResult, recordGovernedAdoptionContextEvent, settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
 import {
@@ -2016,6 +2017,8 @@ export default function ProtocolDesignerWorkspace({
     const records: ProviderCallRecord[] = [];
     try {
       const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
+        retention: session.scientificDiscussionRetention,
+        studyProposal: session.studyProposal,
         currentProject: session.project, conversationId: session.conversationId, runtimeTurns: requestTurns,
         selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null });
       const response = await requestProtocolDesignerBridge({ conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
@@ -2044,6 +2047,12 @@ export default function ProtocolDesignerWorkspace({
       // Deliver native Chat text before any local transaction preparation. A
       // rejected candidate must never erase or replace this conversational turn.
       const delivered: FunctionalResetSession = { ...latest, pendingMixedUserTurnRef: null,
+        ...(!response.conversationFailure && response.scientificConversation?.retainedScientificResult ? {
+          scientificDiscussionRetention: retainScientificDiscussionResult({ state: latest.scientificDiscussionRetention,
+            conversationId: session.conversationId, runtimeTurns: [...runtimeTurns, response.assistantTurn],
+            userTurn, assistantTurn: response.assistantTurn, result: response.scientificConversation.retainedScientificResult,
+            retained: latest.retainedContributionCandidates ?? [] }),
+        } : {}),
         scientificExecutionTraceLedger: contextTraceLedger,
         runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
         entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
@@ -2161,6 +2170,8 @@ export default function ProtocolDesignerWorkspace({
         requestingTurnRef: userTurn.turnId,
       });
       const scientificDiscussionContext = buildScientificDiscussionContext({
+        retention: session.scientificDiscussionRetention,
+        studyProposal: session.studyProposal,
         retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
         conversationId: session.conversationId, runtimeTurns,
         selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
@@ -3309,6 +3320,11 @@ export default function ProtocolDesignerWorkspace({
           ? [naturalDecision.userTurn] : []),
         confirmationTurn,
       ];
+      // Only generated control acknowledgements receive native event coverage.
+      // An arbitrary natural confirmation/correction still requires ST meaning.
+      const generatedConfirmation = naturalDecision?.originalText === "Valider ces choix" ? naturalDecision.userTurn : null;
+      const scientificDiscussionRetention = recordGovernedAdoptionContextEvent(session.scientificDiscussionRetention,
+        project, [...(generatedConfirmation ? [generatedConfirmation] : []), confirmationTurn]);
       const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
         ? reviewEntry.traceRunId
         : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
@@ -3350,6 +3366,7 @@ export default function ProtocolDesignerWorkspace({
         throw new Error("PROJECT_CHANGED_DURING_HUMAN_REVIEW");
       let nextSession: FunctionalResetSession = {
         ...current,
+        scientificDiscussionRetention,
         project,
         documentRetryUnsafe: false,
         queryNavigation,
@@ -3454,6 +3471,8 @@ export default function ProtocolDesignerWorkspace({
           : current.conversationPreferences,
         updatedAt: now,
       };
+      nextSession = { ...nextSession, scientificDiscussionRetention: settleRetainedDiscussionAdoption(
+        nextSession.scientificDiscussionRetention, project, nextSession.retainedContributionCandidates ?? [], updatedStudyProposal) };
       if (proposalSelection) {
         const preparation = nextSession.workingDraftPreparations?.find(p => p.decision === "PENDING"
           && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);

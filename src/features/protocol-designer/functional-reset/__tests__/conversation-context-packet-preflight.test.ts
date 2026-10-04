@@ -10,6 +10,7 @@ import { CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS, providerCallRequestObservab
   readConversationContextPacketPreflight, type ConversationContextPacketPreflight } from "../../provider-call-observability";
 import { adoptBehaviorContribution, richStudyContribution } from "./p1-behavior-01a-contract-fixtures";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { declaredNonScientificDiscussionFixture } from "./terra-result-fixture";
 
 // Synthetic inputs only; fetch is forbidden unless explicitly replaced by a mock.
 const forbiddenProvider = vi.fn(() => { throw new Error("NO_PROVIDER_IN_BYTE_ATTRIBUTION_TEST"); });
@@ -64,19 +65,23 @@ describe("passive conversation packet UTF-8 accounting", () => {
     expectPartition(receipt);
   });
 
-  it("retains and accounts all 40 runtime turns; current USER is not counted twice", () => {
+  it("accounts only the recent window once older technical sources have explicit non-scientific disposition", () => {
     const request = requestFor();
     request.conversation.turns = Array.from({ length: 40 }, (_, i) => ({ turnId: `synthetic-${i}`,
       role: i % 2 ? "NOXIA" : "USER", content: `LOCAL_SYNTHETIC-${i} — é🧪 `.repeat(i === 7 ? 150 : 25) }));
+    request.scientificDiscussionContext = declaredNonScientificDiscussionFixture(request);
     const before = JSON.stringify(request);
     const { packet, receipt } = measure(request);
-    const turnSizes = packet.RECENT_CONVERSATION.map(bytes) as number[];
-    expect(packet.RECENT_CONVERSATION).toHaveLength(40);
+    const included = packet.RECENT_CONVERSATION;
+    const turnSizes = included.map(bytes) as number[];
+    expect(packet.RECENT_CONVERSATION).toHaveLength(10);
+    expect(packet.UNPROJECTED_USER_CONTEXT).toBeUndefined();
+    const currentIndex = included.findIndex(t => t.ref === "synthetic-38");
     expect(receipt).toMatchObject({ conversationTurnCount: 40, userTurnCount: 20, assistantTurnCount: 20,
-      includedTurnCount: 40, oldestIncludedTurnIndex: 0, newestIncludedTurnIndex: 39,
-      largestSingleTurnBytes: turnSizes[7], largestSingleTurnRole: "NOXIA", currentUserMessageBytes: turnSizes[38] });
-    expect(receipt.userHistoryBytes).toBe(turnSizes.reduce((sum, n, i) => sum + (i % 2 === 0 && i !== 38 ? n : 0), 0));
-    expect(receipt.assistantHistoryBytes).toBe(turnSizes.reduce((sum, n, i) => sum + (i % 2 ? n : 0), 0));
+      includedTurnCount: 10, oldestIncludedTurnIndex: 30, newestIncludedTurnIndex: 39,
+      largestSingleTurnRole: "NOXIA", currentUserMessageBytes: turnSizes[currentIndex] });
+    expect(receipt.userHistoryBytes).toBe(turnSizes.reduce((sum, n, i) => sum + (included[i].role === "USER" && i !== currentIndex ? n : 0), 0));
+    expect(receipt.assistantHistoryBytes).toBe(turnSizes.reduce((sum, n, i) => sum + (included[i].role === "NOXIA" ? n : 0), 0));
     expect(JSON.stringify(request)).toBe(before);
     expectPartition(receipt);
   });
@@ -163,7 +168,8 @@ describe("passive conversation packet UTF-8 accounting", () => {
     const request = requestFor("LOCAL_SYNTHETIC_CURRENT");
     request.currentProject = adoptBehaviorContribution(richStudyContribution(), null, 1);
     request.conversation.turns.unshift(...Array.from({ length: 24 }, (_, i) => ({ turnId: `synthetic-history-${i}`,
-      role: "NOXIA" as const, content: "LOCAL_SYNTHETIC_HISTORY é🧪".repeat(150) })));
+      role: "NOXIA" as const, content: "LOCAL_SYNTHETIC_HISTORY é🧪".repeat(400) })));
+    request.scientificDiscussionContext = declaredNonScientificDiscussionFixture(request);
     const before = JSON.stringify(request);
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "LOCAL_SYNTHETIC_KEY",
       chatRuntime: "TERRA", fetchImpl: forbiddenProvider, providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" });

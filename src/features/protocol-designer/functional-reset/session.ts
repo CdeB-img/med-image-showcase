@@ -274,6 +274,9 @@ export type FunctionalResetSession = {
   // Consumer processing is separate from scientific validation and human review.
   // Optional for existing v2 sessions; absent history is not reconstructed.
   retainedContributionCandidates?: readonly RetainedContributionCandidate[];
+  // Existing discussion lifecycle extension. Absence in a legacy session is
+  // UNKNOWN, never reconstructed from text or interpreted as NON_PERSISTENT.
+  scientificDiscussionRetention?: import("./contribution-discussion-retention.js").ScientificDiscussionRetention;
   /** Exact already recorded USER turn awaiting the existing preparation corridor. */
   pendingMixedUserTurnRef?: string | null;
   projectAuthority: ResearchProjectOwnerAuthority;

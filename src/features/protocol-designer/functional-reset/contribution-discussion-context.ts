@@ -3,6 +3,8 @@ import type { ResearchProjectOwnerProjection } from "../../research-project-cons
 import type { ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle.js";
 import type { CanonicalProjectProvenance } from "../../research-project-construction/canonical-project-backbone.js";
+import { activeScientificDiscussionRetention, validateScientificDiscussionRetention,
+  type ScientificDiscussionRetention } from "./contribution-discussion-retention.js";
 
 /** Read-only projection of the existing retained-contribution owner. No store,
  * extraction, human decision, canonical mutation or scientific inference. */
@@ -42,6 +44,9 @@ export type ScientificDiscussionContext = Readonly<{
   unresolved: readonly Readonly<{ sourceRef: string; reason: string; status: "OPEN_UNKNOWN" }>[];
   sources: readonly DiscussionSource[];
   excludedCandidateRefs: readonly string[];
+  retainedMeaning?: ReturnType<typeof activeScientificDiscussionRetention>;
+  sourceCoverage?: ScientificDiscussionRetention["sourceCoverage"];
+  candidateBindingTargets?: readonly Readonly<{ candidateRef: string; changeRef: string; sourceTurnRefs: readonly string[]; content: string }>[];
   boundary: "COMPLETE" | "BOUND_EXCEEDED_CONTEXT_UNAVAILABLE";
   projectionOnly: true; sourceOfTruth: false;
   projectWriteAuthorized: false; projectAdoptionAuthorized: false;
@@ -121,6 +126,8 @@ export const buildScientificDiscussionContext = (input: {
   currentProject: ResearchProjectOwnerProjection | null;
   conversationId: string; runtimeTurns: readonly Pick<ScientificInterpretationTurn, "turnId" | "role" | "content">[];
   selectedReviewRef?: string | null;
+  retention?: ScientificDiscussionRetention;
+  studyProposal?: import("../../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
 }): ScientificDiscussionContext => {
   const lastUser = [...input.runtimeTurns].reverse().find(t => t.role === "USER");
   const baseProject = input.currentProject ? { projectId: input.currentProject.projectId, versionId: input.currentProject.versionId, projectDigest: input.currentProject.projectDigest } : null;
@@ -134,6 +141,8 @@ export const buildScientificDiscussionContext = (input: {
   let lastActiveCandidateRef: string | null = null;
   const excludedCandidateRefs: string[] = [];
   const turns = new Map(input.runtimeTurns.map(t => [t.turnId, t]));
+  const retentionValid = input.retention && validateScientificDiscussionRetention(input.retention, input.conversationId, input.runtimeTurns);
+  const ownedSources = new Set(retentionValid ? input.retention!.sourceCoverage.map(s => s.turnRef) : []);
   const rejectedRefs = new Set<string>();
   let precedingUserRef: string | null = null;
   const usable = input.retained.filter(record => {
@@ -170,6 +179,7 @@ export const buildScientificDiscussionContext = (input: {
   };
   for (const turn of input.runtimeTurns) {
     if (turn.role === "NOXIA") {
+      if (ownedSources.has(turn.turnId)) continue;
       const options = projectVisibleDiscussionOptions(turn);
       const closedParent = usable.some(r => r.sourceTurnRef === precedingUserRef
         && (rejectedRefs.has(r.candidateRef) || r.humanDecision?.status === "REJECTED" || r.actuality === "SUPERSEDED"));
@@ -226,6 +236,9 @@ export const buildScientificDiscussionContext = (input: {
         lastActiveCandidateRef = record.candidateRef;
       }
     }
+    // New nominal sources have first-owner semantic receipts. Legacy bounded
+    // contextual direction recognition is not a semantic coverage certificate.
+    if (ownedSources.has(turn.turnId)) continue;
     const pairs = replacementPairs(turn.content);
     for (const pair of pairs) {
       const matches = active.filter(e => literal(pair.old).test(e.content));
@@ -317,10 +330,25 @@ export const buildScientificDiscussionContext = (input: {
     conversationId: input.conversationId, requestingTurnRef: lastUser?.turnId ?? "", baseProject,
     lastActiveCandidateRef: active.some(e => e.candidateRef === lastActiveCandidateRef) ? lastActiveCandidateRef : active.at(-1)?.candidateRef ?? null,
     active, history, historicalReferences, visibleOptions, resolvedReferences, unresolved, sources: [...sources.values()], excludedCandidateRefs,
+    ...(retentionValid ? {
+      retainedMeaning: activeScientificDiscussionRetention(input.retention!, input.retained, input.currentProject, input.studyProposal),
+      sourceCoverage: input.retention!.sourceCoverage,
+      candidateBindingTargets: input.retained.filter(c => c.actuality === "CURRENT" && c.validation.valid && !c.validation.blocks.length
+        && !c.humanDecision && c.candidateDigest === logicalDigest({ contribution: c.contribution, candidate: c.candidate }))
+        .flatMap(c => c.candidate.canonicalChangeSet.objectChanges.filter(change => change.candidate && change.operation !== "REMOVE")
+          .map(change => ({ candidateRef: c.candidateRef, changeRef: change.changeRef,
+            sourceTurnRefs: [...change.candidate!.provenance.sourceTurnRefs, ...change.candidate!.provenance.proposalSourceTurnRefs], content: change.candidate!.content }))),
+    } : {}),
     boundary: "COMPLETE" as ScientificDiscussionContext["boundary"], projectionOnly: true as const, sourceOfTruth: false as const,
     projectWriteAuthorized: false as const, projectAdoptionAuthorized: false as const,
   };
-  if (active.length + history.length > MAX_ELEMENTS || JSON.stringify(context).length > MAX_CONTEXT_CHARS) {
+  // Closed source certificates are provenance, not active scientific context.
+  const { sourceCoverage: _coverage, history: _history, excludedCandidateRefs: _excluded, sources: allSources, ...activeFields } = context;
+  const requiredSources = new Set([...context.active.flatMap(e => e.sourceRefs), ...context.visibleOptions.map(o => o.sourceRef),
+    ...context.resolvedReferences.map(r => r.sourceRef), ...context.unresolved.map(r => r.sourceRef),
+    ...context.historicalReferences.map(r => r.requestingSourceRef)]);
+  const activeContext = { ...activeFields, sources: allSources.filter(s => requiredSources.has(s.ref)) };
+  if (active.length + (context.retainedMeaning?.length ?? 0) > MAX_ELEMENTS || JSON.stringify(activeContext).length > MAX_CONTEXT_CHARS) {
     context.active = []; context.history = []; context.historicalReferences = []; context.visibleOptions = []; context.resolvedReferences = []; context.sources = [];
     context.lastActiveCandidateRef = null; context.unresolved = []; context.boundary = "BOUND_EXCEEDED_CONTEXT_UNAVAILABLE";
   }
@@ -340,11 +368,26 @@ export const validateScientificDiscussionContext = (value: unknown, input: {
     if (c.contract !== "RETAINED_CONTRIBUTION_DISCUSSION_CONTEXT" || c.contractVersion !== "1.0.0" || c.owner !== "RETAINED_CONTRIBUTION_LIFECYCLE"
       || c.conversationId !== input.conversationId || c.requestingTurnRef !== lastUser?.turnId || logicalDigest(c.baseProject) !== logicalDigest(base)
       || c.projectionOnly !== true || c.sourceOfTruth !== false || c.projectWriteAuthorized !== false || c.projectAdoptionAuthorized !== false
-      || logicalDigest(unsigned) !== contextDigest || JSON.stringify(c).length > MAX_CONTEXT_CHARS + 100
+      || logicalDigest(unsigned) !== contextDigest
       || !["COMPLETE", "BOUND_EXCEEDED_CONTEXT_UNAVAILABLE"].includes(c.boundary)
-      || !Array.isArray(c.active) || !Array.isArray(c.history) || c.active.length + c.history.length > MAX_ELEMENTS
+      || !Array.isArray(c.active) || !Array.isArray(c.history) || c.active.length + (c.retainedMeaning?.length ?? 0) > MAX_ELEMENTS
       || !Array.isArray(c.sources) || !Array.isArray(c.visibleOptions) || !Array.isArray(c.resolvedReferences)
       || !Array.isArray(c.historicalReferences) || !Array.isArray(c.unresolved) || !Array.isArray(c.excludedCandidateRefs)) return false;
+    const { sourceCoverage: _coverage, history: _history, excludedCandidateRefs: _excluded, sources: allSources, ...activeFields } = c;
+    const requiredSources = new Set([...c.active.flatMap(e => e.sourceRefs), ...c.visibleOptions.map(o => o.sourceRef),
+      ...c.resolvedReferences.map(r => r.sourceRef), ...c.unresolved.map(r => r.sourceRef),
+      ...c.historicalReferences.map(r => r.requestingSourceRef)]);
+    const activeContext = { ...activeFields, sources: allSources.filter(s => requiredSources.has(s.ref)) };
+    if (JSON.stringify(activeContext).length > MAX_CONTEXT_CHARS + 100) return false;
+    if (c.sourceCoverage && (!Array.isArray(c.sourceCoverage) || new Set(c.sourceCoverage.map(s => s.turnRef)).size !== c.sourceCoverage.length
+      || c.sourceCoverage.some(s => {
+        const turn = input.runtimeTurns.find(t => t.turnId === s.turnRef);
+        return !turn || logicalDigest(turn.content) !== s.sourceDigest || !["COMPLETE", "PARTIAL", "UNKNOWN"].includes(s.coverage)
+          || !Array.isArray(s.elementRefs) || (s.coverage === "COMPLETE" && !s.elementRefs.length && !s.nonPersistentReason);
+      }))) return false;
+    if (c.retainedMeaning && (!c.sourceCoverage || !Array.isArray(c.retainedMeaning) || c.retainedMeaning.some(e =>
+      !e.content?.trim() || e.status !== "NOT_ADOPTED" || !Array.isArray(e.conditions) || !Array.isArray(e.linkedRefs)
+      || !c.sourceCoverage!.some(s => s.turnRef === e.sourceTurnRef && s.sourceDigest === e.sourceDigest && s.elementRefs.includes(e.ref))))) return false;
     const sourceRefs = new Set(c.sources.map(s => s.ref));
     if (new Set(c.active.map(e => e.ref)).size !== c.active.length || sourceRefs.size !== c.sources.length || c.sources.some(s => {
       const turn = input.runtimeTurns.find(t => t.turnId === s.turnRef);
@@ -378,11 +421,13 @@ export const scientificDiscussionProviderContext = (context: ScientificDiscussio
     if (previous) previous.otherOccurrences.push({ ref, nativeRef, candidateRef, sourceRefs: refs, linkedRefs });
     else groups.set(key, { ...e, otherOccurrences: [] });
   }
-  const { contextDigest: sourceContextDigest, ...sourceContext } = context;
+  const { contextDigest: sourceContextDigest, sourceCoverage: _coverage, ...sourceContext } = context;
   const projection = { ...sourceContext, contract: "RETAINED_CONTRIBUTION_DISCUSSION_PROVIDER_PROJECTION" as const, sourceContextDigest,
     active: [...groups.values()], history: context.history.map(h => ({ elementRef: h.element.ref, status: h.status, reasonSourceRef: h.reasonSourceRef })),
     sources: context.sources.filter(s => sourceRefs.has(s.ref)).map(s => rejectedSourceRefs.has(s.ref)
-      ? { ...s, sourceText: null, sourceTextOmissionReason: "SOURCE_SHARED_WITH_REJECTED_CONTENT_REFERENCES_ONLY" } : s),
+      ? { ...s, sourceText: null, sourceTextOmissionReason: "SOURCE_SHARED_WITH_REJECTED_CONTENT_REFERENCES_ONLY" }
+      : context.sourceCoverage?.some(c => c.turnRef === s.turnRef && c.coverage === "COMPLETE")
+        ? { ...s, sourceText: null, sourceTextOmissionReason: "FIRST_OWNER_RETAINED_MEANING_WITH_SOURCE_REFERENCES" } : s),
     authority: "Le Project adopté demeure la seule vérité adoptée. Les éléments discutés et corrigés ne sont pas adoptés. Les refs discussion/nativeRef ne sont pas des identifiants Project utilisables pour REPLACE/REMOVE. Les sources antérieures sont des référents, jamais des ancrages du dernier message. Conserver les rôles et relations explicites ; une correction locale ne transforme pas une comparaison secondaire ou une référence en modèle central. OPEN_UNKNOWN et deferred ne constituent pas un nouvel ordre de relance." };
   return { ...projection, contextDigest: logicalDigest(projection) };
 };
