@@ -5,14 +5,14 @@ import { createProductTraceRunId, type ScientificTraceCaptureConfiguration } fro
 import { recordProductErrorBoundary } from "./end-to-end-trace-adapter";
 import { activeProjectPreparation, addProjectPreparation, captureProjectPreparation, consumeProjectPreparation,
   preparationCheckpointValid, transitionProjectPreparation } from "./project-preparation-lifecycle";
-import { appendFunctionalResetProviderCallRecords, persistFunctionalResetSession, type FunctionalResetSession } from "./session";
+import { appendFunctionalResetProviderCallRecords, saveFunctionalResetWorkspaceSession, type FunctionalResetSession, type SessionSave } from "./session";
 import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input";
 import { recordProjectPreparationTrace } from "./project-preparation-trace";
 
 type Options = {
   enabled: boolean; session: FunctionalResetSession; latest: MutableRefObject<FunctionalResetSession>;
   setSession: Dispatch<SetStateAction<FunctionalResetSession>>;
-  save?: (session: FunctionalResetSession) => boolean | void;
+  save?: SessionSave;
   captureConfiguration: ScientificTraceCaptureConfiguration;
 };
 /** Coordinates effects only. The persisted session preparation owns every transition. */
@@ -44,11 +44,7 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         "WORKING_DRAFT_VALIDATION", "FAILED", { code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
           failureFunction: "preflightWorkingDraftKnowledgeSource", failureInvariant: "WORKING_DRAFT_KNOWLEDGE_SOURCE",
           attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;
-    try {
-      if (options.current.save) {
-        if (options.current.save(beforeDispatch) === false) throw new Error("SAVE_FAILED");
-      } else persistFunctionalResetSession(window.localStorage, beforeDispatch);
-    } catch {
+    if (!saveFunctionalResetWorkspaceSession(window.localStorage, beforeDispatch, options.current.save).scientificPersisted) {
       update(source.sessionId, () => transitionProjectPreparation(recordProjectPreparationTrace(prepared,
         preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
           code: "WORKING_DRAFT_PREPARATION_SAVE_FAILED", failureFunction: "persistFunctionalResetSession",

@@ -20,6 +20,8 @@ import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
+import ProjectWorkspace from "../ProjectWorkspace";
+import { ACTIVE_PROJECT_STORAGE_KEY, createProjectSession, readProjectSessions, saveProjectSession } from "../project-workspace-storage";
 import * as traceAdapter from "../end-to-end-trace-adapter";
 import { reviewDecisionRefsInDisplayOrder } from "../ContributionReview";
 import { contributionDecisionScopeGroups } from "@/features/research-project-construction/contribution-owner-boundary";
@@ -77,6 +79,46 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it.each([false, true])("keeps adoption committed when only the navigation pointer fails (initial Project present: %s)", async existingProject => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor();
+    if (existingProject) {
+      const ready = checkpointSession(initial, updateFor(requestFor(initial))).workingDraft!.readyReview!;
+      initial.project = confirmResearchProjectContribution({ contribution: ready.contribution, current: null,
+        projectId: initial.projectId, authority: initial.projectAuthority, confirmedAt: initial.updatedAt });
+    }
+    const before = initial.project && JSON.stringify(initial.project);
+    const next = updateFor(requestFor(initial));
+    if (existingProject) next.proposal!.atoms.find(atom => atom.ref === "question")!.content += " — précision candidate";
+    const session = checkpointSession(initial, next);
+    const saved = createProjectSession(localStorage, "Persistance exacte");
+    saved.session = session; saved.raw = saveProjectSession(localStorage, saved, session);
+    const original = Storage.prototype.setItem;
+    let refusePointer = true;
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(function(key, value) {
+      if (key === ACTIVE_PROJECT_STORAGE_KEY && refusePointer) throw new DOMException("LOCAL_SYNTHETIC_POINTER", "QuotaExceededError");
+      return original.call(this, key, value);
+    });
+    const view = render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(readProjectSessions(localStorage).projects[0].session.project?.revision).toBe(existingProject ? 2 : 1));
+    const committed = readProjectSessions(localStorage).projects[0].session.project!;
+    expect(screen.queryByText(/La validation du projet n’a pas abouti/)).toBeNull();
+    expect(screen.getByText(/Le projet est enregistré/)).toBeInTheDocument();
+    if (existingProject) expect(JSON.stringify(initial.project)).toBe(before);
+    view.unmount();
+    const reloaded = render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
+    expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
+    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    refusePointer = false;
+    fireEvent.click(screen.getByRole("button", { name: "Réessayer le raccourci de réouverture" }));
+    expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
+    expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(saved.key);
+    reloaded.unmount(); render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
+    expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
+    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    expect(bridge).not.toHaveBeenCalled();
+  });
   const confirmedTurn = (content: string, sourceText: string = DOMAINS[1].text) => {
     const initial = sessionFor(sourceText);
     const user = { turnId: "u2", role: "USER" as const, content, createdAt: initial.createdAt };

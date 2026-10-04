@@ -732,6 +732,29 @@ export const persistFunctionalResetSession = (storage: Storage, session: Functio
   storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify(session));
 };
 
+export type SessionPersistenceResult =
+  | { scientificPersisted: true; navigationPointer: "UPDATED" | "FAILED" | "NOT_APPLICABLE" }
+  | { scientificPersisted: false; error: unknown };
+
+// Boolean/void remains accepted at the embedding seam for existing hosts.
+// Every product caller consumes the same explicit verdict, never an exception
+// or the auxiliary navigation outcome as a scientific failure.
+export type SessionSave = (session: FunctionalResetSession) => SessionPersistenceResult | boolean | void;
+export const saveFunctionalResetWorkspaceSession = (
+  storage: Storage, session: FunctionalResetSession, save?: SessionSave,
+): SessionPersistenceResult => {
+  try {
+    if (!save) {
+      persistFunctionalResetSession(storage, session);
+      return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
+    }
+    const result = save(session);
+    if (result === false) return { scientificPersisted: false, error: new Error("PROJECT_PERSISTENCE_FAILED") };
+    return result && typeof result === "object" ? result
+      : { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
+  } catch (error) { return { scientificPersisted: false, error }; }
+};
+
 export const clearFunctionalResetSession = (storage: Storage) => storage.removeItem(FUNCTIONAL_RESET_STORAGE_KEY);
 
 export const createConversationEntryId = () => id("conversation-entry");

@@ -9,7 +9,7 @@ import {
   ACTIVE_PROJECT_STORAGE_KEY, createProjectSession, deleteProjectSession, readProjectSessions, readResearcherProfile,
   RESEARCHER_PROFILE_STORAGE_KEY, renameProjectSession, saveProjectSession, type SavedProjectSession,
 } from "./project-workspace-storage";
-import type { FunctionalResetSession } from "./session";
+import type { FunctionalResetSession, SessionPersistenceResult } from "./session";
 
 const buttonClass = "min-h-11 rounded-xl border bg-background px-4 text-sm font-medium";
 const projectTitle = (saved: SavedProjectSession) => saved.session.workspace?.title ?? "Projet sans titre";
@@ -63,6 +63,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
   const [view, setView] = useState<"PROJECT" | "LIST" | "ADMIN" | "PROFILE">(boot.active ? "PROJECT" : "LIST");
   const [profile, setProfile] = useState(boot.profile);
   const [error, setError] = useState("");
+  const [navigationWarning, setNavigationWarning] = useState("");
   const [title, setTitle] = useState("");
   const [generation, setGeneration] = useState(0);
   const [list, setList] = useState(() => ({ projects: boot.projects, unreadable: boot.unreadable }));
@@ -83,21 +84,28 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
     return next;
   };
 
-  const persist = useCallback((session: FunctionalResetSession) => {
+  const persist = useCallback((session: FunctionalResetSession): SessionPersistenceResult => {
     const saved = savedRef.current;
-    if (!saved || saved.session.sessionId !== session.sessionId) return false;
+    if (!saved || saved.session.sessionId !== session.sessionId)
+      return { scientificPersisted: false, error: new Error("PROJECT_SESSION_IDENTITY_MISMATCH") };
     latestRef.current = session;
     try {
       const raw = saveProjectSession(window.localStorage, saved, session);
       const next = { ...saved, raw, session };
       savedRef.current = next;
       setActive(next);
-      window.localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
-      setError("");
-      return true;
     } catch (failure) {
       setError(`Enregistrement local impossible. Gardez cet écran ouvert : ${failure instanceof Error ? failure.message : String(failure)}`);
-      return false;
+      return { scientificPersisted: false, error: failure };
+    }
+    setError("");
+    try {
+      window.localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+      setNavigationWarning("");
+      return { scientificPersisted: true, navigationPointer: "UPDATED" };
+    } catch {
+      setNavigationWarning("Le projet est enregistré. Le raccourci de réouverture n’a pas été actualisé ; le projet reste disponible dans Mes projets.");
+      return { scientificPersisted: true, navigationPointer: "FAILED" };
     }
   }, []);
 
@@ -133,10 +141,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
       handoffDecision: session.documents.handoffDecision,
       administration: documentAdministrationFrom(session.projectId, metadata),
     });
-    try {
-      const raw = saveProjectSession(window.localStorage, saved, session);
-      open({ ...saved, raw, session });
-    } catch (failure) { setError(String(failure)); }
+    if (persist(session).scientificPersisted && savedRef.current) open(savedRef.current);
   };
 
   const beginRename = (saved: SavedProjectSession) => {
@@ -181,6 +186,9 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
   const currentTitle = current?.workspace?.title;
 
   return <>
+    {navigationWarning && <div role="status" className="m-4 rounded-xl border p-4 text-sm">
+      <p>{navigationWarning}</p><button type="button" className={`${buttonClass} mt-2`} onClick={() => { if (latestRef.current) persist(latestRef.current); }}>Réessayer le raccourci de réouverture</button>
+    </div>}
     {error && <div role="alert" className="sticky top-16 z-50 m-4 rounded-xl border border-red-400 bg-red-50 p-4 text-sm text-red-950">
       <p>{error}</p><button type="button" className={`${buttonClass} mt-2`} onClick={() => { if (latestRef.current) persist(latestRef.current); }}>Réessayer la sauvegarde</button>
     </div>}

@@ -172,7 +172,8 @@ import {
   createFunctionalResetSession,
   createTurnId,
   loadFunctionalResetSession,
-  persistFunctionalResetSession,
+  saveFunctionalResetWorkspaceSession,
+  type SessionSave,
   projectHumanDecisionForBridgeTrace,
   recordConversationConfirmationReceipt,
   conversationConfirmationReceiptStatus,
@@ -972,7 +973,7 @@ const resolvePostAdoptionContinuationJob = async (
 type ProtocolDesignerWorkspaceProps = Readonly<{
   traceCaptureConfiguration?: ScientificTraceCaptureConfiguration;
   initialSession?: FunctionalResetSession;
-  onSessionChange?: (session: FunctionalResetSession) => boolean | void;
+  onSessionChange?: SessionSave;
   onLeaveWorkspace?: () => void;
   onEditAdministration?: () => void;
   onNewProject?: () => void;
@@ -1007,6 +1008,7 @@ export default function ProtocolDesignerWorkspace({
   const [correctionMode, setCorrectionMode] = useState(false);
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
   const [documentSaveWarning, setDocumentSaveWarning] = useState<string | null>(null);
+  const [sessionSaveWarning, setSessionSaveWarning] = useState<string | null>(null);
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
   const [documentMessage, setDocumentMessage] = useState("");
@@ -1064,11 +1066,9 @@ export default function ProtocolDesignerWorkspace({
   };
 
   useEffect(() => {
-    try {
-      if (onSessionChange) onSessionChange(session);
-      else persistFunctionalResetSession(window.localStorage, session);
-    } catch (error) {
-      if (!session.drciDraftPacks?.length) throw error;
+    const saved = saveFunctionalResetWorkspaceSession(window.localStorage, session, onSessionChange);
+    setSessionSaveWarning(saved.scientificPersisted ? null : "Enregistrement local impossible. Gardez cet écran ouvert et réessayez la sauvegarde avant de poursuivre.");
+    if (!saved.scientificPersisted && session.drciDraftPacks?.length) {
       setDocumentSaveWarning("Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
     }
     if (import.meta.env.DEV && session.bridgeTraces.length > 0) {
@@ -3463,7 +3463,8 @@ export default function ProtocolDesignerWorkspace({
         adoptionTrace.writeStarted(project, current.project);
         nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
       }
-      if (onSessionChange?.(nextSession) === false) throw new Error("PROJECT_PERSISTENCE_FAILED");
+      if (!saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange).scientificPersisted)
+        throw new Error("PROJECT_PERSISTENCE_FAILED");
       if (adoptionTrace && onSessionChange) {
         adoptionTrace.writeSucceeded(project);
         nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
@@ -4038,11 +4039,7 @@ export default function ProtocolDesignerWorkspace({
               documentRetryUnsafe: false,
               entries: latest.entries,
               updatedAt: now };
-            let saved = false;
-            try {
-              if (onSessionChange) saved = onSessionChange(nextSession) !== false;
-              else { persistFunctionalResetSession(window.localStorage, nextSession); saved = true; }
-            } catch { /* Paid, validated pack remains readable in memory. */ }
+            const saved = saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange).scientificPersisted;
             setDocumentSaveWarning(saved ? null : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
             latestSessionRef.current = nextSession; setSession(nextSession);
             setDeliverableWorkspaceOpen(true);
@@ -4312,6 +4309,8 @@ export default function ProtocolDesignerWorkspace({
       <meta name="robots" content="noindex, follow" />
     </Helmet>
 
+    {sessionSaveWarning && !session.drciDraftPacks?.length && !onSessionChange
+      && <p role="alert" className="m-4 rounded-xl border p-4 text-sm">{sessionSaveWarning}</p>}
     <div className="mx-auto max-w-[1480px] px-4 pb-5 sm:px-6 lg:px-8">
       <header className="sticky top-16 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
         <div className="mx-auto flex max-w-[1480px] flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
@@ -4390,7 +4389,7 @@ export default function ProtocolDesignerWorkspace({
           portfolio={deliverablePortfolio}
           documentPacks={session.drciDraftPacks}
           projectId={session.project?.projectId}
-          saveWarning={documentSaveWarning}
+          saveWarning={documentSaveWarning ?? sessionSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
           />
         </div> : openProjection ? <ProtocolPreview
