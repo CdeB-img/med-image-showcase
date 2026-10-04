@@ -116,7 +116,6 @@ export const completeDrciOperationalProjection = (
   generated: z.infer<typeof generatedSchema>,
   sourceFacts: readonly { ref: string; type: string; content: string; polarity: string; epistemicState: string }[],
 ) => {
-  const normalized = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/gu, "").toLocaleLowerCase("fr");
   // ProjectContextSnapshot omits AFFIRMED to keep its wire representation compact.
   const current = sourceFacts.filter(fact => fact.epistemicState === "KNOWN"
     && (fact.polarity === undefined || fact.polarity === "AFFIRMED"));
@@ -131,21 +130,9 @@ export const completeDrciOperationalProjection = (
   const protocol = documents.find(doc => doc.kind === "PROTOCOL_FULL");
   if (protocol && ![...protocol.missingElements, ...protocol.sections.flatMap(section => section.paragraphs)].some(value => /justification statistique.*précision/iu.test(value)))
     protocol.missingElements.push(...pragmaticDimensioningOpenItems(sourceFacts));
-  const crfRows = generated.crfRows.map(row => {
-    const fact = current.find(fact => fact.ref === row.variableRef && fact.type === "CANONICAL_VARIABLE");
-    if (!fact) return row;
-    const label = normalized(fact.content);
-    if (/^pression arterielle (?:systolique|diastolique)/u.test(label)) return { ...row,
-      required: "Oui : mesure prévue pour chaque participant ; une absence est documentée.",
-      condition: null, specificationStatus: "DERIVED_FROM_PROJECT" as const };
-    if (/^traitement antihypertenseur/u.test(label)) return { ...row,
-      required: "Oui : statut présent ou absent à renseigner pour vérifier l’éligibilité.", specificationStatus: "DERIVED_FROM_PROJECT" as const };
-    if (/^qualite des acquisitions/u.test(label) && current.some(fact => /cartes.*interprétables/iu.test(fact.content))) return { ...row,
-      required: "Oui : interprétabilité à documenter pour chaque examen, même sans anomalie.",
-      condition: null, specificationStatus: "DERIVED_FROM_PROJECT" as const };
-    return row;
-  });
-  return { documents, crfRows };
+  // Collection semantics belong to Project/DM. Editorial completion must not
+  // derive applicability, obligation or certainty from a variable display name.
+  return { documents, crfRows: generated.crfRows };
 };
 export type DrciProjectBinding = { projectId: string; projectVersion: string; projectDigest: string };
 export type RetainedDrciScope = Readonly<{ requestContext: string; value: unknown; rawOutputRef: string }>;

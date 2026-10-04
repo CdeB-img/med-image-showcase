@@ -14,7 +14,6 @@ import { completeDrciOperationalProjection, polishDrciEditorialText, prepareDrci
 import { readRetainedDrciProtocolEvidence } from "../../../../server/protocol-designer-document-evidence";
 import { executeOpenAIDrciDraft, executeOpenAITerraConversation } from "../../../../api/protocol-designer-openai-extraction-provider";
 import { mkdtemp } from "node:fs/promises";
-import { readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createCanaryCampaignPolicy, SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../server/protocol-designer-canary-policy";
@@ -22,6 +21,7 @@ import { createRecordedProtocolDesignerFetch, readCanaryState } from "../../../.
 import { executeKnowledgeEngine } from "@/features/knowledge-engine";
 import { collectProjectKnowledgeSources, emptyProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
 import { documentEvidenceSections, validateDocumentEvidence } from "../scientific-document-revision";
+import { buildScientificNarrative } from "../scientific-narrative";
 
 const at = "2026-09-17T15:00:00.000Z";
 const project = adoptBehaviorContribution(richStudyContribution(), null, 1);
@@ -41,8 +41,16 @@ const portfolio = () => buildStudyDeliverablePortfolio({ project, protocolProjec
 afterEach(() => { vi.useRealTimers(); cleanup(); localStorage.clear(); });
 
 describe("DRCI DOC/DM projections: source, review, stale and actual reading mechanics", () => {
-  it("keeps the real historical evidence readable without rebuilding it in the new editorial style", () => {
-    const historical = JSON.parse(readFileSync("validation/noxia-drci-release-closure-from-astra-01/DEMONSTRATOR_DOCUMENT_EVIDENCE.json", "utf8"));
+  it("keeps a portable legacy-owner evidence fixture readable without rebuilding it in the new editorial style", () => {
+    const result = executeKnowledgeEngine({ originalQuestion: "ECV myocardique et fibrose en IRM",
+      scientificObjectTerms: [{ term: "ECV myocardique", role: "SUBJECT" }], context: {}, externalSearchPolicy: "INTERNAL_ONLY",
+      researchProjectId: project.projectId, researchProjectVersion: project.versionId, researchProjectDigest: project.projectDigest, createdAt: at });
+    const library = collectProjectKnowledgeSources(emptyProjectSourceLibrary(project.projectId), result);
+    const evidence = refreshFunctionalResetDocumentPortfolio({ project, handoffDecision, requestedAt: at,
+      generateProtocol: true, knowledgeLibrary: library }).projections.at(-1)!.evidenceContent!;
+    const historical = { ...evidence, narrative: buildScientificNarrative({ library, paragraphs: evidence.paragraphs,
+      contradictoryEvidence: evidence.narrative!.contradictoryEvidence, projectContext: evidence.narrative!.projectContext,
+      depth: evidence.depth, emphasisSourceRef: evidence.emphasisSourceRef, editorialVersion: "LEGACY_V1" }) };
     const before = JSON.stringify(historical);
     expect(historical.narrative.editorialVersion).toBeUndefined();
     expect(validateDocumentEvidence(historical)).toBe(true);
@@ -560,7 +568,7 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const actual = drciDraftPackFiles(conditional).find(file => file.kind === "CRF")!;
     for (const value of ["Si ancien fumeur", "EXPOSITION", "Calcul depuis les données sources", "Condition d’admissibilité"]) expect(actual.html).toContain(value);
   });
-  it("corrects only operational obligations and an explicit misclassification against the adopted design", () => {
+  it("corrects editorial design wording without inventing collection obligations from familiar labels", () => {
     const data = generated() as Parameters<typeof completeDrciOperationalProjection>[0];
     while (data.crfRows.length < 4) data.crfRows.push({ ...data.crfRows[0], variableRef: `test-${data.crfRows.length}`, variableId: `FIELD_${data.crfRows.length}` });
     data.documents[0].sections[0].paragraphs = ["Le projet est conçu comme une étude de faisabilité avec une cible pragmatique.",
@@ -573,11 +581,29 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     const actual = completeDrciOperationalProjection(data, scientificFacts);
     expect(actual.documents[0].sections[0].paragraphs[0]).toContain("une étude observationnelle");
     expect(actual.documents[0].sections[0].paragraphs[1]).toBe(data.documents[0].sections[0].paragraphs[1]);
-    expect(actual.crfRows[0].condition).toBeNull(); expect(actual.crfRows[0].required).toContain("mesure prévue");
-    expect(actual.crfRows[2].required).toContain("présent ou absent"); expect(actual.crfRows[3].required).toContain("même sans anomalie");
+    expect(actual.crfRows).toEqual(data.crfRows);
     expect(actual.crfRows[0].controls).toEqual(data.crfRows[0].controls);
     expect(actual.crfRows.slice(4)).toEqual(data.crfRows.slice(4)); expect(JSON.stringify(data)).toBe(original); expect(JSON.stringify(scientificFacts)).toBe(factsOriginal);
     expect(completeDrciOperationalProjection(data, scientificFacts.map(f => ({ ...f, epistemicState: "UNKNOWN" })))).toEqual(data);
+  });
+  it.each([
+    { label: "Pression artérielle systolique", required: "Oui, pour tous les participants applicables", condition: null, visit: "Visite initiale", specificationStatus: "ADOPTED_PROJECT" as const },
+    { label: "Pression artérielle diastolique", required: "Uniquement si applicable", condition: "Si suspicion clinique", visit: "Visite finale", specificationStatus: "DERIVED_FROM_PROJECT" as const },
+    { label: "Traitement antihypertenseur", required: "Dans le groupe traité uniquement", condition: "Groupe traité", visit: "Visite initiale", specificationStatus: "ADOPTED_PROJECT" as const },
+    { label: "Qualité des acquisitions", required: "À préciser", condition: null, visit: "À préciser", specificationStatus: "UNSPECIFIED" as const },
+  ])("preserves collection rule, group, occasion and uncertainty for $label", rule => {
+    const data = generated() as Parameters<typeof completeDrciOperationalProjection>[0];
+    data.crfRows[0] = { ...data.crfRows[0], ...rule };
+    const facts = [{ ref: data.crfRows[0].variableRef, type: "CANONICAL_VARIABLE", content: rule.label,
+      polarity: "AFFIRMED", epistemicState: "KNOWN" },
+      { ref: "quality", type: "PROJECT_INFORMATION", content: "Cartes interprétables", polarity: "AFFIRMED", epistemicState: "KNOWN" }];
+    const before = JSON.stringify(project), original = JSON.stringify(data);
+    const actual = completeDrciOperationalProjection(data, facts);
+    expect(actual.crfRows).toEqual(data.crfRows);
+    expect(actual.crfRows[0].variableRef).toBe(source.crf.fields[0].canonicalVariableId);
+    expect(actual.crfRows[0].condition).toBe(rule.condition);
+    expect(actual.crfRows[0].specificationStatus).toBe(rule.specificationStatus);
+    expect(JSON.stringify(data)).toBe(original); expect(JSON.stringify(project)).toBe(before);
   });
   it("derives prescreen decision paths only from current affirmed eligibility criteria, not LGE analysis exclusion", () => {
     const actual = { ...pack(), sourceFacts: [
