@@ -3,13 +3,17 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import postgres, { type Sql } from "postgres";
-import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
+import { logicalDigest, stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, documentFileManifest, documentNativeGeneratedAt, documentNativeIdentity,
   documentNativePredecessor, documentNativeProject, type DocumentGenerationBody, type DocumentGenerationRef,
   type DocumentHistoryPage, type DocumentPersistenceReceipt } from "../src/features/document-projection/generation-persistence.js";
 import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 
 export const docSha256 = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
+/** Project-scoped transaction identity: request IDs belong to idempotence,
+ * not locking. Canonical tuple + existing SHA-256 keeps PostgreSQL TEXT safe. */
+export const documentArchiveProjectLockIdentity = (sessionKey: string, projectId: string) =>
+  docSha256(stableStringify(["noxia:doc-archive-project", sessionKey, projectId]));
 export class DocumentArchiveError extends Error {
   constructor(readonly code: string, readonly status: 400 | 403 | 404 | 409 | 413 | 429 | 503 = 409) { super(code); }
 }
@@ -108,7 +112,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       const { sessionKey, projectId } = await authorize(access);
       return sql.begin(async tx => {
         await tx`select pg_advisory_xact_lock(hashtext('noxia:doc-archive-write-capacity'))`;
-        await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
+        await tx`select pg_advisory_xact_lock(hashtext(${documentArchiveProjectLockIdentity(sessionKey, projectId)}))`;
         const rows = await tx`select * from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${intent.requestId}`;
         if (rows[0]) {
           const row = rows[0];
@@ -136,7 +140,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       const bodyText = JSON.stringify(body), hash = docSha256(bodyText), bytes = Buffer.byteLength(bodyText, "utf8");
       const generationId = documentNativeIdentity(body.native);
       return sql.begin(async tx => {
-        await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
+        await tx`select pg_advisory_xact_lock(hashtext(${documentArchiveProjectLockIdentity(sessionKey, projectId)}))`;
         const row = (await tx`select * from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
         if (!row) throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_NOT_FOUND", 404);
         if (row.state === "REJECTED") throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_TERMINAL");
@@ -196,7 +200,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
     async reject(access, requestId) {
       const { sessionKey, projectId } = await authorize(access);
       await sql.begin(async tx => {
-        await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
+        await tx`select pg_advisory_xact_lock(hashtext(${documentArchiveProjectLockIdentity(sessionKey, projectId)}))`;
         await tx`update noxia_durable.doc_generation set state = 'REJECTED'
           where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId} and state = 'RESERVED'`;
       });

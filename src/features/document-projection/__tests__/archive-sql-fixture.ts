@@ -7,10 +7,18 @@ export const archiveSqlFixture = () => {
   let bodies: Record<string, unknown>[] = [];
   let tail: Promise<unknown> = Promise.resolve();
   const queries: string[] = [];
+  const projectLockArguments: string[] = [];
   let failCommit = false;
   const tag = async (parts: TemplateStringsArray, ...v: unknown[]): Promise<Record<string, unknown>[]> => {
     const query = parts.join("?").replace(/\s+/gu, " ").trim(); queries.push(query);
-    if (query.startsWith("select pg_advisory")) return [];
+    if (query.startsWith("select pg_advisory")) {
+      if (v.length) {
+        const argument = v[0];
+        if (typeof argument !== "string" || argument.includes("\u0000")) throw new Error("POSTGRES_TEXT_LOCK_ARGUMENT_INVALID");
+        projectLockArguments.push(argument);
+      }
+      return [];
+    }
     if (query.startsWith("insert into noxia_durable.doc_generation_body")) {
       bodies.push({ session_key_hash: v[0], project_id: v[1], request_id: v[2], native_body_text: v[3], body_sha256: v[4] }); return [];
     }
@@ -58,6 +66,6 @@ export const archiveSqlFixture = () => {
       tail = next.catch(() => {}); return next;
     },
   });
-  return { sql: sql as unknown as Sql, queries, rows: () => structuredClone(rows), bodies: () => structuredClone(bodies),
+  return { sql: sql as unknown as Sql, queries, projectLockArguments, rows: () => structuredClone(rows), bodies: () => structuredClone(bodies),
     failMetadataCommit: (fail: boolean) => { failCommit = fail; } };
 };

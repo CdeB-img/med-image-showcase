@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256, type DocumentArchiveAccess } from "../../../../server/protocol-designer-document-archive";
+import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256, documentArchiveProjectLockIdentity, type DocumentArchiveAccess } from "../../../../server/protocol-designer-document-archive";
 import { memoryProjectSnapshotStore } from "../../protocol-designer/functional-reset/__tests__/fixtures/memory-project-snapshot-store";
 import { confirmResearchProjectContribution } from "../../research-project-construction/contribution-owner-boundary";
 import { makeFunctionalResetContribution, COLCHICINE_INITIAL } from "../../protocol-designer/functional-reset/__tests__/functional-reset-fixtures";
@@ -31,10 +31,50 @@ const setup = async (limits = {}) => {
       rendererVersion: "1.0.0", buildCommit: null };
   };
   const admit = (index: number) => store.admit(access, { requestId: `request-${index}`, requestSha256: docSha256(`native-intent-${index}`), generatedAt: documentNativeGeneratedAt(bodyFor(index).native), reservedBytes: 1_000_000 });
-  return { store, fixture, access, bodyFor, admit };
+  return { store, fixture, access, bodyFor, admit, snapshots };
 };
 
 describe("transactional DOC-owned Postgres archive (offline SQL boundary)", () => {
+  it("encodes an unambiguous, namespaced and PostgreSQL-safe Project lock tuple", () => {
+    const identity = documentArchiveProjectLockIdentity;
+    expect(identity("ab", "c")).not.toBe(identity("a", "bc"));
+    expect(identity("a\u0000b", "c")).not.toBe(identity("a", "b\u0000c"));
+    expect(identity("session", "project-1")).not.toBe(identity("session", "project-2"));
+    expect(identity("session-1", "project")).not.toBe(identity("session-2", "project"));
+    expect(identity("session", "project")).toBe(identity("session", "project"));
+    expect(identity("session", "project")).not.toContain("\u0000");
+    expect(identity("session", "project")).toMatch(/^[a-f0-9]{64}$/u);
+    expect(identity("session", "project")).not.toBe(docSha256(JSON.stringify(["another-owner", "session", "project"])));
+  });
+  it("keeps different requests under the same Project lock and request identities distinct", async () => {
+    const { store, fixture, access, bodyFor, admit, snapshots } = await setup();
+    await admit(1); await store.commit(access, "request-1", bodyFor(1));
+    await admit(2); await store.commit(access, "request-2", bodyFor(2));
+    await store.reject(access, "request-2");
+    expect(new Set(fixture.projectLockArguments).size).toBe(1);
+    expect(fixture.projectLockArguments[0]).toBe(documentArchiveProjectLockIdentity(docSha256(access.identity.sessionId), access.project.projectId));
+    expect(fixture.rows().map(row => row.request_id)).toEqual(["request-1", "request-2"]);
+    expect(fixture.rows().map(row => row.ordinal)).toEqual([1, 2]);
+    const reloaded = createPostgresDocumentArchive("postgres://offline", snapshots, documentArchiveCapacity({}), fixture.sql);
+    const receipt = await reloaded.admit(access, { requestId: "request-1", requestSha256: docSha256("native-intent-1"),
+      generatedAt: documentNativeGeneratedAt(bodyFor(1).native), reservedBytes: 1_000_000 });
+    expect(receipt.receipt?.generation.ordinal).toBe(1);
+    expect(new Set(fixture.projectLockArguments).size).toBe(1);
+    expect(fixture.rows()).toHaveLength(2);
+  });
+  it("serializes concurrent identical admission/commit without duplicate rows or bodies", async () => {
+    const { store, fixture, access, bodyFor, admit } = await setup();
+    await Promise.all([admit(1), admit(1)]);
+    const receipts = await Promise.all([store.commit(access, "request-1", bodyFor(1)), store.commit(access, "request-1", bodyFor(1))]);
+    expect(receipts[0]).toEqual(receipts[1]);
+    expect(fixture.rows()).toHaveLength(1); expect(fixture.bodies()).toHaveLength(1);
+    expect(new Set(fixture.projectLockArguments).size).toBe(1);
+  });
+  it("rejects a NUL SQL lock parameter instead of silently letting the adapter continue", async () => {
+    const fixture = archiveSqlFixture();
+    await expect(fixture.sql`select pg_advisory_xact_lock(hashtext(${"session\u0000project"}))`).rejects.toThrow("POSTGRES_TEXT_LOCK_ARGUMENT_INVALID");
+    expect(fixture.rows()).toHaveLength(0);
+  });
   it("commits exact bytes, immutable references and idempotent receipts", async () => {
     const { store, fixture, access, bodyFor, admit } = await setup();
     await admit(1); const body = bodyFor(1);
