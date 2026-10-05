@@ -5,10 +5,11 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type { ScientificContributionItem, ScientificInterpretationTurn } from "@/features/scientific-interpretation";
-import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
+import { FUNCTIONAL_RESET_STORAGE_KEY, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
 import CanonicalStudyDataStandardCard from "../CanonicalStudyDataStandardCard";
 import DataManagementStandardCard from "../DataManagementStandardCard";
 import type { StandardCanonicalStudyDataInteraction, StandardCanonicalStudyDataPresentation } from "../canonical-study-data-standard";
+import { dispatchCanonicalStudyDataFromQuery } from "../canonical-study-data-standard";
 import type { StandardDataManagementInteraction, StandardDataManagementPresentation } from "../data-management-standard";
 import { makeFunctionalResetBridgeResponse, makeFunctionalResetContribution } from "./functional-reset-fixtures";
 
@@ -147,7 +148,22 @@ describe("SCIENTIFIC-STACK-DATA-01R — projections Standard", () => {
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: REQUEST } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(stored().project).not.toBeNull());
+    const adopted = stored();
+    expect(adopted.canonicalStudyDataInteraction).toBeNull();
+    const at = new Date().toISOString();
+    const explicit = dispatchCanonicalStudyDataFromQuery({ project: adopted.project!, navigation: adopted.queryNavigation!,
+      ownerResultLedger: adopted.knowledgeOwnerLedger, traceLedger: adopted.scientificExecutionTraceLedger,
+      sessionId: adopted.sessionId, conversationId: adopted.conversationId, presentationTurnRef: adopted.runtimeTurns.at(-1)!.turnId,
+      startedAt: at, completedAt: at });
+    expect(explicit.providerCalls).toBe(0);
+    expect(explicit.projectWrites).toBe(0);
+    cleanup();
+    persistFunctionalResetSession(window.localStorage, { ...adopted, canonicalStudyDataInteraction: explicit.interaction,
+      entries: [...adopted.entries, { entryId: "fixture:explicit-cdm", kind: "CDM_RESULT", role: "NOXIA", presentation: explicit.presentation, createdAt: at }],
+      knowledgeOwnerLedger: explicit.ownerResultLedger, scientificExecutionTraceLedger: explicit.traceLedger });
+    renderDemo();
     await screen.findByTestId("standard-cdm-result");
 
     const afterCdm = stored();

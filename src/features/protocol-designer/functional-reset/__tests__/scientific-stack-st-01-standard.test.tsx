@@ -7,6 +7,7 @@ import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation";
 import {
   FUNCTIONAL_RESET_STORAGE_KEY,
+  persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "../session";
 import {
@@ -28,6 +29,21 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 const REQUEST = "Je veux créer une étude longitudinale pour caractériser l’évolution de la fonction myocardique après une intervention.";
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as FunctionalResetSession;
+const activateExplicitScientificThinking = () => {
+  const session = stored();
+  expect(session.scientificThinkingInteraction).toBeNull();
+  const at = new Date().toISOString();
+  const result = dispatchScientificThinkingFromQuery({ project: session.project!, navigation: session.queryNavigation!,
+    ownerResultLedger: session.knowledgeOwnerLedger, traceLedger: session.scientificExecutionTraceLedger,
+    sessionId: session.sessionId, conversationId: session.conversationId, presentationTurnRef: session.runtimeTurns.at(-1)!.turnId,
+    startedAt: at, completedAt: at });
+  expect(result.providerCalls).toBe(0);
+  expect(result.projectWrites).toBe(0);
+  cleanup();
+  persistFunctionalResetSession(window.localStorage, { ...session, scientificThinkingInteraction: result.interaction,
+    knowledgeOwnerLedger: result.ownerResultLedger, scientificExecutionTraceLedger: result.traceLedger });
+  renderDemo();
+};
 const submit = async (text: string) => {
   await waitFor(() => expect(screen.getByLabelText("Votre message")).not.toBeDisabled());
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });
@@ -73,15 +89,16 @@ describe("SCIENTIFIC-STACK-ST-01 — corridor Standard réel", () => {
 
   afterEach(cleanup);
 
-  it("branche QRY sur Scientific Thinking après adoption, sans second appel provider ni écriture Project", async () => {
+  it("projette un résultat Scientific Thinking explicitement invoqué, sans invocation automatique à l'adoption", async () => {
     renderDemo();
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: REQUEST } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet créé.");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(stored().project).not.toBeNull());
     await waitFor(() => expect(stored().queryNavigation?.currentAction?.owner).toBe("SCIENTIFIC_THINKING"));
+    activateExplicitScientificThinking();
     await waitFor(() => expect(stored().scientificThinkingInteraction).not.toBeNull());
 
     const session = stored();
@@ -101,12 +118,7 @@ describe("SCIENTIFIC-STACK-ST-01 — corridor Standard réel", () => {
       projectWriteAuthorized: false,
     });
     expect(session.project?.versionId).toBe(projectVersion);
-    expect(session.bridgeTraces.at(-1)).toMatchObject({
-      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-      provider: "NONE",
-      calls: 0,
-      continuationPresentationSource: "ST_STANDARD_PROJECTION",
-    });
+    expect(session.bridgeTraces.some(trace => trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toBe(false);
 
     const events = session.scientificExecutionTraceLedger.events;
     expect(events.some((event) => event.eventType === "QRY_ACTION_SELECTED"
@@ -128,7 +140,9 @@ describe("SCIENTIFIC-STACK-ST-01 — corridor Standard réel", () => {
     renderDemo();
     await submit(REQUEST);
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(stored().project).not.toBeNull());
+    activateExplicitScientificThinking();
     await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
     const before = stored();
     const output = readScientificThinkingOutputFromLedger({
@@ -156,7 +170,9 @@ describe("SCIENTIFIC-STACK-ST-01 — corridor Standard réel", () => {
     renderDemo();
     await submit(REQUEST);
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(stored().project).not.toBeNull());
+    activateExplicitScientificThinking();
     await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
     const session = stored();
     const project = session.project!;

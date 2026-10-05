@@ -5,7 +5,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type { ScientificContributionItem, ScientificInterpretationTurn } from "@/features/scientific-interpretation";
-import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
+import { FUNCTIONAL_RESET_STORAGE_KEY, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
+import { dispatchBiostatisticsFromQuery, resolveBiostatisticsConversation } from "../biostatistics-standard";
 import { makeFunctionalResetBridgeResponse, makeFunctionalResetContribution } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
@@ -80,8 +81,22 @@ describe("SCIENTIFIC-STACK-BIOSTATISTICS-01 — corridor Standard réel", () => 
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: REQUEST } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(stored().queryNavigation?.currentAction?.owner).toBe("BIOSTATISTICS"));
+    const adopted = stored();
+    expect(adopted.biostatisticsInteraction).toBeNull();
+    const at = new Date().toISOString();
+    const explicit = dispatchBiostatisticsFromQuery({ project: adopted.project!, navigation: adopted.queryNavigation!,
+      ownerResultLedger: adopted.knowledgeOwnerLedger, traceLedger: adopted.scientificExecutionTraceLedger,
+      sessionId: adopted.sessionId, conversationId: adopted.conversationId, presentationTurnRef: adopted.runtimeTurns.at(-1)!.turnId,
+      startedAt: at, completedAt: at });
+    expect(explicit.providerCalls).toBe(0);
+    expect(explicit.projectWrites).toBe(0);
+    cleanup();
+    persistFunctionalResetSession(window.localStorage, { ...adopted, biostatisticsInteraction: explicit.interaction,
+      entries: [...adopted.entries, { entryId: "fixture:explicit-biostatistics", kind: "BIOSTATISTICS_PROPOSAL", role: "NOXIA", presentation: explicit.presentation, createdAt: at }],
+      knowledgeOwnerLedger: explicit.ownerResultLedger, scientificExecutionTraceLedger: explicit.traceLedger });
+    renderDemo();
     await screen.findByTestId("standard-biostatistics-proposal");
 
     const afterDispatch = stored();
@@ -94,21 +109,15 @@ describe("SCIENTIFIC-STACK-BIOSTATISTICS-01 — corridor Standard réel", () => 
       sourceProjectVersion: initialProjectVersion,
       projectWriteAuthorized: false,
     });
-    expect(afterDispatch.bridgeTraces.at(-1)).toMatchObject({
-      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-      provider: "NONE",
-      calls: 0,
-      continuationPresentationSource: "BIOSTATISTICS_STANDARD_PROJECTION",
-    });
+    expect(afterDispatch.bridgeTraces.some(trace => trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toBe(false);
     expect(afterDispatch.scientificExecutionTraceLedger.events.some((event) => event.owner === "BIOSTATISTICS"
       && event.common?.stage === "BIOSTATISTICS_RESULT"
       && event.common.provider === "NONE")).toBe(true);
     expect(screen.queryByText(/BIOSTATISTICS_PLANNING|BIOSTATISTICS_REASONING_RESULT|TRACE/i)).toBeNull();
 
-    fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: "Pourquoi cette stratégie plutôt que des comparaisons séparées ?" } });
-    fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    expect(await screen.findAllByText(/Aucune structure comparative ou longitudinale|Le Project porte une structure comparative/i))
-      .not.toHaveLength(0);
+    const discussion = resolveBiostatisticsConversation({ raw: "Pourquoi cette stratégie plutôt que des comparaisons séparées ?", result: explicit.result });
+    expect(discussion.kind).toBe("DISCUSS");
+    expect("response" in discussion ? discussion.response : null).toMatch(/Aucune structure comparative ou longitudinale|Le Project porte une structure comparative/i);
     expect(stored().project?.versionId).toBe(initialProjectVersion);
     expect(runtime.request).toHaveBeenCalledTimes(1);
 
@@ -118,7 +127,7 @@ describe("SCIENTIFIC-STACK-BIOSTATISTICS-01 — corridor Standard réel", () => 
     expect(stored().project?.versionId).toBe(initialProjectVersion);
     expect(stored().biostatisticsInteraction?.status).toBe("PENDING_HUMAN_REVIEW");
 
-    fireEvent.click(screen.getAllByRole("button", { name: "Cela correspond à mon projet" }).at(-1)!);
+    fireEvent.click(screen.getAllByRole("button", { name: "Confirmer les choix et enregistrer" }).at(-1)!);
     await waitFor(() => expect(stored().project?.versionId).not.toBe(initialProjectVersion));
     expect(stored().biostatisticsInteraction?.status).toBe("ADOPTED");
     expect(stored().project?.sections.find((section) => section.sectionId === "ANALYSIS")?.elements)
