@@ -10,6 +10,7 @@ import { emptyScientificDiscussionRetention, retainScientificDiscussionResult, a
   type TerraScientificResult, type ScientificDiscussionRetention } from "../contribution-discussion-retention";
 import { behaviorTurn, behaviorContribution, behaviorItem, adoptBehaviorContribution } from "./p1-behavior-01a-contract-fixtures";
 import type { ProductBridgeRequest } from "../../product-bridge";
+import { failedScientificReceiptLinkFixture, validScientificReceiptLinkFixture, scientificReceiptLinkFixture } from "./scientific-receipt-link-fixture";
 
 const conversationId = "conversation:p1-behavior-01a";
 const at = "2026-10-04T12:00:00.000Z";
@@ -116,6 +117,64 @@ const request = (turns: Turn[], retention?: ScientificDiscussionRetention, proje
 });
 const packet = (r: ProductBridgeRequest) => JSON.parse(prepareTerraConversation(r).context);
 afterEach(() => { vi.unstubAllGlobals(); });
+
+// CURRENT_STRUCTURAL_INVARIANT: reference scope, not scientific similarity.
+describe("Scientific Thinking producer local-link contract", () => {
+  it("rejects the real cross-contribution graph without rewriting the receipt", () => {
+    const receipt = failedScientificReceiptLinkFixture(), before = JSON.stringify(receipt);
+    expect(terraScientificResultSchema.safeParse(receipt).success).toBe(true);
+    try { accept(undefined, [], receipt); throw new Error("EXPECTED_REJECTION"); }
+    catch (error) {
+      expect(scientificDiscussionRetentionFailureDiagnostic(error)).toMatchObject({
+        failedField: "result.assistantContribution.elements[].linkedIds", failedValueClass: "UNRESOLVED_REFERENCE",
+        failedInvariant: "EVERY_LINKED_ID_RESOLVES_WITHIN_CONTRIBUTION", firstFailedBranch: "CONTRIBUTION_LINK_CLOSURE",
+        firstFailedValidator: "retainScientificDiscussionResult",
+      });
+    }
+    expect(JSON.stringify(receipt)).toBe(before);
+  });
+  it.each(["MISSING_TARGET", "PREVIOUS_CONTRIBUTION", "SOURCE_TURN_REF", "INVENTED_ID", "SOURCE_ELEMENT"] as const)(
+    "keeps %s rejected at the unchanged retention owner", kind => {
+      const turns: Turn[] = [];
+      const state = accept(undefined, turns, result([element("previous-only", "Une condition antérieure reste active.")]));
+      const targets = { MISSING_TARGET: "a-not-emitted", PREVIOUS_CONTRIBUTION: state.elements[0].ref,
+        SOURCE_TURN_REF: turns[0].turnId, INVENTED_ID: "invented-concept-label", SOURCE_ELEMENT: "u1" };
+      const receipt = scientificReceiptLinkFixture([[targets[kind]], [], ["a1"]]);
+      const before = JSON.stringify({ state, receipt });
+      expect(() => accept(state, turns, receipt)).toThrow("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
+      expect(JSON.stringify({ state, receipt })).toBe(before);
+    });
+  it("accepts separately authored local links without adopting or losing unresolved meaning", () => {
+    const receipt = validScientificReceiptLinkFixture(), turns: Turn[] = [], before = JSON.stringify(receipt);
+    const state = accept(undefined, turns, receipt);
+    expect(state.elements).toHaveLength(4);
+    const assistant = state.elements.filter(e => e.sourceTurnRef === turns[1].turnId);
+    expect(assistant[2].linkedRefs).toEqual([assistant[0].ref, assistant[1].ref]);
+    expect(assistant[0].conditions).toHaveLength(1);
+    expect(assistant[2].status).toBe("OPEN_UNKNOWN");
+    expect(state.elements.some(e => e.status === "ADOPTED")).toBe(false);
+    expect(validateScientificDiscussionRetention(state, conversationId, turns)).toBe(true);
+    expect(JSON.stringify(receipt)).toBe(before);
+  });
+  it("accepts empty linkedIds without dropping the scientific elements", () => {
+    const state = accept(undefined, [], scientificReceiptLinkFixture([[], [], []]));
+    expect(state.elements).toHaveLength(4);
+    expect(state.elements.every(e => e.linkedRefs.length === 0)).toBe(true);
+  });
+  it("transmits explicit local-scope instructions and schema descriptions upstream", () => {
+    const prepared = prepareTerraConversation(request([behaviorTurn("link-contract", "Discuter d’un projet en IRM cardiaque.")]));
+    expect(prepared.instruction).toContain("LIENS INTERNES AUX CONTRIBUTIONS");
+    expect(prepared.instruction).toContain("même contribution");
+    expect(prepared.instruction).toContain("linkedIds=[]");
+    const schema = terraScientificResultJsonSchema();
+    for (const key of ["userContribution", "assistantContribution"] as const) {
+      expect(schema).toMatchObject({ properties: { [key]: { properties: { elements: { items: { properties: {
+        id: { description: expect.stringContaining("same contribution") },
+        linkedIds: { description: expect.stringMatching(/actually emitted.*previous.*\[\]/) },
+      } } } } } } });
+    }
+  });
+});
 
 describe("first-owner Scientific Thinking coverage and existing retained lifecycle", () => {
   it("uses the same strict native/provider result contract, without changing output budgets", () => {

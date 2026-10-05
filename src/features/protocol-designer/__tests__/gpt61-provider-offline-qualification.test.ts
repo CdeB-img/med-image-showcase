@@ -26,6 +26,7 @@ import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-pro
 import { buildCanonicalCrfPackage } from "@/features/document-projection/study-deliverable-portfolio";
 import { prepareDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge";
+import { failedScientificReceiptLinkFixture, validScientificReceiptLinkFixture } from "../functional-reset/__tests__/scientific-receipt-link-fixture";
 
 const model = "gpt-6.1-sol";
 const endpoint = "https://qualification.services.ai.azure.com/api/projects/preview/openai/v1/responses";
@@ -41,6 +42,41 @@ const scientificRequest = (): ProductBridgeRequest => ({ apiVersion: "1.0.0", cu
     turns: [{ turnId: "u1", role: "USER", content: DOMAINS[0].text }] } });
 
 describe("GPT-6.1 candidate contracts, offline only", () => {
+  // CURRENT_STRUCTURAL_INVARIANT: replayed cross-contribution link graph is
+  // unchanged by transport/projection, rejected by M3, never locally repaired.
+  it("preserves and rejects the real source-element cross-link through the bridge", async () => {
+    const receipt = failedScientificReceiptLinkFixture(), before = JSON.stringify(receipt);
+    const provider = vi.fn<typeof fetch>(async () => response(JSON.stringify(receipt)));
+    const result = await executeProtocolDesignerBridge({ body: scientificRequest(), apiKey: null, openAiApiKey: "OFFLINE_ONLY",
+      openAiTransport: transport, chatRuntime: "TERRA", autonomousProjectBuild: true, fetchImpl: provider });
+    const body = result.body as ProductBridgeResponse;
+    expect(body.conversationFailure?.retentionDiagnostic).toMatchObject({
+      failedField: "result.assistantContribution.elements[].linkedIds", firstFailedBranch: "CONTRIBUTION_LINK_CLOSURE",
+      failedInvariant: "EVERY_LINKED_ID_RESOLVES_WITHIN_CONTRIBUTION",
+    });
+    expect(body.scientificConversation).toBeUndefined();
+    expect(body.observability.projectWrites).toBe(0);
+    expect(provider).toHaveBeenCalledOnce();
+    expect(JSON.stringify(receipt)).toBe(before);
+  });
+  it("sends the producer contract and preserves a separately authored valid local-link receipt", async () => {
+    const receipt = validScientificReceiptLinkFixture();
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const payload = JSON.parse(String(init?.body));
+      expect(payload.instructions).toContain("LIENS INTERNES AUX CONTRIBUTIONS");
+      expect(payload.text.format.schema.properties.assistantContribution.properties.elements.items.properties.linkedIds.description)
+        .toContain("actually emitted");
+      return response(JSON.stringify(receipt));
+    });
+    const result = await executeProtocolDesignerBridge({ body: scientificRequest(), apiKey: null, openAiApiKey: "OFFLINE_ONLY",
+      openAiTransport: transport, chatRuntime: "TERRA", autonomousProjectBuild: true, fetchImpl: provider });
+    const body = result.body as ProductBridgeResponse;
+    expect(body.conversationFailure).toBeNull();
+    expect(body.scientificConversation?.retainedScientificResult).toEqual(receipt);
+    expect(body.observability.projectWrites).toBe(0);
+    expect(provider).toHaveBeenCalledOnce();
+  });
+
   it("declares limits/pricing without treating capability as Azure authorization or live proof", () => {
     expect(providerModelDeclaration(model)).toMatchObject({ azureDeployment: model, azureLocalAdmission: true,
       limits: { context: 1_050_000, input: 922_000, output: 128_000 } });

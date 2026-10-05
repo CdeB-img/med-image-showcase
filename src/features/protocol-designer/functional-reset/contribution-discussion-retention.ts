@@ -11,10 +11,12 @@ import type { StudyProposalComposition } from "../../scientific-thinking/context
 // answer. Native validation verifies identity/closure, not semantic similarity.
 const ref = z.string().min(1);
 const meaning = z.object({
-  id: ref, content: ref,
+  id: ref.describe("Local element identifier, unique within this same contribution. Not a source/turn, Project, candidate or previous-contribution reference."),
+  content: ref,
   epistemicState: z.enum(["USER_STATED", "PROPOSED_NOT_ADOPTED", "OPEN_UNKNOWN"]),
   polarity: z.enum(["AFFIRMED", "NEGATED", "CONDITIONAL", "UNKNOWN"]),
-  conditions: z.array(ref), linkedIds: z.array(ref),
+  conditions: z.array(ref),
+  linkedIds: z.array(ref).describe("Only exact IDs of elements actually emitted in this same contribution's elements array. Never IDs from the other contribution, sources/turns, Project, candidates, previous contributions or conceptual labels. If no valid local target is emitted, return []."),
 }).strict();
 const coverage = z.object({
   coverage: z.enum(["COMPLETE", "PARTIAL", "UNKNOWN"]),
@@ -342,4 +344,5 @@ export const recordGovernedAdoptionContextEvent = (state: ScientificDiscussionRe
 
 export const TERRA_RETENTION_INSTRUCTION = `\nRetourne l'enveloppe structurée demandée, avec reply contenant uniquement la réponse française naturelle visible.
 SCIENTIFIC_THINKING porte la qualification sémantique de chaque source : classifie exhaustivement le dernier USER et ta réponse en éléments scientifiques minimum suffisants, ou déclare explicitement NO_SCIENTIFIC_MEANING/PRESENTATION_ONLY. Pas de copie systématique du texte complet, pas de résumé du transcript ni de nouvelle synthèse du Project. Conserve chaque négation, condition, incertitude et relation matérielle. Un fragment adopté ne couvre pas le reste du message. Si la couverture est incertaine, déclare PARTIAL/UNKNOWN ; ne prétends jamais COMPLETE par défaut. Une suggestion NOXIA reste PROPOSED_NOT_ADOPTED.
+LIENS INTERNES AUX CONTRIBUTIONS : elements[].id identifie uniquement un élément local et doit être unique dans sa contribution. Chaque linkedIds doit correspondre exactement à un id réellement émis dans elements de la même contribution : userContribution et assistantContribution ont des espaces de liens séparés. Ne référence jamais dans linkedIds un élément de l'autre contribution, un tour/source, un objet Project, une candidate, une contribution précédente ni un libellé conceptuel. Les ancrages source/provenance sont portés par les bindings dédiés existants et par le propriétaire natif, jamais par linkedIds. Si aucun élément cible local n'est émis, retourne linkedIds=[] ; n'invente ni cible ni correspondance. Conserve le sens scientifique dans content/conditions, sans masquer une relation matérielle par cette absence de lien. Exemple structurel : si elements contient les ids local-a et local-b, local-b peut référencer local-a ; un id source externe ou absent reste interdit. Avant de retourner le receipt, vérifie séparément la fermeture de tous les linkedIds dans chacune des deux contributions.
 Les dispositions ne concernent que les refs actives fournies et une direction USER explicite dans ce tour ; une absence, ancienneté, silence ou simple similarité ne ferme jamais une contribution. SUPERSEDED exige replacementId d'un nouvel élément USER. Une fermeture partielle n'élimine pas les autres éléments. candidateBindings exprime une correspondance sémantique précise avec un changement natif validé déjà fourni, ancré à la même source ; ce lien n'adopte rien. Aucun write Project/QRY/Review/DOC. Aucun contenu historique clos dans la réponse nominale.`;
