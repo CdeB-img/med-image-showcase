@@ -32,7 +32,8 @@ import {
 
 export const PRODUCT_BRIDGE_API_VERSION = "1.0.0" as const;
 export const DEFAULT_GEMINI_CONVERSATION_MODEL = "gemini-3.5-flash-lite" as const;
-export const DEFAULT_OPENAI_EXTRACTION_MODEL = "gpt-5.6-terra" as const;
+import { TERRA_REQUESTED_MODEL } from "./provider-model-contract.js";
+export const DEFAULT_OPENAI_EXTRACTION_MODEL = TERRA_REQUESTED_MODEL;
 /** Historical alias retained for Level-3 diagnostics and fixtures. */
 export const PRODUCT_BRIDGE_MODEL = DEFAULT_GEMINI_CONVERSATION_MODEL;
 export const resolveGeminiConversationModel = (value?: string | null): string => value?.trim() || DEFAULT_GEMINI_CONVERSATION_MODEL;

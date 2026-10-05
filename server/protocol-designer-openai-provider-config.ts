@@ -70,9 +70,7 @@ export const openAIInputCountEndpoint = (responsesEndpoint: string) => {
 
 export const mapOpenAIModelForDestination = (model: string, destination: OpenAIProviderDestination) => {
   if (destination === "openai") return model;
-  if (model === "gpt-5.6-luna") return "gpt-5.6-terra";
-  if (model === "gpt-5.6-terra") return "gpt-6-sol";
-  return model;
+  return providerModelDeclaration(model)?.azureDeployment ?? model;
 };
 
 export const mapOpenAIModelForEndpoint = (model: string, endpoint: string) => {
@@ -99,3 +97,4 @@ export const resolveOpenAIProviderRuntimeConfiguration = (
     transport: Object.freeze({ destination: "azure", responsesEndpoint: azureOpenAIResponsesEndpoint(projectEndpoint) }),
   };
 };
+import { providerModelDeclaration } from "../src/features/protocol-designer/provider-model-contract.js";

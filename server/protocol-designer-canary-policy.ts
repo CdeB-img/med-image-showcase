@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { PROVIDER_MODEL_DECLARATIONS, providerModelDeclaration } from "../src/features/protocol-designer/provider-model-contract.js";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS, providerModelPricing } from "../src/features/protocol-designer/provider-call-observability.js";
 import { isOpenAIResponsesEndpoint } from "./protocol-designer-openai-provider-config.js";
@@ -18,13 +19,6 @@ export const CANARY_BUDGET_POLICY = Object.freeze({
 // https://developers.openai.com/api/docs/models/gpt-5.6-terra
 // https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite
 // `input` is the provider's maximum input, distinct from the total context.
-const limits: Readonly<Record<string, { context: number; input: number; output: number }>> = {
-  "gpt-6-sol": { context: 1_050_000, input: 922_000, output: 128_000 },
-  "gpt-5.6-sol": { context: 1_050_000, input: 1_050_000, output: 128_000 },
-  "gpt-5.6-luna": { context: 1_050_000, input: 1_050_000, output: 128_000 },
-  "gpt-5.6-terra": { context: 1_050_000, input: 1_050_000, output: 128_000 },
-  "gemini-3.5-flash-lite": { context: 1_048_576, input: 1_048_576, output: 65_536 },
-};
 const unitsPerUsd = 1_000_000_000;
 const ceilUnits = (usd: number) => Math.ceil(usd * unitsPerUsd);
 export const addCanaryCosts = (a: number, b: number) => (ceilUnits(a) + ceilUnits(b)) / unitsPerUsd;
@@ -47,7 +41,7 @@ export type CanaryCampaignPolicy = Readonly<{
   exactInputCounting?: Readonly<{ maxInputTokens: number; maxGenerationAttempts: number; maxTokenCountRequests: number; maxProviderHttpRequests: number }>;
   policyDigest: string;
 }>;
-export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(["gpt-6-sol", "gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra", "gemini-3.5-flash-lite"]);
+export const QUALIFIED_CAMPAIGN_MODELS = Object.freeze(Object.keys(PROVIDER_MODEL_DECLARATIONS));
 const policyHash = (value: unknown) => createHash("sha256").update(stableStringify(value)).digest("hex");
 const campaignIdValid = (value: unknown): value is string => typeof value === "string" && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(value);
 
@@ -123,9 +117,9 @@ export const boundCanaryProviderCall = (endpoint: string, body: string, countedI
   const geminiMatch = /^https:\/\/generativelanguage.googleapis.com\/v1beta\/models\/(gemini-3\.5-flash-lite):generateContent$/.exec(endpoint);
   if (!openai && !geminiMatch) return null;
   const model = openai ? payload.model : geminiMatch![1];
-  if (typeof model !== "string" || (openai && !["gpt-6-sol", "gpt-5.6-sol", "gpt-5.6-luna", "gpt-5.6-terra"].includes(model))) return null;
+  if (typeof model !== "string" || (openai && providerModelDeclaration(model)?.provider !== "OPENAI")) return null;
   const pricing = providerModelPricing(model);
-  const limit = limits[model];
+  const limit = providerModelDeclaration(model)?.limits;
   if (!pricing || !limit) return null;
   let output: number;
   if (openai) {

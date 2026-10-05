@@ -1,5 +1,6 @@
 import { prepareSynopsisRevision, materializeSynopsisRevision } from "../src/features/document-projection/synopsis-revision.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
+import { TERRA_REQUESTED_MODEL } from "../src/features/protocol-designer/provider-model-contract.js";
 import { prepareDrciGenerationBatches, validateRetainedDrciProtocol, validateRetainedDrciScope, type RetainedDrciProtocol, type DrciProjectBinding } from "../src/features/document-projection/drci-draft-contract.js";
 import {
   DEFAULT_OPENAI_EXTRACTION_MODEL,
@@ -226,7 +227,7 @@ type TerraConversationPacket = { instruction: string; context: string; outputSch
 type TerraConversationRequestOptions = Readonly<{ maxOutputTokens?: number; timeoutMs?: number }>;
 
 export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket, options?: TerraConversationRequestOptions) => ({
-  model: "gpt-5.6-terra",
+  model: TERRA_REQUESTED_MODEL,
   instructions: packet.instruction,
   input: packet.context,
   reasoning: { effort: "medium" },
@@ -279,9 +280,9 @@ export const executeOpenAIDrciDraft = async (
     if (usedSynopsisRevisionOriginals.has(prepared.originalDigest)) throw new Error("DOC_REVISION_ATTEMPT_ALREADY_USED");
     usedSynopsisRevisionOriginals.add(prepared.originalDigest);
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
-      modelRequested: "gpt-5.6-terra", instrumentation: instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
+      modelRequested: TERRA_REQUESTED_MODEL, instrumentation: instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
         clientRequestId: `${instrumentation.context.clientRequestId}:synopsis-revision:${identity}` } } : undefined,
-      transport, payload: { model: "gpt-5.6-terra", instructions: prepared.instruction,
+      transport, payload: { model: TERRA_REQUESTED_MODEL, instructions: prepared.instruction,
         input: "Retourne uniquement le plan de révision au format JSON valide demandé.\n" + prepared.context,
         reasoning: { effort: "medium" }, max_output_tokens: 4000, store: false, service_tier: "default",
         text: { format: { type: "json_object" } } } });
@@ -301,7 +302,7 @@ export const executeOpenAIDrciDraft = async (
     const batchInstrumentation = instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
       clientRequestId: `${instrumentation.context.clientRequestId}:doc-scope:${batch.requestScope}` } } : undefined;
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
-      modelRequested: "gpt-5.6-terra", instrumentation: batchInstrumentation, transport, payload: { model: "gpt-5.6-terra", instructions: batch.instruction,
+      modelRequested: TERRA_REQUESTED_MODEL, instrumentation: batchInstrumentation, transport, payload: { model: TERRA_REQUESTED_MODEL, instructions: batch.instruction,
         input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
           transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
         service_tier: "default", text: { format: { type: "json_object" } } } });
@@ -310,7 +311,7 @@ export const executeOpenAIDrciDraft = async (
     modelReturned = result.body.model ?? null;
   }
   return { value: { documents, crfRows }, latencyMs,
-    modelRequested: mapOpenAIModelForDestination("gpt-5.6-terra", transport?.destination ?? "openai"),
+    modelRequested: mapOpenAIModelForDestination(TERRA_REQUESTED_MODEL, transport?.destination ?? "openai"),
     modelReturned, calls: remaining ? 0 as const : retained ? 1 as const : 2 as const,
     reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null, synopsisRevision: undefined };
 };
