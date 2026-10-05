@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, act } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -57,9 +58,9 @@ const concurrentUiTestGuard = (): PublicProtocolDesignerDurableGuard => {
 };
 const mount = (initial = createFunctionalResetSession()) => {
   let saved = initial;
-  const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={next => {
+  const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(next => {
     saved = next; return persistFunctionalResetSession(localStorage, next);
-  }} /></HelmetProvider>);
+  })} /></HelmetProvider>);
   return { view, current: () => saved };
 };
 const preparationFor = (session: FunctionalResetSession, turnRef: string) =>

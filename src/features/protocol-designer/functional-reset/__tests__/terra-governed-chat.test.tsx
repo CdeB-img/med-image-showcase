@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -71,7 +72,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
       session.documents = refreshFunctionalResetDocumentPortfolio({ project, requestedAt: "2026-09-17T00:00:00Z" });
       session.runtimeTurns = Array.from({ length }, (_, i) => ({ turnId: `history-${i}`, role: i % 2 ? "NOXIA" as const : "USER" as const,
         content: `TRANSCRIPT_SENTINEL_${i} ${"x".repeat(3000)}` }));
-      render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={() => true} /></HelmetProvider>);
+      render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(() => true)} /></HelmetProvider>);
       fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
       await screen.findByRole("heading", { name: "Portefeuille documentaire" });
       expect(requests).toHaveLength(1); expect(requests[0].conversation.turns).toHaveLength(1);
@@ -142,7 +143,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
     });
     const session = createFunctionalResetSession();
     const saved = vi.fn(s => { persistFunctionalResetSession(localStorage, s); return true; });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={saved} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(saved)} /></HelmetProvider>);
     send("Une question hors chemin"); await screen.findByText("LOCAL_SYNTHETIC — discussion persistée.");
     expect(requests[0].evaluatePersistentDelta).toBe(false); expect(loadFunctionalResetSession(localStorage).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Préparer l’enregistrement" }));
@@ -165,7 +166,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
       baseProject: null, dependencyBindings: [], traceRunId: null, retainedAt: "2026-09-17T00:00:00Z" });
     session.entries.push({ entryId: "review", kind: "REVIEW", role: "NOXIA", contribution, candidate, status: "PENDING", createdAt: "2026-09-17T00:00:00Z" });
     let accepted = false; const persist = vi.fn((next) => { if (next.project && !accepted) return false; persistFunctionalResetSession(localStorage, next); return true; });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={persist} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(persist)} /></HelmetProvider>);
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).retainedContributionCandidates?.[0].presentedAt).toBeTruthy());
     fireEvent.click(screen.getByRole("button", { name: "Voir les détails" }));
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));

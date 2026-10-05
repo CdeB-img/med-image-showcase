@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid, projectPreparationReview } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -104,7 +105,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
     expect(saved.workingDraftPreparations![0].status).toBe("READY_FOR_REVIEW");
     expect(activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, [], null, saved.studyProposal)).toHaveLength(2);
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     const active = activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, saved.retainedContributionCandidates ?? [], saved.project, saved.studyProposal);
@@ -441,7 +442,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     let saved = sessionFor("ok");
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]).toMatchObject({
       status: "FAILED", code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
@@ -462,7 +463,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     recoveryRead.mockResolvedValue(state === "FAILED"
       ? { state, errorCode: "WORKING_DRAFT_PROVIDER_FAILED" } : { state });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status)
       .toBe(state === "FAILED" ? "FAILED" : "UNKNOWN/INTERRUPTED"));
     expect(bridge).not.toHaveBeenCalled();
@@ -491,7 +492,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       result: { workingDraftUpdate: update, workingStudyProposal: composition } });
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"), { timeout: 5000 });
     expect(bridge).toHaveBeenCalledTimes(1);
@@ -535,7 +536,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const review = projectPreparationReview(saved)!.prepared!.candidate;
@@ -581,7 +582,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     });
     const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
@@ -612,7 +613,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition });
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const providerRecords = saved.bridgeTraces.flatMap(item => item.providerCallRecords ?? []);
@@ -634,7 +635,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
         explicitDecisionId: "o2", arbitrationId: "arb-sport", atomBindingStatus: "UNSELECTED_OPTION",
       }));
     let saved = sessionFor();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
@@ -653,7 +654,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValueOnce(new ProductBridgeClientError("PUBLIC_SESSION_BUDGET_CLOSED", "LOCAL_SYNTHETIC", null, null,
       "PUBLIC_SESSION_BUDGET_CLOSED"));
     let saved = sessionFor();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
@@ -687,7 +688,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValueOnce(new ProductBridgeClientError("PROVIDER_HTTP_ERROR", "LOCAL_SYNTHETIC", null,
       providerCallRequestObservability([record]), "PROVIDER_HTTP_ERROR"));
     let saved = initial;
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
@@ -724,7 +725,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValueOnce(new ProductBridgeClientError("WORKING_DRAFT_PREPARATION_FAILED", "LOCAL_SYNTHETIC", null,
       providerCallRequestObservability([record]), "CONVERSATION:PUBLIC_PROVIDER_INCOMPLETE"));
     let saved = initial;
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     expect(saved.workingDraftPreparations?.[0]?.code).toBe("WORKING_DRAFT_PROVIDER_INCOMPLETE");
@@ -752,7 +753,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       workingDraftUpdate: update, workingStudyProposal: { ...composition, state: "REVIEW_REQUIRED" },
     } });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     expect(saved.workingDraftPreparations?.[0]?.code).toBe("STUDY_PROPOSAL_STALE_PROJECT");
     expect(screen.queryByTestId("project-review-invitation")).toBeNull();
@@ -771,7 +772,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     recoveryRead.mockResolvedValue({ state: "COMPLETED",
       result: { workingDraftUpdate: update, workingStudyProposal: composition } });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();
     expect(saved.project).toBeNull();
@@ -795,7 +796,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       if (result.status !== 200) throw new Error(JSON.stringify(result.body)); return result.body;
     });
     let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     send(text);
     await screen.findByText("LOCAL_SYNTHETIC — premier échange scientifique conservé.");
     await waitFor(() => expect(bridge).toHaveBeenCalledTimes(1));
@@ -1211,7 +1212,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValueOnce(new ProductBridgeClientError(body.error.code, "LOCAL_SYNTHETIC", null,
       body.observability, body.error.details[0], null, diagnostic));
     let saved = initial;
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
@@ -1371,7 +1372,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
     let saved: FunctionalResetSession = checkpointSession(initial, update);
     bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(state => { saved = state; return true; })} /></HelmetProvider>);
 
     expect(screen.getByRole("button", { name: "Protocole / documents" })).toBeEnabled();
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
@@ -1420,13 +1421,13 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
         observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
     });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{
       if (next.drciDraftPacks?.length) {
         if (saveDocuments === "throws") throw new DOMException("LOCAL_SYNTHETIC", "QuotaExceededError");
         if (saveDocuments === "refused") return false;
       }
       saved=next; return true;
-    }} /></HelmetProvider>);
+    })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
@@ -1480,7 +1481,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
         observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
     });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
     expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Choix enregistrés dans le projet · version 1");
     expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
@@ -1506,7 +1507,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const pendingDocument = new Promise<ProductBridgeResponse>((_resolve, reject) => { failDocument = reject; });
     bridge.mockImplementation(async (req: ProductBridgeRequest) => req.documentDraftRequest ? pendingDocument
       : (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — Chat pendant DOC.")), false)).body);
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await screen.findByTestId("document-generation-progress");
@@ -1560,7 +1561,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     let saved: FunctionalResetSession=checkpointSession(initial,update);
     vi.spyOn(documentaryConversation,"acquireDocumentKnowledge").mockImplementationOnce(()=>{throw new Error("KNOWLEDGE_BINDING_INVALID");});
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next=>{saved=next;return true;}} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(bridge).not.toHaveBeenCalled();
@@ -1578,7 +1579,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={checkpointSession(initial,update)} onSessionChange={()=>true} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={checkpointSession(initial,update)} onSessionChange={explicitTestSave(()=>true)} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
@@ -1592,7 +1593,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     bridge.mockRejectedValue(new Error("LOCAL_SYNTHETIC_FOREGROUND_FAILURE"));
     let saved = createFunctionalResetSession();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={state => { saved = state; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(state => { saved = state; return true; })} /></HelmetProvider>);
     send(DOMAINS[4].text);
     await screen.findByText("LOCAL_SYNTHETIC_FOREGROUND_FAILURE");
     expect(screen.getByRole("textbox", { name: "Votre message" })).toHaveValue(DOMAINS[4].text);

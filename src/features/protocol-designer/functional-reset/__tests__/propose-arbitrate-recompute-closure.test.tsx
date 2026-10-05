@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
@@ -248,7 +249,7 @@ it.each(CASES.flatMap(test => (["button", "natural"] as const).map(mode => ({ ..
     const wire = correction(request.studyProposalContext, request.currentProject, test).wire;
     const response = (await run(request, wire, p => candidateReply(p, test))).response; writeFileSync(ROOT + `standard-response-${mode}.json`, JSON.stringify({ request, response }, null, 2)); return response;
   });
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   const send = (text: string) => { fireEvent.change(screen.getByRole("textbox"), { target: { value: text } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
   send(FIBROSIS_EXACT); await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible());
   if (test.id === "C") fireEvent.click(screen.getByLabelText("Sept classes d'âge ; bornes à discuter", { exact: false }));

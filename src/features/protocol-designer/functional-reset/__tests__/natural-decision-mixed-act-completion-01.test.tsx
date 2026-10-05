@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -269,7 +270,7 @@ describe("Standard product handler — same USER turn through existing bridge", 
       projectId: "project:standard-mixed", conversationLanguageGateway: { ...createFunctionalResetSession().conversationLanguageGateway, conversationLanguage: "fr" as const }, project: f.current, pendingContribution: f.contribution, retainedContributionCandidates: [f.record], runtimeTurns: [f.turn],
       bridgeTraces: [{ entryRouting: routeProductEntry({ raw: f.turn.content, sourceTurnRef: f.turn.turnId, routedAt: at }) } as ProductBridgeTrace],
       entries: [{ entryId: "review:initial", kind: "REVIEW" as const, role: "NOXIA" as const, contribution: f.contribution, candidate: f.candidate, status: "PENDING" as const, createdAt: at }], ...extra };
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={value => { latest = value; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(value => { latest = value; })} /></HelmetProvider>);
     return () => latest!;
   };
   const send = (raw: string) => { fireEvent.change(screen.getByRole("textbox"), { target: { value: raw } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };

@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -40,9 +41,9 @@ it("seven real submitTerraText paths consume same-call owner receipts, persist/r
         projectWrites: 0, extractionAttempts: 0, conversationLatencyMs: 0, extractionLatencyMs: null } };
   });
   const before = logicalDigest(project);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={value => {
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(value => {
     saved = JSON.parse(JSON.stringify(value)); return true;
-  }} /></HelmetProvider>);
+  })} /></HelmetProvider>);
   for (let i = 0; i < 7; i++) {
     fireEvent.change(screen.getByRole("textbox"), { target: { value: i === 0
       ? "Une condition de contrôle indépendante demeure à discuter, sans décision ni préparation du projet."

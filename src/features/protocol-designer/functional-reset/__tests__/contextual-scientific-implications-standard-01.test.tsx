@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { writeFileSync } from 'node:fs';
 import { afterEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -32,7 +33,7 @@ it('Standard actually presents one high-value scientific question with a native 
   });
   let latest:FunctionalResetSession;
   const base=createFunctionalResetSession();const initial={...base,conversationLanguageGateway:{...base.conversationLanguageGateway,conversationLanguage:'fr' as const}};
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={s=>{latest=s;}} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(s=>{latest=s;})} /></HelmetProvider>);
   fireEvent.change(screen.getByRole('textbox'),{target:{value:seed}});fireEvent.click(screen.getByRole('button',{name:'Envoyer'}));
   await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(1),{timeout:8000});
   await waitFor(()=>expect(latest?.entries.some(e=>e.kind==='TEXT' && e.role==='NOXIA' && e.content.includes('Que cherchez-vous d’abord à comprendre')),

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createFunctionalResetSession, saveFunctionalResetWorkspaceSession } from "../session";
+import { createFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave } from "../session";
 import { createProjectSession, saveProjectSession } from "../project-workspace-storage";
 
 afterEach(() => { localStorage.clear(); vi.restoreAllMocks(); });
@@ -19,10 +19,14 @@ describe("one scientific persistence verdict for every Workspace caller", () => 
     const result = { scientificPersisted: true as const, navigationPointer };
     expect(saveFunctionalResetWorkspaceSession(localStorage, createFunctionalResetSession(), () => result)).toBe(result);
   });
-  it("commits a standalone session and normalizes the existing host seam once", () => {
+  it("commits a standalone session without a host and preserves thrown failures", () => {
     const session = createFunctionalResetSession();
     expect(saveFunctionalResetWorkspaceSession(localStorage, session).scientificPersisted).toBe(true);
-    expect(saveFunctionalResetWorkspaceSession(localStorage, session, () => false).scientificPersisted).toBe(false);
     expect(saveFunctionalResetWorkspaceSession(localStorage, session, () => { throw new Error("LOCAL_SYNTHETIC"); }).scientificPersisted).toBe(false);
+  });
+  it.each([true, false, undefined, {}, { scientificPersisted: true, navigationPointer: "INVALID" }])("rejects an unsupported host return instead of assuming persistence: %s", value => {
+    const result = saveFunctionalResetWorkspaceSession(localStorage, createFunctionalResetSession(), (() => value) as SessionSave);
+    expect(result).toMatchObject({ scientificPersisted: false });
+    if (result.scientificPersisted === false) expect(result.error).toEqual(new Error("SESSION_PERSISTENCE_RESULT_INVALID"));
   });
 });

@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { writeFileSync } from 'node:fs';
 import { afterEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -40,7 +41,7 @@ it('actual Standard native context preserves the infarction/imaging source and c
  });
  let latest:FunctionalResetSession;
  const base=createFunctionalResetSession();const initial={...base,conversationLanguageGateway:{...base.conversationLanguageGateway,conversationLanguage:'fr' as const}};
- render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={s=>{latest=s;}} /></HelmetProvider>);
+ render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(s=>{latest=s;})} /></HelmetProvider>);
  const submit=(text:string)=>{fireEvent.change(screen.getByRole('textbox'),{target:{value:text}});fireEvent.click(screen.getByRole('button',{name:'Envoyer'}));};
  const responses=()=>latest?.entries.flatMap(e=>e.kind==='TEXT'&&e.role==='NOXIA'&&!initial.entries.some(old=>old.entryId===e.entryId)?[e.content]:[])??[];
  submit(CASES[0].text);

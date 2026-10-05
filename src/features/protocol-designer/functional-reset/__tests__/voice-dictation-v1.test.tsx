@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -38,7 +39,7 @@ describe("Protocol Designer voice dictation V1 integration", () => {
     });
     vi.stubGlobal("fetch", fetchMock);
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial}
-      onSessionChange={(next) => { current = next; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave((next) => { current = next; })} /></HelmetProvider>);
 
     const composer = screen.getByRole("textbox", { name: "Votre message" }) as HTMLTextAreaElement;
     fireEvent.change(composer, { target: { value: "Avant après" } });
@@ -58,7 +59,7 @@ describe("Protocol Designer voice dictation V1 integration", () => {
 
   it("keeps the composer usable on a narrow layout and exposes explicit accessible controls", async () => {
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={createFunctionalResetSession()}
-      onSessionChange={() => undefined} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(() => undefined)} /></HelmetProvider>);
     const composer = screen.getByRole("textbox", { name: "Votre message" });
     expect(composer).toHaveClass("basis-full", "sm:basis-0");
     expect(screen.getByRole("button", { name: "Démarrer la dictée" })).toHaveClass("h-11", "w-11");
@@ -70,7 +71,7 @@ describe("Protocol Designer voice dictation V1 integration", () => {
     const providerResult = new Promise<Response>((resolve) => { resolveProvider = resolve; });
     vi.stubGlobal("fetch", vi.fn<typeof fetch>(() => providerResult));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={createFunctionalResetSession()}
-      onSessionChange={() => undefined} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(() => undefined)} /></HelmetProvider>);
     const composer = screen.getByRole("textbox", { name: "Votre message" }) as HTMLTextAreaElement;
     fireEvent.change(composer, { target: { value: "Avant après" } });
     fireEvent.click(screen.getByRole("button", { name: "Démarrer la dictée" }));

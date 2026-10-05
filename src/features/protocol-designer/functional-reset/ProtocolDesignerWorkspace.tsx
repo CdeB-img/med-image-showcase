@@ -2,6 +2,7 @@ import { useProjectPreparation } from "./useProjectPreparation";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
+import { documentBlockerSignals, persistAdoptedProjectSession, refreshAdoptedProjectConsumers } from "./project-adoption-effects";
 import { recommendedWorkingScope } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
@@ -22,7 +23,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
   ProductBridgeClientError,
-  ensureServerProjectSnapshot,
   requestConversationLanguageProjection,
   requestProtocolDesignerBridge,
 } from "@/features/protocol-designer/product-bridge-client";
@@ -534,12 +534,6 @@ const retainOwnerReviewedCandidate = (
   traceRunId,
   retainedAt: userTurn.createdAt ?? new Date().toISOString(),
 });
-
-const documentBlockerSignals = (documents: FunctionalResetSession["documents"]) =>
-  documents.cards.flatMap((card) => card.blockerGroups.map((group) => ({
-    dimension: group.dimension,
-    items: [...group.items],
-  })));
 
 const persistenceFailureMessage = (
   status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
@@ -3280,24 +3274,7 @@ export default function ProtocolDesignerWorkspace({
         decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
       }) : null;
       const remainderEntryId = remainder ? createConversationEntryId() : null;
-      let documents;
-      try {
-        documents = refreshFunctionalResetDocumentPortfolio({
-          administration,
-          project,
-          previous: session.documents,
-          requestedAt: now,
-        });
-      } catch (error) {
-        documents = markFunctionalResetDocumentFailure(project, session.documents, error);
-      }
-      const queryNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
-        project,
-        previous: session.queryNavigation,
-        documentBlockers: documentBlockerSignals(documents),
-        recordedAt: now,
-        dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
-      }) });
+      const { documents, queryNavigation } = refreshAdoptedProjectConsumers({ previous: session, project, administration, recordedAt: now });
       const feedback = naturalDecision?.selectedChangeRefs
         && (naturalDecision.refusedChangeRefs?.length || naturalDecision.correctionChangeRefs?.length)
         ? naturalDecision.correctionChangeRefs?.length
@@ -3478,27 +3455,13 @@ export default function ProtocolDesignerWorkspace({
           && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);
         if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED");
       }
-      if (adoptionTrace && onSessionChange) {
-        adoptionTrace.writeStarted(project, current.project);
-        nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
-      }
-      if (!saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange).scientificPersisted)
-        throw new Error("PROJECT_PERSISTENCE_FAILED");
-      if (adoptionTrace && onSessionChange) {
-        adoptionTrace.writeSucceeded(project);
-        nextSession = { ...nextSession, scientificExecutionTraceLedger: adoptionTrace.ledger() };
-      }
+      const commit = persistAdoptedProjectSession({ storage: window.localStorage, session: { ...nextSession, project },
+        previousProject: current.project, save: onSessionChange, adoptionTrace, uploadSnapshot: import.meta.env.MODE !== "development" });
+      if (commit.status === "NOT_COMMITTED") throw new Error("PROJECT_PERSISTENCE_FAILED");
+      nextSession = commit.session;
       latestSessionRef.current = nextSession;
       setSession(nextSession);
       setReviewError(null);
-      // Adoption remains owned and persisted locally; the immutable server copy
-      // follows it. A subsequent bridge request waits for this same upload.
-      if (import.meta.env.MODE !== "development") {
-        void ensureServerProjectSnapshot(session.sessionId, project).catch(() => {
-          // The next request reports a local snapshot error without dispatching a provider.
-        });
-      }
-
       // Project writes supply context; they never select another scientific
       // speaker. QRY/owner results remain available for an explicit request.
       return nextSession;

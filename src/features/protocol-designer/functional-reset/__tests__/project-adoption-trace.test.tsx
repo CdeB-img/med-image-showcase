@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -65,9 +66,9 @@ const mount = (initial: FunctionalResetSession, persist = (_next: FunctionalRese
   vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
   vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
   let state = initial;
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={next => {
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(next => {
     state = next; return persist(next);
-  }} /></HelmetProvider>);
+  })} /></HelmetProvider>);
   fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
   return () => state;
 };

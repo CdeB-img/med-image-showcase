@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -252,7 +253,7 @@ describe("Propose then arbitrate — offline product properties", () => {
 it("actual Standard UI bulk click writes once and survives reopen, without provider or real document generation", async () => {
   noNetwork(); let latest = createFunctionalResetSession(); latest.conversationLanguageGateway = { ...latest.conversationLanguageGateway, conversationLanguage: "fr" };
   bridge.mockImplementation(async (request: ProductBridgeRequest) => (await runBridge(request)).response);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   fireEvent.change(screen.getByRole("textbox"), { target: { value: FIBROSIS_EXACT } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
   await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible()); expect(latest.project).toBeNull();
   const review = within(screen.getByTestId("study-proposal-review")); fireEvent.click(review.getByLabelText("Sept classes d'âge ; bornes à discuter", { exact: false }));
@@ -270,7 +271,7 @@ it("actual Standard UI bulk click writes once and survives reopen, without provi
 it.each(["REJECTED", "DEFERRED"] as const)("actual Standard UI %s is recorded once, leaves the Project untouched and survives reopen", async status => {
   noNetwork(); let latest = createFunctionalResetSession(); latest.conversationLanguageGateway = { ...latest.conversationLanguageGateway, conversationLanguage: "fr" };
   bridge.mockImplementation(async (request: ProductBridgeRequest) => (await runBridge(request)).response);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   fireEvent.change(screen.getByRole("textbox"), { target: { value: FIBROSIS_EXACT } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
   await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible());
   const review = within(screen.getByTestId("study-proposal-review"));

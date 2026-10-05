@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -164,7 +165,7 @@ it("actual Standard preserves the native reply through candidate review and mixe
   const result=await executeProtocolDesignerBridge({body:{...r,apiVersion:"1.0.0"},apiKey:"LOCAL_SYNTHETIC",openAiApiKey:"LOCAL_SYNTHETIC",fetchImpl:fakeFetch,providerAttemptPolicy:"SINGLE_ATTEMPT_FAIL_CLOSED"});
   expect(result.status).toBe(200);return result.body as ProductBridgeResponse;
  });
- render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={s=>{latest=s;}} /></HelmetProvider>);
+ render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(s=>{latest=s;})} /></HelmetProvider>);
  const send=(text:string)=>{fireEvent.change(screen.getByRole("textbox"),{target:{value:text}});fireEvent.click(screen.getByRole("button",{name:"Envoyer"}));};
  send(CASES[0].text);
  await waitFor(()=>expect(latest.entries.some(e=>e.kind==="TEXT"&&e.role==="NOXIA"&&e.content===native)).toBe(true),{timeout:10000});

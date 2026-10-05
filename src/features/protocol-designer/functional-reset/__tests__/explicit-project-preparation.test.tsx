@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -45,7 +46,7 @@ const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT
     return result.body;
   });
   const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-    onSessionChange={(next: FunctionalResetSession) => { saved = next; return true; }} /></HelmetProvider>);
+    onSessionChange={explicitTestSave((next: FunctionalResetSession) => { saved = next; return true; })} /></HelmetProvider>);
   return { view, state: () => saved, provider, release, wdCalls: () => bridge.mock.calls.filter(([request]) => request.prepareWorkingDraft) };
 };
 const initialChat = async () => { send(DOMAINS[0].text); await screen.findByText("LOCAL_SYNTHETIC — réponse scientifique conservée.");

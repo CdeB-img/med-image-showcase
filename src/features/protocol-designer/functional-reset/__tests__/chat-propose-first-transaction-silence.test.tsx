@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -33,7 +34,7 @@ const send = (text: string) => { fireEvent.change(screen.getByRole('textbox', {n
 const mount = (session = createFunctionalResetSession()) => {
   vi.stubEnv('VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME', 'TERRA');
   vi.spyOn(console, 'debug').mockImplementation(() => undefined);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={next => { persistFunctionalResetSession(localStorage, next); return true; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(next => { persistFunctionalResetSession(localStorage, next); return true; })} /></HelmetProvider>);
   return session;
 };
 

@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -41,7 +42,7 @@ describe("beta review handshake", () => {
     expect(workingDraft.failure).toBeNull();
     expect(workingDraft.sourceUserTurnRef).toBe("u4");
     const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-      onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     const view = mount();
     expect(screen.getByTestId("project-finalization-card")).toBeVisible();
     expect(saved.entries.filter(entry=>entry.kind==="TEXT" && entry.reviewInvitation)).toHaveLength(1);
@@ -82,7 +83,7 @@ describe("beta review handshake", () => {
       {workingDraftUpdate:update,workingStudyProposal:composition});
     const workingDraft=saved.workingDraft!;
     expect(workingDraft.readyReview).toBeTruthy();
-    const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("24 décisions prêtes à confirmer");
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("15 points restent à définir");
     expect(saved.workingDraftPreparations?.[0].status).toBe("READY_FOR_REVIEW");
@@ -99,7 +100,7 @@ describe("beta review handshake", () => {
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     await waitFor(() => expect(screen.getByTestId("project-document-action").querySelector("button")).toBeEnabled());
     view.unmount();
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
     expect(saved.project?.revision).toBe(1);
   });

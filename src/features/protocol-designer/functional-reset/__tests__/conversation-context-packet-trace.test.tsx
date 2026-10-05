@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -96,7 +97,7 @@ describe("passive context packet projection through existing TRACE", () => {
       return result.body as ProductBridgeResponse;
     });
     const save = vi.fn((next: FunctionalResetSession) => { persistFunctionalResetSession(localStorage, next); return true; });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={save} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(save)} /></HelmetProvider>);
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "LOCAL_SYNTHETIC_NEW_TURN" } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     await screen.findByText("Cette conversation dépasse la mémoire disponible. Son historique et le projet sont conservés.");
@@ -129,7 +130,7 @@ describe("passive context packet projection through existing TRACE", () => {
         conversationContextPacketPreflight: receiptFor() },
     } satisfies ProductBridgeResponse);
     const save = vi.fn((next: FunctionalResetSession) => { persistFunctionalResetSession(localStorage, next); return true; });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={save} /></HelmetProvider>);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(save)} /></HelmetProvider>);
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "LOCAL_SYNTHETIC_NEW_TURN" } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     await screen.findByText(reply);

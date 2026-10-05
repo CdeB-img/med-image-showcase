@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { readFileSync, writeFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -232,7 +233,7 @@ it("actual Standard fibrosis trajectory keeps review, binding, evidence and pers
     expect(body.scientificConversation).toMatchObject({ owner: "SCIENTIFIC_THINKING", projectWrites: 0, projectWriteAuthorized: false });
     return body;
   });
-  const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   let ui = mount();
   const settle = async (count: number) => { await waitFor(() => expect(outputs).toHaveLength(count)); await waitFor(() => expect(screen.getByRole("textbox")).not.toBeDisabled()); };
   send(T1); await settle(1); await waitFor(() => expect(latest.pendingContribution).not.toBeNull());

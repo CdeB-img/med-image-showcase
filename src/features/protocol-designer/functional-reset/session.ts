@@ -736,10 +736,9 @@ export type SessionPersistenceResult =
   | { scientificPersisted: true; navigationPointer: "UPDATED" | "FAILED" | "NOT_APPLICABLE" }
   | { scientificPersisted: false; error: unknown };
 
-// Boolean/void remains accepted at the embedding seam for existing hosts.
-// Every product caller consumes the same explicit verdict, never an exception
-// or the auxiliary navigation outcome as a scientific failure.
-export type SessionSave = (session: FunctionalResetSession) => SessionPersistenceResult | boolean | void;
+// The sole product host returns M1's explicit verdict. A missing/legacy return
+// is not proof of scientific persistence (legacy test observers live in tests).
+export type SessionSave = (session: FunctionalResetSession) => SessionPersistenceResult;
 export const saveFunctionalResetWorkspaceSession = (
   storage: Storage, session: FunctionalResetSession, save?: SessionSave,
 ): SessionPersistenceResult => {
@@ -749,9 +748,13 @@ export const saveFunctionalResetWorkspaceSession = (
       return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
     }
     const result = save(session);
-    if (result === false) return { scientificPersisted: false, error: new Error("PROJECT_PERSISTENCE_FAILED") };
-    return result && typeof result === "object" ? result
-      : { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
+    if (!result || typeof result !== "object"
+      || result.scientificPersisted !== true && result.scientificPersisted !== false
+      || result.scientificPersisted === true && !["UPDATED", "FAILED", "NOT_APPLICABLE"].includes(result.navigationPointer)
+      || result.scientificPersisted === false && !("error" in result)) {
+      return { scientificPersisted: false, error: new Error("SESSION_PERSISTENCE_RESULT_INVALID") };
+    }
+    return result;
   } catch (error) { return { scientificPersisted: false, error }; }
 };
 

@@ -1,3 +1,4 @@
+import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { readFileSync, writeFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -171,7 +172,7 @@ it.each(["UI_CONFIRM", "NATURAL_CONFIRM"])("actual Standard frozen fibrosis traj
   const requests: ProductBridgeRequest[] = [];
   const replies = ["LOCAL_SYNTHETIC T1 — discussion initiale.", "LOCAL_SYNTHETIC T2 — réparation de l’interprétation.", "LOCAL_SYNTHETIC T3 — procédure et demande de sources à vérifier.", "LOCAL_SYNTHETIC T4 — clarification en discussion."];
   attachTransport(requests, replies);
-  const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   let ui = mount();
   const settle = async (count: number) => {
     await waitFor(() => expect(requests).toHaveLength(count));
@@ -232,7 +233,7 @@ it("refusal, unadopted correction and next discussion preserve the nominal owner
   const initial = createFunctionalResetSession(); initial.conversationLanguageGateway = { ...initial.conversationLanguageGateway, conversationLanguage: "fr" };
   let latest = initial; const requests: ProductBridgeRequest[] = [];
   attachTransport(requests, ["LOCAL_SYNTHETIC initial.", "LOCAL_SYNTHETIC correction candidate.", "LOCAL_SYNTHETIC discussion après refus."]);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   send(T1); await waitFor(() => expect(latest.pendingContribution).not.toBeNull());
   fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
   await waitFor(() => expect(latest.project).not.toBeNull());
@@ -275,7 +276,7 @@ it.each([T2, "Pourquoi ces hypothèses ?", "arrête de me redemander la populati
   persistFunctionalResetSession(localStorage, latest); latest = loadFunctionalResetSession(localStorage);
   const canonicalBefore = JSON.stringify(latest.project), ownerBefore = JSON.stringify(latest.knowledgeOwnerLedger);
   const requests: ProductBridgeRequest[] = []; attachTransport(requests, ["LOCAL_SYNTHETIC — réponse courante du Collaborator."]);
-  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
+  render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
   send(raw);
   await waitFor(() => expect(requests).toHaveLength(1));
   await waitFor(() => expect(latest.runtimeTurns.at(-1)?.content).toBe("LOCAL_SYNTHETIC — réponse courante du Collaborator."));
