@@ -7,7 +7,7 @@ import { projectDrciDraftPackPortfolio } from "@/features/document-projection/dr
 import { projectDocumentLifecycle } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { buildBoundedConversationReferentContext, requestsScientificExplanation, buildCurrentNavigationEvidence, currentGovernedNavigationInput, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
+import { requestsScientificExplanation, buildCurrentNavigationEvidence } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
 import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
@@ -15,7 +15,7 @@ import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
-import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext, type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
+import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext } from "@/features/protocol-designer/product-bridge";
 import { appendLanguageProjectionFailure, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, languageProjectionFailure } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
@@ -30,7 +30,7 @@ import { ContributionReviewPresentation, type ContributionReviewPresentationFail
 import StudyProposalReview from "./StudyProposalReview";
 import { requireStudyProposalReview, assertStudyProposalCurrent } from "./study-proposal-standard";
 import type { StudyProposalComposition } from "../product-bridge";
-import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, buildScientificDiscussionContext, type RetainedContributionCandidate } from "./contribution-lifecycle";
+import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, type RetainedContributionCandidate } from "./contribution-lifecycle";
 import { retainScientificDiscussionResult } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
@@ -47,7 +47,7 @@ import CanonicalStudyDataStandardCard from "./CanonicalStudyDataStandardCard";
 import DataManagementStandardCard from "./DataManagementStandardCard";
 import StandardConversationActionGroup from "./StandardConversationActionGroup";
 import { buildStandardConversationActionGroup, type StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
-import { executeProductUnderstandInteraction, recognizeCurrentProjectDirection, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
+import { executeProductUnderstandInteraction, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
 import { buildCandidateScientificChallenge, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision } from "./natural-conversation-policy";
 import { appendFunctionalResetProviderCallRecords, clearFunctionalResetSession, createConversationEntryId, createFunctionalResetSession, createTurnId, loadFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave, recordConversationConfirmationReceipt, conversationConfirmationReceiptStatus, productEntryPromptForIntent, type FunctionalResetSession } from "./session";
 import { isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger } from "./study-design-standard";
@@ -75,11 +75,12 @@ import { prepareBiostatisticsInteraction } from "./biostatistics-standard";
 import { stageProjectConfirmation, stageProjectRejection, contributionHasAcknowledgedPresentation as hasAcknowledgedContributionPresentation, acknowledgeContributionReviewPresented as acknowledgeContributionReviewPresentedTransition, recordContributionReviewPresentationFailure as recordContributionReviewPresentationFailureTransition, type NaturalContributionDecisionContext } from "./project-review-decision";
 import { projectPreparationConfirmationApplicable, projectPreparationConfirmationInput } from "./project-preparation-lifecycle";
 import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./project-review-decision";
-import { productBridgeClientErrorCode, providerRecordsFromError, languageProjectionRequestFromError, languageProjectionDiagnosticFromError, languageBoundaryFor, prepareMultilingualUserTurn, localizeCanonicalFrenchResponse, normalizePreparedUserInput, type PreparedGatewayUserInput } from "../conversation-language-effects";
+import { productBridgeClientErrorCode, providerRecordsFromError, languageProjectionRequestFromError, languageProjectionDiagnosticFromError, prepareMultilingualUserTurn, localizeCanonicalFrenchResponse, normalizePreparedUserInput, type PreparedGatewayUserInput } from "../conversation-language-effects";
 import { projectTerraBridgeTrace, projectConversationBridgeTrace, projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-projection";
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { usePostAdoptionContinuation } from "./usePostAdoptionContinuation";
 import { useDocumentGeneration } from "./useDocumentGeneration";
+import { prepareConversationTurnContext, prepareConfiguredConversationRequest, prepareTerraConversationRequest, assertConversationSubmissionContextCurrent } from "./conversation-request";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -393,19 +394,7 @@ export default function ProtocolDesignerWorkspace({
     });
     const records: ProviderCallRecord[] = [];
     try {
-      const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
-        retention: session.scientificDiscussionRetention,
-        studyProposal: session.studyProposal,
-        currentProject: session.project, conversationId: session.conversationId, runtimeTurns: requestTurns,
-        selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null });
-      const response = await requestProtocolDesignerBridge({ conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
-        ...(autonomousProjectBuild && session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}),
-        currentProject: session.project, evaluatePersistentDelta: prepareRecording,
-        scientificDiscussionContext: discussion,
-        ...(session.project && session.queryNavigation ? { currentNavigation: currentGovernedNavigationInput({
-          project: session.project, navigation: session.queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger }) } : {}),
-        observabilityContext: { sessionId: session.sessionId, conversationId: session.conversationId,
-          turnId: userTurn.turnId, clientRequestId: `product-bridge:${userTurn.turnId}`, testSessionId: null } });
+      const response = await requestProtocolDesignerBridge(prepareTerraConversationRequest(session, requestTurns, userTurn, autonomousProjectBuild, prepareRecording));
       records.push(...response.observability.providerCalls ?? []);
       const latest = latestSessionRef.current;
       if (latest.sessionId !== session.sessionId || latest.project?.versionId !== session.project?.versionId) {
@@ -523,34 +512,7 @@ export default function ProtocolDesignerWorkspace({
         gatewayState: preparedGateway.state,
         onProviderCallRecords,
       };
-      const proposalCorrection = Boolean(session.studyProposal && recognizeCurrentProjectDirection(preparedInput.workingText, true) === "MODIFY_EXISTING_PROJECT_OBJECT");
-      const currentProjectDirection = correctionMode && session.project
-        ? "MODIFY_EXISTING_PROJECT_OBJECT"
-        : recognizeCurrentProjectDirection(preparedInput.workingText, session.project !== null);
-      const userTurn: ScientificInterpretationTurn = continuedTurn ?? { turnId, role: "USER", content, createdAt: now };
-      const runtimeTurns = continuedTurn ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
-      const boundedReferentContext = buildBoundedConversationReferentContext({
-        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
-        conversationId: session.conversationId, runtimeTurns,
-        selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
-        requestingTurnRef: userTurn.turnId,
-      });
-      const scientificDiscussionContext = buildScientificDiscussionContext({
-        retention: session.scientificDiscussionRetention,
-        studyProposal: session.studyProposal,
-        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
-        conversationId: session.conversationId, runtimeTurns,
-        selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null,
-      });
-      const boundedInteraction = selectBoundedConversationInteraction({
-        sourceText: preparedInput.workingText, correctionMode: correctionMode || proposalCorrection || Boolean(continuedTurn), referentContext: boundedReferentContext,
-      });
-      const visibleProposalDecision = readNaturalCandidateDecision(preparedInput.workingText);
-      const adoptsVisibleProposal = Boolean(boundedReferentContext.visibleProposal
-        && boundedReferentContext.visibleProposal.options.length === 1
-        && visibleProposalDecision?.act === "CONFIRM" && !visibleProposalDecision.qualified
-        && boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
-        && boundedInteraction.evidenceRefs.includes(boundedReferentContext.visibleProposal.options[0]!.ref));
+      const { proposalCorrection, currentProjectDirection, userTurn, runtimeTurns, boundedReferentContext, scientificDiscussionContext, boundedInteraction, adoptsVisibleProposal } = prepareConversationTurnContext(session, preparedInput, continuedTurn, correctionMode, now, turnId, content);
       // Explicit Project direction outranks an owner-driven continuation. The
       // router only recognizes the operation; extraction and PRJ validation
       // still resolve the stable scientific target and prepare the candidate.
@@ -892,83 +854,8 @@ export default function ProtocolDesignerWorkspace({
       }
       // Scientific discussion is not conditional on a Knowledge match.
 
-      const preProjectNavigation = session.project
-        ? undefined
-        : buildPreProjectNavigationDecision({ routing: entryRouting });
-      const bridgeRequest: Omit<ProductBridgeRequest, "apiVersion"> = {
-        requestKind: "USER_TURN",
-        observabilityContext: {
-          sessionId: session.sessionId,
-          conversationId: session.conversationId,
-          turnId: userTurn.turnId,
-          clientRequestId: `product-bridge:${userTurn.turnId}`,
-          testSessionId: null,
-        },
-        conversation: {
-          conversationId: session.conversationId,
-          language: "fr",
-          turns: runtimeTurns,
-          ...(entryRouting.currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
-            || entryRouting.currentProjectDirection === "ADD_PROJECT_OBJECT" ? {
-            interactionContext: {
-              interactionRef: `project-correction:${userTurn.turnId}`,
-              sourceActionRef: queryNavigation?.currentAction?.selectedActionId ?? null,
-              owner: "RESEARCH_PROJECT",
-              purpose: "Préparer une modification candidate du Research Project courant à partir du dernier message utilisateur, sans adoption.",
-              expectedResponseKind: "SCIENTIFIC_CORRECTION" as const,
-              targetRefs: queryNavigation?.currentAction?.targetRef ? [queryNavigation.currentAction.targetRef] : [],
-              informationNeedRefs: [...(queryNavigation?.currentAction?.navigationNeedRefs ?? [])],
-              projectRef: session.project?.projectId ?? null,
-              projectVersion: session.project?.versionId ?? null,
-              projectDigest: session.project?.projectDigest ?? null,
-            },
-          } : queryNavigation?.currentAction && queryNavigation.currentPresentation ? {
-            interactionContext: {
-              interactionRef: queryNavigation.currentPresentation.presentationId,
-              sourceActionRef: queryNavigation.currentAction.selectedActionId,
-              owner: "QUERY_NAVIGATION",
-              purpose: [
-                queryNavigation.currentPresentation.intent,
-                queryNavigation.standardQuestion
-                  ? `Question actuellement présentée au chercheur : ${queryNavigation.standardQuestion.text}`
-                  : null,
-              ].filter((value): value is string => Boolean(value)).join("\n"),
-              expectedResponseKind: "QRY_INFORMATION_RESPONSE" as const,
-              targetRefs: [queryNavigation.currentAction.targetRef],
-              informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
-              projectRef: queryNavigation.projectRef,
-              projectVersion: queryNavigation.projectVersion,
-              projectDigest: queryNavigation.projectDigest,
-            },
-          } : {}),
-        },
-        currentProject: session.project,
-        ...(session.project ? { currentNavigation: currentGovernedNavigationInput({
-          project: session.project, navigation: queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger,
-        }) } : {}),
-        ...(preProjectNavigation ? { preProjectNavigation } : {}),
-        boundedReferentContext,
-        scientificDiscussionContext,
-        ...(session.studyProposal ? { studyProposalContext: session.studyProposal } : {}),
-        ...(boundedInteraction ? { boundedInteraction } : {}),
-        ...(session.conversationPreferences?.responseLength === "CONCISE"
-          ? { conversationPresentation: { responseLength: "CONCISE" as const } }
-          : {}),
-        languageBoundary: languageBoundaryFor(preparedGateway.state),
-        // Routing governs Project eligibility. Conversation-only turns remain
-        // usable, but cannot trigger persistent extraction.
-        evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
-      };
-      const assertSubmissionContextCurrent = () => {
-        const latest = latestSessionRef.current;
-        if (latest.sessionId !== session.sessionId || latest.conversationId !== session.conversationId
-          || latest.project?.projectId !== session.project?.projectId
-          || latest.project?.versionId !== session.project?.versionId
-          || latest.project?.projectDigest !== session.project?.projectDigest) {
-          throw new ProductBridgeClientError("SUBMISSION_CONTEXT_CHANGED",
-            "Le contexte a changé pendant le traitement. Cette réponse n’a pas été appliquée ; le projet courant et les décisions déjà enregistrées sont conservés.");
-        }
-      };
+      const { preProjectNavigation, bridgeRequest } = prepareConfiguredConversationRequest({ session, entryRouting, userTurn, runtimeTurns, queryNavigation, boundedReferentContext, scientificDiscussionContext, boundedInteraction, preparedGateway, asksForExplanationOrRephrase });
+      const assertSubmissionContextCurrent = () => assertConversationSubmissionContextCurrent(session, latestSessionRef.current);
       const response = await requestProtocolDesignerBridge(bridgeRequest);
       onProviderCallRecords(response.observability.providerCalls ?? []);
       assertSubmissionContextCurrent();
