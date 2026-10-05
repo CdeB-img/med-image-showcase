@@ -39,7 +39,7 @@ export const hasLongitudinalDesignEvidence = (source: string): boolean => {
   return text.split(/[.!?;\n]+/u).some(clause => {
     if (/\b(?:pas|non|sans|aucun|aucune)\b.{0,35}\b(?:longitudinal|suivi|repete)\w*/u.test(clause)) return false;
     return /\b(?:etude|design|approche|cohorte)\s+(?:(?:prospective|retrospective)\s+)?longitudinal\w*\b/u.test(clause)
-      || /\b(?:evolution|trajectoire|mesures?|suivi)\s+longitudinal\w*\b/u.test(clause)
+      || /\b(?:evolu\w*|trajectoire|mesures?|suivi)\b.{0,20}\blongitudinal\w*\b/u.test(clause)
       || /\b(?:memes? (?:sujets?|patients?|participants?|volontaires?|animaux|unites?))\b.{0,100}\b(?:suiv\w*|plusieurs (?:visites|temps)|repete\w*)\b/u.test(clause)
       || /\b(?:suiv\w*|repete\w*)\b.{0,100}\b(?:memes? (?:sujets?|patients?|participants?|volontaires?|animaux|unites?))\b/u.test(clause)
       || /\b(?:mesures?|evaluations?|observations?) repete\w*\b.{0,70}\b(?:dans le temps|au cours du temps|au fil du temps|visites?|jours?|mois|annees?)\b/u.test(clause);

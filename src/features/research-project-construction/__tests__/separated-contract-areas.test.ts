@@ -3,6 +3,7 @@ import { executeResearchProjectConstruction } from "../engine";
 import { createResearchProjectConstructionSession, decideProjectChange, decideProjectGate, proposeStudyDesign, requestProjectChange } from "../session";
 import { parseResearchProjectConstructionInput, parseResearchProjectDesignResult, RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "../types";
 import { makeProjectInput } from "./fixtures";
+import { hasLongitudinalDesignEvidence } from "@/features/study-design/design-reasoning";
 
 const result = () => executeResearchProjectConstruction(makeProjectInput());
 
@@ -14,6 +15,10 @@ describe("PRJ-001 — domaines contractuels testés séparément", () => {
   it("Groups", () => expect(result().groups.every((item) => item.populationId && item.justification)).toBe(true));
   it("Visits", () => expect(result().visits.every((item) => item.justification && item.dependencies.length)).toBe(true));
   it("Temporal Structure", () => expect(result().temporalStructure).toMatchObject({ repeatedMeasures: true }));
+  it("does not infer repeated measures from age strata or a negated longitudinal design", () => {
+    expect(hasLongitudinalDesignEvidence("Évolution selon l’âge, par tranches, sur une mesure unique.")).toBe(false);
+    expect(hasLongitudinalDesignEvidence("Étude non longitudinale, sans suivi répété.")).toBe(false);
+  });
   it("Endpoint candidates", () => expect(result().endpointCandidates.every((item) => item.questionId && item.objectiveIds.length && item.hypothesisIds.length && item.populationId && item.timingIds.length)).toBe(true));
   it("Variables", () => expect(result().variables.every((item) => item.endpointIds.length && item.analysisRequirementIds.length && item.finalDataDictionaryName === null)).toBe(true));
   it("Analysis Requirements", () => expect(result().analysisRequirements.every((item) => item.reason && item.finalStatisticalModel === null)).toBe(true));
