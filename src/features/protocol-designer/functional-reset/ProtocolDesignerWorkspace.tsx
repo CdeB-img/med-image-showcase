@@ -15,26 +15,24 @@ import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
-import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext } from "@/features/protocol-designer/product-bridge";
 import { appendLanguageProjectionFailure, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, languageProjectionFailure } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { buildPreProjectTraceRealizationOutcome, captureProductBridgeTraceText, createPreProjectScientificTraceSegment, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
+import { captureProductBridgeTraceText, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { buildStudyDeliverablePortfolio, functionalProtocolProjection } from "@/features/document-projection";
-import { buildPreProjectNavigationDecision, buildFunctionalResetQueryNavigation, buildCurrentProjectImpactProjection, isFunctionalResetQueryMisunderstanding, realizePreProjectNavigationDecision } from "@/features/query-navigation";
+import { buildFunctionalResetQueryNavigation, buildCurrentProjectImpactProjection, isFunctionalResetQueryMisunderstanding } from "@/features/query-navigation";
 import { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
-import { requireStudyProposalReview, assertStudyProposalCurrent } from "./study-proposal-standard";
+import { assertStudyProposalCurrent } from "./study-proposal-standard";
 import type { StudyProposalComposition } from "../product-bridge";
 import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, type RetainedContributionCandidate } from "./contribution-lifecycle";
-import { retainScientificDiscussionResult } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
-import { recordArtifactGeneratedTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
+import { recordArtifactGeneratedTrace, recordGovernedConversationTrace, recordProductErrorBoundary, recordRetainedContributionValidation, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -48,10 +46,10 @@ import DataManagementStandardCard from "./DataManagementStandardCard";
 import StandardConversationActionGroup from "./StandardConversationActionGroup";
 import { buildStandardConversationActionGroup, type StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
 import { executeProductUnderstandInteraction, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
-import { buildCandidateScientificChallenge, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision } from "./natural-conversation-policy";
+import { classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision } from "./natural-conversation-policy";
 import { appendFunctionalResetProviderCallRecords, clearFunctionalResetSession, createConversationEntryId, createFunctionalResetSession, createTurnId, loadFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave, recordConversationConfirmationReceipt, conversationConfirmationReceiptStatus, productEntryPromptForIntent, type FunctionalResetSession } from "./session";
 import { isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger } from "./study-design-standard";
-import { buildPreProjectScientificThinkingIntervention, isScientificThinkingQueryDispatch } from "./scientific-thinking-standard";
+import { isScientificThinkingQueryDispatch } from "./scientific-thinking-standard";
 import { isObservabilityQueryDispatch, readObservabilityResultFromLedger } from "./observability-standard";
 import { isImagingQueryDispatch, readImagingResultFromLedger } from "./imaging-standard";
 import { isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger } from "./biostatistics-standard";
@@ -62,7 +60,6 @@ import { documentAdministrationFrom } from "./project-administration";
 import ProjectContinuum from "./ProjectContinuum";
 import ProjectSourceLibraryView from "./ProjectSourceLibraryView";
 import { acquireDocumentKnowledge, resolveDocumentaryIntent } from "./documentary-conversation";
-import { visibleStructuredUnderstandingEvidence } from "./product-entry-routing";
 import { respondToConversationActionGroup as respondToConversationActionGroupTransition } from "./standard-conversation-action-group";
 import { prepareDocumentInstruction, dispatchProductDocumentAction as prepareProductDocumentAction } from "./documentary-conversation";
 import { prepareCanonicalStudyDataContinuationNavigation } from "./canonical-study-data-standard";
@@ -76,11 +73,12 @@ import { stageProjectConfirmation, stageProjectRejection, contributionHasAcknowl
 import { projectPreparationConfirmationApplicable, projectPreparationConfirmationInput } from "./project-preparation-lifecycle";
 import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./project-review-decision";
 import { productBridgeClientErrorCode, providerRecordsFromError, languageProjectionRequestFromError, languageProjectionDiagnosticFromError, prepareMultilingualUserTurn, localizeCanonicalFrenchResponse, normalizePreparedUserInput, type PreparedGatewayUserInput } from "../conversation-language-effects";
-import { projectTerraBridgeTrace, projectConversationBridgeTrace, projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-projection";
+import { projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-projection";
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { usePostAdoptionContinuation } from "./usePostAdoptionContinuation";
 import { useDocumentGeneration } from "./useDocumentGeneration";
 import { prepareConversationTurnContext, prepareConfiguredConversationRequest, prepareTerraConversationRequest, assertConversationSubmissionContextCurrent } from "./conversation-request";
+import { deliverTerraConversationResult, prepareTerraRecordingResult, prepareConfiguredConversationReceipt, realizeConfiguredConversationReceipt, applyConfiguredConversationReceipt } from "./conversation-result-application";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -108,8 +106,6 @@ type ProtocolDesignerWorkspaceProps = Readonly<{
   onOpenProfile?: () => void;
   onRenameProject?: () => void;
 }>;
-
-const VALIDATED_CANDIDATE_DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 
 export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
@@ -401,60 +397,11 @@ export default function ProtocolDesignerWorkspace({
         throw new Error("Le projet a changé pendant cette réponse. Rouvrez son état courant ; aucune décision n'a été appliquée.");
       }
       const receivedAt = new Date().toISOString();
-      let contextTraceLedger = latest.scientificExecutionTraceLedger;
-      try {
-        contextTraceLedger = recordConversationContextPacketPreflight({
-          ledger: contextTraceLedger, traceRunId, turnId: userTurn.turnId, conversationId: session.conversationId,
-          observedAt: receivedAt, sourceDigest: logicalDigest(userTurn.content), project: session.project,
-          measurement: response.observability.conversationContextPacketPreflight,
-          captureConfiguration: traceCaptureConfiguration,
-        });
-      } catch { /* TRACE must never veto a received conversation result. */ }
-      // Deliver native Chat text before any local transaction preparation. A
-      // rejected candidate must never erase or replace this conversational turn.
-      const delivered: FunctionalResetSession = { ...latest, pendingMixedUserTurnRef: null,
-        ...(!response.conversationFailure && response.scientificConversation?.retainedScientificResult ? {
-          scientificDiscussionRetention: retainScientificDiscussionResult({ state: latest.scientificDiscussionRetention,
-            conversationId: session.conversationId, runtimeTurns: [...runtimeTurns, response.assistantTurn],
-            userTurn, assistantTurn: response.assistantTurn, result: response.scientificConversation.retainedScientificResult,
-            retained: latest.retainedContributionCandidates ?? [] }),
-        } : {}),
-        scientificExecutionTraceLedger: contextTraceLedger,
-        runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
-        entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
-          role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,
-          ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {}) }], updatedAt: receivedAt };
+      const delivered = deliverTerraConversationResult({ latest, session, traceRunId, userTurn, runtimeTurns, response, receivedAt, traceCaptureConfiguration });
       latestSessionRef.current = delivered;
       setSession(delivered);
       if (response.conversationFailure) setDraft(current => current || content);
-      const contribution = prepareRecording ? response.persistentExtraction.contribution : null;
-      let candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> | null = null;
-      let retained = session.retainedContributionCandidates;
-      let preparationFailed = false;
-      try {
-        candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-        if (contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION")
-          retained = retainValidatedContributionCandidate({ retained: session.retainedContributionCandidates ?? [],
-            contribution, candidate, validation: response.persistentExtraction.validation,
-            validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1", sourceTurnRef: userTurn.turnId,
-            baseProject: session.project, dependencyBindings: [], traceRunId, retainedAt: receivedAt });
-      } catch (error) {
-        preparationFailed = true;
-        candidate = null;
-        console.warn("PROJECT_REVIEW_PREPARATION_FAILED", error);
-      }
-      const reviewable = !preparationFailed && contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION";
-      setSession(current => ({ ...current, currentContribution: !preparationFailed && contribution ? contribution : current.currentContribution,
-        pendingContribution: reviewable ? contribution : current.pendingContribution,
-        retainedContributionCandidates: reviewable ? retained : current.retainedContributionCandidates,
-        entries: [...current.entries,
-          ...(reviewable ? [{ entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
-            contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt }] : []),
-          ...(prepareRecording && !reviewable ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const,
-            role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
-              ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
-              : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt }] : [])],
-        bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectTerraBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, response, candidate, projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null })), updatedAt: receivedAt }));
+      setSession(prepareTerraRecordingResult({ session, response, prepareRecording, traceRunId, userTurn, receivedAt, content }));
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       setDraft(current => current || content);
@@ -860,47 +807,8 @@ export default function ProtocolDesignerWorkspace({
       onProviderCallRecords(response.observability.providerCalls ?? []);
       assertSubmissionContextCurrent();
       const receivedAt = new Date().toISOString();
-      const extractedContribution = entryRouting.projectConstructionEligible
-        ? response.persistentExtraction.contribution
-        : null;
-      // An independent new candidate does not supersede/merge an older one by
-      // recency. Both identities remain retained; this turn presents its receipt.
-      const contribution = extractedContribution;
-      const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-      const effectiveCandidate = (!response.scientificConversation?.studyProposal || response.scientificConversation.studyProposal.recomputation) && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
-      const scientificThinkingIntervention = !response.scientificConversation && !session.project && effectiveCandidate && contribution
-        ? buildPreProjectScientificThinkingIntervention({
-          contribution,
-          sessionId: session.sessionId,
-          sourceJourney: entryRouting.routeIntent === "DOCUMENT" ? "FORMALIZE_IDEA" : entryRouting.routeIntent,
-          reasoning: response.contextualReasoning,
-          conversationTurns: bridgeRequest.conversation.turns,
-        })
-        : null;
-      const enrichedPreProjectNavigation = preProjectNavigation && scientificThinkingIntervention?.navigationContributions.length
-        ? buildPreProjectNavigationDecision({
-          routing: entryRouting,
-          scientificContributions: scientificThinkingIntervention.navigationContributions,
-          contextualUnderstanding: scientificThinkingIntervention.contextualUnderstanding,
-          sourceText: content,
-        })
-        : null;
-      const selectedPreProjectNavigation = enrichedPreProjectNavigation ?? (preProjectNavigation && response.currentTurnNavigation ? {
-        ...preProjectNavigation,
-        action: response.currentTurnNavigation.envelope.action,
-        selection: response.currentTurnNavigation.selection,
-        selectedInformationNeedRef: response.currentTurnNavigation.envelope.selectedInformationNeedRef,
-        selectedInformationNeed: response.currentTurnNavigation.envelope.action === "ASK_QUESTION" ? response.currentTurnNavigation.envelope.purpose : null,
-        scientificReason: response.currentTurnNavigation.envelope.purpose,
-        realizationDirective: response.currentTurnNavigation.envelope.purpose,
-        alreadyProvidedInformationRefs: response.currentTurnNavigation.envelope.alreadyProvidedInformationRefs,
-      } : preProjectNavigation);
-      const realizedBridgeRequest = {
-        ...bridgeRequest,
-        ...(selectedPreProjectNavigation ? { preProjectNavigation: selectedPreProjectNavigation } : {}),
-        ...(!enrichedPreProjectNavigation && response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
-      };
-      const providerContext = response.scientificConversation?.providerInput.context ?? naturalConversationContext(realizedBridgeRequest);
+      const receipt = prepareConfiguredConversationReceipt({ session, response, entryRouting, content, preProjectNavigation, bridgeRequest });
+      const { contribution, candidate, effectiveCandidate, enrichedPreProjectNavigation, selectedPreProjectNavigation, realizedBridgeRequest, providerContext } = receipt;
       if (candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" && contribution) {
         const retained = retainValidatedContributionCandidate({
           retained: [], contribution, candidate,
@@ -1019,40 +927,8 @@ export default function ProtocolDesignerWorkspace({
         await answerReadOnlyInteraction(response);
         return;
       }
-      const structuredUnderstanding = visibleStructuredUnderstandingEvidence({
-        contribution: effectiveCandidate ? contribution : null,
-        sourceTurnRef: userTurn.turnId,
-        explicitDimensions: entryRouting.explicitScientificDimensions,
-      });
-      const preProjectRealization = response.scientificConversation ? null : !enrichedPreProjectNavigation && response.governedRealization ? {
-        ...response.governedRealization,
-        provider: response.governedRealization.providerReplyAccepted ? response.observability.provider : "NONE",
-        model: response.governedRealization.providerReplyAccepted ? response.observability.model : "LOCAL_WHAT_REALIZATION",
-        conformanceReason: response.governedRealization.conformance.diagnostics.join("|") || "STRUCTURED_CLAIMS_CONFORM_VISIBLE_FIDELITY_NOT_ADJUDICATED",
-        representedDimensionRefs: response.governedRealization.conformance.representedContentRefs,
-        missingDimensionRefs: response.governedRealization.conformance.missingRequiredContentRefs,
-      } : selectedPreProjectNavigation
-        ? realizePreProjectNavigationDecision({
-          decision: selectedPreProjectNavigation,
-          providerReply: response.observability.conversationCalls === 1
-            && response.observability.conversationResponseReceived
-            ? response.assistantReply
-            : null,
-          provider: response.observability.provider,
-          model: response.observability.model,
-          structuredUnderstanding,
-        })
-        : null;
-      const candidateScientificChallenge = !response.scientificConversation && effectiveCandidate
-        ? buildCandidateScientificChallenge(effectiveCandidate)
-        : null;
-      const baseCanonicalAssistantReply = validatedCandidateDegradedPath
-        ? VALIDATED_CANDIDATE_DEGRADED_REPLY
-        : preProjectRealization?.assistantReply ?? response.assistantReply;
-      const canonicalAssistantReply = candidateScientificChallenge
-        ? `${baseCanonicalAssistantReply}\n\n${candidateScientificChallenge}`
-        : baseCanonicalAssistantReply;
-      const canonicalAssistantTurn = { ...response.assistantTurn, content: canonicalAssistantReply };
+      const presentation = realizeConfiguredConversationReceipt({ session, response, entryRouting, userTurn, receipt, validatedCandidateDegradedPath });
+      const { structuredUnderstanding, preProjectRealization, canonicalAssistantReply, canonicalAssistantTurn } = presentation;
       downstreamStage = "LOCALIZATION";
       const localized = await localizeCanonicalFrenchResponse({
         state: preparedGateway.state,
@@ -1068,6 +944,9 @@ export default function ProtocolDesignerWorkspace({
       const standaloneAssistantReplyVisible = Boolean(response.scientificConversation) || !deferredProposalNavigation
         && !(explicitCurrentProjectChange && effectiveCandidate && contribution);
       downstreamStage = "PRESENTATION";
+      const effectiveExtractionStatus = entryRouting.projectConstructionEligible ? response.persistentExtraction.status : "NOT_REQUESTED" as const;
+      const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null,
+        isExplicitProjectRecordingRequest(content));
       if (response.scientificConversation) governedRealizationOutcome = {
         contract: "SCIENTIFIC_TRACE_REALIZATION_OUTCOME", contractVersion: "1.0.0",
         declarationSource: "STRUCTURED_COMPONENT_OUTPUT",
@@ -1078,129 +957,10 @@ export default function ProtocolDesignerWorkspace({
         effectiveExecutor: response.scientificConversation.responseOwner === "LLM" ? "GEMINI_CONVERSATION_MODEL" : "LOCAL_DETERMINISTIC_REALIZATION",
         fallbackReason: response.scientificConversation.fallbackReason ?? "NONE",
       };
-      const preProjectTrace = !response.scientificConversation && response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
-        sessionId: session.sessionId,
-        sourceTurnRef: userTurn.turnId,
-        traceRunId,
-        sourceText: content,
-        routing: entryRouting,
-        request: response.scientificConversation ? {
-          ...realizedBridgeRequest, preProjectNavigation: undefined, governedRealization: undefined,
-          conversation: { ...realizedBridgeRequest.conversation, interactionContext: undefined },
-        } : realizedBridgeRequest,
-        providerBoundary: {
-          systemInstruction: response.scientificConversation?.providerInput.systemInstruction ?? NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
-          context: providerContext,
-          assistantReply: canonicalAssistantReply,
-          provider: response.scientificConversation?.responseOwner === "DETERMINISTIC" ? "NONE" : preProjectRealization?.provider ?? response.observability.provider,
-          model: response.scientificConversation?.responseOwner === "DETERMINISTIC" ? "LOCAL_WHAT_REALIZATION" : preProjectRealization?.model ?? response.observability.model,
-          formulationOwner: response.scientificConversation?.responseOwner === "DETERMINISTIC" || preProjectRealization?.executor === "LOCAL_DETERMINISTIC_REALIZATION"
-            ? "LOCAL_RUNTIME"
-            : undefined,
-          visibleStructuredUnderstandingDimensionRefs: structuredUnderstanding?.representedDimensionRefs,
-          ...(response.scientificConversation ? { realizationOutcome: governedRealizationOutcome } : preProjectRealization ? {
-            realizationOutcome: buildPreProjectTraceRealizationOutcome({
-              attemptedProvider: response.observability.provider,
-              providerReply: response.assistantReply,
-              realization: preProjectRealization,
-            }),
-          } : {}),
-        },
-        captureConfiguration: traceCaptureConfiguration,
-      });
-      const effectiveExtractionStatus = entryRouting.projectConstructionEligible
-        ? response.persistentExtraction.status
-        : "NOT_REQUESTED" as const;
-      const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null,
-        isExplicitProjectRecordingRequest(content));
-      let scientificExecutionTraceLedger = recordInitialProductTrace({
-        ledger: entryTraceLedger,
-        traceRunId,
-        conversationId: session.conversationId,
-        segment: preProjectTrace,
-        observedAt: receivedAt,
-        contribution,
-        candidate,
-        reviewCandidate: retainedThisTurn ? null : effectiveCandidate,
-        retainedCandidate: retainedThisTurn,
-        extractionStatus: effectiveExtractionStatus,
-        extractionLatencyMs: response.observability.extractionLatencyMs,
-        extractionExecution: productTraceExtractionExecution({
-          contribution,
-          providerArtifact: response.persistentExtraction.providerArtifact,
-          observedProvider: response.observability.extractionProvider,
-          observedModelRequested: response.observability.extractionModelRequested,
-          observedModelReturned: response.observability.extractionModelReturned,
-        }),
-      });
-      if (session.project && currentProjectImpactProjection && contextualActionPresentation) {
-        scientificExecutionTraceLedger = recordCurrentProjectImpactNavigationTrace({
-          ledger: scientificExecutionTraceLedger,
-          traceRunId,
-          conversationId: session.conversationId,
-          observedAt: receivedAt,
-          project: session.project,
-          impact: currentProjectImpactProjection,
-          queryNavigation,
-          presentation: contextualActionPresentation,
-        });
-      }
-      scientificExecutionTraceLedger = recordLocalizedConversationResponseTrace({
-        ledger: scientificExecutionTraceLedger,
-        traceRunId,
-        conversationId: session.conversationId,
-        response: localized.response,
-        observedAt: receivedAt,
-      });
-      const responseEntries: FunctionalResetSession["entries"] = [
-          ...(standaloneAssistantReplyVisible ? [{
-            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
-            content: visibleAssistantReply, createdAt: receivedAt,
-          }] : []),
-          ...(contextualActionPresentation ? [{
-            entryId: createConversationEntryId(),
-            kind: "FOLLOW_UP_ACTIONS" as const,
-            role: "NOXIA" as const,
-            presentation: contextualActionPresentation,
-            response: null,
-            createdAt: receivedAt,
-          }] : []),
-          ...(effectiveCandidate && contribution ? [{
-            entryId: createConversationEntryId(),
-            kind: "REVIEW" as const,
-            role: "NOXIA" as const,
-            contribution,
-            candidate: effectiveCandidate,
-            traceRunId,
-            status: "PENDING" as const,
-            decision: null,
-            createdAt: receivedAt,
-          }] : []),
-          ...(failureMessage ? [{
-            entryId: createConversationEntryId(),
-            kind: "ERROR" as const,
-            role: "NOXIA" as const,
-            content: failureMessage,
-            createdAt: receivedAt,
-          }] : []),
-      ];
-      setSession((current) => {
-        return {
-        ...current,
-        queryNavigation,
-        pendingMixedUserTurnRef: continuedTurn ? null : current.pendingMixedUserTurnRef,
-        runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
-        pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
-        studyProposal: response.scientificConversation?.studyProposal ?? (effectiveCandidate && current.studyProposal
-          ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal),
-        retainedContributionCandidates: current.retainedContributionCandidates,
-        entries: [...current.entries, ...responseEntries],
-        bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectConversationBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, visibleAssistantReply, response, entryRouting, effectiveExtractionStatus, candidate, projectVersion: session.project?.versionId ?? null, qryNeedBefore, queryNavigation, preProjectRealization, preparedGateway, localized, preProjectTrace })),
-        conversationLanguageGateway: localized.state,
-        scientificExecutionTraceLedger,
-        updatedAt: receivedAt,
-      };
-      });
+      const application = applyConfiguredConversationReceipt({ session, response, entryRouting, content, userTurn, traceRunId, receivedAt, traceCaptureConfiguration, receipt, presentation, localized, preparedGateway, deferredProposalNavigation, continuedTurn, runtimeTurns, explicitCurrentProjectChange, entryTraceLedger, queryNavigation, contextualActionPresentation, currentProjectImpactProjection, retainedThisTurn, governedRealizationOutcome, qryNeedBefore, visibleAssistantReply, standaloneAssistantReplyVisible, failureMessage });
+      governedRealizationOutcome = application.governedRealizationOutcome;
+      const scientificExecutionTraceLedger = application.scientificExecutionTraceLedger;
+      setSession(application.apply);
       if (deferredProposalNavigation) {
         delegateAssistedProposal(deferredProposalNavigation, scientificExecutionTraceLedger);
       }
