@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
 import * as provider from "../../../../api/protocol-designer-openai-extraction-provider";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/protocol-designer-durable-guard";
-import { createPostgresDocumentArchive, documentArchiveCapacity } from "../../../../server/protocol-designer-document-archive";
+import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256 } from "../../../../server/protocol-designer-document-archive";
 import { memoryProjectSnapshotStore } from "../../protocol-designer/functional-reset/__tests__/fixtures/memory-project-snapshot-store";
 import { makeFunctionalResetContribution, COLCHICINE_INITIAL } from "../../protocol-designer/functional-reset/__tests__/functional-reset-fixtures";
 import { confirmResearchProjectContribution, authorizeResearchProjectDocumentHandoff } from "../../research-project-construction";
@@ -13,7 +13,7 @@ import type { ProductBridgeResponse } from "../../protocol-designer/product-brid
 import { archiveSqlFixture } from "./archive-sql-fixture";
 
 afterEach(() => vi.restoreAllMocks());
-const runtime = async () => {
+const runtime = async (limits = {}) => {
   const sessionId = "protocol-designer-session:doc-transaction", at = "2026-10-05T10:00:00.000Z";
   const authority = { actorRef: "synthetic", mandateRef: "PROJECT_OWNER" as const, authoritySource: "ACTIVE_RESEARCH_WORKSPACE_SESSION" as const, verification: "DEMO_SESSION_NOT_AUTHENTICATED" as const };
   const turn = { turnId: "source", role: "USER" as const, content: COLCHICINE_INITIAL, createdAt: at };
@@ -31,7 +31,7 @@ const runtime = async () => {
   const snapshots = memoryProjectSnapshotStore(), sql = archiveSqlFixture();
   const identity = { sessionId, clientAddress: "192.0.2.1" }, registration = await snapshots.persist(identity, project, null);
   const access = { identity, project: registration.ref, proof: registration.proof };
-  const archive = createPostgresDocumentArchive("postgres://offline", snapshots, documentArchiveCapacity({}), sql.sql);
+  const archive = createPostgresDocumentArchive("postgres://offline", snapshots, { ...documentArchiveCapacity({}), ...limits }, sql.sql);
   const guard = createMemoryProtocolDesignerGuardForTests();
   const body = { apiVersion: "1.0.0", requestKind: "USER_TURN", conversation: { conversationId: "conversation", language: "fr", turns: [turn] }, currentProject: project,
     evaluatePersistentDelta: false, documentDraftRequest: source, observabilityContext: { sessionId, conversationId: "conversation", turnId: turn.turnId, clientRequestId: "doc-intent-1", testSessionId: null } };
@@ -52,6 +52,13 @@ const runtime = async () => {
 };
 
 describe("DOC generation publication / recovery transaction — no real provider", () => {
+  it("rejects a full archive write envelope before provider admission or dispatch", async () => {
+    const run = await runtime({ maxConcurrentDocWrites: 1 });
+    await run.archive.admit(run.access, { requestId: "existing-protected-write", requestSha256: docSha256("existing"), generatedAt: "2026-10-05T10:00:00.000Z", reservedBytes: 4_000_000 });
+    const result = await run.invoke(); expect(result.status).toBe(429);
+    expect(result.body.error?.code).toBe("DOC_ARCHIVE_WRITE_CAPACITY_EXCEEDED");
+    expect(run.executed).not.toHaveBeenCalled(); expect(run.sql.rows()).toHaveLength(1);
+  });
   it("archives before publication and recovers the same receipt without redispatch", async () => {
     const run = await runtime(), original = JSON.stringify(run.project);
     const first = await run.invoke(); expect(first.status).toBe(200);

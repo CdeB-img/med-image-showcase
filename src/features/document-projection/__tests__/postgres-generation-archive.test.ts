@@ -55,13 +55,33 @@ describe("transactional DOC-owned Postgres archive (offline SQL boundary)", () =
     fixture.failMetadataCommit(false); await store.commit(access, "request-1", bodyFor(1));
     expect(fixture.bodies()).toHaveLength(1); expect(fixture.rows()[0].ordinal).toBe(1);
   });
+  it("rejects reuse of a committed native identity through another request, without overwriting it", async () => {
+    const { store, fixture, access, bodyFor, admit } = await setup();
+    await admit(1); const body = bodyFor(1), original = await store.commit(access, "request-1", body);
+    await store.admit(access, { requestId: "same-native-new-request", requestSha256: docSha256("duplicate"), generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: 1_000_000 });
+    await expect(store.commit(access, "same-native-new-request", body)).rejects.toThrow("DOC_ARCHIVE_GENERATION_ALREADY_COMMITTED");
+    await expect(store.commit(access, "same-native-new-request", { ...body, rendererVersion: "different" })).rejects.toThrow("DOC_ARCHIVE_CONTENT_DIVERGENCE");
+    expect(fixture.bodies()).toHaveLength(1);
+    expect((await store.body(access, original.generation.generationId)).body).toEqual(body);
+  });
+  it.each([{ maxGenerationsPerProject: 1 }, { maxTotalDocBytesPerProject: 1_000_000 }])("holds capacity conservatively and releases only known terminal storage reservations: %j", async limits => {
+    const { store, fixture, access, admit } = await setup(limits);
+    await admit(1); await expect(admit(2)).rejects.toThrow("DOC_ARCHIVE_CAPACITY_EXCEEDED");
+    await store.reject(access, "request-1"); await store.reject(access, "request-1");
+    expect(fixture.rows()[0].state).toBe("REJECTED"); expect(await store.receipt(access, "request-1")).toBeNull();
+    await expect(admit(1)).rejects.toThrow("DOC_ARCHIVE_INTENT_TERMINAL");
+    await admit(2); expect(fixture.rows()).toHaveLength(2);
+  });
+  it("rejects invalid capacity configuration instead of guessing a writable limit", () => {
+    for (const value of ["", "-1", "0", "NaN", "1.5"]) expect(() => documentArchiveCapacity({ NOXIA_DOC_MAX_GENERATIONS_PER_PROJECT: value })).toThrow("DOC_ARCHIVE_CAPACITY_CONFIG_INVALID");
+  });
   it("paginates metadata only, with frozen labels rather than page-derived labels", async () => {
     const { store, fixture, access, bodyFor, admit } = await setup();
-    for (let i = 1; i <= 30; i++) { await admit(i); await store.commit(access, `request-${i}`, bodyFor(i), 100 + i); }
+    for (let i = 1; i <= 30; i++) { await admit(i); await store.commit(access, `request-${i}`, bodyFor(i)); }
     const before = fixture.queries.length; const page = await store.history(access);
-    expect(page.entries).toHaveLength(25); expect(page.entries[0].displayVersion).toBe(130);
+    expect(page.entries).toHaveLength(25); expect(page.entries[0].displayVersion).toBe(30);
     expect(page.nextBeforeOrdinal).toBe(6);
-    expect((await store.history(access, page.nextBeforeOrdinal!)).entries.map(r => r.displayVersion)).toEqual([105, 104, 103, 102, 101]);
+    expect((await store.history(access, page.nextBeforeOrdinal!)).entries.map(r => r.displayVersion)).toEqual([5, 4, 3, 2, 1]);
     expect(fixture.queries.slice(before).join(" ")).not.toContain("doc_generation_body");
     expect(JSON.stringify(page)).not.toContain("Mesure quantitative");
   });
