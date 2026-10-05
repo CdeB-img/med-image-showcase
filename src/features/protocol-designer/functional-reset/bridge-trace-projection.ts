@@ -1,3 +1,5 @@
+import type { PostAdoptionContinuationJob, PostAdoptionContinuationResult } from "./post-adoption-continuation";
+import { projectHumanDecisionForBridgeTrace } from "./session";
 import type { ProductBridgeResponse } from "../product-bridge";
 import type { ResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import type { FunctionalResetSession, ProductBridgeTrace } from "./session";
@@ -105,3 +107,36 @@ export const projectEmptyBridgeTrace = (input: { turnId: string; content: string
 };
 
 export const appendBridgeTrace = (traces: readonly ProductBridgeTrace[], trace: ProductBridgeTrace): ProductBridgeTrace[] => [...traces, trace].slice(-20);
+
+export function projectContinuationBridgeTrace(job: PostAdoptionContinuationJob, continuation: PostAdoptionContinuationResult): ProductBridgeTrace {
+  return {
+          turnId: continuation.turn.turnId,
+          traceRunId: continuation.kind !== "QUESTION"
+            ? continuation.kind === "KNOWLEDGE" ? continuation.traceRunId ?? undefined : continuation.interaction.traceRunId ?? undefined
+            : job.traceRunId ?? undefined,
+          requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
+          raw: captureProductBridgeTraceText({ value: job.feedback, field: "SOURCE_TEXT" }),
+          assistantReply: captureProductBridgeTraceText({ value: continuation.content, field: "ASSISTANT_REPLY" }),
+          persistentExtractionCalled: false,
+          persistentExtractionStatus: "NOT_REQUESTED" as const,
+          providerArtifact: null,
+          wireCandidate: null,
+          persistentCandidate: null,
+          deterministicValidation: null,
+          projectChangeSetCandidate: null,
+          canonicalProjectChangeSetCandidate: null,
+          humanReviewProjection: null,
+          humanDecision: projectHumanDecisionForBridgeTrace(job.project.confirmationDecision),
+          projectVersionBefore: job.project.versionId,
+          projectVersionAfter: job.project.versionId,
+          qryNeedBefore: null,
+          qryNeedAfter: (continuation.kind === "STUDY_DESIGN" ? continuation.navigation : job.queryNavigation).currentAction?.navigationNeedRefs[0] ?? null,
+          provider: continuation.provider,
+          model: continuation.model,
+          conversationLatencyMs: continuation.latencyMs,
+          extractionLatencyMs: null,
+          calls: continuation.calls,
+          continuationPresentationSource: continuation.presentationSource,
+          continuationMediationFailure: continuation.mediationFailure,
+        };
+}
