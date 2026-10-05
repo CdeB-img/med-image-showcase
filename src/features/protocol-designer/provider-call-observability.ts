@@ -165,6 +165,13 @@ type Pricing = Readonly<{
 // Official standard-tier text-token prices. Per-model dates keep historical
 // receipts reproducible when one model changes without redating the others.
 const PRICING_BY_MODEL: Readonly<Record<string, Pricing>> = Object.freeze({
+  "gpt-6.1-sol": Object.freeze({
+    snapshotDate: "2026-10-05",
+    inputPerMillionUsd: 2.00,
+    cachedInputPerMillionUsd: 0.10,
+    cacheWritePerMillionUsd: 2.50,
+    outputPerMillionUsd: 10.00,
+  }),
   "gpt-6-sol": Object.freeze({
     snapshotDate: "2026-09-28",
     inputPerMillionUsd: 2.00,
@@ -220,7 +227,7 @@ export const estimateProviderCallCostUsd = (
     Math.max(0, nonNegative(usage.inputTokens) - cached),
   );
   const uncached = Math.max(0, nonNegative(usage.inputTokens) - cached - cacheWrite);
-  const longContext = model === "gpt-6-sol"
+  const longContext = (model === "gpt-6-sol" || model === "gpt-6.1-sol")
     && nonNegative(usage.inputTokens) > OPENAI_LONG_CONTEXT_THRESHOLD_TOKENS;
   const inputMultiplier = longContext ? 2 : 1;
   const outputMultiplier = longContext ? 1.5 : 1;
