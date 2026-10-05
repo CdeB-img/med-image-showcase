@@ -7,14 +7,17 @@ import { createMemoryProtocolDesignerGuardForTests, type PublicProtocolDesignerD
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import ProjectWorkspace from "../ProjectWorkspace";
 import { readProjectSessions } from "../project-workspace-storage";
+import { decodeSessionStorage } from "../session-storage-codec";
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { terraResultFixture } from "./terra-result-fixture";
 
 // Only the remote provider is synthetic. UI, client, HTTP admission, financial
 // guard, native parsing, owner validation and browser persistence are real.
-const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
-  output: [{ content: [{ type: "output_text", text }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
+const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-6-sol", status: "completed",
+  output: [{ content: [{ type: "output_text", text: text.trim().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }],
+  usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const send = (text: string) => {
   fireEvent.change(screen.getByRole("textbox", { name: "Votre message" }), { target: { value: text } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
@@ -28,7 +31,9 @@ const wirePublicHandler = (provider: typeof fetch, durableGuard: PublicProtocolD
     let status = 0, output: unknown;
     await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr" }, body }, {
       setHeader() {}, status(value) { status = value; return this; }, json(value) { output = value; },
-    }, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON",
+    }, { NODE_ENV: "production", OPENAI_PROVIDER: "azure",
+      AZURE_OPENAI_PROJECT_ENDPOINT: "https://noxia-01.services.ai.azure.com/api/projects/noxia-prod",
+      AZURE_OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON",
       ...extraEnvironment },
     { fetchImpl: provider, durableGuard });
     return new Response(JSON.stringify(output), { status, headers: { "content-type": "application/json" } });
@@ -101,7 +106,7 @@ describe("independent Standard workspace through public admission", () => {
     "IRM de flux 4D après coarctation : association entre perte énergétique et pression à l'effort.",
     DOMAINS[2].text,
     DOMAINS[4].text,
-  ])("retains Chat and disables obsolete review when later background fails (%#)", async (initialText) => {
+  ])("retains Chat and freezes the earlier review when later preparation fails (%#)", async (initialText) => {
     let preparations = 0;
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
       const payload = JSON.parse(String(init?.body));
@@ -111,15 +116,21 @@ describe("independent Standard workspace through public admission", () => {
         explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
     });
     const requests = wirePublicHandler(provider), workspace = mount();
-    send(initialText); await waitFor(() => expect(workspace.current().workingDraft?.readyReview).toBeTruthy());
+    send(initialText); await screen.findByText("Discussion contrôlée intacte.");
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
+    await screen.findByTestId("project-finalization-card");
     const previous = workspace.current().studyProposal?.digest;
     send("Et si je garde seulement ce critère ?");
-    await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
+    await waitFor(() => expect(workspace.current().runtimeTurns.filter(turn => turn.role === "NOXIA")).toHaveLength(2));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
     expect(workspace.current().studyProposal?.digest).toBe(previous);
     expect(workspace.current().entries.filter(e => e.kind === "TEXT" && e.role === "NOXIA" && e.content === "Discussion contrôlée intacte.")).toHaveLength(2);
     expect(workspace.current().project).toBeNull(); expect(requests).toHaveLength(4);
-    expect(loadFunctionalResetSession(localStorage).workingDraftFailure).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("FAILED");
+    expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeDisabled();
+    expect(screen.getByTestId("preparation-newer-conversation")).toHaveTextContent("Et si je garde seulement ce critère ?");
     expect(workspace.current().pendingContribution).toBeNull();
     const lastTurn = workspace.current().runtimeTurns.filter(turn => turn.role === "USER").at(-1)!;
     expect(preparationFor(workspace.current(), lastTurn.turnId)).toMatchObject({ status: "FAILED" });
@@ -131,7 +142,7 @@ describe("independent Standard workspace through public admission", () => {
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
       const payload = JSON.parse(String(init?.body));
       if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
-      if (failure === "INCOMPLETE_MAX_OUTPUT") return new Response(JSON.stringify({ status: "incomplete",
+      if (failure === "INCOMPLETE_MAX_OUTPUT") return new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC_INCOMPLETE", status: "incomplete", output: [],
         incomplete_details: { reason: "max_output_tokens" }, model: "gpt-6-sol",
         usage: { input_tokens: 100, output_tokens: 8000 } }));
       const proposal = controlledStudyProposal(JSON.parse(payload.input).contextDigest, DOMAINS[1]);
@@ -148,10 +159,13 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
-    await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
     const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
-    expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED", code: "WORKING_DRAFT_PREPARATION_FAILED" });
-    expect(screen.getByRole("alert")).toHaveTextContent(/structuration du projet n’a pas abouti/iu);
+    expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED",
+      code: failure === "OWNER_CYCLE" ? "STUDY_PROPOSAL_DEPENDENCY_CYCLE" : "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS" });
+    expect(screen.getByTestId("working-draft-terminal-status")).toHaveTextContent(
+      failure === "OWNER_CYCLE" ? /dépendances scientifiques forment un cycle/iu : /génération de cette préparation s’est interrompue côté fournisseur/iu);
     expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("FAILED");
     expect(workspace.current().entries.some(entry => entry.kind === "TEXT" && entry.content === "Discussion contrôlée intacte.")).toBe(true);
     expect(workspace.current().project).toBeNull();
@@ -168,8 +182,11 @@ describe("independent Standard workspace through public admission", () => {
     wirePublicHandler(provider);
     const workspace = mount();
     send("Bonjour, je réfléchis à une étude.");
-    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
-    expect(workspace.current().workingDraftPreparations?.at(-1)?.code).toBe("WORKING_DRAFT_NO_CONFIRMABLE_UPDATE");
+    await screen.findByText("Discussion contrôlée intacte.");
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("NO_CHANGE"));
+    // NO_CHANGE is a known valid outcome, not a FAILED result with a synthetic error code.
+    expect(workspace.current().workingDraftPreparations?.at(-1)?.code).toBeNull();
     expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
     expect(workspace.current().project).toBeNull();
@@ -185,7 +202,8 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
-    await waitFor(() => expect(workspace.current().workingDraftFailure).toBeTruthy());
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
     expect(screen.getByRole("alert")).toHaveTextContent(/résultat n’est pas vérifié/iu);
     expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
@@ -202,17 +220,21 @@ describe("independent Standard workspace through public admission", () => {
     const original = Storage.prototype.setItem;
     let refuse = true;
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(function(key, value) {
-      if (refuse && String(value).includes('"readyReview":{')) throw new DOMException("synthetic full storage", "QuotaExceededError");
+      const saved = String(value).startsWith("{") ? decodeSessionStorage(String(value)) as Partial<FunctionalResetSession> : null;
+      if (refuse && saved?.workingDraftPreparations?.at(-1)?.status === "READY_FOR_REVIEW")
+        throw new DOMException("synthetic full storage", "QuotaExceededError");
       return original.call(this, key, value);
     });
     render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
     send(DOMAINS[1].text);
+    await screen.findByText("Brouillon proposé, non adopté.");
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await screen.findByText(/Enregistrement local impossible/);
-    expect(readProjectSessions(localStorage).projects[0].session.workingDraft?.readyReview).toBeFalsy();
+    expect(readProjectSessions(localStorage).projects[0].session.workingDraftPreparations?.at(-1)?.status).not.toBe("READY_FOR_REVIEW");
     const before = vi.mocked(fetch).mock.calls.length;
     refuse = false;
     fireEvent.click(screen.getByRole("button", { name: "Réessayer la sauvegarde" }));
-    await waitFor(() => expect(readProjectSessions(localStorage).projects[0].session.workingDraft?.readyReview).toBeTruthy());
+    await waitFor(() => expect(readProjectSessions(localStorage).projects[0].session.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
     expect(fetch).toHaveBeenCalledTimes(before);
     expect(readProjectSessions(localStorage).projects[0].session.project).toBeNull();
   });
@@ -234,15 +256,21 @@ describe("independent Standard workspace through public admission", () => {
     });
     const requests = wirePublicHandler(provider, concurrentUiTestGuard()), workspace = mount();
     send(firstMessage); await screen.findByText("Réponse contrôlée 1.");
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(provider).toHaveBeenCalledTimes(2));
     expect(screen.getByRole("textbox", { name: "Votre message" })).not.toBeDisabled();
     send(nextMessage);
     await screen.findByText("Réponse contrôlée 2.");
     expect(requests).toHaveLength(3);
     await act(async () => { release(); });
-    await waitFor(() => expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[2]?.conversation.turns.at(-1)?.turnId));
+    // The in-flight checkpoint is immutable: the later message is not silently captured.
+    await waitFor(() => expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[1]?.conversation.turns.filter(t => t.role === "USER").at(-1)?.turnId));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
-    expect(workspace.current().workingDraftPreparations?.[0]?.status).toBe("SUPERSEDED");
+    expect(workspace.current().workingDraftPreparations?.[0]?.checkpoint?.request.conversation.turns.filter(t => t.role === "USER")).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations).toHaveLength(2));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
+    expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[3]?.conversation.turns.filter(t => t.role === "USER").at(-1)?.turnId);
     expect(requests[2].studyProposalContext).toBeUndefined();
     expect(requests[2].conversation.turns.filter(t => t.role === "USER").map(t => t.content)).toEqual([firstMessage, nextMessage]);
     expect(workspace.current().runtimeTurns.filter(t => t.role === "USER")).toHaveLength(2);
@@ -254,17 +282,19 @@ describe("independent Standard workspace through public admission", () => {
     expect(reopened.runtimeTurns).toEqual(workspace.current().runtimeTurns);
     workspace.view.unmount(); mount(reopened);
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
-    await waitFor(() => expect(requests).toHaveLength(6));
+    await waitFor(() => expect(requests).toHaveLength(5));
+    expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeDisabled();
+    for (const group of screen.getAllByRole("checkbox", { name: /Confirmer ce groupe après relecture/iu })) fireEvent.click(group);
     expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled();
     expect(loadFunctionalResetSession(localStorage).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).project?.confirmationDecision.status).toBe("ADOPTED"));
     expect(loadFunctionalResetSession(localStorage).project?.projectId).toBe(reopened.projectId);
-    expect(requests.filter(request => !("operation" in request))).toHaveLength(6);
+    expect(requests.filter(request => !("operation" in request))).toHaveLength(5);
     expect(requests.every(request => request.documentDraftRequest === undefined)).toBe(true);
   });
 
-  it("recovers an in-flight preparation after reload and preserves an honest terminal failure", async () => {
+  it("recovers an in-flight preparation after reload and preserves its honest terminal outcome", async () => {
     let release!: () => void;
     const pending = new Promise<void>(resolve => { release = resolve; });
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
@@ -277,22 +307,25 @@ describe("independent Standard workspace through public admission", () => {
     wirePublicHandler(provider, createMemoryProtocolDesignerGuardForTests(), { VERCEL_ENV: "preview" });
     const workspace = mount();
     send(DOMAINS[1].text);
-    await screen.findByText("Structuration du projet en cours…");
+    await screen.findByText("Discussion contrôlée intacte.");
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("PREPARING"));
     const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
     expect(preparationFor(workspace.current(), turnRef)?.status).toBe("PREPARING");
     workspace.view.unmount();
     const reloaded = loadFunctionalResetSession(localStorage);
     expect(preparationFor(reloaded, turnRef)?.status).toBe("UNKNOWN/INTERRUPTED");
     mount(reloaded);
-    await waitFor(() => expect(screen.getByText("Structuration du projet en cours…")).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByTestId("working-draft-terminal-status")).toHaveTextContent(/résultat n’est pas vérifié/iu));
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
     await act(async () => { release(); });
-    await waitFor(() => expect(preparationFor(loadFunctionalResetSession(localStorage), turnRef)?.status).toBe("FAILED"),
-      { timeout: 5000 });
+    // Durable recovery polls every two seconds; this tests settlement, not the first poll.
+    await waitFor(() => expect(preparationFor(loadFunctionalResetSession(localStorage), turnRef)?.status).toBe("NO_CHANGE"),
+      { timeout: 7000 });
     expect(screen.getByRole("alert")).toHaveTextContent(/pas de nouveaux choix à valider/iu);
     expect(provider).toHaveBeenCalledTimes(2);
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
-  });
+  }, 10_000);
 
   it("keeps a failed foreground out of scientific context and retries the same logical user turn after reload", async () => {
     const provider = vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify({ status: "incomplete", incomplete_details: { reason: "max_output_tokens" },

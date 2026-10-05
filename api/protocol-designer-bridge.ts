@@ -320,7 +320,11 @@ export const executeProtocolDesignerBridge = async (input: {
       } : null;
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
         error: { code: "WORKING_DRAFT_PREPARATION_FAILED", message: "La discussion et le dernier brouillon sont conservés.",
-          details: [error instanceof Error ? error.message : "UNKNOWN"],
+          details: [error instanceof ProductBridgeProviderError && error.providerStatus === "incomplete:max_output_tokens"
+            ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS"
+            : error instanceof ProductBridgeProviderError && error.providerStatus?.startsWith("incomplete:")
+              ? "WORKING_DRAFT_PROVIDER_INCOMPLETE"
+              : error instanceof Error ? error.message : "UNKNOWN"],
           ...(collision ? { workingDraftDiagnostic: collision } : {}),
           ...(binding ? { workingDraftBindingDiagnostic: binding } : {}) },
         observability: providerCallRequestObservability(providerCalls) } };
