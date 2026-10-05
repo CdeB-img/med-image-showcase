@@ -14,12 +14,12 @@ import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDicta
 import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice-dictation-contract";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
-import { ProductBridgeClientError, requestConversationLanguageProjection, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
-import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext, type ProductBridgeLanguageBoundary, type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
-import { appendLanguageProjectionFailure, appendLanguageTurnToGatewayState, appendLocalizedResponseToGatewayState, buildLocalizedConversationResponse, buildMultilingualUserTurn, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, extractProtectedOpaqueLiterals, findReusableLanguageProjection, languageProjectionIdentityDigest, languageProjectionFailure, LANGUAGE_PROJECTION_CONTRACT_VERSION, type ConversationLanguageGatewayState, type LanguageProjectionContractFailureDiagnostic, type LanguageProjectionArtifact, type LanguageProjectionRequest, type LocalizedConversationResponse, type MultilingualUserTurn } from "@/features/protocol-designer/conversation-language-gateway";
+import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
+import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext, type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
+import { appendLanguageProjectionFailure, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, languageProjectionFailure } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
-import type { ProviderCallRecord, ProviderCallRequestObservability } from "@/features/protocol-designer/provider-call-observability";
+import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { buildPreProjectTraceRealizationOutcome, captureProductBridgeTraceText, createPreProjectScientificTraceSegment, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
@@ -77,253 +77,12 @@ import { prepareBiostatisticsInteraction } from "./biostatistics-standard";
 import { stageProjectConfirmation, stageProjectRejection, contributionHasAcknowledgedPresentation as hasAcknowledgedContributionPresentation, acknowledgeContributionReviewPresented as acknowledgeContributionReviewPresentedTransition, recordContributionReviewPresentationFailure as recordContributionReviewPresentationFailureTransition, type NaturalContributionDecisionContext } from "./project-review-decision";
 import { projectPreparationConfirmationApplicable, projectPreparationConfirmationInput } from "./project-preparation-lifecycle";
 import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./project-review-decision";
+import { productBridgeClientErrorCode, providerRecordsFromError, languageProjectionRequestFromError, languageProjectionDiagnosticFromError, languageBoundaryFor, prepareMultilingualUserTurn, localizeCanonicalFrenchResponse, normalizePreparedUserInput, type PreparedGatewayUserInput } from "../conversation-language-effects";
+import { projectTerraBridgeTrace, projectConversationBridgeTrace, projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-projection";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
   : loadFunctionalResetSession(window.localStorage);
-
-const productBridgeClientErrorCode = (error: unknown) => error && typeof error === "object"
-  && "code" in error && typeof error.code === "string"
-  ? error.code
-  : null;
-
-type LanguageProjectionRequestFailure = Error & Readonly<{
-  code: string;
-  languageProjectionRequest: LanguageProjectionRequest;
-  languageProjectionDiagnostic: LanguageProjectionContractFailureDiagnostic | null;
-  observability: ProviderCallRequestObservability | null;
-}>;
-
-const providerRecordsFromError = (error: unknown): readonly ProviderCallRecord[] =>
-  error instanceof ProductBridgeClientError ? error.observability?.providerCalls ?? []
-    : error && typeof error === "object" && "observability" in error
-      ? (error.observability as ProviderCallRequestObservability | null)?.providerCalls ?? [] : [];
-
-const languageProjectionRequestFromError = (error: unknown) => error && typeof error === "object"
-  && "languageProjectionRequest" in error
-  && error.languageProjectionRequest
-  && typeof error.languageProjectionRequest === "object"
-  ? error.languageProjectionRequest as LanguageProjectionRequest
-  : null;
-
-const languageProjectionDiagnosticFromError = (error: unknown) => error && typeof error === "object"
-  && "languageProjectionDiagnostic" in error
-  && error.languageProjectionDiagnostic
-  && typeof error.languageProjectionDiagnostic === "object"
-  ? error.languageProjectionDiagnostic as LanguageProjectionContractFailureDiagnostic
-  : null;
-
-const languageBoundaryFor = (
-  state: Readonly<ConversationLanguageGatewayState>,
-): ProductBridgeLanguageBoundary => ({
-  contract: "PRODUCT_BRIDGE_LANGUAGE_BOUNDARY",
-  contractVersion: "1.0.0",
-  workingLanguage: "fr",
-  turnProjections: state.turns.flatMap((turn) => turn.frenchWorkingText && turn.frenchWorkingTextDigest
-    ? [{
-      turnId: turn.turnId,
-      originalTextDigest: turn.originalTextDigest,
-      frenchWorkingText: turn.frenchWorkingText,
-      frenchWorkingTextDigest: turn.frenchWorkingTextDigest,
-      sourceLanguage: turn.sourceLanguage ?? "unknown",
-      translationProjectionRef: turn.provenance.projectionRef,
-      originalIsImmutableEvidence: true as const,
-      workingProjectionIsUserLiteral: false as const,
-    }]
-    : []),
-});
-
-const requestOrReuseLanguageProjection = async (input: {
-  state: Readonly<ConversationLanguageGatewayState>;
-  projectionKind: LanguageProjectionRequest["projectionKind"];
-  sourceText: string;
-  sourceLanguage: string | "UNKNOWN";
-  targetLanguage: string;
-  observabilityContext: NonNullable<LanguageProjectionRequest["observabilityContext"]>;
-  onProviderCallRecords?: (records: readonly ProviderCallRecord[]) => void;
-}): Promise<{
-  projection: LanguageProjectionArtifact;
-  providerCalls: 0 | 1;
-  providerCallRecords: readonly ProviderCallRecord[];
-}> => {
-  const protectedOpaqueLiterals = extractProtectedOpaqueLiterals(input.sourceText);
-  const projectionIdentityDigest = languageProjectionIdentityDigest({
-    projectionKind: input.projectionKind,
-    sourceText: input.sourceText,
-    sourceLanguage: input.sourceLanguage,
-    targetLanguage: input.targetLanguage,
-    provider: "OPENAI",
-    model: DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
-    protectedOpaqueLiterals,
-  });
-  const cached = findReusableLanguageProjection({ state: input.state, projectionIdentityDigest });
-  if (cached) return { projection: cached, providerCalls: 0, providerCallRecords: [] };
-  const request: LanguageProjectionRequest = {
-    apiVersion: "1.0.0",
-    operation: "LANGUAGE_PROJECTION",
-    projectionKind: input.projectionKind,
-    sourceText: input.sourceText,
-    sourceLanguageHint: input.sourceLanguage,
-    targetLanguage: input.targetLanguage,
-    translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
-    projectionIdentityDigest,
-    protectedOpaqueLiterals,
-    observabilityContext: input.observabilityContext,
-  };
-  let response: Awaited<ReturnType<typeof requestConversationLanguageProjection>>;
-  try {
-    response = await requestConversationLanguageProjection(request);
-    input.onProviderCallRecords?.(response.observability.providerCalls ?? []);
-  } catch (error) {
-    input.onProviderCallRecords?.(providerRecordsFromError(error));
-    const failure = new Error(
-      error instanceof Error ? error.message : "Cette langue ne peut pas être traitée pour le moment.",
-    ) as LanguageProjectionRequestFailure;
-    Object.assign(failure, {
-      name: "LanguageProjectionRequestFailure",
-      code: productBridgeClientErrorCode(error) ?? "LANGUAGE_PROJECTION_UNAVAILABLE",
-      observability: error instanceof ProductBridgeClientError ? error.observability : null,
-      languageProjectionRequest: request,
-      languageProjectionDiagnostic: error && typeof error === "object" && "diagnostic" in error
-        ? error.diagnostic as LanguageProjectionContractFailureDiagnostic | null
-        : null,
-    });
-    throw failure;
-  }
-  return {
-    projection: response.projection,
-    providerCalls: 1,
-    providerCallRecords: response.observability.providerCalls ?? [],
-  };
-};
-
-const prepareMultilingualUserTurn = async (input: {
-  session: Readonly<FunctionalResetSession>;
-  turnId: string;
-  originalText: string;
-  onProviderCallRecords?: (records: readonly ProviderCallRecord[]) => void;
-}): Promise<{
-  turn: MultilingualUserTurn;
-  state: ConversationLanguageGatewayState;
-  providerCalls: 0 | 1;
-  providerCallRecords: readonly ProviderCallRecord[];
-}> => {
-  let detection = detectConversationLanguage(input.originalText);
-  if (detection.status === "INSUFFICIENT_EVIDENCE" && input.session.conversationLanguageGateway.conversationLanguage) {
-    detection = {
-      status: "DETECTED",
-      detectedLanguage: input.session.conversationLanguageGateway.conversationLanguage,
-      confidence: "LOW",
-      reasonCode: "SESSION_LANGUAGE_INHERITED_FOR_SHORT_TURN",
-    };
-  }
-  const sourceLanguage = detection.detectedLanguage ?? "UNKNOWN";
-  const translationRequired = sourceLanguage !== "fr" && detection.status !== "INSUFFICIENT_EVIDENCE";
-  const requested = translationRequired
-    ? await requestOrReuseLanguageProjection({
-      state: input.session.conversationLanguageGateway,
-      projectionKind: "INPUT_TO_FRENCH",
-      sourceText: input.originalText,
-      sourceLanguage,
-      targetLanguage: "fr",
-      onProviderCallRecords: input.onProviderCallRecords,
-      observabilityContext: {
-        sessionId: input.session.sessionId,
-        conversationId: input.session.conversationId,
-        turnId: input.turnId,
-        clientRequestId: `language-projection:${input.turnId}:INPUT_TO_FRENCH`,
-        testSessionId: null,
-      },
-    })
-    : null;
-  const turn = buildMultilingualUserTurn({
-    turnId: input.turnId,
-    originalText: input.originalText,
-    detection,
-    currentConversationLanguage: input.session.conversationLanguageGateway.conversationLanguage,
-    projection: requested?.projection ?? null,
-    project: input.session.project,
-  });
-  return {
-    turn,
-    state: appendLanguageTurnToGatewayState({
-      state: input.session.conversationLanguageGateway,
-      turn,
-      projection: requested?.projection,
-    }),
-    providerCalls: requested?.providerCalls ?? 0,
-    providerCallRecords: requested?.providerCallRecords ?? [],
-  };
-};
-
-const localizeCanonicalFrenchResponse = async (input: {
-  state: Readonly<ConversationLanguageGatewayState>;
-  sourceTurnRef: string;
-  responseId: string;
-  canonicalFrenchResponse: string;
-  sessionId: string;
-  conversationId: string;
-  onProviderCallRecords?: (records: readonly ProviderCallRecord[]) => void;
-}): Promise<{
-  response: LocalizedConversationResponse;
-  state: ConversationLanguageGatewayState;
-  providerCalls: 0 | 1;
-  providerCallRecords: readonly ProviderCallRecord[];
-}> => {
-  const targetLanguage = input.state.conversationLanguage ?? "fr";
-  const requested = targetLanguage === "fr"
-    ? null
-    : await requestOrReuseLanguageProjection({
-      state: input.state,
-      projectionKind: "OUTPUT_FROM_FRENCH",
-      sourceText: input.canonicalFrenchResponse,
-      sourceLanguage: "fr",
-      targetLanguage,
-      onProviderCallRecords: input.onProviderCallRecords,
-      observabilityContext: {
-        sessionId: input.sessionId,
-        conversationId: input.conversationId,
-        turnId: input.sourceTurnRef,
-        clientRequestId: `language-projection:${input.responseId}:OUTPUT_FROM_FRENCH`,
-        testSessionId: null,
-      },
-    });
-  const response = buildLocalizedConversationResponse({
-    responseId: input.responseId,
-    sourceTurnRef: input.sourceTurnRef,
-    canonicalFrenchResponse: input.canonicalFrenchResponse,
-    targetLanguage,
-    projection: requested?.projection ?? null,
-  });
-  return {
-    response,
-    state: appendLocalizedResponseToGatewayState({ state: input.state, response, projection: requested?.projection }),
-    providerCalls: requested?.providerCalls ?? 0,
-    providerCallRecords: requested?.providerCallRecords ?? [],
-  };
-};
-
-type PreparedGatewayUserInput = Readonly<{
-  originalText: string;
-  workingText: string;
-  turnId: string;
-  createdAt: string;
-  multilingualTurn: MultilingualUserTurn;
-  gatewayState: ConversationLanguageGatewayState;
-  onProviderCallRecords: (records: readonly ProviderCallRecord[]) => void;
-}>;
-
-const normalizePreparedUserInput = (input: string | PreparedGatewayUserInput) => typeof input === "string"
-  ? {
-    originalText: input,
-    workingText: input,
-    turnId: createTurnId(),
-    createdAt: new Date().toISOString(),
-    multilingualTurn: null,
-    gatewayState: null,
-    onProviderCallRecords: undefined,
-  }
-  : input;
 
 const persistenceFailureMessage = (
   status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
@@ -948,7 +707,7 @@ export default function ProtocolDesignerWorkspace({
         knowledgeOwnerLedger: continuation.kind !== "QUESTION" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
-        bridgeTraces: [...current.bridgeTraces, {
+        bridgeTraces: appendBridgeTrace(current.bridgeTraces, {
           turnId: continuation.turn.turnId,
           traceRunId: continuation.kind !== "QUESTION"
             ? continuation.kind === "KNOWLEDGE" ? continuation.traceRunId ?? undefined : continuation.interaction.traceRunId ?? undefined
@@ -977,7 +736,7 @@ export default function ProtocolDesignerWorkspace({
           calls: continuation.calls,
           continuationPresentationSource: continuation.presentationSource,
           continuationMediationFailure: continuation.mediationFailure,
-        }].slice(-20),
+        }),
         scientificExecutionTraceLedger,
         updatedAt: continuedAt,
       };
@@ -1268,18 +1027,7 @@ export default function ProtocolDesignerWorkspace({
             role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
               ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
               : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt }] : [])],
-        bridgeTraces: [...current.bridgeTraces, { turnId: userTurn.turnId, traceRunId, requestKind: "USER_TURN" as const,
-          raw: content, assistantReply: response.assistantReply, conversationFailure: response.conversationFailure,
-          persistentExtractionCalled: response.persistentExtraction.called,
-          persistentExtractionStatus: response.persistentExtraction.status, persistentExtractionFailure: response.persistentExtraction.failure,
-          providerArtifact: response.persistentExtraction.providerArtifact, wireCandidate: response.persistentExtraction.wireCandidate,
-          persistentCandidate: response.persistentExtraction.candidate, deterministicValidation: response.persistentExtraction.validation,
-          projectChangeSetCandidate: candidate?.changeSet ?? null, canonicalProjectChangeSetCandidate: candidate?.canonicalChangeSet ?? null,
-          humanReviewProjection: candidate?.humanReviewProjection ?? null, humanDecision: null,
-          projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null,
-          qryNeedBefore: null, qryNeedAfter: null, provider: response.observability.provider, model: response.observability.model,
-          conversationLatencyMs: response.observability.conversationLatencyMs, extractionLatencyMs: response.observability.extractionLatencyMs,
-          calls: response.observability.calls, projectWriteCount: 0, protocolProjectionCount: 0 }].slice(-20), updatedAt: receivedAt }));
+        bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectTerraBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, response, candidate, projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null })), updatedAt: receivedAt }));
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
       setDraft(current => current || content);
@@ -1469,30 +1217,7 @@ export default function ProtocolDesignerWorkspace({
         updatedAt: now,
       };
       setSession(withUser);
-      const emptyTraceMaterial = {
-        turnId: userTurn.turnId,
-        requestKind: "USER_TURN" as const,
-        raw: captureProductBridgeTraceText({ value: content, field: "SOURCE_TEXT" }),
-        persistentExtractionCalled: false,
-        persistentExtractionStatus: "NOT_REQUESTED" as const,
-        providerArtifact: null,
-        wireCandidate: null,
-        persistentCandidate: null,
-        deterministicValidation: null,
-        projectChangeSetCandidate: null,
-        canonicalProjectChangeSetCandidate: null,
-        humanReviewProjection: null,
-        humanDecision: null,
-        projectVersionBefore: session.project?.versionId ?? null,
-        projectVersionAfter: session.project?.versionId ?? null,
-        qryNeedBefore,
-        qryNeedAfter: queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null,
-        extractionLatencyMs: null,
-        entryRouting,
-        projectWriteCount: 0,
-        protocolProjectionCount: 0,
-        multilingualUserTurn: preparedGateway.turn,
-      };
+      const emptyTraceMaterial = projectEmptyBridgeTrace({ turnId: userTurn.turnId, content, projectVersion: session.project?.versionId ?? null, qryNeedBefore, queryNavigation, entryRouting, preparedGateway });
 
       if (entryRouting.domainGate !== "IN_SCOPE") {
         const rejectedAt = new Date().toISOString();
@@ -1530,7 +1255,7 @@ export default function ProtocolDesignerWorkspace({
             content: localized.response.localizedResponse,
             createdAt: rejectedAt,
           }],
-          bridgeTraces: [...current.bridgeTraces, {
+          bridgeTraces: appendBridgeTrace(current.bridgeTraces, {
             ...emptyTraceMaterial,
             assistantReply: captureProductBridgeTraceText({ value: localized.response.localizedResponse, field: "ASSISTANT_REPLY" }),
             provider: "DOMAIN_GATE",
@@ -1540,7 +1265,7 @@ export default function ProtocolDesignerWorkspace({
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
             knowledgeResultRef: null,
             knowledgeResultDigest: null,
-          }].slice(-20),
+          }),
           conversationLanguageGateway: localized.state,
           scientificExecutionTraceLedger,
           updatedAt: rejectedAt,
@@ -1596,7 +1321,7 @@ export default function ProtocolDesignerWorkspace({
             entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA",
             content: localized.response.localizedResponse, createdAt: answeredAt,
           }],
-          bridgeTraces: [...current.bridgeTraces, {
+          bridgeTraces: appendBridgeTrace(current.bridgeTraces, {
             ...emptyTraceMaterial,
             assistantReply: captureProductBridgeTraceText({ value: localized.response.localizedResponse, field: "ASSISTANT_REPLY" }),
             provider: "PRODUCT_ENTRY_ROUTER",
@@ -1606,7 +1331,7 @@ export default function ProtocolDesignerWorkspace({
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
             knowledgeResultRef: null,
             knowledgeResultDigest: null,
-          }].slice(-20),
+          }),
           conversationLanguageGateway: localized.state,
           scientificExecutionTraceLedger,
           updatedAt: answeredAt,
@@ -1702,7 +1427,7 @@ export default function ProtocolDesignerWorkspace({
             knowledgePresentation: knowledge.presentation,
             createdAt: answeredAt,
           }],
-          bridgeTraces: [...current.bridgeTraces, {
+          bridgeTraces: appendBridgeTrace(current.bridgeTraces, {
             ...emptyTraceMaterial,
             assistantReply: captureProductBridgeTraceText({ value: localized.response.localizedResponse, field: "ASSISTANT_REPLY" }),
             provider: knowledge.responsibilityOwner ?? "KNOWLEDGE",
@@ -1715,7 +1440,7 @@ export default function ProtocolDesignerWorkspace({
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
             knowledgeResultRef: knowledge.knowledgeResultRef,
             knowledgeResultDigest: knowledge.knowledgeResultDigest,
-          }].slice(-20),
+          }),
           conversationLanguageGateway: localized.state,
           scientificExecutionTraceLedger,
           updatedAt: answeredAt,
@@ -2145,43 +1870,7 @@ export default function ProtocolDesignerWorkspace({
           ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal),
         retainedContributionCandidates: current.retainedContributionCandidates,
         entries: [...current.entries, ...responseEntries],
-        bridgeTraces: [...current.bridgeTraces, {
-          turnId: userTurn.turnId,
-          traceRunId,
-          requestKind: "USER_TURN" as const,
-          raw: captureProductBridgeTraceText({ value: content, field: "SOURCE_TEXT" }),
-          assistantReply: captureProductBridgeTraceText({ value: visibleAssistantReply, field: "ASSISTANT_REPLY" }),
-          persistentExtractionCalled: entryRouting.projectConstructionEligible && response.persistentExtraction.called,
-          persistentExtractionStatus: effectiveExtractionStatus,
-          persistentExtractionFailure: entryRouting.projectConstructionEligible ? response.persistentExtraction.failure ?? null : null,
-          persistentExtractionRecovery: entryRouting.projectConstructionEligible ? response.persistentExtraction.recovery ?? null : null,
-          providerArtifact: entryRouting.projectConstructionEligible ? response.persistentExtraction.providerArtifact : null,
-          wireCandidate: entryRouting.projectConstructionEligible ? response.persistentExtraction.wireCandidate : null,
-          persistentCandidate: entryRouting.projectConstructionEligible ? response.persistentExtraction.candidate : null,
-          deterministicValidation: entryRouting.projectConstructionEligible ? response.persistentExtraction.validation : null,
-          projectChangeSetCandidate: candidate?.changeSet ?? null,
-          canonicalProjectChangeSetCandidate: candidate?.canonicalChangeSet ?? null,
-          humanReviewProjection: candidate?.humanReviewProjection ?? null,
-          humanDecision: null,
-          projectVersionBefore: session.project?.versionId ?? null,
-          projectVersionAfter: session.project?.versionId ?? null,
-          qryNeedBefore,
-          qryNeedAfter: queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null,
-          provider: preProjectRealization?.provider ?? response.observability.provider,
-          model: preProjectRealization?.model ?? response.observability.model,
-          conversationLatencyMs: response.observability.conversationLatencyMs,
-          extractionLatencyMs: response.observability.extractionLatencyMs,
-          calls: response.observability.calls + preparedGateway.providerCalls + localized.providerCalls,
-          languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
-          extractionAttempts: response.observability.extractionAttempts,
-          entryRouting,
-          preProjectTrace,
-          multilingualUserTurn: preparedGateway.turn,
-          knowledgeResultRef: null,
-          knowledgeResultDigest: null,
-          projectWriteCount: response.observability.projectWrites,
-          protocolProjectionCount: 0,
-        }].slice(-20),
+        bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectConversationBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, visibleAssistantReply, response, entryRouting, effectiveExtractionStatus, candidate, projectVersion: session.project?.versionId ?? null, qryNeedBefore, queryNavigation, preProjectRealization, preparedGateway, localized, preProjectTrace })),
         conversationLanguageGateway: localized.state,
         scientificExecutionTraceLedger,
         updatedAt: receivedAt,
