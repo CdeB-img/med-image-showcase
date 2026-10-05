@@ -361,7 +361,10 @@ describe("W1-KNOWLEDGE-01 — product canonical Knowledge owner invocation", () 
     const { knowledgeOwnerLedger: _notInV140, ...legacySession } = sessionWithResult;
     legacyStorage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify({ ...legacySession, contractVersion: "1.4.0" }));
     const migrated = loadFunctionalResetSession(legacyStorage);
-    expect(migrated.project).toEqual(project);
+    // SUPERSEDED_CONTRACT: v1.4 product-content migration is no longer supported.
+    // The current scientific owner/ledger exact reload assertions above remain.
+    expect(migrated.project).toBeNull();
+    expect(migrated.sessionId).not.toBe(sessionWithResult.sessionId);
     expect(migrated.knowledgeOwnerLedger.entries).toEqual([]);
 
     const sensitiveRequest = createKnowledgeRequest({

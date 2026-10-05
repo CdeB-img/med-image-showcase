@@ -15,18 +15,20 @@ type Props = {
   stale: boolean;
   onClose: () => void;
   onArtifactGenerated?: (format: "HTML", generatedAt: string) => void;
+  onDownloadFrozenHtml?: () => void;
   onCompleteAdministration?: () => void;
   onRegenerate?: () => void;
   history?: ReadonlyArray<DocumentProjection>;
   onOpenVersion?: (projectionId: string) => void;
 };
 
-export default function ProtocolPreview({ projection, stale, onClose, onArtifactGenerated, onCompleteAdministration, onRegenerate, history = [], onOpenVersion, onDocumentInstruction, documentMessage }: Props) {
+export default function ProtocolPreview({ projection, stale, onClose, onArtifactGenerated, onDownloadFrozenHtml, onCompleteAdministration, onRegenerate, history = [], onOpenVersion, onDocumentInstruction, documentMessage }: Props) {
   const [instruction, setInstruction] = useState("");
   const presentation = buildStandardProtocolPresentation(projection);
   const sourceVersion = projection.source.projectVersion.match(/:version:(\d+)$/)?.[1] ?? projection.source.projectVersion;
   const downloadHtml = () => {
-    downloadProjection(projection, "HTML");
+    if (onDownloadFrozenHtml) onDownloadFrozenHtml();
+    else downloadProjection(projection, "HTML");
     onArtifactGenerated?.("HTML", new Date().toISOString());
   };
 

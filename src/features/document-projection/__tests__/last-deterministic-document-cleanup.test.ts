@@ -81,10 +81,13 @@ describe('Exact final human document cleanup',()=>{
  });
  it('persists and reloads the full native pack while retaining ancestors, Project and the four export hashes',async ()=>{
   const saved=createProjectSession(localStorage,'Final DRCI');saved.session.projectId=project.projectId;
-  (await saveProjectSession(localStorage,saved,{...saved.session,project,drciDraftPacks:[ancestor,parent]}));const existing=readProjectSessions(localStorage).projects[0];
-  (await saveProjectSession(localStorage,existing,{...existing.session,drciDraftPacks:[ancestor,parent,candidate]}));
+  const {archiveOwnerFixtureSession}=await import('./owner-fixture-archive');
+  const archived=await archiveOwnerFixtureSession({...saved.session,project},[{family:'DRCI',value:ancestor},{family:'DRCI',value:parent},{family:'DRCI',value:candidate}]);
+  await saveProjectSession(localStorage,saved,archived.session);
   const session=readProjectSessions(localStorage).projects[0].session;
-  expect(session.project).toEqual(project);expect(session.drciDraftPacks).toEqual([ancestor,parent,candidate]);
-  expect(drciDraftPackFiles(session.drciDraftPacks!.at(-1)!).map(f=>logicalDigest(f.html))).toEqual(drciDraftPackFiles(candidate).map(f=>logicalDigest(f.html)));
+  expect(session.project).toEqual(project);expect(session.drciDraftPacks).toEqual([]);
+  const page=await archived.client.history(),bodies=await Promise.all([...page.entries].reverse().map(ref=>archived.client.body(ref.generationId)));
+  expect(bodies.map(item=>item.body.native.value)).toEqual([ancestor,parent,candidate]);
+  expect(bodies.at(-1)!.body.files.filter(f=>f.format==='HTML').map(f=>logicalDigest(f.content))).toEqual(drciDraftPackFiles(candidate).map(f=>logicalDigest(f.html)));
  });
 });

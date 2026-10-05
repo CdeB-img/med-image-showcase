@@ -1,4 +1,7 @@
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
+import { archiveOwnerFixtureSession } from "@/features/document-projection/__tests__/owner-fixture-archive";
+import { openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import type { DocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
@@ -30,6 +33,8 @@ import {
 } from "./p1-behavior-01a-contract-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
+let archiveClient: DocumentArchiveClient;
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: () => archiveClient }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
   ...await importOriginal<typeof import("@/features/protocol-designer/product-bridge-client")>(),
@@ -86,7 +91,7 @@ const inspectedDocuments = (project: ResearchProjectOwnerProjection) => refreshF
   requestedAt: AT,
 });
 
-const sessionFor = (
+const sessionFor = async (
   project: ResearchProjectOwnerProjection | null,
   documents: FunctionalResetDocumentPortfolio = createEmptyFunctionalResetDocumentPortfolio(),
 ) => {
@@ -99,8 +104,11 @@ const sessionFor = (
     queryNavigation,
     documents,
   };
-  persistFunctionalResetSession(window.localStorage, hydrated);
-  return hydrated;
+  const archived = project ? await archiveOwnerFixtureSession(hydrated, documents.projections.map(value => ({ family: "TEMPLATE" as const, value }))) : null;
+  if (archived) archiveClient = archived.client;
+  const storedSession = archived?.session ?? hydrated;
+  persistFunctionalResetSession(window.localStorage, storedSession);
+  return storedSession;
 };
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -164,19 +172,19 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     const project = projectV1();
     const documents = protocolFor(project);
     const p1 = documents.projections.at(-1)!;
-    const before = sessionFor(project, documents);
+    const before = await sessionFor(project, documents);
     expect(before.queryNavigation?.currentAction?.affectedDecisionRefs).toContain("project-section:DESIGN");
     renderDemo();
 
     submit(command);
 
-    expect(await screen.findByTestId("functional-protocol-preview")).toBeInTheDocument();
+    expect(await openArchivedProtocolPreview()).toBeInTheDocument();
     await waitFor(() => expect(stored().openDocumentProjectionId).toBe(p1.projectionId));
     const after = stored();
     expect(runtime.request).not.toHaveBeenCalled();
     expect(after.project?.versionId).toBe(project.versionId);
     expect(after.project?.projectDigest).toBe(project.projectDigest);
-    expect(after.documents.projections).toEqual(documents.projections);
+    expect(after.documents.projections).toEqual([]);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
     expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
     expect(after.runtimeTurns.slice(before.runtimeTurns.length).map(turn => turn.role)).toEqual(["USER", "NOXIA"]);
@@ -190,7 +198,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
 
   it("leaves a scientific protocol modification on the normal conversation corridor", async () => {
     const project = projectV1();
-    const before = sessionFor(project, protocolFor(project));
+    const before = await sessionFor(project, protocolFor(project));
     renderDemo();
 
     submit("je veux ajouter une IRM au protocole");
@@ -205,7 +213,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
 
   it("opens the explicit documentary workflow without generating P1 from text alone", async () => {
     const project = projectV1();
-    const before = sessionFor(project, inspectedDocuments(project));
+    const before = await sessionFor(project, inspectedDocuments(project));
     renderDemo();
 
     submit("crée un aperçu du protocole");
@@ -213,7 +221,8 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(await screen.findByTestId("study-deliverable-workspace")).toBeInTheDocument();
     const after = stored();
     expect(runtime.request).not.toHaveBeenCalled();
-    expect(after.documents).toEqual(before.documents);
+    expect(after.documents.unloadedProjection).toEqual(before.documents.unloadedProjection);
+    expect(after.documentArchive).toEqual(before.documentArchive);
     expect(after.entries.at(-1)).toMatchObject({content:"Ouvrez Protocole / documents, puis choisissez « Générer les documents » pour la version confirmée du projet."});
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
@@ -234,7 +243,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
       previous: documentsV1,
       requestedAt: "2026-09-01T11:02:00.000Z",
     });
-    const before = sessionFor(currentProject, stale);
+    const archivedV1 = await sessionFor(firstProject, documentsV1);
+    const before = { ...archivedV1, project: currentProject, queryNavigation: buildFunctionalResetQueryNavigation({ project: currentProject, recordedAt: AT }),
+      documents: { ...stale, projections: [], unloadedProjection: archivedV1.documents.unloadedProjection } };
+    persistFunctionalResetSession(window.localStorage, before);
     renderDemo();
 
     submit("actualise le protocole");
@@ -242,9 +254,12 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(await screen.findByTestId("study-deliverable-workspace")).toBeInTheDocument();
     const after = stored();
     expect(runtime.request).not.toHaveBeenCalled();
-    expect(after.documents.projections[0]).toEqual(p1);
-    expect(after.documents.projections).toHaveLength(1);
-    expect(after.documents).toEqual(before.documents);
+    expect((await archiveClient.body(p1.projectionId)).body.native).toEqual({ family: "TEMPLATE", value: p1 });
+    expect(after.documents.projections).toHaveLength(0);
+    // Reopening normalizes presentation cards. Native DOC bytes and the
+    // durable references, not obsolete eager card JSON, are the invariant.
+    expect(after.documents.unloadedProjection).toEqual(before.documents.unloadedProjection);
+    expect(after.documentArchive).toEqual(before.documentArchive);
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
     expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
@@ -255,7 +270,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
   });
 
   it("returns the existing no-Project product state without provider, QRY or fake document", async () => {
-    const before = sessionFor(null);
+    const before = await sessionFor(null);
     renderDemo();
 
     submit("affiche le protocole");
@@ -277,12 +292,12 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
   it("keeps download deterministic and provider-free while deferring browser download orchestration", async () => {
     const project = projectV1();
     const documents = protocolFor(project);
-    sessionFor(project, documents);
+    await sessionFor(project, documents);
     renderDemo();
 
     submit("télécharge le protocole");
 
-    const preview = await screen.findByTestId("functional-protocol-preview");
+    const preview = await openArchivedProtocolPreview();
     expect(within(preview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
     expect(runtime.request).not.toHaveBeenCalled();
   });

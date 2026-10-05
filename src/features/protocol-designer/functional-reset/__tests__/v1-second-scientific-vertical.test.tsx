@@ -1,3 +1,6 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -23,6 +26,7 @@ import {
 } from "../session";
 import { buildStudyDeliverablePortfolio, buildStudyPackageZipBytes, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
   const original = await importOriginal<typeof import("@/features/protocol-designer/product-bridge-client")>();
@@ -150,7 +154,7 @@ const fixtureResponse = (request: ProductBridgeRequest): ProductBridgeResponse =
 
 describe("V1 — seconde verticale Standard, validation multicentrique d’une mesure", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.bridge.mockReset();
     runtime.language.mockReset();
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => fixtureResponse(request));
@@ -266,9 +270,11 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     const generated=refreshFunctionalResetDocumentPortfolio({project:projectV2,previous:confirmed.documents,requestedAt,generateProtocol:true,
       handoffDecision:authorizeResearchProjectDocumentHandoff({project:projectV2,authority:{actorRef:"test:explicit-doc-owner",mandateRef:"PROJECT_OWNER",
         authoritySource:"ACTIVE_RESEARCH_WORKSPACE_SESSION",verification:"DEMO_SESSION_NOT_AUTHENTICATED"},confirmedAt:requestedAt})});
-    cleanup();persistFunctionalResetSession(localStorage,{...confirmed,documents:generated});renderDemo();
+    const projection = generated.projections.at(-1)!;
+    const receipt = await persistTemplateGeneration(confirmed, projection, offlineArchiveClient(confirmed.sessionId, projectV2));
+    cleanup();persistFunctionalResetSession(localStorage,publishArchivedTemplate({...confirmed,documents:generated},projection,receipt));renderDemo();
     submit("affiche le protocole");
-    const preview = await screen.findByTestId("functional-protocol-preview");
+    const preview = await openArchivedProtocolPreview();
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
     expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
     expect(preview.textContent).toContain(OBJECTIVE);
@@ -281,24 +287,13 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     fireEvent.click(within(preview).getByRole("button", { name: "Retour à la conversation" }));
     submit("Exporte mon CRF pour mon logiciel de collecte.");
     const portfolioWorkspace = await screen.findByTestId("study-deliverable-workspace");
-    for (const title of [
-      "Protocole complet",
-      "Synopsis",
-      "Schedule of Activities",
-      "CRF",
-      "Data Dictionary",
-      "Data Management Plan",
-      "Export EDC",
-      "Statistical Analysis Plan",
-      "Documents réglementaires / éthiques",
-      "Guide Imaging / Core Lab",
-    ]) expect(within(portfolioWorkspace).getByRole("heading", { name: title })).toBeInTheDocument();
-    expect(within(screen.getByTestId("study-deliverable-STATISTICAL_ANALYSIS_PLAN")).getByText("Décision requise")).toBeInTheDocument();
-    expect(within(screen.getByTestId("study-deliverable-REGULATORY_DOCUMENT_PACKAGE")).getByText("Profil requis")).toBeInTheDocument();
+    // CURRENT_SEMANTIC_INVARIANT: inspect frozen outputs, not the superseded
+    // eager portfolio. Readiness and scientific semantics are checked below.
+    await within(portfolioWorkspace).findByRole("button", { name: "Ouvrir redcap-data-dictionary.csv" });
 
     const finalSession = stored();
     const projectBeforeProjection = structuredClone(projectV2);
-    const protocolProjection = finalSession.documents.projections.find((projection) => projection.source.projectVersion === projectV2.versionId)!;
+    const protocolProjection = await archivedProtocol(finalSession);
     const portfolio = buildStudyDeliverablePortfolio({ project: projectV2, protocolProjection, generatedAt: protocolProjection.requestedAt });
     expect(projectV2).toEqual(projectBeforeProjection);
     expect(finalSession.project).toEqual(projectV2);
@@ -343,7 +338,9 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
       expect(uncompressedZipText).toContain(fileName);
     }
 
-    fireEvent.click(within(portfolioWorkspace).getByTestId("download-study-package"));
+    const previousDownloads = vi.mocked(URL.createObjectURL).mock.calls.length;
+    fireEvent.click((await within(portfolioWorkspace).findAllByRole("button", { name: "Exporter cette version (.zip)" }))[0]);
+    await waitFor(() => expect(URL.createObjectURL).toHaveBeenCalledTimes(previousDownloads + 1));
     expect(URL.createObjectURL).toHaveBeenLastCalledWith(expect.any(Blob));
 
     expect(runtime.language).not.toHaveBeenCalled();

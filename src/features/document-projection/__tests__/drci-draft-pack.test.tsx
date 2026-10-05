@@ -720,11 +720,14 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     }
     expect(isDrciDraftPackCurrent({ ...candidate, generatedAt: "tampered" }, project)).toBe(false);
   });
-  it("retains the actual written pack losslessly on reopen, alongside the canonical Project", async () => {
+  it("retains the actual written pack losslessly in DOC on reopen, alongside the canonical Project", async () => {
     const saved = createProjectSession(localStorage, "DRCI"); saved.session.projectId = project.projectId; const candidate = pack();
-    (await saveProjectSession(localStorage, saved, { ...saved.session, projectId: project.projectId, project, drciDraftPacks: [candidate] }));
+    const { archiveOwnerFixtureSession } = await import("./owner-fixture-archive");
+    const archived = await archiveOwnerFixtureSession({ ...saved.session, projectId: project.projectId, project }, [{ family: "DRCI", value: candidate }]);
+    await saveProjectSession(localStorage, saved, archived.session);
     const reopened = readProjectSessions(localStorage).projects[0].session;
-    expect(reopened.drciDraftPacks).toEqual([candidate]); expect(reopened.project?.projectDigest).toBe(project.projectDigest);
+    expect(reopened.drciDraftPacks).toEqual([]); expect(reopened.project?.projectDigest).toBe(project.projectDigest);
+    expect((await archived.client.body(reopened.documentArchive!.currentGenerationId!)).body.native).toEqual({ family: "DRCI", value: candidate });
   });
   it("actually opens each document in a dedicated, sandboxed reading surface", () => {
     render(<StudyDeliverableWorkspace portfolio={projectDrciDraftPackPortfolio(portfolio(), pack(), project)} onClose={() => undefined} />);

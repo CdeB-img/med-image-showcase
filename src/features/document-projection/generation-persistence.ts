@@ -13,7 +13,7 @@ export type FrozenDocumentFile = StudyDeliverableFile & Readonly<{
   artifactId: string;
   byteLength: number;
   sha256: string;
-  renderOrigin: "GENERATION_TIME" | "MIGRATION_TIME";
+  renderOrigin: "GENERATION_TIME";
 }>;
 export type DocumentGenerationBody = Readonly<{
   contract: typeof DOC_ARCHIVE_CONTRACT;
@@ -29,7 +29,7 @@ export type DocumentGenerationRef = Readonly<{
   family: DocumentNativeGeneration["family"];
   project: DocumentProjectBinding;
   ordinal: number;
-  /** Legacy labels are frozen, never derived from a page index. */
+  /** Committed labels are immutable, never derived from a page index. */
   displayVersion: number;
   generatedAt: string;
   predecessorId: string | null;
@@ -50,9 +50,9 @@ export type DocumentArchivePointer = Readonly<{
   historyState: "NOT_LOADED";
   currentGenerationId: string | null;
   currentProjectionId: string | null;
+  currentGeneration?: Readonly<Pick<DocumentGenerationRef, "generationId" | "project" | "displayVersion" | "generatedAt">>;
   pendingRequestId: string | null;
-  /** Bodies can be cut over only after full per-Project migration verification. */
-  legacyCoverageVerified: boolean;
+  storageMode: "DURABLE_ONLY";
 }>;
 
 export const documentNativeIdentity = (native: DocumentNativeGeneration) => native.family === "DRCI"
@@ -66,3 +66,23 @@ export const documentNativePredecessor = (native: DocumentNativeGeneration): str
   ? native.value.priorProjectionId : native.value.humanRevision
     ? `${native.value.project.projectId}:document-generation:${native.value.humanRevision.parentPackDigest}` : null;
 export const documentFileManifest = ({ content: _content, ...manifest }: FrozenDocumentFile): DocumentFileManifest => manifest;
+
+/** Physical receipt boundary only; scientific validation remains at native owners. */
+export const isDocumentGenerationRef = (value: unknown, projectId: string): value is DocumentGenerationRef => {
+  if (!value || typeof value !== "object") return false;
+  const ref = value as Partial<DocumentGenerationRef>;
+  const text = (item: unknown, max: number): item is string => typeof item === "string" && item.length > 0 && item.length <= max;
+  return ref.contract === DOC_ARCHIVE_CONTRACT && text(ref.generationId, 600)
+    && (ref.family === "TEMPLATE" || ref.family === "DRCI") && ref.persistenceState === "COMMITTED"
+    && ref.project?.projectId === projectId && text(ref.project.projectVersion, 360) && text(ref.project.projectDigest, 80)
+    && Number.isSafeInteger(ref.ordinal) && ref.ordinal! > 0 && Number.isSafeInteger(ref.displayVersion) && ref.displayVersion! > 0
+    && text(ref.generatedAt, 100) && Number.isFinite(Date.parse(ref.generatedAt))
+    && (ref.predecessorId === null || text(ref.predecessorId, 600))
+    && typeof ref.bodySha256 === "string" && /^[a-f0-9]{64}$/u.test(ref.bodySha256)
+    && Number.isSafeInteger(ref.bodyBytes) && ref.bodyBytes! > 0 && Array.isArray(ref.files)
+    && ref.files.every(file => file && typeof file === "object" && !("content" in file)
+      && text(file.artifactId, 600) && text(file.fileName, 240) && !/[/\\]/u.test(file.fileName) && !file.fileName.includes("\u0000")
+      && ["HTML", "MARKDOWN", "CSV", "JSON"].includes(file.format) && text(file.mimeType, 120)
+      && file.renderOrigin === "GENERATION_TIME" && Number.isSafeInteger(file.byteLength) && file.byteLength >= 0
+      && /^[a-f0-9]{64}$/u.test(file.sha256));
+};

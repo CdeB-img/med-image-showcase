@@ -42,7 +42,7 @@ type ConversationTurnPorts = Readonly<{
   confirmContribution: (contributionId: string, naturalDecision?: NaturalContributionDecisionContext) => Promise<FunctionalResetSession | false | null>;
   rejectContribution: (contributionId: string, naturalDecision?: NaturalContributionDecisionContext) => void;
   dispatchProductDocumentAction: (action: ProductDocumentAction, command: { content: string; createdAt: string }) => void;
-  handleDocumentInstruction: (instruction: string, recordUser?: boolean, sourceTurnRef?: string) => void;
+  handleDocumentInstruction: (instruction: string, recordUser?: boolean, sourceTurnRef?: string) => void | Promise<void>;
   persistenceFailureMessage: (status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
     candidateStatus: ReturnType<typeof prepareResearchProjectContributionCandidate>["status"] | null, recordingRequested: boolean) => string | null;
 }>;
@@ -387,7 +387,7 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
 
       const documentaryIntent = resolveDocumentaryIntent(preparedInput.workingText);
       if (session.project && !["PROJECT_CHANGE", "NOT_DOCUMENTARY"].includes(documentaryIntent.kind)) {
-        handleDocumentInstruction(preparedInput.workingText, false, userTurn.turnId);
+        await handleDocumentInstruction(preparedInput.workingText, false, userTurn.turnId);
         return;
       }
 

@@ -372,15 +372,20 @@ const write16 = (target: Uint8Array, offset: number, value: number) => new DataV
 const write32 = (target: Uint8Array, offset: number, value: number) => new DataView(target.buffer).setUint32(offset, value, true);
 
 export const buildStudyPackageZipBytes = (portfolio: Readonly<StudyDeliverablePortfolio>): Uint8Array => {
-  const encoder = new TextEncoder();
   const files = [
     ...portfolio.artifacts.flatMap((artifact) => artifact.files),
     { fileName: "manifest.json", format: "JSON" as const, mimeType: "application/json;charset=utf-8", content: JSON.stringify(portfolio.manifest, null, 2) },
   ];
+  return buildStudyFilesZipBytes(files, portfolio.generatedAt);
+};
+
+/** Existing ZIP transport, reusable for already-frozen archive files. */
+export const buildStudyFilesZipBytes = (files: readonly StudyDeliverableFile[], generatedAt: string): Uint8Array => {
+  const encoder = new TextEncoder();
   const localParts: Uint8Array[] = [];
   const centralParts: Uint8Array[] = [];
   let localOffset = 0;
-  const stamp = dosDateTime(portfolio.generatedAt);
+  const stamp = dosDateTime(generatedAt);
   files.forEach((file) => {
     const name = encoder.encode(file.fileName);
     const content = encoder.encode(file.content);
@@ -423,4 +428,8 @@ export const downloadStudyDeliverableFile = (file: Readonly<StudyDeliverableFile
 export const downloadStudyPackage = (portfolio: Readonly<StudyDeliverablePortfolio>) => triggerDownload(
   buildStudyPackageZip(portfolio),
   `noxia-study-package-${slug(portfolio.projectRef.projectId)}-${slug(portfolio.projectRef.projectVersion)}.zip`,
+);
+
+export const downloadFrozenStudyFiles = (files: readonly StudyDeliverableFile[], generatedAt: string, version: number) => triggerDownload(
+  new Blob([buildStudyFilesZipBytes(files, generatedAt)], { type: "application/zip" }), `noxia-documents-v${version}.zip`,
 );

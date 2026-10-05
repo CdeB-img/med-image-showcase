@@ -11,6 +11,8 @@ import {
   type ProtocolDesignerProjectSnapshotStore,
 } from "../../../../server/protocol-designer-project-snapshot";
 import { makeFunctionalResetContribution, COLCHICINE_INITIAL } from "../functional-reset/__tests__/functional-reset-fixtures";
+import { createPostgresDocumentArchive, documentArchiveCapacity } from "../../../../server/protocol-designer-document-archive";
+import { archiveSqlFixture } from "../../document-projection/__tests__/archive-sql-fixture";
 
 const sessionId = "protocol-designer-session:synthetic-snapshot-test";
 const projectId = `${sessionId}:research-project`;
@@ -208,6 +210,7 @@ describe("verified immutable Project transport", () => {
     }, response, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_TEST_ONLY",
       VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, {
       durableGuard: guard, projectSnapshotStore: store, fetchImpl: provider,
+      documentArchive: createPostgresDocumentArchive("postgres://offline", store, documentArchiveCapacity({}), archiveSqlFixture().sql),
     });
     expect(status).toBe(429);
     expect(resolve).toHaveBeenCalledWith({ sessionId, clientAddress: "203.0.113.24" },

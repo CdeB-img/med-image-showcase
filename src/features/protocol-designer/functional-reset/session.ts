@@ -1,4 +1,4 @@
-import { decodeSessionStorage } from "./session-storage-codec";
+import { decodeSessionStorage, encodeSessionStorage } from "./session-storage-codec";
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import { rehydrateStudyProposal } from "./study-proposal-standard";
 import type {
@@ -79,7 +79,9 @@ import {
   type MultilingualUserTurn,
 } from "@/features/protocol-designer/conversation-language-gateway";
 
-export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
+// New content epoch; deployed v3 data is neither read nor deleted here.
+export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v4";
+export const SESSION_CONTENT_EPOCH = "DOC_ARCHIVE_CLEAN_V1" as const;
 export const INITIAL_NOXIA_MESSAGE = "Décrivez votre projet de recherche, une question, une hypothèse ou un protocole existant.";
 export const LEGACY_PROJECT_FIRST_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.";
 
@@ -265,6 +267,7 @@ export type FunctionalResetSession = {
   sourceLibrary?: ProjectSourceLibrary;
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
   contractVersion: "2.0.0";
+  contentEpoch: typeof SESSION_CONTENT_EPOCH;
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -561,6 +564,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
     contractVersion: "2.0.0",
+    contentEpoch: SESSION_CONTENT_EPOCH,
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -588,6 +592,9 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     canonicalStudyDataInteraction: null,
     dataManagementInteraction: null,
     documents: createEmptyFunctionalResetDocumentPortfolio(),
+    drciDraftPacks: [],
+    documentArchive: { contract: "DOC_GENERATION_ARCHIVE_V1", projectId: `${sessionId}:research-project`, historyState: "NOT_LOADED",
+      storageMode: "DURABLE_ONLY", currentGenerationId: null, currentProjectionId: null, pendingRequestId: null },
     openDocumentProjectionId: null,
     bridgeTraces: [],
     knowledgeOwnerLedger: createProductKnowledgeOwnerLedger(sessionId),
@@ -602,6 +609,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
     && record.contractVersion === "2.0.0"
+    && record.contentEpoch === SESSION_CONTENT_EPOCH
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -618,6 +626,9 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (!record.dataManagementInteraction || record.dataManagementInteraction.contract === "FUNCTIONAL_RESET_DATA_MANAGEMENT_INTERACTION")
     && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
     && record.documents.owner === "DOC-001"
+    && Array.isArray(record.documents.projections) && record.documents.projections.length === 0
+    && Array.isArray(record.drciDraftPacks) && record.drciDraftPacks.length === 0
+    && record.documentArchive?.storageMode === "DURABLE_ONLY"
     && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string")
     && Array.isArray(record.bridgeTraces)
     && record.knowledgeOwnerLedger?.contract === PRODUCT_KNOWLEDGE_OWNER_LEDGER_CONTRACT
@@ -633,37 +644,6 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && Array.isArray(record.conversationLanguageGateway.failures)
     && record.conversationLanguageGateway.projectWriteAuthorized === false
     && record.conversationLanguageGateway.scientificDecisionAuthorized === false;
-};
-
-const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
-  if (!value || typeof value !== "object") return null;
-  const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion))) return null;
-  if (typeof record.sessionId !== "string") return null;
-  const migrated = {
-    ...record,
-    contractVersion: "2.0.0",
-    queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
-    studyDesignInteraction: ["1.8.0", "1.9.0"].includes(String(record.contractVersion)) ? record.studyDesignInteraction ?? null : null,
-    scientificThinkingInteraction: record.contractVersion === "1.9.0" ? record.scientificThinkingInteraction ?? null : null,
-    observabilityInteraction: record.contractVersion === "1.9.0" ? record.observabilityInteraction ?? null : null,
-    imagingInteraction: record.contractVersion === "1.9.0" ? record.imagingInteraction ?? null : null,
-    biostatisticsInteraction: record.contractVersion === "1.9.0" ? record.biostatisticsInteraction ?? null : null,
-    canonicalStudyDataInteraction: record.contractVersion === "1.9.0" ? record.canonicalStudyDataInteraction ?? null : null,
-    dataManagementInteraction: record.contractVersion === "1.9.0" ? record.dataManagementInteraction ?? null : null,
-    bridgeTraces: Array.isArray(record.bridgeTraces) ? record.bridgeTraces : [],
-    knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
-      ? record.knowledgeOwnerLedger
-      : createProductKnowledgeOwnerLedger(record.sessionId),
-    validationRunLedger: ["1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.validationRunLedger
-      ? record.validationRunLedger
-      : createProductValidationRunLedger(record.sessionId),
-    scientificExecutionTraceLedger: ["1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.scientificExecutionTraceLedger
-      ? record.scientificExecutionTraceLedger
-      : createScientificExecutionTraceLedger(record.sessionId),
-    conversationLanguageGateway: createConversationLanguageGatewayState(),
-  };
-  return looksLikeSession(migrated) ? migrated : null;
 };
 
 export const repairPersistedProductPresentation = (
@@ -683,7 +663,7 @@ export const loadFunctionalResetSession = (storage: Pick<Storage, "getItem">, st
       return createFunctionalResetSession();
     }
     const parsed: unknown = decodeSessionStorage(raw);
-    let session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
+    let session = looksLikeSession(parsed) ? parsed : null;
     if (!session) {
       if (strict) throw new Error("SESSION_UNREADABLE");
       return createFunctionalResetSession();
@@ -731,7 +711,14 @@ export const loadFunctionalResetSession = (storage: Pick<Storage, "getItem">, st
 };
 
 export const persistFunctionalResetSession = (storage: Storage, session: FunctionalResetSession) => {
-  storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify(session));
+  assertDurableDocumentSession(session);
+  storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, encodeSessionStorage(session));
+};
+
+/** New-session persistence cannot silently reintroduce local document truth. */
+export const assertDurableDocumentSession = (session: FunctionalResetSession) => {
+  if (session.contentEpoch !== SESSION_CONTENT_EPOCH || session.documents.projections.length || session.drciDraftPacks?.length
+    || session.documentArchive?.storageMode !== "DURABLE_ONLY") throw new Error("DOC_ARCHIVE_SESSION_BODY_FORBIDDEN");
 };
 
 export type SessionPersistenceResult =
@@ -745,6 +732,7 @@ export const saveFunctionalResetWorkspaceSession = async (
   storage: Storage, session: FunctionalResetSession, save?: SessionSave,
 ): Promise<SessionPersistenceResult> => {
   try {
+    assertDurableDocumentSession(session);
     if (!save) {
       persistFunctionalResetSession(storage, session);
       return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };

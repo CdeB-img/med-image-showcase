@@ -43,16 +43,19 @@ export const executeDocumentArchiveOperation = async (input: {
       case "DOC_ARCHIVE_RECEIPT":
         if (keys !== "operation,projectRef,requestId,sessionId") throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
         result = await archive.receipt(access, requestId()); break;
-      case "DOC_ARCHIVE_IMPORT": {
-        if (keys !== "body,displayVersion,operation,projectRef,requestId,sessionId" || !body.body || typeof body.body !== "object") throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
+      case "DOC_ARCHIVE_COMMIT": {
+        if (keys !== "body,operation,projectRef,requestId,sessionId" || !body.body || typeof body.body !== "object") throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
         const nativeBody = body.body as DocumentGenerationBody;
         const { assertDocumentArchiveBody } = await import("./protocol-designer-document-archive.js");
-        const { documentNativeGeneratedAt } = await import("../src/features/document-projection/generation-persistence.js");
+        const { documentNativeGeneratedAt, documentNativeProject } = await import("../src/features/document-projection/generation-persistence.js");
         assertDocumentArchiveBody(nativeBody, access.project.projectId);
+        const binding = documentNativeProject(nativeBody.native);
+        if (binding.projectVersion !== access.project.versionId || binding.projectDigest !== access.project.projectDigest
+          || nativeBody.files.some(file => file.renderOrigin !== "GENERATION_TIME")) throw new DocumentArchiveError("DOC_ARCHIVE_PROJECT_BINDING_INVALID", 403);
         const text = JSON.stringify(nativeBody);
         await archive.admit(access, { requestId: requestId(), requestSha256: docSha256(text),
           generatedAt: documentNativeGeneratedAt(nativeBody.native), reservedBytes: Buffer.byteLength(text, "utf8") });
-        result = await archive.commit(access, requestId(), nativeBody, body.displayVersion as number); break;
+        result = await archive.commit(access, requestId(), nativeBody); break;
       }
       default: throw new DocumentArchiveError("DOC_ARCHIVE_OPERATION_INVALID", 400);
     }

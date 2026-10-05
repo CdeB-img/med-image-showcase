@@ -71,6 +71,7 @@ export type FunctionalResetDocumentPortfolio = {
   projectRef: null | { projectId: string; projectVersion: string; projectDigest: string };
   handoffDecision: HumanDecisionEnvelope | null;
   projections: DocumentProjection[];
+  unloadedProjection?: Readonly<Pick<DocumentProjection, "projectionId" | "source" | "readiness">>;
   cards: FunctionalDocumentCard[];
   lastFailure: null | { code: string; message: string; resumeCondition: string | null;
     operationEvidence?: ReturnType<typeof documentOperationEvidence> };
@@ -807,6 +808,23 @@ export const createEmptyFunctionalResetDocumentPortfolio = (): FunctionalResetDo
   lastFailure: null,
 });
 
+/** After durable commit, only presentation metadata remains in the session.
+ * Scientific blocker text stays in the immutable native body, loaded explicitly
+ * by the existing preview. This does not declare unresolved blockers settled. */
+export const unloadFunctionalResetDocumentPortfolio = (
+  previous: FunctionalResetDocumentPortfolio,
+  projection: DocumentProjection,
+): FunctionalResetDocumentPortfolio => ({
+  ...previous, projections: [], unloadedProjection: {
+    projectionId: projection.projectionId, source: projection.source, readiness: projection.readiness,
+  }, cards: previous.cards.map(card => ({ ...card, blockerGroups: [],
+    ...(card.kind === "PROTOCOL" ? {
+      stateLabel: "Version archivée · non chargée",
+      explanation: "Le contenu et ses points ouverts seront chargés uniquement à l’ouverture de cette version.",
+    } : {}),
+  })),
+});
+
 const failedCard = (kind: FunctionalDocumentKind, label: FunctionalDocumentCard["label"], message: string): FunctionalDocumentCard => ({
   kind,
   label,
@@ -961,6 +979,17 @@ export const refreshFunctionalResetDocumentPortfolio = (input: {
   const projections = projection && !previous.projections.some((item) => item.projectionId === projection?.projectionId)
     ? [...previous.projections, projection]
     : [...previous.projections];
+  const unloaded = !projection && previous.unloadedProjection;
+  if (unloaded && !input.generateProtocol) {
+    const old = previous.cards.find(card => card.kind === "PROTOCOL");
+    const current = unloaded.source.projectDigest === input.project.projectDigest
+      && unloaded.source.projectVersion === input.project.versionId
+      && unloaded.source.administrationDigest === input.administration?.digest;
+    Object.assign(protocolCard, { ...old, projectionId: unloaded.projectionId, sourceProjectVersion: unloaded.source.projectVersion,
+      freshness: current ? "CURRENT" : "STALE", canOpen: true, canRequestProjection: !current,
+      stateLabel: current ? "Version archivée · non chargée" : "À actualiser",
+      explanation: "Le corps documentaire reste dans l’archive et sera chargé uniquement sur demande." });
+  }
   return {
     contract: "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO",
     contractVersion: "1.0.0",
@@ -969,6 +998,7 @@ export const refreshFunctionalResetDocumentPortfolio = (input: {
     projectRef: { projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest },
     handoffDecision: currentDecision,
     projections,
+    ...(unloaded ? { unloadedProjection: unloaded } : {}),
     cards: [protocolCard, futureCard("DMP", dmpDefinition), futureCard("SAP", sapDefinition)],
     lastFailure: failure,
   };

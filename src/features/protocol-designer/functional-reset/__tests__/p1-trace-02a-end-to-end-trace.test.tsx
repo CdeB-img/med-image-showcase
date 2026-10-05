@@ -1,3 +1,5 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -42,6 +44,7 @@ const VISIBLE_RESPONSE = `Je comprends que vous souhaitez explorer les atteintes
 Pour préciser la structure de votre étude, cherchez-vous à identifier de véritables lésions tissulaires irréversibles en rehaussement tardif, ou à quantifier des modifications globales et diffuses de la matrice extracellulaire via l'ECV ?`;
 const CEC_AT = "2026-08-29T10:00:00.000Z";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -123,7 +126,7 @@ const removeCurrentProfile = (ledger: Readonly<ScientificExecutionTraceLedger>) 
 
 describe("P1-TRACE-02A — one end-to-end trace contract", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.request.mockReset();
     vi.spyOn(console, "debug").mockImplementation(() => undefined);
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
@@ -237,7 +240,7 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-    await screen.findByTestId("functional-protocol-preview");
+    await openArchivedProtocolPreview();
     await waitFor(() => {
       const stored = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {
         scientificExecutionTraceLedger: ScientificExecutionTraceLedger;
@@ -285,10 +288,10 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
       });
       const artifact = events.find((event) => event.stage === "ARTIFACT_GENERATED");
       expect(artifact).toMatchObject({
-        documentProjectionId: stored.documents.projections[0].projectionId,
+        documentProjectionId: stored.documentArchive!.currentProjectionId,
         traceMutatesProduct: false,
       });
-      expect(artifact?.artifactId).toMatch(new RegExp(`^artifact:${stored.documents.projections[0].projectionId}:HTML:`));
+      expect(artifact?.artifactId).toMatch(new RegExp(`^artifact:${stored.documentArchive!.currentProjectionId}:HTML:`));
       expect(JSON.stringify(stored.scientificExecutionTraceLedger)).not.toContain(COLCHICINE_INITIAL);
     });
     const measured = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {

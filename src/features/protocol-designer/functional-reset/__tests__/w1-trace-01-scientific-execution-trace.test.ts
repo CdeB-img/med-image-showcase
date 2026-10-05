@@ -542,7 +542,7 @@ describe("W1-TRACE-01 — passive scientific execution trace", () => {
     expect(Object.isFrozen(loaded.scientificExecutionTraceLedger.events[0])).toBe(true);
   });
 
-  it("W1TRACE01-38 migrates a v1.6 product session with an empty separate TRACE ledger", () => {
+  it("W1TRACE01-38 rejects a pre-cutover v1.6 session instead of importing its history", () => {
     const storage = new MemoryStorage();
     const session = createFunctionalResetSession("2026-08-25T10:00:00.000Z");
     const { scientificExecutionTraceLedger: _notInV160, ...legacy } = session;
@@ -551,11 +551,13 @@ describe("W1-TRACE-01 — passive scientific execution trace", () => {
     expect(migrated.contractVersion).toBe("2.0.0");
     expect("entries" in migrated.scientificExecutionTraceLedger).toBe(false);
     expect(migrated.scientificExecutionTraceLedger.events).toEqual([]);
-    expect(migrated.knowledgeOwnerLedger).toEqual(session.knowledgeOwnerLedger);
-    expect(migrated.validationRunLedger).toEqual(session.validationRunLedger);
+    // SUPERSEDED_CONTRACT: legacy product-content migration explicitly abandoned.
+    // Current ledger persistence remains covered by W1TRACE01-37.
+    expect(migrated.sessionId).not.toBe(session.sessionId);
+    expect(migrated.project).toBeNull();
   });
 
-  it("W1TRACE01-39 migrates v1.8 without discarding existing owner, validation or TRACE ledgers", () => {
+  it("W1TRACE01-39 starts clean rather than migrating pre-cutover v1.8 product content", () => {
     const storage = new MemoryStorage();
     const session = createFunctionalResetSession("2026-09-03T10:00:00.000Z");
     storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify({
@@ -565,9 +567,9 @@ describe("W1-TRACE-01 — passive scientific execution trace", () => {
     }));
     const migrated = loadFunctionalResetSession(storage);
     expect(migrated.contractVersion).toBe("2.0.0");
-    expect(migrated.knowledgeOwnerLedger).toEqual(session.knowledgeOwnerLedger);
-    expect(migrated.validationRunLedger).toEqual(session.validationRunLedger);
-    expect(migrated.scientificExecutionTraceLedger).toEqual(session.scientificExecutionTraceLedger);
+    expect(migrated.sessionId).not.toBe(session.sessionId);
+    expect(migrated.runtimeTurns).toEqual([]);
+    expect(migrated.scientificExecutionTraceLedger.events).toEqual([]);
     expect(migrated.scientificThinkingInteraction).toBeNull();
   });
 });

@@ -1,7 +1,8 @@
 import type { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
-import { nextDocumentGenerationVersion } from "@/features/document-projection/history";
 import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity } from "@/features/document-projection/generation-persistence";
+import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
+import { hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 import { useRef } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
@@ -25,13 +26,17 @@ export function useDocumentGeneration(input: {
     setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending } = input;
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const documentGenerationInFlightRef = useRef(false);
+  const documentCommandInFlightRef = useRef(false);
   async function requestProtocolProjection(
     requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>,
     sourceSession: FunctionalResetSession = latestSessionRef.current,
   ) {
-    if (!sourceSession.project) return;
+    if (!sourceSession.project || documentCommandInFlightRef.current) return;
+    documentCommandInFlightRef.current = true;
     const now = new Date().toISOString();
     try {
+      const client = createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project);
+      const loaded = await hydrateDocumentCommandSession(sourceSession, client);
       // A valid empty Knowledge result is allowed. Integrity, binding and
       // privacy failures must retain their native error instead of pretending
       // that no literature was found.
@@ -45,13 +50,15 @@ export function useDocumentGeneration(input: {
         knowledgeLibrary: evidence?.sourceLibrary,
         administration,
         project: sourceSession.project,
-        previous: sourceSession.documents,
+        previous: loaded.documents,
         handoffDecision: decision,
         requestedAt: now,
         generateProtocol: true,
       });
       const protocol = documents.projections.at(-1) ?? null;
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
+      const templateReceipt = await persistTemplateGeneration(sourceSession, protocol, client);
+      const templateSession = publishArchivedTemplate({ ...sourceSession, documents }, protocol, templateReceipt);
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
         if (documentGenerationInFlightRef.current) return;
         const turnId = createTurnId();
@@ -68,7 +75,7 @@ export function useDocumentGeneration(input: {
         const resume = async () => {
           if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
           documentGenerationInFlightRef.current = true;
-          setDocumentGenerationVersion(nextDocumentGenerationVersion(sourceSession.drciDraftPacks ?? [], sourceSession.project!.projectId));
+          setDocumentGenerationVersion((sourceSession.documentArchive?.currentGeneration?.displayVersion ?? 0) + 1);
           setDocumentGenerationStartedAt(Date.now());
           setDocumentGenerationElapsed(0);
           setDocumentGenerationComplete(false);
@@ -89,17 +96,19 @@ export function useDocumentGeneration(input: {
               || receipt.generation.project.projectId !== latest.project.projectId
               || receipt.generation.project.projectVersion !== latest.project.versionId
               || receipt.generation.project.projectDigest !== latest.project.projectDigest) throw new Error("DOC_ARCHIVE_COMMIT_NOT_VERIFIED");
-            const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
-              drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
+            const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents: templateSession.documents,
+              drciDraftPacks: [], openDocumentProjectionId: null,
               documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: latest.project.projectId, historyState: "NOT_LOADED",
-                currentGenerationId: receipt.generation.generationId, currentProjectionId: null, pendingRequestId: null,
-                legacyCoverageVerified: false },
+                currentGenerationId: receipt.generation.generationId, currentProjectionId: protocol.projectionId, pendingRequestId: null,
+                currentGeneration: { generationId: receipt.generation.generationId, project: receipt.generation.project,
+                  displayVersion: receipt.generation.displayVersion, generatedAt: receipt.generation.generatedAt }, storageMode: "DURABLE_ONLY" },
               documentRetryUnsafe: false,
               entries: latest.entries,
               updatedAt: now };
             const saved = (await saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange)).scientificPersisted;
             setDocumentSaveWarning(saved ? null : "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.");
             latestSessionRef.current = nextSession; setSession(nextSession);
+            setDocumentGenerationVersion(receipt.generation.displayVersion);
             setDeliverableWorkspaceOpen(true);
             setDocumentGenerationComplete(true);
           } catch (error) {
@@ -109,9 +118,10 @@ export function useDocumentGeneration(input: {
             documentRecoveryRef.current = error instanceof TypeError
               || error instanceof ProductBridgeClientError && ["DOC_ARCHIVE_PERSISTENCE_FAILED", "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED"].includes(error.code)
               ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
-            const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error, records);
+            const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, templateSession.documents, error, records);
             setSession(current => current.sessionId !== sourceSession.sessionId
               || current.project?.projectDigest !== sourceSession.project?.projectDigest ? current : ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
+              documentArchive: templateSession.documentArchive,
               documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
               updatedAt: now }));
           } finally {
@@ -140,14 +150,17 @@ export function useDocumentGeneration(input: {
         return {
         ...current,
         ...(evidence ?? {}),
-        documents,
+        documents: templateSession.documents,
+        documentArchive: templateSession.documentArchive,
+        drciDraftPacks: [],
         documentRetryUnsafe: false,
-        openDocumentProjectionId: protocol.projectionId,
+        openDocumentProjectionId: null,
         scientificExecutionTraceLedger,
         entries: current.entries,
         updatedAt: now,
       };
       });
+      setDeliverableWorkspaceOpen(true);
     } catch (error) {
       const documents = markFunctionalResetDocumentFailure(sourceSession.project, sourceSession.documents, error);
       setSession((current) => {
@@ -182,7 +195,7 @@ export function useDocumentGeneration(input: {
         updatedAt: now,
       };
       });
-    }
+    } finally { documentCommandInFlightRef.current = false; }
   };
 
   return { requestProtocolProjection, documentRecoveryRef };

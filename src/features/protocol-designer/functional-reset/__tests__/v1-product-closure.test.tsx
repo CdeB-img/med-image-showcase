@@ -100,8 +100,8 @@ describe("V1 product closure: independent durable projects", () => {
   it("rejects contamination by another Project's projection", async () => {
     const a = createProjectSession(localStorage, "A");
     a.session.documents.projections = generate(adoptBehaviorContribution(richStudyContribution(), null, 1)).projections;
-    (await saveProjectSession(localStorage, a, a.session));
-    expect(readProjectSessions(localStorage).unreadable).toEqual([a.key]);
+    await expect(saveProjectSession(localStorage, a, a.session)).rejects.toThrow("DOC_ARCHIVE_SESSION_BODY_FORBIDDEN");
+    expect(localStorage.getItem(a.key)).toBeNull();
   });
 
   it("reports quota errors without deleting the previous saved session", async () => {

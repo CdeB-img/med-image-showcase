@@ -41,6 +41,7 @@ export const archiveSqlFixture = () => {
       .sort((a, b) => Number(b.ordinal) - Number(a.ordinal)).slice(0, Number(v[3])).map(r => ({ metadata: structuredClone(r.metadata) }));
     if (query.startsWith("select generation_id")) return rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.state === "COMMITTED")
       .sort((a, b) => Number(b.ordinal) - Number(a.ordinal)).slice(0, 1).map(r => ({ generation_id: r.generation_id }));
+    if (query.startsWith("select body_sha256")) return rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.generation_id === v[2] && r.state === "COMMITTED").map(r => ({ body_sha256: r.body_sha256 }));
     if (query.startsWith("select *") || query.startsWith("select request_id")) return rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.request_id === v[2]).map(r => structuredClone(r));
     throw new Error(`UNEXPECTED_ARCHIVE_SQL:${query}`);
   };
@@ -48,7 +49,10 @@ export const archiveSqlFixture = () => {
     unsafe: async (statement: string) => { queries.push(statement); return []; }, json: (value: unknown) => value,
     begin: <T>(callback: (transaction: typeof sql) => Promise<T>) => {
       const next = tail.then(async () => {
-        const beforeRows = structuredClone(rows), beforeBodies = structuredClone(bodies);
+        // Only row settlement mutates fields. Immutable TEXT/metadata are shared
+        // safely; copying hundreds of frozen bodies would test the double's RAM,
+        // not the archive. A failed transaction still restores all row changes.
+        const beforeRows = rows.map(row => ({ ...row })), beforeBodies = [...bodies];
         try { return await callback(sql); } catch (error) { rows = beforeRows; bodies = beforeBodies; throw error; }
       });
       tail = next.catch(() => {}); return next;

@@ -1,3 +1,5 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -52,6 +54,7 @@ const DIMENSION_PROBES: readonly PreProjectTraceDimensionProbe[] = [
   { dimensionRef: "decision-etude-plus-importante", expressions: ["étude plus importante", "etude plus importante"] },
 ];
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -120,7 +123,7 @@ const storedSession = () => readPersistedSessionForTest(window.localStorage, FUN
 
 describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.request.mockReset();
     vi.spyOn(console, "debug").mockImplementation(() => undefined);
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
@@ -354,7 +357,7 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     const projectPanel = screen.getByTestId("functional-research-project");
     await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Générer les documents" })).toBeEnabled());
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
-    const preview = await screen.findByTestId("functional-protocol-preview");
+    const preview = await openArchivedProtocolPreview();
     expect(storedSession().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).not.toContain("ARTIFACT_GENERATED");
     fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));
     await waitFor(() => expect(storedSession().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).toContain("ARTIFACT_GENERATED"));
@@ -362,7 +365,7 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     const stored = storedSession();
     const traceRunId = stored.bridgeTraces[0]?.traceRunId;
     const project = stored.project!;
-    const projection = stored.documents.projections[0]!;
+    const projection = await archivedProtocol(stored);
     expect(traceRunId).toBeTruthy();
     const revisedVersion = `${project.versionId}:p1-trace-02c-revision`;
     const revisedDigest = `${project.projectDigest}:p1-trace-02c-revision`;

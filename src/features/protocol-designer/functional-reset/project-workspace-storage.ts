@@ -1,5 +1,5 @@
 import {
-  createFunctionalResetSession, FUNCTIONAL_RESET_STORAGE_KEY, loadFunctionalResetSession,
+  createFunctionalResetSession, FUNCTIONAL_RESET_STORAGE_KEY, loadFunctionalResetSession, assertDurableDocumentSession,
   type FunctionalResetSession, type SessionPersistenceResult,
 } from "./session";
 import { emptyLocalProfile, emptyProjectAdministration, type LocalResearcherProfile } from "./project-administration";
@@ -85,6 +85,7 @@ export const saveProjectSession = (storage: Storage, saved: SavedProjectSession,
     // The exact prior bytes bind the expected Project version/digest and every
     // session field. Encoding, comparison, write and verification stay locked.
     const current = storage.getItem(saved.key);
+    assertDurableDocumentSession(session);
     const raw = encodeSessionStorage(session);
     if (current !== saved.raw && current !== raw) throw staleBase();
     if (current !== raw) storage.setItem(saved.key, raw);

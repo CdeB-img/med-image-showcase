@@ -232,7 +232,7 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     expect(productEntryPromptForIntent("DESIGN_STUDY")).toContain("projet de recherche");
   });
 
-  it("20 migrates only the obsolete persisted copy while preserving Project, QRY, conversation and decisions", () => {
+  it("20 does not import pre-cutover Project, QRY or conversation content", () => {
     const current = seededSession({ project: true, query: true });
     const historical = {
       ...structuredClone(current),
@@ -246,11 +246,12 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     window.localStorage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify(historical));
     const loaded = loadFunctionalResetSession(window.localStorage);
     expect(loaded.entries[0]).toMatchObject({ content: INITIAL_NOXIA_MESSAGE });
-    expect(loaded.entries[1]).toMatchObject({ content: "Conversation à préserver" });
-    expect(loaded.project).toMatchObject({ projectId: current.project?.projectId, versionId: current.project?.versionId, projectDigest: current.project?.projectDigest });
-    expect(loaded.queryNavigation).toEqual(current.queryNavigation);
-    expect(loaded.currentContribution).toEqual(current.currentContribution);
-    expect(loaded.project?.confirmationDecision).toEqual(current.project?.confirmationDecision);
+    // SUPERSEDED_CONTRACT: old content preservation was explicitly abandoned.
+    expect(loaded.entries).toHaveLength(1);
+    expect(loaded.runtimeTurns).toEqual([]);
+    expect(loaded.project).toBeNull();
+    expect(loaded.queryNavigation).toBeNull();
+    expect(loaded.currentContribution).toBeNull();
   });
 
   it("21 answers first when Knowledge can answer and never inserts the unsupported objective", () => {

@@ -239,7 +239,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
                     </div>
                   </details>
                 </div>
-                <p className="mt-3 text-xs text-muted-foreground">Modifié le {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium" }).format(new Date(saved.session.updatedAt))} · {documentCount ? `${documentCount} version${documentCount > 1 ? "s" : ""} documentaire${documentCount > 1 ? "s" : ""}` : "Aucun document"}</p>
+                <p className="mt-3 text-xs text-muted-foreground">Modifié le {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium" }).format(new Date(saved.session.updatedAt))} · {saved.session.documentArchive?.currentGenerationId || saved.session.documentArchive?.currentProjectionId ? "Historique documentaire archivé · non chargé" : documentCount ? `${documentCount} version${documentCount > 1 ? "s" : ""} documentaire${documentCount > 1 ? "s" : ""}` : "Aucun document"}</p>
                 <button type="button" disabled={Boolean(error)} onClick={() => open(saved)} className={`${buttonClass} mt-4`}>Ouvrir</button>
               </article>;
             })}</section>

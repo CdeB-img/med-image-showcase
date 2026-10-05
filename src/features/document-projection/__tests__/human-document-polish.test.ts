@@ -126,11 +126,13 @@ describe('Current human-revised pack: native admission, ancestry and persistence
  });
  it('native session round-trip preserves the adopted Project and previous pack while keeping new export hashes stable',async ()=>{
   const saved=createProjectSession(localStorage,'Human-revised DRCI');saved.session.projectId=project.projectId;
-  const session={...saved.session,project,projectId:project.projectId,drciDraftPacks:[parent]};
-  (await saveProjectSession(localStorage,saved,session));const persisted=readProjectSessions(localStorage).projects[0];
-  (await saveProjectSession(localStorage,persisted,{...persisted.session,drciDraftPacks:[parent,revised]}));
+  const {archiveOwnerFixtureSession}=await import('./owner-fixture-archive');
+  const archived=await archiveOwnerFixtureSession({...saved.session,project,projectId:project.projectId},[{family:'DRCI',value:parent},{family:'DRCI',value:revised}]);
+  await saveProjectSession(localStorage,saved,archived.session);
   const reloaded=readProjectSessions(localStorage).projects[0].session;
-  expect(reloaded.project).toEqual(project);expect(reloaded.drciDraftPacks).toEqual([parent,revised]);
-  expect(drciDraftPackFiles(reloaded.drciDraftPacks!.at(-1)!).map(f=>logicalDigest(f.html))).toEqual(drciDraftPackFiles(revised).map(f=>logicalDigest(f.html)));
+  expect(reloaded.project).toEqual(project);expect(reloaded.drciDraftPacks).toEqual([]);
+  const page=await archived.client.history(),bodies=await Promise.all([...page.entries].reverse().map(ref=>archived.client.body(ref.generationId)));
+  expect(bodies.map(item=>item.body.native.value)).toEqual([parent,revised]);
+  expect(bodies.at(-1)!.body.files.filter(f=>f.format==='HTML').map(f=>logicalDigest(f.content))).toEqual(drciDraftPackFiles(revised).map(f=>logicalDigest(f.html)));
  });
 });

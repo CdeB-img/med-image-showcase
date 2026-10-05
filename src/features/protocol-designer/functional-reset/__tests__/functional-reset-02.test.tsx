@@ -1,3 +1,5 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
@@ -25,6 +27,7 @@ import {
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -63,7 +66,7 @@ const submit = (content: string) => {
 
 describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.request.mockReset();
     runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
@@ -157,7 +160,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(within(projectPanel).queryByText(/DMP|SAP/)).toBeNull();
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
 
-    const previewV1 = await screen.findByTestId("functional-protocol-preview");
+    const previewV1 = await openArchivedProtocolPreview();
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     expect(within(previewV1).getAllByText(/colchicine/i).length).toBeGreaterThan(0);
     expect(within(previewV1).getAllByText(/placebo/i).length).toBeGreaterThan(0);
@@ -170,16 +173,17 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("Le projet a changé depuis cette version du protocole.")).toBeInTheDocument();
+    expect(within(projectPanel).getByText("Le corps documentaire reste dans l’archive et sera chargé uniquement sur demande.")).toBeInTheDocument();
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
 
-    const previewV2 = await screen.findByTestId("functional-protocol-preview");
+    const previewV2 = await openArchivedProtocolPreview();
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
     expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
     const storedV2 = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
-    expect(storedV2.documents.projections).toHaveLength(2);
-    expect(storedV2.documents.projections[1].source.projectVersion).toBe(storedV2.project.versionId);
+    expect(storedV2.documents.projections).toHaveLength(0);
+    expect((await archivedProtocol(storedV2)).source.projectVersion).toBe(storedV2.project.versionId);
+    expect((await offlineArchiveClient(storedV2.sessionId, storedV2.project).history()).entries).toHaveLength(2);
 
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
     submit(COLCHICINE_LATER_MODIFICATION);

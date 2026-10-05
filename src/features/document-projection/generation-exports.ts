@@ -6,7 +6,7 @@ import { DOC_ARCHIVE_CONTRACT, type DocumentGenerationBody, type DocumentNativeG
 export const freezeDocumentGeneration = async (input: {
   native: DocumentNativeGeneration; artifacts: readonly Pick<StudyDeliverableArtifact, "artifactId" | "files">[];
   sha256: (text: string) => string | Promise<string>;
-  buildCommit?: string | null; renderOrigin: "GENERATION_TIME" | "MIGRATION_TIME";
+  buildCommit?: string | null; renderOrigin: "GENERATION_TIME";
 }): Promise<DocumentGenerationBody> => ({
   contract: DOC_ARCHIVE_CONTRACT, native: input.native,
   rendererVersion: DOCUMENT_PROJECTION_RENDERER_VERSION,

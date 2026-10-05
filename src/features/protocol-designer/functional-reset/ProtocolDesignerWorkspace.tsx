@@ -60,6 +60,7 @@ import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { usePostAdoptionContinuation } from "./usePostAdoptionContinuation";
 import { useDocumentGeneration } from "./useDocumentGeneration";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
+import { hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -179,7 +180,7 @@ export default function ProtocolDesignerWorkspace({
         saveWarningRef.current.session = warning;
         setSessionSaveWarning(warning);
       }
-      if (!saved.scientificPersisted && session.drciDraftPacks?.length) {
+      if (!saved.scientificPersisted && session.documentArchive?.currentGenerationId) {
         const documentWarning = session.documentArchive?.currentGenerationId
           ? "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet."
           : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.";
@@ -442,7 +443,7 @@ export default function ProtocolDesignerWorkspace({
     const result = prepareProductDocumentAction(session, action);
     appendProductDocumentCommandResult({ command, ...result });
     if (result.clearProjection) setSession((current) => ({ ...current, openDocumentProjectionId: null }));
-    if (result.openDeliverables) setDeliverableWorkspaceOpen(true);
+    if (result.openDeliverables || result.projectionId && session.documentArchive?.storageMode === "DURABLE_ONLY") setDeliverableWorkspaceOpen(true);
   }
 
   function acquireSources() {
@@ -456,9 +457,14 @@ export default function ProtocolDesignerWorkspace({
     }
   }
 
-  function handleDocumentInstruction(instruction: string, recordUser = true, sourceTurnRef = createTurnId()) {
+  async function handleDocumentInstruction(instruction: string, recordUser = true, sourceTurnRef = createTurnId()) {
     const timestamp = new Date().toISOString();
-    const result = prepareDocumentInstruction(session, administration, instruction, sourceTurnRef, timestamp);
+    const source = latestSessionRef.current;
+    if (!source.project) return;
+    const client = createDocumentArchiveClient(source.sessionId, source.project);
+    try {
+    const loaded = await hydrateDocumentCommandSession(source, client, true);
+    const result = prepareDocumentInstruction(loaded, administration, instruction, sourceTurnRef, timestamp);
     if (!result) return;
     setDocumentMessage(result.message);
     if (result.forwardToScience) {
@@ -467,11 +473,21 @@ export default function ProtocolDesignerWorkspace({
       void submitText(instruction);
       return;
     }
-    setSession((current) => ({ ...current, ...result.update, updatedAt: timestamp,
+    let next = { ...latestSessionRef.current, ...result.update };
+    if (next.sessionId !== source.sessionId || next.project?.projectDigest !== source.project.projectDigest) throw new Error("DOC_ARCHIVE_PROJECT_CHANGED");
+    const changedProjection = result.update.documents?.projections.at(-1);
+    if (changedProjection) {
+      const receipt = await persistTemplateGeneration(next, changedProjection, client);
+      next = publishArchivedTemplate(next, changedProjection, receipt);
+    }
+    setSession((current) => current.sessionId !== source.sessionId || current.project?.projectDigest !== source.project?.projectDigest ? current : ({ ...next, updatedAt: timestamp,
       entries: [...current.entries, ...(recordUser ? [{ entryId: sourceTurnRef, kind: "TEXT" as const, role: "USER" as const, content: instruction, createdAt: timestamp }] : []),
         { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: result.message, createdAt: timestamp }],
     }));
     if (result.closeSourceLibrary) setSourceLibraryOpen(false);
+    } catch {
+      setDocumentMessage("La révision documentaire n’a pas pu être enregistrée. Le Project et les versions archivées sont conservés ; aucune génération n’a été relancée.");
+    }
   }
 
   const { submitText, submitTerraText, applyStudyDesignInput, applyObservabilityInput, applyImagingInput, applyBiostatisticsInput } = useConversationTurn({
@@ -573,8 +589,8 @@ export default function ProtocolDesignerWorkspace({
       && projection.source.projectId === session.project!.projectId
       && isFunctionalDocumentProjectionCurrent(projection, session.project!, administration)) ?? null
     : null;
-  const archiveClient = useMemo(() => session.project && session.documentArchive?.legacyCoverageVerified
-    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project, session.documentArchive?.legacyCoverageVerified]);
+  const archiveClient = useMemo(() => session.project && session.documentArchive?.storageMode === "DURABLE_ONLY"
+    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project, session.documentArchive]);
   const deliverablePortfolio = useMemo(() => {
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
@@ -592,7 +608,7 @@ export default function ProtocolDesignerWorkspace({
     documents={session.documents}
     mode={projectionMode}
     onOpenProtocol={(projectionId) => {
-      setDeliverableWorkspaceOpen(false);
+      setDeliverableWorkspaceOpen(Boolean(session.documentArchive?.storageMode === "DURABLE_ONLY"));
       setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }));
     }}
     onRequestProtocol={() => requestProtocolProjection()}
@@ -624,9 +640,7 @@ export default function ProtocolDesignerWorkspace({
     onConfirm={refs => void confirmProject(refs)}
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
-  const currentDrciDraftPack = session.project
-    ? documentLifecycle?.currentPack
-    : null;
+  const currentDrciDraftPack = session.project && session.documentArchive?.currentGeneration?.project.projectDigest === session.project.projectDigest;
   const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
       data-testid="adopted-project-document-generation"
@@ -744,10 +758,18 @@ export default function ProtocolDesignerWorkspace({
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
-          documentPacks={session.drciDraftPacks}
-          projectId={session.project?.projectId}
           archiveClient={archiveClient}
           archiveOnly={Boolean(archiveClient)}
+          isArchivedProjectionCurrent={projection => Boolean(session.project && isFunctionalDocumentProjectionCurrent(projection, session.project, administration))}
+          onArchivedFileDownloaded={(body, file) => {
+            if (body.native.family !== "TEMPLATE" || file.format !== "HTML") return;
+            const projection = body.native.value, generatedAt = new Date().toISOString();
+            setSession(current => ({ ...current, scientificExecutionTraceLedger: recordArtifactGeneratedTrace({
+              ledger: current.scientificExecutionTraceLedger,
+              traceRunId: [...current.bridgeTraces].reverse().find(trace => trace.traceRunId && trace.projectVersionAfter === projection.source.projectVersion)?.traceRunId,
+              conversationId: current.conversationId, generatedAt, projection, format: "HTML",
+            }) }));
+          }}
           saveWarning={documentSaveWarning ?? sessionSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
           />

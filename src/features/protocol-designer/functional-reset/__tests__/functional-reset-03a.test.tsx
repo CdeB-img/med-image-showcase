@@ -1,3 +1,5 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -18,6 +20,7 @@ import {
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -42,36 +45,11 @@ const confirm = async () => {
   expect(runtime.request).toHaveBeenCalledTimes(callsBefore);
 };
 
-const storedSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {
-  pendingContribution: ScientificInterpretationContributionEnvelope | null;
-  currentContribution: ScientificInterpretationContributionEnvelope | null;
-  project: {
-    boundary: string;
-    owner: string;
-    revision: number;
-    versionId: string;
-    previousVersionId: string | null;
-    confirmationDecision: { status: string; mandate: string; engineSource: string };
-    sections: Array<{ label: string; elements: Array<{ content: string; sourcePolarity: string | null }> }>;
-  } | null;
-  documents: {
-    owner: string;
-    projections: Array<{
-      projectionType: string;
-      ownership: { structure: string; content: string; editorialForm: string };
-      source: { projectVersion: string };
-      boundary: string;
-    }>;
-  };
-  queryNavigation: {
-    owner: string;
-    memory: { events: Array<{ eventType: string; reason: string }> };
-  } | null;
-};
+const storedSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
 
 describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.request.mockReset();
     runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
@@ -219,7 +197,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const project = screen.getByTestId("functional-research-project");
     fireEvent.click(within(project).getByRole("button", { name: "Générer les documents" }));
 
-    const preview = await screen.findByTestId("functional-protocol-preview");
+    const preview = await openArchivedProtocolPreview();
     expect(within(preview).getByRole("heading", { name: "PROTOCOLE DE TRAVAIL" })).toBeInTheDocument();
     for (const heading of ["Question scientifique", "Objectifs", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Mesures", "Temporalité", "Analyse", "Points restant à préciser"]) {
       expect(within(preview).getByRole("heading", { name: heading })).toBeInTheDocument();
@@ -231,7 +209,8 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
 
     const session = storedSession();
     expect(session.documents.owner).toBe("DOC-001");
-    expect(session.documents.projections.at(-1)).toMatchObject({
+    expect(session.documents.projections).toEqual([]);
+    expect(await archivedProtocol(session)).toMatchObject({
       projectionType: "PROTOCOL",
       ownership: { structure: "TMP-001", content: "RESEARCH_PROJECT_AND_UPSTREAM_OWNERS", editorialForm: "DOC-001" },
       source: { projectVersion: session.project!.versionId },

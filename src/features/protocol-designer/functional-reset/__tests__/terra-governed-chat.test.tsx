@@ -1,4 +1,6 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
+import { offlineArchiveClient, offlineArchiveRuntime, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
@@ -14,10 +16,11 @@ import { contributionDecisionScopeGroups, prepareResearchProjectContributionCand
 import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession } from "../session";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { bridgeRequest, wire } from "../../../../../validation/protocol-designer-v1-contextual-scientific-reasoning-runtime-01/offline-fixtures";
-import { adoptBehaviorContribution, behaviorAuthority, richStudyContribution } from "./p1-behavior-01a-contract-fixtures";
+import { behaviorAuthority, richStudyContribution } from "./p1-behavior-01a-contract-fixtures";
 import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection/functional-reset-boundary";
 
 const bridge = vi.hoisted(() => vi.fn());
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
 afterEach(() => { vi.restoreAllMocks(); cleanup(); bridge.mockReset(); localStorage.clear(); vi.unstubAllEnvs(); resetPublicProtocolDesignerGuardForTests(); });
 const native = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
@@ -43,9 +46,13 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
   it("keeps native DOC provider context identical for 10, 50 and 100 turns, including oversized chat memory", async () => {
     vi.spyOn(console, "debug").mockImplementation(() => undefined);
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
-    const project = adoptBehaviorContribution(richStudyContribution(), null, 1);
+    const base = createFunctionalResetSession();
+    const project = confirmResearchProjectContribution({ contribution: richStudyContribution(), current: null, projectId: base.projectId,
+      authority: behaviorAuthority, confirmedAt: "2026-08-31T12:01:00.000Z" });
     const before = JSON.stringify(project), contextByLength: string[][] = [];
     for (const length of [10, 50, 100]) {
+      resetOfflineArchiveClients();
+      resetPublicProtocolDesignerGuardForTests();
       const inputs: string[] = [], requests: ProductBridgeRequest[] = [];
       const provider = vi.fn<typeof fetch>(async (_url, init) => {
         const payload = JSON.parse(String(init?.body)), context = JSON.parse(payload.input); inputs.push(payload.input);
@@ -61,14 +68,16 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
       });
       bridge.mockImplementation(async (r: ProductBridgeRequest) => {
         requests.push(r); let status = 0, output: unknown;
+        const archive = await offlineArchiveRuntime(base.sessionId, project);
         await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json",
-          origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr" }, body: { ...r, apiVersion: "1.0.0" } }, {
+          origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr", "x-forwarded-for": "192.0.2.1",
+          "x-noxia-project-snapshot-proof": archive.access.proof }, body: { ...r, apiVersion: "1.0.0", currentProject: null, currentProjectRef: archive.access.project } }, {
           setHeader() {}, status(value) { status = value; return this; }, json(value) { output = value; },
         }, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA" },
-        { fetchImpl: provider, durableGuard: createMemoryProtocolDesignerGuardForTests() });
+        { fetchImpl: provider, durableGuard: createMemoryProtocolDesignerGuardForTests(), documentArchive: archive.store, projectSnapshotStore: archive.snapshots });
         expect(status).toBe(200); return output;
       });
-      const session = createFunctionalResetSession(); session.project = project; session.projectId = project.projectId; session.projectAuthority = behaviorAuthority;
+      const session = { ...base }; session.project = project; session.projectId = project.projectId; session.projectAuthority = behaviorAuthority;
       session.documents = refreshFunctionalResetDocumentPortfolio({ project, requestedAt: "2026-09-17T00:00:00Z" });
       session.runtimeTurns = Array.from({ length }, (_, i) => ({ turnId: `history-${i}`, role: i % 2 ? "NOXIA" as const : "USER" as const,
         content: `TRANSCRIPT_SENTINEL_${i} ${"x".repeat(3000)}` }));

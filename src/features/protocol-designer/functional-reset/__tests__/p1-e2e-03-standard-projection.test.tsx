@@ -1,3 +1,5 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -11,6 +13,7 @@ import {
   makeFunctionalResetBridgeResponseForRequest,
 } from "./functional-reset-fixtures";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -29,7 +32,7 @@ const submit = (content: string) => {
 
 describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.request.mockReset();
     runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
@@ -85,7 +88,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
 
     const projectV1BeforeDocument = JSON.stringify(v1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
-    const previewV1 = await screen.findByTestId("functional-protocol-preview");
+    const previewV1 = await openArchivedProtocolPreview();
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     fireEvent.click(within(previewV1).getByRole("button", { name: "Télécharger le protocole (.html)" }));
     expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
@@ -108,8 +111,9 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
       previousVersionId: v1.project!.versionId,
     });
     expect(staleV1.project!.projectDigest).not.toBe(v1.project!.projectDigest);
-    expect(staleV1.documents.projections).toHaveLength(1);
-    expect(staleV1.documents.projections[0]!.source).toMatchObject({
+    const archivedV1 = await archivedProtocol(staleV1);
+    expect(staleV1.documents.projections).toHaveLength(0);
+    expect(archivedV1.source).toMatchObject({
       projectId: v1.project!.projectId,
       projectVersion: v1.project!.versionId,
       projectDigest: v1.project!.projectDigest,
@@ -117,7 +121,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
 
     const projectV2BeforeDocument = JSON.stringify(staleV1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
-    const previewV2 = await screen.findByTestId("functional-protocol-preview");
+    const previewV2 = await openArchivedProtocolPreview();
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
     expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
@@ -125,14 +129,15 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
 
     const v2WithDocuments = storedSession();
     expect(JSON.stringify(v2WithDocuments.project)).toBe(projectV2BeforeDocument);
-    expect(v2WithDocuments.documents.projections).toHaveLength(2);
-    expect(v2WithDocuments.documents.projections[0]).toEqual(staleV1.documents.projections[0]);
-    expect(v2WithDocuments.documents.projections[1]!.source).toMatchObject({
+    expect(v2WithDocuments.documents.projections).toHaveLength(0);
+    expect(await archivedProtocol(v2WithDocuments, archivedV1.projectionId)).toEqual(archivedV1);
+    const archivedV2 = await archivedProtocol(v2WithDocuments);
+    expect(archivedV2.source).toMatchObject({
       projectId: v2WithDocuments.project!.projectId,
       projectVersion: v2WithDocuments.project!.versionId,
       projectDigest: v2WithDocuments.project!.projectDigest,
     });
-    expect(v2WithDocuments.documents.projections[1]!.seriesId).toBe(v2WithDocuments.documents.projections[0]!.seriesId);
+    expect(archivedV2.seriesId).toBe(archivedV1.seriesId);
     expect(v2WithDocuments.project).not.toHaveProperty("documentProjections");
 
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
@@ -153,13 +158,11 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);
     expect(runtime.request).toHaveBeenCalledTimes(providerRequestsBeforeSwitch);
 
-    const history = screen.getByTestId("protocol-history-disclosure");
-    fireEvent.click(within(history).getByText("Versions précédentes (1)"));
-    fireEvent.click(within(history).getByRole("button", { name: "Ouvrir cette version historique" }));
-    const historicalPreview = await screen.findByTestId("functional-protocol-preview");
+    fireEvent.click(screen.getAllByRole("button", { name: "Ouvrir les livrables de l’étude" })[0]);
+    const historicalPreview = await openArchivedProtocolPreview(1);
     expect(within(historicalPreview).getByRole("status")).toHaveTextContent("Le projet ou ses informations administratives ont changé depuis cette version du protocole");
     expect(within(historicalPreview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
-    expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).not.toBe(stateBeforeSwitch);
+    expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);
     const afterHistoricalOpen = storedSession();
     expect(afterHistoricalOpen.project).toEqual(v2WithDocuments.project);
     expect(afterHistoricalOpen.documents.projections).toEqual(v2WithDocuments.documents.projections);

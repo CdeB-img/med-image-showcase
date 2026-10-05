@@ -7,20 +7,20 @@ import {
   type StudyDeliverableStatus,
   type StudyDeliverableFile,
 } from "@/features/document-projection";
-import { drciDraftPackFiles } from "@/features/document-projection/drci-draft-pack";
-import type { DrciDraftPack } from "@/features/document-projection/drci-draft-contract";
-import { documentGenerationsForProject } from "@/features/document-projection/history";
 import type { DocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
+import type { DocumentGenerationBody } from "@/features/document-projection/generation-persistence";
 import DocumentArchiveHistory from "./DocumentArchiveHistory";
+import ProtocolPreview from "./ProtocolPreview";
+import type { DocumentProjection } from "@/features/document-projection";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
   onClose: () => void;
   saveWarning?: string | null;
-  documentPacks?: readonly DrciDraftPack[];
-  projectId?: string;
   archiveClient?: DocumentArchiveClient;
   archiveOnly?: boolean;
+  onArchivedFileDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
+  isArchivedProjectionCurrent?: (projection: DocumentProjection) => boolean;
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
@@ -32,11 +32,17 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, documentPacks = [], projectId, archiveClient, archiveOnly = false }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
+  const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
-  const generations = documentGenerationsForProject(documentPacks, projectId);
+  if (selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <ProtocolPreview
+    projection={selectedBody.native.value}
+    stale={isArchivedProjectionCurrent ? !isArchivedProjectionCurrent(selectedBody.native.value) : selectedBody.native.value.source.projectDigest !== portfolio.projectRef.projectDigest}
+    onClose={onClose}
+    onDownloadFrozenHtml={() => { downloadStudyDeliverableFile(openFile); onArchivedFileDownloaded?.(selectedBody, openFile); }}
+  />;
   return <section
     aria-labelledby="study-deliverable-workspace-title"
     className="min-w-0 rounded-3xl border bg-background shadow-sm"
@@ -67,19 +73,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     </header>
 
     {portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {archiveClient && <DocumentArchiveHistory client={archiveClient} onOpen={(file, title) => { setOpenTitle(title); setOpenFile(file); }} />}
-    {!archiveOnly && generations.length > 0 && <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires" data-testid="document-generation-history">
-      <h3 className="font-semibold">Versions documentaires</h3>
-      <ul className="mt-3 space-y-3">{[...generations].reverse().map((generation) => <li key={generation.documentGenerationId} className="rounded-xl border p-3" data-testid={`document-generation-${generation.documentVersion}`}>
-        <p className="text-sm font-medium">Documents V{generation.documentVersion} disponibles · projet version {generation.projectVersionId.split(":").at(-1)}</p>
-        <p className="mt-1 text-xs text-muted-foreground">{new Date(generation.createdAt).toLocaleString("fr-FR")} · {generation.projectDigest === portfolio.projectRef.projectDigest ? "Version courante" : "Version historique"}</p>
-        <div className="mt-2 flex flex-wrap gap-2">{generation.documentDraftPack.documents.map((document) => <button key={document.kind} type="button"
-          className="min-h-10 rounded-lg border px-3 text-xs font-medium"
-          onClick={() => { const rendered = drciDraftPackFiles(generation.documentDraftPack).find(file => file.kind === document.kind)!; setOpenTitle(`Documents V${generation.documentVersion} · ${document.title}`); setOpenFile({ fileName: `${document.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: rendered.html }); }}>
-          Ouvrir {document.title}
-        </button>)}</div>
-      </li>)}</ul>
-    </section>}
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
     {openFile && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
       <div className="mb-3 flex items-center justify-between gap-3"><h3 className="font-semibold">{openTitle}</h3>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-sm" onClick={() => setOpenFile(null)}>Fermer le document</button></div>

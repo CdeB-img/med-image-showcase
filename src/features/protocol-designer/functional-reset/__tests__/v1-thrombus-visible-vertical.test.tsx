@@ -1,3 +1,6 @@
+import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -18,6 +21,7 @@ import {
 import { buildStudyDeliverablePortfolio,refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import {authorizeResearchProjectDocumentHandoff} from "@/features/research-project-construction";
 
+vi.mock("@/features/document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
   const original = await importOriginal<typeof import("@/features/protocol-designer/product-bridge-client")>();
@@ -87,7 +91,7 @@ const fixtureResponse = (request: ProductBridgeRequest): ProductBridgeResponse =
 
 describe("V1 — verticale Standard continue thrombus intra-VG", () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    window.localStorage.clear(); resetOfflineArchiveClients();
     runtime.bridge.mockReset();
     runtime.language.mockReset();
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => fixtureResponse(request));
@@ -144,8 +148,10 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     const generated=refreshFunctionalResetDocumentPortfolio({project,previous:confirmed.documents,requestedAt,generateProtocol:true,
       handoffDecision:authorizeResearchProjectDocumentHandoff({project,authority:{actorRef:"test:explicit-thrombus-doc-owner",mandateRef:"PROJECT_OWNER",
         authoritySource:"ACTIVE_RESEARCH_WORKSPACE_SESSION",verification:"DEMO_SESSION_NOT_AUTHENTICATED"},confirmedAt:requestedAt})});
-    cleanup();persistFunctionalResetSession(localStorage,{...confirmed,documents:generated});renderDemo();submit("affiche le protocole");
-    const preview = await screen.findByTestId("functional-protocol-preview");
+    const projection = generated.projections.at(-1)!;
+    const receipt = await persistTemplateGeneration(confirmed, projection, offlineArchiveClient(confirmed.sessionId, project));
+    cleanup();persistFunctionalResetSession(localStorage,publishArchivedTemplate({...confirmed,documents:generated},projection,receipt));renderDemo();submit("affiche le protocole");
+    const preview = await openArchivedProtocolPreview();
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
     expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
     expect(within(preview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
@@ -153,7 +159,7 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     expect(preview.textContent).toContain(SECOND_OBJECTIVE);
 
     const session = stored();
-    const protocolProjection = session.documents.projections.find((projection) => projection.source.projectVersion === project.versionId)!;
+    const protocolProjection = await archivedProtocol(session);
     const portfolio = buildStudyDeliverablePortfolio({ project, protocolProjection, generatedAt: protocolProjection.requestedAt });
     const synopsis = portfolio.artifacts.find((item) => item.kind === "PROTOCOL_SYNOPSIS")!;
     expect(synopsis.files[0]?.content).toContain(FIRST_OBJECTIVE);
@@ -164,7 +170,8 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
 
     fireEvent.click(within(preview).getByRole("button", { name: "Retour à la conversation" }));
     fireEvent.click(screen.getAllByRole("button", { name: "Ouvrir les livrables de l’étude" })[0]!);
-    expect(await screen.findByTestId("study-deliverable-workspace")).toHaveTextContent(FIRST_OBJECTIVE);
+    await openArchivedProtocolPreview();
+    expect(screen.getByTestId("functional-protocol-preview")).toHaveTextContent(FIRST_OBJECTIVE);
 
     expect(runtime.language).not.toHaveBeenCalled();
     expect(globalThis.fetch).toHaveBeenCalledTimes(2);

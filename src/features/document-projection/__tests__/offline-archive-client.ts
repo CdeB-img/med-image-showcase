@@ -29,9 +29,9 @@ export const offlineArchiveClient = (sessionId: string, project: ResearchProject
   async history(cursor) { const { store, access } = await accessFor(sessionId, project); return store.history(access, cursor); },
   async body(id) { const { store, access } = await accessFor(sessionId, project); return store.body(access, id); },
   async receipt(id) { const { store, access } = await accessFor(sessionId, project); return store.receipt(access, id); },
-  async import(id, body, label) { const { store, access } = await accessFor(sessionId, project);
+  async commit(id, body) { const { store, access } = await accessFor(sessionId, project);
     await store.admit(access, { requestId: id, requestSha256: docSha256(JSON.stringify(body)), generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: Buffer.byteLength(JSON.stringify(body)) });
-    return store.commit(access, id, body, label); },
+    return store.commit(access, id, body); },
 });
 export const offlineDocReceipt = async (sessionId: string, project: ResearchProjectOwnerProjection, requestId: string, pack: DrciDraftPack) => {
   const native = { family: "DRCI" as const, value: pack };
@@ -39,4 +39,8 @@ export const offlineDocReceipt = async (sessionId: string, project: ResearchProj
   const { store, access } = await accessFor(sessionId, project);
   await store.admit(access, { requestId, requestSha256: docSha256(requestId), generatedAt: pack.generatedAt, reservedBytes: 4_000_000 });
   return store.commit(access, requestId, body);
+};
+export const offlineArchiveRuntime = async (sessionId: string, project: ResearchProjectOwnerProjection) => {
+  const { store, access } = await accessFor(sessionId, project);
+  return { store, access, snapshots: projects.get(project.projectId)!.snapshots };
 };

@@ -1,5 +1,5 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
-import { offlineDocReceipt, resetOfflineArchiveClients } from "../../../document-projection/__tests__/offline-archive-client";
+import { offlineDocReceipt, offlineArchiveClient, resetOfflineArchiveClients } from "../../../document-projection/__tests__/offline-archive-client";
 import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid, projectPreparationReview } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -48,6 +48,9 @@ const bridge = vi.hoisted(() => vi.fn());
 const recoveryRead = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
   requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: recoveryRead }));
+// CURRENT_STRUCTURAL_INVARIANT: actual archive/native validators with offline
+// SQL transport; no hardcoded persistence success or live service.
+vi.mock("../../../document-projection/generation-archive-client", async original => ({ ...await original<object>(), createDocumentArchiveClient: offlineArchiveClient }));
 afterEach(() => { cleanup(); resetOfflineArchiveClients(); bridge.mockReset(); recoveryRead.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text: text.trimStart().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
@@ -1420,13 +1423,13 @@ describe("continuous working composition — synthetic mechanics, no scientific 
         crfRows:source.crf.fields.map((field,index)=>({variableRef:field.canonicalVariableId,variableId:`FIELD_${index}`,label:field.label,
           domain:"À préciser",visit:"À préciser",definition:field.label,entryType:"Texte",unit:null,categories:null,dataOrigin:"UNSPECIFIED",
           source:"À préciser",required:"À préciser",condition:null,derivedFrom:[],derivation:null,controls:[],analysisImpact:null,specificationStatus:"UNSPECIFIED"}))};
-      const documentDraftPack = materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt});
+      const documentDraftPack = materializeDrciDraftPack(generated,{project,packet,generatedAt:req.documentDraftRequest!.handoffDecision.timestamp!});
       return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
         observability:{providerCalls:[]},documentDraftPack,
         documentPersistenceReceipt: await offlineDocReceipt(initial.sessionId, project, req.observabilityContext!.clientRequestId, documentDraftPack)};
     });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{
-      if (next.drciDraftPacks?.length) {
+      if (next.documentArchive?.currentGenerationId) {
         if (saveDocuments === "throws") throw new DOMException("LOCAL_SYNTHETIC", "QuotaExceededError");
         if (saveDocuments === "refused") return false;
       }
@@ -1438,28 +1441,34 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(bridge).not.toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-    await screen.findByTestId("study-deliverable-workspace");
+    await screen.findByText(/Dossier V1/);
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
-    expect(screen.getByTestId("document-generation-1")).toHaveTextContent("Documents V1 disponibles · projet version 1");
-    if (saveDocuments === "saved") expect(saved.drciDraftPacks?.[0].project).toEqual({ projectId: saved.project?.projectId,
-      projectVersion: saved.project?.versionId, projectDigest: saved.project?.projectDigest });
-    for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
+    // SUPERSEDED_CONTRACT: full packs are no longer local session history.
+    // CURRENT_STRUCTURAL_INVARIANT: real archive receipt, bindings and G1/G2.
+    const client = offlineArchiveClient(initial.sessionId, saved.project!);
+    const firstPage = await client.history();
+    const g1 = firstPage.entries.find(ref => ref.family === "DRCI")!;
+    expect(g1.displayVersion).toBe(1);
+    expect(g1.project).toEqual({ projectId: saved.project!.projectId, projectVersion: saved.project!.versionId, projectDigest: saved.project!.projectDigest });
+    const frozenG1 = JSON.stringify((await client.body(g1.generationId)).body);
+    await waitFor(() => expect(screen.getByTestId(`archived-generation-${g1.ordinal}`)).toHaveTextContent("Dossier V1"));
+    if (saveDocuments === "saved") { expect(saved.drciDraftPacks).toEqual([]); expect(saved.documents.projections).toEqual([]); }
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("lien local non enregistré");
     if (saveDocuments === "saved") {
       fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-      await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
-      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
-      expect(screen.getByTestId("document-generation-2")).toHaveTextContent("Documents V2 disponibles");
+      await waitFor(() => expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(2));
+      expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(2);
+      expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(frozenG1);
       const previousEntries = saved.entries.length;
       bridge.mockRejectedValueOnce(new Error("LOCAL_SYNTHETIC_DOC_FAILURE"));
       fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
       await screen.findByTestId("document-generation-recovery");
-      expect(saved.drciDraftPacks).toHaveLength(2);
+      expect(saved.drciDraftPacks).toHaveLength(0);
       expect(saved.project?.revision).toBe(1);
       expect(saved.entries).toHaveLength(previousEntries);
-      expect(screen.getByTestId("document-generation-1")).toBeInTheDocument();
-      expect(screen.getByTestId("document-generation-2")).toBeInTheDocument();
+      expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(2);
+      expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(frozenG1);
     }
   });
 
@@ -1494,10 +1503,12 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const adoptedVersion=project.versionId;
     fireEvent.click(screen.getByRole("button",{name:"Générer les documents"}));
     await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(1));
-    await screen.findByTestId("document-generation-history");
+    await waitFor(() => expect(saved.documentArchive?.currentGenerationId).toBeTruthy());
     expect(bridge.mock.calls[0][0].currentProject?.versionId).toBe(adoptedVersion);
     expect(saved.project?.versionId).toBe(adoptedVersion);
-    for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
+    const archived = await offlineArchiveClient(initial.sessionId, project).body(saved.documentArchive!.currentGenerationId!);
+    expect(archived.body.native.family).toBe("DRCI");
+    if (archived.body.native.family === "DRCI") expect(archived.body.native.value.documents.map(document => document.kind)).toEqual([...DRCI_DOCUMENT_KINDS]);
   });
 
   it("keeps Chat usable during an explicit document request and localizes a document failure", async () => {

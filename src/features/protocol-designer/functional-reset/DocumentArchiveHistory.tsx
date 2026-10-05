@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import type { DocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
 import type { DocumentGenerationBody, DocumentGenerationRef } from "@/features/document-projection/generation-persistence";
-import { downloadStudyDeliverableFile } from "@/features/document-projection/study-deliverable-portfolio";
+import { downloadStudyDeliverableFile, downloadFrozenStudyFiles } from "@/features/document-projection/study-deliverable-portfolio";
 import type { StudyDeliverableFile } from "@/features/document-projection/study-deliverable-contract";
 
 /** Screen state only. One selected body in RAM, never in session. */
-export default function DocumentArchiveHistory({ client, onOpen }: {
-  client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string) => void;
+export default function DocumentArchiveHistory({ client, onOpen, onDownloaded }: {
+  client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string, body: DocumentGenerationBody) => void;
+  onDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
 }) {
   const [entries, setEntries] = useState<readonly DocumentGenerationRef[]>([]);
   const [cursor, setCursor] = useState<number | null>(null);
@@ -46,8 +47,17 @@ export default function DocumentArchiveHistory({ client, onOpen }: {
       const manifest = ref.files[index];
       const frozen = body.files.find(item => item.artifactId === manifest.artifactId && item.fileName === manifest.fileName && item.sha256 === manifest.sha256);
       if (!frozen) throw new Error("DOC_ARCHIVE_ARTIFACT_NOT_FOUND");
-      if (download) downloadStudyDeliverableFile(frozen);
-      else onOpen(frozen, `Documents V${ref.displayVersion} · ${frozen.fileName}`);
+      if (download) { downloadStudyDeliverableFile(frozen); onDownloaded?.(body, frozen); }
+      else onOpen(frozen, `Documents V${ref.displayVersion} · ${frozen.fileName}`, body);
+    } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
+  };
+  const zip = async (ref: DocumentGenerationRef) => {
+    const token = ++request.current, epoch = lifetime.current; setError(false);
+    try {
+      const body = selected.current?.id === ref.generationId ? selected.current.body : (await client.body(ref.generationId)).body;
+      if (request.current !== token || lifetime.current !== epoch) return;
+      selected.current = { id: ref.generationId, body };
+      downloadFrozenStudyFiles(body.files, ref.generatedAt, ref.displayVersion);
     } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
   };
   return <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires archivées" data-testid="durable-document-history">
@@ -59,6 +69,7 @@ export default function DocumentArchiveHistory({ client, onOpen }: {
     <ul className="mt-3 space-y-3">{entries.map(ref => <li key={ref.generationId} className="rounded-xl border p-3" data-testid={`archived-generation-${ref.ordinal}`}>
       <p className="text-sm font-medium">{ref.family === "DRCI" ? "Dossier" : "Projection"} V{ref.displayVersion} · projet version {ref.project.projectVersion.split(":").at(-1)}</p>
       <p className="mt-1 text-xs text-muted-foreground">{new Date(ref.generatedAt).toLocaleString("fr-FR")}</p>
+      <button type="button" className="mt-2 min-h-10 rounded-lg border px-3 text-xs" data-testid={`download-generation-${ref.ordinal}`} onClick={() => void zip(ref)}>Exporter cette version (.zip)</button>
       <div className="mt-2 flex flex-wrap gap-2">{ref.files.map((manifest, index) => <span key={`${manifest.artifactId}:${manifest.fileName}`} className="inline-flex gap-1">
         <button type="button" className="min-h-10 rounded-lg border px-3 text-xs" onClick={() => void file(ref, index, false)}>Ouvrir {manifest.fileName}</button>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-xs" aria-label={`Télécharger V${ref.displayVersion} ${manifest.fileName}`} onClick={() => void file(ref, index, true)}>Télécharger</button>
