@@ -1,4 +1,3 @@
-import { writeFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -18,7 +17,6 @@ import { buildStudyProposalSelectionContribution, propagateStudyProposalDecision
 import StudyProposalReview from "../StudyProposalReview";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { DOMAINS, FIBROSIS_EXACT, controlledStudyProposal, explicitWire, requestFor } from "./study-proposal-fixtures";
-const ROOT = "validation/protocol-designer-v1-propose-then-arbitrate-study-package-01/";
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
 afterEach(() => { cleanup(); bridge.mockReset(); vi.unstubAllGlobals(); localStorage.clear(); });
@@ -66,7 +64,6 @@ const runBridge = async (request: Omit<ProductBridgeRequest, "apiVersion">, doma
     providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" });
   expect(result.status).toBe(200); const response = result.body as ProductBridgeResponse;
   if (!emptyKnowledgeClaim) {
-    if (response.scientificConversation?.studyProposalStatus !== "AVAILABLE") writeFileSync(ROOT + `debug-${domain.id}.json`, JSON.stringify({ response, invocations }, null, 2));
     expect(response.scientificConversation?.studyProposalStatus).toBe("AVAILABLE");
   }
   return { response, invocations };
@@ -80,8 +77,8 @@ describe("Propose then arbitrate — offline product properties", () => {
     expect(new Set(bundle.proposal.atoms.map(a => a.area)).size).toBe(16);
     expect(response.assistantReply).toBe(bundle.proposal.reply); expect(response.assistantReply).not.toContain("SCIENTIFIC_THINKING");
     expect(response.scientificConversation!.projectWrites).toBe(0); expect(response.persistentExtraction.contribution).not.toBeNull();
-    writeFileSync(ROOT + "fibrosis-first-turn-offline.json", JSON.stringify({ provenance: "ACTUAL_PRODUCT_BRIDGE_LOCAL_SYNTHETIC_NOT_NATURALNESS", input: FIBROSIS_EXACT, providerCalls: 0, response, syntheticTransportInvocations: invocations.length }, null, 2));
-    writeFileSync(ROOT + "first-turn-review.html", renderToStaticMarkup(<StudyProposalReview composition={bundle} project={null} onValidate={() => undefined} onDiscuss={() => undefined} />));
+    expect(renderToStaticMarkup(<StudyProposalReview composition={bundle} project={null}
+      onValidate={() => undefined} onDiscuss={() => undefined} />)).toContain('data-testid="study-proposal-review"');
   });
   it("PROPERTY_PROPOSAL_02 proposals do not adopt the Project", () => {
     const s = createFunctionalResetSession(), before = logicalDigest(s), bundle = composition();
@@ -200,7 +197,6 @@ describe("Propose then arbitrate — offline product properties", () => {
     expect(result.response.scientificConversation!.projectWrites).toBe(0);
     if (domain.id === "NON_MEDICAL") expect(result.response.assistantReply).not.toContain("ECV");
     if (domain.id === "NON_MEDICAL") expect(previews.some(p => p.projectionType === "RECRUITED_PARTICIPANT_QUESTIONNAIRE" || p.projectionType === "RECRUITMENT_NOTICE")).toBe(false);
-    writeFileSync(ROOT + `cross-domain-${domain.id}.json`, JSON.stringify({ provenance: "LOCAL_SYNTHETIC_ACTUAL_ORCHESTRATION", input: domain.text, response: result.response, providerCalls: 0 }, null, 2));
   });
   it("rejects stale, mutually exclusive, unknown and unselected dependencies without widening", () => {
     const bundle = composition(); expect(() => selectedStudyProposalAtoms(bundle, ["classes-option", "continuous-option"])).toThrow("EXCLUSIVE");
@@ -269,7 +265,6 @@ it("actual Standard UI bulk click writes once and survives reopen, without provi
   persistFunctionalResetSession(localStorage, latest); const restored = loadFunctionalResetSession(localStorage);
   expect(restored.project).toEqual(latest.project); expect(restored.studyProposal).toEqual(latest.studyProposal);
   const allPreviews = buildStudyCandidateProjections(restored.studyProposal!, restored.project); expect(allPreviews.every(p => p.freshness === "CURRENT")).toBe(true);
-  writeFileSync(ROOT + "bulk-human-decision-offline.json", JSON.stringify({ provenance: "ACTUAL_STANDARD_UI_PRJ_HUMAN_DECISION_LOCAL_SYNTHETIC", project: latest.project, retained: latest.retainedContributionCandidates, composition: latest.studyProposal, providerCalls: 0, documentGenerations: 0 }, null, 2));
 });
 
 it.each(["REJECTED", "DEFERRED"] as const)("actual Standard UI %s is recorded once, leaves the Project untouched and survives reopen", async status => {

@@ -1,12 +1,10 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { resolve } from "node:path";
 import Ajv from "ajv";
 import { describe, expect, it } from "vitest";
 import { buildPersistentDeltaPayload } from "../../../../../api/protocol-designer-bridge-provider";
 import { buildOpenAIPersistentDeltaPayload } from "../../../../../api/protocol-designer-openai-extraction-provider";
 import {
   PERSISTENT_DELTA_MAX_CHANGES, buildPersistentSourceCatalog, contributionFromPersistentDelta,
-  constrainPersistentRelationsToCanonicalSignatures, materializePersistentSourceAnchors,
+  materializePersistentSourceAnchors,
   persistentSourceAnchoredDeltaSchema, validatePersistentProjectDelta, validatePersistentProviderContract,
   type ProductBridgeRequest,
 } from "@/features/protocol-designer/product-bridge";
@@ -36,9 +34,6 @@ const setup = (raw = "IRM avant reperfusion") => {
   const wire = new Ajv({ allErrors: true }).compile(buildPersistentDeltaPayload(request).tools[0].functionDeclarations[0].parametersJsonSchema);
   return { request, catalog, sourceAnchorId, change, anchor, qualification, input, materialize, check, wire };
 };
-
-const recordedRoot = resolve("validation/protocol-designer-v1-human-conversation-causal-audit-02");
-const recordedFiles = readdirSync(recordedRoot).filter((f) => f.endsWith("-recorded-provider.json")).sort();
 
 describe("N1 — one effective persistent-delta contract", () => {
   it("uses the same derived input schema for OpenAI and Gemini, including all structural bounds", () => {
@@ -196,32 +191,25 @@ describe("N1 — one effective persistent-delta contract", () => {
     expect(s.check(materialized.value).validation.valid).toBe(false);
   });
 
-  it("has exactly the 17 recorded Terra outputs available, without regenerating any", () => expect(recordedFiles).toHaveLength(17));
-  it.each(recordedFiles)("replays %s unchanged across N1, retaining genuine content rejection", (file) => {
-    const record = JSON.parse(readFileSync(resolve(recordedRoot, file), "utf8"));
-    const before = JSON.stringify(record.output);
-    const sections: string[] = record.request.input.split("\n\n");
-    const catalog = JSON.parse(sections.find((p) => p.startsWith("CATALOGUE D'ANCRAGES")).split("\n").slice(1).join("\n"));
-    const raw = catalog.anchors.find((a: { fragmentKind: string }) => a.fragmentKind === "FULL_TURN").exactText;
-    expect(validatePersistentProviderContract(record.output).valid).toBe(true);
-    const materialized = materializePersistentSourceAnchors({ value: record.output, catalog, currentUserTurn: { turnId: catalog.currentUserTurnId, content: raw } });
+  // FIXTURE_PURPOSE: prove current wire -> materialization -> Project-delta
+  // acceptance with unrelated scientific object types. SOURCE_CLASS:
+  // SYNTHETIC_CURRENT_CONTRACT. ORIGINAL_SOURCE_FAMILY: 17 N1 provider replays.
+  // SANITIZATION: YES; no recorded provider output or conversation is copied.
+  // CURRENT_CONTRACT_PROTECTED: typed wire validity, lossless materialization, and no Project mutation before review.
+  it.each([
+    ["IRM avant reperfusion", "ACQUISITION"],
+    ["Analyse de l'ECV selon l'âge", "ANALYSIS_SPECIFICATION"],
+    ["Inclusion d'adultes sains", "ELIGIBILITY_CRITERION"],
+  ])("accepts a portable %s source-anchored delta without changing its wire value", (raw, proposedType) => {
+    const s = setup(raw);
+    const value = { changes: [s.change(`candidate:${proposedType}`, proposedType, raw)], relations: [], temporalQualifications: [], expectedVariableOccasions: [] };
+    const before = JSON.stringify(value);
+    expect(s.wire(value)).toBe(true);
+    expect(validatePersistentProviderContract(value).valid).toBe(true);
+    const materialized = s.materialize(value);
     expect(materialized.valid).toBe(true);
-    expect(materialized.value.changes).toHaveLength(record.output.changes.length);
-    const constrained = constrainPersistentRelationsToCanonicalSignatures(materialized.value, null);
-    const assistants = JSON.parse(sections.find((p) => p.startsWith("PROPOSITIONS NOXIA")).split("\n").slice(1).join("\n"));
-    const conversation: ProductBridgeRequest["conversation"] = {
-      conversationId: "conversation:n1:recorded", language: "fr", turns: [
-        ...assistants.map((a: { turnId: string; content: string }) => ({ ...a, role: "NOXIA" })),
-        { turnId: catalog.currentUserTurnId, role: "USER", content: raw },
-      ],
-    };
-    const checked = validatePersistentProjectDelta(constrained.value, raw, null, conversation);
-    // The post-N1 repair preserves the two source-declared cohort identities;
-    // dangling references still fail in the dedicated referential negatives.
-    expect(checked.validation.blocks).toEqual([]);
-    if (file.startsWith("RHU-T01")) expect(materialized.value.temporalQualifications[1].anchor).toMatchObject({ direction: "BEFORE", unit: null, offset: null, relativeEventLabel: "reperfusion" });
-    if (file.startsWith("RHU-T06")) expect(materialized.normalizations.filter((n) => n.reason === "LOCAL_ADD_QUALIFICATION_ID")).toHaveLength(3);
-    if (file.startsWith("AVC-T02") || file.startsWith("AVC-T03")) expect(materialized.value.changes.filter((c) => c.proposedType === "ANALYSIS_SPECIFICATION")).toHaveLength(2);
-    expect(JSON.stringify(record.output)).toBe(before);
+    expect(materialized.value.changes).toHaveLength(1);
+    expect(s.check(materialized.value).validation.blocks).toEqual([]);
+    expect(JSON.stringify(value)).toBe(before);
   });
 });

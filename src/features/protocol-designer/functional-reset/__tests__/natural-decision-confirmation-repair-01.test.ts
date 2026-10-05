@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ContributionReview from "../ContributionReview";
@@ -191,10 +190,12 @@ describe("N3 — natural decision, visible binding and canonical human boundary"
     const wrong = fixture(["Diffusion IRM comme référence de la lésion finale", "IRM de J+1 comme comparaison secondaire"]);
     expect(recognize(raw, wrong)?.kind).toBe("ACKNOWLEDGE_USER_DIRECTION");
   });
-  it("exact historical AVC T05 with additional methodology stays a qualified candidate input", () => {
-    const probes = JSON.parse(readFileSync("validation/protocol-designer-v1-human-conversation-causal-audit-02/confirmation-probes.json", "utf8")) as { id: string; sourceText: string }[];
-    const raw = probes.find(item => item.id === "AVC-T05")!.sourceText;
-    expect(raw).toContain("Les seuils CBF, Tmax, OEF et CMRO2");
+  it("a confirmation with additional methodology cannot become unconditional Project adoption", () => {
+    // FIXTURE_PURPOSE: mixed human confirmation/material correction guard.
+    // SOURCE_CLASS: SYNTHETIC_CURRENT_CONTRACT; ORIGINAL_SOURCE_FAMILY: AVC-T05 probe.
+    // SANITIZATION: YES; the historical conversation is not copied.
+    const raw = "Oui pour la formulation, mais les seuils CBF, Tmax, OEF et CMRO2 restent à définir avant adoption.";
+    expect(raw).toContain("les seuils CBF, Tmax, OEF et CMRO2");
     expect(recognize(raw)?.kind).not.toBe("USER_CONFIRMS_CURRENT_CANDIDATE");
   });
   it("RHU M3 and first option require genuinely visible options", () => {

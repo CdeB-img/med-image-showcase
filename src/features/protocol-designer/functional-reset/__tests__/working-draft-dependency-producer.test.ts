@@ -1,32 +1,28 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { acceptContextualStudyProposal, type ContextualStudyProposal } from "@/features/scientific-thinking/contextual-study-proposal";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
-import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, workingDraftReviewCoverage, type WorkingDraftUpdate } from "../continuous-project-build";
+import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest, recommendedWorkingScope, type WorkingDraftUpdate } from "../continuous-project-build";
 import { createFunctionalResetSession } from "../session";
 import { selectedStudyProposalAtoms } from "../study-proposal-standard";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 
-// Historical negative control is immutable. Derived responses below are SYNTHETIC,
-// not evidence of provider generation or historical T3 admission.
-const receipts = JSON.parse(readFileSync(resolve("validation/noxia-drci-release-closure-from-astra-01/BACKGROUND_RECEIPTS.json"), "utf8"));
-const historical = JSON.parse(receipts[2].rawReply) as WorkingDraftUpdate;
-const validateHistorical = (proposal: ContextualStudyProposal) => acceptContextualStudyProposal(proposal, {
-  contextDigest: receipts[2].context.contextDigest,
-  sourceTurnRef: receipts[2].context.RECENT_CONVERSATION.at(-2).ref,
-  sourceResponseRef: receipts[2].context.RECENT_CONVERSATION.at(-1).ref,
-  sourceProject: null, applicableEvidenceRefs: [],
-});
+// FIXTURE_PURPOSE: dependency cycles, option-bound explicit decisions, and owner review readiness.
+// SOURCE_CLASS: SYNTHETIC_CURRENT_CONTRACT; ORIGINAL_SOURCE_FAMILY: DRCI T3 receipt.
+// SANITIZATION: YES; no provider response or historical conversation is copied.
+// CURRENT_CONTRACT_PROTECTED: reject cycles and hidden explicit decisions without Project adoption.
 const preparation = (domain: typeof DOMAINS[number]) => {
   const session = createFunctionalResetSession();
   session.runtimeTurns = [{ turnId: "u1", role: "USER", content: domain.text, createdAt: session.createdAt },
     { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — architecture de travail, non adoptée.", createdAt: session.createdAt }];
   const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns },
-    currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true };
+    currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true,
+    workingDraftScientificSource: { kind: "BOUND_USER_TURN", sourceUserTurnId: "u1", sourceResponseTurnId: "a1",
+      sourceDigest: logicalDigest(domain.text) } };
   const packet = prepareWorkingDraftRequest(request);
   const proposal = controlledStudyProposal(packet.inputDigest, domain);
+  proposal.atoms.forEach(atom => { atom.dependencyQualifications = atom.dependsOn.map(ref => ({
+    ref, kind: "HARD_BLOCKING_DEPENDENCY", rationale: "Prérequis scientifique indispensable." })); });
   const update: WorkingDraftUpdate = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] };
   return { session, request, packet, proposal, update };
 };
@@ -39,49 +35,26 @@ const dependency = (p: ReturnType<typeof preparation>, dependent: string, prereq
 const admit = (p: ReturnType<typeof preparation>) => acceptWorkingDraftUpdate(p.update, p.request).composition!;
 
 describe("Working Draft dependency producer — native graph invariants", () => {
-  it("keeps the exact historical T3 mixed cycle rejected without modifying its payload", () => {
-    const before = JSON.stringify(historical);
-    expect(() => validateHistorical(historical.proposal!)).toThrow("STUDY_PROPOSAL_DEPENDENCY_CYCLE");
-    expect(JSON.stringify(historical)).toBe(before);
+  it("rejects a mixed dependency cycle without mutating the provider proposal", () => {
+    const p = preparation(DOMAINS[4]);
+    dependency(p, "measurement", "practical", "HARD_BLOCKING_DEPENDENCY");
+    dependency(p, "practical", "measurement", "SOFT_REFINEMENT_DEPENDENCY");
+    const before = JSON.stringify(p.update);
+    expect(() => admit(p)).toThrow("STUDY_PROPOSAL_DEPENDENCY_CYCLE");
+    expect(JSON.stringify(p.update)).toBe(before);
   });
 
-  it("preserves the SYNTHETIC DAG correction but rejects the historical explicit decisions hidden by options", () => {
-    const session = createFunctionalResetSession();
-    session.runtimeTurns = receipts[2].context.RECENT_CONVERSATION.map(t => ({ turnId: t.ref, role: t.role, content: t.content, createdAt: session.createdAt }));
-    const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: { conversationId: session.conversationId, language: "fr", turns: session.runtimeTurns },
-      currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true };
-    const packet = prepareWorkingDraftRequest(request);
-    const synthetic = structuredClone(historical);
-    synthetic.proposal!.contextDigest = packet.inputDigest;
-    const measurement = synthetic.proposal!.atoms.find(a => a.ref === "A13")!;
-    // This particular edge's historical rationale describes contextual indication,
-    // not a prerequisite of the acquisition. Keep that information as explanation.
-    const contextual = measurement.dependencyQualifications!.find(q => q.ref === "A7")!;
-    measurement.rationale += ` ${contextual.rationale}`;
-    measurement.dependsOn = measurement.dependsOn.filter(r => r !== "A7");
-    measurement.dependencyQualifications = measurement.dependencyQualifications!.filter(q => q.ref !== "A7");
-    expect(synthetic.proposal!.atoms.map(a => [a.ref, a.content])).toEqual(historical.proposal!.atoms.map(a => [a.ref, a.content]));
-    expect(synthetic.proposal!.arbitrations).toEqual(historical.proposal!.arbitrations);
-    expect(() => acceptWorkingDraftUpdate(synthetic, request)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
-    // The graph correction remains valid in isolation. Empty owner scope here
-    // checks graph invariants only; it is not an adoptable composition receipt.
-    const composition = acceptContextualStudyProposal(synthetic.proposal, {
-      contextDigest: packet.inputDigest, sourceTurnRef: session.runtimeTurns.at(-2)!.turnId,
-      sourceResponseRef: session.runtimeTurns.at(-1)!.turnId, sourceProject: null,
-      applicableEvidenceRefs: [], scopedAtomRefs: [],
-    });
-    const scope = recommendedWorkingScope(composition);
-    expect(scope.selectedAtomRefs).toContain("A13");
-    // Historical arbitration leaves this population in an unselected alternative;
-    // repairing its graph must not also change the scientific recommendation.
-    expect(scope.selectedAtomRefs).not.toContain("A7");
-    expect(composition.proposal.atoms.find(a => a.ref === "A7")!.dependencyQualifications).toContainEqual(expect.objectContaining({ ref: "A13", kind: "HARD_BLOCKING_DEPENDENCY" }));
-    expect(() => selectedStudyProposalAtoms(composition, [], ["A7"])).toThrow("STUDY_PROPOSAL_ALTERNATIVE_REQUIRES_OPTION_SELECTION");
-    expect(() => selectedStudyProposalAtoms(composition, ["R1O2"], ["A1"])).toThrow("STUDY_PROPOSAL_DEPENDENCY_NOT_SELECTED");
-    expect(workingDraftReviewCoverage(composition).excluded.some(atom =>
-      synthetic.explicitDecisions.some(decision => decision.atomRef === atom.ref))).toBe(true);
-    expect(composition.ownerReceipts).toEqual([]);
-    expect(session.project).toBeNull();
+  it("does not let cycle repair silently expose an explicit decision hidden in an unselected option", () => {
+    const p = preparation(DOMAINS[4]);
+    dependency(p, "measurement", "practical", "HARD_BLOCKING_DEPENDENCY");
+    dependency(p, "practical", "measurement", "SOFT_REFINEMENT_DEPENDENCY");
+    expect(() => admit(p)).toThrow("STUDY_PROPOSAL_DEPENDENCY_CYCLE");
+    const practical = p.proposal.atoms.find(a => a.ref === "practical")!;
+    practical.dependsOn = [];
+    practical.dependencyQualifications = [];
+    p.update.explicitDecisions = [{ atomRef: "age-classes", sourceTurnRef: "u1", quote: DOMAINS[4].text }];
+    expect(() => admit(p)).toThrow("WORKING_DRAFT_EXPLICIT_DECISION_HIDDEN_BY_ARBITRATION");
+    expect(p.session.project).toBeNull();
   });
 
   it.each([DOMAINS[2], DOMAINS[4]])("preserves $id prerequisites without reciprocal contextual dependencies", domain => {

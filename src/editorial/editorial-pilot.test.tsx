@@ -9,6 +9,7 @@ import { pilotEntities, sourceCatalog } from "./catalog.mjs";
 import { EditorialPilotTemplate } from "./EditorialPilotTemplates";
 import { validateNoxiaPilot } from "./validate.mjs";
 import { withoutAuthorizedP12ProductChanges } from "../test/p12-protected-surfaces.mjs";
+import { editorialEngineRoot } from "../test/editorial-engine-root";
 
 const root = process.cwd();
 
@@ -20,7 +21,7 @@ describe("NOXIA editorial-engine pilot", () => {
   });
 
   it("keeps the generic core independent of product and legacy consumer imports", () => {
-    const engineRoot = path.resolve(root, "../../editorial-engine");
+    const engineRoot = editorialEngineRoot(root);
     const output = execFileSync(process.execPath, ["scripts/verify-independence.mjs"], { cwd: engineRoot, encoding: "utf8" });
     expect(output).toContain("Independence verification passed");
     const adapterSource = fs.readFileSync(path.join(root, "src/editorial/adapter.mjs"), "utf8");

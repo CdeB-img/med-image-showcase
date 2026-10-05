@@ -1,9 +1,6 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  constrainPersistentRelationsToCanonicalSignatures, contributionFromPersistentDelta,
-  materializePersistentSourceAnchors, validatePersistentProjectDelta, validatePersistentProviderContract,
+  contributionFromPersistentDelta, validatePersistentProjectDelta,
   type PersistentExpectedVariableOccasion, type PersistentProjectDeltaChange,
   type ProductBridgeRequest,
 } from "@/features/protocol-designer/product-bridge";
@@ -115,36 +112,27 @@ describe("Post-N1 — referential integrity and source-backed populations", () =
     expect(checked.candidate).toBeNull();
   });
 
-  it("replays frozen RHU T3: all40 objects, both original population refs, six occasions and human-decision candidate", () => {
-    const record = JSON.parse(readFileSync(resolve("validation/protocol-designer-v1-human-conversation-causal-audit-02/RHU-T03-recorded-provider.json"), "utf8"));
-    const before = JSON.stringify(record.output);
-    const sections: string[] = record.request.input.split("\n\n");
-    const catalog = JSON.parse(sections.find((s) => s.startsWith("CATALOGUE D'ANCRAGES")).split("\n").slice(1).join("\n"));
-    const raw = catalog.anchors.find((a: { fragmentKind: string }) => a.fragmentKind === "FULL_TURN").exactText;
-    const assistants = JSON.parse(sections.find((s) => s.startsWith("PROPOSITIONS NOXIA")).split("\n").slice(1).join("\n"));
-    const conversation: ProductBridgeRequest["conversation"] = { conversationId: "conversation:references:frozen", language: "fr", turns: [
-      ...assistants.map((a: { turnId: string; content: string }) => ({ ...a, role: "NOXIA" })), { turnId: catalog.currentUserTurnId, role: "USER", content: raw },
-    ] };
-    expect(validatePersistentProviderContract(record.output).valid).toBe(true);
-    const materialized = materializePersistentSourceAnchors({ value: record.output, catalog, currentUserTurn: { turnId: catalog.currentUserTurnId, content: raw } });
-    expect(materialized.valid).toBe(true);
-    const constrained = constrainPersistentRelationsToCanonicalSignatures(materialized.value, null);
-    const checked = validatePersistentProjectDelta(constrained.value, raw, null, conversation);
+  it("preserves both declared population aliases through human-decision preparation", () => {
+    // FIXTURE_PURPOSE: preserve the legacy two-cohort reference invariant, not the RHU-T03 campaign cardinalities.
+    // SOURCE_CLASS: SYNTHETIC_CURRENT_CONTRACT; ORIGINAL_SOURCE_FAMILY: RHU-T03; SANITIZATION: YES.
+    // CURRENT_CONTRACT_PROTECTED: each variable occasion remains bound to its declared population identity.
+    const s = scenario(enumeration, "- affection Alpha :");
+    const alpha = { ...s.changes[0], semanticIdentity: "cohort:alpha" };
+    const beta = { ...s.change("population:beta", "POPULATION", "Cohorte affection Beta", "- affection Beta :"), semanticIdentity: "cohort:beta" };
+    const first = s.occasion("population:alpha");
+    const second = { ...s.occasion("population:beta"), occasionId: "occasion:score:beta", sourceText: enumeration };
+    const input = { changes: [alpha, beta, ...s.changes.slice(1)], expectedVariableOccasions: [first, second] };
+    const before = JSON.stringify(input);
+    const checked = s.check(input);
     expect(checked.validation.blocks).toEqual([]);
-    expect(checked.validation.acceptedChanges).toHaveLength(40);
-    expect(checked.validation.acceptedExpectedVariableOccasions).toHaveLength(6);
-    const refs = checked.candidate.expectedVariableOccasions.slice(4).map((o) => o.studyUnitOrGroupRef);
-    expect(refs).toEqual(["cand-population-avc", "cand-population-idm"]);
-    const contribution = contributionFromPersistentDelta({ candidate: checked.candidate, conversation, currentProject: null });
+    expect(checked.candidate.expectedVariableOccasions.map((o) => o.studyUnitOrGroupRef)).toEqual(["population:alpha", "population:beta"]);
+    const contribution = contributionFromPersistentDelta({ candidate: checked.candidate, conversation: s.conversation, currentProject: null });
     const candidate = prepareResearchProjectContributionCandidate(contribution, null);
     expect(candidate.canonicalChangeSet.status).toBe("READY_FOR_HUMAN_DECISION");
-    // Reuse the existing canonical alias mapping from candidateRef to the
-    // semanticIdentity declared in the same frozen output, never to Condition.
-    const canonicalRefs = record.output.changes.filter((c: { candidateRef: string }) => refs.includes(c.candidateRef))
-      .map((c: { semanticIdentity: string }) => c.semanticIdentity);
-    expect(candidate.canonicalChangeSet.expectedVariableOccasionChanges.slice(4).map((o) => o.candidate.studyUnitOrGroupRef)).toEqual(canonicalRefs);
+    const canonicalRefs = ["cohort:alpha", "cohort:beta"];
+    expect(candidate.canonicalChangeSet.expectedVariableOccasionChanges.map((o) => o.candidate.studyUnitOrGroupRef)).toEqual(canonicalRefs);
     for (const ref of canonicalRefs) expect(candidate.canonicalChangeSet.objectChanges.find((c) => c.objectId === ref).candidate.objectType).toBe("POPULATION");
     expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
-    expect(JSON.stringify(record.output)).toBe(before);
+    expect(JSON.stringify(input)).toBe(before);
   });
 });

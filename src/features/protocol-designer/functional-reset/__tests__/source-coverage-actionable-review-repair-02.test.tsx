@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { render as renderUi, fireEvent } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
@@ -24,7 +22,8 @@ const contribution = (raw: string, candidate = delta([])): ScientificInterpretat
   if (produced) return produced;
   // The Bridge returns null for a zero delta. Exercise the projection's pure
   // act recognition with an explicitly empty extraction envelope fixture.
-  const fixture = structuredClone(records[0].contribution);
+  const fixture = contributionFromPersistentDelta({ candidate: delta([object("synthetic:seed", raw, raw)]), currentProject: null,
+    conversation: { conversationId: "test", language: "fr", turns: [{ turnId: "user", role: "USER", content: raw }] } })!;
   fixture.source.originalRequest = raw;
   fixture.source.turns = [{ turnId: "user", role: "USER", content: raw }];
   for (const values of Object.values(fixture.scientificContent)) if (Array.isArray(values)) values.length = 0;
@@ -40,8 +39,76 @@ const time = (ref: string, raw: string, offset: number, unit = "jour"): Persiste
     reference: { status: "UNKNOWN", unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" } },
 });
 const project = (raw: string, candidate = delta([])) => projectActionableSourceCoverage(contribution(raw, candidate));
-const records: { id: string; contribution: ScientificInterpretationContributionEnvelope }[] = JSON.parse(readFileSync(resolve(
-  "validation/protocol-designer-v1-source-coverage-actionable-review-repair-02/baseline-replayed-stages.json"), "utf8"));
+// FIXTURE_PURPOSE: exercise current actionable coverage and its public/audit projection.
+// SOURCE_CLASS: SYNTHETIC_CURRENT_CONTRACT; ORIGINAL_SOURCE_FAMILY: N5b 17-case replay.
+// SANITIZATION: YES. No provider request, private conversation, or original replay is copied.
+// CURRENT_CONTRACT_PROTECTED: one disposition per OPEN finding, bounded semantic proof,
+// fail-open UNKNOWN, and human-review grouping without Project authorization.
+const withOpenFindings = (c: ScientificInterpretationContributionEnvelope, spans: string[], id: string) => {
+  const fixture = structuredClone(c);
+  fixture.audit.deterministicFindings = spans.map((span, index) => ({
+    findingId: `synthetic:${id}:${index}`, code: "SOURCE_COVERAGE_UNKNOWN", severity: "WARNING" as const,
+    status: "OPEN" as const, message: `Couverture du passage non déterminée : « ${span} »`, sourceRefs: ["user"],
+  }));
+  fixture.audit.unresolvedFindings = [...fixture.audit.deterministicFindings];
+  return fixture;
+};
+const records: { id: string; contribution: ScientificInterpretationContributionEnvelope }[] = [
+  (() => {
+    const raw = "Tmax n'est pas vraiment une méthode métabolique, c'est un paramètre de perfusion. L'IRM à J+1 recalée sur le scanner de référence.";
+    const c = contribution(raw, delta([
+      object("cand-tmax-perfusion", "Tmax, paramètre de perfusion", raw, "CANONICAL_VARIABLE"),
+      object("cand-perfusion-model", "Modèle de perfusion utilisant Tmax", raw, "ANALYSIS_SPECIFICATION"),
+      object("cand-metabolic-model", "Modèle métabolique indépendant", raw, "ANALYSIS_SPECIFICATION"),
+      object("cand-mri-ct-registration-context", "Recalage IRM J1 scanner", raw, "PROJECT_INFORMATION"),
+      { ...object("cand-mri-j1-acquisition", "IRM J1 scanner", raw, "ACQUISITION"), studyRole: "REFERENCE_STANDARD" },
+    ]));
+    return { id: "SYNTHETIC_PARAMETER_AND_REGISTRATION", contribution: withOpenFindings(c,
+      ["Tmax n'est pas vraiment une méthode métabolique", "L'IRM à J+1 recalée sur le scanner de référence."], "parameter") };
+  })(),
+  (() => {
+    const raw = "Cardio:\nce n'est pas J3, c'est bien M3 pour la cardio.";
+    const c = contribution(raw, delta([object("cand-cardio", "IRM Cardio", raw, "ACQUISITION"),
+      object("cand-other-acquisition", "Scanner neurologique", raw, "ACQUISITION")],
+      { temporalQualifications: [time("cand-cardio", "c'est bien M3 pour la cardio.", 3, "mois")] }));
+    return { id: "SYNTHETIC_NAMED_TEMPORAL_CORRECTION", contribution: withOpenFindings(c,
+      ["ce n'est pas J3", "c'est bien M3 pour la cardio."], "temporal") };
+  })(),
+  (() => {
+    const raw = "Le logiciel reste un volet de la collaboration. impossibilité de suivi ou de consentement.";
+    const c = contribution(raw, delta([
+      object("cand-loan", "Logiciel prêté par le partenaire en extension de la collaboration", raw, "PROJECT_INFORMATION"),
+      object("cand-nonunique", "Le logiciel n'est pas l'objectif unique", raw, "PROJECT_INFORMATION"),
+      object("cand-other-objective", "Étudier le parcours clinique", raw, "OBJECTIVE"),
+      object("cand-exclusion-followup", "Exclusion en cas d'impossibilité de suivi", raw, "ELIGIBILITY_CRITERION"),
+      object("cand-exclusion-consent", "Exclusion en cas d'impossibilité de consentement", raw, "ELIGIBILITY_CRITERION"),
+    ]));
+    return { id: "SYNTHETIC_COLLABORATION_AND_EXCLUSIONS", contribution: withOpenFindings(c,
+      ["Le logiciel reste un volet de la collaboration", "impossibilité de suivi ou de consentement"], "collaboration") };
+  })(),
+  (() => {
+    const raw = "en restant pragmatique. Inclure des adultes. Tenir un registre parallèle.";
+    const c = contribution(raw);
+    return { id: "SYNTHETIC_DISCOURSE_AND_MATERIAL", contribution: withOpenFindings(c,
+      ["en restant pragmatique", "Inclure des adultes.", "Tenir un registre parallèle."], "discourse") };
+  })(),
+  (() => {
+    const raw = "Les mesures CMRO2 devront être validées.";
+    const c = contribution(raw, delta([object("cand-cmro2", "Les mesures CMRO2 devront être validées", raw, "CONSTRAINT")]));
+    return { id: "SYNTHETIC_REPRESENTED_AUDIT", contribution: withOpenFindings(c, [raw], "represented") };
+  })(),
+  (() => {
+    const raw = "il pourra accéder à des données anonymisées selon le protocole, les autorisations et la gouvernance du projet.";
+    return { id: "SYNTHETIC_GOVERNANCE_GROUP", contribution: withOpenFindings(contribution(raw), [
+      "il pourra accéder à des données anonymisées", "selon le protocole", "les autorisations", "la gouvernance du projet.",
+    ], "governance") };
+  })(),
+];
+const portableFixture = (id: string) => {
+  const value = records.find(record => record.id === id)?.contribution;
+  if (!value) throw new Error(`PORTABLE_COVERAGE_FIXTURE_MISSING:${id}`);
+  return value;
+};
 const render = (c: ScientificInterpretationContributionEnvelope) => renderToStaticMarkup(<ContributionReview contribution={c}
   candidate={prepareResearchProjectContributionCandidate(c, null)} status="PENDING" onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
 
@@ -127,8 +194,8 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     const raw = "Alpha comparé à Beta. Alpha. Beta.";
     expect(project(raw, delta([object("alpha", "Alpha", "Alpha."), object("beta", "Beta", "Beta.")])).partialComprehensionWarning).toBe(true);
   });
-  it("shows the explicit native membership and registration evidence for AVC T2", () => {
-    const c = records.find(record => record.id === "AVC-T02")!.contribution;
+  it("shows the explicit parameter category and registration evidence", () => {
+    const c = portableFixture("SYNTHETIC_PARAMETER_AND_REGISTRATION");
     const result = projectActionableSourceCoverage(c);
     const classification = result.dispositions.find(item => item.sourceSpan.startsWith("Tmax n"))!;
     expect(classification.classification).toBe("REPRESENTED");
@@ -138,26 +205,26 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     expect(registration.candidateRefs).toEqual(expect.arrayContaining(["cand-mri-ct-registration-context", "cand-mri-j1-acquisition"]));
   });
   it("uses the source's named cohort context to verify, without rebinding, a corrected time", () => {
-    const c = records.find(record => record.id === "RHU-T03")!.contribution;
+    const c = portableFixture("SYNTHETIC_NAMED_TEMPORAL_CORRECTION");
     const result = projectActionableSourceCoverage(c);
     expect(result.dispositions.find(item => item.sourceSpan === "ce n'est pas J3")?.classification).toBe("SUPERSEDED");
     expect(result.dispositions.find(item => item.sourceSpan === "c'est bien M3 pour la cardio.")?.classification).toBe("REPRESENTED");
     const wrong = structuredClone(c);
-    const qualification = wrong.scientificContent.temporalQualifications!.find(item => item.qualificationId === "tq-acq-irm-idm-suivi-m3")!;
-    qualification.subjectProjectRef = "cand-acquisition-irm-avc-j0";
+    const qualification = wrong.scientificContent.temporalQualifications!.find(item => item.qualificationId === "time:cand-cardio:mois:3")!;
+    qualification.subjectProjectRef = "cand-other-acquisition";
     expect(projectActionableSourceCoverage(wrong).dispositions.find(item => item.sourceSpan === "c'est bien M3 pour la cardio.")?.actionable).toBe(true);
   });
   it("proves the collaboration and independent exclusions from actual predicates", () => {
-    const c = records.find(record => record.id === "RHU-T03")!.contribution;
+    const c = portableFixture("SYNTHETIC_COLLABORATION_AND_EXCLUSIONS");
     const result = projectActionableSourceCoverage(c);
     expect(result.dispositions.find(item => item.sourceSpan === "Le logiciel reste un volet de la collaboration")?.actionable).toBe(false);
     expect(result.dispositions.find(item => item.sourceSpan === "impossibilité de suivi ou de consentement")?.classification).toBe("REPRESENTED");
     const missing = structuredClone(c);
-    missing.scientificContent.candidateObjects = missing.scientificContent.candidateObjects.filter(item => item.itemId !== "cand-eligibilite-impossibilite-consentement");
+    missing.scientificContent.candidateObjects = missing.scientificContent.candidateObjects.filter(item => item.itemId !== "cand-exclusion-consent");
     expect(projectActionableSourceCoverage(missing).dispositions.find(item => item.sourceSpan === "impossibilité de suivi ou de consentement")?.actionable).toBe(true);
   });
   it("does not accept a contrary parameter membership relation", () => {
-    const c = structuredClone(records.find(record => record.id === "AVC-T02")!.contribution);
+    const c = structuredClone(portableFixture("SYNTHETIC_PARAMETER_AND_REGISTRATION"));
     c.scientificContent.candidateRelations.push({ relationId: "contrary", relationType: "IS_COMPONENT_OF", sourceItemId: "cand-tmax-perfusion",
       targetItemId: "cand-metabolic-model", polarity: "AFFIRMED", confidence: 1,
       epistemicBoundary: { ...c.scientificContent.candidateObjects[0].epistemicBoundary } });
@@ -193,13 +260,16 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     expect(JSON.stringify(c)).toBe(before);
     expect(result.dispositions.every(item => item.reason.length > 0)).toBe(true);
   });
-  it("accounts for exactly all 267 baseline open diagnostics", () => {
+  it("projects every one of the 14 fixed portable OPEN findings with unique identities", () => {
+    // The original 267 was the size of an unversioned historical campaign, not
+    // a product limit. These six synthetic fixtures contain 2+2+2+3+1+4 findings.
+    expect(records.map(record => record.contribution.audit.deterministicFindings.length)).toEqual([2, 2, 2, 3, 1, 4]);
     const dispositions = records.flatMap(record => projectActionableSourceCoverage(record.contribution).dispositions);
-    expect(dispositions).toHaveLength(267);
-    expect(new Set(dispositions.map(item => item.diagnosticId)).size).toBe(267);
+    expect(dispositions).toHaveLength(14);
+    expect(new Set(dispositions.map(item => item.diagnosticId)).size).toBe(14);
   });
   it("groups the data access statement, retaining all four source fragments", () => {
-    const record = records.find(record => record.id === "RHU-T03")!;
+    const record = { contribution: portableFixture("SYNTHETIC_GOVERNANCE_GROUP") };
     const result = projectActionableSourceCoverage(record.contribution);
     const group = result.actionableItems.find(item => item.label.includes("gouvernance"))!;
     expect(group.dispositions.map(item => item.sourceSpan)).toEqual(expect.arrayContaining([
@@ -210,20 +280,20 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     for (const item of group.dispositions) expect(audit).toContain(item.sourceSpan);
   });
   it("does not turn the RHU T9 methodological request into a Project omission", () => {
-    const c = records.find(record => record.id === "RHU-T09")!.contribution;
+    const c = portableFixture("SYNTHETIC_DISCOURSE_AND_MATERIAL");
     const result = projectActionableSourceCoverage(c);
     expect(result.dispositions.find(item => item.sourceSpan === "en restant pragmatique")?.classification).toBe("DISCOURSE_ACT");
     expect(result.dispositions.some(item => item.actionable && item.sourceSpan.includes("adultes"))).toBe(true);
     expect(result.dispositions.some(item => item.actionable && item.sourceSpan.includes("registre parallèle"))).toBe(true);
   });
   it("does not trigger comprehension warning from provenance/legacy status alone", () => {
-    const c = structuredClone(records.find(record => record.id === "AVC-T05")!.contribution);
+    const c = structuredClone(portableFixture("SYNTHETIC_REPRESENTED_AUDIT"));
     c.scientificContent.ambiguities.push({ ...c.scientificContent.candidateObjects[0], itemId: "legacy-provenance", content: "Détail de provenance",
       epistemicBoundary: { ...c.scientificContent.candidateObjects[0].epistemicBoundary, epistemicStatus: "UNREPRESENTED_SOURCE_SPAN" } });
     expect(render(c)).not.toContain("Projet en construction · des points restent à préciser.");
   });
-  it("shows no partial-comprehension warning for the represented AVC T5/confirmation", () => {
-    const c = records.find(record => record.id === "AVC-T05")!.contribution;
+  it("shows no partial-comprehension warning for a represented finding and retains it in the audit", () => {
+    const c = portableFixture("SYNTHETIC_REPRESENTED_AUDIT");
     expect(projectActionableSourceCoverage(c).actionableItems).toHaveLength(0);
     const markup = render(c);
     expect(markup).not.toContain("Projet en construction · des points restent à préciser.");
@@ -231,6 +301,7 @@ describe("N5b — actionable coverage, immutable candidate and complete audit", 
     expect(markup).not.toContain('data-testid="source-coverage-audit"');
     const audit = renderAudit(c);
     expect(audit).toContain('data-testid="source-coverage-audit"');
-    expect(audit).toContain("CMRO2 devront être validés");
+    const coverageSection = audit.match(/data-testid="source-coverage-audit"[\s\S]*?<\/section>/u)?.[0];
+    expect(coverageSection).toContain("Les mesures CMRO2 devront être validées.");
   });
 });

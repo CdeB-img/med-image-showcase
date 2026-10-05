@@ -1,10 +1,7 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { evaluatePersistentSourceCoverage, sourceCoverageFindings } from "../../persistent-source-coverage";
 import { contributionFromPersistentDelta, validatePersistentProjectDelta,
-  materializePersistentSourceAnchors, constrainPersistentRelationsToCanonicalSignatures, validatePersistentProviderContract,
   type PersistentProjectDeltaCandidate, type PersistentProjectDeltaChange, type PersistentTemporalQualification, type PersistentProjectRelation,
 } from "../../product-bridge";
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
@@ -162,30 +159,43 @@ describe("N5 — granular source coverage, separate from scientific truth and ad
     const markup = renderToStaticMarkup(<ContributionReview contribution={contribution} candidate={prepared} status="PENDING"
       onConfirm={() => {}} onCorrect={() => {}} onReject={() => {}} />);
     expect(markup).not.toContain("Passages à vérifier");
-    expect(markup).toContain("Compréhension partielle");
+    expect(markup).toContain('data-testid="source-coverage-review"');
+    expect(markup).toContain("des points restent à préciser");
     expect(markup).toContain("Pas de PET.");
     expect(markup).not.toContain("À clarifier");
     expect(contribution.scientificContent.clarificationNeeds).toEqual([]);
     expect(contribution.decisionBoundary.projectWriteAuthorized).toBe(false);
     expect(contribution.epistemicBoundary.candidateIsAdopted).toBe(false);
   });
-  it.each(["AVC-T02", "AVC-T03", "RHU-T03", "RHU-T09"])("preserves validated recorded objects/links/values and N1/references for %s", id => {
-    const record = JSON.parse(readFileSync(resolve("validation/protocol-designer-v1-human-conversation-causal-audit-02", `${id}-recorded-provider.json`), "utf8"));
-    const sections: string[] = record.request.input.split("\n\n");
-    const catalog = JSON.parse(sections.find(section => section.startsWith("CATALOGUE D'ANCRAGES")).split("\n").slice(1).join("\n"));
-    const raw: string = catalog.anchors.find(anchor => anchor.fragmentKind === "FULL_TURN").exactText;
-    expect(validatePersistentProviderContract(record.output).valid).toBe(true);
-    const materialized = materializePersistentSourceAnchors({ value: record.output, catalog, currentUserTurn: { turnId: catalog.currentUserTurnId, content: raw } });
-    expect(materialized.valid).toBe(true);
-    const constrained = constrainPersistentRelationsToCanonicalSignatures(materialized.value, null);
-    const conversation = { conversationId: "test", language: "fr" as const, turns: [{ turnId: catalog.currentUserTurnId, role: "USER" as const, content: raw }] };
-    const checked = validatePersistentProjectDelta(constrained.value, raw, null, conversation);
+  it.each([
+    { family: "two independent analysis plans", raw: "Analyse Alpha et analyse Beta.", changes: [
+      object("analysis:alpha", "Analyse Alpha", "Analyse Alpha", "ANALYSIS_SPECIFICATION"),
+      object("analysis:beta", "Analyse Beta", "analyse Beta", "ANALYSIS_SPECIFICATION"),
+    ], minimumAnalysis: 2 },
+    { family: "two stated populations", raw: "Deux cohortes prospectives indépendantes :\n- affection Alpha : mesure initiale ;\n- affection Beta : mesure initiale.", changes: [
+      object("population:alpha", "Cohorte affection Alpha", "- affection Alpha :", "POPULATION"),
+      object("population:beta", "Cohorte affection Beta", "- affection Beta :", "POPULATION"),
+    ], minimumAnalysis: 0 },
+    { family: "explicit negative constraint", raw: "Pas de PET.", changes: [
+      object("constraint:pet", "Pas de PET", "Pas de PET.", "CONSTRAINT"),
+    ], minimumAnalysis: 0 },
+    { family: "stated acquisition", raw: "IRM à J1.", changes: [
+      object("acquisition:mri", "IRM à J1", "IRM à J1.", "ACQUISITION"),
+    ], minimumAnalysis: 0 },
+  ])("preserves validated source-backed objects without historical provider output: $family", ({ raw, changes, minimumAnalysis }) => {
+    // FIXTURE_PURPOSE: objects, values, and source-backed adoption across four semantic shapes.
+    // SOURCE_CLASS: SYNTHETIC_CURRENT_CONTRACT; ORIGINAL_SOURCE_FAMILY: AVC/RHU causal replays; SANITIZATION: YES.
+    // CURRENT_CONTRACT_PROTECTED: source-backed objects survive bridge validation and explicit human adoption.
+    const candidate = { changes };
+    const before = JSON.stringify(candidate);
+    const conversation = { conversationId: "test", language: "fr" as const, turns: [{ turnId: "turn:synthetic", role: "USER" as const, content: raw }] };
+    const checked = validatePersistentProjectDelta(candidate, raw, null, conversation);
     expect(checked.validation.valid).toBe(true);
     const original = JSON.stringify(checked.candidate);
     const contribution = contributionFromPersistentDelta({ candidate: checked.candidate, conversation, currentProject: null });
     expect(JSON.stringify(checked.candidate)).toBe(original);
     expect(prepareResearchProjectContributionCandidate(contribution, null).canonicalChangeSet.status).toBe("READY_FOR_HUMAN_DECISION");
-    if (id.startsWith("AVC")) expect(checked.candidate.changes.filter(change => change.proposedType === "ANALYSIS_SPECIFICATION").length).toBeGreaterThanOrEqual(2);
-    if (id === "RHU-T03") expect(checked.candidate.expectedVariableOccasions).toHaveLength(6);
+    expect(checked.candidate.changes.filter(change => change.proposedType === "ANALYSIS_SPECIFICATION").length).toBeGreaterThanOrEqual(minimumAnalysis);
+    expect(JSON.stringify(candidate)).toBe(before);
   });
 });
