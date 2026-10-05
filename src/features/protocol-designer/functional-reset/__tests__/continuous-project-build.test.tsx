@@ -1,4 +1,5 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
+import { offlineDocReceipt, resetOfflineArchiveClients } from "../../../document-projection/__tests__/offline-archive-client";
 import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid, projectPreparationReview } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -47,7 +48,7 @@ const bridge = vi.hoisted(() => vi.fn());
 const recoveryRead = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
   requestProtocolDesignerBridge: bridge, readWorkingDraftPreparation: recoveryRead }));
-afterEach(() => { cleanup(); bridge.mockReset(); recoveryRead.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); resetOfflineArchiveClients(); bridge.mockReset(); recoveryRead.mockReset(); localStorage.clear(); vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNTHETIC", model: "gpt-5.6-terra", status: "completed",
   output: [{ content: [{ type: "output_text", text: text.trimStart().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const sessionFor = (text: string = DOMAINS[1].text) => {
@@ -1419,8 +1420,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
         crfRows:source.crf.fields.map((field,index)=>({variableRef:field.canonicalVariableId,variableId:`FIELD_${index}`,label:field.label,
           domain:"À préciser",visit:"À préciser",definition:field.label,entryType:"Texte",unit:null,categories:null,dataOrigin:"UNSPECIFIED",
           source:"À préciser",required:"À préciser",condition:null,derivedFrom:[],derivation:null,controls:[],analysisImpact:null,specificationStatus:"UNSPECIFIED"}))};
+      const documentDraftPack = materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt});
       return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
-        observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
+        observability:{providerCalls:[]},documentDraftPack,
+        documentPersistenceReceipt: await offlineDocReceipt(initial.sessionId, project, req.observabilityContext!.clientRequestId, documentDraftPack)};
     });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{
       if (next.drciDraftPacks?.length) {
@@ -1442,7 +1445,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     if (saveDocuments === "saved") expect(saved.drciDraftPacks?.[0].project).toEqual({ projectId: saved.project?.projectId,
       projectVersion: saved.project?.versionId, projectDigest: saved.project?.projectDigest });
     for (const kind of DRCI_DOCUMENT_KINDS) expect(screen.getAllByText(`LOCAL_SYNTHETIC ${kind}`,{exact:true}).length).toBeGreaterThan(0);
-    if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("non enregistrés");
+    if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("lien local non enregistré");
     if (saveDocuments === "saved") {
       fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
       await waitFor(() => expect(saved.drciDraftPacks).toHaveLength(2));
@@ -1479,8 +1482,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
         crfRows:source.crf.fields.map((field,index)=>({variableRef:field.canonicalVariableId,variableId:`FIELD_${index}`,label:field.label,
           domain:"À préciser",visit:"À préciser",definition:field.label,entryType:"Texte",unit:null,categories:null,dataOrigin:"UNSPECIFIED",
           source:"À préciser",required:"À préciser",condition:null,derivedFrom:[],derivation:null,controls:[],analysisImpact:null,specificationStatus:"UNSPECIFIED"}))};
+      const documentDraftPack = materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt});
       return {apiVersion:"1.0.0",assistantReply:"Dossier de travail disponible.",assistantTurn:{turnId:"doc-answer",role:"NOXIA",content:"Dossier de travail disponible."},
-        observability:{providerCalls:[]},documentDraftPack:materializeDrciDraftPack(generated,{project,packet,generatedAt:initial.updatedAt})};
+        observability:{providerCalls:[]},documentDraftPack,
+        documentPersistenceReceipt: await offlineDocReceipt(initial.sessionId, project, req.observabilityContext!.clientRequestId, documentDraftPack)};
     });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));

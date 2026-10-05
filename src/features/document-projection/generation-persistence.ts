@@ -1,6 +1,6 @@
 import type { DocumentProjection } from "./types.js";
 import type { DrciDraftPack } from "./drci-draft-contract.js";
-import type { StudyDeliverableFile } from "./study-deliverable-portfolio.js";
+import type { StudyDeliverableFile } from "./study-deliverable-contract.js";
 
 /** Physical DOC persistence contracts. Native identities and scientific states are unchanged. */
 export const DOC_ARCHIVE_CONTRACT = "DOC_GENERATION_ARCHIVE_V1" as const;

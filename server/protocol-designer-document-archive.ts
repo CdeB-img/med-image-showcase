@@ -41,6 +41,7 @@ export type DocumentArchiveStore = Readonly<{
   receipt(access: DocumentArchiveAccess, requestId: string): Promise<DocumentPersistenceReceipt | null>;
   history(access: DocumentArchiveAccess, beforeOrdinal?: number): Promise<DocumentHistoryPage>;
   body(access: DocumentArchiveAccess, generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
+  reject(access: DocumentArchiveAccess, requestId: string): Promise<void>;
 }>;
 const string = (v: unknown, max: number): v is string => typeof v === "string" && v.length > 0 && v.length <= max;
 export const assertDocumentArchiveBody = (body: DocumentGenerationBody, projectId: string) => {
@@ -81,6 +82,7 @@ export const assertDocumentArchiveBody = (body: DocumentGenerationBody, projectI
 };
 export const migrateDocumentArchive = async (sql: Sql) => {
   await sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "migrations", "002_doc_generation_archive.sql"), "utf8"));
+  await sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "migrations", "003_doc_archive_terminal_reservations.sql"), "utf8"));
 };
 
 export const createPostgresDocumentArchive = (connection: string, snapshots: Pick<ProtocolDesignerProjectSnapshotStore, "resolve">,
@@ -105,21 +107,24 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       }
       const { sessionKey, projectId } = await authorize(access);
       return sql.begin(async tx => {
+        await tx`select pg_advisory_xact_lock(hashtext('noxia:doc-archive-write-capacity'))`;
         await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
         const rows = await tx`select * from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${intent.requestId}`;
         if (rows[0]) {
           const row = rows[0];
+          if (row.state === "REJECTED") throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_TERMINAL");
           if (row.request_sha256 !== intent.requestSha256 || Number(row.reserved_bytes) !== intent.reservedBytes) {
             throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_DIVERGENCE");
           }
           return { ...intent, generatedAt: String(row.generated_at), receipt: receiptFor(row) };
         }
-        const stats = (await tx`select count(*)::int as generations, coalesce(sum(case when state = 'COMMITTED' then body_bytes else reserved_bytes end), 0)::text as bytes,
+        const stats = (await tx`select count(*) filter (where state != 'REJECTED')::int as generations, coalesce(sum(case when state = 'COMMITTED' then body_bytes when state = 'RESERVED' then reserved_bytes else 0 end), 0)::text as bytes,
           count(*) filter (where state = 'RESERVED')::int as writes, coalesce(max(ordinal), 0)::text as last_ordinal
           from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}`)[0];
         if (Number(stats.generations) >= capacity.maxGenerationsPerProject || intent.reservedBytes > capacity.maxBodyBytesPerGeneration
           || Number(stats.bytes) + intent.reservedBytes > capacity.maxTotalDocBytesPerProject) throw new DocumentArchiveError("DOC_ARCHIVE_CAPACITY_EXCEEDED", 413);
-        if (Number(stats.writes) >= capacity.maxConcurrentDocWrites) throw new DocumentArchiveError("DOC_ARCHIVE_WRITE_CAPACITY_EXCEEDED", 429);
+        const globalWrites = (await tx`select count(*)::int as active_writes from noxia_durable.doc_generation where state = 'RESERVED'`)[0];
+        if (Number(globalWrites.active_writes) >= capacity.maxConcurrentDocWrites) throw new DocumentArchiveError("DOC_ARCHIVE_WRITE_CAPACITY_EXCEEDED", 429);
         await tx`insert into noxia_durable.doc_generation (session_key_hash, project_id, request_id, request_sha256, generated_at, reserved_bytes, state, ordinal)
           values (${sessionKey}, ${projectId}, ${intent.requestId}, ${intent.requestSha256}, ${intent.generatedAt}, ${intent.reservedBytes}, 'RESERVED', ${Number(stats.last_ordinal) + 1})`;
         return { ...intent, receipt: null };
@@ -134,6 +139,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
         await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
         const row = (await tx`select * from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
         if (!row) throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_NOT_FOUND", 404);
+        if (row.state === "REJECTED") throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_TERMINAL");
         const existing = receiptFor(row);
         if (existing) {
           if (existing.generation.bodySha256 !== hash || existing.generation.generationId !== generationId
@@ -145,8 +151,10 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
         if (displayVersion !== undefined && (!Number.isSafeInteger(displayVersion) || displayVersion < 1)) throw new DocumentArchiveError("DOC_ARCHIVE_VERSION_INVALID", 400);
         const prior = (await tx`select generation_id from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}
           and state = 'COMMITTED' order by ordinal desc limit 1`)[0];
+        const labels = (await tx`select coalesce(max((metadata->>'displayVersion')::int), 0)::int as last_label from noxia_durable.doc_generation
+          where session_key_hash = ${sessionKey} and project_id = ${projectId} and state = 'COMMITTED' and metadata->>'family' = ${body.native.family}`)[0];
         const ref: DocumentGenerationRef = { contract: DOC_ARCHIVE_CONTRACT, generationId, family: body.native.family,
-          project: documentNativeProject(body.native), ordinal: Number(row.ordinal), displayVersion: displayVersion ?? Number(row.ordinal),
+          project: documentNativeProject(body.native), ordinal: Number(row.ordinal), displayVersion: displayVersion ?? Number(labels.last_label) + 1,
           generatedAt: String(row.generated_at), predecessorId: documentNativePredecessor(body.native) ?? (prior ? String(prior.generation_id) : null),
           bodySha256: hash, bodyBytes: bytes, files: body.files.map(documentFileManifest), persistenceState: "COMMITTED" };
         await tx`insert into noxia_durable.doc_generation_body (session_key_hash, project_id, request_id, native_body_text, body_sha256)
@@ -183,6 +191,14 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       const body = JSON.parse(text) as DocumentGenerationBody;
       assertDocumentArchiveBody(body, projectId);
       return { ref, body };
+    },
+    async reject(access, requestId) {
+      const { sessionKey, projectId } = await authorize(access);
+      await sql.begin(async tx => {
+        await tx`select pg_advisory_xact_lock(hashtext(${`${sessionKey}\u0000${projectId}`}))`;
+        await tx`update noxia_durable.doc_generation set state = 'REJECTED'
+          where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId} and state = 'RESERVED'`;
+      });
     },
   };
 };

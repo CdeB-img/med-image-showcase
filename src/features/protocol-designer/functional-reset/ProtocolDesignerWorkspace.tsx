@@ -179,7 +179,9 @@ export default function ProtocolDesignerWorkspace({
         setSessionSaveWarning(warning);
       }
       if (!saved.scientificPersisted && session.drciDraftPacks?.length) {
-        const documentWarning = "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.";
+        const documentWarning = session.documentArchive?.currentGenerationId
+          ? "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet."
+          : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.";
         if (saveWarningRef.current.document !== documentWarning) {
           saveWarningRef.current.document = documentWarning;
           setDocumentSaveWarning(documentWarning);

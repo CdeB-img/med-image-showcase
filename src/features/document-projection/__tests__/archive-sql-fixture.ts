@@ -18,15 +18,21 @@ export const archiveSqlFixture = () => {
       rows.push({ session_key_hash: v[0], project_id: v[1], request_id: v[2], request_sha256: v[3], generated_at: v[4], reserved_bytes: v[5], state: "RESERVED", ordinal: v[6] }); return [];
     }
     if (query.startsWith("update noxia_durable.doc_generation")) {
+      if (query.includes("state = 'REJECTED'")) {
+        const row = rows.find(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.request_id === v[2] && r.state === "RESERVED");
+        if (row) row.state = "REJECTED"; return [];
+      }
       if (failCommit) throw new Error("OFFLINE_METADATA_WRITE_FAILURE");
       const row = rows.find(r => r.session_key_hash === v[4] && r.project_id === v[5] && r.request_id === v[6])!;
       Object.assign(row, { state: "COMMITTED", generation_id: v[0], body_sha256: v[1], body_bytes: v[2], metadata: structuredClone(v[3]) }); return [];
     }
     if (query.startsWith("select count(*)")) {
+      if (query.includes("active_writes")) return [{ active_writes: rows.filter(r => r.state === "RESERVED").length }];
       const project = rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1]);
-      return [{ generations: project.length, bytes: project.reduce((sum, r) => sum + Number(r.state === "COMMITTED" ? r.body_bytes : r.reserved_bytes), 0),
+      return [{ generations: project.filter(r => r.state !== "REJECTED").length, bytes: project.reduce((sum, r) => sum + Number(r.state === "COMMITTED" ? r.body_bytes : r.state === "RESERVED" ? r.reserved_bytes : 0), 0),
         writes: project.filter(r => r.state === "RESERVED").length, last_ordinal: Math.max(0, ...project.map(r => Number(r.ordinal))) }];
     }
+    if (query.startsWith("select coalesce(max((metadata")) return [{ last_label: Math.max(0, ...rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.state === "COMMITTED" && (r.metadata as { family: string }).family === v[2]).map(r => Number((r.metadata as { displayVersion: number }).displayVersion))) }];
     if (query.startsWith("select g.metadata")) {
       const row = rows.find(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.generation_id === v[2] && r.state === "COMMITTED");
       return row ? [{ metadata: row.metadata, ...bodies.find(b => b.request_id === row.request_id && b.session_key_hash === row.session_key_hash && b.project_id === row.project_id) }] : [];

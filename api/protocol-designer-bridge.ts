@@ -1,4 +1,8 @@
 import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate, WorkingDraftArbitrationCollisionError } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
+import { executeDocumentArchiveOperation, documentArchiveAccess, sharedDocumentArchive } from "../server/protocol-designer-document-archive-http.js";
+import { DocumentArchiveError, docSha256, documentArchiveCapacity, type DocumentArchiveStore, type DocumentArchiveAccess } from "../server/protocol-designer-document-archive.js";
+import { freezeDocumentGeneration } from "../src/features/document-projection/generation-exports.js";
+import { drciDraftPackArtifacts } from "../src/features/document-projection/drci-draft-pack.js";
 import { rehydrateStudyProposal, planStudyProposalRecomputation, assertScopedStudyProposalRecomputation, completeStudyProposalRecomputation } from "../src/features/protocol-designer/functional-reset/study-proposal-standard.js";
 import { prepareDrciDraftPack, materializeDrciDraftPack, type RetainedDrciProtocol } from "../src/features/document-projection/drci-draft-contract.js";
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
@@ -152,6 +156,8 @@ export const executeProtocolDesignerBridge = async (input: {
   autonomousProjectBuild?: boolean;
   fetchImpl?: typeof fetch;
   now?: () => number;
+  /** Stable DOC intent time; does not alter Conversation/Working Draft timestamps. */
+  documentGeneratedAt?: string;
   providerAttemptPolicy?: ProviderAttemptPolicy;
   /** Server-owned retained provider evidence; never supplied by browser JSON. */
   readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
@@ -334,6 +340,7 @@ export const executeProtocolDesignerBridge = async (input: {
     if (input.chatRuntime !== "TERRA" || !request.currentProject || request.evaluatePersistentDelta || !request.documentDraftRequest)
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "DRCI_DRAFT_BOUNDARY_REQUIRED", message: "Une version adoptée et son autorisation documentaire sont requises." } } };
     try {
+      const documentGeneratedAt = input.documentGeneratedAt ?? createdAt;
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareDrciDraftPack(request.currentProject, request.documentDraftRequest);
       const retained = await input.readRetainedDocumentProtocol?.(packet, observationContext);
@@ -343,7 +350,7 @@ export const executeProtocolDesignerBridge = async (input: {
             .validateRetainedDrciProtocol(packet, retained);
           materializeDrciDraftPack({ documents: [...originalProtocol.documents, retained.synopsisRevision.original,
             ...retained.synopsisRevision.frozenCompanion.documents], crfRows: retained.synopsisRevision.frozenCompanion.crfRows },
-            { project: request.currentProject, packet, generatedAt: createdAt });
+            { project: request.currentProject, packet, generatedAt: documentGeneratedAt });
           throw new Error("DOC_REVISION_ORIGINAL_NOT_REJECTED");
         } catch (error) {
           if (!(error instanceof Error) || error.message !== "DRCI_SYNOPSIS_WORD_BOUND_EXCEEDED") throw error;
@@ -352,7 +359,7 @@ export const executeProtocolDesignerBridge = async (input: {
       const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained,
         input.openAiTransport);
-      const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: createdAt,
+      const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: documentGeneratedAt,
         reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision });
       const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: reply,
@@ -815,7 +822,7 @@ export const handleProtocolDesignerBridge = async (
   environment: Record<string, string | undefined> = process.env,
   dependencies: { fetchImpl?: typeof fetch; now?: () => number; providerAttemptPolicy?: ProviderAttemptPolicy;
     durableGuard?: PublicProtocolDesignerDurableGuard;
-    projectSnapshotStore?: ProtocolDesignerProjectSnapshotStore } = {},
+    projectSnapshotStore?: ProtocolDesignerProjectSnapshotStore; documentArchive?: DocumentArchiveStore } = {},
 ) => {
   if (isProtocolDesignerTranscriptionRequest(request.body)) {
     return handleProtocolDesignerTranscription(request, response, environment, {
@@ -829,15 +836,25 @@ export const handleProtocolDesignerBridge = async (
     return response.status(415).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_CONTENT_TYPE", message: "Un corps JSON est requis." } });
   }
   if (!validOrigin(request.headers)) return response.status(403).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "ORIGIN_NOT_ALLOWED", message: "Origine non autorisée." } });
+  let body: unknown = request.body;
+  if (typeof body === "string") {
+    try { body = JSON.parse(body); } catch { return response.status(400).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "JSON invalide." } }); }
+  }
+  // Non-provider archive reads retain origin + exact Project/session/network authorization.
+  if (body && typeof body === "object" && !Array.isArray(body) && "operation" in body
+    && typeof body.operation === "string" && body.operation.startsWith("DOC_ARCHIVE_")) {
+    const result = await executeDocumentArchiveOperation({ body: body as Record<string, unknown>,
+      proof: header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
+      clientAddress: header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous",
+      connection: durableGuardConnectionString(environment), environment,
+      snapshots: dependencies.projectSnapshotStore, archive: dependencies.documentArchive });
+    return response.status(result.status).json(result.body);
+  }
   if (!protocolDesignerStandardConversationCallsAllowed(environment)) return response.status(503).json({
     apiVersion: PRODUCT_BRIDGE_API_VERSION,
     error: { code: "STANDARD_CONVERSATION_DISABLED", message: "Protocol Designer est temporairement indisponible en production." },
     observability: providerCallRequestObservability([]),
   });
-  let body: unknown = request.body;
-  if (typeof body === "string") {
-    try { body = JSON.parse(body); } catch { return response.status(400).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "JSON invalide." } }); }
-  }
   // The existing function also admits a non-provider upload of an already
   // adopted Project. This separate operation does not alter the Chat body cap.
   if (body && typeof body === "object" && !Array.isArray(body)
@@ -993,6 +1010,50 @@ export const handleProtocolDesignerBridge = async (
     }
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
+  let doc: { archive: DocumentArchiveStore; access: DocumentArchiveAccess; requestId: string; generatedAt: string } | null = null;
+  if (workingDraftRequest?.documentDraftRequest) {
+    try {
+      const project = workingDraftRequest.currentProject;
+      const context = workingDraftRequest.observabilityContext;
+      if (!project || !context?.sessionId) throw new DocumentArchiveError("DOC_ARCHIVE_PROJECT_REQUIRED", 403);
+      const access = documentArchiveAccess({ sessionId: context.sessionId,
+        projectRef: { projectId: project.projectId, versionId: project.versionId, projectDigest: project.projectDigest } },
+        header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
+        header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous");
+      const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
+      const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
+      if (!archive) throw new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
+      const requestId = context.clientRequestId;
+      const admitted = await archive.admit(access, { requestId, requestSha256: docSha256(JSON.stringify(body)),
+        generatedAt: new Date(dependencies.now?.() ?? Date.now()).toISOString(),
+        reservedBytes: documentArchiveCapacity(environment).maxBodyBytesPerGeneration });
+      doc = { archive, access, requestId, generatedAt: admitted.generatedAt };
+      if (admitted.receipt) {
+        const recovered = await archive.body(access, admitted.receipt.generation.generationId);
+        if (recovered.body.native.family !== "DRCI") throw new DocumentArchiveError("DOC_ARCHIVE_NATIVE_FAMILY_INVALID");
+        return response.status(200).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+          assistantReply: "Documents enregistrés retrouvés.", documentDraftPack: recovered.body.native.value,
+          documentPersistenceReceipt: admitted.receipt, observability: { calls: 0, ...providerCallRequestObservability([]) } });
+      }
+    } catch (error) {
+      const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError
+        ? error : new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
+      return response.status(failure.status).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: failure.code, message: "L’archive documentaire ne peut pas accepter cette demande. Aucun appel de rédaction n’a été lancé." },
+        observability: providerCallRequestObservability([]) });
+    }
+  }
+  const archiveResult = async (result: { status: number; body: unknown }) => {
+    const candidate = result.body as Partial<ProductBridgeResponse> | null;
+    if (!doc || result.status !== 200 || !candidate?.documentDraftPack || !workingDraftRequest?.currentProject) return result;
+    const native = { family: "DRCI" as const, value: candidate.documentDraftPack };
+    const frozen = await freezeDocumentGeneration({ native,
+      artifacts: drciDraftPackArtifacts(native.value, workingDraftRequest.currentProject), sha256: docSha256,
+      buildCommit: /^[a-f0-9]{40}$/u.test(environment.VERCEL_GIT_COMMIT_SHA ?? "") ? environment.VERCEL_GIT_COMMIT_SHA : null,
+      renderOrigin: "GENERATION_TIME" });
+    const receipt = await doc.archive.commit(doc.access, doc.requestId, frozen);
+    return { ...result, body: { ...candidate, documentPersistenceReceipt: receipt } };
+  };
   if (workingDraftRequest?.prepareWorkingDraft) {
     try { preflightWorkingDraftKnowledgeSource(workingDraftRequest); }
     catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
@@ -1008,12 +1069,20 @@ export const handleProtocolDesignerBridge = async (
       remoteAddress: request.socket?.remoteAddress,
       body,
     });
-    if ("recovered" in publicAdmission) return response.status(publicAdmission.status).json(publicAdmission.body);
-    if ("code" in publicAdmission) return response.status(publicAdmission.status).json({
+    if ("recovered" in publicAdmission) {
+      try {
+        const recovered = await archiveResult(publicAdmission);
+        return response.status(recovered.status).json(recovered.body);
+      } catch { return response.status(503).json({ error: { code: "DOC_ARCHIVE_PERSISTENCE_FAILED" } }); }
+    }
+    if ("code" in publicAdmission) {
+      if (doc) await doc.archive.reject(doc.access, doc.requestId);
+      return response.status(publicAdmission.status).json({
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
       error: { code: publicAdmission.code, message: publicAdmission.message },
       observability: providerCallRequestObservability([]),
     });
+    }
     const providerFetch = durableGuard.createBudgetedFetch(publicAdmission, dependencies.fetchImpl ?? fetch);
     const result = await executeProtocolDesignerBridge({
       body,
@@ -1026,10 +1095,28 @@ export const handleProtocolDesignerBridge = async (
       autonomousProjectBuild: environment.VITE_AUTONOMOUS_PROJECT_BUILD === "ON",
       fetchImpl: providerFetch,
       now: dependencies.now,
+      documentGeneratedAt: doc?.generatedAt,
       providerAttemptPolicy: dependencies.providerAttemptPolicy,
     });
-    await durableGuard.completeRequest(publicAdmission, result.status, result.body);
-    return response.status(result.status).json(result.body);
+    let archived: { status: number; body: unknown };
+    if (doc && result.status !== 200 && !JSON.stringify(result.body).includes("UNKNOWN_AFTER_DISPATCH")) {
+      await doc.archive.reject(doc.access, doc.requestId);
+    }
+    try { archived = await archiveResult(result); }
+    catch {
+      // Preserve the usable native result as provider/application recovery evidence,
+      // not as ordinary DOC history. An explicit exact-request recovery performs
+      // archive commit only; the existing admission prohibits a new dispatch.
+      await durableGuard.completeRequest(publicAdmission, result.status, result.body);
+      return response.status(503).json({ error: { code: "DOC_ARCHIVE_PERSISTENCE_FAILED" },
+        observability: (result.body as Partial<ProductBridgeResponse>).observability });
+    }
+    try { await durableGuard.completeRequest(publicAdmission, archived.status, archived.body); }
+    catch (error) {
+      if (!doc) throw error;
+      return response.status(503).json({ error: { code: "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED" } });
+    }
+    return response.status(archived.status).json(archived.body);
   } catch (error) {
     if (error instanceof DurablePublicGuardError) return response.status(error.status).json({
       apiVersion: PRODUCT_BRIDGE_API_VERSION,

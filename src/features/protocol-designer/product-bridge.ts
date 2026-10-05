@@ -1008,6 +1008,7 @@ export type ProductBridgeResponse = {
   workingDraftUpdate?: import("./functional-reset/continuous-project-build.js").WorkingDraftUpdate;
   workingStudyProposal?: import("../scientific-thinking/contextual-study-proposal.js").StudyProposalComposition | null;
   documentDraftPack?: import("../document-projection/drci-draft-contract.js").DrciDraftPack;
+  documentPersistenceReceipt?: import("../document-projection/generation-persistence.js").DocumentPersistenceReceipt;
   assistantReply: string;
   assistantTurn: ScientificInterpretationTurn;
   scientificConversation?: import("../scientific-thinking/scientific-collaborator-conversation.js").ScientificConversationReceipt;

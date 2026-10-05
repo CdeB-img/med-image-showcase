@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { nextDocumentGenerationVersion } from "@/features/document-projection/history";
+import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity } from "@/features/document-projection/generation-persistence";
 import { useRef } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
@@ -81,13 +82,23 @@ export function useDocumentGeneration(input: {
             const pack = response.documentDraftPack;
             if (!pack || !latest.project || latest.sessionId !== sourceSession.sessionId || !isDrciDraftPackCurrent(pack, latest.project))
               throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
+            const receipt = response.documentPersistenceReceipt;
+            if (!receipt || receipt.contract !== DOC_ARCHIVE_CONTRACT || receipt.requestId !== nativeRequest.observabilityContext?.clientRequestId
+              || receipt.generation.persistenceState !== "COMMITTED"
+              || receipt.generation.generationId !== documentNativeIdentity({ family: "DRCI", value: pack })
+              || receipt.generation.project.projectId !== latest.project.projectId
+              || receipt.generation.project.projectVersion !== latest.project.versionId
+              || receipt.generation.project.projectDigest !== latest.project.projectDigest) throw new Error("DOC_ARCHIVE_COMMIT_NOT_VERIFIED");
             const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents,
               drciDraftPacks: [...latest.drciDraftPacks ?? [], pack], openDocumentProjectionId: null,
+              documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: latest.project.projectId, historyState: "NOT_LOADED",
+                currentGenerationId: receipt.generation.generationId, currentProjectionId: null, pendingRequestId: null,
+                legacyCoverageVerified: false },
               documentRetryUnsafe: false,
               entries: latest.entries,
               updatedAt: now };
             const saved = (await saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange)).scientificPersisted;
-            setDocumentSaveWarning(saved ? null : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
+            setDocumentSaveWarning(saved ? null : "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.");
             latestSessionRef.current = nextSession; setSession(nextSession);
             setDeliverableWorkspaceOpen(true);
             setDocumentGenerationComplete(true);
@@ -96,6 +107,7 @@ export function useDocumentGeneration(input: {
             // Only a transport failure exposes retrieval. Terminal/UNKNOWN
             // results must not be turned into a fresh paid generation.
             documentRecoveryRef.current = error instanceof TypeError
+              || error instanceof ProductBridgeClientError && ["DOC_ARCHIVE_PERSISTENCE_FAILED", "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED"].includes(error.code)
               ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
             const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error, records);
             setSession(current => current.sessionId !== sourceSession.sessionId

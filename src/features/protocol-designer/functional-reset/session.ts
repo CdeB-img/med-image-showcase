@@ -249,6 +249,8 @@ export type ProductBridgeTrace = {
 };
 
 export type FunctionalResetSession = {
+  /** DOC-owned lightweight pointers; no historical body or provider-ledger identity. */
+  documentArchive?: import("../../document-projection/generation-persistence.js").DocumentArchivePointer;
   drciDraftPacks?: readonly import("../../document-projection/drci-draft-contract.js").DrciDraftPack[];
   /** A dispatch with an unknown outcome cannot be retried as a new paid operation. */
   documentRetryUnsafe?: boolean;

@@ -3,7 +3,7 @@ import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { sourceShortReference } from "../knowledge-engine/project-source-library.js";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import { presentResearchProjectAssertion } from "../research-project-construction/contribution-owner-boundary.js";
-import type { StudyDeliverablePortfolio, StudyDeliverableArtifact } from "./study-deliverable-portfolio.js";
+import type { StudyDeliverablePortfolio, StudyDeliverableArtifact } from "./study-deliverable-contract.js";
 import { DRCI_DOCUMENT_KINDS, isDrciDraftPackCurrent, polishDrciEditorialText, pragmaticDimensioningOpenItems, type DrciDraftPack } from "./drci-draft-contract.js";
 export * from "./drci-draft-contract.js";
 const escapeHtml = (value: string) => value.replace(/[&<>"']/gu, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]!);
@@ -292,15 +292,19 @@ export const drciDraftPackFiles = (pack: DrciDraftPack) => pack.documents.map(do
   return { kind: doc.kind, title, markdown, html };
 });
 
-export const projectDrciDraftPackPortfolio = (portfolio: StudyDeliverablePortfolio, pack: DrciDraftPack, project: ResearchProjectOwnerProjection): StudyDeliverablePortfolio => {
+export const drciDraftPackArtifacts = (pack: DrciDraftPack, project: ResearchProjectOwnerProjection): StudyDeliverableArtifact[] => {
   const current = isDrciDraftPackCurrent(pack, project);
-  const documents = drciDraftPackFiles(pack).map((doc): StudyDeliverableArtifact => ({ artifactId: `drci-document:${logicalDigest([pack.packDigest, doc.kind])}`,
+  return drciDraftPackFiles(pack).map((doc): StudyDeliverableArtifact => ({ artifactId: `drci-document:${logicalDigest([pack.packDigest, doc.kind])}`,
     artifactVersion: "1.0.0", kind: doc.kind, sourceProject: pack.project, name: doc.title, status: current ? "PARTIAL" : "STALE", preview: current ? "Version rédigée pour revue humaine" : "À actualiser — version antérieure du projet",
     files: [{ fileName: `${doc.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: doc.html },
       { fileName: `${doc.kind.toLowerCase()}.md`, format: "MARKDOWN", mimeType: "text/markdown;charset=utf-8", content: doc.markdown }],
     sourceObjectRefs: pack.sourceFacts.map(item => item.ref), canonicalVariableRefs: pack.crfRows.map(row => row.variableRef),
     missingDecisions: pack.documents.find(item => item.kind === doc.kind)!.missingElements,
     limitations: [current ? "Rédaction candidate, revue humaine requise" : "STALE", "Ni autorisation d'exécution ni validation réglementaire"] }));
+};
+export const projectDrciDraftPackPortfolio = (portfolio: StudyDeliverablePortfolio, pack: DrciDraftPack, project: ResearchProjectOwnerProjection): StudyDeliverablePortfolio => {
+  const current = isDrciDraftPackCurrent(pack, project);
+  const documents = drciDraftPackArtifacts(pack, project);
   const artifacts = [...documents, ...portfolio.artifacts.filter(item => !DRCI_DOCUMENT_KINDS.includes(item.kind as typeof DRCI_DOCUMENT_KINDS[number]))];
   const portfolioId = `study-deliverable-portfolio:${logicalDigest([portfolio.portfolioId, pack.packDigest, current])}`;
   return { ...portfolio, portfolioId, artifacts, manifest: { ...portfolio.manifest, portfolioId, artifacts: artifacts.map(item => ({ artifactId: item.artifactId,
