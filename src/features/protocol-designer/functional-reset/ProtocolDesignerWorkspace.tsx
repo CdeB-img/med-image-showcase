@@ -8,129 +8,36 @@ import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraft
 import { projectDocumentLifecycle, nextDocumentGenerationVersion } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import {
-  buildBoundedConversationReferentContext,
-  requiresCurrentOwnerPresentation,
-  requestsScientificExplanation,
-  buildCurrentNavigationEvidence,
-  currentGovernedNavigationInput,
-  selectBoundedConversationInteraction,
-} from "@/features/query-navigation/current-navigation-evidence";
+import { buildBoundedConversationReferentContext, requiresCurrentOwnerPresentation, requestsScientificExplanation, buildCurrentNavigationEvidence, currentGovernedNavigationInput, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
 import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
 import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice-dictation-contract";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
-import {
-  ProductBridgeClientError,
-  requestConversationLanguageProjection,
-  requestProtocolDesignerBridge,
-} from "@/features/protocol-designer/product-bridge-client";
-import {
-  NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
-  naturalConversationContext,
-  type ProductBridgeLanguageBoundary,
-  type ProductBridgeRequest,
-  type ProductBridgeResponse,
-} from "@/features/protocol-designer/product-bridge";
-import {
-  appendLanguageProjectionFailure,
-  appendLanguageTurnToGatewayState,
-  appendLocalizedResponseToGatewayState,
-  buildLocalizedConversationResponse,
-  buildMultilingualUserTurn,
-  DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
-  DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
-  detectConversationLanguage,
-  extractProtectedOpaqueLiterals,
-  findReusableLanguageProjection,
-  languageProjectionIdentityDigest,
-  languageProjectionFailure,
-  LANGUAGE_PROJECTION_CONTRACT_VERSION,
-  type ConversationLanguageGatewayState,
-  type LanguageProjectionContractFailureDiagnostic,
-  type LanguageProjectionArtifact,
-  type LanguageProjectionRequest,
-  type LocalizedConversationResponse,
-  type MultilingualUserTurn,
-} from "@/features/protocol-designer/conversation-language-gateway";
+import { ProductBridgeClientError, requestConversationLanguageProjection, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
+import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext, type ProductBridgeLanguageBoundary, type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
+import { appendLanguageProjectionFailure, appendLanguageTurnToGatewayState, appendLocalizedResponseToGatewayState, buildLocalizedConversationResponse, buildMultilingualUserTurn, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, extractProtectedOpaqueLiterals, findReusableLanguageProjection, languageProjectionIdentityDigest, languageProjectionFailure, LANGUAGE_PROJECTION_CONTRACT_VERSION, type ConversationLanguageGatewayState, type LanguageProjectionContractFailureDiagnostic, type LanguageProjectionArtifact, type LanguageProjectionRequest, type LocalizedConversationResponse, type MultilingualUserTurn } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import type { ProviderCallRecord, ProviderCallRequestObservability } from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { ownerResultNativeDigest } from "@/features/protocol-designer/product-owner-result-ledger";
-import {
-  buildPreProjectTraceRealizationOutcome,
-  captureProductBridgeTraceText,
-  createPreProjectScientificTraceSegment,
-  createProductTraceRunId,
-  DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
-  recordConversationLanguageGatewayTrace,
-  recordConversationLanguageGatewayFailureTrace,
-  recordLocalizedConversationResponseTrace,
-  recordProductEntryRoutingTrace,
-  type ScientificTraceCaptureConfiguration,
-  type ScientificTraceRealizationOutcome,
-} from "@/features/protocol-designer/scientific-execution-trace";
-import {
-  authorizeResearchProjectDocumentHandoff,
-  confirmResearchProjectContribution,
-  prepareResearchProjectContributionCandidate,
-  rejectResearchProjectContribution,
-} from "@/features/research-project-construction";
-import {
-  buildStudyDeliverablePortfolio,
-  buildCanonicalCrfPackage,
-  functionalProtocolProjection,
-  markFunctionalResetDocumentFailure,
-  refreshFunctionalResetDocumentPortfolio,
-} from "@/features/document-projection";
-import {
-  buildPreProjectNavigationDecision,
-  buildFunctionalResetQueryNavigation,
-  buildCurrentProjectImpactProjection,
-  deferFunctionalResetQueryNavigation,
-  isFunctionalResetQueryMisunderstanding,
-  realizePreProjectNavigationDecision,
-  recordFunctionalResetQueryResponse,
-} from "@/features/query-navigation";
-import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
+import { buildPreProjectTraceRealizationOutcome, captureProductBridgeTraceText, createPreProjectScientificTraceSegment, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
+import { authorizeResearchProjectDocumentHandoff, confirmResearchProjectContribution, prepareResearchProjectContributionCandidate, rejectResearchProjectContribution } from "@/features/research-project-construction";
+import { buildStudyDeliverablePortfolio, buildCanonicalCrfPackage, functionalProtocolProjection, markFunctionalResetDocumentFailure, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
+import { buildPreProjectNavigationDecision, buildFunctionalResetQueryNavigation, buildCurrentProjectImpactProjection, isFunctionalResetQueryMisunderstanding, realizePreProjectNavigationDecision } from "@/features/query-navigation";
+import { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
 import { buildStudyProposalSelectionContribution, selectedStudyProposalAtoms, propagateStudyProposalDecision, propagateFreeformStudyProposalDecision, requireStudyProposalReview, assertStudyProposalCurrent, projectStudyProposalDisposition } from "./study-proposal-standard";
 import { deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
 import type { StudyProposalComposition } from "../product-bridge";
-import {
-  retainValidatedContributionCandidate,
-  retainUndecidedContributionScope,
-  markContributionCandidatePresented,
-  markContributionCandidateNonCurrent,
-  recordContributionDownstreamFailure,
-  recordContributionCandidateHumanDecision,
-  buildScientificDiscussionContext,
-  type RetainedContributionCandidate,
-} from "./contribution-lifecycle";
+import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidatePresented, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, recordContributionCandidateHumanDecision, buildScientificDiscussionContext, type RetainedContributionCandidate } from "./contribution-lifecycle";
 import { retainScientificDiscussionResult, recordGovernedAdoptionContextEvent, settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
-import {
-  recordArtifactGeneratedTrace,
-  recordContributionRejectionTrace,
-  recordDocumentProjectionTrace,
-  recordInitialProductTrace,
-  recordGovernedConversationTrace,
-  recordPostAdoptionGovernedLocalRealization,
-  recordProductErrorBoundary,
-  recordConversationContextPacketPreflight,
-  recordContributionReviewPresentedTrace,
-  recordCurrentProjectImpactNavigationTrace,
-  recordRetainedContributionValidation,
-  recordProjectAdoptionTrace,
-  recordStudyDesignConversationTrace,
-  recordStudyDesignOptionReviewTrace,
-  productTraceExtractionExecution,
-} from "./end-to-end-trace-adapter";
+import { recordArtifactGeneratedTrace, recordContributionRejectionTrace, recordDocumentProjectionTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordPostAdoptionGovernedLocalRealization, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordContributionReviewPresentedTrace, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, recordProjectAdoptionTrace, recordStudyDesignConversationTrace, recordStudyDesignOptionReviewTrace, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -142,106 +49,17 @@ import BiostatisticsStandardCard from "./BiostatisticsStandardCard";
 import CanonicalStudyDataStandardCard from "./CanonicalStudyDataStandardCard";
 import DataManagementStandardCard from "./DataManagementStandardCard";
 import StandardConversationActionGroup from "./StandardConversationActionGroup";
-import {
-  buildStandardConversationActionGroup,
-  summarizeStandardConversationActionResponse,
-  type StandardConversationActionGroupPresentation,
-  type StandardConversationActionGroupResponse,
-} from "./standard-conversation-action-group";
-import {
-  executeProductUnderstandInteraction,
-  recognizeCurrentProjectDirection,
-  recognizeProductDocumentAction,
-  routeProductEntry,
-  type ProductDocumentAction,
-} from "./product-entry-routing";
-import {
-  buildCandidateScientificChallenge,
-  buildConciseAdoptionReply,
-  classifyNaturalConversationActs,
-  detectConversationStylePreference,
-  isProjectStateQuestion,
-  isUserFeedbackOnAssistantOutput,
-  isExternalEvidenceRequest,
-  isExplicitProjectRecordingRequest,
-  readNaturalCandidateDecision,
-  type ConversationStylePreference,
-} from "./natural-conversation-policy";
-import {
-  appendFunctionalResetProviderCallRecords,
-  clearFunctionalResetSession,
-  createConversationEntryId,
-  createFunctionalResetSession,
-  createTurnId,
-  loadFunctionalResetSession,
-  saveFunctionalResetWorkspaceSession,
-  type SessionSave,
-  projectHumanDecisionForBridgeTrace,
-  recordConversationConfirmationReceipt,
-  conversationConfirmationReceiptStatus,
-  productEntryPromptForIntent,
-  resolveGovernedPostAdoptionReceipt,
-  shouldMediatePostAdoptionQuery,
-  type ConversationEntry,
-  type FunctionalResetSession,
-} from "./session";
-import {
-  buildStandardStudyDesignPresentation,
-  buildStudyDesignOptionContribution,
-  dispatchStudyDesignFromQuery,
-  interactionMatchesCurrentProject,
-  isStudyDesignQueryDispatch,
-  readStudyDesignProposalFromLedger,
-  resolveStudyDesignConversation,
-} from "./study-design-standard";
-import {
-  buildPreProjectScientificThinkingIntervention,
-  buildScientificThinkingSelectionContribution,
-  buildStandardScientificThinkingPresentation,
-  dispatchScientificThinkingFromQuery,
-  isScientificThinkingQueryDispatch,
-  readScientificThinkingOutputFromLedger,
-  resolveScientificThinkingConversation,
-  scientificThinkingInteractionMatchesCurrentProject,
-} from "./scientific-thinking-standard";
-import {
-  buildObservabilityMeasurementContribution,
-  buildStandardObservabilityPresentation,
-  dispatchObservabilityFromQuery,
-  isObservabilityQueryDispatch,
-  observabilityInteractionMatchesCurrentProject,
-  readObservabilityResultFromLedger,
-  resolveObservabilityConversation,
-} from "./observability-standard";
-import {
-  prepareImagingAcquisitionContribution,
-  buildStandardImagingPresentation,
-  dispatchImagingFromQuery,
-  imagingInteractionMatchesCurrentProject,
-  isImagingQueryDispatch,
-  readImagingResultFromLedger,
-  resolveImagingConversation,
-} from "./imaging-standard";
-import {
-  biostatisticsInteractionMatchesCurrentProject,
-  buildBiostatisticsStrategyContribution,
-  buildStandardBiostatisticsPresentation,
-  dispatchBiostatisticsFromQuery,
-  isBiostatisticsQueryDispatch,
-  readBiostatisticsResultFromLedger,
-  resolveBiostatisticsConversation,
-} from "./biostatistics-standard";
-import {
-  deriveFunctionalResetDataOwnerState,
-  dispatchCanonicalStudyDataFromQuery,
-  isCanonicalStudyDataQueryDispatch,
-  readCanonicalStudyDataResultFromLedger,
-} from "./canonical-study-data-standard";
-import {
-  dispatchDataManagementFromQuery,
-  isDataManagementQueryDispatch,
-  readDataManagementResultFromLedger,
-} from "./data-management-standard";
+import { buildStandardConversationActionGroup, type StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
+import { executeProductUnderstandInteraction, recognizeCurrentProjectDirection, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
+import { buildCandidateScientificChallenge, buildConciseAdoptionReply, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision, type ConversationStylePreference } from "./natural-conversation-policy";
+import { appendFunctionalResetProviderCallRecords, clearFunctionalResetSession, createConversationEntryId, createFunctionalResetSession, createTurnId, loadFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave, projectHumanDecisionForBridgeTrace, recordConversationConfirmationReceipt, conversationConfirmationReceiptStatus, productEntryPromptForIntent, resolveGovernedPostAdoptionReceipt, shouldMediatePostAdoptionQuery, type ConversationEntry, type FunctionalResetSession } from "./session";
+import { buildStandardStudyDesignPresentation, buildStudyDesignOptionContribution, dispatchStudyDesignFromQuery, interactionMatchesCurrentProject, isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger, resolveStudyDesignConversation } from "./study-design-standard";
+import { buildPreProjectScientificThinkingIntervention, buildScientificThinkingSelectionContribution, dispatchScientificThinkingFromQuery, isScientificThinkingQueryDispatch, readScientificThinkingOutputFromLedger, resolveScientificThinkingConversation, scientificThinkingInteractionMatchesCurrentProject } from "./scientific-thinking-standard";
+import { buildObservabilityMeasurementContribution, buildStandardObservabilityPresentation, dispatchObservabilityFromQuery, isObservabilityQueryDispatch, observabilityInteractionMatchesCurrentProject, readObservabilityResultFromLedger, resolveObservabilityConversation } from "./observability-standard";
+import { prepareImagingAcquisitionContribution, buildStandardImagingPresentation, dispatchImagingFromQuery, imagingInteractionMatchesCurrentProject, isImagingQueryDispatch, readImagingResultFromLedger, resolveImagingConversation } from "./imaging-standard";
+import { biostatisticsInteractionMatchesCurrentProject, buildBiostatisticsStrategyContribution, buildStandardBiostatisticsPresentation, dispatchBiostatisticsFromQuery, isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger, resolveBiostatisticsConversation } from "./biostatistics-standard";
+import { deriveFunctionalResetDataOwnerState, dispatchCanonicalStudyDataFromQuery, isCanonicalStudyDataQueryDispatch, readCanonicalStudyDataResultFromLedger } from "./canonical-study-data-standard";
+import { dispatchDataManagementFromQuery, isDataManagementQueryDispatch, readDataManagementResultFromLedger } from "./data-management-standard";
 import { attachCurrentKnowledgePrerequisiteWhenRequired, dispatchKnowledgePrerequisiteFromQuery } from "./knowledge-standard";
 import { isProductKnowledgePrerequisiteDispatch } from "@/features/query-navigation";
 import { dispatchRegulatoryFromQuery, isRegulatoryQueryDispatch } from "./regulatory-standard";
@@ -249,9 +67,11 @@ import { documentAdministrationFrom } from "./project-administration";
 import ProjectContinuum from "./ProjectContinuum";
 import ProjectSourceLibraryView from "./ProjectSourceLibraryView";
 import { acquireDocumentKnowledge, resolveDocumentaryIntent } from "./documentary-conversation";
-import { recordSourceInterest, resolveProjectSource, sourceShortReference } from "@/features/knowledge-engine/project-source-library";
-import { availableDocumentEvidence, readableDocumentDiff, restoreDocumentRevision, reviseScientificDocument } from "@/features/document-projection/scientific-document-revision";
-import { explainDocumentSourceComparison, explainDocumentSourceSelection } from "@/features/document-projection/scientific-narrative";
+import { visibleStructuredUnderstandingEvidence } from "./product-entry-routing";
+import { respondToConversationActionGroup as respondToConversationActionGroupTransition } from "./standard-conversation-action-group";
+import { prepareDocumentInstruction, dispatchProductDocumentAction as prepareProductDocumentAction } from "./documentary-conversation";
+import { prepareCanonicalStudyDataContinuationNavigation } from "./canonical-study-data-standard";
+import ContributionReview from "./ContributionReview";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -546,45 +366,6 @@ const persistenceFailureMessage = (
     || candidateStatus === "BLOCKED_BY_STRUCTURAL_CONFLICT" || candidateStatus === "REVIEW_PROJECTION_INCOMPLETE")
     return "Je conserve la discussion, mais l’enregistrement n’a pas abouti.";
   return null;
-};
-
-const normalizedEvidenceText = (value: string) => value
-  .normalize("NFKD")
-  .replace(/\p{M}/gu, "")
-  .toLocaleLowerCase("fr-FR")
-  .replace(/[’']/gu, " ")
-  .replace(/[^\p{L}\p{N}]+/gu, " ")
-  .replace(/\s+/gu, " ")
-  .trim();
-
-const visibleStructuredUnderstandingEvidence = (input: {
-  contribution: ScientificInterpretationContributionEnvelope | null;
-  sourceTurnRef: string;
-  explicitDimensions: readonly Readonly<{ dimensionRef: string; sourceText: string }>[];
-}) => {
-  if (!input.contribution) return null;
-  const items = [...new Map([
-    ...input.contribution.scientificContent.explicitStatements,
-    ...input.contribution.scientificContent.candidateObjects,
-    ...input.contribution.scientificContent.inferredContext,
-    ...input.contribution.scientificContent.contextualCandidates,
-    ...input.contribution.scientificContent.temporalElements,
-  ].map((item) => [item.itemId, item])).values()].filter((item) => item.epistemicBoundary.activeState !== false
-    && item.epistemicBoundary.sourceTurnIds.includes(input.sourceTurnRef));
-  const representedDimensionRefs = input.explicitDimensions.flatMap((dimension) => {
-    const source = normalizedEvidenceText(dimension.sourceText);
-    const represented = items.some((item) => [item.epistemicBoundary.sourceText, item.content]
-      .filter((value): value is string => Boolean(value))
-      .map(normalizedEvidenceText)
-      .some((value) => value.length > 0 && (source.includes(value) || value.includes(source))));
-    return represented ? [dimension.dimensionRef] : [];
-  });
-  return {
-    source: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION" as const,
-    visibleToUser: true as const,
-    representedDimensionRefs: Object.freeze(representedDimensionRefs),
-    projectWriteAuthorized: false as const,
-  };
 };
 
 type PostAdoptionContinuationJob = {
@@ -1958,14 +1739,7 @@ export default function ProtocolDesignerWorkspace({
       return;
     }
     const recordedAt = new Date().toISOString();
-    const queryNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
-      project,
-      previous: session.queryNavigation,
-      documentBlockers: documentBlockerSignals(session.documents),
-      recordedAt,
-      forceRebuild: true,
-      dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
-    }) });
+    const queryNavigation = prepareCanonicalStudyDataContinuationNavigation({ ...session, project }, recordedAt);
     setSession((current) => ({
       ...current,
       queryNavigation,
@@ -3724,56 +3498,7 @@ export default function ProtocolDesignerWorkspace({
     defer: boolean;
   }) => {
     const respondedAt = new Date().toISOString();
-    setSession((current) => {
-      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "FOLLOW_UP_ACTIONS");
-      if (!entry || entry.kind !== "FOLLOW_UP_ACTIONS" || entry.response || !current.project
-        || current.project.versionId !== entry.presentation.sourceProjectVersion
-        || current.project.projectDigest !== entry.presentation.sourceProjectDigest) return current;
-      const allowedRefs = new Set(entry.presentation.actions.map((action) => action.actionRef));
-      const selectedActionRefs = [...new Set(input.selectedActionRefs.filter((ref) => allowedRefs.has(ref)))];
-      const freeTextRequest = input.freeTextRequest?.trim() || null;
-      if (!input.defer && !selectedActionRefs.length && !freeTextRequest) return current;
-      const response: StandardConversationActionGroupResponse = {
-        responseRef: `conversation-action-response:${logicalDigest({ entryId, selectedActionRefs, freeTextRequest, respondedAt })}`,
-        disposition: input.defer ? "DEFERRED_NOT_NOW" : "USER_REQUESTS_THESE_FOLLOW_UP_ACTIONS",
-        selectedActionRefs,
-        unselectedActionRefs: entry.presentation.actions.map((action) => action.actionRef)
-          .filter((ref) => !selectedActionRefs.includes(ref)),
-        freeTextRequest,
-        respondedAt,
-        projectVersionAtPresentation: entry.presentation.sourceProjectVersion,
-        projectWriteAuthorized: false,
-      };
-      const visible = summarizeStandardConversationActionResponse({ presentation: entry.presentation, response });
-      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: visible.userText, createdAt: respondedAt };
-      const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: visible.assistantText, createdAt: respondedAt };
-      const navigation = current.queryNavigation
-        && current.queryNavigation.currentAction?.selectedActionId === entry.presentation.selectedQryActionRef
-        ? input.defer
-          ? deferFunctionalResetQueryNavigation({ navigation: current.queryNavigation, reason: "USER_REQUESTED_TO_MOVE_ON", recordedAt: respondedAt })
-          : recordFunctionalResetQueryResponse({
-            navigation: current.queryNavigation,
-            rawResponse: visible.userText,
-            actorRef: current.projectAuthority.actorRef,
-            actorRole: "RESEARCHER",
-            receivedAt: respondedAt,
-            responseId: response.responseRef,
-          })
-        : current.queryNavigation;
-      return {
-        ...current,
-        queryNavigation: navigation,
-        runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-        entries: [
-          ...current.entries.map((item) => item.entryId === entryId && item.kind === "FOLLOW_UP_ACTIONS"
-            ? { ...item, response }
-            : item),
-          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content: visible.userText, createdAt: respondedAt },
-          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: visible.assistantText, createdAt: respondedAt },
-        ],
-        updatedAt: respondedAt,
-      };
-    });
+    setSession((current) => respondToConversationActionGroupTransition(current, entryId, input, respondedAt));
   };
 
   function appendProductDocumentCommandResult(input: {
@@ -3803,78 +3528,11 @@ export default function ProtocolDesignerWorkspace({
     }));
   }
 
-  function dispatchProductDocumentAction(
-    action: ProductDocumentAction,
-    command: { content: string; createdAt: string },
-  ) {
-    if (!session.project) {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: action === "OPEN_STUDY_DELIVERABLES" || action === "OPEN_EDC_EXPORT"
-          ? "Des éléments d’étude confirmés sont nécessaires avant de pouvoir préparer les livrables."
-          : "Des éléments d’étude confirmés sont nécessaires avant de pouvoir afficher un aperçu du protocole.",
-      });
-      return;
-    }
-
-    if (action === "OPEN_STUDY_DELIVERABLES" || action === "OPEN_EDC_EXPORT") {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: action === "OPEN_EDC_EXPORT"
-          ? "L’espace des livrables est ouvert sur le CRF canonique et ses exports de collecte. Chaque format reste téléchargeable séparément."
-          : "L’espace des livrables de l’étude est ouvert. Les documents incomplets restent explicitement signalés.",
-      });
-      setSession((current) => ({ ...current, openDocumentProjectionId: null }));
-      setDeliverableWorkspaceOpen(true);
-      return;
-    }
-
-    const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
-    const projectionId = protocolCard?.canOpen ? protocolCard.projectionId : null;
-    if (action === "OPEN_CURRENT_PROTOCOL") {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: projectionId
-          ? protocolCard?.freshness === "CURRENT"
-            ? "Voici la version actuelle du protocole."
-            : "Voici la dernière version disponible du protocole. Elle reste signalée comme historique."
-          : "Aucun aperçu du protocole n’existe encore. Une demande explicite de création est nécessaire.",
-        ...(projectionId ? { projectionId } : {}),
-      });
-      return;
-    }
-
-    if (action === "DOWNLOAD_PROTOCOL") {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: projectionId
-          ? "Le protocole est ouvert. Le téléchargement HTML est disponible dans l’aperçu."
-          : "Aucun aperçu du protocole n’est encore disponible au téléchargement.",
-        ...(projectionId ? { projectionId } : {}),
-      });
-      return;
-    }
-
-    if (action === "CREATE_PROTOCOL" && protocolCard?.freshness === "CURRENT" && projectionId) {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: "Voici la version actuelle du protocole.",
-        projectionId,
-      });
-      return;
-    }
-
-    if (action === "REGENERATE_PROTOCOL" && protocolCard?.freshness === "CURRENT" && projectionId) {
-      appendProductDocumentCommandResult({
-        command,
-        assistantContent: "Le protocole reflète déjà la version actuelle du projet.",
-        projectionId,
-      });
-      return;
-    }
-
-    appendProductDocumentCommandResult({ command, assistantContent: "Ouvrez Protocole / documents, puis choisissez « Générer les documents » pour la version confirmée du projet." });
-    setDeliverableWorkspaceOpen(true);
+  function dispatchProductDocumentAction(action: ProductDocumentAction, command: { content: string; createdAt: string }) {
+    const result = prepareProductDocumentAction(session, action);
+    appendProductDocumentCommandResult({ command, ...result });
+    if (result.clearProjection) setSession((current) => ({ ...current, openDocumentProjectionId: null }));
+    if (result.openDeliverables) setDeliverableWorkspaceOpen(true);
   }
 
   function acquireSources() {
@@ -3890,90 +3548,20 @@ export default function ProtocolDesignerWorkspace({
 
   function handleDocumentInstruction(instruction: string, recordUser = true, sourceTurnRef = createTurnId()) {
     const timestamp = new Date().toISOString();
-    const intent = resolveDocumentaryIntent(instruction, true);
-    const reply = (message: string, update: Partial<FunctionalResetSession> = {}) => {
-      setDocumentMessage(message);
-      setSession((current) => ({ ...current, ...update, updatedAt: timestamp,
-        entries: [...current.entries, ...(recordUser ? [{ entryId: sourceTurnRef, kind: "TEXT" as const, role: "USER" as const, content: instruction, createdAt: timestamp }] : []),
-          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: message, createdAt: timestamp }],
-      }));
-    };
-    if (intent.kind === "PROJECT_CHANGE") {
-      setDocumentMessage("Cette instruction modifie la science du projet. Elle passe dans la conversation scientifique et exige votre revue avant adoption.");
+    const result = prepareDocumentInstruction(session, administration, instruction, sourceTurnRef, timestamp);
+    if (!result) return;
+    setDocumentMessage(result.message);
+    if (result.forwardToScience) {
       setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false);
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       void submitText(instruction);
       return;
     }
-    if (intent.kind === "CLARIFY" || intent.kind === "NOT_DOCUMENTARY") {
-      reply("Précisez la section et la transformation demandées. La révision disponible porte sur l’introduction et ses références : développer, raccourcir, réorienter vers une source identifiée, ajouter ou retirer une référence. Aucune autre section n’a été modifiée.");
-      return;
-    }
-    if (!session.project) { reply("Confirmez d’abord le projet scientifique pour lui associer des sources et un document."); return; }
-    const projection = session.documents.projections.at(-1);
-    if (projection && !isFunctionalDocumentProjectionCurrent(projection, session.project, administration)) {
-      reply("Le document courant doit être régénéré depuis le Project avant une nouvelle révision. Les versions précédentes restent consultables."); return;
-    }
-    if (session.openDocumentProjectionId && projection && session.openDocumentProjectionId !== projection.projectionId) {
-      reply("Cette version est historique. Ouvrez la version documentaire courante avant de la réviser."); return;
-    }
-    let retainedEvidence: ReturnType<typeof acquireDocumentKnowledge> | undefined;
-    try {
-      let evidence = acquireDocumentKnowledge(session, timestamp);
-      retainedEvidence = evidence;
-      if (intent.kind === "PREPARE_EVIDENCE") {
-        reply("Les sources disponibles ont été préparées. Pour rédiger les documents, utilisez « Générer les documents ».", evidence);
-        setSourceLibraryOpen(false);
-        return;
-      }
-      if (["DIFF", "RESTORE"].includes(intent.kind)) {
-        const previous = session.documents.projections.find((item) => item.projectionId === projection?.priorProjectionId);
-        if (!projection || !previous) { reply("Il n’existe pas encore deux versions documentaires à comparer.", evidence); return; }
-        if (intent.kind === "DIFF") { reply(readableDocumentDiff(previous, projection), evidence); return; }
-        const restored = restoreDocumentRevision(projection, previous, { instruction, turnRef: sourceTurnRef, timestamp });
-        const documents = refreshFunctionalResetDocumentPortfolio({ project: session.project, previous: { ...session.documents, projections: [...session.documents.projections, restored] }, administration, knowledgeLibrary: evidence.sourceLibrary, handoffDecision: session.documents.handoffDecision, requestedAt: timestamp });
-        reply(`Le contenu de la version ${previous.projectionVersion} a été restauré dans une nouvelle version ${restored.projectionVersion}. Les versions antérieures et le Project sont conservés.`, { ...evidence, documents, openDocumentProjectionId: restored.projectionId }); return;
-      }
-      const resolution = resolveProjectSource(evidence.sourceLibrary, instruction);
-      if (intent.kind === "COMPARE_SOURCES") {
-        if (resolution.matches.length !== 2) { reply("Identifiez exactement deux références par auteur et année, DOI ou PMID. Aucun rapprochement approximatif n’a été effectué.", evidence); return; }
-        const candidates = availableDocumentEvidence(evidence.sourceLibrary);
-        reply(resolution.matches.map((source) => `${sourceShortReference(source)} : ${candidates.filter((item) => item.sourceRefs.includes(source.source.sourceId)).map((item) => item.text).join(" ") || "Aucune assertion rédigée admissible disponible."}`).join("\n\n") + "\n\nCette comparaison porte sur les assertions accessibles. Leur niveau de preuve comparatif et leur applicabilité à votre étude ne sont pas établis par votre préférence.", evidence); return;
-      }
-      if (intent.kind === "EXPLAIN_SOURCE") {
-        if (resolution.matches.length === 2) {
-          reply(explainDocumentSourceComparison(evidence.sourceLibrary, projection?.evidenceContent?.narrative,
-            resolution.matches.map((match) => match.source.sourceId)), evidence); return;
-        }
-        if (resolution.status !== "RESOLVED") { reply("Identifiez une référence, ou exactement deux références pour expliquer leur priorité relative. Aucun rapprochement approximatif n’a été effectué.", evidence); return; }
-        const id = resolution.matches[0]!.source.sourceId;
-        reply(projection?.evidenceContent?.excludedSourceRefs.includes(id)
-          ? "Cette référence a été retirée sur instruction documentaire. Elle reste visible dans la bibliothèque et l’historique ; ce retrait ne change pas sa qualification scientifique."
-          : explainDocumentSourceSelection(evidence.sourceLibrary, projection?.evidenceContent?.narrative, id), evidence); return;
-      }
-      if (intent.kind !== "DOCUMENT_REVISION") return;
-      let sourceId: string | undefined;
-      if (intent.sourceRequired) {
-        const interest = recordSourceInterest(evidence.sourceLibrary, { text: instruction, turnRef: sourceTurnRef, recordedAt: timestamp, explicitUse: intent.transformation !== "REMOVE_SOURCE" });
-        evidence = { ...evidence, sourceLibrary: interest.library };
-        retainedEvidence = evidence;
-        if (interest.resolution.status !== "RESOLVED") {
-          reply(interest.resolution.status === "AMBIGUOUS" ? "Plusieurs références correspondent. Précisez le DOI ou le PMID ; aucune citation n’a été ajoutée."
-            : "Cette référence n’est pas identifiée dans les sources locales accessibles. Votre mention est conservée ; aucun auteur, DOI, PMID ou contenu n’a été inventé et aucune recherche externe n’a été lancée.", evidence); return;
-        }
-        sourceId = interest.resolution.matches[0]!.source.sourceId;
-      }
-      if (!projection?.evidenceContent) { reply("La source est conservée. Préparez d’abord le contexte sourcé et les références depuis l’aperçu du protocole, puis appliquez cette révision.", evidence); return; }
-      const revision = reviseScientificDocument({ projection, library: evidence.sourceLibrary, transformation: intent.transformation, sourceId, instruction, turnRef: sourceTurnRef, timestamp });
-      const documents = revision.projection === projection ? session.documents : refreshFunctionalResetDocumentPortfolio({ project: session.project, previous: { ...session.documents, projections: [...session.documents.projections, revision.projection] }, administration, knowledgeLibrary: evidence.sourceLibrary, handoffDecision: session.documents.handoffDecision, requestedAt: timestamp });
-      reply(revision.message, { ...evidence, documents, openDocumentProjectionId: revision.projection.projectionId });
-      setSourceLibraryOpen(false);
-    } catch (error) {
-      const code = error instanceof Error ? error.message : "DOCUMENT_REVISION_UNAVAILABLE";
-      reply(code === "SOURCE_WITHOUT_APPLICABLE_DOCUMENTARY_ASSERTION" ? "Cette référence ne dispose pas d’une assertion rédigée suffisamment qualifiée pour cette révision. Son ajout comme citation décorative a été refusé."
-        : code === "DOCUMENT_RESTORE_SOURCE_CHANGED" ? "Cette version dépend d’un autre état scientifique ou administratif. Elle reste consultable dans l’historique ; la restauration ne peut pas remplacer silencieusement le Project courant."
-          : "La révision n’a pas pu être qualifiée. Le projet et toutes les versions documentaires précédentes sont conservés.", retainedEvidence ?? {});
-    }
+    setSession((current) => ({ ...current, ...result.update, updatedAt: timestamp,
+      entries: [...current.entries, ...(recordUser ? [{ entryId: sourceTurnRef, kind: "TEXT" as const, role: "USER" as const, content: instruction, createdAt: timestamp }] : []),
+        { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: result.message, createdAt: timestamp }],
+    }));
+    if (result.closeSourceLibrary) setSourceLibraryOpen(false);
   }
 
   async function requestProtocolProjection(

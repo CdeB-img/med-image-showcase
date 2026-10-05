@@ -1,3 +1,4 @@
+import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import { hasExplicitConversationRequestMood } from "../../query-navigation/conversation-proposal-request.js";
 import {
   executeKnowledgeEngineForPresentation,
@@ -649,5 +650,44 @@ export const executeProductUnderstandInteraction = (input: {
     projectWrites: 0,
     protocolProjections: 0,
     externalCalls: 0,
+  };
+};
+
+const normalizedEvidenceText = (value: string) => value
+  .normalize("NFKD")
+  .replace(/\p{M}/gu, "")
+  .toLocaleLowerCase("fr-FR")
+  .replace(/[’']/gu, " ")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .replace(/\s+/gu, " ")
+  .trim();
+
+export const visibleStructuredUnderstandingEvidence = (input: {
+  contribution: ScientificInterpretationContributionEnvelope | null;
+  sourceTurnRef: string;
+  explicitDimensions: readonly Readonly<{ dimensionRef: string; sourceText: string }>[];
+}) => {
+  if (!input.contribution) return null;
+  const items = [...new Map([
+    ...input.contribution.scientificContent.explicitStatements,
+    ...input.contribution.scientificContent.candidateObjects,
+    ...input.contribution.scientificContent.inferredContext,
+    ...input.contribution.scientificContent.contextualCandidates,
+    ...input.contribution.scientificContent.temporalElements,
+  ].map((item) => [item.itemId, item])).values()].filter((item) => item.epistemicBoundary.activeState !== false
+    && item.epistemicBoundary.sourceTurnIds.includes(input.sourceTurnRef));
+  const representedDimensionRefs = input.explicitDimensions.flatMap((dimension) => {
+    const source = normalizedEvidenceText(dimension.sourceText);
+    const represented = items.some((item) => [item.epistemicBoundary.sourceText, item.content]
+      .filter((value): value is string => Boolean(value))
+      .map(normalizedEvidenceText)
+      .some((value) => value.length > 0 && (source.includes(value) || value.includes(source))));
+    return represented ? [dimension.dimensionRef] : [];
+  });
+  return {
+    source: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION" as const,
+    visibleToUser: true as const,
+    representedDimensionRefs: Object.freeze(representedDimensionRefs),
+    projectWriteAuthorized: false as const,
   };
 };

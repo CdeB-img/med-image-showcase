@@ -1,3 +1,7 @@
+import { documentBlockerSignals } from "./project-adoption-effects";
+import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
+import { type FunctionalResetSession } from "./session";
+import { attachCurrentKnowledgePrerequisiteWhenRequired } from "./knowledge-standard";
 import type { CanonicalStudyDataResult } from "@/features/data-analysis-planning";
 import { logicalDigest } from "@/features/knowledge-engine";
 import type { FunctionalResetDataOwnerState, FunctionalResetQueryNavigation } from "@/features/query-navigation";
@@ -212,3 +216,15 @@ export const readCanonicalStudyDataResultFromLedger = (input: { ledger: Readonly
     && entry.request.owner === "STUDY_DATA_CDM")?.result?.nativePayload as CanonicalStudyDataResult | null | undefined;
   return payload?.contract === "CANONICAL_STUDY_DATA_RESULT" ? payload : null;
 };
+
+export const prepareCanonicalStudyDataContinuationNavigation = (session: FunctionalResetSession & { project: NonNullable<FunctionalResetSession["project"]> }, recordedAt: string) => {
+  const project = session.project;
+  return attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
+      project,
+      previous: session.queryNavigation,
+      documentBlockers: documentBlockerSignals(session.documents),
+      recordedAt,
+      forceRebuild: true,
+      dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
+    }) });
+ };
