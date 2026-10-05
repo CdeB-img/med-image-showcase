@@ -5,9 +5,11 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
+import { resetPublicProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-public-guard";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
+import { memoryProjectSnapshotStore } from "./fixtures/memory-project-snapshot-store";
 
 import { T01, T02, T03, T04, T05, NORMALIZED_ENDPOINT, FAMILY_A_TURNS, FAMILY_B_TURNS, FAMILY_C_TURNS, SEMANTIC_TURN_EXPECTATIONS, createLongHorizonProviderReplay, type SoakTurn, type ProviderCallWitness } from "./fixtures/long-horizon-provider-replay";
 
@@ -64,13 +66,15 @@ const waitForVisibleProjectRevision = async (revision: number) => {
   ).toBeInTheDocument(), { timeout: 5_000 });
 };
 
-const waitForPostAdoptionContinuation = async () => {
+const assertNoAutomaticPostAdoptionContinuation = async () => {
   const projectVersion = currentSession().project?.versionId;
   expect(projectVersion).toBeTruthy();
-  await waitFor(() => expect(currentSession().bridgeTraces.some((trace) =>
+  // The current confirmation owner persists the Project without selecting a
+  // scientific speaker. An explicit subsequent request owns continuation.
+  expect(currentSession().bridgeTraces.some((trace) =>
     trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
     && trace.projectVersionBefore === projectVersion,
-  )).toBe(true), { timeout: 5_000 });
+  )).toBe(false);
 };
 
 const installRuntimeReplayTransport = (
@@ -79,6 +83,7 @@ const installRuntimeReplayTransport = (
   wrapProvider?: (provider: typeof fetch) => typeof fetch,
 ) => {
   const replay = createLongHorizonProviderReplay(witnesses, options);
+  const projectSnapshotStore = memoryProjectSnapshotStore();
   const providerReplay = wrapProvider ? wrapProvider(replay) : replay;
   const browserTransport = vi.fn(async (resource: string | URL | Request, init?: RequestInit) => {
     if (String(resource) !== "/api/protocol-designer-bridge" || typeof init?.body !== "string") {
@@ -100,7 +105,11 @@ const installRuntimeReplayTransport = (
     }, response, {
       NODE_ENV: "development", GEMINI_API_KEY: "offline-gemini-key", OPENAI_API_KEY: "offline-openai-key",
     }, { fetchImpl: providerReplay, now: () => Date.parse("2026-09-14T08:00:00.000Z"),
-      durableGuard: createMemoryProtocolDesignerGuardForTests() });
+      durableGuard: createMemoryProtocolDesignerGuardForTests(), projectSnapshotStore });
+    if (responseStatus !== 200) {
+      const code = (responseBody as { error?: { code?: string } } | undefined)?.error?.code ?? "UNKNOWN";
+      throw new Error(`RUNTIME_REPLAY_HTTP:${responseStatus}:${code}`);
+    }
     return deterministicResponse(responseBody, responseStatus, headers);
   });
   vi.stubGlobal("fetch", browserTransport);
@@ -109,7 +118,8 @@ const installRuntimeReplayTransport = (
 
 const productBridgeRequestCount = (browserTransport: ReturnType<typeof vi.fn>) => browserTransport.mock.calls
   .filter(([, init]) => typeof init?.body === "string"
-    && (JSON.parse(init.body as string) as { operation?: string }).operation !== "LANGUAGE_PROJECTION")
+    && !["LANGUAGE_PROJECTION", "PERSIST_PROJECT_SNAPSHOT"].includes(
+      (JSON.parse(init.body as string) as { operation?: string }).operation ?? ""))
   .length;
 
 const activeObjects = (session: FunctionalResetSession) => session.project
@@ -146,8 +156,12 @@ const assertScientificResponse = (session: FunctionalResetSession, text: string)
     ["PRIMARY_ENDPOINT", "INTERVENTION_ARM", "COMPARATOR_ARM"].includes(item.scientificRole ?? ""));
   expect(materialObjects.length).toBeGreaterThanOrEqual(3);
   for (const object of materialObjects) expect(foldedContent(text)).toContain(foldedContent(object.content));
-  expect(session.scientificThinkingInteraction).toMatchObject({ sourceProjectRef: session.project!.projectId,
-    sourceProjectVersion: session.project!.versionId, sourceProjectDigest: session.project!.projectDigest });
+  // Native conversation owns discussion; a deterministic ST result is not
+  // automatically invoked after Project adoption.
+  const formulation = session.bridgeTraces.at(-1)?.preProjectTrace?.points.find(point => point.point === "QUESTION_FORMULATION_BOUNDARY");
+  expect(formulation && formulation.point === "QUESTION_FORMULATION_BOUNDARY" ? formulation.realizationOutcome : null)
+    .toMatchObject({ providerResponseReceived: true, providerResponseAccepted: true, effectiveExecutor: "GEMINI_CONVERSATION_MODEL" });
+  expect(session.bridgeTraces.at(-1)?.projectWriteCount).toBe(0);
 };
 
 const assertProposalResponse = (before: FunctionalResetSession, after: FunctionalResetSession, text: string) => {
@@ -161,11 +175,9 @@ const assertProposalResponse = (before: FunctionalResetSession, after: Functiona
   } else {
     expect(text).not.toBe(before.runtimeTurns.filter((turn) => turn.role === "NOXIA").at(-1)?.content);
     assertScientificResponse(after, text);
-    expect(text).toContain("hypothèses scientifiques candidates");
-    expect(text).toContain("Pour la confronter");
-    expect(text).toContain("Limite");
+    expect(text).toContain("Les propositions doivent être revues explicitement");
   }
-  expect(text).toContain("Le projet reste inchangé");
+  expect(text).toContain("cette réponse ne modifie pas le projet");
 };
 
 const assertUntargetedObjectsPreserved = (before: FunctionalResetSession, after: FunctionalResetSession) => {
@@ -178,6 +190,10 @@ const assertUntargetedObjectsPreserved = (before: FunctionalResetSession, after:
 };
 
 const runSoak = async (turns: readonly SoakTurn[]) => {
+  // Long-lived persistence replay spans days, not a burst above public quotas.
+  // Quota/financial denial contracts remain tested by public-workspace-integration.
+  let admissionTime = Date.now();
+  const admissionClock = vi.spyOn(Date, "now").mockImplementation(() => admissionTime);
   const providerWitnesses: ProviderCallWitness[] = [];
   const browserTransport = installRuntimeReplayTransport(providerWitnesses);
   renderWorkspace();
@@ -185,6 +201,7 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
   let expectedRevision = 0;
 
   for (const turn of turns) {
+    admissionTime += 25 * 60 * 60 * 1_000;
     expect(turn.intendedMeaning.trim().length).toBeGreaterThan(10);
     const before = currentSession();
     const beforeProjectDigest = before.project?.projectDigest ?? null;
@@ -199,10 +216,11 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
         const observed = currentSession().retainedContributionCandidates?.length ?? 0;
         if (observed !== expectedCandidateCount) {
           const errors = currentSession().entries.filter((entry) => entry.kind === "ERROR").map((entry) => entry.content);
-          const routing = currentSession().bridgeTraces.at(-1)?.entryRouting;
+          const lastTrace = currentSession().bridgeTraces.at(-1);
+          const routing = lastTrace?.entryRouting;
           const composer = screen.getByLabelText("Votre message") as HTMLTextAreaElement;
           const send = screen.getByRole("button", { name: "Envoyer" }) as HTMLButtonElement;
-          throw new Error(`SOAK_CANDIDATE_NOT_PRESENT:${turn.text}:expected=${expectedCandidateCount}:observed=${observed}:browser=${browserTransport.mock.calls.length}:draft=${JSON.stringify(composer.value)}:sendDisabled=${send.disabled}:busy=${Boolean(document.querySelector(".animate-spin"))}:routing=${JSON.stringify(routing)}:errors=${JSON.stringify(errors)}`);
+          throw new Error(`SOAK_CANDIDATE_NOT_PRESENT:${turn.text}:expected=${expectedCandidateCount}:observed=${observed}:browser=${browserTransport.mock.calls.length}:draft=${JSON.stringify(composer.value)}:sendDisabled=${send.disabled}:busy=${Boolean(document.querySelector(".animate-spin"))}:routing=${JSON.stringify(routing)}:status=${lastTrace?.persistentExtractionStatus}:blocks=${JSON.stringify(lastTrace?.deterministicValidation?.blocks)}:errors=${JSON.stringify(errors)}`);
         }
       }, { timeout: 5_000 });
       await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(expectedCandidateCount), {
@@ -221,11 +239,11 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
       expect(productBridgeRequestCount(browserTransport)).toBe(beforeProductBridgeCalls + 1);
       if (turn.confirmWithButton) {
         const review = screen.getAllByTestId("functional-contribution-review").at(-1)!;
-        await clickAndFlush(within(review).getByRole("button", { name: "Cela correspond à mon projet" }));
+        await clickAndFlush(within(review).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
         expectedRevision += 1;
         await waitFor(() => expect(currentSession().project?.revision).toBe(expectedRevision));
         await waitForVisibleProjectRevision(expectedRevision);
-        await waitForPostAdoptionContinuation();
+        await assertNoAutomaticPostAdoptionContinuation();
         await waitForComposerReady();
       }
       assertCurrentNavigation(currentSession());
@@ -235,13 +253,15 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
     await waitFor(() => expect(currentSession().runtimeTurns.length).toBeGreaterThan(beforeRuntimeLength));
     expect(currentSession().runtimeTurns.some((item) => item.role === "USER" && item.content === turn.text)).toBe(true);
     await waitFor(() => expect(screen.queryAllByText(turn.text, { exact: true }).length).toBeGreaterThan(0), { timeout: 5_000 });
-    expect(productBridgeRequestCount(browserTransport)).toBe(beforeProductBridgeCalls);
+    const discussionDispatch = ["PROPOSAL", "DISCUSS", "PRESERVE"].includes(turn.outcome);
+    await waitForComposerReady();
+    expect(productBridgeRequestCount(browserTransport), turn.text).toBe(beforeProductBridgeCalls + (turn.bridgeCalls ?? (discussionDispatch ? 1 : 0)));
 
     if (turn.outcome === "CONFIRM") {
       expectedRevision += 1;
       await waitFor(() => expect(currentSession().project?.revision).toBe(expectedRevision));
       await waitForVisibleProjectRevision(expectedRevision);
-      await waitForPostAdoptionContinuation();
+      await assertNoAutomaticPostAdoptionContinuation();
       await waitForComposerReady();
       expect(currentSession().retainedContributionCandidates?.at(-1)?.humanDecision?.status).toBe("ADOPTED");
       assertUntargetedObjectsPreserved(before, currentSession());
@@ -272,11 +292,13 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
     .map((trace) => trace.cumulativeSessionCostUsd)
     .filter((cost): cost is number => typeof cost === "number");
   expect(cumulativeCosts.every((cost, index) => index === 0 || cost >= cumulativeCosts[index - 1]!)).toBe(true);
+  admissionClock.mockRestore();
   return { session: currentSession(), browserTransport, providerWitnesses };
 };
 
 describe("V1 long-horizon representative Standard runtime harness", () => {
   beforeEach(() => {
+    resetPublicProtocolDesignerGuardForTests();
     vi.spyOn(console, "debug").mockImplementation(() => undefined);
     window.history.replaceState({}, "", "/protocol-designer/demo?traceCaptureLevel=LEVEL_2_DIAGNOSTIC");
     window.localStorage.clear();
@@ -301,11 +323,12 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     });
     expect(providerWitnesses.map((item) => item.endpoint)).toEqual([
       "https://api.openai.com/v1/responses",
+      expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
     ]);
 
-    await clickAndFlush(within(firstReview).getByRole("button", { name: "Cela correspond à mon projet" }));
+    await clickAndFlush(within(firstReview).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(currentSession().project?.revision).toBe(1));
-    await waitForPostAdoptionContinuation();
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
 
     await submit(T02);
@@ -313,7 +336,8 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     const correctionReview = screen.getAllByTestId("functional-contribution-review").at(-1)!;
     expect(correctionReview).toHaveTextContent(NORMALIZED_ENDPOINT);
     const howResponse = await (await browserTransport.mock.results.at(-1)!.value).json();
-    expect(howResponse.governedRealization).toMatchObject({ providerReplyAccepted: true, conformance: { structuralStatus: "PASS" } });
+    expect(howResponse.scientificConversation).toMatchObject({ owner: "SCIENTIFIC_THINKING",
+      responseOwner: "LLM", projectWrites: 0, projectWriteAuthorized: false });
     expect(currentSession().runtimeTurns.at(-1)?.content).toBe(howResponse.assistantReply);
     const effectiveExtraction = providerWitnesses.filter((item) => item.endpoint === "https://api.openai.com/v1/responses").at(-1)!;
     const missingProjectBody = { ...(effectiveExtraction.requestBody as Record<string, unknown>) };
@@ -329,6 +353,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     expect(currentSession().project?.revision).toBe(1);
     expect(providerWitnesses.map((item) => item.endpoint)).toEqual([
       "https://api.openai.com/v1/responses",
+      expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
       "https://api.openai.com/v1/responses",
       expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
     ]);
@@ -347,9 +372,9 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     expect(afterNaturalConfirmation.project?.confirmationDecision.provenance).toContain(naturalDecisionTurn?.turnId);
     expect(afterNaturalConfirmation.project?.canonicalState?.objects.some((item) => item.actuality === "CURRENT"
       && item.scientificRole === "PRIMARY_ENDPOINT" && item.content === NORMALIZED_ENDPOINT)).toBe(true);
-    await waitForPostAdoptionContinuation();
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
-    expect(browserTransport).toHaveBeenCalledTimes(2);
+    expect(productBridgeRequestCount(browserTransport)).toBe(2);
 
     await submit(T04);
     await waitFor(() => expect(currentSession().runtimeTurns.some((turn) => turn.role === "USER" && turn.content === T04)).toBe(true));
@@ -362,15 +387,16 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     expect(currentSession().project?.revision).toBe(2);
     expect(providerWitnesses.map((item) => item.endpoint)).toEqual([
       "https://api.openai.com/v1/responses",
+      expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
       "https://api.openai.com/v1/responses",
       expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
       "https://api.openai.com/v1/responses",
       expect.stringMatching(/^https:\/\/generativelanguage\.googleapis\.com\//),
     ]);
 
-    await clickAndFlush(within(populationReview).getByRole("button", { name: "Cela correspond à mon projet" }));
+    await clickAndFlush(within(populationReview).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(currentSession().project?.revision).toBe(3));
-    await waitForPostAdoptionContinuation();
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
     const callsBeforeProposal = browserTransport.mock.calls.length;
     const turnsBeforeProposal = currentSession().runtimeTurns.length;
@@ -379,7 +405,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     await waitFor(() => expect(currentSession().runtimeTurns.some((turn) => turn.role === "USER" && turn.content === T05)).toBe(true));
     await waitFor(() => assertProposalResponse(beforeProposal, currentSession(), currentSession().runtimeTurns.slice(turnsBeforeProposal)
       .filter((turn) => turn.role === "NOXIA").map((turn) => turn.content).join("\n")));
-    expect(browserTransport).toHaveBeenCalledTimes(callsBeforeProposal);
+    expect(browserTransport).toHaveBeenCalledTimes(callsBeforeProposal + 1);
     expect(currentSession().entries.some((entry) => entry.kind === "ERROR")).toBe(false);
   });
 
@@ -391,7 +417,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     const witnesses: ProviderCallWitness[] = [];
     installRuntimeReplayTransport(witnesses, { how: "SUCCESS", additionalReplays: {
       [text]: ({ sourceAnchorId }) => ({
-        changes: hasDelta ? [{ operation: "ADD", sourceAnchorId, proposedType: "ENDPOINT",
+        changes: hasDelta ? [{ operation: "ADD", candidateRef: "endpoint:reproducibility", sourceAnchorId, proposedType: "ENDPOINT",
           content: "Reproductibilité de la mesure", polarity: "AFFIRMED", epistemicStatus: "EXPLICIT_USER_STATED",
           epistemicState: "KNOWN", assertionKind: "USER_STATED", evidenceRefs: [sourceAnchorId] }] : [],
         relations: [], temporalQualifications: [], expectedVariableOccasions: [],
@@ -400,8 +426,8 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     renderWorkspace();
     await submit(T01);
     const initial = await screen.findByTestId("functional-contribution-review");
-    await clickAndFlush(within(initial).getByRole("button", { name: "Cela correspond à mon projet" }));
-    await waitForPostAdoptionContinuation();
+    await clickAndFlush(within(initial).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
     const before = currentSession();
     const callCount = witnesses.length;
@@ -428,8 +454,8 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     renderWorkspace();
     await submit(T01);
     const first = await screen.findByTestId("functional-contribution-review");
-    await clickAndFlush(within(first).getByRole("button", { name: "Cela correspond à mon projet" }));
-    await waitForPostAdoptionContinuation();
+    await clickAndFlush(within(first).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
     await submit(T02);
     await waitForComposerReady();
@@ -442,7 +468,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     await waitForComposerReady();
     expect(currentSession().project).toEqual(before.project);
     expect(currentSession().retainedContributionCandidates).toEqual(before.retainedContributionCandidates);
-    expect(currentSession().runtimeTurns.at(-1)?.content).toContain("Plusieurs candidates courantes");
+    expect(currentSession().runtimeTurns.at(-1)?.content).toContain("Quelle proposition souhaitez-vous confirmer");
     expect(transport).toHaveBeenCalledTimes(calls);
   });
 
@@ -462,11 +488,11 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     });
     renderWorkspace();
     const confirmation = () => within(screen.getAllByTestId("functional-contribution-review").at(-1)!)
-      .getByRole("button", { name: "Cela correspond à mon projet" });
+      .getByRole("button", { name: "Confirmer les choix et enregistrer" });
     await submit(T01);
     await screen.findByTestId("functional-contribution-review");
     await clickAndFlush(confirmation());
-    await waitForPostAdoptionContinuation();
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
     await submit(T02);
     await waitForComposerReady();
@@ -490,8 +516,9 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
       expect(next.runtimeTurns.map(turn => turn.turnId)).toEqual(expect.arrayContaining(previous.runtimeTurns.map(turn => turn.turnId)));
       expect(next.knowledgeOwnerLedger.entries.map(entry => entry.result?.resultId)).toEqual(expect.arrayContaining(previous.knowledgeOwnerLedger.entries.map(entry => entry.result?.resultId)));
       expect(next.scientificExecutionTraceLedger.events.map(event => event.eventId)).toEqual(expect.arrayContaining(previous.scientificExecutionTraceLedger.events.map(event => event.eventId)));
-      expect(next.scientificThinkingInteraction).toMatchObject({ sourceProjectRef: next.project!.projectId,
-        sourceProjectVersion: next.project!.versionId, sourceProjectDigest: next.project!.projectDigest });
+      expect(next.scientificThinkingInteraction).toBeNull();
+      expect(next.queryNavigation).toMatchObject({ projectRef: next.project!.projectId,
+        projectVersion: next.project!.versionId, projectDigest: next.project!.projectDigest });
       expect(next.entries.filter(entry => entry.kind === "ERROR")).toEqual([]);
     }
   });
@@ -503,9 +530,9 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
 
     await submit(T01);
     const initialReview = await screen.findByTestId("functional-contribution-review");
-    await clickAndFlush(within(initialReview).getByRole("button", { name: "Cela correspond à mon projet" }));
+    await clickAndFlush(within(initialReview).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(currentSession().project?.revision).toBe(1));
-    await waitForPostAdoptionContinuation();
+    await assertNoAutomaticPostAdoptionContinuation();
     await waitForComposerReady();
     const adoptedDigest = currentSession().project?.projectDigest;
 
@@ -517,7 +544,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     expect(currentSession().project).toMatchObject({ revision: 1, projectDigest: adoptedDigest });
     expect(currentSession().project?.canonicalState?.objects.some((item) => item.actuality === "CURRENT"
       && item.content === NORMALIZED_ENDPOINT)).toBe(false);
-    expect(browserTransport).toHaveBeenCalledTimes(2);
+    expect(productBridgeRequestCount(browserTransport)).toBe(2);
   });
 
   it("fails closed on a structurally invalid bridge response without creating a Project", async () => {
@@ -542,17 +569,17 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     renderWorkspace();
     await submit(T01);
     const review = await screen.findByTestId("functional-contribution-review");
-    await clickAndFlush(within(review).getByRole("button", { name: "Cela correspond à mon projet" }));
-    await waitForPostAdoptionContinuation();
-    await waitForComposerReady();
     const before = currentSession();
-    await submit(T02);
-    await waitFor(() => expect(currentSession().retainedContributionCandidates).toHaveLength(2));
     const response = await (await browserTransport.mock.results.at(-1)!.value).json();
-    expect(response.conversationFailure).toMatchObject({ stage: "HOW", code: "CONVERSATION_PROVIDER_FAILURE" });
+    expect(response.scientificConversation).toMatchObject({ responseOwner: "DETERMINISTIC", outcome: "DETERMINISTIC_FALLBACK" });
     expect(witnesses.some((item) => item.endpoint.includes("googleapis") && item.responseStatus === 503)).toBe(true);
-    expect(currentSession().project).toEqual(before.project);
+    expect(currentSession().project).toBeNull();
     expect(currentSession().retainedContributionCandidates?.at(-1)).toMatchObject({ humanDecision: null, downstreamState: "PRESENTED" });
+    await clickAndFlush(within(review).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(currentSession().project?.revision).toBe(1));
+    await assertNoAutomaticPostAdoptionContinuation();
+    expect(witnesses).toHaveLength(2);
+    expect(before.retainedContributionCandidates).toHaveLength(1);
   });
 
   it("replays the IDM/IRM family for 15 meaningful Standard turns from turn 1", async () => {
@@ -561,7 +588,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     const currentContent = state.objects.filter((item) => item.actuality === "CURRENT").map((item) => item.content);
 
     expect(session.project?.revision).toBe(4);
-    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_A_TURNS.filter((turn) => turn.outcome === "CANDIDATE").length);
+    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_A_TURNS.filter((turn) => turn.bridgeCalls !== 0 && ["CANDIDATE", "PROPOSAL", "DISCUSS", "PRESERVE"].includes(turn.outcome)).length);
     expect(currentContent).toEqual(expect.arrayContaining([
       expect.stringMatching(/Âge minimal : 35 ans/iu),
       expect.stringMatching(/Âge maximal : 85 ans/iu),
@@ -592,7 +619,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     const currentContent = state.objects.filter((item) => item.actuality === "CURRENT").map((item) => item.content);
 
     expect(session.project?.revision).toBe(3);
-    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_B_TURNS.filter((turn) => turn.outcome === "CANDIDATE").length);
+    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_B_TURNS.filter((turn) => turn.bridgeCalls !== 0 && ["CANDIDATE", "PROPOSAL", "DISCUSS", "PRESERVE"].includes(turn.outcome)).length);
     expect(currentContent).toEqual(expect.arrayContaining([
       "Suivi à 24 semaines",
       "Hypoglycémies sévères",
@@ -611,7 +638,7 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     const currentContent = state.objects.filter((item) => item.actuality === "CURRENT").map((item) => item.content);
 
     expect(session.project?.revision).toBe(3);
-    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_C_TURNS.filter((turn) => turn.outcome === "CANDIDATE").length);
+    expect(productBridgeRequestCount(browserTransport)).toBe(FAMILY_C_TURNS.filter((turn) => turn.bridgeCalls !== 0 && ["CANDIDATE", "PROPOSAL", "DISCUSS", "PRESERVE"].includes(turn.outcome)).length);
     expect(currentContent).toEqual(expect.arrayContaining([
       expect.stringMatching(/vieillissement humide de 40 cycles/iu),
       expect.stringMatching(/lecture en aveugle des ruptures par deux opérateurs/iu),

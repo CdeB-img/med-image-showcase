@@ -18,6 +18,7 @@ export type SoakTurn = Readonly<{
   intendedMeaning: string;
   outcome: "CANDIDATE" | "CONFIRM" | "REFUSE" | "PRESERVE" | "PROPOSAL" | "DISCUSS";
   confirmWithButton?: boolean;
+  bridgeCalls?: 0 | 1;
 }>;
 
 export const FAMILY_A_TURNS: readonly SoakTurn[] = [
@@ -45,7 +46,7 @@ export const FAMILY_B_TURNS: readonly SoakTurn[] = [
   { text: "c'est bon", intendedMeaning: "Confirmer le critère secondaire.", outcome: "CONFIRM" },
   { text: "finalement remplace le suivi de 24 semaines par 36 semaines, je pense que ce sera plus informatif", intendedMeaning: "Proposer une correction temporelle partielle.", outcome: "CANDIDATE" },
   { text: "je refuse", intendedMeaning: "Refuser la correction et conserver 24 semaines.", outcome: "REFUSE" },
-  { text: "garde le projet actuel malgré cette hésitation", intendedMeaning: "Préserver explicitement l'état adopté.", outcome: "PRESERVE" },
+  { text: "garde le projet actuel malgré cette hésitation", intendedMeaning: "Préserver explicitement l'état adopté.", outcome: "PRESERVE", bridgeCalls: 0 },
   { text: "ajoute également que l'étude sera multicentrique, probablement quatre centres", intendedMeaning: "Proposer un cadre multicentrique avec réserve sur le nombre exact.", outcome: "CANDIDATE" },
   { text: "je valide", intendedMeaning: "Confirmer le cadre multicentrique proposé.", outcome: "CONFIRM" },
   { text: "fais moi des propositions", intendedMeaning: "Demander les prochaines propositions gouvernées.", outcome: "PROPOSAL" },
@@ -63,7 +64,7 @@ export const FAMILY_C_TURNS: readonly SoakTurn[] = [
   { text: "c'est bon", intendedMeaning: "Confirmer l'exposition.", outcome: "CONFIRM" },
   { text: "en fait remplace 40 cycles par 60 cycles, peut-être que l'effet sera plus visible", intendedMeaning: "Proposer une correction quantitative sans promouvoir la supposition.", outcome: "CANDIDATE" },
   { text: "je refuse", intendedMeaning: "Refuser la correction et conserver 40 cycles.", outcome: "REFUSE" },
-  { text: "garde le projet actuel", intendedMeaning: "Préserver l'état adopté.", outcome: "PRESERVE" },
+  { text: "garde le projet actuel", intendedMeaning: "Préserver l'état adopté.", outcome: "PRESERVE", bridgeCalls: 0 },
   { text: "ajoute également une lecture en aveugle des ruptures par deux opérateurs", intendedMeaning: "Ajouter une contrainte de lecture indépendante.", outcome: "CANDIDATE" },
   { text: "je valide", intendedMeaning: "Confirmer la lecture en aveugle.", outcome: "CONFIRM" },
   { text: "fais moi des propositions", intendedMeaning: "Demander des propositions depuis le Project matériaux courant.", outcome: "PROPOSAL" },
@@ -183,6 +184,7 @@ const endpointCorrectionReplay = (request: ExtractionReplayContext) => {
   const replace = (targetProjectRef: string, proposedType: string, studyRole?: string) => ({
     operation: "REPLACE",
     sourceAnchorId,
+    candidateRef: `replacement:${targetProjectRef}`,
     targetProjectRef,
     proposedType,
     content: NORMALIZED_ENDPOINT,
@@ -212,10 +214,10 @@ const populationReplay = (request: ExtractionReplayContext) => {
       anchoredChange(sourceAnchorId, "population:primary-mi", "POPULATION", "Population de primo-infarctus du myocarde"),
       anchoredChange(sourceAnchorId, "information:silent-mi", "PROJECT_INFORMATION", "La qualification de primo-infarctus doit tenir compte d'éventuels infarctus silencieux antérieurs", undefined, "UNKNOWN"),
       anchoredChange(sourceAnchorId, "criterion:age-range", "ELIGIBILITY_CRITERION", "Tranche d'âge : 35/85 ans"),
-      anchoredChange(sourceAnchorId, "criterion:all-comers", "INCLUSION_CRITERION", "Tout venant"),
-      anchoredChange(sourceAnchorId, "criterion:mri-contraindications", "EXCLUSION_CRITERION", "Contre-indication à l'IRM cardiaque ou au produit de contraste, par exemple pacemaker"),
-      anchoredChange(sourceAnchorId, "criterion:prior-coronary-disease", "EXCLUSION_CRITERION", "Antécédent de problème coronarien"),
-      anchoredChange(sourceAnchorId, "criterion:vulnerable-populations", "EXCLUSION_CRITERION", "Exclure toutes les populations sensibles"),
+      anchoredChange(sourceAnchorId, "criterion:all-comers", "ELIGIBILITY_CRITERION", "Tout venant"),
+      anchoredChange(sourceAnchorId, "criterion:mri-contraindications", "ELIGIBILITY_CRITERION", "Contre-indication à l'IRM cardiaque ou au produit de contraste, par exemple pacemaker"),
+      anchoredChange(sourceAnchorId, "criterion:prior-coronary-disease", "ELIGIBILITY_CRITERION", "Antécédent de problème coronarien"),
+      anchoredChange(sourceAnchorId, "criterion:vulnerable-populations", "ELIGIBILITY_CRITERION", "Exclure toutes les populations sensibles"),
     ],
     relations: [],
     temporalQualifications: [],
@@ -266,6 +268,7 @@ const replaceCurrentReplay = (request: ExtractionReplayContext, input: {
     changes: [{
       operation: "REPLACE",
       sourceAnchorId,
+      candidateRef: `replacement:${target.stableId}`,
       targetProjectRef: target.stableId,
       proposedType: input.proposedType,
       content: input.content,
@@ -432,15 +435,23 @@ const syntheticGovernedHow = (envelope: GovernedConversationEnvelope) => {
   };
 };
 
+/** Current native Collaborator carrier. This is a synthetic boundary witness,
+ * not an assessment of model reasoning or conversational naturalness. */
+const syntheticCollaboratorReply = (packet: {
+  currentMessage?: { turnRef?: string; text?: string };
+  adoptedProject?: ProjectContextSnapshot | null;
+}) => {
+  required(packet.currentMessage?.turnRef && packet.currentMessage.text, "COLLABORATOR_CURRENT_MESSAGE_MISSING");
+  const confirmed = packet.adoptedProject?.objects.map(object => object.content).join(" ; ");
+  return `La demande actuelle reste une discussion : ${packet.currentMessage.text}\n`
+    + (confirmed ? `Les éléments confirmés de votre étude sont utilisés comme contexte : ${confirmed}.\n` : "Aucun projet n’est encore adopté.\n")
+    + "Les propositions doivent être revues explicitement ; cette réponse ne modifie pas le projet.";
+};
+
 export const replayJsonResponse = (body: unknown, status = 200): Response => {
-  const serialized = JSON.stringify(body);
-  return {
-    ok: status >= 200 && status < 300,
-    status,
-    headers: { get: (name: string) => name.toLowerCase() === "content-type" ? "application/json" : null },
-    json: async () => JSON.parse(serialized),
-    text: async () => serialized,
-  } as unknown as Response;
+  // Financial settlement reads a clone without consuming the product body.
+  // A native Response protects that boundary instead of a partial duck type.
+  return new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 };
 
 /** Offline contract fixture only. Each immutable response is keyed by the ACTUAL serialized request digest. */
@@ -484,13 +495,14 @@ export const createLongHorizonProviderReplay = (
       required(endpoint.includes("gemini-3.5-flash-lite:generateContent"), "HOW_MODEL_CHANGED");
       const contents = requestBody.contents as Array<{ parts: Array<{ text: string }> }>;
       required(contents?.[0]?.parts?.[0]?.text, "HOW_CONTEXT_MISSING");
-      const envelope = JSON.parse(contents[0]!.parts[0]!.text) as GovernedConversationEnvelope;
-      const output = syntheticGovernedHow(envelope);
+      const context = JSON.parse(contents[0]!.parts[0]!.text);
+      const legacy = context.contract === "GOVERNED_CONVERSATION_REALIZATION";
+      const output = legacy ? JSON.stringify(syntheticGovernedHow(context)) : syntheticCollaboratorReply(context);
       fixture = options.how === "UNAVAILABLE"
-        ? { turnText: envelope.sourceTurnRef, status: 503, body: { error: { status: "UNAVAILABLE", message: "Synthetic HOW failure" } } }
-        : { turnText: envelope.sourceTurnRef, status: 200, body: {
+        ? { turnText: legacy ? context.sourceTurnRef : context.currentMessage.turnRef, status: 503, body: { error: { status: "UNAVAILABLE", message: "Synthetic HOW failure" } } }
+        : { turnText: legacy ? context.sourceTurnRef : context.currentMessage.turnRef, status: 200, body: {
           responseId: `synthetic-gemini:${requestDigest}`, modelVersion: "gemini-3.5-flash-lite",
-          candidates: [{ content: { parts: [{ text: JSON.stringify(output) }] } }],
+          candidates: [{ content: { parts: [{ text: output }] } }],
           usageMetadata: { promptTokenCount: 1_000, candidatesTokenCount: 250, totalTokenCount: 1_250 },
         } };
     }
