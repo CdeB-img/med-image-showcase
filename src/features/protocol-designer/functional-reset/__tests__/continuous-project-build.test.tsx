@@ -155,7 +155,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     if (existingProject) next.proposal!.atoms.find(atom => atom.ref === "question")!.content += " — précision candidate";
     const session = checkpointSession(initial, next);
     const saved = createProjectSession(localStorage, "Persistance exacte");
-    saved.session = session; saved.raw = saveProjectSession(localStorage, saved, session);
+    saved.session = session; saved.raw = (await saveProjectSession(localStorage, saved, session));
     const original = Storage.prototype.setItem;
     let refusePointer = true;
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(function(key, value) {
@@ -173,10 +173,11 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const reloaded = render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
     expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
+    const retryPointer = await screen.findByRole("button", { name: "Réessayer le raccourci de réouverture" });
     refusePointer = false;
-    fireEvent.click(screen.getByRole("button", { name: "Réessayer le raccourci de réouverture" }));
+    fireEvent.click(retryPointer);
     expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
-    expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(saved.key);
+    await waitFor(() => expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(saved.key));
     reloaded.unmount(); render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
     expect(readProjectSessions(localStorage).projects[0].session.project).toEqual(committed);
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
@@ -1579,8 +1580,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
     const workingDraft=prepareContinuousWorkingDraft(initial,composition,update,prepareWorkingDraftRequest(request).inputDigest);
     bridge.mockRejectedValue(new ProductBridgeClientError("PUBLIC_PROVIDER_UNKNOWN_AFTER_DISPATCH","LOCAL_SYNTHETIC"));
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={checkpointSession(initial,update)} onSessionChange={explicitTestSave(()=>true)} /></HelmetProvider>);
+    let saved = checkpointSession(initial, update);
+    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);

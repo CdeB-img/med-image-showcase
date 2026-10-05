@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -10,9 +10,9 @@ import {
 } from "../project-workspace-storage";
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-const save = (title: string): SavedProjectSession => {
+const save = async (title: string): Promise<SavedProjectSession> => {
   const project = createProjectSession(localStorage, title);
-  project.raw = saveProjectSession(localStorage, project, project.session);
+  project.raw = (await saveProjectSession(localStorage, project, project.session));
   return project;
 };
 
@@ -20,9 +20,9 @@ beforeEach(() => localStorage.clear());
 afterEach(() => cleanup());
 
 describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
-  it("PROJECT_RENAME_PERSISTS without changing technical identity or project content", () => {
-    const original = save("Myocardite");
-    const renamed = renameProjectSession(localStorage, original, "Myocardite post-CEC", "2026-09-15T10:00:00.000Z");
+  it("PROJECT_RENAME_PERSISTS without changing technical identity or project content", async () => {
+    const original = await save("Myocardite");
+    const renamed = (await renameProjectSession(localStorage, original, "Myocardite post-CEC", "2026-09-15T10:00:00.000Z"));
     const reopened = readProjectSessions(localStorage).projects[0]!;
     expect(reopened.session.workspace?.title).toBe("Myocardite post-CEC");
     expect(reopened.session.sessionId).toBe(original.session.sessionId);
@@ -31,10 +31,10 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(renamed.raw).toBe(localStorage.getItem(original.key));
   });
 
-  it("PROJECT_DELETE_ISOLATION removes one complete session and does not reuse its Project ID", () => {
-    const first = save("Myocardite");
-    const second = save("Neurologie");
-    deleteProjectSession(localStorage, first);
+  it("PROJECT_DELETE_ISOLATION removes one complete session and does not reuse its Project ID", async () => {
+    const first = await save("Myocardite");
+    const second = await save("Neurologie");
+    (await deleteProjectSession(localStorage, first));
     const remaining = readProjectSessions(localStorage).projects;
     expect(remaining).toHaveLength(1);
     expect(remaining[0]!.session.projectId).toBe(second.session.projectId);
@@ -43,9 +43,9 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(localStorage.getItem(second.key)).toBe(second.raw);
   });
 
-  it("PROJECT_DELETE_CONFIRMATION supports cancel and explicit destructive confirmation", () => {
-    save("Myocardite");
-    save("Neurologie");
+  it("PROJECT_DELETE_CONFIRMATION supports cancel and explicit destructive confirmation", async () => {
+    await save("Myocardite");
+    await save("Neurologie");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, "LIST");
     renderDemo();
     fireEvent.click(screen.getByLabelText("Actions pour Myocardite"));
@@ -58,24 +58,24 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     fireEvent.click(screen.getByLabelText("Actions pour Myocardite"));
     fireEvent.click(screen.getAllByRole("button", { name: "Supprimer le projet" })[0]!);
     fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Supprimer" }));
-    expect(screen.queryByRole("heading", { name: "Myocardite" })).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByRole("heading", { name: "Myocardite" })).not.toBeInTheDocument());
     expect(readProjectSessions(localStorage).projects.map((project) => project.session.workspace?.title)).toEqual(["Neurologie"]);
   });
 
-  it("PROJECT_RENAME_PERSISTS through both the project list and current-project header", () => {
-    const saved = save("Myocardite");
+  it("PROJECT_RENAME_PERSISTS through both the project list and current-project header", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, "LIST");
     const mounted = renderDemo();
     fireEvent.click(screen.getByLabelText("Actions pour Myocardite"));
     fireEvent.click(screen.getByRole("button", { name: "Renommer" }));
     fireEvent.change(screen.getByLabelText("Nom du projet"), { target: { value: "Myocardite post-CEC" } });
     fireEvent.click(screen.getByRole("button", { name: "Enregistrer" }));
-    const card = screen.getByRole("heading", { name: "Myocardite post-CEC" }).closest("article")!;
+    const card = (await screen.findByRole("heading", { name: "Myocardite post-CEC" })).closest("article")!;
     fireEvent.click(within(card).getByRole("button", { name: "Ouvrir" }));
     fireEvent.click(screen.getByRole("button", { name: "Renommer Myocardite post-CEC" }));
     fireEvent.change(screen.getByLabelText("Nom du projet"), { target: { value: "Myocardite CEC" } });
     fireEvent.click(screen.getByRole("button", { name: "Enregistrer" }));
-    expect(screen.getByRole("heading", { level: 1, name: "Myocardite CEC" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Myocardite CEC" })).toBeInTheDocument();
     expect(readProjectSessions(localStorage).projects[0]!.session.projectId).toBe(saved.session.projectId);
     mounted.unmount();
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, "LIST");
@@ -83,8 +83,8 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(screen.getByRole("heading", { name: "Myocardite CEC" })).toBeInTheDocument();
   });
 
-  it("PROJECT_HEADER_SHOWS_CURRENT_PROJECT / TOP_NAVIGATION_AVAILABLE", () => {
-    const saved = save("Myocardite");
+  it("PROJECT_HEADER_SHOWS_CURRENT_PROJECT / TOP_NAVIGATION_AVAILABLE", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     expect(screen.getByRole("heading", { level: 1, name: "Myocardite" })).toBeInTheDocument();
@@ -96,8 +96,8 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(nav).toHaveClass("sticky");
   });
 
-  it("STANDARD_NO_INTERNAL_JARGON / TECHNICAL_DIAGNOSTIC_NOT_PRIMARY_NAV", () => {
-    const saved = save("Myocardite");
+  it("STANDARD_NO_INTERNAL_JARGON / TECHNICAL_DIAGNOSTIC_NOT_PRIMARY_NAV", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     const workspace = screen.getByTestId("functional-reset-workspace");
@@ -111,8 +111,8 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Diagnostic technique" })).toBeInTheDocument();
   });
 
-  it("PROJECT_PROGRESS_COLLAPSIBLE / CHAT_COMPOSER_REMAINS_STICKY", () => {
-    const saved = save("Myocardite");
+  it("PROJECT_PROGRESS_COLLAPSIBLE / CHAT_COMPOSER_REMAINS_STICKY", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     const details = screen.getByTestId("project-progress-details") as HTMLDetailsElement;
@@ -122,8 +122,8 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(screen.getByTestId("conversation-composer")).toHaveClass("sticky", "bottom-0");
   });
 
-  it("FUTURE_STEPS_VISIBLE_DISABLED", () => {
-    const saved = save("Myocardite");
+  it("FUTURE_STEPS_VISIBLE_DISABLED", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     const continuum = screen.getByRole("navigation", { name: "Parcours longitudinal du projet" });
@@ -133,8 +133,8 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(continuum).not.toHaveTextContent("suite envisagée");
   });
 
-  it("PROFILE_TOP_NAVIGATION returns to projects and to the current project", () => {
-    const saved = save("Myocardite");
+  it("PROFILE_TOP_NAVIGATION returns to projects and to the current project", async () => {
+    const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     fireEvent.click(screen.getByRole("button", { name: "Profil / organisation" }));

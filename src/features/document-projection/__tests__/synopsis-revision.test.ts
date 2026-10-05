@@ -113,13 +113,13 @@ describe("bounded synopsis revision protects source prose across domains", () =>
     if (words > 750) expect(() => prepareSynopsisRevision(packet, changed)).toThrow("DOC_REVISION_PROTECTED_CORE_EXCEEDS_BOUND");
     else expect(() => materializeSynopsisRevision({ paragraphs: [{ sectionIndex: 0, fragmentRefs: ["p"] }] }, prepareSynopsisRevision(packet, changed), metadata)).toThrow("DRCI_SYNOPSIS_WORD_BOUND_EXCEEDED");
   });
-  it("fails atomic persistence without replacing the previous project", () => {
+  it("fails atomic persistence without replacing the previous project", async () => {
     const stored = new Map<string, string>();
     const storage = { getItem: (k: string) => stored.get(k) ?? null, setItem: (k: string, v: string) => { stored.set(k, v); } } as Storage;
-    const saved = createProjectSession(storage, "project"); const raw = saveProjectSession(storage, saved, saved.session);
+    const saved = createProjectSession(storage, "project"); const raw = await saveProjectSession(storage, saved, saved.session);
     const failing = { ...storage, setItem: () => { throw new Error("quota"); } } as Storage;
     const previous = stored.get(saved.key);
-    expect(() => saveProjectSession(failing, { ...saved, raw }, { ...saved.session, updatedAt: at })).toThrow("quota");
+    await expect(saveProjectSession(failing, { ...saved, raw }, { ...saved.session, updatedAt: at })).rejects.toThrow("quota");
     expect(stored.get(saved.key)).toBe(previous);
   });
 });

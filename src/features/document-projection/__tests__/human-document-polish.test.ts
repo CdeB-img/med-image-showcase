@@ -124,11 +124,11 @@ describe('Current human-revised pack: native admission, ancestry and persistence
   expect(files.find(f=>f.kind==='RECRUITMENT')!.markdown).toContain('délivrer systématiquement des résultats individuels');
   for(const fact of parent.sourceFacts.filter(f=>f.epistemicState==='UNKNOWN')) expect(revised.sourceFacts).toContainEqual(fact);
  });
- it('native session round-trip preserves the adopted Project and previous pack while keeping new export hashes stable',()=>{
+ it('native session round-trip preserves the adopted Project and previous pack while keeping new export hashes stable',async ()=>{
   const saved=createProjectSession(localStorage,'Human-revised DRCI');saved.session.projectId=project.projectId;
   const session={...saved.session,project,projectId:project.projectId,drciDraftPacks:[parent]};
-  saveProjectSession(localStorage,saved,session);const persisted=readProjectSessions(localStorage).projects[0];
-  saveProjectSession(localStorage,persisted,{...persisted.session,drciDraftPacks:[parent,revised]});
+  (await saveProjectSession(localStorage,saved,session));const persisted=readProjectSessions(localStorage).projects[0];
+  (await saveProjectSession(localStorage,persisted,{...persisted.session,drciDraftPacks:[parent,revised]}));
   const reloaded=readProjectSessions(localStorage).projects[0].session;
   expect(reloaded.project).toEqual(project);expect(reloaded.drciDraftPacks).toEqual([parent,revised]);
   expect(drciDraftPackFiles(reloaded.drciDraftPacks!.at(-1)!).map(f=>logicalDigest(f.html))).toEqual(drciDraftPackFiles(revised).map(f=>logicalDigest(f.html)));

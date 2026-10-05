@@ -720,9 +720,9 @@ describe("DRCI DOC/DM projections: source, review, stale and actual reading mech
     }
     expect(isDrciDraftPackCurrent({ ...candidate, generatedAt: "tampered" }, project)).toBe(false);
   });
-  it("retains the actual written pack losslessly on reopen, alongside the canonical Project", () => {
+  it("retains the actual written pack losslessly on reopen, alongside the canonical Project", async () => {
     const saved = createProjectSession(localStorage, "DRCI"); saved.session.projectId = project.projectId; const candidate = pack();
-    saveProjectSession(localStorage, saved, { ...saved.session, projectId: project.projectId, project, drciDraftPacks: [candidate] });
+    (await saveProjectSession(localStorage, saved, { ...saved.session, projectId: project.projectId, project, drciDraftPacks: [candidate] }));
     const reopened = readProjectSessions(localStorage).projects[0].session;
     expect(reopened.drciDraftPacks).toEqual([candidate]); expect(reopened.project?.projectDigest).toBe(project.projectDigest);
   });

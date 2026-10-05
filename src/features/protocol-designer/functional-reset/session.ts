@@ -673,7 +673,7 @@ export const repairPersistedProductPresentation = (
   ? { ...entry, content: INITIAL_NOXIA_MESSAGE }
   : entry);
 
-export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTIONAL_RESET_STORAGE_KEY, strict = false): FunctionalResetSession => {
+export const loadFunctionalResetSession = (storage: Pick<Storage, "getItem">, storageKey = FUNCTIONAL_RESET_STORAGE_KEY, strict = false): FunctionalResetSession => {
   try {
     const raw = storage.getItem(storageKey);
     if (!raw) {
@@ -738,16 +738,16 @@ export type SessionPersistenceResult =
 
 // The sole product host returns M1's explicit verdict. A missing/legacy return
 // is not proof of scientific persistence (legacy test observers live in tests).
-export type SessionSave = (session: FunctionalResetSession) => SessionPersistenceResult;
-export const saveFunctionalResetWorkspaceSession = (
+export type SessionSave = (session: FunctionalResetSession) => SessionPersistenceResult | Promise<SessionPersistenceResult>;
+export const saveFunctionalResetWorkspaceSession = async (
   storage: Storage, session: FunctionalResetSession, save?: SessionSave,
-): SessionPersistenceResult => {
+): Promise<SessionPersistenceResult> => {
   try {
     if (!save) {
       persistFunctionalResetSession(storage, session);
       return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
     }
-    const result = save(session);
+    const result = await save(session);
     if (!result || typeof result !== "object"
       || result.scientificPersisted !== true && result.scientificPersisted !== false
       || result.scientificPersisted === true && !["UPDATED", "FAILED", "NOT_APPLICABLE"].includes(result.navigationPointer)

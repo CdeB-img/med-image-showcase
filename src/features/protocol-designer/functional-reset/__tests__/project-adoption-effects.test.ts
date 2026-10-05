@@ -30,22 +30,22 @@ describe("CURRENT_STRUCTURAL_INVARIANT — explicit adoption effect result", () 
     expect(upload).not.toHaveBeenCalled();
   });
 
-  it("keeps the Project adoption independent of a DOC refresh failure", () => {
+  it("keeps the Project adoption independent of a DOC refresh failure", async () => {
     const input = prepared(), before = JSON.stringify(input.project);
     vi.spyOn(documentOwner, "refreshFunctionalResetDocumentPortfolio").mockImplementationOnce(() => { throw new Error("DOC_REFRESH_TEST_FAILURE"); });
     const consumers = refreshAdoptedProjectConsumers(input);
-    const result = persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, ...consumers, project: input.project },
-      previousProject: null, uploadSnapshot: false });
+    const result = (await persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, ...consumers, project: input.project },
+      previousProject: null, uploadSnapshot: false }));
     expect(result.status).toBe("COMMITTED");
     expect(loadFunctionalResetSession(localStorage, undefined, true).project).toEqual(input.project);
     expect(JSON.stringify(input.project)).toBe(before);
     expect(upload).not.toHaveBeenCalled();
   });
 
-  it("preserves the exact failed scientific verdict and never uploads on failed persistence", () => {
+  it("preserves the exact failed scientific verdict and never uploads on failed persistence", async () => {
     const input = prepared(), error = new Error("QUOTA_TEST_FAILURE"), save = vi.fn(() => ({ scientificPersisted: false as const, error }));
-    expect(persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
-      previousProject: null, save, uploadSnapshot: true })).toEqual({ status: "NOT_COMMITTED", error });
+    expect((await persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
+      previousProject: null, save, uploadSnapshot: true }))).toEqual({ status: "NOT_COMMITTED", error });
     expect(save).toHaveBeenCalledTimes(1);
     expect(upload).not.toHaveBeenCalled();
   });
@@ -54,8 +54,8 @@ describe("CURRENT_STRUCTURAL_INVARIANT — explicit adoption effect result", () 
     const input = prepared(), order: string[] = [];
     const save = vi.fn(() => { order.push("SCIENTIFIC_PERSISTENCE"); return { scientificPersisted: true as const, navigationPointer }; });
     upload.mockImplementationOnce(async () => { order.push("AUXILIARY_UPLOAD"); throw new Error("SNAPSHOT_TEST_UNAVAILABLE"); });
-    const result = persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
-      previousProject: null, save, uploadSnapshot: true });
+    const result = (await persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
+      previousProject: null, save, uploadSnapshot: true }));
     expect(result.status).toBe("COMMITTED");
     if (result.status !== "COMMITTED") throw new Error("COMMIT_EXPECTED");
     expect(await result.auxiliaryUpload).toBe("FAILED");
@@ -67,8 +67,8 @@ describe("CURRENT_STRUCTURAL_INVARIANT — explicit adoption effect result", () 
   it("also classifies a synchronous auxiliary adapter failure after the scientific commit", async () => {
     const input = prepared();
     upload.mockImplementationOnce(() => { throw new Error("SYNCHRONOUS_AUXILIARY_FAILURE"); });
-    const result = persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
-      previousProject: null, uploadSnapshot: true });
+    const result = (await persistAdoptedProjectSession({ storage: localStorage, session: { ...input.previous, project: input.project },
+      previousProject: null, uploadSnapshot: true }));
     expect(result.status).toBe("COMMITTED");
     if (result.status !== "COMMITTED") throw new Error("COMMIT_EXPECTED");
     expect(await result.auxiliaryUpload).toBe("FAILED");

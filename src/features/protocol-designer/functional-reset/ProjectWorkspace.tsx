@@ -6,8 +6,8 @@ import ProtocolDesignerWorkspace from "./ProtocolDesignerWorkspace";
 import ProjectAdministrationForm, { ResearcherProfileForm } from "./ProjectAdministrationForm";
 import { documentAdministrationFrom, emptyLocalProfile, emptyProjectAdministration, type LocalProjectMetadata } from "./project-administration";
 import {
-  ACTIVE_PROJECT_STORAGE_KEY, createProjectSession, deleteProjectSession, readProjectSessions, readResearcherProfile,
-  RESEARCHER_PROFILE_STORAGE_KEY, renameProjectSession, saveProjectSession, type SavedProjectSession,
+  ACTIVE_PROJECT_STORAGE_KEY, createProjectSession, createProjectSessionWriter, deleteProjectSession, readProjectSessions, readResearcherProfile,
+  RESEARCHER_PROFILE_STORAGE_KEY, renameProjectSession, type SavedProjectSession,
 } from "./project-workspace-storage";
 import type { FunctionalResetSession, SessionPersistenceResult } from "./session";
 
@@ -59,6 +59,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
   const [boot] = useState(initial);
   const [active, setActive] = useState<SavedProjectSession | null>(boot.active);
   const savedRef = useRef<SavedProjectSession | null>(boot.active);
+  const writerRef = useRef(boot.active ? createProjectSessionWriter(window.localStorage, boot.active) : null);
   const latestRef = useRef<FunctionalResetSession | null>(boot.active?.session ?? null);
   const [view, setView] = useState<"PROJECT" | "LIST" | "ADMIN" | "PROFILE">(boot.active ? "PROJECT" : "LIST");
   const [profile, setProfile] = useState(boot.profile);
@@ -84,34 +85,35 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
     return next;
   };
 
-  const persist = useCallback((session: FunctionalResetSession): SessionPersistenceResult => {
+  const persist = useCallback(async (session: FunctionalResetSession): Promise<SessionPersistenceResult> => {
     const saved = savedRef.current;
-    if (!saved || saved.session.sessionId !== session.sessionId)
+    const writer = writerRef.current;
+    if (!saved || !writer || saved.session.sessionId !== session.sessionId)
       return { scientificPersisted: false, error: new Error("PROJECT_SESSION_IDENTITY_MISMATCH") };
     latestRef.current = session;
-    try {
-      const raw = saveProjectSession(window.localStorage, saved, session);
-      const next = { ...saved, raw, session };
-      savedRef.current = next;
-      setActive(next);
-    } catch (failure) {
-      setError(`Enregistrement local impossible. Gardez cet écran ouvert : ${failure instanceof Error ? failure.message : String(failure)}`);
-      return { scientificPersisted: false, error: failure };
+    const result = await writer.save(session);
+    // An awaited save of another screen must not reopen it or change its UI.
+    if (writerRef.current !== writer) return result;
+    if (result.scientificPersisted === false) {
+      setError(`Enregistrement local impossible. Gardez cet écran ouvert : ${result.error instanceof Error ? result.error.message : String(result.error)}`);
+      return result;
     }
+    const next = writer.current();
+    savedRef.current = next;
+    setActive(next);
     setError("");
-    try {
-      window.localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+    if (result.navigationPointer !== "FAILED") {
       setNavigationWarning("");
-      return { scientificPersisted: true, navigationPointer: "UPDATED" };
-    } catch {
+    } else {
       setNavigationWarning("Le projet est enregistré. Le raccourci de réouverture n’a pas été actualisé ; le projet reste disponible dans Mes projets.");
-      return { scientificPersisted: true, navigationPointer: "FAILED" };
     }
+    return result;
   }, []);
 
   const open = (saved: SavedProjectSession) => {
     if (error) return;
     savedRef.current = saved;
+    writerRef.current = createProjectSessionWriter(window.localStorage, saved);
     latestRef.current = saved.session;
     setActive(saved);
     setGeneration((value) => value + 1);
@@ -131,7 +133,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
     open(saved);
     setTitle("");
   };
-  const saveMetadata = (metadata: LocalProjectMetadata) => {
+  const saveMetadata = async (metadata: LocalProjectMetadata) => {
     const current = latestRef.current;
     const saved = savedRef.current;
     if (!current || !saved || error) return;
@@ -141,7 +143,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
       handoffDecision: session.documents.handoffDecision,
       administration: documentAdministrationFrom(session.projectId, metadata),
     });
-    if (persist(session).scientificPersisted && savedRef.current) open(savedRef.current);
+    if ((await persist(session)).scientificPersisted && savedRef.current) open(savedRef.current);
   };
 
   const beginRename = (saved: SavedProjectSession) => {
@@ -151,12 +153,13 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
     setRenameTarget(currentSaved);
     setRenameTitle(projectTitle(currentSaved));
   };
-  const confirmRename = () => {
+  const confirmRename = async () => {
     if (!renameTarget || error) return;
     try {
-      const renamed = renameProjectSession(window.localStorage, renameTarget, renameTitle);
+      const renamed = await renameProjectSession(window.localStorage, renameTarget, renameTitle);
       if (savedRef.current?.key === renamed.key) {
         savedRef.current = renamed;
+        writerRef.current = createProjectSessionWriter(window.localStorage, renamed);
         latestRef.current = renamed.session;
         setActive(renamed);
         setGeneration((value) => value + 1);
@@ -165,12 +168,13 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
       setRenameTarget(null);
     } catch (failure) { setError(String(failure)); }
   };
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!deleteTarget || error) return;
     try {
-      deleteProjectSession(window.localStorage, deleteTarget);
+      await deleteProjectSession(window.localStorage, deleteTarget);
       if (savedRef.current?.key === deleteTarget.key) {
         savedRef.current = null;
+        writerRef.current = null;
         latestRef.current = null;
         setActive(null);
       }

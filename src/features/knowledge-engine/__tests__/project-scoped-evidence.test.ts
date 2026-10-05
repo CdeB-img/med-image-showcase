@@ -136,13 +136,13 @@ describe("Project-scoped evidence: Knowledge qualification, immutable Project, p
     expect(current.paragraphs).toEqual([]);
     expect(current.projectScopedEvidence).toEqual([]);
   });
-  it("survives the existing session codec and reopen without affecting another project", () => {
+  it("survives the existing session codec and reopen without affecting another project", async () => {
     localStorage.clear(); const saved = createProjectSession(localStorage, "One");
     const item = fixture(); item.input.projectBinding = { ...binding, projectRef: saved.session.projectId };
     const current = item.input.projectBinding;
     const library = retainProjectScopedEvidence(bindProjectSourceLibrary(emptyProjectSourceLibrary(current.projectRef), current), [item.source], [qualifyProjectScopedEvidence(item.input, item.source, current)]);
-    saveProjectSession(localStorage, saved, { ...saved.session, sourceLibrary: library });
-    const other = createProjectSession(localStorage, "Two"); saveProjectSession(localStorage, other, other.session);
+    (await saveProjectSession(localStorage, saved, { ...saved.session, sourceLibrary: library }));
+    const other = createProjectSession(localStorage, "Two"); (await saveProjectSession(localStorage, other, other.session));
     const reopened = readProjectSessions(localStorage);
     expect(reopened.unreadable).toEqual([]);
     expect(reopened.projects.find((project) => project.session.projectId === current.projectRef).session.sourceLibrary).toEqual(library);

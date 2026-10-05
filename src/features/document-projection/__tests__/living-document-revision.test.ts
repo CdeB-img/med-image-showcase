@@ -162,7 +162,7 @@ describe("Living document: owner evidence, immutable revisions and scoped change
     expect(restored.documentaryRevision?.restoredFromProjectionId).toBe(previous.projectionId);
     expect(() => restoreDocumentRevision({ ...current, source: { ...current.source, projectDigest: "changed-science" } }, previous, { instruction: "restaure", turnRef: "doc:8", timestamp: AT })).toThrow("DOCUMENT_RESTORE_SOURCE_CHANGED");
   });
-  it("persists and reopens sources, citations, document history and Project together without approximate reconstruction", () => {
+  it("persists and reopens sources, citations, document history and Project together without approximate reconstruction", async () => {
     localStorage.clear();
     const saved = createProjectSession(localStorage, "Document vivant");
     saved.session.projectId = project.projectId;
@@ -171,7 +171,7 @@ describe("Living document: owner evidence, immutable revisions and scoped change
     const projection = generate();
     const next = reviseScientificDocument({ projection, library, transformation: "EXPAND", instruction: "développe l’introduction", turnRef: "doc:persist", timestamp: AT }).projection;
     saved.session.documents = { ...saved.session.documents, projections: [projection, next] };
-    saved.raw = saveProjectSession(localStorage, saved, saved.session);
+    saved.raw = await saveProjectSession(localStorage, saved, saved.session);
     const read = readProjectSessions(localStorage);
     expect(read.unreadable).toEqual([]);
     expect(read.projects[0]!.session.project).toEqual(project);

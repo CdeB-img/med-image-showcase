@@ -1,6 +1,6 @@
 import {
   createFunctionalResetSession, FUNCTIONAL_RESET_STORAGE_KEY, loadFunctionalResetSession,
-  type FunctionalResetSession,
+  type FunctionalResetSession, type SessionPersistenceResult,
 } from "./session";
 import { emptyLocalProfile, emptyProjectAdministration, type LocalResearcherProfile } from "./project-administration";
 import { documentAdministrationFrom } from "./project-administration";
@@ -23,7 +23,10 @@ export const readProjectSessions = (storage: Storage) => {
     const key = storage.key(i);
     if (!key || !isProjectSessionKey(key)) continue;
     try {
-      let session = loadFunctionalResetSession(storage, key, true);
+      // Decode and bind the base from one read: another context must not make
+      // old session content appear to have the expected bytes of a newer save.
+      const raw = storage.getItem(key);
+      let session = loadFunctionalResetSession({ getItem: () => raw }, key, true);
       if (session.project && session.project.projectId !== session.projectId) throw new Error("PROJECT_IDENTITY_MISMATCH");
       if (session.documents.projections.some((p) => p.source.projectId !== session.projectId)) throw new Error("DOCUMENT_PROJECT_IDENTITY_MISMATCH");
       if (session.sourceLibrary) session.sourceLibrary = rehydrateProjectSourceLibrary(session.sourceLibrary, session.projectId);
@@ -39,7 +42,7 @@ export const readProjectSessions = (storage: Storage) => {
         handoffDecision: session.documents.handoffDecision,
         administration: documentAdministrationFrom(session.projectId, workspace),
       });
-      projects.push({ key, raw: storage.getItem(key), session });
+      projects.push({ key, raw, session });
     } catch { unreadable.push(key); }
   }
   return { projects, unreadable };
@@ -54,23 +57,79 @@ export const createProjectSession = (storage: Storage, title: string): SavedProj
   return { key, raw: null, session };
 };
 
-export const saveProjectSession = (storage: Storage, saved: SavedProjectSession, session: FunctionalResetSession): string => {
-  if (!isProjectSessionKey(saved.key) || saved.session.sessionId !== session.sessionId || saved.session.projectId !== session.projectId) {
-    throw new Error("La sauvegarde ne correspond pas à ce projet.");
+export class ProjectSessionPersistenceError extends Error {
+  constructor(public readonly code: "PROJECT_SESSION_LOCK_UNAVAILABLE" | "PROJECT_SESSION_STALE_BASE" | "PROJECT_SESSION_WRITE_UNVERIFIED", message: string) {
+    super(message);
+    this.name = "ProjectSessionPersistenceError";
   }
-  if (storage.getItem(saved.key) !== saved.raw) throw new Error("Ce projet a changé dans un autre écran. Rouvrez sa version enregistrée avant de poursuivre.");
-  const raw = encodeSessionStorage(session);
-  // One atomic Storage write preserves the entire session; no secondary scientific database or lossy reconstruction.
-  storage.setItem(saved.key, raw);
-  return raw;
+}
+
+/** All session writers, including rename/delete, share this origin-scoped lock.
+ * No localStorage pseudo-CAS and no unsafe fallback on unsupported browsers.
+ * Native Web Locks release automatically when the callback finishes or throws.
+ */
+const withProjectSessionLock = <T>(key: string, effect: () => T): Promise<T> => {
+  const locks = globalThis.navigator?.locks;
+  if (!locks?.request) return Promise.reject(new ProjectSessionPersistenceError("PROJECT_SESSION_LOCK_UNAVAILABLE",
+    "Enregistrement sécurisé indisponible dans ce navigateur. Utilisez un navigateur compatible avec Web Locks."));
+  return locks.request(`noxia:project-session:${key}`, { mode: "exclusive" }, effect);
+};
+const staleBase = () => new ProjectSessionPersistenceError("PROJECT_SESSION_STALE_BASE",
+  "Ce projet a changé dans un autre écran. Rouvrez sa version enregistrée avant de poursuivre.");
+
+export const saveProjectSession = (storage: Storage, saved: SavedProjectSession, session: FunctionalResetSession): Promise<string> =>
+  withProjectSessionLock(saved.key, () => {
+    if (!isProjectSessionKey(saved.key) || saved.session.sessionId !== session.sessionId || saved.session.projectId !== session.projectId) {
+      throw new Error("La sauvegarde ne correspond pas à ce projet.");
+    }
+    // The exact prior bytes bind the expected Project version/digest and every
+    // session field. Encoding, comparison, write and verification stay locked.
+    const current = storage.getItem(saved.key);
+    const raw = encodeSessionStorage(session);
+    if (current !== saved.raw && current !== raw) throw staleBase();
+    if (current !== raw) storage.setItem(saved.key, raw);
+    if (storage.getItem(saved.key) !== raw) throw new ProjectSessionPersistenceError("PROJECT_SESSION_WRITE_UNVERIFIED",
+      "La sauvegarde du projet n’a pas pu être vérifiée.");
+    return raw;
+  });
+
+/** A host's pending saves remain ordered. Only its own successful write advances
+ * its expected base; an external conflict never rebases, retries or merges.
+ * This is transient effect coordination, not another Project store/owner.
+ */
+export const createProjectSessionWriter = (storage: Storage, initial: SavedProjectSession) => {
+  let saved = initial;
+  let tail = Promise.resolve();
+  return {
+    current: () => saved,
+    save: (session: FunctionalResetSession): Promise<SessionPersistenceResult> => {
+      const pending = tail.then(async (): Promise<SessionPersistenceResult> => {
+        try {
+          // A delayed local UI effect must not erase a Project already adopted
+          // by an earlier queued save. No scientific merge/reconstruction here.
+          const currentProject = saved.session.project;
+          if (currentProject && (!session.project || session.project.revision < currentProject.revision
+            || session.project.revision === currentProject.revision && session.project.projectDigest !== currentProject.projectDigest)) throw staleBase();
+          const raw = await saveProjectSession(storage, saved, session);
+          saved = { ...saved, raw, session };
+        } catch (error) { return { scientificPersisted: false, error }; }
+        try {
+          storage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
+          return { scientificPersisted: true, navigationPointer: "UPDATED" };
+        } catch { return { scientificPersisted: true, navigationPointer: "FAILED" }; }
+      });
+      tail = pending.then(() => undefined);
+      return pending;
+    },
+  };
 };
 
-export const renameProjectSession = (
+export const renameProjectSession = async (
   storage: Storage,
   saved: SavedProjectSession,
   title: string,
   updatedAt = new Date().toISOString(),
-): SavedProjectSession => {
+): Promise<SavedProjectSession> => {
   const workspace = saved.session.workspace ?? {
     title: "Projet sans titre",
     revision: 0,
@@ -85,18 +144,16 @@ export const renameProjectSession = (
       revision: workspace.revision + 1,
     },
   };
-  const raw = saveProjectSession(storage, saved, session);
+  const raw = await saveProjectSession(storage, saved, session);
   return { ...saved, raw, session };
 };
 
-export const deleteProjectSession = (storage: Storage, saved: SavedProjectSession): void => {
-  if (!isProjectSessionKey(saved.key)
-    || storage.getItem(saved.key) !== saved.raw
-    || saved.session.sessionId.length === 0
-    || saved.session.projectId.length === 0) {
-    throw new Error("Ce projet a changé dans un autre écran. Rouvrez sa version enregistrée avant de le supprimer.");
-  }
-  storage.removeItem(saved.key);
+export const deleteProjectSession = async (storage: Storage, saved: SavedProjectSession): Promise<void> => {
+  await withProjectSessionLock(saved.key, () => {
+    if (!isProjectSessionKey(saved.key) || storage.getItem(saved.key) !== saved.raw
+      || saved.session.sessionId.length === 0 || saved.session.projectId.length === 0) throw staleBase();
+    storage.removeItem(saved.key);
+  });
   if (storage.getItem(ACTIVE_PROJECT_STORAGE_KEY) === saved.key) {
     storage.setItem(ACTIVE_PROJECT_STORAGE_KEY, "LIST");
   }

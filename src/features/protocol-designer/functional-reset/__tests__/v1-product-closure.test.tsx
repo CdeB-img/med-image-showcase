@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -52,13 +52,13 @@ beforeEach(() => { localStorage.clear(); });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 describe("V1 product closure: independent durable projects", () => {
-  it("MULTI_PROJECT_ISOLATION / PROJECT_PERSISTENCE: preserves separate full sessions", () => {
+  it("MULTI_PROJECT_ISOLATION / PROJECT_PERSISTENCE: preserves separate full sessions", async () => {
     const a = createProjectSession(localStorage, "Cardio A");
     a.session.runtimeTurns.push({ turnId: "a:t1", role: "USER", content: "La science du projet A" });
-    a.raw = saveProjectSession(localStorage, a, a.session);
+    a.raw = (await saveProjectSession(localStorage, a, a.session));
     const b = createProjectSession(localStorage, "Neuro B");
     b.session.runtimeTurns.push({ turnId: "b:t1", role: "USER", content: "La science du projet B" });
-    b.raw = saveProjectSession(localStorage, b, b.session);
+    b.raw = (await saveProjectSession(localStorage, b, b.session));
     expect(b.key).not.toBe(a.key);
     const read = readProjectSessions(localStorage);
     expect(read.unreadable).toEqual([]);
@@ -68,12 +68,12 @@ describe("V1 product closure: independent durable projects", () => {
     expect(localStorage.getItem(a.key)).not.toContain("La science du projet B");
   });
 
-  it("PROJECT_REOPEN / CONVERSATION_REHYDRATION: retains canonical identity, human decisions and pending conversation", () => {
+  it("PROJECT_REOPEN / CONVERSATION_REHYDRATION: retains canonical identity, human decisions and pending conversation", async () => {
     const saved = createProjectSession(localStorage, "Projet A");
     saved.session.project = confirmResearchProjectContribution({ contribution: richStudyContribution(), current: null, projectId: saved.session.projectId, authority: saved.session.projectAuthority, confirmedAt: NOW });
     saved.session.runtimeTurns.push({ turnId: "a:pending", role: "USER", content: "Cette modification reste à discuter" });
     saved.session.pendingContribution = richStudyContribution();
-    saved.raw = saveProjectSession(localStorage, saved, saved.session);
+    saved.raw = (await saveProjectSession(localStorage, saved, saved.session));
     const read = readProjectSessions(localStorage).projects[0]!.session;
     expect(read.project).toEqual(saved.session.project);
     expect(read.pendingContribution).toEqual(saved.session.pendingContribution);
@@ -81,11 +81,11 @@ describe("V1 product closure: independent durable projects", () => {
     expect(read.projectAuthority).toEqual(saved.session.projectAuthority);
   });
 
-  it("refuses a concurrent stale write and preserves the latest saved bytes", () => {
-    const a = createProjectSession(localStorage, "A"); a.raw = saveProjectSession(localStorage, a, a.session);
+  it("refuses a concurrent stale write and preserves the latest saved bytes", async () => {
+    const a = createProjectSession(localStorage, "A"); a.raw = (await saveProjectSession(localStorage, a, a.session));
     const otherTab = { ...a };
-    a.raw = saveProjectSession(localStorage, a, { ...a.session, updatedAt: NOW });
-    expect(() => saveProjectSession(localStorage, otherTab, otherTab.session)).toThrow(/autre écran/);
+    a.raw = (await saveProjectSession(localStorage, a, { ...a.session, updatedAt: NOW }));
+    await expect(saveProjectSession(localStorage, otherTab, otherTab.session)).rejects.toThrow(/autre écran/);
     expect(localStorage.getItem(a.key)).toBe(a.raw);
   });
 
@@ -97,43 +97,44 @@ describe("V1 product closure: independent durable projects", () => {
     expect(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe("corrupt JSON");
   });
 
-  it("rejects contamination by another Project's projection", () => {
+  it("rejects contamination by another Project's projection", async () => {
     const a = createProjectSession(localStorage, "A");
     a.session.documents.projections = generate(adoptBehaviorContribution(richStudyContribution(), null, 1)).projections;
-    saveProjectSession(localStorage, a, a.session);
+    (await saveProjectSession(localStorage, a, a.session));
     expect(readProjectSessions(localStorage).unreadable).toEqual([a.key]);
   });
 
-  it("reports quota errors without deleting the previous saved session", () => {
-    const a = createProjectSession(localStorage, "A"); a.raw = saveProjectSession(localStorage, a, a.session);
+  it("reports quota errors without deleting the previous saved session", async () => {
+    const a = createProjectSession(localStorage, "A"); a.raw = (await saveProjectSession(localStorage, a, a.session));
     const original = a.raw;
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Quota exceeded", "QuotaExceededError"); });
-    expect(() => saveProjectSession(localStorage, a, { ...a.session, updatedAt: NOW })).toThrow("Quota exceeded");
+    await expect(saveProjectSession(localStorage, a, { ...a.session, updatedAt: NOW })).rejects.toThrow("Quota exceeded");
     expect(localStorage.getItem(a.key)).toBe(original);
   });
 
-  it("REFRESH_RECOVERY: closes to the list, creates B and reopens A through Standard UI", () => {
+  it("REFRESH_RECOVERY: closes to the list, creates B and reopens A through Standard UI", async () => {
     const mounted = renderDemo();
+    await waitFor(() => expect(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).not.toBeNull());
     const a = JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
     fireEvent.click(screen.getByRole("button", { name: "← Mes projets" }));
     fireEvent.change(screen.getByLabelText("Nouveau projet"), { target: { value: "Neuro B" } });
     fireEvent.click(screen.getByRole("button", { name: "Créer un projet" }));
     expect(screen.getByRole("heading", { level: 1, name: "Neuro B" })).toBeInTheDocument();
-    expect(readProjectSessions(localStorage).projects).toHaveLength(2);
+    await waitFor(() => expect(readProjectSessions(localStorage).projects).toHaveLength(2));
     fireEvent.click(screen.getByRole("button", { name: "← Mes projets" }));
     mounted.unmount(); renderDemo();
     expect(screen.getByRole("heading", { name: "Mes projets" })).toBeInTheDocument();
     const firstCard = screen.getByRole("heading", { name: "Projet sans titre" }).closest("article")!;
     fireEvent.click(within(firstCard).getByRole("button", { name: "Ouvrir" }));
-    expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(FUNCTIONAL_RESET_STORAGE_KEY);
+    await waitFor(() => expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(FUNCTIONAL_RESET_STORAGE_KEY));
     expect(JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).sessionId).toBe(a.sessionId);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
   });
 });
 
 describe("V1 documentary administration, current sources and traceability", () => {
-  it("PROFILE_VS_PROJECT_METADATA: saving a reusable profile never writes Project science or roles", () => {
-    const a = createProjectSession(localStorage, "A"); a.raw = saveProjectSession(localStorage, a, a.session);
+  it("PROFILE_VS_PROJECT_METADATA: saving a reusable profile never writes Project science or roles", async () => {
+    const a = createProjectSession(localStorage, "A"); a.raw = (await saveProjectSession(localStorage, a, a.session));
     const profile = { ...emptyLocalProfile(), name: "Chercheur Démo", organization: "Institut Démo" };
     localStorage.setItem(RESEARCHER_PROFILE_STORAGE_KEY, JSON.stringify(profile));
     expect(readResearcherProfile(localStorage)).toEqual(profile);
@@ -268,7 +269,7 @@ it("does not overwrite explicit age bounds with the previous interval quoted in 
   expect(values).toEqual(["Âge minimal : 35 ans", "Âge maximal : 80 ans"]);
 });
 
-it("preserves negation through the Project snapshot, panel and real document without rewriting adopted science", () => {
+it("preserves negation through the Project snapshot, panel and real document without rewriting adopted science", async () => {
   const turn = behaviorTurn("closure:negative", "Une étude d'observation, pas un essai de traitement. Exclure l'AVC aigu.");
   const contribution = behaviorContribution({ contributionId: "closure:negative:contribution", turns: [turn], candidateObjects: [
     behaviorItem({ itemId: "design:positive", proposedType: "STUDY_DESIGN", content: "Étude d’observation", turnId: turn.turnId }),
@@ -285,7 +286,7 @@ it("preserves negation through the Project snapshot, panel and real document wit
   expect(html).toMatch(/Exclusion \/ absence\s*:\s*Essai de traitement/);
   expect(html).toMatch(/Exclusion \/ absence\s*:\s*AVC aigu/);
   expect(JSON.stringify(project)).toBe(before);
-  saved.session.project = project; saved.raw = saveProjectSession(localStorage, saved, saved.session);
+  saved.session.project = project; saved.raw = (await saveProjectSession(localStorage, saved, saved.session));
   localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key); renderDemo();
   const panel = screen.getByRole("complementary", { name: "Projet de recherche" });
   expect(panel).toHaveTextContent("Exclusion / absence : AVC aigu");

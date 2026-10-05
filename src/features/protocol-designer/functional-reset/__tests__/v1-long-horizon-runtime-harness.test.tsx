@@ -197,6 +197,7 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
   const providerWitnesses: ProviderCallWitness[] = [];
   const browserTransport = installRuntimeReplayTransport(providerWitnesses);
   renderWorkspace();
+  await waitFor(() => expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).not.toBeNull());
   let expectedCandidateCount = 0;
   let expectedRevision = 0;
 

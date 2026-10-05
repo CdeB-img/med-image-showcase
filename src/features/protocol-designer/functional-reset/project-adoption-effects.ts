@@ -37,14 +37,14 @@ export type ProjectAdoptionEffectResult =
   | { status: "COMMITTED"; session: FunctionalResetSession; auxiliaryUpload: Promise<"UPLOADED" | "FAILED"> | null };
 
 /** One scientific write, then optional auxiliary upload. Never retry or redispatch. */
-export const persistAdoptedProjectSession = (input: Readonly<{
+export const persistAdoptedProjectSession = async (input: Readonly<{
   storage: Storage;
   session: FunctionalResetSession & { project: ResearchProjectOwnerProjection };
   previousProject: ResearchProjectOwnerProjection | null;
   save?: SessionSave;
   adoptionTrace?: ProjectAdoptionTrace;
   uploadSnapshot: boolean;
-}>): ProjectAdoptionEffectResult => {
+}>): Promise<ProjectAdoptionEffectResult> => {
   let session: FunctionalResetSession = input.session;
   const { project } = input.session;
   const trace = input.save ? input.adoptionTrace : undefined;
@@ -52,7 +52,7 @@ export const persistAdoptedProjectSession = (input: Readonly<{
     trace.writeStarted(project, input.previousProject);
     session = { ...session, scientificExecutionTraceLedger: trace.ledger() };
   }
-  const result = saveFunctionalResetWorkspaceSession(input.storage, session, input.save);
+  const result = await saveFunctionalResetWorkspaceSession(input.storage, session, input.save);
   if (result.scientificPersisted === false) return { status: "NOT_COMMITTED", error: result.error };
   if (trace) {
     trace.writeSucceeded(project);

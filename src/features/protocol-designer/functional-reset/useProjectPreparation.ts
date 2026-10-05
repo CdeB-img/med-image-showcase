@@ -44,15 +44,19 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
         "WORKING_DRAFT_VALIDATION", "FAILED", { code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
           failureFunction: "preflightWorkingDraftKnowledgeSource", failureInvariant: "WORKING_DRAFT_KNOWLEDGE_SOURCE",
           attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID") : prepared;
-    if (!saveFunctionalResetWorkspaceSession(window.localStorage, beforeDispatch, options.current.save).scientificPersisted) {
-      update(source.sessionId, () => transitionProjectPreparation(recordProjectPreparationTrace(prepared,
+    // Publish the captured checkpoint before yielding to async persistence.
+    // It prevents duplicate clicks and lets later conversation stay outside
+    // this frozen scope; persistence must still succeed before any dispatch.
+    update(source.sessionId, () => beforeDispatch);
+    if (!(await saveFunctionalResetWorkspaceSession(window.localStorage, beforeDispatch, options.current.save)).scientificPersisted) {
+      update(source.sessionId, state => transitionProjectPreparation(recordProjectPreparationTrace(state,
         preparation.checkpoint!, "WORKING_DRAFT_VALIDATION", "FAILED", {
           code: "WORKING_DRAFT_PREPARATION_SAVE_FAILED", failureFunction: "persistFunctionalResetSession",
           failureInvariant: "PRE_DISPATCH_CHECKPOINT_PERSISTED", attribution: "ROOT_CAUSE_PROVEN",
         }), id, "FAILED", "WORKING_DRAFT_PREPARATION_SAVE_FAILED"));
       return;
     }
-    update(source.sessionId, () => beforeDispatch);
+    if (!mounted.current || latest.current.sessionId !== source.sessionId) return;
     if (preflightFailed) return;
     const records: ProviderCallRecord[] = [];
     let bridgeResponseReceived = false;

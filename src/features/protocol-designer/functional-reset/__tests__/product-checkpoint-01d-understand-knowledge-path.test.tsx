@@ -174,6 +174,9 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
   it("06–11 keeps native UNDERSTAND read-only, without extractor or Project changes", async () => {
     persistScenario({ project: true, query: true });
     renderDemo();
+    // The host's asynchronous boot save must finish before measuring the
+    // UNDERSTAND command; DOC's reload projection is not an UNDERSTAND write.
+    await waitFor(() => expect(stored().documents.projectRef).not.toBeNull());
     const before = stored();
     submit(CASE_B);
     const after = await waitForKnowledge();

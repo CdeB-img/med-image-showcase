@@ -1005,6 +1005,8 @@ export default function ProtocolDesignerWorkspace({
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
   const [documentSaveWarning, setDocumentSaveWarning] = useState<string | null>(null);
   const [sessionSaveWarning, setSessionSaveWarning] = useState<string | null>(null);
+  const saveWarningRef = useRef({ session: sessionSaveWarning, document: documentSaveWarning });
+  saveWarningRef.current = { session: sessionSaveWarning, document: documentSaveWarning };
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
   const [documentMessage, setDocumentMessage] = useState("");
@@ -1062,14 +1064,28 @@ export default function ProtocolDesignerWorkspace({
   };
 
   useEffect(() => {
-    const saved = saveFunctionalResetWorkspaceSession(window.localStorage, session, onSessionChange);
-    setSessionSaveWarning(saved.scientificPersisted ? null : "Enregistrement local impossible. Gardez cet écran ouvert et réessayez la sauvegarde avant de poursuivre.");
-    if (!saved.scientificPersisted && session.drciDraftPacks?.length) {
-      setDocumentSaveWarning("Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
-    }
+    let active = true;
+    void saveFunctionalResetWorkspaceSession(window.localStorage, session, onSessionChange).then(saved => {
+      if (!active) return;
+      // Async save completions must not schedule a redundant UI render. That
+      // can replay queued session updaters and restart their persistence effect.
+      const warning = saved.scientificPersisted ? null : "Enregistrement local impossible. Gardez cet écran ouvert et réessayez la sauvegarde avant de poursuivre.";
+      if (saveWarningRef.current.session !== warning) {
+        saveWarningRef.current.session = warning;
+        setSessionSaveWarning(warning);
+      }
+      if (!saved.scientificPersisted && session.drciDraftPacks?.length) {
+        const documentWarning = "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.";
+        if (saveWarningRef.current.document !== documentWarning) {
+          saveWarningRef.current.document = documentWarning;
+          setDocumentSaveWarning(documentWarning);
+        }
+      }
+    });
     if (import.meta.env.DEV && session.bridgeTraces.length > 0) {
       console.debug("NOXIA_PRODUCT_BRIDGE_TRACE", JSON.stringify(session.bridgeTraces.at(-1)));
     }
+    return () => { active = false; };
   }, [session, onSessionChange]);
 
   useEffect(() => {
@@ -3456,7 +3472,7 @@ export default function ProtocolDesignerWorkspace({
           && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);
         if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED");
       }
-      const commit = persistAdoptedProjectSession({ storage: window.localStorage, session: { ...nextSession, project },
+      const commit = await persistAdoptedProjectSession({ storage: window.localStorage, session: { ...nextSession, project },
         previousProject: current.project, save: onSessionChange, adoptionTrace, uploadSnapshot: import.meta.env.MODE !== "development" });
       if (commit.status === "NOT_COMMITTED") throw new Error("PROJECT_PERSISTENCE_FAILED");
       nextSession = commit.session;
@@ -4022,7 +4038,7 @@ export default function ProtocolDesignerWorkspace({
               documentRetryUnsafe: false,
               entries: latest.entries,
               updatedAt: now };
-            const saved = saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange).scientificPersisted;
+            const saved = (await saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange)).scientificPersisted;
             setDocumentSaveWarning(saved ? null : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.");
             latestSessionRef.current = nextSession; setSession(nextSession);
             setDeliverableWorkspaceOpen(true);

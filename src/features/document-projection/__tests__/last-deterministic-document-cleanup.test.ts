@@ -79,10 +79,10 @@ describe('Exact final human document cleanup',()=>{
   entry.document='CRF';entry.section=crf.sections[0].title;entry.originalText=crf.sections[0].paragraphs[0];entry.originalDigest=logicalDigest(entry.originalText);entry.revisedText='Un changement scientifique interdit.';entry.revisedDigest=logicalDigest(entry.revisedText);
   expect(()=>applyDrciHumanRevisionEntries(parent,[entry])).toThrow('DRCI_HUMAN_REVISION_ANCHOR_INVALID');
  });
- it('persists and reloads the full native pack while retaining ancestors, Project and the four export hashes',()=>{
+ it('persists and reloads the full native pack while retaining ancestors, Project and the four export hashes',async ()=>{
   const saved=createProjectSession(localStorage,'Final DRCI');saved.session.projectId=project.projectId;
-  saveProjectSession(localStorage,saved,{...saved.session,project,drciDraftPacks:[ancestor,parent]});const existing=readProjectSessions(localStorage).projects[0];
-  saveProjectSession(localStorage,existing,{...existing.session,drciDraftPacks:[ancestor,parent,candidate]});
+  (await saveProjectSession(localStorage,saved,{...saved.session,project,drciDraftPacks:[ancestor,parent]}));const existing=readProjectSessions(localStorage).projects[0];
+  (await saveProjectSession(localStorage,existing,{...existing.session,drciDraftPacks:[ancestor,parent,candidate]}));
   const session=readProjectSessions(localStorage).projects[0].session;
   expect(session.project).toEqual(project);expect(session.drciDraftPacks).toEqual([ancestor,parent,candidate]);
   expect(drciDraftPackFiles(session.drciDraftPacks!.at(-1)!).map(f=>logicalDigest(f.html))).toEqual(drciDraftPackFiles(candidate).map(f=>logicalDigest(f.html)));
