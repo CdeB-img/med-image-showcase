@@ -10,6 +10,8 @@ import {
 import { drciDraftPackFiles } from "@/features/document-projection/drci-draft-pack";
 import type { DrciDraftPack } from "@/features/document-projection/drci-draft-contract";
 import { documentGenerationsForProject } from "@/features/document-projection/history";
+import type { DocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
+import DocumentArchiveHistory from "./DocumentArchiveHistory";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
@@ -17,6 +19,8 @@ type Props = {
   saveWarning?: string | null;
   documentPacks?: readonly DrciDraftPack[];
   projectId?: string;
+  archiveClient?: DocumentArchiveClient;
+  archiveOnly?: boolean;
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
@@ -28,7 +32,7 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, documentPacks = [], projectId }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, documentPacks = [], projectId, archiveClient, archiveOnly = false }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
@@ -48,29 +52,30 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
           <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {availableCount} livrable{availableCount > 1 ? "s" : ""} téléchargeable{availableCount > 1 ? "s" : ""} depuis le projet version {portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.
+            {archiveOnly ? "Historique durable : choisissez une version pour ouvrir ou télécharger ses fichiers figés." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""} depuis le projet version ${portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
           </p>
         </div>
-        <button
+        {!archiveOnly && <button
           type="button"
           onClick={() => downloadStudyPackage(portfolio)}
           className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"
           data-testid="download-study-package"
         >
           <PackageOpen className="h-4 w-4" /> Exporter le package de l’étude (.zip)
-        </button>
+        </button>}
       </div>
     </header>
 
     {portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {generations.length > 0 && <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires" data-testid="document-generation-history">
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} onOpen={(file, title) => { setOpenTitle(title); setOpenFile(file); }} />}
+    {!archiveOnly && generations.length > 0 && <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires" data-testid="document-generation-history">
       <h3 className="font-semibold">Versions documentaires</h3>
       <ul className="mt-3 space-y-3">{[...generations].reverse().map((generation) => <li key={generation.documentGenerationId} className="rounded-xl border p-3" data-testid={`document-generation-${generation.documentVersion}`}>
         <p className="text-sm font-medium">Documents V{generation.documentVersion} disponibles · projet version {generation.projectVersionId.split(":").at(-1)}</p>
         <p className="mt-1 text-xs text-muted-foreground">{new Date(generation.createdAt).toLocaleString("fr-FR")} · {generation.projectDigest === portfolio.projectRef.projectDigest ? "Version courante" : "Version historique"}</p>
-        <div className="mt-2 flex flex-wrap gap-2">{drciDraftPackFiles(generation.documentDraftPack).map((document) => <button key={document.kind} type="button"
+        <div className="mt-2 flex flex-wrap gap-2">{generation.documentDraftPack.documents.map((document) => <button key={document.kind} type="button"
           className="min-h-10 rounded-lg border px-3 text-xs font-medium"
-          onClick={() => { setOpenTitle(`Documents V${generation.documentVersion} · ${document.title}`); setOpenFile({ fileName: `${document.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: document.html }); }}>
+          onClick={() => { const rendered = drciDraftPackFiles(generation.documentDraftPack).find(file => file.kind === document.kind)!; setOpenTitle(`Documents V${generation.documentVersion} · ${document.title}`); setOpenFile({ fileName: `${document.kind.toLowerCase()}.html`, format: "HTML", mimeType: "text/html;charset=utf-8", content: rendered.html }); }}>
           Ouvrir {document.title}
         </button>)}</div>
       </li>)}</ul>
@@ -81,7 +86,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
       {openFile.format === "HTML" ? <iframe title={openTitle} sandbox="" srcDoc={openFile.content} className="h-[75vh] w-full rounded-xl border bg-white" />
         : <pre className="max-h-[75vh] overflow-auto whitespace-pre-wrap text-sm">{openFile.content}</pre>}
     </section>}
-    <div className="grid gap-4 p-4 sm:p-6 xl:grid-cols-2">
+    {!archiveOnly && <div className="grid gap-4 p-4 sm:p-6 xl:grid-cols-2">
       {portfolio.artifacts.map((artifact) => {
         const status = statusPresentation[artifact.status];
         return <article key={artifact.artifactId} className="rounded-2xl border p-4" data-testid={`study-deliverable-${artifact.kind}`}>
@@ -114,7 +119,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
 
         </article>;
       })}
-    </div>
+    </div>}
 
     <footer className="border-t px-5 py-4 text-xs leading-relaxed text-muted-foreground sm:px-6">
       Source : version confirmée du projet. Cette vue ne modifie ni le projet ni les décisions scientifiques. Le dossier réglementaire ne revendique aucune conformité juridictionnelle.

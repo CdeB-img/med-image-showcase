@@ -59,6 +59,7 @@ import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./pr
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { usePostAdoptionContinuation } from "./usePostAdoptionContinuation";
 import { useDocumentGeneration } from "./useDocumentGeneration";
+import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -572,6 +573,8 @@ export default function ProtocolDesignerWorkspace({
       && projection.source.projectId === session.project!.projectId
       && isFunctionalDocumentProjectionCurrent(projection, session.project!, administration)) ?? null
     : null;
+  const archiveClient = useMemo(() => session.project && session.documentArchive?.legacyCoverageVerified
+    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project, session.documentArchive?.legacyCoverageVerified]);
   const deliverablePortfolio = useMemo(() => {
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
@@ -743,6 +746,8 @@ export default function ProtocolDesignerWorkspace({
           portfolio={deliverablePortfolio}
           documentPacks={session.drciDraftPacks}
           projectId={session.project?.projectId}
+          archiveClient={archiveClient}
+          archiveOnly={Boolean(archiveClient)}
           saveWarning={documentSaveWarning ?? sessionSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
           />
