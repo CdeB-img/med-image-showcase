@@ -15,8 +15,9 @@ type Input = {
 };
 
 const utcNow = () => new Date().toISOString();
+type LedgerEvent = { event?: string; reservedAt?: string; scenario?: string };
 const parseEvents = (path: string) => {
-  try { return readFileSync(path, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line)); }
+  try { return readFileSync(path, "utf8").split("\n").filter(Boolean).map((line): LedgerEvent => JSON.parse(line)); }
   catch { return []; }
 };
 const append = (path: string, value: unknown) => appendFileSync(path, `${JSON.stringify(value)}\n`, "utf8");
@@ -25,8 +26,8 @@ const waitForPacing = async (path: string) => {
   while (true) {
     const now = Date.now();
     const recent = parseEvents(path)
-      .filter((item: any) => item.event === "RESERVED")
-      .map((item: any) => Date.parse(item.reservedAt))
+      .filter((item) => item.event === "RESERVED")
+      .map((item) => Date.parse(item.reservedAt ?? ""))
       .filter((stamp: number) => Number.isFinite(stamp) && now - stamp < 60_000)
       .sort((a: number, b: number) => a - b);
     if (recent.length < 10) return;
@@ -37,8 +38,8 @@ const waitForPacing = async (path: string) => {
 const reserve = async (input: Input, operation: string) => {
   await waitForPacing(input.ledgerPath);
   const events = parseEvents(input.ledgerPath);
-  const count = events.filter((item: any) => item.event === "RESERVED").length;
-  const phaseCount = events.filter((item: any) => item.event === "RESERVED" && item.scenario === input.scenario).length;
+  const count = events.filter((item) => item.event === "RESERVED").length;
+  const phaseCount = events.filter((item) => item.event === "RESERVED" && item.scenario === input.scenario).length;
   if (input.scenario === "SMOKE" && phaseCount >= 25) throw new Error("PHASE_A_PROVIDER_CALL_CAP_REACHED");
   if (count >= 135 || 357 + count >= 492) throw new Error("PROVIDER_DAILY_BUDGET_HARD_STOP");
   const value = {

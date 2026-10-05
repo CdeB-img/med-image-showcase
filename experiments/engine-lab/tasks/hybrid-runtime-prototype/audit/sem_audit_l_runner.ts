@@ -17,7 +17,6 @@ type Input = {
   promptVersion: string;
 };
 
-const stable = (value: unknown) => JSON.stringify(value, Object.keys(value as any).sort());
 const digest = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const now = () => new Date().toISOString();
 
@@ -111,7 +110,8 @@ const writeAtomic = (path: string, value: unknown) => {
   renameSync(temporary, path);
 };
 
-const responseText = (value: any) => value?.candidates?.[0]?.content?.parts?.map((part: any) => part?.text ?? "").join("") ?? "";
+type GeminiTextResponse = { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+const responseText = (value: unknown) => (value as GeminiTextResponse | null)?.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
 
 const main = async () => {
   const input = JSON.parse(readFileSync(0, "utf8")) as Input;

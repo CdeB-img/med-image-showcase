@@ -14,6 +14,7 @@ import {
   type SemanticCriticResult,
   type SemanticReconstructionCandidate,
   type SemanticReconstructionRequest,
+  type SemanticProviderAttempt,
 } from "../../../src/features/scientific-semantic-reconstruction/types.js";
 
 type ConversationTurn = { turnId: string; role: "USER" | "ASSISTANT"; content: string };
@@ -35,9 +36,10 @@ const MODEL = "gemini-3.5-flash-lite";
 const FIXED_CREATED_AT = "2026-08-14T00:00:00.000Z";
 
 const utcNow = () => new Date().toISOString();
+type LedgerEvent = { event?: string; reservedAt?: string; scenario?: string };
 const readEvents = (path: string) => {
   try {
-    return readFileSync(path, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
+    return readFileSync(path, "utf8").split("\n").filter(Boolean).map((line): LedgerEvent => JSON.parse(line));
   } catch {
     return [];
   }
@@ -48,8 +50,8 @@ const waitForPacing = async (path: string) => {
   while (true) {
     const now = Date.now();
     const recent = readEvents(path)
-      .filter((event: any) => event.event === "RESERVED")
-      .map((event: any) => Date.parse(event.reservedAt))
+      .filter((event) => event.event === "RESERVED")
+      .map((event) => Date.parse(event.reservedAt ?? ""))
       .filter((stamp: number) => Number.isFinite(stamp) && now - stamp < 60_000)
       .sort((left: number, right: number) => left - right);
     if (recent.length < 10) return;
@@ -62,7 +64,7 @@ const createProvider = (input: Input, configurationId: string) => {
   const ledgerFetch: typeof fetch = async (url, init) => {
     await waitForPacing(input.ledgerPath);
     const events = readEvents(input.ledgerPath);
-    const reservations = events.filter((event: any) => event.event === "RESERVED");
+    const reservations = events.filter((event) => event.event === "RESERVED");
     if (reservations.length >= 320) throw new Error("PROVIDER_DAILY_BUDGET_HARD_STOP");
     const body = typeof init?.body === "string" ? init.body : "";
     const structuredRepair = body.includes("structuredValidationCorrection");
@@ -191,7 +193,7 @@ const runSingle = (
   request: SemanticReconstructionRequest,
   initialCandidate: SemanticReconstructionCandidate,
   reconstructionCallId: string,
-  reconstructionAttempts: any[],
+  reconstructionAttempts: SemanticProviderAttempt[],
 ) => {
   const candidate = preserveContextualMeasurementAmbiguities(request, initialCandidate);
   const critic = deterministicCritic(request, candidate);
@@ -221,7 +223,7 @@ const runFull = async (
   request: SemanticReconstructionRequest,
   initialCandidate: SemanticReconstructionCandidate,
   reconstructionCallId: string,
-  reconstructionAttempts: any[],
+  reconstructionAttempts: SemanticProviderAttempt[],
 ) => {
   const critique = await runSemanticCriticCycles(provider, request, initialCandidate);
   const finalCritic = critique.critics.at(-1);
