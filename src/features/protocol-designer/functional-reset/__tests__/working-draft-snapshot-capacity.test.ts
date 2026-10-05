@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import Ajv from "ajv";
 import { Tiktoken } from "js-tiktoken/lite";
 import o200kBase from "js-tiktoken/ranks/o200k_base";
@@ -13,6 +13,8 @@ import { parseProductBridgeRequest, type ProductBridgeRequest } from "../../prod
 import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest, workingDraftProviderSchema, type WorkingDraftUpdate } from "../continuous-project-build";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import { realStudyUpdateClosure } from "./fixtures/study-update-closure-real-run";
+import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { preflightStudyProposalCapacity } from "@/features/scientific-thinking/study-proposal-capacity";
 
 // Existing deterministic scientific fixture, never a new provider experiment.
 const requestFor = (): ProductBridgeRequest => ({ apiVersion: "1.0.0", currentProject: null,
@@ -55,6 +57,46 @@ const strictWireFor = (update: WorkingDraftUpdate) => ({ ...structuredClone(upda
 });
 
 describe("Working Draft full-snapshot capacity — offline only", () => {
+  it("preflights realistic and near-limit FULL SNAPSHOT inputs without trimming", () => {
+    const { previous, request } = previousFor();
+    expect(preflightStudyProposalCapacity(previous.proposal, 0).minimumSnapshotAtoms).toBe(53);
+    const near = acceptWorkingDraftUpdate(updateFor(request, STUDY_PROPOSAL_CAPACITY.maxAtoms), request).composition!;
+    const input = { ...request, studyProposalContext: near };
+    const before = JSON.stringify(input);
+    expect(preflightStudyProposalCapacity(near.proposal, 0).minimumSnapshotAtoms).toBe(STUDY_PROPOSAL_CAPACITY.maxAtoms);
+    // Capacity approval is not a bypass of the distinct context/output guards.
+    // This near-limit proposal is natively valid; the realistic prior snapshot
+    // enters preparation. Large prose combinations may still hit context bounds.
+    expect(() => prepareWorkingDraftRequest(request)).not.toThrow();
+    expect(JSON.stringify(input)).toBe(before);
+  });
+
+  it("rejects an impossible capacity combination at the owner before any provider work", async () => {
+    const { previous, request } = previousFor();
+    const tooMany = extendTo(updateFor(request), STUDY_PROPOSAL_CAPACITY.maxAtoms + 1).proposal!;
+    const input = { ...request, studyProposalContext: { ...previous, proposal: tooMany } };
+    expect(() => prepareWorkingDraftRequest(input)).toThrow("STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED");
+    const fetchImpl = vi.fn<typeof fetch>();
+    const result = await executeProtocolDesignerBridge({ body: input, apiKey: null, chatRuntime: "TERRA",
+      autonomousProjectBuild: true, openAiApiKey: "LOCAL_SYNTHETIC_NOT_A_KEY", fetchImpl });
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: { details: ["STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED"] } });
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it("bounds coupled options, arbitrations, referential closure and rejection history", () => {
+    const proposal = controlledStudyProposal("LOCAL_SYNTHETIC_CAPACITY");
+    expect(() => preflightStudyProposalCapacity({ ...proposal, arbitrations: Array(9).fill(proposal.arbitrations[0]) }, 0))
+      .toThrow("STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED");
+    const arbitration = proposal.arbitrations[0];
+    expect(() => preflightStudyProposalCapacity({ ...proposal, arbitrations: [{ ...arbitration,
+      options: Array(6).fill(arbitration.options[0]) }] }, 0)).toThrow("STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED");
+    expect(() => preflightStudyProposalCapacity({ ...proposal, arbitrations: [{ ...arbitration,
+      options: [{ ...arbitration.options[0], atomRefs: Array.from({ length: 129 }, (_, i) => "required:" + i) }] }] }, 0))
+      .toThrow("STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED");
+    expect(() => preflightStudyProposalCapacity(proposal, STUDY_PROPOSAL_CAPACITY.maxRejectedHistoryEntries + 1))
+      .toThrow("STUDY_PROPOSAL_CAPACITY_PREFLIGHT_REJECTED");
+  });
   it("admits 53 previous atoms plus 20 additions without losing an old identity or adopting Project", () => {
     const { request, previous } = previousFor(), frozen = JSON.stringify(previous);
     const update = updateFor(request, 73);

@@ -9,7 +9,7 @@ import { prepareTerraConversation } from "../../scientific-thinking/scientific-c
 import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../../query-navigation/current-turn-navigation.js";
 import type { ProductBridgeRequest } from "../product-bridge.js";
 import type { ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
-import { STUDY_PROPOSAL_CAPACITY } from "../../scientific-thinking/study-proposal-capacity.js";
+import { STUDY_PROPOSAL_CAPACITY, preflightStudyProposalCapacity } from "../../scientific-thinking/study-proposal-capacity.js";
 import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import { retainedDiscussionProposalBindingsSchema } from "./contribution-discussion-retention.js";
@@ -270,6 +270,7 @@ export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBr
 
 export const prepareWorkingDraftRequest = (request: ProductBridgeRequest) => {
   const previous = request.studyProposalContext;
+  preflightStudyProposalCapacity(previous?.proposal, request.workingDraftHistory?.length ?? 0);
   if (previous) assertStudyProposalCurrent(previous, request.currentProject);
   const inputDigest = workingDraftInputDigest(request);
   const base = JSON.parse(prepareTerraConversation(request).context);
