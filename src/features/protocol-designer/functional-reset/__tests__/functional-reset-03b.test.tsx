@@ -120,15 +120,15 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 
-const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 
 const createProjectInUi = async () => {
   submit(COLCHICINE_03A_INITIAL);
-  await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
+  await screen.findByTestId("standard-initial-review-summary");
   const callsBefore = runtime.request.mock.calls.length;
   confirm();
-  await screen.findByText(/Projet créé\./);
-  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
+  await screen.findByText("Choix enregistrés dans le projet.");
+  expect(runtime.request).toHaveBeenCalledTimes(callsBefore);
   await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 };
 
@@ -158,7 +158,10 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     const visible = screen.getByTestId("functional-reset-workspace").textContent ?? "";
     // Match internal tokens, not the substring "gate" inside the user-facing "navigateur".
     expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|\b(?:score|branch|gate)\b/i);
-    expect(visible).toMatch(/Pour faire progresser le projet,[^?]+\?/);
+    // Adoption supplies Project context, but no longer auto-dispatches a QRY speaker.
+    const adopted = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
+    expect(adopted.queryNavigation?.currentAction).toBeTruthy();
+    expect(visible).toContain("Choix enregistrés dans le projet.");
   });
 
   it("FR03B-C03 — question presentation may reword but cannot widen QRY scope", () => {
@@ -213,8 +216,16 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
       recordedAt: "2026-08-21T10:02:00.000Z",
     });
     expect(next.standardQuestion?.scopeSectionIds).toEqual(["POPULATION"]);
-    expect(next.standardQuestion?.informationNeedRefs).toHaveLength(2);
-    expect(next.standardQuestion?.text).toMatch(/inclusion|exclusions/i);
+    const stillUnresolved = previous.standardQuestion!.informationNeedRefs.filter(
+      ref => !next.memory.resolvedNeedRefs.includes(ref),
+    );
+    // 6d11947f20 added a separate POPULATION_DEFINITION facet. Age evidence
+    // resolves ELIGIBILITY, while population, inclusion and exclusion remain.
+    expect(stillUnresolved).toHaveLength(3);
+    expect(next.standardQuestion?.informationNeedRefs).toEqual(expect.arrayContaining(stillUnresolved));
+    expect(next.standardQuestion?.text).toMatch(/population clinique/i);
+    expect(next.standardQuestion?.text).toMatch(/inclusion/i);
+    expect(next.standardQuestion?.text).toMatch(/exclusions/i);
   });
 
   it("FR03B-C06 — an unknown answer remains valid free text routed to Scientific Interpretation", () => {
@@ -275,9 +286,9 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     await createProjectInUi();
     const first = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation;
     submit(COLCHICINE_03A_MODIFICATION);
-    await screen.findByText("J’ai compris deux modifications :");
+    await screen.findByTestId("standard-update-review-summary");
     confirm();
-    await screen.findByText(/Projet mis à jour\./);
+    await screen.findAllByText("Choix enregistrés dans le projet.");
     const second = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation;
     expect(second.projectVersion).not.toBe(first.projectVersion);
     expect(second.selection.trace.traceId).not.toBe(first.selection.trace.traceId);

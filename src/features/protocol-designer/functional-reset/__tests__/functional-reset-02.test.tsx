@@ -149,8 +149,8 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   it("FR02-P04/P05/P06/P08/P10/P11/P12/P13 — completes the colchicine product vertical", async () => {
     const firstRender = renderDemo();
     submit(COLCHICINE_INITIAL);
-    await screen.findByRole("heading", { name: "Compréhension de travail" });
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await screen.findByTestId("standard-initial-review-summary");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
@@ -166,12 +166,12 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(within(previewV1).getByRole("button", { name: "Retour à la conversation" }));
 
     submit(COLCHICINE_MODIFICATION);
-    await screen.findByText("Compréhension de travail");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await screen.findByTestId("standard-update-review-summary");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
     expect(within(projectPanel).getByText("Le projet a changé depuis cette version du protocole.")).toBeInTheDocument();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Mettre à jour les documents" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
@@ -184,7 +184,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
     submit(COLCHICINE_LATER_MODIFICATION);
     await screen.findByText("IRM : J3–J5 → J5–J7");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     expect(await within(projectPanel).findByText("Version 3")).toBeInTheDocument();
     expect(within(projectPanel).getByText("IRM : J5–J7")).toBeInTheDocument();
     expect(within(projectPanel).queryByText("IRM : J3–J5")).toBeNull();

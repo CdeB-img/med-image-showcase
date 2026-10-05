@@ -32,15 +32,14 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 
-const waitForProposal = () => screen.findByRole("heading", {
-  name: "Compréhension de travail",
-});
+const waitForProposal = () => screen.findByTestId("functional-contribution-review");
 
 const confirm = async () => {
   const callsBefore = runtime.request.mock.calls.length;
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
-  await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
+  const revisionBefore = storedSession().project?.revision ?? 0;
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+  await waitFor(() => expect(storedSession().project?.revision).toBe(revisionBefore + 1));
+  expect(runtime.request).toHaveBeenCalledTimes(callsBefore);
 };
 
 const storedSession = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {
@@ -84,15 +83,15 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
 
     const proposal = screen.getByTestId("functional-contribution-review");
-    for (const label of ["Étude", "Comparaison", "Évaluation"]) {
+    for (const label of ["Design", "Intervention / comparateur", "Évaluations / critère principal"]) {
       expect(within(proposal).getByText(label)).toBeInTheDocument();
     }
     fireEvent.click(within(proposal).getByText("Voir les détails"));
-    await within(proposal).findByTestId("understanding-review-card");
-    for (const label of ["Pathologie / condition", "Design", "Intervention / exposition", "Comparateur", "Imagerie", "Éléments à observer ou mesurer"]) {
+    await screen.findByTestId("review-audit-detail");
+    for (const label of ["Population", "Design", "Intervention / comparateur", "Évaluations / critère principal"]) {
       expect(within(proposal).getAllByText(label).length).toBeGreaterThan(0);
     }
-    for (const value of ["infarctus du myocarde", "colchicine", "placebo", "étude multicentrique", "IRM", "inflammation", "lésions myocardiques"]) {
+    for (const value of ["Infarctus du myocarde", "Colchicine", "Placebo", "Étude multicentrique", "IRM", "Inflammation", "Lésions myocardiques"]) {
       expect(within(proposal).getAllByText(value).length).toBeGreaterThan(0);
     }
     expect(within(proposal).queryByText(/biomarqueurs sanguins|taille de l’infarctus/i)).toBeNull();
@@ -113,7 +112,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
       epistemicBoundary: { candidateIsAdopted: false, projectOwnershipTransferred: false },
       decisionBoundary: { projectWriteAuthorized: false },
     });
-    expect(screen.getByRole("button", { name: "Cela correspond à mon projet" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" })).toBeInTheDocument();
   });
 
   it("FR03A-C03 — la confirmation crée le Project via la frontière existante", async () => {
@@ -122,7 +121,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
     await confirm();
 
-    expect(await screen.findByText(/Projet créé\./)).toBeInTheDocument();
+    expect(await screen.findByText("Choix enregistrés dans le projet.")).toBeInTheDocument();
     expect(storedSession().project).toMatchObject({
       boundary: "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER",
       owner: "RESEARCH_PROJECT",
@@ -140,14 +139,14 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const versionOne = storedSession().project!.versionId;
 
     submit(COLCHICINE_03A_MODIFICATION);
-    await screen.findByText("Modifications à enregistrer");
+    await screen.findByTestId("standard-update-review-summary");
     await confirm();
 
     const project = storedSession().project!;
     expect(project).toMatchObject({ revision: 2, previousVersionId: versionOne });
     const contents = project.sections.flatMap((section) => section.elements.map((element) => element.content));
     expect(contents).toEqual(expect.arrayContaining(["Âge maximal : 75 ans", "IRM : J3–J5", "colchicine", "placebo", "inflammation", "lésions myocardiques"]));
-    expect(await screen.findByText(/Projet mis à jour\./)).toBeInTheDocument();
+    expect(screen.getAllByText("Choix enregistrés dans le projet.")).toHaveLength(2);
   });
 
   it("FR03A-C05 — plusieurs modifications dans une réponse sont supportées", async () => {
@@ -157,12 +156,11 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await confirm();
 
     submit(COLCHICINE_03A_MODIFICATION);
-    const heading = await screen.findByText("Modifications à enregistrer");
-    const proposal = heading.closest("section")!;
+    const proposal = await screen.findByTestId("standard-update-review-summary");
     expect(within(proposal).getByText("Population")).toBeInTheDocument();
-    expect(within(proposal).getByText("Temporalité")).toBeInTheDocument();
-    expect(within(proposal).getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
-    expect(within(proposal).getByText("+ IRM : J3–J5")).toBeInTheDocument();
+    expect(within(proposal).getByText("Calendrier")).toBeInTheDocument();
+    expect(within(proposal).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
+    expect(within(proposal).getByText("IRM : J3–J5")).toBeInTheDocument();
   });
 
   it("FR03A-C06 — une réponse partielle conserve les inconnues sans les promouvoir dans le Project", async () => {
@@ -178,7 +176,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     ));
     submit("Le critère principal reste à définir.");
     await screen.findByText(/Ce point reste ouvert dans le projet/);
-    expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Confirmer les choix et enregistrer" })).toBeNull();
 
     const session = storedSession();
     expect(session.project?.revision).toBe(1);
@@ -200,7 +198,6 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
 
     const project = screen.getByTestId("functional-research-project");
     expect(project).toBeInTheDocument();
-    expect(project.parentElement).toHaveClass("lg:sticky");
     expect(screen.getByRole("region", { name: "Conversation" })).toBeInTheDocument();
   });
 

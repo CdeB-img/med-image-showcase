@@ -55,9 +55,9 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
 
     submit(COLCHICINE_03A_INITIAL);
-    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
+    await screen.findByTestId("standard-initial-review-summary");
     expect(storedSession().project).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     const projectPanel = screen.getByTestId("functional-research-project");
@@ -79,9 +79,9 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
       projectVersion: v1.project!.versionId,
       projectDigest: v1.project!.projectDigest,
     });
-    const governedContinuation = [...v1.entries].reverse().find((entry) => entry.kind === "TEXT" && entry.role === "NOXIA");
-    expect(governedContinuation).toMatchObject({ kind: "TEXT", role: "NOXIA" });
-    expect(governedContinuation?.kind === "TEXT" ? governedContinuation.content.match(/\?/g) : []).toHaveLength(1);
+    const adoptionFeedback = [...v1.entries].reverse().find((entry) => entry.kind === "TEXT" && entry.role === "NOXIA");
+    expect(adoptionFeedback).toMatchObject({ kind: "TEXT", role: "NOXIA", content: "Choix enregistrés dans le projet." });
+    expect(v1.queryNavigation?.currentAction).toBeTruthy();
 
     const projectV1BeforeDocument = JSON.stringify(v1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
@@ -93,10 +93,10 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     fireEvent.click(within(previewV1).getByRole("button", { name: "Retour à la conversation" }));
 
     submit(COLCHICINE_03A_MODIFICATION);
-    await screen.findByText("J’ai compris deux modifications :");
-    expect(screen.getByText("+ IRM : J3–J5")).toBeInTheDocument();
-    expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    const updateReview = await screen.findByTestId("standard-update-review-summary");
+    expect(within(updateReview).getAllByText(/IRM : J3–J5/).length).toBeGreaterThan(0);
+    expect(within(updateReview).getAllByText(/Âge maximal : 75 ans/).length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
@@ -116,7 +116,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     });
 
     const projectV2BeforeDocument = JSON.stringify(staleV1.project);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Mettre à jour les documents" }));
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);

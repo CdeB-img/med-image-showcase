@@ -182,5 +182,9 @@ describe("UX-001 Part 4 — 10 living-document closure gates", () => {
   it("UX-DOC-LIVE-C07 no payment functionality is implemented", () => expect(workspaceSource).not.toMatch(/BillingEngine|PricingModel|CreditSystem|SubscriptionPlan|checkout/i));
   it("UX-DOC-LIVE-C08 current free access remains unchanged", () => { const document = makeFixture().workspace.documents.find((item) => item.state === "GENERATABLE"); if (document) expect(document.actionAvailability.preview).toBe(true); else expect(makeFixture().workspace.documents.some((item) => item.actionAvailability.preview)).toBe(true); });
   it("UX-DOC-LIVE-C09 generatable does not imply permanent free download", () => expect(documentFixture()).not.toHaveProperty("permanentFreeDirectDownload"));
-  it("UX-DOC-LIVE-C10 visual reference remains direction, not specification", () => { expect(landingSource).toContain("Un parcours adapté à l’état du projet"); expect(landingSource).not.toContain("01.*Intention"); });
+  it("UX-DOC-LIVE-C10 future steps remain explicitly non-actionable", () => {
+    expect(landingSource).toContain('aria-disabled="true"');
+    expect(landingSource).toContain("À venir");
+    expect(landingSource).not.toMatch(/0[1-2] · À venir/u);
+  });
 });

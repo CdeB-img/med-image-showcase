@@ -181,14 +181,14 @@ it.each(["UI_CONFIRM", "NATURAL_CONFIRM"])("actual Standard frozen fibrosis traj
   send(T1); await settle(1);
   expect(latest.project).toBeNull(); expect(latest.pendingContribution).not.toBeNull();
   const confirm = async (revision: number) => {
-    if (mode === "UI_CONFIRM") fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    if (mode === "UI_CONFIRM") fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     else send("oui c'est ça");
     await waitFor(() => expect(latest.project?.revision).toBe(revision));
     await waitFor(() => expect(screen.getByRole("textbox")).not.toBeDisabled());
   };
   await confirm(1);
   const version1 = latest.project!.versionId;
-  expect(requests).toHaveLength(1); expect(latest.runtimeTurns.at(-1)!.content).toMatch(/Projet créé/);
+  expect(requests).toHaveLength(1); expect(latest.runtimeTurns.at(-1)!.content).toBe("Choix enregistrés dans le projet.");
   expect(latest.scientificThinkingInteraction).toBeNull();
   send(T2); await settle(2);
   expect(requests[1].evaluatePersistentDelta).toBe(false);
@@ -200,7 +200,7 @@ it.each(["UI_CONFIRM", "NATURAL_CONFIRM"])("actual Standard frozen fibrosis traj
   expect(latest.pendingContribution!.scientificContent.temporalQualifications).toHaveLength(1);
   await confirm(2);
   const version2 = latest.project!.versionId;
-  expect(requests).toHaveLength(3); expect(latest.runtimeTurns.at(-1)!.content).toMatch(/Projet mis à jour/);
+  expect(requests).toHaveLength(3); expect(latest.runtimeTurns.at(-1)!.content).toBe("Choix enregistrés dans le projet.");
   expect(latest.project!.llmProjectWrites).toBe(0); expect(latest.project!.confirmationDecision.actor).toBeTruthy();
   expect(latest.project!.sections.flatMap(s => s.elements).some(o => o.sourceProposedType === "HYPOTHESIS")).toBe(false);
   // Reopen actual persistence before the final correction/critique.
@@ -213,7 +213,12 @@ it.each(["UI_CONFIRM", "NATURAL_CONFIRM"])("actual Standard frozen fibrosis traj
   expect(latest.runtimeTurns.filter(t => t.role === "USER" && frozen.inputs.includes(t.content)).map(t => t.content)).toEqual(frozen.inputs);
   expect(latest.bridgeTraces.filter(t => t.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(0);
   expect(latest.entries.flatMap(e => e.kind === "TEXT" && e.role === "NOXIA" ? [e.content] : []).join("\n")).not.toMatch(/Question 1|Hypothèse 1|Hypothèse 2|Une relation concernant/);
-  expect(liveForbidden).not.toHaveBeenCalled();
+  // The two adopted versions register their immutable server snapshot; neither
+  // registration is a provider/conversation request, and this stub prevents I/O.
+  expect(liveForbidden).toHaveBeenCalledTimes(2);
+  for (const index of [1, 2]) expect(liveForbidden).toHaveBeenNthCalledWith(index, "/api/protocol-designer-bridge", expect.objectContaining({
+    method: "POST", body: expect.stringContaining('"operation":"PERSIST_PROJECT_SNAPSHOT"'),
+  }));
   writeFileSync(root + `offline-trajectory-${mode}.json`, JSON.stringify({ provenance: "ACTUAL_STANDARD_BRIDGE_PRJ_LOCAL_SYNTHETIC_NOT_NATURALNESS", mode,
     inputs: frozen.inputs, visibleEntries: latest.entries.filter(e => e.kind === "TEXT").map(e => ({ role: e.role, content: e.content })),
     requests: requests.map(r => ({ requestKind: r.requestKind, projectVersion: r.currentProject?.versionId ?? null,
@@ -229,7 +234,7 @@ it("refusal, unadopted correction and next discussion preserve the nominal owner
   attachTransport(requests, ["LOCAL_SYNTHETIC initial.", "LOCAL_SYNTHETIC correction candidate.", "LOCAL_SYNTHETIC discussion après refus."]);
   render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={initial} onSessionChange={s => { latest = s; }} /></HelmetProvider>);
   send(T1); await waitFor(() => expect(latest.pendingContribution).not.toBeNull());
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
   await waitFor(() => expect(latest.project).not.toBeNull());
   await waitFor(() => expect(screen.getByRole("textbox")).not.toBeDisabled());
   const before = JSON.stringify(latest.project);
@@ -240,7 +245,11 @@ it("refusal, unadopted correction and next discussion preserve the nominal owner
   expect(latest.retainedContributionCandidates.at(-1)?.humanDecision?.status).toBe("REJECTED");
   send("discutons des limites sans modifier le projet"); await waitFor(() => expect(requests).toHaveLength(3));
   await waitFor(() => expect(latest.runtimeTurns.at(-1)?.content).toBe("LOCAL_SYNTHETIC discussion après refus."));
-  expect(JSON.stringify(latest.project)).toBe(before); expect(liveForbidden).not.toHaveBeenCalled();
+  expect(JSON.stringify(latest.project)).toBe(before);
+  expect(liveForbidden).toHaveBeenCalledTimes(1);
+  expect(liveForbidden).toHaveBeenCalledWith("/api/protocol-designer-bridge", expect.objectContaining({
+    method: "POST", body: expect.stringContaining('"operation":"PERSIST_PROJECT_SNAPSHOT"'),
+  }));
 });
 
 it.each([T2, "Pourquoi ces hypothèses ?", "arrête de me redemander la population, tu la connais déjà ?", "Quels choix de mesure as-tu retenu dans les études comparables ?"])("a reopened legacy owner result cannot capture current scientific discussion: %s", async raw => {

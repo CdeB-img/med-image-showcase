@@ -54,11 +54,14 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     fireEvent.change(composer, { target: { value: COLCHICINE_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
-    expect(await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." })).toBeInTheDocument();
+    expect(await screen.findByTestId("standard-initial-review-summary")).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: null }));
     expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(2));
+    const callsBeforeFirstConfirmation = runtime.request.mock.calls.length;
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project?.revision).toBe(1));
+    expect(runtime.request).toHaveBeenCalledTimes(callsBeforeFirstConfirmation);
+    await screen.findByText("Choix enregistrés dans le projet.");
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     const project = screen.getByTestId("functional-research-project");
@@ -86,16 +89,18 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_MODIFICATION } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    expect(await screen.findByText("J’ai compris deux modifications :")).toBeInTheDocument();
-    expect(screen.getByText("+ IRM : J3–J5")).toBeInTheDocument();
-    expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
+    const updateReview = await screen.findByTestId("standard-update-review-summary");
+    expect(within(updateReview).getAllByText(/IRM : J3–J5/).length).toBeGreaterThan(0);
+    expect(within(updateReview).getAllByText(/Âge maximal : 75 ans/).length).toBeGreaterThan(0);
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: expect.objectContaining({ contributionRef: "contribution:colchicine-v1" }) }));
     expect(within(project).getByText("Version 1")).toBeInTheDocument();
     expect(within(project).queryByText("Âge maximal : 75 ans")).toBeNull();
     expect(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeCorrection);
     expect(within(project).getByTestId("project-cockpit-counts")).toHaveTextContent(adoptedCountsBeforeCorrection!);
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(4));
+    const callsBeforeSecondConfirmation = runtime.request.mock.calls.length;
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project?.revision).toBe(2));
+    expect(runtime.request).toHaveBeenCalledTimes(callsBeforeSecondConfirmation);
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     expect(within(project).getByText("Version 2")).toBeInTheDocument();

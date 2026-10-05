@@ -88,8 +88,10 @@ const submit = (content: string) => {
 
 const confirm = async () => {
   const callsBefore = runtime.request.mock.calls.length;
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
+  const revisionBefore = stored().project?.revision ?? 0;
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+  await waitFor(() => expect(stored().project?.revision).toBe(revisionBefore + 1));
+  expect(runtime.request).toHaveBeenCalledTimes(callsBefore);
   await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 };
 
@@ -100,12 +102,12 @@ const stored = () => readPersistedSessionForTest(window.localStorage, FUNCTIONAL
 
 const confirmInitialAndAge = async () => {
   submit(CHANGESET_INITIAL);
-  await screen.findByText("Voici la structure essentielle à confirmer.");
+  await screen.findByTestId("standard-initial-review-summary");
   await confirm();
   submit(CHANGESET_AGE_TIMING);
-  await screen.findByText("J’ai compris deux modifications :");
+  await screen.findByTestId("standard-update-review-summary");
   await confirm();
-  await screen.findByText(/Projet mis à jour\./);
+  await screen.findAllByText("Choix enregistrés dans le projet.");
 };
 
 const reachRemovalReview = async () => {
@@ -113,7 +115,7 @@ const reachRemovalReview = async () => {
   submit(CHANGESET_SCOPE);
   expect((await screen.findAllByText("Je comprends votre proposition. Je vous la présente séparément pour confirmation.")).length).toBeGreaterThan(0);
   submit(CHANGESET_REMOVE);
-  await screen.findByText("J’ai compris une modification :");
+  await screen.findByTestId("standard-update-review-summary");
 };
 
 describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
@@ -169,7 +171,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     await reachRemovalReview();
     const beforeConfirmation = JSON.stringify(stored().project);
     const review = screen.getAllByTestId("functional-contribution-review").at(-1)!;
-    expect(within(review).getByText("Éléments à observer ou mesurer")).toBeInTheDocument();
+    expect(within(review).getByText("Évaluations / critère principal")).toBeInTheDocument();
     expect(within(review).getByText("− Biomarqueurs sanguins")).toBeInTheDocument();
     expect(stored().project?.revision).toBe(2);
     expect(JSON.stringify(stored().project)).toBe(beforeConfirmation);
@@ -217,7 +219,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     submit(CHANGESET_SCOPE);
     expect((await screen.findAllByText("Je comprends votre proposition. Je vous la présente séparément pour confirmation.")).length).toBeGreaterThan(0);
     expect(screen.queryByText(/J’ai compris 0 modifications/i)).toBeNull();
-    expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Confirmer les choix et enregistrer" })).toBeNull();
     expect(stored().project?.revision).toBe(2);
     expect(stored().pendingContribution).toBeNull();
   });
@@ -249,7 +251,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   it("FR03A1-C13 — a French session does not expose an internal English summary in Standard", async () => {
     renderDemo();
     submit(CHANGESET_INITIAL);
-    await screen.findByText("Voici la structure essentielle à confirmer.");
+    await screen.findByTestId("standard-initial-review-summary");
     expect(screen.getByTestId("functional-contribution-review").textContent).not.toMatch(/The user wants to study/i);
     await confirm();
     const projectPanel = screen.getByTestId("functional-research-project");

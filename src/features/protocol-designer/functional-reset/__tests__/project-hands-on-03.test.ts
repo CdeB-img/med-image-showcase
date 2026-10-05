@@ -357,8 +357,8 @@ describe("PROJECT-HANDS-ON-03 — canonical runtime path convergence", () => {
     const project = baseProject();
     const raw = "Le modèle sera un infarctus du myocarde chez le cochon.";
     const value = contribution({ turnId: "turn:pig-mi", raw, project, changes: [
-      change(raw, "population:pig", "POPULATION", "Cochon", "SUBJECT"),
-      change(raw, "condition:mi", "CONDITION", "Infarctus du myocarde"),
+      change("chez le cochon", "population:pig", "POPULATION", "Cochon", "SUBJECT"),
+      change("infarctus du myocarde", "condition:mi", "CONDITION", "Infarctus du myocarde"),
     ] });
     const candidate = prepareResearchProjectContributionCandidate(value, project);
     expect(candidate.proposedSections.find((section) => section.sectionId === "POPULATION")?.elements.map((item) => item.content)).toEqual(expect.arrayContaining(["Cochon"]));

@@ -17,7 +17,7 @@ describe("P-WEB-03 — public and product boundaries after FUNCTIONAL-RESET-01",
 
   it("keeps the public landing indexable", () => {
     renderPage(<ProtocolDesigner />);
-    expect(screen.getByRole("heading", { name: /De l’intention à une décision explicable/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("protocole scientifique sourcé");
     expect(read("src/pages/ProtocolDesigner.tsx")).not.toContain('name="robots" content="noindex');
   });
   it("keeps exact scientific identities and dates", () => {
