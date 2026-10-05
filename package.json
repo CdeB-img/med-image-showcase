@@ -17,6 +17,7 @@
     "typecheck:tmp": "tsc -p tsconfig.tmp001.json --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:protocol-designer:sentinels": "node scripts/run-protocol-designer-sentinels.mjs",
     "test:watch": "vitest",
     "test:semantic": "vitest run src/features/scientific-semantic-reconstruction/__tests__",
     "validate:sem003-authoring": "node semantic-validation/sem-003/authoring/validator.mjs",
