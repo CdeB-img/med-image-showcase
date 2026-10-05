@@ -5,6 +5,7 @@ import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { documentBlockerSignals, persistAdoptedProjectSession, refreshAdoptedProjectConsumers } from "./project-adoption-effects";
 import { recommendedWorkingScope } from "./continuous-project-build";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
+import { projectDocumentLifecycle, nextDocumentGenerationVersion } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -4002,7 +4003,7 @@ export default function ProtocolDesignerWorkspace({
         const resume = async () => {
           if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
           documentGenerationInFlightRef.current = true;
-          setDocumentGenerationVersion((sourceSession.drciDraftPacks ?? []).filter(pack => pack.project.projectId === sourceSession.project!.projectId).length + 1);
+          setDocumentGenerationVersion(nextDocumentGenerationVersion(sourceSession.drciDraftPacks ?? [], sourceSession.project!.projectId));
           setDocumentGenerationStartedAt(Date.now());
           setDocumentGenerationElapsed(0);
           setDocumentGenerationComplete(false);
@@ -4032,7 +4033,7 @@ export default function ProtocolDesignerWorkspace({
             // results must not be turned into a fresh paid generation.
             documentRecoveryRef.current = error instanceof TypeError
               ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
-            const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error);
+            const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, documents, error, records);
             setSession(current => current.sessionId !== sourceSession.sessionId
               || current.project?.projectDigest !== sourceSession.project?.projectDigest ? current : ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
               documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
@@ -4196,6 +4197,9 @@ export default function ProtocolDesignerWorkspace({
     });
   };
   const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
+  const documentLifecycle = useMemo(() => session.project
+    ? projectDocumentLifecycle(session.documents.projections, session.drciDraftPacks ?? [], session.project) : null,
+    [session.project, session.documents.projections, session.drciDraftPacks]);
   const currentProtocolProjection = session.project
     ? [...session.documents.projections].reverse().find((projection) => projection.projectionType === "PROTOCOL"
       && projection.source.projectId === session.project!.projectId
@@ -4205,9 +4209,9 @@ export default function ProtocolDesignerWorkspace({
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
       generatedAt: currentProtocolProjection?.requestedAt ?? session.project.adoptedAt });
-    const pack = [...session.drciDraftPacks ?? []].reverse().find((item) => isDrciDraftPackCurrent(item, session.project!));
+    const pack = documentLifecycle?.currentPack;
     return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
-  }, [currentProtocolProjection, session.project, session.drciDraftPacks]);
+  }, [currentProtocolProjection, session.project, documentLifecycle]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
@@ -4251,7 +4255,7 @@ export default function ProtocolDesignerWorkspace({
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
   const currentDrciDraftPack = session.project
-    ? [...session.drciDraftPacks ?? []].reverse().find((pack) => isDrciDraftPackCurrent(pack, session.project!)) ?? null
+    ? documentLifecycle?.currentPack
     : null;
   const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
@@ -4271,6 +4275,7 @@ export default function ProtocolDesignerWorkspace({
   >
     <p className="text-sm font-semibold">Documents indisponibles</p>
     <p className="mt-1 text-sm text-muted-foreground">La génération des documents n’a pas abouti. Votre projet et les versions précédentes sont conservés.</p>
+    {!!session.documents.lastFailure.operationEvidence?.succeededCallIds.length && <p className="mt-1 text-sm text-muted-foreground">Une partie du travail fournisseur a abouti. Ses preuves sont conservées, mais aucun dossier complet n’a été enregistré pour cette tentative.</p>}
     {documentRecoveryRef.current?.projectDigest === session.project.projectDigest
       ? <button type="button" disabled={documentGenerationPending} onClick={() => void documentRecoveryRef.current?.resume()}
           className="mt-3 min-h-10 rounded-xl border bg-background px-3 text-sm font-medium disabled:opacity-40">Retrouver les documents</button>

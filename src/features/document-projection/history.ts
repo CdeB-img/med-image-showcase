@@ -1,4 +1,57 @@
 import type { DocumentProjection, ProjectionHistory, ProjectionLifecycleState } from "./types";
+import { isDrciDraftPackCurrent, type DrciDraftPack } from "./drci-draft-contract";
+import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
+
+/** Read-only compatibility projection over existing native histories, not a store.
+ * Pack digest identifies a generation, not its position in a displayed list.
+ * Version labels are derived here from the complete history before UI filtering.
+ */
+export const documentGenerationsForProject = (packs: readonly DrciDraftPack[], projectId: string | undefined) =>
+  [...new Map(packs.filter(pack => pack.project.projectId === projectId).map(pack => [pack.packDigest, pack])).values()]
+    .sort((a, b) => a.generatedAt.localeCompare(b.generatedAt) || a.packDigest.localeCompare(b.packDigest))
+    .map((pack, index) => ({
+      documentGenerationId: `${pack.project.projectId}:document-generation:${pack.packDigest}`,
+      documentVersion: index + 1,
+      projectId: pack.project.projectId,
+      projectVersionId: pack.project.projectVersion,
+      projectDigest: pack.project.projectDigest,
+      createdAt: pack.generatedAt,
+      status: "AVAILABLE" as const,
+      documentDraftPack: pack,
+    }));
+
+export const nextDocumentGenerationVersion = (packs: readonly DrciDraftPack[], projectId: string) =>
+  documentGenerationsForProject(packs, projectId).length + 1;
+
+export const currentDrciDraftPack = (packs: readonly DrciDraftPack[], project: ResearchProjectOwnerProjection) =>
+  documentGenerationsForProject(packs, project.projectId).map(generation => generation.documentDraftPack)
+    .filter(pack => isDrciDraftPackCurrent(pack, project)).at(-1) ?? null;
+
+/** Separate native families: a template projection is not a generated DRCI pack.
+ * Logical IDs bind Project + kind; physical files and generations do not define them.
+ */
+export const projectDocumentLifecycle = (
+  projections: readonly DocumentProjection[], packs: readonly DrciDraftPack[], project: ResearchProjectOwnerProjection,
+) => {
+  const generations = documentGenerationsForProject(packs, project.projectId);
+  return {
+    projections: projections.filter(projection => projection.source.projectId === project.projectId).map(projection => ({
+      logicalDocumentId: `${project.projectId}:document:TEMPLATE:${projection.projectionType}`,
+      generationId: projection.projectionId,
+      sourceProject: projection.source,
+      projection,
+    })),
+    generations: generations.map((generation, index) => ({
+      ...generation,
+      previousGenerationId: generations[index - 1]?.documentGenerationId ?? null,
+      documents: generation.documentDraftPack.documents.map(document => ({
+        logicalDocumentId: `${project.projectId}:document:DRCI:${document.kind}`,
+        kind: document.kind,
+      })),
+    })),
+    currentPack: currentDrciDraftPack(packs, project),
+  };
+};
 
 export const createProjectionHistory = (): ProjectionHistory => ({ seriesId: null, entries: [] });
 

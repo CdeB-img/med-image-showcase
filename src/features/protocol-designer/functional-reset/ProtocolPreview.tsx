@@ -6,7 +6,7 @@ import {
   administrationStatusLabel,
   type DocumentProjection,
 } from "@/features/document-projection";
-import { downloadProjection } from "@/features/document-projection/DocumentProjectionView";
+import { downloadProjection } from "@/features/document-projection/renderer";
 
 type Props = {
   onDocumentInstruction?: (text: string) => void;

@@ -3,7 +3,7 @@ import { asciiIdentifierStem, canonicalizeDrciCrfTechnicalIdentifiers, DRCI_CRF_
 import { materializeDrciDraftPack, prepareDrciDraftPack, prepareDrciGenerationBatches, DRCI_DOCUMENT_KINDS } from "../drci-draft-contract";
 import { authorizeResearchProjectDocumentHandoff } from "@/features/research-project-construction";
 import { adoptBehaviorContribution, behaviorAuthority, richStudyContribution } from "@/features/protocol-designer/functional-reset/__tests__/p1-behavior-01a-contract-fixtures";
-import { documentGenerationsForProject } from "@/features/protocol-designer/functional-reset/StudyDeliverableWorkspace";
+import { documentGenerationsForProject } from "../history";
 import { refreshFunctionalResetDocumentPortfolio } from "../functional-reset-boundary";
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 
@@ -105,7 +105,7 @@ describe("DRCI batch and materialization admission", () => {
     const pack = materializeDrciDraftPack(value, { project, packet, generatedAt: at });
     expect(pack.crfRows[0].variableId).toBe("ANTECEDENTS_CARDIOVASCULAIRES_DECLARES");
     expect(pack.crfRows[1].derivedFrom).toEqual(["ANTECEDENTS_CARDIOVASCULAIRES_DECLARES"]);
-    expect(documentGenerationsForProject([pack], project.projectId)[0].documentGenerationId).toBe(`${project.projectId}:document-generation:1`);
+    expect(documentGenerationsForProject([pack], project.projectId)[0].documentGenerationId).toBe(`${project.projectId}:document-generation:${pack.packDigest}`);
     expect(materializeDrciDraftPack(native, { project, packet, generatedAt: at }).crfRows).toEqual(pack.crfRows);
     expect(JSON.stringify(native)).toBe(before);
     expect(JSON.stringify(project)).toBe(projectBefore);

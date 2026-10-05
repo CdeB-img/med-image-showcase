@@ -72,7 +72,24 @@ export type FunctionalResetDocumentPortfolio = {
   handoffDecision: HumanDecisionEnvelope | null;
   projections: DocumentProjection[];
   cards: FunctionalDocumentCard[];
-  lastFailure: null | { code: string; message: string; resumeCondition: string | null };
+  lastFailure: null | { code: string; message: string; resumeCondition: string | null;
+    operationEvidence?: ReturnType<typeof documentOperationEvidence> };
+};
+
+/** Bounded projection of the existing ledger observations, not a second ledger.
+ * A successful paid scope is evidence, never a complete/persisted atomic pack.
+ */
+export const documentOperationEvidence = (
+  records: readonly import("../protocol-designer/provider-call-observability").ProviderCallRecord[],
+) => {
+  const documentCalls = records.filter(record => record.purpose === "DOCUMENT_PROJECTION");
+  return {
+    succeededCallIds: documentCalls.filter(record => record.status === "SUCCEEDED").map(record => record.callId),
+    failedCallIds: documentCalls.filter(record => record.status === "FAILED").map(record => record.callId),
+    packReadiness: "NOT_READY" as const,
+    persistedGeneration: "NONE" as const,
+    automaticRedispatchAllowed: false as const,
+  };
 };
 
 const elements = (project: ResearchProjectOwnerProjection, sectionId: ResearchProjectSectionId) =>
@@ -809,6 +826,7 @@ export const markFunctionalResetDocumentFailure = (
   project: Readonly<ResearchProjectOwnerProjection>,
   previous: Readonly<FunctionalResetDocumentPortfolio>,
   error: unknown,
+  records: readonly import("../protocol-designer/provider-call-observability").ProviderCallRecord[] = [],
 ): FunctionalResetDocumentPortfolio => {
   const message = error instanceof Error ? error.message : "La frontière documentaire n’a pas pu être mise à jour.";
   const prior = previous.projections.at(-1) ?? null;
@@ -834,7 +852,9 @@ export const markFunctionalResetDocumentFailure = (
       failedCard("DMP", "DMP", "État documentaire momentanément indisponible."),
       failedCard("SAP", "SAP", "État documentaire momentanément indisponible."),
     ],
-    lastFailure: { code: "FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR", message, resumeCondition: "Réessayer depuis la version courante du Research Project." },
+    lastFailure: { code: "FUNCTIONAL_DOCUMENT_BOUNDARY_ERROR", message,
+      resumeCondition: "Une reprise explicite dépend des opérations durables existantes ; aucun travail consommé n’est redispatché automatiquement.",
+      operationEvidence: documentOperationEvidence(records) },
   };
 };
 

@@ -9,6 +9,7 @@ import {
 } from "@/features/document-projection";
 import { drciDraftPackFiles } from "@/features/document-projection/drci-draft-pack";
 import type { DrciDraftPack } from "@/features/document-projection/drci-draft-contract";
+import { documentGenerationsForProject } from "@/features/document-projection/history";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
@@ -26,18 +27,6 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   NOT_APPLICABLE: { label: "Non applicable", className: "bg-muted text-muted-foreground" },
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
-
-export const documentGenerationsForProject = (packs: readonly DrciDraftPack[], projectId: string | undefined) =>
-  packs.filter((pack) => pack.project.projectId === projectId).map((pack, index) => ({
-    documentGenerationId: `${pack.project.projectId}:document-generation:${index + 1}`,
-    documentVersion: index + 1,
-    projectId: pack.project.projectId,
-    projectVersionId: pack.project.projectVersion,
-    projectDigest: pack.project.projectDigest,
-    createdAt: pack.generatedAt,
-    status: "AVAILABLE" as const,
-    documentDraftPack: pack,
-  }));
 
 export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, documentPacks = [], projectId }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);

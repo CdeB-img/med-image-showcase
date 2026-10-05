@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import type { DrciDraftPack } from "@/features/document-projection/drci-draft-contract";
-import { documentGenerationsForProject } from "../StudyDeliverableWorkspace";
+import { documentGenerationsForProject } from "@/features/document-projection/history";
 
 const pack = (projectId: string, projectVersion: string, projectDigest: string, generatedAt: string) => ({
-  project: { projectId, projectVersion, projectDigest }, generatedAt,
+  project: { projectId, projectVersion, projectDigest }, generatedAt, packDigest: projectDigest, documents: [],
 }) as DrciDraftPack;
 
 describe("document generation history", () => {
@@ -15,8 +15,8 @@ describe("document generation history", () => {
     const after = documentGenerationsForProject(JSON.parse(JSON.stringify([v1, other, v2])) as DrciDraftPack[], "project:A");
     expect(after).toEqual(before);
     expect(before.map((item) => [item.documentGenerationId, item.documentVersion, item.projectVersionId, item.projectDigest, item.status])).toEqual([
-      ["project:A:document-generation:1", 1, "project:A:version:1", "digest:1", "AVAILABLE"],
-      ["project:A:document-generation:2", 2, "project:A:version:2", "digest:2", "AVAILABLE"],
+      ["project:A:document-generation:digest:1", 1, "project:A:version:1", "digest:1", "AVAILABLE"],
+      ["project:A:document-generation:digest:2", 2, "project:A:version:2", "digest:2", "AVAILABLE"],
     ]);
     expect(before[0]?.documentDraftPack).toBe(v1);
     expect(before[1]?.documentDraftPack).toBe(v2);
