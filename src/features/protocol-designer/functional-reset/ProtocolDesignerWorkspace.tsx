@@ -8,7 +8,7 @@ import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraft
 import { projectDocumentLifecycle, nextDocumentGenerationVersion } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { buildBoundedConversationReferentContext, requiresCurrentOwnerPresentation, requestsScientificExplanation, buildCurrentNavigationEvidence, currentGovernedNavigationInput, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
+import { buildBoundedConversationReferentContext, requestsScientificExplanation, buildCurrentNavigationEvidence, currentGovernedNavigationInput, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
 import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
@@ -23,7 +23,6 @@ import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVe
 import type { ProviderCallRecord, ProviderCallRequestObservability } from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { ownerResultNativeDigest } from "@/features/protocol-designer/product-owner-result-ledger";
 import { buildPreProjectTraceRealizationOutcome, captureProductBridgeTraceText, createPreProjectScientificTraceSegment, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
 import { authorizeResearchProjectDocumentHandoff, confirmResearchProjectContribution, prepareResearchProjectContributionCandidate, rejectResearchProjectContribution } from "@/features/research-project-construction";
 import { buildStudyDeliverablePortfolio, buildCanonicalCrfPackage, functionalProtocolProjection, markFunctionalResetDocumentFailure, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
@@ -37,7 +36,7 @@ import { retainValidatedContributionCandidate, retainUndecidedContributionScope,
 import { retainScientificDiscussionResult, recordGovernedAdoptionContextEvent, settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
-import { recordArtifactGeneratedTrace, recordContributionRejectionTrace, recordDocumentProjectionTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordPostAdoptionGovernedLocalRealization, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordContributionReviewPresentedTrace, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, recordProjectAdoptionTrace, recordStudyDesignConversationTrace, recordStudyDesignOptionReviewTrace, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
+import { recordArtifactGeneratedTrace, recordContributionRejectionTrace, recordDocumentProjectionTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordPostAdoptionGovernedLocalRealization, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordContributionReviewPresentedTrace, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, recordProjectAdoptionTrace, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -53,11 +52,11 @@ import { buildStandardConversationActionGroup, type StandardConversationActionGr
 import { executeProductUnderstandInteraction, recognizeCurrentProjectDirection, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
 import { buildCandidateScientificChallenge, buildConciseAdoptionReply, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision, type ConversationStylePreference } from "./natural-conversation-policy";
 import { appendFunctionalResetProviderCallRecords, clearFunctionalResetSession, createConversationEntryId, createFunctionalResetSession, createTurnId, loadFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave, projectHumanDecisionForBridgeTrace, recordConversationConfirmationReceipt, conversationConfirmationReceiptStatus, productEntryPromptForIntent, resolveGovernedPostAdoptionReceipt, shouldMediatePostAdoptionQuery, type ConversationEntry, type FunctionalResetSession } from "./session";
-import { buildStandardStudyDesignPresentation, buildStudyDesignOptionContribution, dispatchStudyDesignFromQuery, interactionMatchesCurrentProject, isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger, resolveStudyDesignConversation } from "./study-design-standard";
-import { buildPreProjectScientificThinkingIntervention, buildScientificThinkingSelectionContribution, dispatchScientificThinkingFromQuery, isScientificThinkingQueryDispatch, readScientificThinkingOutputFromLedger, resolveScientificThinkingConversation, scientificThinkingInteractionMatchesCurrentProject } from "./scientific-thinking-standard";
-import { buildObservabilityMeasurementContribution, buildStandardObservabilityPresentation, dispatchObservabilityFromQuery, isObservabilityQueryDispatch, observabilityInteractionMatchesCurrentProject, readObservabilityResultFromLedger, resolveObservabilityConversation } from "./observability-standard";
-import { prepareImagingAcquisitionContribution, buildStandardImagingPresentation, dispatchImagingFromQuery, imagingInteractionMatchesCurrentProject, isImagingQueryDispatch, readImagingResultFromLedger, resolveImagingConversation } from "./imaging-standard";
-import { biostatisticsInteractionMatchesCurrentProject, buildBiostatisticsStrategyContribution, buildStandardBiostatisticsPresentation, dispatchBiostatisticsFromQuery, isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger, resolveBiostatisticsConversation } from "./biostatistics-standard";
+import { dispatchStudyDesignFromQuery, interactionMatchesCurrentProject, isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger } from "./study-design-standard";
+import { buildPreProjectScientificThinkingIntervention, dispatchScientificThinkingFromQuery, isScientificThinkingQueryDispatch, scientificThinkingInteractionMatchesCurrentProject } from "./scientific-thinking-standard";
+import { dispatchObservabilityFromQuery, isObservabilityQueryDispatch, observabilityInteractionMatchesCurrentProject, readObservabilityResultFromLedger } from "./observability-standard";
+import { dispatchImagingFromQuery, imagingInteractionMatchesCurrentProject, isImagingQueryDispatch, readImagingResultFromLedger } from "./imaging-standard";
+import { biostatisticsInteractionMatchesCurrentProject, dispatchBiostatisticsFromQuery, isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger } from "./biostatistics-standard";
 import { deriveFunctionalResetDataOwnerState, dispatchCanonicalStudyDataFromQuery, isCanonicalStudyDataQueryDispatch, readCanonicalStudyDataResultFromLedger } from "./canonical-study-data-standard";
 import { dispatchDataManagementFromQuery, isDataManagementQueryDispatch, readDataManagementResultFromLedger } from "./data-management-standard";
 import { attachCurrentKnowledgePrerequisiteWhenRequired, dispatchKnowledgePrerequisiteFromQuery } from "./knowledge-standard";
@@ -72,6 +71,12 @@ import { respondToConversationActionGroup as respondToConversationActionGroupTra
 import { prepareDocumentInstruction, dispatchProductDocumentAction as prepareProductDocumentAction } from "./documentary-conversation";
 import { prepareCanonicalStudyDataContinuationNavigation } from "./canonical-study-data-standard";
 import ContributionReview from "./ContributionReview";
+import { prepareScientificThinkingInteraction } from "./scientific-thinking-standard";
+import { prepareStudyDesignInteraction } from "./study-design-standard";
+import { prepareObservabilityInteraction } from "./observability-standard";
+import { prepareImagingInteraction } from "./imaging-standard";
+import { prepareBiostatisticsInteraction } from "./biostatistics-standard";
+import { retainOwnerReviewedCandidate } from "./project-review-decision";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -331,30 +336,6 @@ const normalizePreparedUserInput = (input: string | PreparedGatewayUserInput) =>
     onProviderCallRecords: undefined,
   }
   : input;
-
-const retainOwnerReviewedCandidate = (
-  current: FunctionalResetSession,
-  contribution: ScientificInterpretationContributionEnvelope,
-  candidate: ReturnType<typeof prepareResearchProjectContributionCandidate>,
-  userTurn: ScientificInterpretationTurn,
-  traceRunId: string | null,
-) => retainValidatedContributionCandidate({
-  retained: current.retainedContributionCandidates ?? [],
-  contribution,
-  candidate,
-  // This records PRJ's existing canonical/change-set and review-coverage gate;
-  // it does not pretend that a provider extraction validated an owner proposal.
-  validation: { valid: candidate.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION", blocks: [] },
-  validatorRef: "PRJ001_CANONICAL_CHANGESET_AND_HUMAN_REVIEW_COVERAGE",
-  sourceTurnRef: userTurn.turnId,
-  baseProject: current.project,
-  dependencyBindings: current.knowledgeOwnerLedger.entries
-    .filter((entry) => entry.result && contribution.source.sourceRefs.includes(entry.result.resultId))
-    .map((entry) => ({ ref: entry.result!.resultId, version: entry.result!.resultVersion,
-      digest: ownerResultNativeDigest(entry.result)!, actuality: "CURRENT" as const })),
-  traceRunId,
-  retainedAt: userTurn.createdAt ?? new Date().toISOString(),
-});
 
 const persistenceFailureMessage = (
   status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
@@ -1068,656 +1049,82 @@ export default function ProtocolDesignerWorkspace({
 
   const applyScientificThinkingInput = async (input: string | PreparedGatewayUserInput) => {
     const prepared = normalizePreparedUserInput(input);
-    const content = prepared.workingText;
-    const interaction = session.scientificThinkingInteraction;
-    const project = session.project;
-    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
-    if (requiresCurrentOwnerPresentation(content)
-      && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return false;
-    if (!scientificThinkingInteractionMatchesCurrentProject(interaction, project)) {
-      setSession((current) => ({
-        ...current,
-        scientificThinkingInteraction: current.scientificThinkingInteraction
-          ? { ...current.scientificThinkingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : null,
-      }));
-      return false;
+    const command = prepareScientificThinkingInteraction(session, prepared);
+    if ("apply" in command && command.apply) setSession(command.apply);
+    if ("complete" in command && command.complete) {
+      const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
+        state: prepared.gatewayState, onProviderCallRecords: prepared.onProviderCallRecords,
+        sessionId: session.sessionId, conversationId: session.conversationId,
+        sourceTurnRef: prepared.turnId, responseId: `conversation-response:${prepared.turnId}`,
+        canonicalFrenchResponse: command.canonicalResponse,
+      }) : null;
+      setSession(command.complete(localized));
     }
-    const candidateContext = interaction.selectionAnchor ?? interaction;
-    const output = readScientificThinkingOutputFromLedger({
-      ledger: session.knowledgeOwnerLedger,
-      resultRef: candidateContext.ownerResultRef,
-    });
-    if (!output) return false;
-    const resolution = resolveScientificThinkingConversation({ raw: content, output,
-      presentedCandidateRefs: candidateContext.presentedCandidateRefs ?? [],
-    });
-    if (resolution.kind === "FALLTHROUGH") return false;
-    const recordedAt = prepared.createdAt;
-    const userTurn: ScientificInterpretationTurn = {
-      turnId: prepared.turnId,
-      role: "USER",
-      content: prepared.originalText,
-      createdAt: recordedAt,
-    };
-    const priorProposalTurn = session.runtimeTurns.find((turn) => turn.turnId === candidateContext.presentationTurnRef);
-    // A retained owner result is not proof that this proposal was presented.
-    if (!priorProposalTurn || priorProposalTurn.role !== "NOXIA") return false;
-    const proposalTurn: ScientificInterpretationTurn = priorProposalTurn;
-    if (resolution.kind === "SELECT_CANDIDATE") {
-      const contribution = buildScientificThinkingSelectionContribution({
-        conversationId: session.conversationId,
-        project,
-        output,
-        candidateRef: resolution.candidateRef,
-        proposalTurn,
-        selectionTurn: userTurn,
-        createdAt: recordedAt,
-      });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
-      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") {
-        throw new Error(`SCIENTIFIC_THINKING_REVIEW_CANDIDATE_${candidate.status}`);
-      }
-      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
-        ledger: session.scientificExecutionTraceLedger,
-        traceRunId: candidateContext.traceRunId,
-        conversationId: session.conversationId,
-        recordedAt,
-        contribution,
-        candidate,
-        project,
-        proposalRef: output.outputId,
-        proposalDigest: output.outputDigest,
-        optionRef: resolution.candidateRef,
-        responsibilityOwner: "SCIENTIFIC_THINKING",
-      });
-      setSession((current) => ({
-        ...current,
-        runtimeTurns: [...current.runtimeTurns, userTurn],
-        pendingContribution: contribution,
-        scientificThinkingInteraction: current.scientificThinkingInteraction ? {
-          ...current.scientificThinkingInteraction,
-          status: "PENDING_HUMAN_REVIEW",
-          selectedCandidateRef: resolution.candidateRef,
-          pendingContributionRef: contribution.identity.contributionId,
-        } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, candidateContext.traceRunId),
-        entries: [...current.entries, {
-          entryId: createConversationEntryId(),
-          kind: "TEXT",
-          role: "USER",
-          content: prepared.originalText,
-          createdAt: recordedAt,
-        }, {
-          entryId: createConversationEntryId(),
-          kind: "REVIEW",
-          role: "NOXIA",
-          contribution,
-          candidate,
-          traceRunId: candidateContext.traceRunId,
-          status: "PENDING",
-          decision: null,
-          createdAt: recordedAt,
-        }],
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
-        updatedAt: recordedAt,
-      }));
-      return true;
-    }
-    const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
-      state: prepared.gatewayState,
-      onProviderCallRecords: prepared.onProviderCallRecords,
-      sessionId: session.sessionId,
-      conversationId: session.conversationId,
-      sourceTurnRef: userTurn.turnId,
-      responseId: `conversation-response:${userTurn.turnId}`,
-      canonicalFrenchResponse: resolution.response,
-    }) : null;
-    const assistantTurn: ScientificInterpretationTurn = {
-      turnId: createTurnId(),
-      role: "NOXIA",
-      content: resolution.response,
-      createdAt: recordedAt,
-    };
-    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
-      ledger: session.scientificExecutionTraceLedger,
-      traceRunId: candidateContext.traceRunId,
-      conversationId: session.conversationId,
-      recordedAt,
-      project,
-      proposalRef: output.outputId,
-      proposalDigest: output.outputDigest,
-      turnRef: userTurn.turnId,
-      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
-      responsibilityOwner: "SCIENTIFIC_THINKING",
-    });
-    setSession((current) => ({
-      ...current,
-      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-      entries: [...current.entries, {
-        entryId: createConversationEntryId(),
-        kind: "TEXT",
-        role: "USER",
-        content: prepared.originalText,
-        createdAt: recordedAt,
-      }, {
-        entryId: createConversationEntryId(),
-        kind: "TEXT",
-        role: "NOXIA",
-        content: localized?.response.localizedResponse ?? resolution.response,
-        createdAt: recordedAt,
-      }],
-      scientificExecutionTraceLedger,
-      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
-      updatedAt: recordedAt,
-    }));
-    return true;
+    return command.handled;
   };
 
   const applyStudyDesignInput = async (input: string | PreparedGatewayUserInput, explicitOptionRef?: string) => {
     const prepared = normalizePreparedUserInput(input);
-    const content = prepared.workingText;
-    const interaction = session.studyDesignInteraction;
-    const project = session.project;
-    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
-    if (requiresCurrentOwnerPresentation(content)
-      && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return false;
-    if (!interactionMatchesCurrentProject(interaction, project)) {
-      setSession((current) => ({
-        ...current,
-        studyDesignInteraction: current.studyDesignInteraction
-          ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : null,
-      }));
-      return false;
+    const command = prepareStudyDesignInteraction(session, prepared, explicitOptionRef);
+    if ("apply" in command && command.apply) setSession(command.apply);
+    if ("complete" in command && command.complete) {
+      const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
+        state: prepared.gatewayState, onProviderCallRecords: prepared.onProviderCallRecords,
+        sessionId: session.sessionId, conversationId: session.conversationId,
+        sourceTurnRef: prepared.turnId, responseId: `conversation-response:${prepared.turnId}`,
+        canonicalFrenchResponse: command.canonicalResponse,
+      }) : null;
+      setSession(command.complete(localized));
     }
-    const proposal = readStudyDesignProposalFromLedger({
-      ledger: session.knowledgeOwnerLedger,
-      resultRef: interaction.ownerResultRef,
-    });
-    if (!proposal) return false;
-    const resolution = explicitOptionRef
-      ? { kind: "SELECT_OPTION" as const, optionRef: explicitOptionRef }
-      : resolveStudyDesignConversation({ raw: content, proposal });
-    if (resolution.kind === "FALLTHROUGH") return false;
-
-    const recordedAt = prepared.createdAt;
-    const userTurn: ScientificInterpretationTurn = {
-      turnId: prepared.turnId,
-      role: "USER",
-      content: prepared.originalText,
-      createdAt: recordedAt,
-    };
-    const proposalEntry = session.entries.find((entry) => entry.kind === "STUDY_DESIGN_PROPOSAL"
-      && entry.presentation.proposalRef === proposal.proposalId);
-    const proposalTurn: ScientificInterpretationTurn = {
-      turnId: interaction.presentationTurnRef,
-      role: "NOXIA",
-      content: proposalEntry?.kind === "STUDY_DESIGN_PROPOSAL"
-        ? proposalEntry.presentation.plainText
-        : buildStandardStudyDesignPresentation(proposal).plainText,
-      createdAt: proposalEntry?.createdAt ?? recordedAt,
-    };
-
-    if (resolution.kind === "SELECT_OPTION") {
-      const contribution = buildStudyDesignOptionContribution({
-        conversationId: session.conversationId,
-        project,
-        proposal,
-        optionRef: resolution.optionRef,
-        proposalTurn,
-        selectionTurn: userTurn,
-        createdAt: recordedAt,
-      });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
-      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") {
-        throw new Error(`STUDY_DESIGN_REVIEW_CANDIDATE_${candidate.status}`);
-      }
-      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
-        ledger: session.scientificExecutionTraceLedger,
-        traceRunId: interaction.traceRunId,
-        conversationId: session.conversationId,
-        recordedAt,
-        contribution,
-        candidate,
-        project,
-        proposalRef: proposal.proposalId,
-        proposalDigest: proposal.proposalDigest,
-        optionRef: resolution.optionRef,
-      });
-      setSession((current) => ({
-        ...current,
-        runtimeTurns: [...current.runtimeTurns, userTurn],
-        pendingContribution: contribution,
-        studyDesignInteraction: current.studyDesignInteraction ? {
-          ...current.studyDesignInteraction,
-          status: "PENDING_HUMAN_REVIEW",
-          selectedOptionRef: resolution.optionRef,
-          pendingContributionRef: contribution.identity.contributionId,
-        } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
-        entries: [...current.entries, {
-          entryId: createConversationEntryId(),
-          kind: "TEXT",
-          role: "USER",
-          content: prepared.originalText,
-          createdAt: recordedAt,
-        }, {
-          entryId: createConversationEntryId(),
-          kind: "REVIEW",
-          role: "NOXIA",
-          contribution,
-          candidate,
-          traceRunId: interaction.traceRunId,
-          status: "PENDING",
-          decision: null,
-          createdAt: recordedAt,
-        }],
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
-        updatedAt: recordedAt,
-      }));
-      return true;
-    }
-
-    const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
-      state: prepared.gatewayState,
-      onProviderCallRecords: prepared.onProviderCallRecords,
-      sessionId: session.sessionId,
-      conversationId: session.conversationId,
-      sourceTurnRef: userTurn.turnId,
-      responseId: `conversation-response:${userTurn.turnId}`,
-      canonicalFrenchResponse: resolution.response,
-    }) : null;
-    const assistantTurn: ScientificInterpretationTurn = {
-      turnId: createTurnId(),
-      role: "NOXIA",
-      content: resolution.response,
-      createdAt: recordedAt,
-    };
-    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
-      ledger: session.scientificExecutionTraceLedger,
-      traceRunId: interaction.traceRunId,
-      conversationId: session.conversationId,
-      recordedAt,
-      project,
-      proposalRef: proposal.proposalId,
-      proposalDigest: proposal.proposalDigest,
-      turnRef: userTurn.turnId,
-      status: resolution.kind === "DISCUSS" ? "DISCUSSION"
-        : resolution.kind === "DEFER" ? "DEFERRED"
-          : "OPTIONS_REJECTED",
-    });
-    setSession((current) => ({
-      ...current,
-      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-      studyDesignInteraction: resolution.kind === "REJECT_ALL" && current.studyDesignInteraction
-        ? { ...current.studyDesignInteraction, status: "REJECTED", staleReason: "USER_REJECTED_ALL_OPTIONS" }
-        : current.studyDesignInteraction,
-      entries: [...current.entries, {
-        entryId: createConversationEntryId(),
-        kind: "TEXT",
-        role: "USER",
-        content: prepared.originalText,
-        createdAt: recordedAt,
-      }, {
-        entryId: createConversationEntryId(),
-        kind: "TEXT",
-        role: "NOXIA",
-        content: localized?.response.localizedResponse ?? resolution.response,
-        createdAt: recordedAt,
-      }],
-      scientificExecutionTraceLedger,
-      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
-      updatedAt: recordedAt,
-    }));
-    return true;
+    return command.handled;
   };
 
   const applyObservabilityInput = async (input: string | PreparedGatewayUserInput, explicitMeasurementRef?: string) => {
     const prepared = normalizePreparedUserInput(input);
-    const content = prepared.workingText;
-    const interaction = session.observabilityInteraction;
-    const project = session.project;
-    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
-    if (requiresCurrentOwnerPresentation(content)
-      && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return false;
-    if (!observabilityInteractionMatchesCurrentProject(interaction, project)) {
-      setSession((current) => ({
-        ...current,
-        observabilityInteraction: current.observabilityInteraction
-          ? { ...current.observabilityInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : null,
-      }));
-      return false;
+    const command = prepareObservabilityInteraction(session, prepared, explicitMeasurementRef);
+    if ("apply" in command && command.apply) setSession(command.apply);
+    if ("complete" in command && command.complete) {
+      const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
+        state: prepared.gatewayState, onProviderCallRecords: prepared.onProviderCallRecords,
+        sessionId: session.sessionId, conversationId: session.conversationId,
+        sourceTurnRef: prepared.turnId, responseId: `conversation-response:${prepared.turnId}`,
+        canonicalFrenchResponse: command.canonicalResponse,
+      }) : null;
+      setSession(command.complete(localized));
     }
-    const result = readObservabilityResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
-    if (!result) return false;
-    const resolution = explicitMeasurementRef
-      ? { kind: "SELECT_MEASUREMENT" as const, measurementRef: explicitMeasurementRef }
-      : resolveObservabilityConversation({ raw: content, result });
-    if (resolution.kind === "FALLTHROUGH") return false;
-    const recordedAt = prepared.createdAt;
-    const userTurn: ScientificInterpretationTurn = { turnId: prepared.turnId, role: "USER", content: prepared.originalText, createdAt: recordedAt };
-    const proposalEntry = session.entries.find((entry) => entry.kind === "OBSERVABILITY_PROPOSAL"
-      && entry.presentation.resultRef === result.resultId);
-    const proposalTurn: ScientificInterpretationTurn = {
-      turnId: interaction.presentationTurnRef,
-      role: "NOXIA",
-      content: proposalEntry?.kind === "OBSERVABILITY_PROPOSAL"
-        ? proposalEntry.presentation.plainText
-        : buildStandardObservabilityPresentation(result).plainText,
-      createdAt: proposalEntry?.createdAt ?? recordedAt,
-    };
-    if (resolution.kind === "SELECT_MEASUREMENT") {
-      const contribution = buildObservabilityMeasurementContribution({
-        conversationId: session.conversationId,
-        project,
-        result,
-        measurementRef: resolution.measurementRef,
-        proposalTurn,
-        selectionTurn: userTurn,
-        createdAt: recordedAt,
-      });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
-      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`OBS_REVIEW_CANDIDATE_${candidate.status}`);
-      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
-        ledger: session.scientificExecutionTraceLedger,
-        traceRunId: interaction.traceRunId,
-        conversationId: session.conversationId,
-        recordedAt,
-        contribution,
-        candidate,
-        project,
-        proposalRef: result.resultId,
-        proposalDigest: result.resultDigest,
-        optionRef: resolution.measurementRef,
-        responsibilityOwner: "OBSERVABILITY_MEASUREMENT",
-      });
-      setSession((current) => ({
-        ...current,
-        runtimeTurns: [...current.runtimeTurns, userTurn],
-        pendingContribution: contribution,
-        observabilityInteraction: current.observabilityInteraction ? {
-          ...current.observabilityInteraction,
-          status: "PENDING_HUMAN_REVIEW",
-          selectedMeasurementRef: resolution.measurementRef,
-          pendingContributionRef: contribution.identity.contributionId,
-        } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
-        entries: [...current.entries,
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
-        updatedAt: recordedAt,
-      }));
-      return true;
-    }
-    const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
-      state: prepared.gatewayState,
-      onProviderCallRecords: prepared.onProviderCallRecords,
-      sessionId: session.sessionId,
-      conversationId: session.conversationId,
-      sourceTurnRef: userTurn.turnId,
-      responseId: `conversation-response:${userTurn.turnId}`,
-      canonicalFrenchResponse: resolution.response,
-    }) : null;
-    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
-    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
-      ledger: session.scientificExecutionTraceLedger,
-      traceRunId: interaction.traceRunId,
-      conversationId: session.conversationId,
-      recordedAt,
-      project,
-      proposalRef: result.resultId,
-      proposalDigest: result.resultDigest,
-      turnRef: userTurn.turnId,
-      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
-      responsibilityOwner: "OBSERVABILITY_MEASUREMENT",
-    });
-    setSession((current) => ({
-      ...current,
-      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-      entries: [...current.entries,
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: localized?.response.localizedResponse ?? resolution.response, createdAt: recordedAt }],
-      scientificExecutionTraceLedger,
-      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
-      updatedAt: recordedAt,
-    }));
-    return true;
+    return command.handled;
   };
 
   const applyImagingInput = async (input: string | PreparedGatewayUserInput, explicitOptionRef?: string) => {
     const prepared = normalizePreparedUserInput(input);
-    const content = prepared.workingText;
-    const interaction = session.imagingInteraction;
-    const project = session.project;
-    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
-    if (requiresCurrentOwnerPresentation(content)
-      && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return false;
-    if (!imagingInteractionMatchesCurrentProject(interaction, project)) {
-      setSession((current) => ({
-        ...current,
-        imagingInteraction: current.imagingInteraction
-          ? { ...current.imagingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : null,
-      }));
-      return false;
+    const command = prepareImagingInteraction(session, prepared, explicitOptionRef);
+    if ("apply" in command && command.apply) setSession(command.apply);
+    if ("complete" in command && command.complete) {
+      const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
+        state: prepared.gatewayState, onProviderCallRecords: prepared.onProviderCallRecords,
+        sessionId: session.sessionId, conversationId: session.conversationId,
+        sourceTurnRef: prepared.turnId, responseId: `conversation-response:${prepared.turnId}`,
+        canonicalFrenchResponse: command.canonicalResponse,
+      }) : null;
+      setSession(command.complete(localized));
     }
-    const result = readImagingResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
-    if (!result) return false;
-    const resolution = explicitOptionRef
-      ? { kind: "SELECT_OPTION" as const, optionRef: explicitOptionRef }
-      : resolveImagingConversation({ raw: content, result });
-    if (resolution.kind === "FALLTHROUGH") return false;
-    const recordedAt = prepared.createdAt;
-    const userTurn: ScientificInterpretationTurn = { turnId: prepared.turnId, role: "USER", content: prepared.originalText, createdAt: recordedAt };
-    const proposalEntry = session.entries.find((entry) => entry.kind === "IMAGING_PROPOSAL"
-      && entry.presentation.resultRef === result.resultId);
-    const proposalTurn: ScientificInterpretationTurn = {
-      turnId: interaction.presentationTurnRef,
-      role: "NOXIA",
-      content: proposalEntry?.kind === "IMAGING_PROPOSAL"
-        ? proposalEntry.presentation.plainText
-        : buildStandardImagingPresentation(result).plainText,
-      createdAt: proposalEntry?.createdAt ?? recordedAt,
-    };
-    if (resolution.kind === "SELECT_OPTION") {
-      const contribution = prepareImagingAcquisitionContribution({
-        conversationId: session.conversationId,
-        project,
-        result,
-        optionRef: resolution.optionRef,
-        proposalTurn,
-        selectionTurn: userTurn,
-        createdAt: recordedAt,
-      });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
-      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`IMAGING_REVIEW_CANDIDATE_${candidate.status}`);
-      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
-        ledger: session.scientificExecutionTraceLedger,
-        traceRunId: interaction.traceRunId,
-        conversationId: session.conversationId,
-        recordedAt,
-        contribution,
-        candidate,
-        project,
-        proposalRef: result.resultId,
-        proposalDigest: result.resultDigest,
-        optionRef: resolution.optionRef,
-        responsibilityOwner: "IMAGING",
-      });
-      setSession((current) => ({
-        ...current,
-        runtimeTurns: [...current.runtimeTurns, userTurn],
-        pendingContribution: contribution,
-        imagingInteraction: current.imagingInteraction ? {
-          ...current.imagingInteraction,
-          status: "PENDING_HUMAN_REVIEW",
-          selectedOptionRef: resolution.optionRef,
-          pendingContributionRef: contribution.identity.contributionId,
-        } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
-        entries: [...current.entries,
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
-        updatedAt: recordedAt,
-      }));
-      return true;
-    }
-    const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
-      state: prepared.gatewayState,
-      onProviderCallRecords: prepared.onProviderCallRecords,
-      sessionId: session.sessionId,
-      conversationId: session.conversationId,
-      sourceTurnRef: userTurn.turnId,
-      responseId: `conversation-response:${userTurn.turnId}`,
-      canonicalFrenchResponse: resolution.response,
-    }) : null;
-    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
-    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
-      ledger: session.scientificExecutionTraceLedger,
-      traceRunId: interaction.traceRunId,
-      conversationId: session.conversationId,
-      recordedAt,
-      project,
-      proposalRef: result.resultId,
-      proposalDigest: result.resultDigest,
-      turnRef: userTurn.turnId,
-      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
-      responsibilityOwner: "IMAGING",
-    });
-    setSession((current) => ({
-      ...current,
-      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-      entries: [...current.entries,
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: localized?.response.localizedResponse ?? resolution.response, createdAt: recordedAt }],
-      scientificExecutionTraceLedger,
-      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
-      updatedAt: recordedAt,
-    }));
-    return true;
+    return command.handled;
   };
 
   const applyBiostatisticsInput = async (input: string | PreparedGatewayUserInput, explicitStrategyRef?: string) => {
     const prepared = normalizePreparedUserInput(input);
-    const content = prepared.workingText;
-    const interaction = session.biostatisticsInteraction;
-    const project = session.project;
-    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
-    if (requiresCurrentOwnerPresentation(content)
-      && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return false;
-    if (!biostatisticsInteractionMatchesCurrentProject(interaction, project)) {
-      setSession((current) => ({
-        ...current,
-        biostatisticsInteraction: current.biostatisticsInteraction
-          ? { ...current.biostatisticsInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : null,
-      }));
-      return false;
+    const command = prepareBiostatisticsInteraction(session, prepared, explicitStrategyRef);
+    if ("apply" in command && command.apply) setSession(command.apply);
+    if ("complete" in command && command.complete) {
+      const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
+        state: prepared.gatewayState, onProviderCallRecords: prepared.onProviderCallRecords,
+        sessionId: session.sessionId, conversationId: session.conversationId,
+        sourceTurnRef: prepared.turnId, responseId: `conversation-response:${prepared.turnId}`,
+        canonicalFrenchResponse: command.canonicalResponse,
+      }) : null;
+      setSession(command.complete(localized));
     }
-    const result = readBiostatisticsResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
-    if (!result) return false;
-    const resolution = explicitStrategyRef
-      ? { kind: "SELECT_STRATEGY" as const, strategyRef: explicitStrategyRef }
-      : resolveBiostatisticsConversation({ raw: content, result });
-    if (resolution.kind === "FALLTHROUGH") return false;
-    const recordedAt = prepared.createdAt;
-    const userTurn: ScientificInterpretationTurn = { turnId: prepared.turnId, role: "USER", content: prepared.originalText, createdAt: recordedAt };
-    const proposalEntry = session.entries.find((entry) => entry.kind === "BIOSTATISTICS_PROPOSAL"
-      && entry.presentation.resultRef === result.resultId);
-    const proposalTurn: ScientificInterpretationTurn = {
-      turnId: interaction.presentationTurnRef,
-      role: "NOXIA",
-      content: proposalEntry?.kind === "BIOSTATISTICS_PROPOSAL"
-        ? proposalEntry.presentation.plainText
-        : buildStandardBiostatisticsPresentation(result).plainText,
-      createdAt: proposalEntry?.createdAt ?? recordedAt,
-    };
-    if (resolution.kind === "SELECT_STRATEGY") {
-      const contribution = buildBiostatisticsStrategyContribution({
-        conversationId: session.conversationId,
-        project,
-        result,
-        strategyRef: resolution.strategyRef,
-        proposalTurn,
-        selectionTurn: userTurn,
-        createdAt: recordedAt,
-      });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
-      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`BIOSTATISTICS_REVIEW_CANDIDATE_${candidate.status}`);
-      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
-        ledger: session.scientificExecutionTraceLedger,
-        traceRunId: interaction.traceRunId,
-        conversationId: session.conversationId,
-        recordedAt,
-        contribution,
-        candidate,
-        project,
-        proposalRef: result.resultId,
-        proposalDigest: result.resultDigest,
-        optionRef: resolution.strategyRef,
-        responsibilityOwner: "BIOSTATISTICS",
-      });
-      setSession((current) => ({
-        ...current,
-        runtimeTurns: [...current.runtimeTurns, userTurn],
-        pendingContribution: contribution,
-        biostatisticsInteraction: current.biostatisticsInteraction ? {
-          ...current.biostatisticsInteraction,
-          status: "PENDING_HUMAN_REVIEW",
-          selectedStrategyRef: resolution.strategyRef,
-          pendingContributionRef: contribution.identity.contributionId,
-        } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
-        entries: [...current.entries,
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
-        updatedAt: recordedAt,
-      }));
-      return true;
-    }
-    const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
-      state: prepared.gatewayState,
-      onProviderCallRecords: prepared.onProviderCallRecords,
-      sessionId: session.sessionId,
-      conversationId: session.conversationId,
-      sourceTurnRef: userTurn.turnId,
-      responseId: `conversation-response:${userTurn.turnId}`,
-      canonicalFrenchResponse: resolution.response,
-    }) : null;
-    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
-    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
-      ledger: session.scientificExecutionTraceLedger,
-      traceRunId: interaction.traceRunId,
-      conversationId: session.conversationId,
-      recordedAt,
-      project,
-      proposalRef: result.resultId,
-      proposalDigest: result.resultDigest,
-      turnRef: userTurn.turnId,
-      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
-      responsibilityOwner: "BIOSTATISTICS",
-    });
-    setSession((current) => ({
-      ...current,
-      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
-      entries: [...current.entries,
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: localized?.response.localizedResponse ?? resolution.response, createdAt: recordedAt }],
-      scientificExecutionTraceLedger,
-      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
-      updatedAt: recordedAt,
-    }));
-    return true;
+    return command.handled;
   };
 
   const continueFromCanonicalStudyData = () => {

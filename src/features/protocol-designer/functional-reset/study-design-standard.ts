@@ -1,3 +1,8 @@
+import { retainOwnerReviewedCandidate } from "./project-review-decision";
+import { requiresCurrentOwnerPresentation } from "@/features/query-navigation/current-navigation-evidence";
+import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
+import { recordStudyDesignConversationTrace, recordStudyDesignOptionReviewTrace } from "./end-to-end-trace-adapter";
+import { createConversationEntryId, createTurnId, type FunctionalResetSession } from "./session";
 import { logicalDigest } from "@/features/knowledge-engine";
 import {
   canonicalizeScientificContribution,
@@ -611,3 +616,158 @@ export const interactionMatchesCurrentProject = (
 ) => interaction.sourceProjectRef === project.projectId
   && interaction.sourceProjectVersion === project.versionId
   && interaction.sourceProjectDigest === project.projectDigest;
+
+export function prepareStudyDesignInteraction(session: FunctionalResetSession, prepared: {
+  originalText: string; workingText: string; turnId: string; createdAt: string;
+  gatewayState: FunctionalResetSession["conversationLanguageGateway"] | null;
+}, explicitOptionRef?: string) {
+  const content = prepared.workingText;
+  const interaction = session.studyDesignInteraction;
+  const project = session.project;
+  if (!interaction || interaction.status !== "ACTIVE" || !project) return { handled: false as const };
+  if (requiresCurrentOwnerPresentation(content)
+    && [...session.runtimeTurns].reverse().find((turn) => turn.role === "NOXIA")?.turnId !== interaction.presentationTurnRef) return { handled: false as const };
+  if (!interactionMatchesCurrentProject(interaction, project)) {
+    return { handled: false as const, apply: (current: FunctionalResetSession): FunctionalResetSession => ({
+      ...current,
+      studyDesignInteraction: current.studyDesignInteraction
+        ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+        : null,
+    }) };
+  }
+  const proposal = readStudyDesignProposalFromLedger({
+    ledger: session.knowledgeOwnerLedger,
+    resultRef: interaction.ownerResultRef,
+  });
+  if (!proposal) return { handled: false as const };
+  const resolution = explicitOptionRef
+    ? { kind: "SELECT_OPTION" as const, optionRef: explicitOptionRef }
+    : resolveStudyDesignConversation({ raw: content, proposal });
+  if (resolution.kind === "FALLTHROUGH") return { handled: false as const };
+
+  const recordedAt = prepared.createdAt;
+  const userTurn: ScientificInterpretationTurn = {
+    turnId: prepared.turnId,
+    role: "USER",
+    content: prepared.originalText,
+    createdAt: recordedAt,
+  };
+  const proposalEntry = session.entries.find((entry) => entry.kind === "STUDY_DESIGN_PROPOSAL"
+    && entry.presentation.proposalRef === proposal.proposalId);
+  const proposalTurn: ScientificInterpretationTurn = {
+    turnId: interaction.presentationTurnRef,
+    role: "NOXIA",
+    content: proposalEntry?.kind === "STUDY_DESIGN_PROPOSAL"
+      ? proposalEntry.presentation.plainText
+      : buildStandardStudyDesignPresentation(proposal).plainText,
+    createdAt: proposalEntry?.createdAt ?? recordedAt,
+  };
+
+  if (resolution.kind === "SELECT_OPTION") {
+    const contribution = buildStudyDesignOptionContribution({
+      conversationId: session.conversationId,
+      project,
+      proposal,
+      optionRef: resolution.optionRef,
+      proposalTurn,
+      selectionTurn: userTurn,
+      createdAt: recordedAt,
+    });
+    const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+    if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") {
+      throw new Error(`STUDY_DESIGN_REVIEW_CANDIDATE_${candidate.status}`);
+    }
+    const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      contribution,
+      candidate,
+      project,
+      proposalRef: proposal.proposalId,
+      proposalDigest: proposal.proposalDigest,
+      optionRef: resolution.optionRef,
+    });
+    return { handled: true as const, apply: (current: FunctionalResetSession): FunctionalResetSession => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn],
+      pendingContribution: contribution,
+      studyDesignInteraction: current.studyDesignInteraction ? {
+        ...current.studyDesignInteraction,
+        status: "PENDING_HUMAN_REVIEW",
+        selectedOptionRef: resolution.optionRef,
+        pendingContributionRef: contribution.identity.contributionId,
+      } : null,
+      retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "USER",
+        content: prepared.originalText,
+        createdAt: recordedAt,
+      }, {
+        entryId: createConversationEntryId(),
+        kind: "REVIEW",
+        role: "NOXIA",
+        contribution,
+        candidate,
+        traceRunId: interaction.traceRunId,
+        status: "PENDING",
+        decision: null,
+        createdAt: recordedAt,
+      }],
+      scientificExecutionTraceLedger,
+      conversationLanguageGateway: prepared.gatewayState ?? current.conversationLanguageGateway,
+      updatedAt: recordedAt,
+    }) };
+  }
+
+  return {
+    handled: true as const, canonicalResponse: resolution.response,
+    complete: (localized: { response: { localizedResponse: string }; state: FunctionalResetSession["conversationLanguageGateway"] } | null) => {
+    const assistantTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "NOXIA",
+      content: resolution.response,
+      createdAt: recordedAt,
+    };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: proposal.proposalId,
+      proposalDigest: proposal.proposalDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION"
+        : resolution.kind === "DEFER" ? "DEFERRED"
+          : "OPTIONS_REJECTED",
+    });
+    return (current: FunctionalResetSession): FunctionalResetSession => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      studyDesignInteraction: resolution.kind === "REJECT_ALL" && current.studyDesignInteraction
+        ? { ...current.studyDesignInteraction, status: "REJECTED", staleReason: "USER_REJECTED_ALL_OPTIONS" }
+        : current.studyDesignInteraction,
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "USER",
+        content: prepared.originalText,
+        createdAt: recordedAt,
+      }, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "NOXIA",
+        content: localized?.response.localizedResponse ?? resolution.response,
+        createdAt: recordedAt,
+      }],
+      scientificExecutionTraceLedger,
+      conversationLanguageGateway: localized?.state ?? prepared.gatewayState ?? current.conversationLanguageGateway,
+      updatedAt: recordedAt,
+    });
+    },
+  };
+}
