@@ -247,4 +247,3 @@ export const normalizePreparedUserInput = (input: string | PreparedGatewayUserIn
     onProviderCallRecords: undefined,
   }
   : input;
-

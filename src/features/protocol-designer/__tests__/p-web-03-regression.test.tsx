@@ -27,9 +27,13 @@ describe("P-WEB-03 — public and product boundaries after FUNCTIONAL-RESET-01",
   it("keeps fixture status explicit", () => expect(DEMONSTRATOR_SCENARIOS.every((item) => item.fixtureStatus === "DEMO_FIXTURE_NOT_DYNAMIC")).toBe(true));
   it("keeps Project adoption inside the PRJ owner boundary", () => {
     const workspace = read("src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx");
+    // CURRENT_STRUCTURAL_INVARIANT: F4 moves application staging, not PRJ authority.
+    const reviewDecision = read("src/features/protocol-designer/functional-reset/project-review-decision.ts");
     const ownerBoundary = read("src/features/research-project-construction/contribution-owner-boundary.ts");
-    expect(workspace).toContain("confirmResearchProjectContribution");
-    expect(workspace).not.toMatch(/createHumanDecisionCandidate|engageHumanDecision|buildSections/);
+    expect(workspace).toContain("stageProjectConfirmation");
+    expect(workspace).not.toContain("confirmResearchProjectContribution");
+    expect(reviewDecision).toContain("confirmResearchProjectContribution");
+    expect(workspace + reviewDecision).not.toMatch(/createHumanDecisionCandidate|engageHumanDecision|buildSections/);
     expect(ownerBoundary).toContain('engineSource: "RESEARCH_PROJECT"');
     expect(ownerBoundary).toContain('canonicalV2Status: "NO_SCIENTIFIC_OBJECT_PROMOTION_CLAIMED"');
     expect(ownerBoundary).toContain("llmProjectWrites: 0");

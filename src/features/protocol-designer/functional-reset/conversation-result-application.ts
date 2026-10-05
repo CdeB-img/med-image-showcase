@@ -1,3 +1,15 @@
+import { buildCurrentNavigationEvidence } from "@/features/query-navigation/current-navigation-evidence";
+import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
+import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
+import { retainUndecidedContributionScope, markContributionCandidateNonCurrent } from "./contribution-lifecycle";
+import { recordGovernedConversationTrace, recordRetainedContributionValidation } from "./end-to-end-trace-adapter";
+import { buildStandardConversationActionGroup } from "./standard-conversation-action-group";
+import { appendLanguageProjectionFailure, DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL, DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT, detectConversationLanguage, languageProjectionFailure } from "@/features/protocol-designer/conversation-language-gateway";
+import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
+import { recordConversationLanguageGatewayFailureTrace } from "@/features/protocol-designer/scientific-execution-trace";
+import { recordContributionDownstreamFailure } from "./contribution-lifecycle";
+import { recordProductErrorBoundary } from "./end-to-end-trace-adapter";
+import { productBridgeClientErrorCode, languageProjectionRequestFromError, languageProjectionDiagnosticFromError } from "../conversation-language-effects";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION, naturalConversationContext } from "@/features/protocol-designer/product-bridge";
@@ -37,18 +49,24 @@ export function deliverTerraConversationResult(input: {
   } catch { /* TRACE must never veto a received conversation result. */ }
   // Deliver native Chat text before any local transaction preparation. A
   // rejected candidate must never erase or replace this conversational turn.
-  const delivered: FunctionalResetSession = { ...latest, pendingMixedUserTurnRef: null,
+  const delivered: FunctionalResetSession = {
+    ...latest, pendingMixedUserTurnRef: null,
     ...(!response.conversationFailure && response.scientificConversation?.retainedScientificResult ? {
-      scientificDiscussionRetention: retainScientificDiscussionResult({ state: latest.scientificDiscussionRetention,
+      scientificDiscussionRetention: retainScientificDiscussionResult({
+        state: latest.scientificDiscussionRetention,
         conversationId: session.conversationId, runtimeTurns: [...runtimeTurns, response.assistantTurn],
         userTurn, assistantTurn: response.assistantTurn, result: response.scientificConversation.retainedScientificResult,
-        retained: latest.retainedContributionCandidates ?? [] }),
+        retained: latest.retainedContributionCandidates ?? []
+      }),
     } : {}),
     scientificExecutionTraceLedger: contextTraceLedger,
     runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
-    entries: [...latest.entries, { entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
+    entries: [...latest.entries, {
+      entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
       role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,
-      ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {}) }], updatedAt: receivedAt };
+      ...(response.conversationFailure ? { turnId: userTurn.turnId, failureCode: response.conversationFailure.code } : {})
+    }], updatedAt: receivedAt
+  };
   return delivered;
 }
 
@@ -63,27 +81,35 @@ export function prepareTerraRecordingResult(input: {
   try {
     candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
     if (contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION")
-      retained = retainValidatedContributionCandidate({ retained: session.retainedContributionCandidates ?? [],
+      retained = retainValidatedContributionCandidate({
+        retained: session.retainedContributionCandidates ?? [],
         contribution, candidate, validation: response.persistentExtraction.validation,
         validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1", sourceTurnRef: userTurn.turnId,
-        baseProject: session.project, dependencyBindings: [], traceRunId, retainedAt: receivedAt });
+        baseProject: session.project, dependencyBindings: [], traceRunId, retainedAt: receivedAt
+      });
   } catch (error) {
     preparationFailed = true;
     candidate = null;
     console.warn("PROJECT_REVIEW_PREPARATION_FAILED", error);
   }
   const reviewable = !preparationFailed && contribution && candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION";
-  const apply = (current: FunctionalResetSession): FunctionalResetSession => ({ ...current, currentContribution: !preparationFailed && contribution ? contribution : current.currentContribution,
+  const apply = (current: FunctionalResetSession): FunctionalResetSession => ({
+    ...current, currentContribution: !preparationFailed && contribution ? contribution : current.currentContribution,
     pendingContribution: reviewable ? contribution : current.pendingContribution,
     retainedContributionCandidates: reviewable ? retained : current.retainedContributionCandidates,
     entries: [...current.entries,
-      ...(reviewable ? [{ entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
-        contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt }] : []),
-      ...(prepareRecording && !reviewable ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const,
-        role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
-          ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
-          : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt }] : [])],
-    bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectTerraBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, response, candidate, projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null })), updatedAt: receivedAt });
+    ...(reviewable ? [{
+      entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
+      contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt
+    }] : []),
+    ...(prepareRecording && !reviewable ? [{
+      entryId: createConversationEntryId(), kind: "ERROR" as const,
+      role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
+        ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."
+        : "Je conserve la discussion, mais l’enregistrement n’a pas abouti.", createdAt: receivedAt
+    }] : [])],
+    bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectTerraBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, response, candidate, projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: current.project?.versionId ?? null })), updatedAt: receivedAt
+  });
   return apply;
 }
 
@@ -267,53 +293,287 @@ export function applyConfiguredConversationReceipt(input: {
     observedAt: receivedAt,
   });
   const responseEntries: FunctionalResetSession["entries"] = [
-      ...(standaloneAssistantReplyVisible ? [{
-        entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
-        content: visibleAssistantReply, createdAt: receivedAt,
-      }] : []),
-      ...(contextualActionPresentation ? [{
-        entryId: createConversationEntryId(),
-        kind: "FOLLOW_UP_ACTIONS" as const,
-        role: "NOXIA" as const,
-        presentation: contextualActionPresentation,
-        response: null,
-        createdAt: receivedAt,
-      }] : []),
-      ...(effectiveCandidate && contribution ? [{
-        entryId: createConversationEntryId(),
-        kind: "REVIEW" as const,
-        role: "NOXIA" as const,
-        contribution,
-        candidate: effectiveCandidate,
-        traceRunId,
-        status: "PENDING" as const,
-        decision: null,
-        createdAt: receivedAt,
-      }] : []),
-      ...(failureMessage ? [{
-        entryId: createConversationEntryId(),
-        kind: "ERROR" as const,
-        role: "NOXIA" as const,
-        content: failureMessage,
-        createdAt: receivedAt,
-      }] : []),
+    ...(standaloneAssistantReplyVisible ? [{
+      entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
+      content: visibleAssistantReply, createdAt: receivedAt,
+    }] : []),
+    ...(contextualActionPresentation ? [{
+      entryId: createConversationEntryId(),
+      kind: "FOLLOW_UP_ACTIONS" as const,
+      role: "NOXIA" as const,
+      presentation: contextualActionPresentation,
+      response: null,
+      createdAt: receivedAt,
+    }] : []),
+    ...(effectiveCandidate && contribution ? [{
+      entryId: createConversationEntryId(),
+      kind: "REVIEW" as const,
+      role: "NOXIA" as const,
+      contribution,
+      candidate: effectiveCandidate,
+      traceRunId,
+      status: "PENDING" as const,
+      decision: null,
+      createdAt: receivedAt,
+    }] : []),
+    ...(failureMessage ? [{
+      entryId: createConversationEntryId(),
+      kind: "ERROR" as const,
+      role: "NOXIA" as const,
+      content: failureMessage,
+      createdAt: receivedAt,
+    }] : []),
   ];
   const apply = (current: FunctionalResetSession): FunctionalResetSession => {
     return {
-    ...current,
-    queryNavigation,
-    pendingMixedUserTurnRef: continuedTurn ? null : current.pendingMixedUserTurnRef,
-    runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
-    pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
-    studyProposal: response.scientificConversation?.studyProposal ?? (effectiveCandidate && current.studyProposal
-      ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal),
-    retainedContributionCandidates: current.retainedContributionCandidates,
-    entries: [...current.entries, ...responseEntries],
-    bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectConversationBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, visibleAssistantReply, response, entryRouting, effectiveExtractionStatus, candidate, projectVersion: session.project?.versionId ?? null, qryNeedBefore, queryNavigation, preProjectRealization, preparedGateway, localized, preProjectTrace })),
-    conversationLanguageGateway: localized.state,
-    scientificExecutionTraceLedger,
-    updatedAt: receivedAt,
-  };
+      ...current,
+      queryNavigation,
+      pendingMixedUserTurnRef: continuedTurn ? null : current.pendingMixedUserTurnRef,
+      runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
+      pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
+      studyProposal: response.scientificConversation?.studyProposal ?? (effectiveCandidate && current.studyProposal
+        ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal),
+      retainedContributionCandidates: current.retainedContributionCandidates,
+      entries: [...current.entries, ...responseEntries],
+      bridgeTraces: appendBridgeTrace(current.bridgeTraces, projectConversationBridgeTrace({ turnId: userTurn.turnId, traceRunId, content, visibleAssistantReply, response, entryRouting, effectiveExtractionStatus, candidate, projectVersion: session.project?.versionId ?? null, qryNeedBefore, queryNavigation, preProjectRealization, preparedGateway, localized, preProjectTrace })),
+      conversationLanguageGateway: localized.state,
+      scientificExecutionTraceLedger,
+      updatedAt: receivedAt,
+    };
   };
   return { apply, scientificExecutionTraceLedger, governedRealizationOutcome };
+}
+
+export function prepareConfiguredConversationFailure(input: {
+  error: unknown; observedProviderCalls: readonly ProviderCallRecord[]; turnId: string; traceRunId: string;
+  content: string; now: string; failedAt: string;
+  preparedGatewaySnapshot: Awaited<ReturnType<typeof prepareMultilingualUserTurn>> | null;
+  retainedThisTurn: RetainedContributionCandidate | null; downstreamStage: string;
+  governedRealizationOutcome: ScientificTraceRealizationOutcome | undefined;
+  traceCaptureConfiguration: ScientificTraceCaptureConfiguration;
+}) {
+  const { error, observedProviderCalls, turnId, traceRunId, content, now, failedAt, preparedGatewaySnapshot,
+    retainedThisTurn, downstreamStage, governedRealizationOutcome, traceCaptureConfiguration } = input;
+  const durableFailure = [...observedProviderCalls].reverse().find(record => record.status === "FAILED" && record.durableFailure)
+    ?.durableFailure;
+  const failureCode = productBridgeClientErrorCode(error) ?? "PRODUCT_BRIDGE_REQUEST_FAILED";
+  const failedProjectionRequest = languageProjectionRequestFromError(error);
+  const failedProjectionDiagnostic = languageProjectionDiagnosticFromError(error);
+  const languageGatewayFailed = failedProjectionRequest !== null || failureCode.includes("LANGUAGE_PROJECTION");
+  const message = languageGatewayFailed
+    ? "La projection linguistique nécessaire n’a pas abouti. Votre message original est conservé et n’a pas été transmis au routeur scientifique. Vous pouvez réessayer."
+    : error instanceof Error ? error.message : "L’interprétation scientifique est momentanément indisponible.";
+  return (current: FunctionalResetSession): FunctionalResetSession => {
+    const missingUserTurn = !current.runtimeTurns.some((turn) => turn.turnId === turnId);
+    const detection = detectConversationLanguage(content);
+    const projectionKind = failedProjectionRequest?.projectionKind
+      ?? (preparedGatewaySnapshot ? "OUTPUT_FROM_FRENCH" as const : "INPUT_TO_FRENCH" as const);
+    const projectionSourceText = failedProjectionRequest?.sourceText ?? content;
+    const failure = languageGatewayFailed ? languageProjectionFailure({
+      projectionKind,
+      sourceText: projectionSourceText,
+      sourceLanguage: failedProjectionRequest?.sourceLanguageHint
+        ?? (projectionKind === "OUTPUT_FROM_FRENCH" ? "fr" : detection.detectedLanguage ?? "UNKNOWN"),
+      targetLanguage: failedProjectionRequest?.targetLanguage
+        ?? (projectionKind === "OUTPUT_FROM_FRENCH"
+          ? preparedGatewaySnapshot?.state.conversationLanguage ?? "fr"
+          : "fr"),
+      provider: "OPENAI",
+      model: DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
+      reasoningEffort: DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
+      failureCategory: failureCode,
+      occurredAt: failedAt,
+    }) : null;
+    const conversationLanguageGateway = failure
+      ? appendLanguageProjectionFailure({
+        state: preparedGatewaySnapshot?.state ?? current.conversationLanguageGateway,
+        failure,
+      })
+      : preparedGatewaySnapshot?.state ?? current.conversationLanguageGateway;
+    let scientificExecutionTraceLedger = current.scientificExecutionTraceLedger;
+    if (failure) {
+      scientificExecutionTraceLedger = recordConversationLanguageGatewayFailureTrace({
+        ledger: scientificExecutionTraceLedger,
+        traceRunId,
+        conversationId: current.conversationId,
+        turnId,
+        originalTextDigest: preparedGatewaySnapshot?.turn.originalTextDigest ?? failure.sourceTextDigest,
+        projectionSourceTextDigest: failure.sourceTextDigest,
+        detection,
+        projectionKind,
+        targetLanguage: failure.targetLanguage,
+        provider: failure.provider,
+        model: failure.model,
+        reasoningEffort: failure.reasoningEffort,
+        contextScopeId: failure.contextScopeId,
+        failureCode,
+        conformanceDiagnostic: failedProjectionDiagnostic,
+        observedAt: failedAt,
+        captureConfiguration: traceCaptureConfiguration,
+      });
+    }
+    scientificExecutionTraceLedger = recordProductErrorBoundary({
+      ledger: scientificExecutionTraceLedger,
+      traceRunId,
+      turnId,
+      conversationId: current.conversationId,
+      startedAt: now,
+      failedAt,
+      owner: languageGatewayFailed ? "LANGUAGE_GATEWAY" : "TRACE",
+      responsibilityOwner: durableFailure ? "DURABLE_PROVIDER_GUARD" : languageGatewayFailed ? "LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE",
+      executor: languageGatewayFailed ? "OPENAI_LANGUAGE_PROJECTION" : "PRODUCT_BRIDGE_CLIENT",
+      componentId: languageGatewayFailed ? "CONVERSATION_LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE_CLIENT",
+      componentVersion: "UNKNOWN",
+      provider: durableFailure?.generationProvider ?? (languageGatewayFailed ? "OPENAI" : "UNKNOWN"),
+      code: durableFailure?.structuredErrorCode ?? failureCode,
+      category: languageGatewayFailed ? "BOUNDARY_REJECTION" : "UNKNOWN",
+      sourceDigest: failure?.sourceTextDigest ?? "UNKNOWN",
+      retainedCandidate: retainedThisTurn,
+      realizationOutcome: governedRealizationOutcome,
+      durableFailure,
+    });
+    return {
+      ...current,
+      runtimeTurns: missingUserTurn
+        ? [...current.runtimeTurns, { turnId, role: "USER", content, createdAt: now }]
+        : current.runtimeTurns,
+      entries: [
+        ...current.entries,
+        ...(missingUserTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : []),
+        { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: message, createdAt: failedAt },
+      ],
+      conversationLanguageGateway,
+      retainedContributionCandidates: retainedThisTurn ? recordContributionDownstreamFailure({
+        retained: current.retainedContributionCandidates ?? [],
+        candidateRef: retainedThisTurn.candidateRef, stage: downstreamStage,
+        code: failureCode, occurredAt: failedAt,
+      }) : current.retainedContributionCandidates,
+      scientificExecutionTraceLedger,
+      updatedAt: failedAt,
+    };
+  };
+}
+
+export function stageConfiguredConversationCandidate(input: {
+  session: FunctionalResetSession; response: ProductBridgeResponse; receipt: ReturnType<typeof prepareConfiguredConversationReceipt>;
+  entryRouting: ReturnType<typeof routeProductEntry>; content: string; userTurn: ScientificInterpretationTurn; traceRunId: string; receivedAt: string;
+  boundedInteraction: ProductBridgeRequest["boundedInteraction"]; boundedReferentContext: NonNullable<ProductBridgeRequest["boundedReferentContext"]>;
+  entryTraceLedger: FunctionalResetSession["scientificExecutionTraceLedger"]; queryNavigation: FunctionalResetSession["queryNavigation"];
+  publish: (apply: (current: FunctionalResetSession) => FunctionalResetSession) => void;
+  onRetainedCandidate: (retained: RetainedContributionCandidate | null) => void;
+  onRealizationOutcome: (outcome: ScientificTraceRealizationOutcome | undefined) => void;
+}) {
+  const { session, response, receipt, entryRouting, content, userTurn, traceRunId, receivedAt, boundedInteraction,
+    boundedReferentContext, publish, onRetainedCandidate, onRealizationOutcome } = input;
+  const { candidate, contribution, enrichedPreProjectNavigation, providerContext } = receipt;
+  let { entryTraceLedger, queryNavigation } = input;
+  let retainedThisTurn: RetainedContributionCandidate | null = null;
+  let contextualActionPresentation: StandardConversationActionGroupPresentation | null = null;
+  let currentProjectImpactProjection: NonNullable<ReturnType<typeof buildCurrentProjectImpactProjection>> | null = null;
+  let governedRealizationOutcome: ScientificTraceRealizationOutcome | undefined;
+  if (candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" && contribution) {
+    const retained = retainValidatedContributionCandidate({
+      retained: [], contribution, candidate,
+      validation: response.persistentExtraction.validation,
+      validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1",
+      sourceTurnRef: userTurn.turnId, baseProject: session.project,
+      dependencyBindings: [], traceRunId, retainedAt: receivedAt,
+    });
+    retainedThisTurn = retained[0] ?? null;
+    onRetainedCandidate(retainedThisTurn);
+    if (retainedThisTurn) {
+      const record = retainedThisTurn;
+      entryTraceLedger = recordRetainedContributionValidation({
+        ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
+        retainedCandidate: record,
+        extractionExecution: productTraceExtractionExecution({
+          contribution, providerArtifact: response.persistentExtraction.providerArtifact,
+          observedProvider: response.observability.extractionProvider,
+          observedModelRequested: response.observability.extractionModelRequested,
+          observedModelReturned: response.observability.extractionModelReturned,
+        }),
+        extractionLatencyMs: response.observability.extractionLatencyMs,
+        extractedAt: response.stageTimestamps?.extractionCompletedAt,
+        validatedAt: response.stageTimestamps?.extractionCompletedAt,
+      });
+      publish((current) => ({
+        ...current,
+        scientificExecutionTraceLedger: entryTraceLedger,
+        retainedContributionCandidates: retainValidatedContributionCandidate({
+          retained: current.retainedContributionCandidates ?? [],
+          contribution: record.contribution, candidate: record.candidate, validation: record.validation,
+          validatorRef: record.validatorRef, sourceTurnRef: record.sourceTurnRef,
+          baseProject: record.baseProject, dependencyBindings: record.dependencyBindings,
+          traceRunId: record.traceRunId, retainedAt: record.retainedAt,
+        }),
+      }));
+    }
+  }
+  if (retainedThisTurn && boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
+    && boundedInteraction.correctionChangeRefs?.length && boundedReferentContext.candidateRef) {
+    const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === boundedReferentContext.candidateRef);
+    if (originalRecord) {
+      const remainder = retainUndecidedContributionScope({
+        record: originalRecord, currentBefore: session.project,
+        currentAfter: session.project, settledChangeRefs: boundedInteraction.correctionChangeRefs,
+        decisionSourceRef: userTurn.turnId, retainedAt: receivedAt
+      });
+      const remainderEntryId = remainder ? createConversationEntryId() : null;
+      publish(current => ({
+        ...current, retainedContributionCandidates: [...markContributionCandidateNonCurrent({
+          retained: current.retainedContributionCandidates ?? [], candidateRef: originalRecord.candidateRef,
+          actuality: "SUPERSEDED", reasonRef: userTurn.turnId, recordedAt: receivedAt,
+        }), ...(remainder ? [remainder] : [])], entries: [...current.entries,
+        ...(remainder ? [{
+          entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
+          contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: receivedAt
+        }] : [])]
+      }));
+    }
+  }
+  const explicitCurrentProjectChange = entryRouting.currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
+    || entryRouting.currentProjectDirection === "ADD_PROJECT_OBJECT";
+  if (session.project && retainedThisTurn && !explicitCurrentProjectChange) {
+    const impact = buildCurrentProjectImpactProjection({
+      project: session.project,
+      candidate: retainedThisTurn.candidate,
+      candidateDigest: retainedThisTurn.candidateDigest,
+      sourceTurnRef: retainedThisTurn.sourceTurnRef,
+    });
+    if (impact) {
+      currentProjectImpactProjection = impact;
+      const evidence = buildCurrentNavigationEvidence({
+        sourceTurnRef: userTurn.turnId,
+        sourceText: content,
+        currentProject: session.project,
+        validatedCandidate: retainedThisTurn,
+        currentProjectImpact: impact,
+      });
+      queryNavigation = buildFunctionalResetQueryNavigation({
+        project: session.project,
+        previous: session.queryNavigation,
+        recordedAt: receivedAt,
+        currentNavigationEvidence: evidence,
+        forceRebuild: true,
+      });
+      contextualActionPresentation = buildStandardConversationActionGroup({ impact, navigation: queryNavigation });
+    }
+  }
+  if (!response.scientificConversation && !enrichedPreProjectNavigation && (response.currentTurnNavigation || response.conversationFailure)) {
+    const nativeTrace = recordGovernedConversationTrace({
+      ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
+      sourceDigest: logicalDigest(content), observedAt: receivedAt,
+      response, retainedCandidate: retainedThisTurn, providerContext,
+      systemInstruction: GOVERNED_REALIZATION_SYSTEM_INSTRUCTION,
+    });
+    entryTraceLedger = nativeTrace.ledger;
+    governedRealizationOutcome = nativeTrace.realizationOutcome;
+    onRealizationOutcome(governedRealizationOutcome);
+    publish((current) => ({ ...current, scientificExecutionTraceLedger: entryTraceLedger }));
+  }
+
+  return {
+    retainedThisTurn, entryTraceLedger, queryNavigation, contextualActionPresentation, currentProjectImpactProjection,
+    governedRealizationOutcome, explicitCurrentProjectChange
+  };
 }

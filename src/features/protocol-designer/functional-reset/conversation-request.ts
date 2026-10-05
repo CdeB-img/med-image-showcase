@@ -1,3 +1,14 @@
+import { recordConversationLanguageGatewayTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration } from "@/features/protocol-designer/scientific-execution-trace";
+import { isFunctionalResetQueryMisunderstanding } from "@/features/query-navigation";
+import { documentBlockerSignals } from "./project-adoption-effects";
+import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
+import { isStudyDesignQueryDispatch } from "./study-design-standard";
+import { isScientificThinkingQueryDispatch } from "./scientific-thinking-standard";
+import { isObservabilityQueryDispatch } from "./observability-standard";
+import { isImagingQueryDispatch } from "./imaging-standard";
+import { isBiostatisticsQueryDispatch } from "./biostatistics-standard";
+import { deriveFunctionalResetDataOwnerState } from "./canonical-study-data-standard";
+import { attachCurrentKnowledgePrerequisiteWhenRequired } from "./knowledge-standard";
 import { buildBoundedConversationReferentContext, currentGovernedNavigationInput, selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError } from "@/features/protocol-designer/product-bridge-client";
@@ -100,9 +111,11 @@ export function prepareConfiguredConversationRequest(input: {
       } : {}),
     },
     currentProject: session.project,
-    ...(session.project ? { currentNavigation: currentGovernedNavigationInput({
-      project: session.project, navigation: queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger,
-    }) } : {}),
+    ...(session.project ? {
+      currentNavigation: currentGovernedNavigationInput({
+        project: session.project, navigation: queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger,
+      })
+    } : {}),
     ...(preProjectNavigation ? { preProjectNavigation } : {}),
     boundedReferentContext,
     scientificDiscussionContext,
@@ -120,19 +133,28 @@ export function prepareConfiguredConversationRequest(input: {
 }
 
 export function prepareTerraConversationRequest(session: FunctionalResetSession, requestTurns: ScientificInterpretationTurn[], userTurn: ScientificInterpretationTurn, autonomousProjectBuild: boolean, prepareRecording: boolean): Omit<ProductBridgeRequest, "apiVersion"> {
-  const discussion = buildScientificDiscussionContext({ retained: session.retainedContributionCandidates ?? [],
+  const discussion = buildScientificDiscussionContext({
+    retained: session.retainedContributionCandidates ?? [],
     retention: session.scientificDiscussionRetention,
     studyProposal: session.studyProposal,
     currentProject: session.project, conversationId: session.conversationId, runtimeTurns: requestTurns,
-    selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null });
-  return { conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
-        ...(autonomousProjectBuild && session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}),
-        currentProject: session.project, evaluatePersistentDelta: prepareRecording,
-        scientificDiscussionContext: discussion,
-        ...(session.project && session.queryNavigation ? { currentNavigation: currentGovernedNavigationInput({
-          project: session.project, navigation: session.queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger }) } : {}),
-        observabilityContext: { sessionId: session.sessionId, conversationId: session.conversationId,
-          turnId: userTurn.turnId, clientRequestId: `product-bridge:${userTurn.turnId}`, testSessionId: null } };
+    selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null
+  });
+  return {
+    conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
+    ...(autonomousProjectBuild && session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}),
+    currentProject: session.project, evaluatePersistentDelta: prepareRecording,
+    scientificDiscussionContext: discussion,
+    ...(session.project && session.queryNavigation ? {
+      currentNavigation: currentGovernedNavigationInput({
+        project: session.project, navigation: session.queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger
+      })
+    } : {}),
+    observabilityContext: {
+      sessionId: session.sessionId, conversationId: session.conversationId,
+      turnId: userTurn.turnId, clientRequestId: `product-bridge:${userTurn.turnId}`, testSessionId: null
+    }
+  };
 }
 
 export function assertConversationSubmissionContextCurrent(session: FunctionalResetSession, latest: FunctionalResetSession) {
@@ -143,4 +165,70 @@ export function assertConversationSubmissionContextCurrent(session: FunctionalRe
     throw new ProductBridgeClientError("SUBMISSION_CONTEXT_CHANGED",
       "Le contexte a changé pendant le traitement. Cette réponse n’a pas été appliquée ; le projet courant et les décisions déjà enregistrées sont conservés.");
   }
+}
+
+export function prepareRequestedProposalNavigation(session: FunctionalResetSession,
+  boundedInteraction: ProductBridgeRequest["boundedInteraction"], userTurn: ScientificInterpretationTurn,
+  preparedInput: PreparedGatewayUserInput, now: string) {
+
+  if (boundedInteraction?.kind !== "USER_REQUESTS_ASSISTED_PROPOSAL" || !session.project) return null;
+  const proposalNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({
+    project: session.project,
+    navigation: buildFunctionalResetQueryNavigation({
+      project: session.project,
+      previous: session.queryNavigation,
+      documentBlockers: documentBlockerSignals(session.documents),
+      recordedAt: now,
+      forceRebuild: true,
+      requestedAction: "ASSISTED_PROPOSAL",
+      requestedServiceInput: { sourceTurnRef: userTurn.turnId, sourceText: preparedInput.workingText },
+      dataOwnerState: deriveFunctionalResetDataOwnerState({ project: session.project, ledger: session.knowledgeOwnerLedger }),
+    }),
+  });
+  const existingOwnerCanPropose = isScientificThinkingQueryDispatch(proposalNavigation)
+    || isStudyDesignQueryDispatch(proposalNavigation)
+    || isObservabilityQueryDispatch(proposalNavigation)
+    || isImagingQueryDispatch(proposalNavigation)
+    || isBiostatisticsQueryDispatch(proposalNavigation);
+  return existingOwnerCanPropose ? proposalNavigation : null;
+}
+
+export function prepareConversationEntry(session: FunctionalResetSession, preparedInput: PreparedGatewayUserInput,
+  preparedGateway: Awaited<ReturnType<typeof prepareMultilingualUserTurn>>, userTurn: ScientificInterpretationTurn,
+  traceRunId: string, now: string, traceCaptureConfiguration: ScientificTraceCaptureConfiguration,
+  correctionMode: boolean, proposalCorrection: boolean, continuedTurn: ScientificInterpretationTurn | undefined,
+  boundedInteraction: ProductBridgeRequest["boundedInteraction"], adoptsVisibleProposal: boolean) {
+  const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(preparedInput.workingText);
+  const previousContext = [...session.bridgeTraces]
+    .reverse()
+    .find((trace) => trace.entryRouting)?.entryRouting?.scientificContext;
+  const entryRouting = routeProductEntry({
+    raw: preparedInput.workingText,
+    sourceTurnRef: userTurn.turnId,
+    routedAt: now,
+    previousContext,
+    forceUnderstand: asksForExplanationOrRephrase,
+    currentProjectAvailable: session.project !== null,
+    explicitCorrectionMode: correctionMode || proposalCorrection || Boolean(continuedTurn) || Boolean(boundedInteraction?.correctionChangeRefs?.length),
+    adoptsVisibleProposal,
+  });
+  let entryTraceLedger = recordConversationLanguageGatewayTrace({
+    ledger: session.scientificExecutionTraceLedger,
+    traceRunId,
+    conversationId: session.conversationId,
+    turn: preparedGateway.turn,
+    observedAt: now,
+    captureConfiguration: traceCaptureConfiguration,
+  });
+  entryTraceLedger = recordProductEntryRoutingTrace({
+    ledger: entryTraceLedger,
+    traceRunId,
+    conversationId: session.conversationId,
+    routing: entryRouting,
+    routerInputRef: preparedGateway.turn.provenance.projectionRef ?? userTurn.turnId,
+    routerInputDigest: preparedGateway.turn.frenchWorkingTextDigest ?? preparedGateway.turn.originalTextDigest,
+    observedAt: now,
+  });
+
+  return { asksForExplanationOrRephrase, entryRouting, entryTraceLedger };
 }

@@ -343,9 +343,14 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
   });
 
   it("FR03B-C14 — nominal progression dispatches ST only through the QRY-selected owner and imports no direct engine or IMG capability", () => {
+    // CURRENT_STRUCTURAL_INVARIANT: inspect the relocated application boundaries,
+    // preserving QRY ownership and the ban on direct scientific-engine calls.
     const sources = [
       "src/features/query-navigation/functional-reset-progression.ts",
       "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/conversation-request.ts",
+      "src/features/protocol-designer/functional-reset/useConversationTurn.ts",
+      "src/features/protocol-designer/functional-reset/post-adoption-continuation.ts",
     ].map((path) => readFileSync(resolve(process.cwd(), path), "utf8")).join("\n");
     expect(sources).toMatch(/product-entry-routing/);
     expect(sources).not.toMatch(/features\/(?:scientific-thinking|imaging-study-designer)/);

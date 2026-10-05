@@ -1,12 +1,11 @@
-import { recommendedWorkingScope } from "./continuous-project-build";
 /** Technical lifecycle of the existing session-owned Working Draft.
  * This module never produces science, adopts Project, calls a provider or settles money.
  */
 import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge.js";
-import { prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDraftInputDigest,
+import { recommendedWorkingScope, prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDraftInputDigest,
   type WorkingDraftMetadata } from "./continuous-project-build.js";
-import { readConversationConfirmationReceipts, workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
+import { createTurnId, readConversationConfirmationReceipts, workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
   type ProjectReviewInvitation } from "./session.js";
 import { assertStudyProposalOptionBindings, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import { ensureCanonicalProjectState } from "../../research-project-construction/canonical-project-backbone.js";
@@ -280,7 +279,10 @@ export const recordPreparationDecision = (session: FunctionalResetSession, id: s
 export const projectPreparationConfirmationApplicable = (review: ReturnType<typeof projectPreparationReview>, busy: boolean, workingDraftBusy: boolean, selectedChangeRefs?: readonly string[]) => Boolean(review && review.applicable && !review.blocker && !busy && !workingDraftBusy
   && !(review.newerTurns.length > 0 && !selectedChangeRefs?.length));
 
-export const projectPreparationConfirmationInput = (review: NonNullable<ReturnType<typeof projectPreparationReview>>, turnId: string, createdAt: string) => ({
-  scope: recommendedWorkingScope(review.composition),
-  userTurn: { turnId, role: "USER" as const, content: `Validation explicite de la préparation ${review.checkpoint.preparationId}`, createdAt },
-});
+export const projectPreparationConfirmationInput = (review: NonNullable<ReturnType<typeof projectPreparationReview>>) => {
+  const scope = recommendedWorkingScope(review.composition);
+  // Preserve the existing order: validate scope before creating identity/time.
+  const userTurn = { turnId: createTurnId(), role: "USER" as const,
+    content: `Validation explicite de la préparation ${review.checkpoint.preparationId}`, createdAt: new Date().toISOString() };
+  return { scope, userTurn };
+};
