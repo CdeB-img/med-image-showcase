@@ -13,6 +13,7 @@ import {
   confirmResearchProjectContribution,
   prepareResearchProjectContributionCandidate,
   rejectResearchProjectContribution,
+  researchProjectOwnerDigest,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 import type {
@@ -297,6 +298,9 @@ describe("PROJECT-SPINE-01 — canonical Research Project backbone", () => {
     expect(loadFunctionalResetSession(storage).project).toEqual(project);
 
     const legacyProject = { ...project, canonicalState: undefined, canonicalBackboneStatus: undefined };
+    // LEGACY_COMPATIBILITY: a real legacy representation has its own valid
+    // owner digest, not the digest of the newer canonical bytes removed above.
+    legacyProject.projectDigest = researchProjectOwnerDigest(legacyProject);
     persistFunctionalResetSession(storage, { ...session, project: legacyProject });
     const migrated = loadFunctionalResetSession(storage).project;
     expect(migrated?.canonicalState).toMatchObject({ owner: "RESEARCH_PROJECT", projectId: project.projectId });

@@ -37,7 +37,8 @@ import {
   type ProviderCallRecord,
 } from "@/features/protocol-designer/provider-call-observability";
 import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
-import { HUMAN_REVIEW_PROJECTION_VERSION, ensureCanonicalProjectState } from "@/features/research-project-construction";
+import { HUMAN_REVIEW_PROJECTION_VERSION } from "@/features/research-project-construction";
+import { restoreResearchProjectOwnerProjection } from "@/features/research-project-construction/project-owner-restore";
 import {
   PRODUCT_KNOWLEDGE_OWNER_LEDGER_CONTRACT,
   createProductKnowledgeOwnerLedger,
@@ -680,11 +681,14 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
       return createFunctionalResetSession();
     }
     const parsed: unknown = decodeSessionStorage(raw);
-    const session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
+    let session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
     if (!session) {
       if (strict) throw new Error("SESSION_UNREADABLE");
       return createFunctionalResetSession();
     }
+    // First local trust boundary: no proposal, QRY, DOC or TRACE consumer sees
+    // an unverified Project. A failed strict restore leaves stored bytes intact.
+    if (session.project) session = { ...session, project: restoreResearchProjectOwnerProjection(session.project) };
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
       workingDraftPreparations: readWorkingDraftPreparations(session.workingDraftPreparations)
@@ -717,14 +721,7 @@ export const loadFunctionalResetSession = (storage: Storage, storageKey = FUNCTI
         ? { ...entry, candidate: undefined }
         : entry),
     };
-    return reloadSafeSession.project ? {
-      ...reloadSafeSession,
-      project: {
-        ...reloadSafeSession.project,
-        canonicalBackboneStatus: "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE",
-        canonicalState: ensureCanonicalProjectState(reloadSafeSession.project),
-      },
-    } : reloadSafeSession;
+    return reloadSafeSession;
   } catch (error) {
     if (strict) throw error;
     return createFunctionalResetSession();
