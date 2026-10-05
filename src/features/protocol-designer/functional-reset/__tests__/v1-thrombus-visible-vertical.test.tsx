@@ -12,9 +12,11 @@ import {
 import { makeFunctionalResetBridgeResponse } from "./functional-reset-fixtures";
 import {
   FUNCTIONAL_RESET_STORAGE_KEY,
+  persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "../session";
-import { buildStudyDeliverablePortfolio } from "@/features/document-projection";
+import { buildStudyDeliverablePortfolio,refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
+import {authorizeResearchProjectDocumentHandoff} from "@/features/research-project-construction";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
@@ -120,16 +122,16 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     submit(CORRECTED);
     expect((await screen.findAllByText(/Évaluer le devenir clinique à 12 mois/)).length).toBeGreaterThan(0);
     await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(2));
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet créé.");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await screen.findByText("Choix enregistrés dans le projet.");
     await waitFor(() => expect(stored().project?.revision).toBe(1));
-    await waitFor(() => expect(screen.getAllByText(/Souhaitez-vous réunir les objectifs/).length).toBeGreaterThanOrEqual(2));
-    expect(stored().scientificThinkingInteraction).toMatchObject({ status: "ACTIVE", projectWriteAuthorized: false });
+    expect(runtime.bridge).toHaveBeenCalledTimes(2);
+    expect(stored().scientificThinkingInteraction).toBeNull();
 
     submit(STRUCTURE);
     await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(3));
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet mis à jour.");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(()=>expect(screen.getAllByText("Choix enregistrés dans le projet.")).toHaveLength(2));
     await waitFor(() => expect(stored().project?.revision).toBe(2));
     const project = stored().project!;
     const currentObjects = project.canonicalState.objects.filter((object) => object.actuality === "CURRENT");
@@ -137,10 +139,16 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     expect(currentObjects).toContainEqual(expect.objectContaining({ objectType: "STUDY_DESIGN", content: "Étude unique à deux volets coordonnés" }));
 
     submit("Affiche-moi un premier protocole de travail.");
+    await screen.findByTestId("study-deliverable-workspace");
+    const confirmed=stored(),requestedAt=new Date().toISOString();
+    const generated=refreshFunctionalResetDocumentPortfolio({project,previous:confirmed.documents,requestedAt,generateProtocol:true,
+      handoffDecision:authorizeResearchProjectDocumentHandoff({project,authority:{actorRef:"test:explicit-thrombus-doc-owner",mandateRef:"PROJECT_OWNER",
+        authoritySource:"ACTIVE_RESEARCH_WORKSPACE_SESSION",verification:"DEMO_SESSION_NOT_AUTHENTICATED"},confirmedAt:requestedAt})});
+    cleanup();persistFunctionalResetSession(localStorage,{...confirmed,documents:generated});renderDemo();submit("affiche le protocole");
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
     expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
-    expect(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" })).toBeInTheDocument();
+    expect(within(preview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
     expect(preview.textContent).toContain(FIRST_OBJECTIVE);
     expect(preview.textContent).toContain(SECOND_OBJECTIVE);
 
@@ -159,7 +167,11 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     expect(await screen.findByTestId("study-deliverable-workspace")).toHaveTextContent(FIRST_OBJECTIVE);
 
     expect(runtime.language).not.toHaveBeenCalled();
-    expect(globalThis.fetch).not.toHaveBeenCalled();
+    expect(globalThis.fetch).toHaveBeenCalledTimes(2);
+    for(const [url,init] of vi.mocked(globalThis.fetch).mock.calls){
+      expect(url).toBe("/api/protocol-designer-bridge");
+      expect(JSON.parse(String(init?.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
+    }
     expect(document.body.textContent).not.toMatch(/ownerResultRef|traceRunId|SCIENTIFIC_THINKING_PROPOSAL|QUERY_NAVIGATION/);
   });
 });

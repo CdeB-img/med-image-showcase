@@ -32,6 +32,7 @@ import { routeProductEntry } from "../product-entry-routing";
 import {
   makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
+  makeNativeConversationBridgeResponse,
 } from "./functional-reset-fixtures";
 
 const OBSERVED_AT = "2026-08-30T12:00:00.000Z";
@@ -154,11 +155,10 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: ProductBridgeRequest) => makeFunctionalResetBridgeResponse(
-      conversation.turns,
-      cecContribution(conversation.turns),
-      NATURAL_CEC_RESPONSE,
-    ));
+    runtime.request.mockImplementation(async (request: ProductBridgeRequest) => ({
+      ...makeFunctionalResetBridgeResponse(request.conversation.turns,cecContribution(request.conversation.turns),NATURAL_CEC_RESPONSE),
+      scientificConversation:makeNativeConversationBridgeResponse(request,NATURAL_CEC_RESPONSE).scientificConversation,
+    }));
   });
   afterEach(cleanup);
 
@@ -256,7 +256,8 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     });
     expect(await screen.findByText(NATURAL_CEC_RESPONSE)).toBeInTheDocument();
     const details = await screen.findByTestId("functional-review-details");
-    fireEvent.click(within(details).getByText("Voir les détails"));
+    fireEvent.click(details);
+    fireEvent.click(await screen.findByText("Sources et provenance"));
 
     const understanding = await screen.findByTestId("understanding-review-card");
     expect(within(understanding).getByText("Voici ce que j’ai compris")).toBeInTheDocument();
@@ -280,17 +281,16 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     expect(understanding).not.toHaveTextContent(CEC_INPUT);
     const humanReview = screen.getByTestId("functional-contribution-review");
     expect(humanReview).toBeInTheDocument();
-    expect(humanReview).toHaveTextContent("question de recherche — éléments compris, détails à préciser");
-    expect(humanReview).toHaveTextContent("Hypothèse de départ");
-    expect(humanReview).toHaveTextContent("Objectif");
-    expect(humanReview).toHaveTextContent("Contexte du projet");
-    expect(humanReview).toHaveTextContent("Éléments à observer ou mesurer");
-    expect(humanReview).toHaveTextContent("Besoin de données");
+    const semanticProjection=stored().entries.find((entry:{kind:string})=>entry.kind==="REVIEW").candidate.humanReviewProjection;
+    expect(semanticProjection.sections.flatMap((section:{items:{content:string}[]})=>section.items.map(item=>item.content))).toEqual(expect.arrayContaining([
+      "Étude exploratoire","Après circulation extracorporelle","Caractérisation IRM de l’atteinte myocardique",
+      "L’élévation de la troponine après circulation extracorporelle peut refléter une atteinte myocardique",
+    ]));
     expect(humanReview).not.toHaveTextContent("PopulationAtteinte myocardique");
     expect(humanReview).not.toHaveTextContent("Questioncirculation extra corporelle");
     expect(humanReview).not.toHaveTextContent("AnalyseCaractérisation IRM de l’atteinte myocardique");
     expect(humanReview).not.toHaveTextContent("Mesures / biomarqueurs");
-    expect(humanReview).toHaveTextContent("motive ce besoin de données");
+    expect(screen.getByTestId("review-audit-detail")).toHaveTextContent("motive ce besoin de données");
     for (const relationType of PERSISTENT_PROJECT_RELATION_TYPES) {
       expect(humanReview).not.toHaveTextContent(relationType);
     }
@@ -314,6 +314,7 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
       (dimension: { visibleOutput: string }) => dimension.visibleOutput === "PRESENT",
     )).toBe(true);
 
+    fireEvent.click(screen.getByRole("button",{name:"Close"}));
     fireEvent.click(screen.getByLabelText("Plus d’options"));
     fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(screen.getByTestId("trace-inspector")).toBeInTheDocument();

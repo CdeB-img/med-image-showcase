@@ -10,7 +10,7 @@ import { FUNCTIONAL_RESET_STORAGE_KEY, shouldMediatePostAdoptionQuery } from "..
 import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
-  makeGovernedPostAdoptionResponse,
+  makeNativeConversationBridgeResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -75,7 +75,7 @@ const singleObjectContribution = (
 const acceptInitialProject = async () => {
   submit(COLCHICINE_03A_INITIAL);
   await screen.findByTestId("functional-contribution-review");
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
   expect(await within(screen.getByTestId("functional-research-project")).findByText("Version 1")).toBeInTheDocument();
 };
 
@@ -105,18 +105,19 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(shouldMediatePostAdoptionQuery({ currentAction: null, currentPresentation: null, standardQuestion: null })).toBe(false);
   });
 
-  it("routes an explanatory turn through local Knowledge and creates no Project candidate", async () => {
+  it("routes an explanatory turn through native conversation and creates no Project candidate", async () => {
+    runtime.request.mockImplementation(async (request:ProductBridgeRequest)=>makeNativeConversationBridgeResponse(request));
     renderDemo();
     submit("Pourquoi tu me demandes le nombre de centres ?");
-    expect(await screen.findByTestId("product-understand-knowledge-response")).toBeInTheDocument();
+    expect(await screen.findByText("Discussion native contrôlée ; aucune décision ni modification du projet.")).toBeInTheDocument();
     expect(screen.queryByTestId("functional-contribution-review")).toBeNull();
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)).toMatchObject({
-      provider: "KNOWLEDGE",
+      provider: "GOOGLE_GEMINI",
       persistentExtractionCalled: false,
       projectChangeSetCandidate: null,
-      calls: 0,
+      calls: 1,
       projectVersionBefore: null,
       projectVersionAfter: null,
     });
@@ -131,7 +132,10 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const first = renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     const firstReview = await screen.findByTestId("functional-contribution-review");
-    expect(within(firstReview).getByText(/comparaison avec/)).toBeInTheDocument();
+    fireEvent.click(within(firstReview).getByTestId("functional-review-details"));
+    fireEvent.click(await screen.findByText("Sources et provenance"));
+    expect(screen.getByText(/comparaison avec/,{selector:"li p"})).toBeVisible();
+    fireEvent.click(screen.getByRole("button",{name:"Close"}));
     expect(firstReview).not.toHaveTextContent("COMPARES_WITH");
     expect(stored().entries.find((entry: { kind: string }) => entry.kind === "REVIEW").candidate.humanReviewProjection).toMatchObject({
       status: "COMPLETE",
@@ -149,7 +153,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Version 1")).toBeInTheDocument();
     expect(stored().project).toMatchObject({ revision: 1, llmProjectWrites: 0, confirmationDecision: { status: "ADOPTED" } });
@@ -176,19 +180,21 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     first.unmount();
     renderDemo();
     const reloadedReview = await screen.findByTestId("functional-contribution-review");
-    expect(within(reloadedReview).getByText(/comparaison avec/)).toBeInTheDocument();
+    fireEvent.click(within(reloadedReview).getByTestId("functional-review-details"));
+    fireEvent.click(await screen.findByText("Sources et provenance"));
+    expect(screen.getByText(/comparaison avec/,{selector:"li p"})).toBeVisible();
     expect(reloadedReview).not.toHaveTextContent("COMPARES_WITH");
     expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).toBeNull();
   });
 
-  it("preserves the exact active QRY while an explanatory turn uses transversal Knowledge", async () => {
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
+  it("preserves the exact active QRY while an explanatory turn uses native conversation", async () => {
+    runtime.request.mockImplementation(async (request:ProductBridgeRequest) => {
+      const {conversation}=request;
       const latest = conversation.turns.at(-1)?.content;
       return latest === COLCHICINE_03A_INITIAL
         ? makeFunctionalResetBridgeResponse(conversation.turns)
-        : makeFunctionalResetBridgeResponse(
-          conversation.turns,
-          null,
+        : makeNativeConversationBridgeResponse(
+          request,
           "Je reformule : je cherche à comprendre comment les participants seront répartis entre les groupes.",
         );
     });
@@ -203,21 +209,20 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     runtime.request.mockClear();
 
     submit("je ne comprends pas");
-    expect(await screen.findByTestId("product-understand-knowledge-response")).toBeInTheDocument();
+    expect(await screen.findByText("Je reformule : je cherche à comprendre comment les participants seront répartis entre les groupes.")).toBeInTheDocument();
     const after = stored();
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     expect(after.entries).toHaveLength(entriesBefore + 2);
     expect(after.entries.filter((entry: { kind: string; content?: string }) => entry.kind === "TEXT" && entry.content === questionBefore)).toHaveLength(0);
     expect(after.queryNavigation.currentAction.selectedActionId).toBe(needBefore);
     expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
     expect(JSON.stringify(after.project)).toBe(projectBefore);
-    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "KNOWLEDGE", calls: 0, persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
-    expect(after.bridgeTraces.at(-1).knowledgeResultRef).toMatch(/^knowledge-result:/);
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "GOOGLE_GEMINI", calls: 1, persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
   });
 
-  it("F11–F13 recomputes QRY after adoption and displays a mediated continuation below the confirmation", async () => {
-    runtime.request.mockImplementation(async (request: ProductBridgeRequest) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
-      ? makeGovernedPostAdoptionResponse(request)
+  it("F11–F13 recomputes QRY after adoption without dispatch; the next explicit conversation receives Project context", async () => {
+    runtime.request.mockImplementation(async (request: ProductBridgeRequest) => request.currentProject
+      ? makeNativeConversationBridgeResponse(request,"Discussion demandée explicitement après adoption.")
       : makeFunctionalResetBridgeResponse(
         request.conversation.turns,
         makeFunctionalResetContribution(request.conversation.turns),
@@ -226,22 +231,20 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 
-    expect(await screen.findByText("Projet créé.")).toBeInTheDocument();
-    await waitFor(() => expect(stored().entries.at(-1)?.content).toMatch(/\?$/u));
+    expect(await screen.findByText("Choix enregistrés dans le projet.")).toBeInTheDocument();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     const after = stored();
-    const continuationText = after.entries.at(-1).content;
-    expect(screen.getByText(continuationText)).toBeInTheDocument();
-    const feedbackIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Projet créé.");
-    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === continuationText);
-    expect(continuationIndex).toBeGreaterThan(feedbackIndex);
     expect(after.queryNavigation).toMatchObject({
       projectVersion: after.project.versionId,
       projectDigest: after.project.projectDigest,
       currentAction: { navigationNeedRefs: expect.any(Array) },
     });
-    const continuationRequest = runtime.request.mock.calls.find(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")?.[0];
+    submit("Explique la prochaine question sans modifier le projet.");
+    await screen.findByText("Discussion demandée explicitement après adoption.");
+    expect(runtime.request).toHaveBeenCalledTimes(2);
+    const continuationRequest = runtime.request.mock.calls[1]![0];
     expect(continuationRequest).toMatchObject({
       currentProject: { versionId: after.project.versionId },
       evaluatePersistentDelta: false,
@@ -253,8 +256,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
         },
       },
     });
-    expect(after.bridgeTraces.at(-1)).toMatchObject({
-      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+    expect(stored().project).toEqual(after.project);
+    expect(stored().bridgeTraces.at(-1)).toMatchObject({
       persistentExtractionCalled: false,
       qryNeedAfter: after.queryNavigation.currentAction.navigationNeedRefs[0],
       projectVersionAfter: after.project.versionId,
@@ -314,12 +317,12 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const reviews = await screen.findAllByTestId("functional-contribution-review");
     expect(reviews).toHaveLength(2);
     expect(within(reviews[0]!).getByText("Acquisition CT")).toBeInTheDocument();
-    expect(within(reviews[0]!).queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
+    expect(within(reviews[0]!).queryByRole("button", { name: "Confirmer les choix et enregistrer" })).not.toBeInTheDocument();
     expect(within(reviews[1]!).getByText("Référence anatomique ex vivo")).toBeInTheDocument();
     expect(stored().entries.find((entry) => entry.kind === "REVIEW")).toEqual(firstReview);
     expect(stored().pendingContribution.identity.contributionId).toBe("contribution:reference");
 
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     expect(await within(screen.getByTestId("functional-research-project")).findByText("Version 1")).toBeInTheDocument();
     // Human confirmation applies only the displayed, selected receipt. The
     // earlier candidate is not silently merged into this separate contribution.

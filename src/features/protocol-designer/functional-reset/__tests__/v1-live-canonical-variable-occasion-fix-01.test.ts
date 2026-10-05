@@ -251,7 +251,7 @@ describe("V1 LIVE — canonical variable / expected occasion boundary", () => {
 
     expect(result.status).toBe(200);
     expect(endpoints).toHaveLength(2);
-    expect(response.contextualReasoning?.owner).toBe("SCIENTIFIC_THINKING");
+    expect(response.scientificConversation).toMatchObject({owner:"SCIENTIFIC_THINKING",projectWrites:0,projectWriteAuthorized:false});
     expect(response.persistentExtraction).toMatchObject({
       status: "CANDIDATE",
       recovery: null,

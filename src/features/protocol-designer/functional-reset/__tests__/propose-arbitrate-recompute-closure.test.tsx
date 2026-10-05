@@ -257,8 +257,8 @@ it.each(CASES.flatMap(test => (["button", "natural"] as const).map(mode => ({ ..
   const original = logicalDigest(latest.project); send(test.text);
   await waitFor(() => expect(latest.pendingContribution?.scientificContent.candidateObjects[0]?.content).toBe(test.content)).catch(error => { writeFileSync(ROOT + `standard-failure-${mode}.json`, JSON.stringify({ latest, bridgeCalls: bridge.mock.calls }, null, 2)); throw error; });
   expect(logicalDigest(latest.project)).toBe(original);
-  expect(screen.getAllByRole("heading", { name: "Compréhension de travail" })).toHaveLength(1);
-  if (test.mode === "button") fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" })); else send("oui je confirme");
+  expect(screen.getAllByRole("heading", { name: "À enregistrer" })).toHaveLength(1);
+  if (test.mode === "button") fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" })); else send("oui je confirme");
   await waitFor(() => expect(latest.project?.revision).toBe(2)); expect(latest.studyProposal?.state).toBe("CURRENT"); expect(latest.studyProposal!.adoptedAtomRefs).toContain(test.atom);
   expect(latest.documents.projections).toHaveLength(0); expect(bridge).toHaveBeenCalledTimes(2);
   expect(screen.getByTestId("conversation-composer")).toHaveClass("sticky");

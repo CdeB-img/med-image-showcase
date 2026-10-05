@@ -236,7 +236,10 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
-  expect(network).not.toHaveBeenCalled();
+  for(const [url,init] of network.mock.calls as unknown as [string,RequestInit][]){
+    expect(url).toBe("/api/protocol-designer-bridge");
+    expect(JSON.parse(String(init.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
+  }
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -449,19 +452,19 @@ describe("V1 Standard scientific conversation intelligence — invariants C01-C1
 
     const firstReview = await screen.findByTestId("functional-contribution-review");
     fireEvent.click(within(firstReview).getByRole("button", { name: "Refuser cette proposition" }));
-    await within(firstReview).findByText(/Research Project est inchangé/);
+    await within(firstReview).findByText("Proposition refusée. Le projet est inchangé.");
     expect(stored().project).toEqual(projectV1);
     expect(screen.getByLabelText("Votre message")).toBeEnabled();
 
-    submit("Je confirme une nouvelle proposition : ajouter le dosage X à cette étude.");
+    submit("Je veux une nouvelle proposition de modification : ajouter le dosage X à cette étude.");
     await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(2));
     const reviews = screen.getAllByTestId("functional-contribution-review");
-    fireEvent.click(within(reviews[1]!).getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet mis à jour.");
+    fireEvent.click(within(reviews[1]!).getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await screen.findByText("Choix enregistrés dans le projet.");
     await waitFor(() => expect(stored().project?.revision).toBe(2));
     expect(stored().project?.previousVersionId).toBe(projectV1.versionId);
     expect(ensureCanonicalProjectState(stored().project!).objects.some((object) => object.actuality === "CURRENT" && object.content === "Dosage X")).toBe(true);
     expect(runtime.language).not.toHaveBeenCalled();
-    expect(network).not.toHaveBeenCalled();
+    expect(network).toHaveBeenCalledTimes(1);
   });
 });

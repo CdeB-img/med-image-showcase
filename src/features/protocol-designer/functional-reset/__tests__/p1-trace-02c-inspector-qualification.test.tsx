@@ -349,8 +349,8 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_03A_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await screen.findByRole("heading", { name: "À enregistrer" });
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Générer les documents" })).toBeEnabled());
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
@@ -436,9 +436,9 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     expect(stages.indexOf("STALE_MARKED")).toBeGreaterThan(stages.indexOf("ARTIFACT_GENERATED"));
     expect(inspected.events.find((event) => event.stage === "ARTIFACT_GENERATED")?.inputRefs[0]).toMatchObject({ ref: projection.projectionId });
     expect(inspected.events.find((event) => event.stage === "STALE_MARKED")?.status).toBe("STALE");
-    // Common post-adoption receipt now records the actual INFORMATION_NEED_SELECTED
-    // in addition to its request/realization pair; the rest of the vertical is unchanged.
-    expect(inspected.events).toHaveLength(25);
+    // Adoption no longer automatically dispatches a post-adoption speaker:
+    // the three request/selection/realization events are absent, not dropped.
+    expect(inspected.events).toHaveLength(22);
     expect(inspected.diagnostics.some((finding) => finding.code === "TRACE_CHAIN_BREAK")).toBe(false);
     expect(JSON.stringify(stored.project)).toBe(JSON.stringify(project));
 

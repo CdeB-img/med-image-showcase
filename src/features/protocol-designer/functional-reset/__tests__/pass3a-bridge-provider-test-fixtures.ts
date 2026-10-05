@@ -56,6 +56,14 @@ export const mockBridgeProviderFetch = (input: {
     if (url.origin === "https://generativelanguage.googleapis.com"
       && /^\/v1beta\/models\/[^/]+:generateContent$/.test(url.pathname)) {
       if (++geminiCalls > 1) throw new Error("TEST_GEMINI_RETRY_NOT_AUTHORIZED");
+      const payload = JSON.parse(String(init?.body)) as {contents?:Array<{parts?:Array<{text?:string}>}>};
+      const context = JSON.parse(payload.contents?.[0]?.parts?.[0]?.text ?? "null");
+      // CURRENT_STRUCTURAL_INVARIANT: native text transport, not a scientific oracle.
+      // Legacy governed calls still use their real conformance validator below.
+      if (context?.currentMessage?.turnRef && typeof context.currentMessage.text === "string") {
+        return new Response(JSON.stringify({candidates:[{content:{parts:[{text:input.geminiText}]}}],
+          responseId:input.geminiResponseId ?? "gemini:native-transport-fixture"}),{status:200,headers:{"content-type":"application/json"}});
+      }
       return mechanicalGovernedGeminiResponse(init, input.geminiText, input.geminiResponseId);
     }
     if (url.href === "https://api.openai.com/v1/responses") {

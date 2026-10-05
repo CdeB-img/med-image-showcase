@@ -8,6 +8,7 @@ import {adoptBehaviorContribution,behaviorContribution,behaviorItem,behaviorTurn
 import {buildHumanReviewProjection,prepareResearchProjectContributionCandidate,ensureCanonicalProjectState,buildScientificThinkingInputFromProjectSnapshot} from '@/features/research-project-construction';
 import {executeScientificThinkingEngine} from '@/features/scientific-thinking/engine';
 import {contributionFromPersistentDelta,type PersistentProjectDeltaCandidate} from '@/features/protocol-designer/product-bridge';
+import {projectActionableSourceCoverage} from '@/features/protocol-designer/actionable-source-coverage';
 afterEach(cleanup);
 const accepted = [
  'une étude sur un panel de patient pour voir les lésions', 'un dossier fictif pour une étude scientifique',
@@ -99,16 +100,31 @@ it('keeps the old negation explicit on removal and both polarities on replacemen
  const replacement=buildHumanReviewProjection({...base,baseProjectVersion:current.versionId,objectChanges:[{...change,operation:'REPLACE',candidate:{...candidate,objectId:old.objectId}}]},current);
  expect(replacement.sections.flatMap(s=>s.items)[0].content).toContain('Exclusion / absence : Événement étudié → Événement étudié');
 });
-it.each(['Adultes atteints de myocardite aiguë récente.', 'Population adulte avec maladie rénale stable.', 'Éprouvettes métalliques soumises à un stress thermique.'])('source selection does not certify all explicit facts: %s',raw=>{
+it.each([
+ ['Adultes atteints de myocardite aiguë récente.',true],
+ ['Population adulte avec maladie rénale stable.',true],
+ ['Éprouvettes métalliques soumises à un stress thermique.',false],
+] as const)('source selection does not certify all explicit facts: %s',(raw,materialOmission)=>{
  const turn=behaviorTurn('coverage:raw',raw);
  const candidate:PersistentProjectDeltaCandidate={contract:'PERSISTENT_PROJECT_DELTA_CANDIDATE',contractVersion:'0.4.0',projectWriteAuthorized:false,
  changes:[{operation:'ADD',sourceText:raw,content:'Phénomène étudié',proposedType:'PROJECT_INFORMATION',polarity:'AFFIRMED',epistemicStatus:'EXPLICIT_USER_STATED',epistemicState:'KNOWN',assertionKind:'USER_STATED',evidenceRefs:[]}],relations:[],temporalQualifications:[],expectedVariableOccasions:[]};
  const contribution=contributionFromPersistentDelta({candidate,conversation:{conversationId:'coverage',language:'fr',turns:[turn]},currentProject:null})!;
- expect(contribution.scientificContent.clarificationNeeds[0].epistemicBoundary.sourceText).toBe(raw);
+ expect(contribution.scientificContent.clarificationNeeds).toEqual([]);
+ // Extraction coverage belongs to audit, not fabricated scientific needs.
+ expect(contribution.audit.unresolvedFindings).toContainEqual(expect.objectContaining({
+   status:'OPEN',message:expect.stringContaining(raw),sourceRefs:expect.arrayContaining([turn.turnId]),
+ }));
  const prepared=prepareResearchProjectContributionCandidate(contribution,null);
  expect(prepared.status).toBe('CANDIDATE_PENDING_HUMAN_CONFIRMATION');
  render(<Review contribution={contribution} candidate={prepared} status="PENDING" onConfirm={()=>{}} onCorrect={()=>{}} onReject={()=>{}}/>);
- expect(screen.getByText(/Compréhension partielle/)).toBeVisible();
+ const coverage=projectActionableSourceCoverage(contribution);
+ expect(coverage.partialComprehensionWarning).toBe(materialOmission);
+ if(materialOmission) expect(screen.getByTestId('source-coverage-review')).toBeVisible();
+ else {
+   // UNKNOWN is not a demonstrated material omission or a certificate of coverage.
+   expect(coverage.dispositions).toContainEqual(expect.objectContaining({classification:'UNKNOWN',sourceSpan:raw}));
+   expect(screen.queryByTestId('source-coverage-review')).toBeNull();
+ }
  const project=adoptBehaviorContribution(contribution,null,1);
  expect(ensureCanonicalProjectState(project).objects).toHaveLength(1);
  expect(ensureCanonicalProjectState(project).objects[0].content).toBe('Phénomène étudié');

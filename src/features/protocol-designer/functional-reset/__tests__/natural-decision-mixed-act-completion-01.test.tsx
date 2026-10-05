@@ -288,7 +288,10 @@ describe("Standard product handler — same USER turn through existing bridge", 
     expect(bridge).toHaveBeenCalledTimes(1);
     expect((bridge.mock.calls[0]![0] as ProductBridgeRequest).currentProject!.revision).toBe(1);
     expect(current().pendingMixedUserTurnRef).toBeNull();
-    expect(network).not.toHaveBeenCalled();
+    expect(network).toHaveBeenCalledTimes(1);
+    const [snapshotUrl, snapshotInit] = network.mock.calls[0] as unknown as [string, RequestInit];
+    expect(snapshotUrl).toBe("/api/protocol-designer-bridge");
+    expect(JSON.parse(String(snapshotInit.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
   });
   it("material correction prepares M3, supersedes J3 and leaves Project untouched", async () => {
     vi.stubGlobal("fetch", vi.fn(() => { throw new Error("LIVE_FORBIDDEN"); }));

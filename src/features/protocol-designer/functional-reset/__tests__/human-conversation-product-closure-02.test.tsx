@@ -191,9 +191,9 @@ it("primary review is compact while exact source, IDs, statuses and complete pro
   render(<ContributionReview contribution={contribution} candidate={candidate} status="PENDING" detailedUnderstanding={<p>Compréhension de travail complète</p>}
     onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />);
   expect(screen.queryByTestId("review-audit-detail")).toBeNull(); expect(screen.queryByText("Compréhension de travail complète")).toBeNull();
-  expect(screen.getByText("Compréhension de travail")).toBeVisible();
-  const details = screen.getByTestId("functional-review-details") as HTMLDetailsElement;
-  details.open = true; fireEvent(details, new Event("toggle"));
+  expect(screen.getByText("À enregistrer")).toBeVisible();
+  fireEvent.click(screen.getByTestId("functional-review-details"));
+  fireEvent.click(await screen.findByText("Sources et provenance"));
   await waitFor(() => expect(screen.getByTestId("review-audit-detail")).toBeVisible());
   expect(screen.getByTestId("review-original-source")).toHaveTextContent(T1);
   expect(screen.getByTestId("review-provenance-detail")).toHaveTextContent(contribution.identity.contributionId);
@@ -236,8 +236,8 @@ it("actual Standard fibrosis trajectory keeps review, binding, evidence and pers
   let ui = mount();
   const settle = async (count: number) => { await waitFor(() => expect(outputs).toHaveLength(count)); await waitFor(() => expect(screen.getByRole("textbox")).not.toBeDisabled()); };
   send(T1); await settle(1); await waitFor(() => expect(latest.pendingContribution).not.toBeNull());
-  expect(latest.project).toBeNull(); expect(screen.getByText("Compréhension de travail")).toBeVisible();
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" })); await waitFor(() => expect(latest.project?.revision).toBe(1));
+  expect(latest.project).toBeNull(); expect(screen.getByText("À enregistrer")).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" })); await waitFor(() => expect(latest.project?.revision).toBe(1));
   const version1 = latest.project!.versionId;
   send("et ensuite ?"); await settle(2); expect(latest.pendingContribution).toBeNull(); expect(latest.project!.versionId).toBe(version1);
   send(literature); await settle(3); expect(outputs[2].scientificConversation?.fallbackReason).toBe("UNSOURCED_LITERATURE_CLAIM"); expect(latest.pendingContribution).toBeNull();
@@ -251,7 +251,7 @@ it("actual Standard fibrosis trajectory keeps review, binding, evidence and pers
   const html = renderToStaticMarkup(<ContributionReview contribution={latest.pendingContribution!} candidate={prepareResearchProjectContributionCandidate(latest.pendingContribution!, latest.project)}
     currentProject={latest.project} status="PENDING" onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />);
   writeFileSync(ROOT + "HUMAN_REVIEW_UPDATE_AFTER.html", html);
-  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" })); await waitFor(() => expect(latest.project?.revision).toBe(2));
+  fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" })); await waitFor(() => expect(latest.project?.revision).toBe(2));
   const adopted = latest.project!.canonicalState!.objects.find(o => o.content.includes("20–29"))!;
   expect(adopted.provenance.assertionKind).toBe("USER_ADOPTED_PROPOSAL");
   expect(adopted.provenance.sourceTurnRefs).toEqual(expect.arrayContaining([
@@ -261,7 +261,13 @@ it("actual Standard fibrosis trajectory keeps review, binding, evidence and pers
   persistFunctionalResetSession(localStorage, latest); const restored = loadFunctionalResetSession(localStorage); expect(restored.project).toEqual(latest.project);
   ui.unmount(); latest = restored; ui = mount();
   send("peux tu le calculer ?"); await settle(6); expect(outputs[5].scientificConversation?.fallbackReason).toBe("UNSUPPORTED_SAMPLE_SIZE_RESULT");
-  expect(latest.project!.versionId).toBe(version2); expect(latest.pendingContribution).toBeNull(); expect(forbidden).not.toHaveBeenCalled();
+  expect(latest.project!.versionId).toBe(version2); expect(latest.pendingContribution).toBeNull();
+  // The adoption owner persists verified snapshots, never dispatches a provider.
+  expect(forbidden).toHaveBeenCalledTimes(2);
+  for (const [url, init] of forbidden.mock.calls as unknown as [string, RequestInit][]) {
+    expect(url).toBe("/api/protocol-designer-bridge");
+    expect(JSON.parse(String(init.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
+  }
   const packet = JSON.parse(prepareScientificCollaboratorConversation(requests[5]).context); expect(packet.statisticalAssessment.calculation).toBeNull();
   writeFileSync(ROOT + "fibrosis-trajectory-offline.json", JSON.stringify({ provenance: "ACTUAL_STANDARD_BRIDGE_N1_PRJ_LOCAL_SYNTHETIC_NOT_NATURALNESS", providerCalls: 0,
     visibleEntries: latest.entries.filter(e => e.kind === "TEXT").map(e => ({ role: e.role, content: e.content })),
@@ -282,7 +288,7 @@ it.each(["UNKNOWN", "MATERIAL"])("N5 distinguishes an undecidable source fragmen
   expect(result.actionableItems).toHaveLength(1);
   const html = renderToStaticMarkup(<ContributionReview contribution={c} candidate={prepareResearchProjectContributionCandidate(c, null)} status="PENDING"
     onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />);
-  expect(html.includes("Compréhension partielle")).toBe(kind === "MATERIAL");
+  expect(html.includes("source-coverage-review")).toBe(kind === "MATERIAL");
 });
 
 it("the existing server applies the deterministic calculator guard without a second synthetic attempt", async () => {

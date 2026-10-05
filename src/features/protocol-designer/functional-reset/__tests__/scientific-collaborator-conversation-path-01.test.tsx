@@ -182,6 +182,9 @@ it("actual Standard preserves the native reply through candidate review and mixe
  await waitFor(()=>expect(requests).toHaveLength(beforeRequests+1));
  await waitFor(()=>expect(latest.runtimeTurns.at(-2)?.content).toBe("explique les limites de la mesure tardive"));
  expect(latest.runtimeTurns.at(-1)!.content).toBe(native);expect(latest.project!.versionId).toBe(projectVersion);
- expect(network).not.toHaveBeenCalled();
+ expect(network).toHaveBeenCalledTimes(1);
+ const [snapshotUrl,snapshotInit]=network.mock.calls[0] as unknown as [string,RequestInit];
+ expect(snapshotUrl).toBe("/api/protocol-designer-bridge");
+ expect(JSON.parse(String(snapshotInit.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
  writeFileSync(root+"standard-handler-offline.json",JSON.stringify({provenance:"ACTUAL_STANDARD_HANDLER_LOCAL_SYNTHETIC_NOT_SCIENTIFIC_QUALITY",inputs:[CASES[0].text,"on adopte mais fais beaucoup plus court"],nativeReply:native,projectBeforeHumanDecision:null,projectAfterHumanDecision:{projectId:latest.project!.projectId,versionId:latest.project!.versionId},llmProjectWrites:0,realProviderCalls:0},null,2)+"\n");
 },25000);

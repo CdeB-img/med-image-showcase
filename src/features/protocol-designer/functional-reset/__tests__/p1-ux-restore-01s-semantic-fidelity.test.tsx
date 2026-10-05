@@ -137,14 +137,14 @@ describe("P1-UX-RESTORE-01S — semantic fidelity", () => {
     render(<ContributionReview contribution={source} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const rendered = screen.getByTestId("functional-contribution-review");
     expect(within(rendered).getByTestId("standard-initial-review-summary")).not.toHaveTextContent("Question de recherche à préciser.");
-    const details = within(rendered).getByTestId("functional-review-details") as HTMLDetailsElement;
     expect(within(rendered).queryByTestId("review-audit-detail")).toBeNull();
-    details.open = true; fireEvent(details, new Event("toggle"));
-    await within(rendered).findByRole("region", { name: "Points encore ouverts" });
-    expect(rendered).toHaveTextContent("question de recherche");
-    expect(rendered).toHaveTextContent("population précise");
-    expect(rendered).toHaveTextContent("Cadre saisonnier à préciser");
-    expect(within(rendered).getByTestId("review-audit-detail")).toHaveTextContent("Détails à préciser");
+    fireEvent.click(within(rendered).getByTestId("functional-review-details"));
+    const audit = await screen.findByTestId("review-audit-detail");
+    await screen.findByRole("region", { name: "Points encore ouverts" });
+    expect(audit).toHaveTextContent("question de recherche");
+    expect(audit).toHaveTextContent("population précise");
+    expect(audit).toHaveTextContent("Cadre saisonnier à préciser");
+    expect(audit).toHaveTextContent("Détails à préciser");
     expect(within(screen.getByRole("region", { name: "Points encore ouverts" })).queryByText("analyse", { exact: true }))
       .not.toBeInTheDocument();
     expect(rendered).not.toHaveTextContent("Projet portant sur Déshydratation");

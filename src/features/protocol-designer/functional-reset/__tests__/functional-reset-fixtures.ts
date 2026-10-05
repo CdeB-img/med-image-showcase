@@ -7,6 +7,7 @@ import type {
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
+import { prepareScientificCollaboratorConversation, scientificCollaboratorInstruction } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import {
   buildGovernedConversationLocalFallback,
   realizeGovernedConversation,
@@ -222,4 +223,17 @@ export const makeFunctionalResetBridgeResponseForRequest = (
     return makeGovernedPostAdoptionResponse(request);
   }
   return makeFunctionalResetBridgeResponse(request.conversation.turns, contribution);
+};
+
+/** SYNTHETIC_CURRENT_CONTRACT: native read-only conversation receipt. The
+ * current owner builds the context; this is not evidence of model competence. */
+export const makeNativeConversationBridgeResponse = (
+  request: Omit<ProductBridgeRequest, "apiVersion">,
+  reply = "Discussion native contrôlée ; aucune décision ni modification du projet.",
+): ProductBridgeResponse => {
+  const prepared = prepareScientificCollaboratorConversation(request);
+  return { ...makeFunctionalResetBridgeResponse(request.conversation.turns, null, reply),
+    scientificConversation: { owner: "SCIENTIFIC_THINKING", responseOwner: "LLM", outcome: "NATIVE_TEXT", fallbackReason: null,
+      providerInput: { systemInstruction: scientificCollaboratorInstruction(prepared), context: prepared.context },
+      contextDigest: prepared.contextDigest, projectWrites: 0, projectWriteAuthorized: false } };
 };

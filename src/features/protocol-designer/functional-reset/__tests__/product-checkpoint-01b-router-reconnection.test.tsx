@@ -12,6 +12,7 @@ import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
   makeFunctionalResetBridgeResponseForRequest,
+  makeNativeConversationBridgeResponse,
 } from "./functional-reset-fixtures";
 
 const CASE_A = "Je voudrais comprendre la différence entre le no-reflow et l’obstruction microvasculaire après angioplastie avec pose de stent dans un STEMI, et comment on peut les étudier en IRM cardiaque.";
@@ -39,7 +40,8 @@ describe("PRODUCT-CHECKPOINT-01B — intent-preserving product entry", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
+    runtime.request.mockImplementation(async (request) => request.evaluatePersistentDelta
+      ? makeFunctionalResetBridgeResponseForRequest(request) : makeNativeConversationBridgeResponse(request));
   });
   afterEach(cleanup);
 
@@ -73,18 +75,18 @@ describe("PRODUCT-CHECKPOINT-01B — intent-preserving product entry", () => {
     expect(interaction.assistantReply).not.toContain(UNSUPPORTED_OBJECTIVE);
   });
 
-  it.each([["A", CASE_A], ["B", CASE_B]])("executes Case %s through local Knowledge with zero Project or protocol creation", async (_label, raw) => {
+  it.each([["A", CASE_A], ["B", CASE_B]])("executes Case %s through native conversation with zero Project or protocol creation", async (_label, raw) => {
     renderDemo();
     submit(raw);
     await waitFor(() => expect(storedSession().bridgeTraces).toHaveLength(1));
     const stored = storedSession();
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     expect(stored.project).toBeNull();
     expect(stored.pendingContribution).toBeNull();
     expect(stored.documents.projections).toEqual([]);
     expect(stored.bridgeTraces[0]).toMatchObject({
-      provider: "KNOWLEDGE",
-      calls: 0,
+      provider: "GOOGLE_GEMINI",
+      calls: 1,
       persistentExtractionCalled: false,
       persistentExtractionStatus: "NOT_REQUESTED",
       projectWriteCount: 0,
@@ -120,15 +122,17 @@ describe("PRODUCT-CHECKPOINT-01B — intent-preserving product entry", () => {
   });
 
   it("allows an explicit UNDERSTAND to DESIGN_STUDY transition without losing Case A context", async () => {
-    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponse(request.conversation.turns, null, "La construction d’étude est maintenant éligible."));
+    runtime.request.mockImplementation(async (request) => request.evaluatePersistentDelta
+      ? makeFunctionalResetBridgeResponse(request.conversation.turns, null, "La construction d’étude est maintenant éligible.")
+      : makeNativeConversationBridgeResponse(request));
     renderDemo();
     submit(CASE_A);
     await waitFor(() => expect(storedSession().bridgeTraces).toHaveLength(1));
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
 
     submit(TRANSITION);
-    await waitFor(() => expect(runtime.request).toHaveBeenCalledTimes(1));
-    const request = runtime.request.mock.calls[0]![0];
+    await waitFor(() => expect(runtime.request).toHaveBeenCalledTimes(2));
+    const request = runtime.request.mock.calls[1]![0];
     expect(request.evaluatePersistentDelta).toBe(true);
     expect(request.conversation.turns.filter((item: { role: string }) => item.role === "USER").map((item: { content: string }) => item.content)).toEqual([CASE_A, TRANSITION]);
     await waitFor(() => expect(storedSession().bridgeTraces).toHaveLength(2));

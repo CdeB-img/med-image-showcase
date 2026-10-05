@@ -1,8 +1,10 @@
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
+import {makeNativeConversationBridgeResponse} from "./functional-reset-fixtures";
+import {type ProductBridgeRequest} from "../../product-bridge";
 import {
   buildFunctionalResetQueryNavigation,
   buildFunctionalResetQuerySourceState,
@@ -41,6 +43,8 @@ const populationContribution = (input: { exclusionKnown?: boolean; vulnerableTex
     contributionId: `contribution:v1-qcp:population:${input.exclusionKnown === false ? "unknown" : "known"}:${input.vulnerableText ?? "base"}`,
     turns: [turn],
     candidateObjects: [
+      // CURRENT_SEMANTIC_INVARIANT: a condition alone cannot define the population.
+      behaviorItem({itemId:"population:v1-qcp:idm",proposedType:"POPULATION",content:"Population de primo-infarctus du myocarde",turnId:turn.turnId}),
       behaviorItem({ itemId: "condition:v1-qcp:idm", proposedType: "CONDITION", content: "Primo-infarctus du myocarde", turnId: turn.turnId }),
       // Reproduce the observed provider atomization: only the upper bound is
       // carried locally, while the exact source turn still contains 35/85.
@@ -194,7 +198,7 @@ describe("V1 QRY continuation and proactive proposal flow", () => {
     expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext: emptyReferent() }))
       .toMatchObject({ kind: "USER_REQUESTS_ASSISTED_PROPOSAL" });
     expect(selectBoundedConversationInteraction({ sourceText: "oui j'ai compris", correctionMode: false, referentContext: emptyReferent() }))
-      .toBeUndefined();
+      .toMatchObject({kind:"CLARIFY_CANDIDATE_REFERENCE",evidenceRefs:[],clarificationReason:"DECISION_SCOPE"});
   });
 
   it("QCP07-QCP08 — QRY selects an existing proposal-capable owner without Project write", () => {
@@ -240,40 +244,33 @@ describe("V1 QRY continuation and proactive proposal flow", () => {
     });
   });
 
-  it("QCP07-QCP10 — Standard shows the existing owner proposal for the explicit request, with zero bridge/provider call", async () => {
+  it("QCP07-QCP10 — Standard sends the explicit proposal request with its current scientific Project, without automatic adoption", async () => {
     const project = completePreAnalysisProject();
     const session = createFunctionalResetSession("2026-09-10T12:00:00.000Z");
     const queryNavigation = buildFunctionalResetQueryNavigation({ project, recordedAt: "2026-09-10T12:00:01.000Z" });
     persistFunctionalResetSession(window.localStorage, { ...session, projectId: project.projectId, project, queryNavigation });
+    runtime.request.mockImplementation(async(request:ProductBridgeRequest)=>makeNativeConversationBridgeResponse(request,
+      "Une stratégie comparative du critère quantitatif peut être discutée ; la dispersion et l’effet cible restent à préciser avant un calcul."));
 
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: "fais moi des propositions" } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
-    await screen.findByTestId("standard-biostatistics-proposal");
+    await screen.findByText("Une stratégie comparative du critère quantitatif peut être discutée ; la dispersion et l’effet cible restent à préciser avant un calcul.");
     await waitFor(() => {
       const stored = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
-      expect(stored.biostatisticsInteraction).toMatchObject({ status: "ACTIVE", projectWriteAuthorized: false });
-      expect(stored.project?.versionId).toBe(project.versionId);
+      expect(stored.project).toEqual(project);
+      expect(stored.pendingContribution).toBeNull();
       expect(stored.bridgeTraces.at(-1)).toMatchObject({
-        requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-        provider: "NONE",
-        calls: 0,
-        continuationPresentationSource: "BIOSTATISTICS_STANDARD_PROJECTION",
+        requestKind: "USER_TURN",
+        provider: "GOOGLE_GEMINI",
+        calls: 1,
+        projectWriteCount:0,
       });
     });
-    expect(runtime.request).not.toHaveBeenCalled();
-    const projectVersionBeforeReview = project.versionId;
-    fireEvent.click(within(screen.getByTestId("standard-biostatistics-proposal"))
-      .getByRole("button", { name: /Retenir cette stratégie pour revue/i }));
-    const review = await screen.findByTestId("functional-contribution-review");
-    expect(within(review).getByRole("button", { name: "Cela correspond à mon projet" })).toBeEnabled();
-    expect(within(review).getByRole("button", { name: "Décrire une correction" })).toBeEnabled();
-    expect(within(review).getByRole("button", { name: "Refuser cette proposition" })).toBeEnabled();
-    fireEvent.click(within(review).getByRole("button", { name: "Refuser cette proposition" }));
-    await within(review).findByText("Proposition refusée. Le projet est inchangé.");
-    expect((JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession).project?.versionId)
-      .toBe(projectVersionBeforeReview);
+    expect(runtime.request).toHaveBeenCalledTimes(1);
+    expect(runtime.request.mock.calls[0]![0]).toMatchObject({currentProject:project,boundedInteraction:{kind:"USER_REQUESTS_ASSISTED_PROPOSAL"}});
+    // The existing direct QRY/biostatistics owner tests above still protect owner selection.
     expect(screen.queryByText("J'accuse réception de votre demande.")).toBeNull();
   });
 });

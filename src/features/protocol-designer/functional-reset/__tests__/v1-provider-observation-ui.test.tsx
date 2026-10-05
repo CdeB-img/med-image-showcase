@@ -7,7 +7,7 @@ import { ProductBridgeClientError } from "../../product-bridge-client";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { emptyProviderTokenUsage, materializeProviderCallRecord, providerCallRequestObservability } from "../../provider-call-observability";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
-import { COLCHICINE_03A_INITIAL, makeFunctionalResetBridgeResponse, makeFunctionalResetContribution, makeGovernedPostAdoptionResponse } from "./functional-reset-fixtures";
+import { COLCHICINE_03A_INITIAL, makeFunctionalResetBridgeResponse, makeFunctionalResetContribution, makeNativeConversationBridgeResponse } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
@@ -55,12 +55,12 @@ describe("Provider observations survive Standard handler exits", () => {
     if (purpose === "LANGUAGE_PROJECTION") expect(runtime.bridge).not.toHaveBeenCalled();
   });
 
-  it("adds the post-adoption HOW receipt to the same persisted cumulative session cost", async () => {
+  it("adds an explicit post-adoption conversation receipt once, without automatic continuation", async () => {
     const extraction = call("first-extraction", "PERSISTENT_DELTA");
     const how = call("after-confirmation", "CONVERSATION_REALIZATION");
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => {
-      if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
-        const response = makeGovernedPostAdoptionResponse(request);
+      if (request.currentProject) {
+        const response = makeNativeConversationBridgeResponse(request);
         return { ...response, observability: { ...response.observability, calls: 1, providerCalls: [how] } };
       }
       const contribution = makeFunctionalResetContribution(request.conversation.turns);
@@ -70,9 +70,14 @@ describe("Provider observations survive Standard handler exits", () => {
     renderDemo();
     await submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("functional-contribution-review");
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(()=>expect(stored().project?.revision).toBe(1));
+    expect(runtime.bridge).toHaveBeenCalledTimes(1);
+    expect(stored().bridgeTraces.flatMap(trace=>trace.providerCallRecords ?? [])).toEqual([extraction]);
+    await submit("Explique la suite sans modifier le projet.");
     await waitFor(() => expect(stored().bridgeTraces.flatMap((trace) => trace.providerCallRecords ?? [])).toContainEqual(how));
-    expect(stored().bridgeTraces.find((trace) => trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION")?.providerCallRecords).toEqual([how]);
+    expect(runtime.bridge).toHaveBeenCalledTimes(2);
+    expect(stored().bridgeTraces.at(-1)?.providerCallRecords).toEqual([how]);
     expect(stored().bridgeTraces.at(-1)).toMatchObject({
       cumulativeSessionCostUsd: Number((extraction.estimatedCostUsd! + how.estimatedCostUsd!).toFixed(10)),
       cumulativeSessionCostIncomplete: false,

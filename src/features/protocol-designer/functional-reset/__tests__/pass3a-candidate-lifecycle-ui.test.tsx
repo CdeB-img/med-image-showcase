@@ -20,7 +20,8 @@ import {
 import { ensureCanonicalProjectState, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
 import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
-import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
+import { FUNCTIONAL_RESET_STORAGE_KEY, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
+import {dispatchScientificThinkingFromQuery} from "../scientific-thinking-standard";
 import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
@@ -370,7 +371,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(retained.contribution.scientificContent.ambiguities.map((item) => item.content)).toContain(
       "Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?",
     );
-    expect(screen.getByText(DEGRADED_REPLY)).toBeInTheDocument();
+    expect(screen.getByText(/J’ai identifié plusieurs éléments dans votre projet/)).toBeInTheDocument();
     const summary = screen.getByTestId("standard-initial-review-summary");
     expect(summary).toHaveTextContent(/post IDM/i);
     expect(summary).toHaveTextContent(/mise en place immédiate d'un stent/i);
@@ -379,9 +380,10 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(summary).toHaveTextContent(/cinétique segmentaire/i);
     expect(summary).toHaveTextContent(/strain/i);
     expect(summary).toHaveTextContent("T1/T2");
-    expect(summary).toHaveTextContent("Critère principalTaille des lésions microvasculaires à 3 min post-injection");
-    expect(summary).toHaveTextContent("Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?");
-    expect(summary.textContent?.match(/Taille des lésions microvasculaires/gu)).toHaveLength(1);
+    const endpointGroup=within(summary).getByRole("heading",{name:"Évaluations / critère principal"}).closest("section")!;
+    expect(endpointGroup).toHaveTextContent("Taille des lésions microvasculaires à 3 min post-injection");
+    expect(screen.getByTestId("human-review-open-points")).toHaveTextContent("Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?");
+    expect(endpointGroup.textContent?.match(/Taille des lésions microvasculaires/gu)).toHaveLength(1);
     const primaryEndpointItem = retained.candidate.humanReviewProjection.sections
       .flatMap((section) => section.items)
       .find((item) => item.scientificRole === "PRIMARY_ENDPOINT");
@@ -392,14 +394,13 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     });
     expect(retained.candidate.humanReviewProjection.sections.find((section) => section.label === "Critère principal")?.items)
       .toContainEqual(expect.objectContaining({ changeRef: primaryEndpointItem?.changeRef }));
-    const details = screen.getByTestId("functional-review-details") as HTMLDetailsElement;
-    expect(details.open).toBe(false);
+    const details = screen.getByTestId("functional-review-details");
     expect(screen.queryByTestId("understanding-review-card")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText("Voir les détails"));
-    expect(details.open).toBe(true);
-    expect(details).toContainElement(await screen.findByTestId("understanding-review-card"));
-    expect(screen.getAllByText("Taille des lésions microvasculaires")).toHaveLength(2);
-    expect(screen.getByRole("button", { name: "Cela correspond à mon projet" })).toBeEnabled();
+    fireEvent.click(await screen.findByText("Sources et provenance"));
+    expect(await screen.findByTestId("understanding-review-card")).toBeVisible();
+    fireEvent.click(screen.getByRole("button",{name:"Close"}));
+    expect(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Décrire une correction" })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Refuser cette proposition" })).toBeEnabled();
     expect(state.project).toBeNull();
@@ -410,7 +411,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expectNonAdopted(state);
     expect(screen.getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
 
-    const confirmation = screen.getByRole("button", { name: "Cela correspond à mon projet" });
+    const confirmation = screen.getByRole("button", { name: "Confirmer les choix et enregistrer" });
     fireEvent.click(confirmation);
     fireEvent.click(confirmation);
     await waitFor(() => expect(stored().project?.revision).toBe(1));
@@ -433,19 +434,22 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ éléments? confirmés? · \d+ points? à préciser/);
     expect(within(projectPanel).getByTestId("project-next-useful-decision")).toHaveTextContent("Prochaine décision utile");
-    expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
-    await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
-    const continuation = stored().entries.find((entry) => entry.kind === "TEXT" && entry.role === "NOXIA"
-      && entry.content.includes("Observe-t-on une différence entre"));
-    expect(continuation).toMatchObject({ kind: "TEXT", role: "NOXIA" });
-    if (continuation?.kind !== "TEXT") throw new Error("SCIENTIFIC_THINKING_STANDARD_CONTINUATION_EXPECTED");
-    expect(continuation.content).toContain("mise en place immédiate d'un stent");
-    expect(continuation.content).toContain("mise en place différée d'un stent");
-    expect(continuation.content).toContain("Taille des lésions microvasculaires à 3 min post-injection");
-    expect(continuation.content).not.toMatch(/Quel phénomène relatif à|indépendamment de la préférence déclarée/i);
-    expect(continuation.content).not.toMatch(/comparaison entre Imagerie par résonance magnétique.*Acquisition IRM/i);
-    expect(continuation.content).not.toMatch(/PENDING_VERIFICATION|PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT|La relation formulée dans/i);
-    expect(continuation.content).toContain("Vous pouvez discuter ou corriger cette formulation avant toute adoption.");
+    expect(screen.queryByRole("button", { name: "Confirmer les choix et enregistrer" })).not.toBeInTheDocument();
+    expect(stored().scientificThinkingInteraction).toBeNull();
+    const confirmed=stored(),at=new Date().toISOString();
+    const thinking=dispatchScientificThinkingFromQuery({project:confirmed.project!,navigation:confirmed.queryNavigation!,
+      ownerResultLedger:confirmed.knowledgeOwnerLedger,traceLedger:confirmed.scientificExecutionTraceLedger,
+      sessionId:confirmed.sessionId,conversationId:confirmed.conversationId,presentationTurnRef:confirmed.runtimeTurns.at(-1)!.turnId,
+      startedAt:at,completedAt:at});
+    expect(thinking.providerCalls).toBe(0);expect(thinking.projectWrites).toBe(0);
+    cleanup();persistFunctionalResetSession(localStorage,{...confirmed,scientificThinkingInteraction:thinking.interaction,
+      knowledgeOwnerLedger:thinking.ownerResultLedger,scientificExecutionTraceLedger:thinking.traceLedger,
+      entries:[...confirmed.entries,{entryId:"explicit-thinking:pass3a",kind:"TEXT",role:"NOXIA",createdAt:at,content:thinking.presentation.plainText}]});renderDemo();
+    const continuation=screen.getByText(/À partir des éléments confirmés du projet, voici une question scientifique de travail/).closest("article")!;
+    expect(continuation).toHaveTextContent("mise en place immédiate d'un stent");
+    expect(continuation).toHaveTextContent("mise en place différée d'un stent");
+    expect(continuation).toHaveTextContent("Taille des lésions microvasculaires à 3 min post-injection");
+    expect(continuation).not.toHaveTextContent(/comparaison entre Imagerie par résonance magnétique.*Acquisition IRM/i);
     expect(runtime.bridge).toHaveBeenCalledTimes(1);
 
     const projectV1 = stored().project!;
@@ -517,19 +521,20 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
       },
     });
     const correctionReview = screen.getAllByTestId("functional-contribution-review").at(-1)!;
-    expect(correctionReview).toHaveTextContent("Correction proposée");
+    expect(correctionReview).toHaveTextContent("À enregistrer");
     expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires à 3 min post-injection → Pourcentage de la masse VG représenté par les lésions microvasculaires");
     expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires → Pourcentage de la masse VG représenté par les lésions microvasculaires");
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent("Rôle conservéCritère principal");
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent(/Temporalité conservée.*3 minutes.*injection/i);
-    expect(correctionReview).toHaveTextContent("Cette modification reste à confirmer ; le projet est inchangé.");
+    expect(correctionRecord.candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(stored().project).toEqual(projectV1);
     const correctionEntries = beforeCorrectionConfirmation.entries.slice(entriesBeforeCorrection);
     expect(correctionEntries.map((entry) => entry.kind)).toEqual(["TEXT", "REVIEW"]);
     expect(correctionEntries.filter((entry) => entry.kind === "TEXT" && entry.role === "NOXIA")).toHaveLength(0);
     expect(correctionEntries.some((entry) => entry.kind === "FOLLOW_UP_ACTIONS")).toBe(false);
     expect(correctionReview).not.toHaveTextContent(/No KnowledgeResult|Scientific Thinking candidates|Hypothèse 1|Hypothèse 2/i);
 
-    const correctionConfirmation = within(correctionReview).getByRole("button", { name: "Cela correspond à mon projet" });
+    const correctionConfirmation = within(correctionReview).getByRole("button", { name: "Confirmer les choix et enregistrer" });
     fireEvent.click(correctionConfirmation);
     fireEvent.click(correctionConfirmation);
     await waitFor(() => expect(stored().project?.revision).toBe(2));

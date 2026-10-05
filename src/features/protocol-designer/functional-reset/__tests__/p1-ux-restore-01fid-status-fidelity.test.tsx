@@ -211,13 +211,12 @@ describe("P1-UX-RESTORE-01FID — generic status fidelity", () => {
 
     render(<ContributionReview contribution={source} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const review = screen.getByTestId("functional-contribution-review");
-    const details = within(review).getByTestId("functional-review-details") as HTMLDetailsElement;
     expect(within(review).queryByTestId("review-audit-detail")).toBeNull();
-    details.open = true; fireEvent(details, new Event("toggle"));
-    await waitFor(() => expect(within(review).getAllByText("Mesure delta reformulée")).toHaveLength(2));
-    const detailedItem = within(review).getAllByText("Mesure delta reformulée");
-    expect(detailedItem.at(-1)?.parentElement).toHaveTextContent("Reformulé");
-    expect(detailedItem.at(-1)?.parentElement).toHaveTextContent("Détails à préciser");
+    fireEvent.click(within(review).getByTestId("functional-review-details"));
+    const audit = await screen.findByTestId("review-audit-detail");
+    expect(audit).toHaveTextContent("Mesure delta reformulée");
+    expect(audit).toHaveTextContent("Reformulé");
+    expect(audit).toHaveTextContent("Détails à préciser");
   });
 
   it("invalidates a persisted pre-fidelity review projection so the current generic projection is rebuilt", () => {

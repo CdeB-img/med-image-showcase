@@ -203,20 +203,18 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(after.documents.projections).toEqual(before.documents.projections);
   });
 
-  it("creates one P1 from an explicit text authorization by reusing the existing handoff", async () => {
+  it("opens the explicit documentary workflow without generating P1 from text alone", async () => {
     const project = projectV1();
     const before = sessionFor(project, inspectedDocuments(project));
     renderDemo();
 
     submit("crée un aperçu du protocole");
 
-    expect(await screen.findByTestId("functional-protocol-preview")).toBeInTheDocument();
-    await waitFor(() => expect(stored().documents.projections).toHaveLength(1));
+    expect(await screen.findByTestId("study-deliverable-workspace")).toBeInTheDocument();
     const after = stored();
-    const p1 = after.documents.projections[0]!;
     expect(runtime.request).not.toHaveBeenCalled();
-    expect(p1.source.projectVersion).toBe(project.versionId);
-    expect(p1.humanDecisions.filter((decision) => decision.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")).toHaveLength(1);
+    expect(after.documents).toEqual(before.documents);
+    expect(after.entries.at(-1)).toMatchObject({content:"Ouvrez Protocole / documents, puis choisissez « Générer les documents » pour la version confirmée du projet."});
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
     expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);
@@ -226,7 +224,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
     expect(after.bridgeTraces).toEqual(before.bridgeTraces);
   });
 
-  it("regenerates stale P1 as P2 while preserving P1 and Project v2", async () => {
+  it("opens the explicit regeneration workflow while preserving stale P1 and Project v2", async () => {
     const firstProject = projectV1();
     const documentsV1 = protocolFor(firstProject);
     const p1 = documentsV1.projections[0]!;
@@ -241,15 +239,12 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
 
     submit("actualise le protocole");
 
-    expect(await screen.findByTestId("functional-protocol-preview")).toBeInTheDocument();
-    await waitFor(() => expect(stored().documents.projections).toHaveLength(2));
+    expect(await screen.findByTestId("study-deliverable-workspace")).toBeInTheDocument();
     const after = stored();
-    const p2 = after.documents.projections[1]!;
     expect(runtime.request).not.toHaveBeenCalled();
     expect(after.documents.projections[0]).toEqual(p1);
-    expect(p2.projectionId).not.toBe(p1.projectionId);
-    expect(p2.priorProjectionId).toBe(p1.projectionId);
-    expect(p2.source.projectVersion).toBe(currentProject.versionId);
+    expect(after.documents.projections).toHaveLength(1);
+    expect(after.documents).toEqual(before.documents);
     expect(after.project).toEqual(before.project);
     expect(after.queryNavigation).toEqual(before.queryNavigation);
     expect(after.runtimeTurns.slice(0, before.runtimeTurns.length)).toEqual(before.runtimeTurns);

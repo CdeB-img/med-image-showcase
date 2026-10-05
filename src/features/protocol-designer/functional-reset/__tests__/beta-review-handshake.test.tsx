@@ -1,32 +1,33 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
-import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../session";
-import { acceptWorkingDraftUpdate, prepareContinuousWorkingDraft, prepareWorkingDraftRequest } from "../continuous-project-build";
+import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, recordConversationConfirmationReceipt, type FunctionalResetSession } from "../session";
+import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest } from "../continuous-project-build";
+import {captureProjectPreparation,addProjectPreparation,consumeProjectPreparation} from "../project-preparation-lifecycle";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
 
 afterEach(() => { cleanup(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 
 describe("beta review handshake", () => {
-  it("persists the latest four-turn review and its bot invitation after a shared explicit option premise", async () => {
+  it("persists the frozen four-turn review after a shared explicit option premise", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
     vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
-    const session = createFunctionalResetSession();
+    let session = createFunctionalResetSession();
     const userTurns = [DOMAINS[0].text,
       "Ce sera en France, avec des adultes répartis par décennies et sans diabète, HTA ou tabagisme actif.",
-      "Il faudra une ordonnance et un passage au laboratoire pour tous les volontaires.",
+      "Dans cette étude ECV chez les volontaires sains, il faudra une ordonnance et un passage au laboratoire pour tous les volontaires.",
       "oui je retiens l'ensemble de tes suggestions"];
     session.runtimeTurns = userTurns.flatMap((content, index) => [
       { turnId: `u${index + 1}`, role: "USER" as const, content, createdAt: session.createdAt },
-      { turnId: `a${index + 1}`, role: "NOXIA" as const, content: `LOCAL_SYNTHETIC — proposition ${index + 1}.`, createdAt: session.createdAt },
+      { turnId: `noxia-turn:00000000-0000-4000-8000-00000000000${index+1}`, role: "NOXIA" as const, content: `LOCAL_SYNTHETIC — proposition ${index + 1}.`, createdAt: session.createdAt },
     ]);
-    const request = { apiVersion: "1.0.0" as const,
-      conversation: { conversationId: session.conversationId, language: "fr" as const, turns: session.runtimeTurns },
-      currentProject: null, evaluatePersistentDelta: false, prepareWorkingDraft: true,
-      workingDraftScientificSource: { kind: "BOUND_USER_TURN" as const, sourceUserTurnId: "u1",
-        sourceResponseTurnId: "a1", sourceDigest: logicalDigest(userTurns[0]) } };
+    const allTurns=session.runtimeTurns;
+    session=recordConversationConfirmationReceipt({...session,runtimeTurns:allTurns.slice(0,-2)},allTurns.at(-2)!,
+      {act:"CONFIRM",qualified:false,separableContinuation:false});
+    session.runtimeTurns=allTurns;
+    const preparation=captureProjectPreparation(session);
+    const request=preparation.checkpoint!.request;
     const packet = prepareWorkingDraftRequest(request);
     const proposal = controlledStudyProposal(packet.inputDigest, DOMAINS[0]);
     for (const option of proposal.arbitrations[0].options) option.atomRefs.push("endpoint");
@@ -34,21 +35,24 @@ describe("beta review handshake", () => {
       explicitDecisions: [{ atomRef: "endpoint", sourceTurnRef: "u4", quote: userTurns[3] }],
       inferredAtomRefs: [], rejectedAtomRefs: [] };
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const workingDraft = prepareContinuousWorkingDraft(session, composition, update, packet.inputDigest);
+    let saved=consumeProjectPreparation(addProjectPreparation(session,preparation),preparation.checkpoint!.preparationId,
+      {workingDraftUpdate:update,workingStudyProposal:composition});
+    const workingDraft=saved.workingDraft!;
     expect(workingDraft.failure).toBeNull();
     expect(workingDraft.sourceUserTurnRef).toBe("u4");
-    let saved: FunctionalResetSession = { ...session, studyProposal: composition, workingDraft };
     const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     const view = mount();
-    await waitFor(() => expect(saved.entries.filter(entry => entry.kind === "TEXT" && entry.reviewInvitation)).toHaveLength(1));
+    expect(screen.getByTestId("project-finalization-card")).toBeVisible();
+    expect(saved.entries.filter(entry=>entry.kind==="TEXT" && entry.reviewInvitation)).toHaveLength(1);
+    expect(saved.workingDraftPreparations?.[0].status).toBe("READY_FOR_REVIEW");
     expect(saved.project).toBeNull();
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
     view.unmount();
     persistFunctionalResetSession(localStorage, saved);
-    saved = loadFunctionalResetSession(localStorage);
+    saved = loadFunctionalResetSession(localStorage,undefined,true);
     mount();
-    expect(screen.getAllByTestId("project-review-invitation")).toHaveLength(1);
+    expect(screen.getAllByTestId("project-finalization-card")).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(saved.drciDraftPacks ?? []).toHaveLength(0);
@@ -59,12 +63,10 @@ describe("beta review handshake", () => {
     const session = createFunctionalResetSession();
     session.runtimeTurns = [
       { turnId: "u1", role: "USER", content: DOMAINS[0].text, createdAt: session.createdAt },
-      { turnId: "a1", role: "NOXIA", content: "LOCAL_SYNTHETIC — proposition de travail.", createdAt: session.createdAt },
+      { turnId: "noxia-turn:00000000-0000-4000-8000-000000000001", role: "NOXIA", content: "LOCAL_SYNTHETIC — proposition de travail.", createdAt: session.createdAt },
     ];
-    const request = { apiVersion: "1.0.0" as const, conversation: { conversationId: session.conversationId, language: "fr" as const, turns: session.runtimeTurns }, currentProject: null,
-      evaluatePersistentDelta: false, prepareWorkingDraft: true,
-      workingDraftScientificSource: { kind: "BOUND_USER_TURN" as const, sourceUserTurnId: "u1",
-        sourceResponseTurnId: "a1", sourceDigest: logicalDigest(DOMAINS[0].text) } };
+    const preparation=captureProjectPreparation(session);
+    const request=preparation.checkpoint!.request;
     const proposal = controlledStudyProposal(prepareWorkingDraftRequest(request).inputDigest, DOMAINS[0]);
     proposal.atoms.find(atom => atom.ref === "eligibility")!.content = "Vérifier avant l’examen l’absence de contre-indication à l’IRM selon les règles de sécurité applicables; la procédure exacte reste à définir.";
     for (const atom of proposal.atoms.slice(-15)) atom.status = "OPEN_DECISION";
@@ -76,17 +78,17 @@ describe("beta review handshake", () => {
     }
     const update = { requestType: "STUDY_UPDATE" as const, proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] };
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
-    const workingDraft = prepareContinuousWorkingDraft(session, composition, update, prepareWorkingDraftRequest(request).inputDigest);
+    let saved:FunctionalResetSession=consumeProjectPreparation(addProjectPreparation(session,preparation),preparation.checkpoint!.preparationId,
+      {workingDraftUpdate:update,workingStudyProposal:composition});
+    const workingDraft=saved.workingDraft!;
     expect(workingDraft.readyReview).toBeTruthy();
-    let saved: FunctionalResetSession = { ...session, studyProposal: composition, workingDraft };
     const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => { saved = next; return true; }} /></HelmetProvider>);
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("24 décisions prêtes à confirmer");
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("15 points restent à définir");
-    await waitFor(() => expect(saved.entries.filter(entry => entry.kind === "TEXT" && entry.reviewInvitation)).toHaveLength(1));
+    expect(saved.workingDraftPreparations?.[0].status).toBe("READY_FOR_REVIEW");
     expect(saved.project).toBeNull();
-    const invitation = saved.entries.find(entry => entry.kind === "TEXT" && entry.reviewInvitation);
-    expect(invitation?.kind).toBe("TEXT");
-    if (invitation?.kind === "TEXT") expect(invitation.reviewInvitation?.candidateRef)
+    const invitation=saved.entries.find(entry=>entry.kind==="TEXT" && entry.reviewInvitation);
+    expect(invitation?.kind==="TEXT" ? invitation.reviewInvitation?.candidateRef : null)
       .toBe(workingDraft.readyReview?.contribution.identity.contributionId);
     const button = screen.getByRole("button", { name: "Valider ces choix" });
     fireEvent.click(button);

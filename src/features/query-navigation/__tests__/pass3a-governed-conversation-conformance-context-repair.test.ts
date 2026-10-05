@@ -219,11 +219,12 @@ describe("PASS3A CC03 — bounded referent context", () => {
     })).toMatchObject({ kind: "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
     expect(selectBoundedConversationInteraction({
       sourceText: "c'est bon mais remplace J3 par J5", correctionMode: false, referentContext: context,
-    })).toBeUndefined();
+    })).toMatchObject({ kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
     expect(selectBoundedConversationInteraction({
       sourceText: "c'est bon", correctionMode: false,
       referentContext: { ...context, resolution: "AMBIGUOUS", candidateRef: null, sourceTurnRef: null, content: [] },
-    })).toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+    })).toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [], clarificationReason: "DECISION_SCOPE",
+      clarificationText: "Quelle proposition souhaitez-vous confirmer ou refuser ?" });
   });
 
   it("10c. composes current-candidate decisions without authorizing quoted, conditional or mixed acts", () => {

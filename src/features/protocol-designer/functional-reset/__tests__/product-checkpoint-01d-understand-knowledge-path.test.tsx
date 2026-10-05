@@ -22,7 +22,9 @@ import {
 import {
   makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
+  makeNativeConversationBridgeResponse,
 } from "./functional-reset-fixtures";
+import ProductUnderstandResponse from "../ProductUnderstandResponse";
 
 const CASE_A = "Je voudrais comprendre la différence entre le no-reflow et l’obstruction microvasculaire après angioplastie avec pose de stent dans un STEMI, et comment on peut les étudier en IRM cardiaque.";
 const CASE_B = "Je voudrais comprendre dans quelles situations l’ECV mesuré en IRM cardiaque et l’ECV mesuré en CT cardiaque sont réellement comparables pour étudier une fibrose myocardique diffuse. Je ne souhaite pas créer d’étude ni de protocole.";
@@ -43,7 +45,7 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 
-const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+const stored = () => loadFunctionalResetSession(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
 
 const seededSession = (input: { project: boolean; query: boolean }) => {
   const session = createFunctionalResetSession("2026-08-27T08:00:00.000Z");
@@ -81,8 +83,8 @@ const persistScenario = (input: { project: boolean; query: boolean }) => {
 };
 
 const waitForKnowledge = async () => {
-  await screen.findByTestId("product-understand-knowledge-response");
-  await waitFor(() => expect(stored().bridgeTraces.at(-1)?.provider).toBe("KNOWLEDGE"));
+  await screen.findByText("Discussion native contrôlée ; aucune décision ni modification du projet.");
+  await waitFor(() => expect(stored().bridgeTraces.at(-1)?.provider).toBe("GOOGLE_GEMINI"));
   return stored();
 };
 
@@ -90,20 +92,20 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockRejectedValue(new Error("GENERIC_PRODUCT_BRIDGE_MUST_NOT_HANDLE_UNDERSTAND"));
+    runtime.request.mockImplementation(async request => makeNativeConversationBridgeResponse(request));
   });
   afterEach(cleanup);
 
-  it.each([["A", CASE_A], ["B", CASE_B]])("01/02 routes fresh Case %s through UNDERSTAND and local Knowledge only", async (_label, raw) => {
+  it.each([["A", CASE_A], ["B", CASE_B]])("01/02 routes fresh Case %s through native discussion without Project writes", async (_label, raw) => {
     renderDemo();
     submit(raw);
     const session = await waitForKnowledge();
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     expect(session.project).toBeNull();
     expect(session.documents.projections).toEqual([]);
     expect(session.bridgeTraces.at(-1)).toMatchObject({
-      provider: "KNOWLEDGE",
-      calls: 0,
+      provider: "GOOGLE_GEMINI",
+      calls: 1,
       projectWriteCount: 0,
       protocolProjectionCount: 0,
       persistentExtractionCalled: false,
@@ -120,8 +122,8 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     const after = await waitForKnowledge();
     expect(JSON.stringify(after.project)).toBe(projectBefore);
     expect(after.queryNavigation).toBeNull();
-    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "KNOWLEDGE", projectWriteCount: 0 });
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "GOOGLE_GEMINI", projectWriteCount: 0 });
+    expect(runtime.request).toHaveBeenCalledTimes(1);
   });
 
   it("04 routes existing Project + pending QRY + Case A through Knowledge without capturing QRY", async () => {
@@ -135,23 +137,24 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     const after = await waitForKnowledge();
     expect(JSON.stringify(after.project)).toBe(projectBefore);
     expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
-    expect(after.entries.filter((entry: { content?: string }) => entry.content === qryPrompt)).toHaveLength(0);
-    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "KNOWLEDGE", qryNeedBefore: before.queryNavigation.currentAction.navigationNeedRefs[0], qryNeedAfter: before.queryNavigation.currentAction.navigationNeedRefs[0] });
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(after.entries.filter(entry => entry.kind === "TEXT" && entry.content === qryPrompt)).toHaveLength(0);
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "GOOGLE_GEMINI", qryNeedBefore: before.queryNavigation!.currentAction!.navigationNeedRefs[0], qryNeedAfter: before.queryNavigation!.currentAction!.navigationNeedRefs[0] });
+    expect(runtime.request).toHaveBeenCalledTimes(1);
   });
 
   it("renders the scoped Knowledge limitation rather than unrelated corpus clarification prompts", async () => {
     persistScenario({ project: true, query: true });
-    renderDemo();
     const before = stored();
-    submit("Pourquoi ce compromis d’aveugle serait-il préférable dans notre étude ?");
-    const after = await waitForKnowledge();
+    const raw = "Pourquoi ce compromis d’aveugle serait-il préférable dans notre étude ?";
+    const decision = routeProductEntry({ raw, sourceTurnRef: "fixture:blind", routedAt: before.updatedAt });
+    const knowledge = executeProductUnderstandInteraction({ raw, decision, createdAt: before.updatedAt, currentProject: before.project });
+    render(<ProductUnderstandResponse presentation={knowledge.presentation!} />);
     const response = await screen.findByTestId("product-understand-knowledge-response");
     expect(within(response).getByText(/procédures concrètes et leur faisabilité/)).toBeVisible();
     expect(within(response).getByText(/Le cadre effectivement retenu/)).toBeVisible();
     expect(within(response).queryByText("Quel phénomène scientifique voulez-vous principalement expliquer ou mesurer ?")).toBeNull();
     expect(within(response).getByText(/^Sources \(/)).toBeInTheDocument();
-    expect(JSON.stringify(after.project)).toBe(JSON.stringify(before.project));
+    expect(stored().project).toEqual(before.project);
     expect(runtime.request).not.toHaveBeenCalled();
   });
 
@@ -164,25 +167,25 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     const after = await waitForKnowledge();
     expect(after.project).toBeNull();
     expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
-    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "KNOWLEDGE", projectWriteCount: 0, protocolProjectionCount: 0 });
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "GOOGLE_GEMINI", projectWriteCount: 0, protocolProjectionCount: 0 });
+    expect(runtime.request).toHaveBeenCalledTimes(1);
   });
 
-  it("06–11 keeps UNDERSTAND read-only and excludes the generic LLM bridge", async () => {
+  it("06–11 keeps native UNDERSTAND read-only, without extractor or Project changes", async () => {
     persistScenario({ project: true, query: true });
     renderDemo();
     const before = stored();
     submit(CASE_B);
     const after = await waitForKnowledge();
-    expect(runtime.request).not.toHaveBeenCalled();
+    expect(runtime.request).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(after.project)).toBe(JSON.stringify(before.project));
     expect(JSON.stringify(after.queryNavigation)).toBe(JSON.stringify(before.queryNavigation));
     expect(after.documents).toEqual(before.documents);
     expect(after.pendingContribution).toEqual(before.pendingContribution);
     expect(after.bridgeTraces.at(-1)).toMatchObject({
-      provider: "KNOWLEDGE",
-      model: "KE-001@1.2.1",
-      calls: 0,
+      provider: "GOOGLE_GEMINI",
+      model: "gemini-3.5-flash-lite",
+      calls: 1,
       persistentExtractionCalled: false,
       projectWriteCount: 0,
       protocolProjectionCount: 0,
@@ -207,8 +210,9 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
   });
 
   it("renders scientific evidence through progressive disclosure instead of dropping it", async () => {
-    renderDemo();
-    submit(CASE_B);
+    const decision = routeProductEntry({ raw: CASE_B, sourceTurnRef: "fixture:evidence", routedAt: "2026-08-27T08:10:00.000Z" });
+    const knowledge = executeProductUnderstandInteraction({ raw: CASE_B, decision, createdAt: "2026-08-27T08:10:00.000Z" });
+    render(<ProductUnderstandResponse presentation={knowledge.presentation!} />);
     const response = await screen.findByTestId("product-understand-knowledge-response");
     expect(within(response).getByText(/^Sources \([1-9]\d*\)$/)).toBeInTheDocument();
     expect(within(response).getByText("Applicabilité")).toBeInTheDocument();
@@ -267,7 +271,8 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
   it("23–25 returns explicitly to DESIGN_STUDY with context while keeping Project and QRY unchanged", async () => {
     persistScenario({ project: true, query: true });
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request, null));
+    runtime.request.mockImplementation(async (request) => request.evaluatePersistentDelta
+      ? makeFunctionalResetBridgeResponseForRequest(request, null) : makeNativeConversationBridgeResponse(request));
     renderDemo();
     submit(CASE_A);
     const afterUnderstand = await waitForKnowledge();

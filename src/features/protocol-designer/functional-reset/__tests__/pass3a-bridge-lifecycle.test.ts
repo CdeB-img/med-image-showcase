@@ -151,8 +151,9 @@ describe("canary A1-A4 — single attempt, existing scientific path", () => {
       receivedAt: normal.persistentExtraction.providerArtifact!.receivedAt,
     } }).toEqual(normal.persistentExtraction);
     expect(canary.persistentExtraction.validation?.valid).toBe(true);
-    expect(canaryMocks.fetchMock).toHaveBeenCalledTimes(1);
-    expect(normalMocks.fetchMock).toHaveBeenCalledTimes(1);
+    expect(canaryMocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION","GEMINI_HOW"]);
+    expect(normalMocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION","GEMINI_HOW"]);
+    expect(canary.observability).toMatchObject({extractionAttempts:1,conversationCalls:1,calls:2,projectWrites:0});
   });
   it.each(["SCHEMA", "CONTRACT"] as const)("A2/A3: %s rejection cannot buy re-extraction or downstream HOW", async (kind) => {
     const request = initial();
@@ -173,8 +174,8 @@ describe("canary A1-A4 — single attempt, existing scientific path", () => {
     expect(result.persistentExtraction.validation?.valid).toBe(true);
     expect(result.persistentExtraction.candidate?.changes).toHaveLength(1);
     expect(result.persistentExtraction.recovery).toBeNull();
-    expect(mocks.fetchMock).toHaveBeenCalledTimes(1);
-    expect(result.observability.projectWrites).toBe(0);
+    expect(mocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION","GEMINI_HOW"]);
+    expect(result.observability).toMatchObject({extractionAttempts:1,conversationCalls:1,calls:2,projectWrites:0});
   });
 });
 
@@ -206,7 +207,7 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
     expect(request.currentProject).toBeNull();
   });
 
-  it("returns a validated initial candidate at extraction completion without waiting for nonessential HOW", async () => {
+  it("returns a validated initial candidate with one native conversation, without another extraction", async () => {
     const request = requestFor();
     request.preProjectNavigation = buildPreProjectNavigationDecision({
       routing: routeProductEntry({
@@ -218,23 +219,19 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
     const mocks = isolatedProviderMocks({ extractionOutputs: [visitArgs(request)] });
     const result = await execute(request, mocks);
 
-    expect(mocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION"]);
+    expect(mocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION","GEMINI_HOW"]);
     expect(result.status).toBe(200);
     expect(result.body).toMatchObject({
       assistantReply: expect.stringMatching(/.+/u),
       conversationFailure: null,
-      governedRealization: {
-        executor: "LOCAL_DETERMINISTIC_REALIZATION",
-        providerReplyAccepted: false,
-        fallbackUsed: true,
-      },
-      stageTimestamps: { extractionCompletedAt: CREATED_AT, howRequestedAt: null, howCompletedAt: CREATED_AT },
+      scientificConversation:{owner:"SCIENTIFIC_THINKING",outcome:"NATIVE_TEXT",projectWrites:0,projectWriteAuthorized:false},
+      stageTimestamps: { extractionCompletedAt: CREATED_AT, howRequestedAt: CREATED_AT, howCompletedAt: CREATED_AT },
       persistentExtraction: { status: "CANDIDATE", validation: { valid: true }, contribution: expect.any(Object) },
       observability: {
         extractionAttempts: 1,
-        conversationCalls: 0,
-        conversationResponseReceived: false,
-        calls: 1,
+        conversationCalls: 1,
+        conversationResponseReceived: true,
+        calls: 2,
         projectWrites: 0,
       },
     });
@@ -249,8 +246,9 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
 
     expect(result.status).toBe(200); // Partial transaction receipt, not successful visible realization.
     expect(response).toMatchObject({
-      assistantReply: "",
-      conversationFailure: { stage: "HOW", code: "CONVERSATION_PROVIDER_FAILURE" },
+      assistantReply: expect.stringMatching(/.+/u),
+      conversationFailure:null,
+      scientificConversation:{responseOwner:"DETERMINISTIC",outcome:"DETERMINISTIC_FALLBACK",fallbackReason:"UNAVAILABLE",projectWrites:0},
       persistentExtraction: { status: "CANDIDATE", validation: { valid: true }, contribution: expect.any(Object) },
       observability: { extractionAttempts: 1, calls: 2, projectWrites: 0 },
     });
@@ -308,7 +306,8 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
     const result = await execute(request, mocks);
 
     expect(result.body).toMatchObject({
-      conversationFailure: { stage: "HOW" },
+      conversationFailure:null,
+      scientificConversation:{responseOwner:"DETERMINISTIC",outcome:"DETERMINISTIC_FALLBACK",fallbackReason:"UNAVAILABLE",projectWrites:0},
       persistentExtraction: { status: "CANDIDATE", validation: { valid: true }, contribution: expect.any(Object), recovery: { outcome: "CANDIDATE" } },
       observability: { extractionAttempts: 2, calls: 3, projectWrites: 0 },
     });
@@ -332,9 +331,9 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
     const mocks = isolatedProviderMocks({ extractionHttpStatus: 503, howHttpStatus: 503 });
     const result = await execute(request, mocks);
 
-    expect(result.status).toBe(503);
-    expect(result.body).toMatchObject({ error: { stage: "HOW", code: "CONVERSATION_PROVIDER_FAILURE" } });
-    expect(result.body).not.toHaveProperty("persistentExtraction.contribution");
+    expect(result.status).toBe(200);
+    expect(result.body).toMatchObject({scientificConversation:{responseOwner:"DETERMINISTIC",outcome:"DETERMINISTIC_FALLBACK",fallbackReason:"UNAVAILABLE"},
+      persistentExtraction:{status:"TECHNICAL_FAILURE",candidate:null,contribution:null},observability:{projectWrites:0,extractionAttempts:1,conversationCalls:1,calls:2}});
     expect(mocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION", "GEMINI_HOW"]);
   });
 });

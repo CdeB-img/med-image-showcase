@@ -12,13 +12,16 @@ import {
 import {
   makeFunctionalResetBridgeResponse,
   makeGovernedPostAdoptionResponse,
+  makeNativeConversationBridgeResponse,
 } from "./functional-reset-fixtures";
-import { confirmResearchProjectContribution, ensureCanonicalProjectState } from "@/features/research-project-construction";
+import { confirmResearchProjectContribution, ensureCanonicalProjectState, authorizeResearchProjectDocumentHandoff } from "@/features/research-project-construction";
+import {dispatchStudyDesignFromQuery, resolveStudyDesignConversation} from "../study-design-standard";
 import {
   FUNCTIONAL_RESET_STORAGE_KEY,
+  persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "../session";
-import { buildStudyDeliverablePortfolio, buildStudyPackageZipBytes } from "@/features/document-projection";
+import { buildStudyDeliverablePortfolio, buildStudyPackageZipBytes, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
@@ -132,6 +135,7 @@ const fixtureResponse = (request: ProductBridgeRequest): ProductBridgeResponse =
   );
   return {
     ...response,
+    scientificConversation:makeNativeConversationBridgeResponse(request,response.assistantReply).scientificConversation,
     observability: {
       ...response.observability,
       model: "LOCAL_V1_FIBROSIS_VALIDATION_FIXTURE",
@@ -191,17 +195,31 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
 
     submit(INITIAL);
     const firstReview = await screen.findByTestId("functional-contribution-review");
-    expect(screen.getByText(/Je vous propose de les organiser dans une première compréhension structurée/)).toBeInTheDocument();
+    expect(screen.getByText(/J’ai compris que vous souhaitez valider dans plusieurs centres/)).toBeInTheDocument();
     expect(firstReview).toHaveTextContent(OBJECTIVE);
     expect(firstReview).toHaveTextContent(AUTOMATED_MEASUREMENT);
     expect(firstReview).toHaveTextContent(EXPERT_REFERENCE);
     expect(firstReview).toHaveTextContent(IMAGING);
     expect(stored().project).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet créé.");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await screen.findByText("Choix enregistrés dans le projet.");
     await waitFor(() => expect(stored().project?.revision).toBe(1));
     const projectV1 = structuredClone(stored().project!);
+    expect(runtime.bridge).toHaveBeenCalledTimes(1);
+    expect(stored().studyDesignInteraction).toBeNull();
+    // Explicit native owner invocation, not automatic post-adoption execution.
+    const initialSession=stored(),at=new Date().toISOString();
+    const presentationTurnRef="noxia-turn:192e4c91-abd0-40be-a892-b5d4764246af";
+    const designResult=dispatchStudyDesignFromQuery({project:projectV1,navigation:initialSession.queryNavigation!,
+      ownerResultLedger:initialSession.knowledgeOwnerLedger,traceLedger:initialSession.scientificExecutionTraceLedger,
+      sessionId:initialSession.sessionId,conversationId:initialSession.conversationId,presentationTurnRef,
+      startedAt:at,completedAt:at});
+    expect(designResult.providerCalls).toBe(0);expect(designResult.projectWrites).toBe(0);
+    cleanup();persistFunctionalResetSession(localStorage,{...initialSession,studyDesignInteraction:designResult.interaction,
+      queryNavigation:designResult.navigation,knowledgeOwnerLedger:designResult.ownerResultLedger,scientificExecutionTraceLedger:designResult.traceLedger,
+      runtimeTurns:[...initialSession.runtimeTurns,{turnId:presentationTurnRef,role:"NOXIA",content:designResult.presentation.plainText,createdAt:at}],
+      entries:[...initialSession.entries,{entryId:"explicit-study-design:vertical",kind:"STUDY_DESIGN_PROPOSAL",role:"NOXIA",createdAt:at,presentation:designResult.presentation}]});renderDemo();
 
     const studyDesign = await screen.findByTestId("standard-study-design-proposal");
     expect(within(studyDesign).getByText(/Validation méthodologique comparative/)).toBeInTheDocument();
@@ -211,17 +229,20 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
       && entry.request.capabilityId === "STUDY_DESIGN_COHERENCE")).toBe(true);
     expect(stored().project).toEqual(projectV1);
 
-    submit("Je rejette toutes ces options.");
-    await screen.findByText(/Aucune option n’est retenue et le projet reste inchangé/);
-    expect(stored().studyDesignInteraction).toMatchObject({ status: "REJECTED" });
+    // CURRENT_SEMANTIC_INVARIANT: explicit refusal never adopts a design.
+    // SUPERSEDED_CONTRACT: free-text bounded decisions now precede the local
+    // owner router (current-navigation-evidence / Workspace); owner semantics
+    // are tested directly, without simulating an automatic owner transition.
+    const rejection=resolveStudyDesignConversation({raw:"Je rejette toutes ces options.",proposal:designResult.proposal});
+    expect(rejection).toMatchObject({kind:"REJECT_ALL",response:expect.stringMatching(/Aucune option n’est retenue et le projet reste inchangé/)});
     expect(stored().project).toEqual(projectV1);
 
     submit(CORRECTION);
     await waitFor(() => expect(runtime.bridge).toHaveBeenCalledTimes(2));
     await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(2));
     expect(stored().project).toEqual(projectV1);
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
-    await screen.findByText("Projet mis à jour.");
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
+    await waitFor(()=>expect(screen.getAllByText("Choix enregistrés dans le projet.")).toHaveLength(2));
     await waitFor(() => expect(stored().project?.revision).toBe(2));
 
     const projectV2 = stored().project!;
@@ -240,13 +261,20 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     expect(currentObjects).toContainEqual(expect.objectContaining({ objectType: "ENDPOINT", content: PRIMARY_ENDPOINT, epistemicState: "KNOWN" }));
 
     submit("Affiche-moi un premier protocole de travail.");
+    await screen.findByTestId("study-deliverable-workspace");
+    const confirmed=stored(),requestedAt=new Date().toISOString();
+    const generated=refreshFunctionalResetDocumentPortfolio({project:projectV2,previous:confirmed.documents,requestedAt,generateProtocol:true,
+      handoffDecision:authorizeResearchProjectDocumentHandoff({project:projectV2,authority:{actorRef:"test:explicit-doc-owner",mandateRef:"PROJECT_OWNER",
+        authoritySource:"ACTIVE_RESEARCH_WORKSPACE_SESSION",verification:"DEMO_SESSION_NOT_AUTHENTICATED"},confirmedAt:requestedAt})});
+    cleanup();persistFunctionalResetSession(localStorage,{...confirmed,documents:generated});renderDemo();
+    submit("affiche le protocole");
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
     expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
     expect(preview.textContent).toContain(OBJECTIVE);
     expect(preview.textContent).toContain(DESIGN);
     expect(preview.textContent).toContain(PRIMARY_ENDPOINT);
-    fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));
+    fireEvent.click(within(preview).getByRole("button", { name: "Télécharger cette version historique (.html)" }));
     await waitFor(() => expect(stored().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).toContain("ARTIFACT_GENERATED"));
     expect(URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
 
@@ -319,7 +347,11 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     expect(URL.createObjectURL).toHaveBeenLastCalledWith(expect.any(Blob));
 
     expect(runtime.language).not.toHaveBeenCalled();
-    expect(globalThis.fetch).not.toHaveBeenCalled();
+    expect(globalThis.fetch).toHaveBeenCalledTimes(2);
+    for(const [url,init] of vi.mocked(globalThis.fetch).mock.calls){
+      expect(url).toBe("/api/protocol-designer-bridge");
+      expect(JSON.parse(String(init?.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
+    }
     expect(document.body.textContent).not.toMatch(/ownerResultRef|traceRunId|STUDY_DESIGN_COHERENCE|QUERY_NAVIGATION/);
   });
 });
