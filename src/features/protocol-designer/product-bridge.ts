@@ -1022,6 +1022,8 @@ export type ProductBridgeResponse = {
     code: string;
     message: string;
     provider: Readonly<{ provider?: string; httpStatus: number | null; responseId: string | null }> | null;
+    /** Bounded passive attribution from the existing retention owner. */
+    retentionDiagnostic?: import("./functional-reset/contribution-discussion-retention.js").ScientificDiscussionRetentionDiagnostic;
   } | null;
   persistentExtraction: {
     called: boolean;

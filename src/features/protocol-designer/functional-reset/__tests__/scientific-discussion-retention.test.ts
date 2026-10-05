@@ -6,6 +6,7 @@ import { buildScientificDiscussionContext } from "../contribution-discussion-con
 import { retainValidatedContributionCandidate, markContributionCandidatePresented, recordContributionCandidateHumanDecision } from "../contribution-lifecycle";
 import { emptyScientificDiscussionRetention, retainScientificDiscussionResult, activeScientificDiscussionRetention,
   validateScientificDiscussionRetention, terraScientificResultJsonSchema, terraScientificResultSchema,
+  scientificDiscussionRetentionFailureDiagnostic,
   type TerraScientificResult, type ScientificDiscussionRetention } from "../contribution-discussion-retention";
 import { behaviorTurn, behaviorContribution, behaviorItem, adoptBehaviorContribution } from "./p1-behavior-01a-contract-fixtures";
 import type { ProductBridgeRequest } from "../../product-bridge";
@@ -19,6 +20,86 @@ const result = (elements: TerraScientificResult["userContribution"]["elements"] 
   reply: "Réponse conversationnelle de test.",
   userContribution: elements.length ? { coverage: "COMPLETE", nonPersistentReason: null, elements } : noMeaning(),
   assistantContribution: noMeaning(), dispositions: [], candidateBindings: [],
+});
+
+// CURRENT_STRUCTURAL_INVARIANT: first rejected branch and diagnostic privacy.
+// Scientific content is retained in the source fixture, never in diagnostics.
+describe("bounded passive Scientific Discussion retention diagnostics", () => {
+  const privateText = "IRM cardiaque : exclusion proposée de l’HTA ; PRIVATE_SOURCE_CANARY";
+  const secret = "sk-SYNTHETIC_SECRET_CANARY";
+  const inputFor = (value: unknown) => {
+    const userTurn = behaviorTurn("private-user", privateText);
+    const assistantTurn = { turnId: "private-assistant", role: "NOXIA" as const, content: privateText, createdAt: at };
+    return { conversationId, runtimeTurns: [userTurn, assistantTurn], userTurn, assistantTurn, result: value, retained: [] };
+  };
+  const scientificReceipt = () => ({ ...result([element("eligibility", privateText)]), reply: privateText });
+  const failure = (input: Parameters<typeof retainScientificDiscussionResult>[0]) => {
+    try { retainScientificDiscussionResult(input); throw new Error("EXPECTED_REJECTION"); }
+    catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect((error as Error).message).toBe("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
+      const diagnostic = scientificDiscussionRetentionFailureDiagnostic(error);
+      expect(diagnostic).not.toBeNull();
+      const encoded = JSON.stringify(diagnostic);
+      expect(encoded.length).toBeLessThan(1024);
+      expect(encoded).not.toContain(privateText);
+      expect(encoded).not.toContain(secret);
+      expect(encoded).not.toContain("PRIVATE_SOURCE_CANARY");
+      expect(Object.keys(diagnostic!).sort()).toEqual(["contract", "failedField", "failedInvariant", "failedValueClass",
+        "firstFailedBranch", "firstFailedValidator"].sort());
+      return diagnostic!;
+    }
+  };
+  it("attributes separate coverage, identity, closure and disposition failures without source values", () => {
+    const badIds = scientificReceipt(); badIds.userContribution.elements.push(element("eligibility", secret));
+    const badReason = scientificReceipt(); badReason.userContribution.nonPersistentReason = "PRESENTATION_ONLY";
+    const empty = result(); empty.reply = privateText; empty.userContribution.nonPersistentReason = null;
+    const badLink = scientificReceipt(); badLink.userContribution.elements[0].linkedIds = [secret];
+    const badDisposition = scientificReceipt(); badDisposition.dispositions = [{ elementRef: secret, status: "CLOSED",
+      replacementId: null, explicitUserDirection: true }];
+    const badCandidate = scientificReceipt(); badCandidate.candidateBindings = [{ elementRef: secret, candidateRef: secret, changeRef: secret }];
+    const diagnostics = [badIds, badReason, empty, badLink, badDisposition, badCandidate].map(value => failure(inputFor(value)));
+    expect(diagnostics.map(d => d.firstFailedBranch)).toEqual(["CONTRIBUTION_ELEMENT_IDS", "CONTRIBUTION_REASON_WITH_MEANING",
+      "CONTRIBUTION_COMPLETE_EMPTY", "CONTRIBUTION_LINK_CLOSURE", "DISPOSITION_TARGET", "CANDIDATE_TARGET"]);
+    expect(new Set(diagnostics.map(d => d.failedInvariant)).size).toBe(6);
+    expect(diagnostics[3]).toMatchObject({ failedField: "result.userContribution.elements[].linkedIds",
+      failedValueClass: "UNRESOLVED_REFERENCE", firstFailedValidator: "retainScientificDiscussionResult" });
+  });
+  it("distinguishes assistant closure from user closure and preserves first-failure ordering", () => {
+    const value = scientificReceipt(); value.assistantContribution = { coverage: "COMPLETE", nonPersistentReason: null,
+      elements: [{ ...element("proposal", privateText), linkedIds: [secret] }] };
+    expect(failure(inputFor(value)).failedField).toBe("result.assistantContribution.elements[].linkedIds");
+    value.userContribution.nonPersistentReason = "NO_SCIENTIFIC_MEANING";
+    expect(failure(inputFor(value)).firstFailedBranch).toBe("CONTRIBUTION_REASON_WITH_MEANING");
+  });
+  it("does not expose arbitrary invalid schema values, unknown keys, or Zod messages", () => {
+    const value = scientificReceipt();
+    const diagnostic = failure(inputFor({ ...value, userContribution: { ...value.userContribution,
+      coverage: secret }, [privateText]: secret }));
+    expect(diagnostic).toMatchObject({ firstFailedBranch: "RESULT_SCHEMA", failedField: "result.userContribution.coverage",
+      firstFailedValidator: "terraScientificResultSchema", failedValueClass: "INVALID_SCHEMA" });
+    expect(failure(inputFor({ ...value, [privateText]: secret })).failedField).toBe("result");
+    expect(scientificDiscussionRetentionFailureDiagnostic(new Error(secret))).toBeNull();
+  });
+  it("attributes invalid previous state to its existing validator, not the provider receipt", () => {
+    const value = scientificReceipt(), input = inputFor(value);
+    const state = retainScientificDiscussionResult(input);
+    const next = inputFor(value);
+    expect(failure({ ...next, state: { ...state, sourceCoverage: state.sourceCoverage.map(s => ({ ...s, sourceDigest: secret })) } }))
+      .toMatchObject({ failedField: "state.sourceCoverage[].sourceDigest", firstFailedBranch: "STATE_SOURCE_DIGEST",
+        failedValueClass: "DIGEST_MISMATCH", firstFailedValidator: "validateScientificDiscussionRetention" });
+    expect(validateScientificDiscussionRetention(state, conversationId, input.runtimeTurns)).toBe(true);
+  });
+  it("preserves valid receipt acceptance, unresolved meaning and source binding exactly", () => {
+    const value = scientificReceipt(), input = inputFor(value);
+    const before = JSON.stringify(input);
+    const state = retainScientificDiscussionResult(input);
+    expect(state.elements).toHaveLength(1);
+    expect(state.elements[0]).toMatchObject({ content: privateText, status: "PROPOSED_NOT_ADOPTED", candidateBinding: null });
+    expect(state.elements[0].sourceDigest).toBe(logicalDigest(input.userTurn.content));
+    expect(JSON.stringify(input)).toBe(before);
+    expect(validateScientificDiscussionRetention(state, conversationId, input.runtimeTurns)).toBe(true);
+  });
 });
 type Turn = ProductBridgeRequest["conversation"]["turns"][number];
 const pair = (index: number, value: TerraScientificResult) => [behaviorTurn(`user-${index}`, `Source privée synthétique ${index}, ne pas recopier le transcript.`),

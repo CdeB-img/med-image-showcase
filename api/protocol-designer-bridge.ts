@@ -13,7 +13,7 @@ import { prepareScientificCollaboratorConversation, guardScientificCollaboratorL
 import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { STUDY_PROPOSAL_CAPACITY } from "../src/features/scientific-thinking/study-proposal-capacity.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
-import { terraScientificResultSchema, retainScientificDiscussionResult } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
+import { terraScientificResultSchema, retainScientificDiscussionResult, scientificDiscussionRetentionFailureDiagnostic } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -408,12 +408,14 @@ export const executeProtocolDesignerBridge = async (input: {
       }
     } catch (error) {
       terraConversation = null;
+      const retentionDiagnostic = scientificDiscussionRetentionFailureDiagnostic(error);
       terraFailure = { stage: "HOW", code: error instanceof ProductBridgeProviderError
         ? error.providerStatus ?? "CONVERSATION_PROVIDER_FAILURE" : error instanceof Error ? error.message : "CONVERSATION_PROVIDER_FAILURE",
         message: error instanceof Error && error.message === "CONVERSATION_MEMORY_LIMIT"
           ? "Cette conversation dépasse la mémoire disponible. Son historique et le projet sont conservés."
           : "La réponse conversationnelle n’a pas abouti. Votre message et le projet sont conservés.",
-        provider: error instanceof ProductBridgeProviderError ? safeProviderError(error) : null };
+        provider: error instanceof ProductBridgeProviderError ? safeProviderError(error) : null,
+        ...(retentionDiagnostic ? { retentionDiagnostic } : {}) };
     }
   }
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {

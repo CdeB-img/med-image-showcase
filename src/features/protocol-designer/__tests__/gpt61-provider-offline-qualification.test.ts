@@ -82,6 +82,31 @@ describe("GPT-6.1 candidate contracts, offline only", () => {
     expect(provider).toHaveBeenCalledOnce();
   });
 
+  // CURRENT_STRUCTURAL_INVARIANT: existing bridge error receipt carries only
+  // bounded first-failure metadata; invalid semantics are not corrected locally.
+  it("transports retention attribution without leaking source prose or redispatching", async () => {
+    const privateSource = "Étudier l’ECV en IRM chez des volontaires sains ; PRIVATE_SCIENTIFIC_CANARY";
+    const request = scientificRequest(); request.conversation.turns[0] = { ...request.conversation.turns[0], content: privateSource };
+    const provider = vi.fn<typeof fetch>(async () => response(JSON.stringify({ reply: privateSource,
+      userContribution: { coverage: "COMPLETE", nonPersistentReason: null, elements: [{ id: "ecv", content: privateSource,
+        epistemicState: "USER_STATED", polarity: "AFFIRMED", conditions: [], linkedIds: ["missing-scientific-ref"] }] },
+      assistantContribution: { coverage: "COMPLETE", nonPersistentReason: "PRESENTATION_ONLY", elements: [] },
+      dispositions: [], candidateBindings: [] })));
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "OFFLINE_ONLY",
+      openAiTransport: transport, chatRuntime: "TERRA", autonomousProjectBuild: true, fetchImpl: provider });
+    const body = result.body as ProductBridgeResponse;
+    expect(result.status).toBe(200);
+    expect(body.conversationFailure).toMatchObject({ code: "SCIENTIFIC_DISCUSSION_RETENTION_INVALID",
+      retentionDiagnostic: { failedField: "result.userContribution.elements[].linkedIds",
+        failedValueClass: "UNRESOLVED_REFERENCE", firstFailedBranch: "CONTRIBUTION_LINK_CLOSURE",
+        failedInvariant: "EVERY_LINKED_ID_RESOLVES_WITHIN_CONTRIBUTION", firstFailedValidator: "retainScientificDiscussionResult" } });
+    expect(JSON.stringify(body)).not.toContain(privateSource);
+    expect(JSON.stringify(body)).not.toContain("missing-scientific-ref");
+    expect(body.scientificConversation).toBeUndefined();
+    expect(body.observability.projectWrites).toBe(0);
+    expect(provider).toHaveBeenCalledOnce();
+  });
+
   it("uses unchanged Working Draft schema/owner to reach Review without adopting the scientific proposal", async () => {
     const session = createFunctionalResetSession();
     session.runtimeTurns = [{ turnId: "u1", role: "USER", content: DOMAINS[0].text, createdAt: session.updatedAt },
