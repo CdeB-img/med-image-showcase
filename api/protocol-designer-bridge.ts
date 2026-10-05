@@ -875,7 +875,9 @@ export const handleProtocolDesignerBridge = async (
   }
   if (body && typeof body === "object" && !Array.isArray(body)
     && "operation" in body && body.operation === "READ_WORKING_DRAFT_PREPARATION") {
-    if (environment.VERCEL_ENV !== "preview") return response.status(404).json({ error: { code: "NOT_FOUND" } });
+    // Recovery is an authorized durable read in Preview and Production. The
+    // durable owner still requires the exact Chat proof, session and client;
+    // this branch never creates an admission or dispatches a provider call.
     const lookup = body as Record<string, unknown>;
     if (Buffer.byteLength(JSON.stringify(body)) > 1024
       || Object.keys(lookup).filter(key => key !== "clientRequestId").sort().join(",") !== "compositionResponseRef,operation,sessionId,sourceResponseRef,sourceTurnRef"

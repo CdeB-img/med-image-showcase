@@ -194,21 +194,45 @@ describe("independent Standard workspace through public admission", () => {
   });
 
   it("does not claim success when the background operation becomes unknown after dispatch", async () => {
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    let dispatched!: () => void;
+    const dispatch = new Promise<void>(resolve => { dispatched = resolve; });
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
       const payload = JSON.parse(String(init?.body));
       if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("Discussion contrôlée intacte.");
-      throw new DOMException("LOCAL_SYNTHETIC", "AbortError");
+      dispatched();
+      await pending;
+      return response(JSON.stringify({ requestType: "INSUFFICIENT", proposal: null,
+        explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [] }));
     });
     wirePublicHandler(provider);
+    const handler = fetch;
+    let serverRequest: Promise<Response> | undefined;
+    // CURRENT_STRUCTURAL_INVARIANT: an interrupted browser transport cannot
+    // settle a still-running durable operation. The memory adapter has no
+    // provider ledger; a completed HTTP timeout alone is not an UNKNOWN fixture.
+    vi.stubGlobal("fetch", vi.fn<typeof fetch>(async (url, init) => {
+      if (JSON.parse(String(init?.body)).prepareWorkingDraft !== true) return handler(url, init);
+      serverRequest = handler(url, init);
+      await dispatch;
+      throw new DOMException("LOCAL_SYNTHETIC_BROWSER_TIMEOUT", "AbortError");
+    }));
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
     fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
-    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
-    await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
-    expect(screen.getByRole("alert")).toHaveTextContent(/résultat n’est pas vérifié/iu);
-    expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
-    expect(workspace.current().project).toBeNull();
+    try {
+      await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
+      expect(screen.getByRole("alert")).toHaveTextContent(/résultat n’est pas vérifié/iu);
+      expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED");
+      expect(workspace.current().project).toBeNull();
+      expect(workspace.current().workingDraft).toBeFalsy();
+      expect(provider).toHaveBeenCalledTimes(2); // one Chat, one preparation, no redispatch
+    } finally {
+      release();
+      await serverRequest;
+    }
   });
 
   it("reports browser storage failure after background and retries saving without a provider call", async () => {

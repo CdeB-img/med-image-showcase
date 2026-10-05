@@ -47,8 +47,58 @@ describe("exact Working Draft recovery binding", () => {
     expect(JSON.stringify(result.value)).not.toContain("PRIVATE_CHAT_REPLY");
     expect(JSON.stringify(result.value)).not.toContain("NOT_FOR_BROWSER");
     expect(await read({ ...identity, sourceResponseRef: `noxia-turn:${randomUUID()}` })).toMatchObject({ status: 404 });
-    expect(await read(identity, { VERCEL_ENV: "production" })).toMatchObject({ status: 404 });
+    expect(await read(identity, { VERCEL_ENV: "production" })).toEqual(result);
     expect(provider).not.toHaveBeenCalled();
+    await guard.close();
+  });
+  it("fails closed in Production for every invalid binding and reuses only the exact durable result", async () => {
+    const guard = createMemoryProtocolDesignerGuardForTests();
+    const sessionId = `protocol-designer-session:${randomUUID()}`;
+    const sourceTurnRef = `turn:${randomUUID()}`;
+    const sourceResponseRef = `noxia-turn:${randomUUID()}`;
+    const clientRequestId = `working-draft:${sourceTurnRef}:checkpoint:ke1-1234567890abcdef`;
+    const headers = { "content-type": "application/json", "x-forwarded-for": "203.0.113.180" };
+    const chat = await guard.prepareRequest({ headers, body: admissionBody(sessionId, sourceTurnRef, `product-bridge:${sourceTurnRef}`) });
+    if (!("admitted" in chat && chat.admitted)) throw new Error("CHAT_ADMISSION_MISSING");
+    await guard.completeRequest(chat, 200, { assistantTurn: { turnId: sourceResponseRef } });
+    const working = await guard.prepareRequest({ headers, body: admissionBody(sessionId, sourceTurnRef, clientRequestId) });
+    if (!("admitted" in working && working.admitted)) throw new Error("WORKING_ADMISSION_MISSING");
+    const durableResponse = { apiVersion: "1.0.0", workingDraftUpdate: { requestType: "STUDY_UPDATE" },
+      workingStudyProposal: { sourceTurnRef, sourceResponseRef },
+      project: { forbidden: "NO_AUTOMATIC_ADOPTION" }, assistantReply: "PRIVATE_REPLY" };
+    const fetchImpl = vi.fn<typeof fetch>();
+    const read = async (body: unknown, requestHeaders = headers) => {
+      let status = 0;
+      let value: unknown;
+      const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(result) { value = result; } };
+      await handleProtocolDesignerBridge({ method: "POST", headers: requestHeaders, body }, response,
+        { VERCEL_ENV: "production" }, { durableGuard: guard, fetchImpl });
+      return { status, value };
+    };
+    const identity = { operation: "READ_WORKING_DRAFT_PREPARATION", sessionId, sourceTurnRef,
+      sourceResponseRef, compositionResponseRef: sourceResponseRef, clientRequestId };
+    await guard.completeRequest(working, 200, durableResponse);
+    expect(await read({ ...identity, sourceResponseRef: undefined })).toMatchObject({ status: 400 });
+    for (const invalid of [
+      { ...identity, sourceResponseRef: "INVALID_PROOF" },
+      { ...identity, sourceResponseRef: `noxia-turn:${randomUUID()}` },
+      { ...identity, sessionId: `protocol-designer-session:${randomUUID()}` },
+      { ...identity, sourceTurnRef: `turn:${randomUUID()}` },
+      { ...identity, clientRequestId: `working-draft:${sourceTurnRef}:checkpoint:ke1-0000000000000000` },
+    ]) expect(await read(invalid)).toEqual({ status: 404,
+      value: { error: { code: "WORKING_DRAFT_PREPARATION_NOT_FOUND" } } });
+    expect(await read(identity, { ...headers, "x-forwarded-for": "203.0.113.179" })).toMatchObject({ status: 404 });
+    expect(await read({ ...identity, unexpected: "REJECT" })).toMatchObject({ status: 400 });
+    const before = await guard.readWorkingDraftPreparation({ headers, sessionId, sourceTurnRef, sourceResponseRef, clientRequestId });
+    const recovered = await read(identity);
+    expect(recovered).toEqual({ status: 200, value: { contract: "WORKING_DRAFT_PREPARATION_RECOVERY", state: "COMPLETED",
+      result: { workingDraftUpdate: durableResponse.workingDraftUpdate, workingStudyProposal: durableResponse.workingStudyProposal } } });
+    // Browser reload retains the serialized proof/checkpoint identity, not UI reconstruction.
+    expect(await read(JSON.parse(JSON.stringify(identity)))).toEqual(recovered);
+    expect(await guard.readWorkingDraftPreparation({ headers, sessionId, sourceTurnRef, sourceResponseRef, clientRequestId })).toEqual(before);
+    expect(JSON.stringify(recovered)).not.toContain("NO_AUTOMATIC_ADOPTION");
+    expect(JSON.stringify(recovered)).not.toContain("PRIVATE_REPLY");
+    expect(fetchImpl).not.toHaveBeenCalled();
     await guard.close();
   });
   it.each(["", ":checkpoint:ke1-1234567890abcdef"])("requires persisted Chat proof for every read: %s", async suffix => {
