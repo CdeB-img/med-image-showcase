@@ -29,6 +29,42 @@ const response = (model: string) => new Response(JSON.stringify({
 }), { status: 200, headers: { "content-type": "application/json", "x-request-id": "request-local" } });
 
 describe("OpenAI/Azure provider switch", () => {
+  it("selects the authorized candidate only in explicit Azure Preview configuration", async () => {
+    const configuration = resolveOpenAIProviderRuntimeConfiguration({ ...azureEnvironment,
+      VERCEL_ENV: "preview", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6.1-sol" });
+    expect(configuration.transport?.terraRequestedModel).toBe("gpt-6.1-sol");
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      expect(JSON.parse(String(init?.body))).toMatchObject({ model: "gpt-6.1-sol",
+        reasoning: { effort: "medium" }, max_output_tokens: 8000, store: false });
+      return response("gpt-6.1-sol");
+    });
+    const result = await executeOpenAITerraConversation({ instruction: "Instructions locales", context: "Contexte local" },
+      "synthetic-key", provider, undefined, configuration.transport);
+    expect(result.modelRequested).toBe("gpt-6.1-sol");
+    expect(result.modelReturned).toBe("gpt-6.1-sol");
+    expect(provider).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    { VERCEL_ENV: "production", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6.1-sol" },
+    { VERCEL_ENV: "development", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6.1-sol" },
+    { VERCEL_ENV: "preview", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6-sol" },
+    { VERCEL_ENV: "preview", NOXIA_PREVIEW_TERRA_MODEL: "" },
+    { VERCEL_ENV: "preview", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6.1-sol", OPENAI_PROVIDER: "openai" },
+  ])("rejects candidate misconfiguration without falling back: %j", config => {
+    expect(() => resolveOpenAIProviderRuntimeConfiguration({ ...azureEnvironment, ...config }))
+      .toThrow("PREVIEW_TERRA_MODEL_CONFIGURATION_INVALID");
+  });
+
+  it("does not retry or fall back after a candidate provider failure", async () => {
+    const configuration = resolveOpenAIProviderRuntimeConfiguration({ ...azureEnvironment,
+      VERCEL_ENV: "preview", NOXIA_PREVIEW_TERRA_MODEL: "gpt-6.1-sol" });
+    const provider = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ error: { code: "candidate_failure" } }), { status: 400 }));
+    await expect(executeOpenAITerraConversation({ instruction: "Instruction locale", context: "Contexte local" },
+      "synthetic-key", provider, undefined, configuration.transport)).rejects.toMatchObject({ providerStatus: "candidate_failure" });
+    expect(provider).toHaveBeenCalledOnce();
+  });
+
   it("keeps the existing OpenAI transport byte-compatible by default", async () => {
     const provider = vi.fn<typeof fetch>(async (_url, init) => {
       expect(init?.headers).toEqual({

@@ -15,6 +15,7 @@ export type OpenAIProviderDestination = "openai" | "azure";
 export type OpenAIProviderTransport = Readonly<{
   destination: OpenAIProviderDestination;
   responsesEndpoint: string;
+  terraRequestedModel?: "gpt-6.1-sol";
 }>;
 
 export type OpenAIProviderRuntimeConfiguration = Readonly<{
@@ -88,13 +89,19 @@ export const resolveOpenAIProviderRuntimeConfiguration = (
   environment: Readonly<Record<string, string | undefined>>,
 ): OpenAIProviderRuntimeConfiguration => {
   const selected = environment.OPENAI_PROVIDER?.trim().toLowerCase() || "openai";
+  const candidateModel = environment.NOXIA_PREVIEW_TERRA_MODEL;
+  if (candidateModel !== undefined && (environment.VERCEL_ENV !== "preview"
+    || selected !== "azure" || candidateModel !== "gpt-6.1-sol")) {
+    throw new Error("PREVIEW_TERRA_MODEL_CONFIGURATION_INVALID");
+  }
   if (selected === "openai") return { apiKey: environment.OPENAI_API_KEY?.trim() || null };
   if (selected !== "azure") throw new Error("OPENAI_PROVIDER_INVALID");
   const projectEndpoint = environment.AZURE_OPENAI_PROJECT_ENDPOINT?.trim();
   if (!projectEndpoint) throw new Error("AZURE_OPENAI_PROJECT_ENDPOINT_MISSING");
   return {
     apiKey: environment.AZURE_OPENAI_API_KEY?.trim() || null,
-    transport: Object.freeze({ destination: "azure", responsesEndpoint: azureOpenAIResponsesEndpoint(projectEndpoint) }),
+    transport: Object.freeze({ destination: "azure", responsesEndpoint: azureOpenAIResponsesEndpoint(projectEndpoint),
+      ...(candidateModel ? { terraRequestedModel: candidateModel as "gpt-6.1-sol" } : {}) }),
   };
 };
 import { providerModelDeclaration } from "../src/features/protocol-designer/provider-model-contract.js";

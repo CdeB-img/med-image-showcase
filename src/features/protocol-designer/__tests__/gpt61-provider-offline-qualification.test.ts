@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 // Candidate identity only, isolated to this suite. No runtime default or Azure
-// admission is changed before live qualification. Scientific owners stay real.
+// default is changed. Preview admission is explicitly human-authorized;
+// admission is not live qualification evidence. Scientific owners stay real.
 vi.mock("../provider-model-contract", async original => ({
   ...await original<object>(), TERRA_REQUESTED_MODEL: "gpt-6.1-sol",
 }));
@@ -41,12 +42,14 @@ const scientificRequest = (): ProductBridgeRequest => ({ apiVersion: "1.0.0", cu
 
 describe("GPT-6.1 candidate contracts, offline only", () => {
   it("declares limits/pricing without treating capability as Azure authorization or live proof", () => {
-    expect(providerModelDeclaration(model)).toMatchObject({ azureDeployment: model, azureLocalAdmission: false,
+    expect(providerModelDeclaration(model)).toMatchObject({ azureDeployment: model, azureLocalAdmission: true,
       limits: { context: 1_050_000, input: 922_000, output: 128_000 } });
     expect(providerModelPricing(model)).toMatchObject({ snapshotDate: "2026-10-05", inputPerMillionUsd: 2,
       cachedInputPerMillionUsd: 0.1, outputPerMillionUsd: 10 });
     expect(boundPublicProviderCall(endpoint, JSON.stringify(buildOpenAITerraConversationPayload(
-      prepareTerraConversation(scientificRequest(), true))))).toBeNull();
+      prepareTerraConversation(scientificRequest(), true))))).toMatchObject({
+        model, inputBoundBasis: "LOCAL_CONSERVATIVE_ESTIMATE",
+      });
   });
 
   // CURRENT_SEMANTIC_INVARIANT: scientifically meaningful ECV input, proposed

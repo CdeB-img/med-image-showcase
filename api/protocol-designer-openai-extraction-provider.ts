@@ -224,10 +224,10 @@ const callOpenAIResponses = async (input: {
 };
 
 type TerraConversationPacket = { instruction: string; context: string; outputSchema?: Record<string, unknown>; outputSchemaName?: string };
-type TerraConversationRequestOptions = Readonly<{ maxOutputTokens?: number; timeoutMs?: number }>;
+type TerraConversationRequestOptions = Readonly<{ maxOutputTokens?: number; timeoutMs?: number; model?: string }>;
 
 export const buildOpenAITerraConversationPayload = (packet: TerraConversationPacket, options?: TerraConversationRequestOptions) => ({
-  model: TERRA_REQUESTED_MODEL,
+  model: options?.model ?? TERRA_REQUESTED_MODEL,
   instructions: packet.instruction,
   input: packet.context,
   reasoning: { effort: "medium" },
@@ -247,7 +247,9 @@ export const executeOpenAITerraConversation = async (
   transport?: OpenAIProviderTransport,
   options?: TerraConversationRequestOptions,
 ) => {
-  const payload = buildOpenAITerraConversationPayload(packet, options);
+  const payload = buildOpenAITerraConversationPayload(packet, {
+    ...options, model: transport?.terraRequestedModel ?? options?.model ?? TERRA_REQUESTED_MODEL,
+  });
   const result = await callOpenAIResponses({ stage: "CONVERSATION", apiKey, payload,
     fetchImpl, modelRequested: payload.model, instrumentation, transport, timeoutMs: options?.timeoutMs });
   const value = responseOutputText(result.body).trim();
@@ -267,6 +269,7 @@ export const executeOpenAIDrciDraft = async (
   transport?: OpenAIProviderTransport,
 ) => {
   const batches = prepareDrciGenerationBatches(packet);
+  const requestedModel = transport?.terraRequestedModel ?? TERRA_REQUESTED_MODEL;
   const retained = retainedProtocol ? validateRetainedDrciProtocol(packet, retainedProtocol) : null;
   const remaining = retainedProtocol?.remainingScope ? validateRetainedDrciScope(packet, retainedProtocol.remainingScope, 1) : null;
   if (retainedProtocol?.synopsisRevision) {
@@ -280,9 +283,9 @@ export const executeOpenAIDrciDraft = async (
     if (usedSynopsisRevisionOriginals.has(prepared.originalDigest)) throw new Error("DOC_REVISION_ATTEMPT_ALREADY_USED");
     usedSynopsisRevisionOriginals.add(prepared.originalDigest);
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
-      modelRequested: TERRA_REQUESTED_MODEL, instrumentation: instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
+      modelRequested: requestedModel, instrumentation: instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
         clientRequestId: `${instrumentation.context.clientRequestId}:synopsis-revision:${identity}` } } : undefined,
-      transport, payload: { model: TERRA_REQUESTED_MODEL, instructions: prepared.instruction,
+      transport, payload: { model: requestedModel, instructions: prepared.instruction,
         input: "Retourne uniquement le plan de révision au format JSON valide demandé.\n" + prepared.context,
         reasoning: { effort: "medium" }, max_output_tokens: 4000, store: false, service_tier: "default",
         text: { format: { type: "json_object" } } } });
@@ -302,7 +305,7 @@ export const executeOpenAIDrciDraft = async (
     const batchInstrumentation = instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
       clientRequestId: `${instrumentation.context.clientRequestId}:doc-scope:${batch.requestScope}` } } : undefined;
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
-      modelRequested: TERRA_REQUESTED_MODEL, instrumentation: batchInstrumentation, transport, payload: { model: TERRA_REQUESTED_MODEL, instructions: batch.instruction,
+      modelRequested: requestedModel, instrumentation: batchInstrumentation, transport, payload: { model: requestedModel, instructions: batch.instruction,
         input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
           transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
         service_tier: "default", text: { format: { type: "json_object" } } } });
@@ -311,7 +314,7 @@ export const executeOpenAIDrciDraft = async (
     modelReturned = result.body.model ?? null;
   }
   return { value: { documents, crfRows }, latencyMs,
-    modelRequested: mapOpenAIModelForDestination(TERRA_REQUESTED_MODEL, transport?.destination ?? "openai"),
+    modelRequested: mapOpenAIModelForDestination(requestedModel, transport?.destination ?? "openai"),
     modelReturned, calls: remaining ? 0 as const : retained ? 1 as const : 2 as const,
     reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null, synopsisRevision: undefined };
 };

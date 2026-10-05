@@ -304,7 +304,10 @@ const lockSession = async (tx: TransactionQuery, context: DurablePublicRequestCo
 // fail-closed for model/usage/envelope anomalies; no session is reopened.
 const assertAzureLocalAdmissionOpen = async (tx: TransactionQuery, endpointDigest: string, model: string) => {
   const qualificationRef = azureInputCountQualification(model)
-    ?? (model === "gpt-6-sol" ? "AZURE_LOCAL_ADMISSION_GPT_6_SOL_2026_09_28" : null);
+    ?? (model === "gpt-6-sol" ? "AZURE_LOCAL_ADMISSION_GPT_6_SOL_2026_09_28"
+      // Explicit bounded Preview admission authorization, not a live PASS or
+      // cross-provider equivalence claim. Existing runtime anomaly gates apply.
+      : model === "gpt-6.1-sol" ? "AZURE_LOCAL_ADMISSION_GPT_6_1_SOL_PREVIEW_AUTHORIZED_2026_10_05" : null);
   if (!qualificationRef) throw new DurablePublicGuardError("PUBLIC_AZURE_LOCAL_ADMISSION_UNQUALIFIED_MODEL");
   await tx`
     insert into noxia_durable.public_provider_equivalence_gate

@@ -10,8 +10,9 @@ type ModelDeclaration = Readonly<{
 }>;
 export const PROVIDER_MODEL_DECLARATIONS: Readonly<Record<string, ModelDeclaration>> = Object.freeze({
   // Capability checked on 2026-10-05. Not selected by any current default;
-  // local Azure admission remains disabled pending the qualification gate.
-  "gpt-6.1-sol": { provider: "OPENAI", azureDeployment: "gpt-6.1-sol", azureLocalAdmission: false,
+  // local Azure admission is explicitly authorized for bounded Preview
+  // qualification. Neither this flag nor the policy reference is a live PASS.
+  "gpt-6.1-sol": { provider: "OPENAI", azureDeployment: "gpt-6.1-sol", azureLocalAdmission: true,
     limits: { context: 1_050_000, input: 922_000, output: 128_000 } },
   "gpt-6-sol": { provider: "OPENAI", azureDeployment: "gpt-6-sol", azureLocalAdmission: true,
     limits: { context: 1_050_000, input: 922_000, output: 128_000 } },
