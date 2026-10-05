@@ -1,3 +1,4 @@
+import { recommendedWorkingScope } from "./continuous-project-build";
 /** Technical lifecycle of the existing session-owned Working Draft.
  * This module never produces science, adopts Project, calls a provider or settles money.
  */
@@ -274,4 +275,12 @@ export const projectPreparationReview = (session: FunctionalResetSession) => {
 export const recordPreparationDecision = (session: FunctionalResetSession, id: string, decision: ProjectPreparationDecision): FunctionalResetSession => ({
   ...session, workingDraftPreparations: (session.workingDraftPreparations ?? []).map(p => p.checkpoint?.preparationId === id
     && p.decision === "PENDING" ? { ...p, decision } : p),
+});
+
+export const projectPreparationConfirmationApplicable = (review: ReturnType<typeof projectPreparationReview>, busy: boolean, workingDraftBusy: boolean, selectedChangeRefs?: readonly string[]) => Boolean(review && review.applicable && !review.blocker && !busy && !workingDraftBusy
+  && !(review.newerTurns.length > 0 && !selectedChangeRefs?.length));
+
+export const projectPreparationConfirmationInput = (review: NonNullable<ReturnType<typeof projectPreparationReview>>, turnId: string, createdAt: string) => ({
+  scope: recommendedWorkingScope(review.composition),
+  userTurn: { turnId, role: "USER" as const, content: `Validation explicite de la préparation ${review.checkpoint.preparationId}`, createdAt },
 });

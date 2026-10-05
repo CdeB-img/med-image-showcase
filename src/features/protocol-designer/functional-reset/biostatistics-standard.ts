@@ -1,4 +1,5 @@
-import { retainOwnerReviewedCandidate } from "./project-review-decision";
+import { ownerResultNativeDigest } from "../product-owner-result-ledger";
+import { retainOwnerReviewedCandidate } from "./contribution-lifecycle";
 import { requiresCurrentOwnerPresentation } from "@/features/query-navigation/current-navigation-evidence";
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { recordStudyDesignConversationTrace, recordStudyDesignOptionReviewTrace } from "./end-to-end-trace-adapter";
@@ -470,7 +471,7 @@ export function prepareBiostatisticsInteraction(session: FunctionalResetSession,
         selectedStrategyRef: resolution.strategyRef,
         pendingContributionRef: contribution.identity.contributionId,
       } : null,
-      retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
+      retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId, ownerResultNativeDigest),
       entries: [...current.entries,
         { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: prepared.originalText, createdAt: recordedAt },
         { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],

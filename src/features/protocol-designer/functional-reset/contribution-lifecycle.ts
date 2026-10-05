@@ -5,7 +5,7 @@ import {
   type ResearchProjectContributionCandidate,
 } from "../../research-project-construction/contribution-owner-boundary.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
-import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "../../scientific-interpretation/contracts.js";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation, ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
 import type { HumanDecisionEnvelope } from "../human-decision.js";
 import type { PersistentDeltaValidation } from "../product-bridge.js";
 export { buildScientificDiscussionContext } from "./contribution-discussion-context.js";
@@ -312,3 +312,31 @@ export const retainUndecidedContributionScope = (input: {
   if (!retained[0]) throw new Error("UNDECIDED_SCOPE_PROVENANCE_REQUIRED");
   return retained[0];
 };
+
+export const retainOwnerReviewedCandidate = <TResult extends { resultId: string; resultVersion: string }>(
+  current: Readonly<{
+    project: CandidateBaseProject; retainedContributionCandidates?: readonly RetainedContributionCandidate[];
+    knowledgeOwnerLedger: Readonly<{ entries: readonly Readonly<{ result?: TResult | null }>[] }>;
+  }>,
+  contribution: ScientificInterpretationContributionEnvelope,
+  candidate: ResearchProjectContributionCandidate,
+  userTurn: ScientificInterpretationTurn,
+  traceRunId: string | null,
+  nativeDigest: (result: TResult) => string | null,
+) => retainValidatedContributionCandidate({
+  retained: current.retainedContributionCandidates ?? [],
+  contribution,
+  candidate,
+  // This records PRJ's existing canonical/change-set and review-coverage gate;
+  // it does not pretend that a provider extraction validated an owner proposal.
+  validation: { valid: candidate.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION", blocks: [] },
+  validatorRef: "PRJ001_CANONICAL_CHANGESET_AND_HUMAN_REVIEW_COVERAGE",
+  sourceTurnRef: userTurn.turnId,
+  baseProject: current.project,
+  dependencyBindings: current.knowledgeOwnerLedger.entries
+    .filter((entry) => entry.result && contribution.source.sourceRefs.includes(entry.result.resultId))
+    .map((entry) => ({ ref: entry.result!.resultId, version: entry.result!.resultVersion,
+      digest: nativeDigest(entry.result!)!, actuality: "CURRENT" as const })),
+  traceRunId,
+  retainedAt: userTurn.createdAt ?? new Date().toISOString(),
+});

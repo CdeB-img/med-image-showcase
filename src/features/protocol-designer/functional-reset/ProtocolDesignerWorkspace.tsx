@@ -2,8 +2,7 @@ import { useProjectPreparation } from "./useProjectPreparation";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
-import { documentBlockerSignals, persistAdoptedProjectSession, refreshAdoptedProjectConsumers } from "./project-adoption-effects";
-import { recommendedWorkingScope } from "./continuous-project-build";
+import { documentBlockerSignals, persistAdoptedProjectSession } from "./project-adoption-effects";
 import { projectDrciDraftPackPortfolio, isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { projectDocumentLifecycle, nextDocumentGenerationVersion } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
@@ -24,19 +23,18 @@ import type { ProviderCallRecord, ProviderCallRequestObservability } from "@/fea
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { buildPreProjectTraceRealizationOutcome, captureProductBridgeTraceText, createPreProjectScientificTraceSegment, createProductTraceRunId, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, recordConversationLanguageGatewayTrace, recordConversationLanguageGatewayFailureTrace, recordLocalizedConversationResponseTrace, recordProductEntryRoutingTrace, type ScientificTraceCaptureConfiguration, type ScientificTraceRealizationOutcome } from "@/features/protocol-designer/scientific-execution-trace";
-import { authorizeResearchProjectDocumentHandoff, confirmResearchProjectContribution, prepareResearchProjectContributionCandidate, rejectResearchProjectContribution } from "@/features/research-project-construction";
+import { authorizeResearchProjectDocumentHandoff, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { buildStudyDeliverablePortfolio, buildCanonicalCrfPackage, functionalProtocolProjection, markFunctionalResetDocumentFailure, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import { buildPreProjectNavigationDecision, buildFunctionalResetQueryNavigation, buildCurrentProjectImpactProjection, isFunctionalResetQueryMisunderstanding, realizePreProjectNavigationDecision } from "@/features/query-navigation";
 import { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
-import { buildStudyProposalSelectionContribution, selectedStudyProposalAtoms, propagateStudyProposalDecision, propagateFreeformStudyProposalDecision, requireStudyProposalReview, assertStudyProposalCurrent, projectStudyProposalDisposition } from "./study-proposal-standard";
-import { deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
+import { requireStudyProposalReview, assertStudyProposalCurrent } from "./study-proposal-standard";
 import type { StudyProposalComposition } from "../product-bridge";
-import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidatePresented, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, recordContributionCandidateHumanDecision, buildScientificDiscussionContext, type RetainedContributionCandidate } from "./contribution-lifecycle";
-import { retainScientificDiscussionResult, recordGovernedAdoptionContextEvent, settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
+import { retainValidatedContributionCandidate, retainUndecidedContributionScope, markContributionCandidateNonCurrent, recordContributionDownstreamFailure, buildScientificDiscussionContext, type RetainedContributionCandidate } from "./contribution-lifecycle";
+import { retainScientificDiscussionResult } from "./contribution-discussion-retention";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
-import { recordArtifactGeneratedTrace, recordContributionRejectionTrace, recordDocumentProjectionTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordPostAdoptionGovernedLocalRealization, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordContributionReviewPresentedTrace, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, recordProjectAdoptionTrace, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
+import { recordArtifactGeneratedTrace, recordDocumentProjectionTrace, recordInitialProductTrace, recordGovernedConversationTrace, recordPostAdoptionGovernedLocalRealization, recordProductErrorBoundary, recordConversationContextPacketPreflight, recordCurrentProjectImpactNavigationTrace, recordRetainedContributionValidation, productTraceExtractionExecution } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -50,13 +48,13 @@ import DataManagementStandardCard from "./DataManagementStandardCard";
 import StandardConversationActionGroup from "./StandardConversationActionGroup";
 import { buildStandardConversationActionGroup, type StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
 import { executeProductUnderstandInteraction, recognizeCurrentProjectDirection, recognizeProductDocumentAction, routeProductEntry, type ProductDocumentAction } from "./product-entry-routing";
-import { buildCandidateScientificChallenge, buildConciseAdoptionReply, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision, type ConversationStylePreference } from "./natural-conversation-policy";
+import { buildCandidateScientificChallenge, classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision } from "./natural-conversation-policy";
 import { appendFunctionalResetProviderCallRecords, clearFunctionalResetSession, createConversationEntryId, createFunctionalResetSession, createTurnId, loadFunctionalResetSession, saveFunctionalResetWorkspaceSession, type SessionSave, projectHumanDecisionForBridgeTrace, recordConversationConfirmationReceipt, conversationConfirmationReceiptStatus, productEntryPromptForIntent, resolveGovernedPostAdoptionReceipt, shouldMediatePostAdoptionQuery, type ConversationEntry, type FunctionalResetSession } from "./session";
-import { dispatchStudyDesignFromQuery, interactionMatchesCurrentProject, isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger } from "./study-design-standard";
-import { buildPreProjectScientificThinkingIntervention, dispatchScientificThinkingFromQuery, isScientificThinkingQueryDispatch, scientificThinkingInteractionMatchesCurrentProject } from "./scientific-thinking-standard";
-import { dispatchObservabilityFromQuery, isObservabilityQueryDispatch, observabilityInteractionMatchesCurrentProject, readObservabilityResultFromLedger } from "./observability-standard";
-import { dispatchImagingFromQuery, imagingInteractionMatchesCurrentProject, isImagingQueryDispatch, readImagingResultFromLedger } from "./imaging-standard";
-import { biostatisticsInteractionMatchesCurrentProject, dispatchBiostatisticsFromQuery, isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger } from "./biostatistics-standard";
+import { dispatchStudyDesignFromQuery, isStudyDesignQueryDispatch, readStudyDesignProposalFromLedger } from "./study-design-standard";
+import { buildPreProjectScientificThinkingIntervention, dispatchScientificThinkingFromQuery, isScientificThinkingQueryDispatch } from "./scientific-thinking-standard";
+import { dispatchObservabilityFromQuery, isObservabilityQueryDispatch, readObservabilityResultFromLedger } from "./observability-standard";
+import { dispatchImagingFromQuery, isImagingQueryDispatch, readImagingResultFromLedger } from "./imaging-standard";
+import { dispatchBiostatisticsFromQuery, isBiostatisticsQueryDispatch, readBiostatisticsResultFromLedger } from "./biostatistics-standard";
 import { deriveFunctionalResetDataOwnerState, dispatchCanonicalStudyDataFromQuery, isCanonicalStudyDataQueryDispatch, readCanonicalStudyDataResultFromLedger } from "./canonical-study-data-standard";
 import { dispatchDataManagementFromQuery, isDataManagementQueryDispatch, readDataManagementResultFromLedger } from "./data-management-standard";
 import { attachCurrentKnowledgePrerequisiteWhenRequired, dispatchKnowledgePrerequisiteFromQuery } from "./knowledge-standard";
@@ -76,7 +74,9 @@ import { prepareStudyDesignInteraction } from "./study-design-standard";
 import { prepareObservabilityInteraction } from "./observability-standard";
 import { prepareImagingInteraction } from "./imaging-standard";
 import { prepareBiostatisticsInteraction } from "./biostatistics-standard";
-import { retainOwnerReviewedCandidate } from "./project-review-decision";
+import { stageProjectConfirmation, stageProjectRejection, contributionHasAcknowledgedPresentation as hasAcknowledgedContributionPresentation, acknowledgeContributionReviewPresented as acknowledgeContributionReviewPresentedTransition, recordContributionReviewPresentationFailure as recordContributionReviewPresentationFailureTransition, type NaturalContributionDecisionContext } from "./project-review-decision";
+import { projectPreparationConfirmationApplicable, projectPreparationConfirmationInput } from "./project-preparation-lifecycle";
+import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./project-review-decision";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -311,18 +311,6 @@ type PreparedGatewayUserInput = Readonly<{
   multilingualTurn: MultilingualUserTurn;
   gatewayState: ConversationLanguageGatewayState;
   onProviderCallRecords: (records: readonly ProviderCallRecord[]) => void;
-}>;
-
-type NaturalContributionDecisionContext = Readonly<{
-  userTurn: ScientificInterpretationTurn;
-  originalText: string;
-  gatewayState: ConversationLanguageGatewayState;
-  traceLedger: FunctionalResetSession["scientificExecutionTraceLedger"];
-  stylePreference: ConversationStylePreference | null;
-  selectedChangeRefs?: readonly string[];
-  refusedChangeRefs?: readonly string[];
-  correctionChangeRefs?: readonly string[];
-  prepareRemainingTurn?: boolean;
 }>;
 
 const normalizePreparedUserInput = (input: string | PreparedGatewayUserInput) => typeof input === "string"
@@ -2314,90 +2302,12 @@ export default function ProtocolDesignerWorkspace({
 
   const acknowledgeContributionReviewPresented = (entryId: string) => {
     const presentedAt = new Date().toISOString();
-    setSession((current) => {
-      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "REVIEW");
-      if (!entry || entry.kind !== "REVIEW" || entry.status !== "PENDING") return current;
-      const record = current.retainedContributionCandidates?.find((candidate) =>
-        candidate.candidateRef === entry.contribution.identity.contributionId
-        && candidate.contribution.identity.contributionDigest === entry.contribution.identity.contributionDigest);
-      // Legacy reviews without a retained record keep their existing path.
-      if (!record || record.downstreamState !== "PENDING_DOWNSTREAM"
-        || record.actuality !== "CURRENT" || record.humanDecision || record.presentedAt) return current;
-      return {
-        ...current,
-        retainedContributionCandidates: markContributionCandidatePresented({
-          retained: current.retainedContributionCandidates ?? [],
-          candidateRef: record.candidateRef,
-          presentedAt,
-        }),
-        scientificExecutionTraceLedger: recordContributionReviewPresentedTrace({
-          ledger: current.scientificExecutionTraceLedger,
-          traceRunId: record.traceRunId,
-          conversationId: current.conversationId,
-          candidate: record.candidate,
-          presentedAt,
-        }),
-        updatedAt: presentedAt,
-      };
-    });
+    setSession((current) => acknowledgeContributionReviewPresentedTransition(current, entryId, presentedAt));
   };
 
-  const recordContributionReviewPresentationFailure = (
-    entryId: string,
-    failure: ContributionReviewPresentationFailure,
-  ) => {
+  const recordContributionReviewPresentationFailure = (entryId: string, failure: ContributionReviewPresentationFailure) => {
     const failedAt = new Date().toISOString();
-    setSession((current) => {
-      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "REVIEW");
-      if (!entry || entry.kind !== "REVIEW") return current;
-      const errorEntryId = `${entryId}:presentation-failure`;
-      if (current.entries.some((item) => item.entryId === errorEntryId)) return current;
-      const record = current.retainedContributionCandidates?.find((candidate) =>
-        candidate.candidateRef === entry.contribution.identity.contributionId
-        && candidate.contribution.identity.contributionDigest === entry.contribution.identity.contributionDigest);
-      const retainedContributionCandidates = record ? recordContributionDownstreamFailure({
-        retained: current.retainedContributionCandidates ?? [],
-        candidateRef: record.candidateRef,
-        stage: failure.stage,
-        code: failure.code,
-        occurredAt: failedAt,
-      }) : current.retainedContributionCandidates;
-      const traceRunId = record?.traceRunId ?? entry.traceRunId;
-      return {
-        ...current,
-        // Keep the review and all candidate payload/history unchanged. Clear only
-        // this failed actionable selection; never select an older candidate by recency.
-        pendingContribution: current.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId
-          ? null : current.pendingContribution,
-        retainedContributionCandidates,
-        entries: [...current.entries, {
-          entryId: errorEntryId,
-          kind: "ERROR" as const,
-          role: "NOXIA" as const,
-          content: "La présentation de cette proposition n’a pas abouti. La proposition est conservée sans être adoptée.",
-          createdAt: failedAt,
-        }],
-        scientificExecutionTraceLedger: traceRunId ? recordProductErrorBoundary({
-          ledger: current.scientificExecutionTraceLedger,
-          traceRunId,
-          turnId: record?.sourceTurnRef ?? entry.contribution.source.turns.at(-1)?.turnId ?? entry.entryId,
-          conversationId: current.conversationId,
-          startedAt: entry.createdAt,
-          failedAt,
-          owner: "UI",
-          responsibilityOwner: "PROTOCOL_DESIGNER_UI",
-          executor: "CONTRIBUTION_REVIEW",
-          componentId: "CONTRIBUTION_REVIEW",
-          componentVersion: "1.0.0",
-          provider: "NONE",
-          code: failure.code,
-          category: "OWNER_RUNTIME",
-          sourceDigest: record?.sourceDigest,
-          retainedCandidate: record,
-        }) : current.scientificExecutionTraceLedger,
-        updatedAt: failedAt,
-      };
-    });
+    setSession((current) => recordContributionReviewPresentationFailureTransition(current, entryId, failure, failedAt));
   };
 
   useEffect(() => {
@@ -2412,12 +2322,7 @@ export default function ProtocolDesignerWorkspace({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session.pendingMixedUserTurnRef, busy, autonomousProjectBuild]);
 
-  const contributionHasAcknowledgedPresentation = (contributionId: string) => {
-    const record = session.retainedContributionCandidates?.find((candidate) => candidate.candidateRef === contributionId);
-    // This bounded guard does not change older review flows without a lifecycle receipt.
-    return !record || (record.downstreamState === "PRESENTED" && record.presentedAt !== null
-      && record.actuality === "CURRENT" && record.humanDecision === null);
-  };
+  const contributionHasAcknowledgedPresentation = (contributionId: string) => hasAcknowledgedContributionPresentation(session, contributionId);
 
   const confirmContribution = async (
     contributionId: string,
@@ -2440,221 +2345,12 @@ export default function ProtocolDesignerWorkspace({
     setBusyMessage("J’enregistre les éléments confirmés…");
     setBusy(true);
     try {
-      const reviewEntry = proposalSelection ? { kind: "REVIEW" as const, candidate: proposalSelection.candidate, contribution,
-        traceRunId: session.bridgeTraces.find(trace => trace.turnId === proposalSelection.composition.sourceTurnRef)?.traceRunId ?? null } : session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
-      const retainedBeforeDecision = proposalSelection && naturalDecision ? markContributionCandidatePresented({
-        retained: retainOwnerReviewedCandidate(session, contribution, proposalSelection.candidate, naturalDecision.userTurn, reviewEntry?.kind === "REVIEW" ? reviewEntry.traceRunId ?? null : null),
-        candidateRef: contributionId, presentedAt: now,
-      }) : session.retainedContributionCandidates ?? [];
-      const project = confirmResearchProjectContribution({
-        contribution,
-        current: session.project,
-        projectId: session.projectId,
-        authority: session.projectAuthority,
-        confirmedAt: now,
-        confirmationReason: naturalDecision
-          ? naturalDecision.selectedChangeRefs
-            ? `Décision partielle : changements confirmés ${naturalDecision.selectedChangeRefs.join(", ")} ; changements refusés ${(naturalDecision.refusedChangeRefs ?? []).join(", ")}.`
-            : "L’utilisateur a explicitement confirmé la candidate courante dans son message."
-          : undefined,
-        confirmationSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
-        selectedChangeRefs: naturalDecision?.selectedChangeRefs,
-        reviewedProjection: reviewEntry?.kind === "REVIEW"
-          ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection
-          : undefined,
-        observeAdoption: adoptionTrace?.observeOwner,
-      });
-      adoptionTrace?.at("PROJECT_APPLY_STARTED", "confirmContribution", "PROJECT_ADOPTION_DERIVED_STATE_VALID");
-      const settledRefs = [...(naturalDecision?.selectedChangeRefs ?? []), ...(naturalDecision?.refusedChangeRefs ?? []), ...(naturalDecision?.correctionChangeRefs ?? [])];
-      const originalRecord = retainedBeforeDecision.find(record => record.candidateRef === contributionId);
-      const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
-        record: originalRecord, currentBefore: session.project, currentAfter: project, settledChangeRefs: settledRefs,
-        decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
-      }) : null;
-      const remainderEntryId = remainder ? createConversationEntryId() : null;
-      const { documents, queryNavigation } = refreshAdoptedProjectConsumers({ previous: session, project, administration, recordedAt: now });
-      const feedback = naturalDecision?.selectedChangeRefs
-        && (naturalDecision.refusedChangeRefs?.length || naturalDecision.correctionChangeRefs?.length)
-        ? naturalDecision.correctionChangeRefs?.length
-          ? "Choix enregistrés dans le projet. Le critère reste à préciser : quelle formulation souhaitez-vous retenir ?"
-          : "Choix enregistrés dans le projet. Les éléments refusés ne sont pas retenus."
-        : buildConciseAdoptionReply({
-        project,
-        projectExisted: Boolean(session.project),
-        stylePreference: naturalDecision?.stylePreference ?? null,
-      });
-      const confirmationTurn: ScientificInterpretationTurn = {
-        turnId: createTurnId(),
-        role: "NOXIA",
-        content: feedback,
-        createdAt: now,
-      };
-      const runtimeTurns = [
-        ...session.runtimeTurns,
-        ...(naturalDecision && !session.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId)
-          ? [naturalDecision.userTurn] : []),
-        confirmationTurn,
-      ];
-      // Only generated control acknowledgements receive native event coverage.
-      // An arbitrary natural confirmation/correction still requires ST meaning.
-      const generatedConfirmation = naturalDecision?.originalText === "Valider ces choix" ? naturalDecision.userTurn : null;
-      const scientificDiscussionRetention = recordGovernedAdoptionContextEvent(session.scientificDiscussionRetention,
-        project, [...(generatedConfirmation ? [generatedConfirmation] : []), confirmationTurn]);
-      const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
-        ? reviewEntry.traceRunId
-        : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
-      let scientificExecutionTraceLedger = adoptionTrace?.ledger() ?? naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger;
-      try {
-        scientificExecutionTraceLedger = recordProjectAdoptionTrace({
-          ledger: scientificExecutionTraceLedger,
-          traceRunId: correlatedTraceRunId,
-          conversationId: session.conversationId,
-          recordedAt: now,
-          contribution,
-          project,
-          previousProjectExisted: Boolean(session.project),
-          queryNavigation,
-          documents,
-        });
-        adoptionTrace?.useLedger(scientificExecutionTraceLedger);
-      } catch (error) {
-        // TRACE is observational: a projection failure must not veto a valid human adoption.
-        console.warn("PROJECT_ADOPTION_TRACE_PROJECTION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
-        adoptionTrace?.projectionFailed(error, session.project);
-        scientificExecutionTraceLedger = adoptionTrace?.ledger() ?? scientificExecutionTraceLedger;
-      }
-      const partialProposalSelection = Boolean(proposalSelection && naturalDecision?.selectedChangeRefs
-        && naturalDecision.selectedChangeRefs.length < proposalSelection.candidate.humanReviewProjection.coveredChangeRefs.length);
-      adoptionTrace?.at("PROJECT_APPLY_STARTED", "propagateStudyProposalDecision", "PROJECT_SOURCE_MATERIALIZATION_VALID");
-      const updatedStudyProposal = partialProposalSelection && proposalSelection
-        ? requireStudyProposalReview(proposalSelection.composition, project)
-        : proposalSelection ? propagateStudyProposalDecision(proposalSelection.composition, project,
-        proposalSelection.candidate, session.project,
-        selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms), proposalSelection.selectedOptions, naturalDecision?.userTurn, contribution)
-        : session.studyProposal ? propagateFreeformStudyProposalDecision(session.studyProposal, project, contribution,
-          reviewEntry?.kind === "REVIEW" && reviewEntry.candidate
-            ? reviewEntry.candidate : prepareResearchProjectContributionCandidate(contribution, session.project),
-          session.project, naturalDecision?.userTurn) : session.studyProposal;
-      const current = latestSessionRef.current;
-      adoptionTrace?.at("PROJECT_APPLY_STARTED", "confirmContribution", "PROJECT_BASE_UNCHANGED_DURING_HUMAN_REVIEW");
-      if (current.sessionId !== session.sessionId || current.project?.versionId !== session.project?.versionId)
-        throw new Error("PROJECT_CHANGED_DURING_HUMAN_REVIEW");
-      let nextSession: FunctionalResetSession = {
-        ...current,
-        scientificDiscussionRetention,
-        project,
-        documentRetryUnsafe: false,
-        queryNavigation,
-        studyProposal: updatedStudyProposal,
-        studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.studyDesignInteraction,
-            status: "ADOPTED",
-            adoptedProjectVersion: project.versionId,
-            staleReason: null,
-          }
-          : current.studyDesignInteraction && !interactionMatchesCurrentProject(current.studyDesignInteraction, project)
-            ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-            : current.studyDesignInteraction,
-        scientificThinkingInteraction: current.scientificThinkingInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.scientificThinkingInteraction,
-            status: "ADOPTED",
-            adoptedProjectVersion: project.versionId,
-            staleReason: null,
-          }
-          : current.scientificThinkingInteraction && !scientificThinkingInteractionMatchesCurrentProject(current.scientificThinkingInteraction, project)
-            ? { ...current.scientificThinkingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-            : current.scientificThinkingInteraction,
-        observabilityInteraction: current.observabilityInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.observabilityInteraction,
-            status: "ADOPTED",
-            adoptedProjectVersion: project.versionId,
-            staleReason: null,
-          }
-          : current.observabilityInteraction && !observabilityInteractionMatchesCurrentProject(current.observabilityInteraction, project)
-            ? { ...current.observabilityInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-            : current.observabilityInteraction,
-        imagingInteraction: current.imagingInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.imagingInteraction,
-            status: "ADOPTED",
-            adoptedProjectVersion: project.versionId,
-            staleReason: null,
-          }
-          : current.imagingInteraction && !imagingInteractionMatchesCurrentProject(current.imagingInteraction, project)
-            ? { ...current.imagingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-            : current.imagingInteraction,
-        biostatisticsInteraction: current.biostatisticsInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.biostatisticsInteraction,
-            status: "ADOPTED",
-            adoptedProjectVersion: project.versionId,
-            staleReason: null,
-          }
-          : current.biostatisticsInteraction && !biostatisticsInteractionMatchesCurrentProject(current.biostatisticsInteraction, project)
-            ? { ...current.biostatisticsInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-            : current.biostatisticsInteraction,
-        canonicalStudyDataInteraction: current.canonicalStudyDataInteraction
-          && (current.canonicalStudyDataInteraction.sourceProjectVersion !== project.versionId
-            || current.canonicalStudyDataInteraction.sourceProjectDigest !== project.projectDigest)
-          ? { ...current.canonicalStudyDataInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : current.canonicalStudyDataInteraction,
-        dataManagementInteraction: current.dataManagementInteraction
-          && (current.dataManagementInteraction.sourceProjectVersion !== project.versionId
-            || current.dataManagementInteraction.sourceProjectDigest !== project.projectDigest)
-          ? { ...current.dataManagementInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
-          : current.dataManagementInteraction,
-        documents,
-        currentContribution: contribution,
-        pendingContribution: remainder?.contribution ?? null,
-        pendingMixedUserTurnRef: naturalDecision?.prepareRemainingTurn ? naturalDecision.userTurn.turnId : null,
-        retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
-          retained: proposalSelection ? retainedBeforeDecision : current.retainedContributionCandidates ?? [], candidateRef: contributionId,
-          decision: project.confirmationDecision,
-        }), ...(remainder ? [remainder] : [])],
-        runtimeTurns: naturalDecision
-          ? [...current.runtimeTurns,
-            ...(current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId) ? [] : [naturalDecision.userTurn]),
-            confirmationTurn]
-          : runtimeTurns,
-        entries: [
-          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
-            ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision,
-              ...(naturalDecision?.selectedChangeRefs ? { decisionPartition: { refused: naturalDecision.refusedChangeRefs ?? [], corrected: naturalDecision.correctionChangeRefs ?? [],
-                pending: originalRecord?.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !settledRefs.includes(ref)) ?? [] } } : {}) }
-            : entry),
-          ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
-            contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
-          ...(naturalDecision && !current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId) ? [{
-            entryId: createConversationEntryId(),
-            kind: "TEXT" as const,
-            role: "USER" as const,
-            content: naturalDecision.originalText,
-            createdAt: naturalDecision.userTurn.createdAt,
-          }] : []),
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
-        ],
-        bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
-          ? { ...trace, humanDecision: projectHumanDecisionForBridgeTrace(project.confirmationDecision), projectVersionAfter: project.versionId }
-          : trace),
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
-        conversationPreferences: naturalDecision?.stylePreference
-          ? { responseLength: naturalDecision.stylePreference.responseLength, source: naturalDecision.stylePreference.source }
-          : current.conversationPreferences,
-        updatedAt: now,
-      };
-      nextSession = { ...nextSession, scientificDiscussionRetention: settleRetainedDiscussionAdoption(
-        nextSession.scientificDiscussionRetention, project, nextSession.retainedContributionCandidates ?? [], updatedStudyProposal) };
-      if (proposalSelection) {
-        const preparation = nextSession.workingDraftPreparations?.find(p => p.decision === "PENDING"
-          && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);
-        if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED");
-      }
+      const staged = stageProjectConfirmation({ session, readCurrentSession: () => latestSessionRef.current,
+        contributionId, contribution, now, naturalDecision, proposalSelection, adoptionTrace, administration });
+      let nextSession = staged.nextSession;
+      const project = staged.project;
       const commit = await persistAdoptedProjectSession({ storage: window.localStorage, session: { ...nextSession, project },
-        previousProject: current.project, save: onSessionChange, adoptionTrace, uploadSnapshot: import.meta.env.MODE !== "development" });
+        previousProject: staged.previousProject, save: onSessionChange, adoptionTrace, uploadSnapshot: import.meta.env.MODE !== "development" });
       if (commit.status === "NOT_COMMITTED") throw new Error("PROJECT_PERSISTENCE_FAILED");
       nextSession = commit.session;
       latestSessionRef.current = nextSession;
@@ -2715,14 +2411,7 @@ export default function ProtocolDesignerWorkspace({
     if (busy || !composition || composition.digest !== expectedDigest) return;
     try {
       const now = new Date().toISOString();
-      const selectedRefs = selectedStudyProposalAtoms(composition, selectedOptions, selectedAtoms);
-      const labels = composition.proposal.atoms.filter(a => selectedRefs.includes(a.ref)).map(a => a.content);
-      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: `Je valide les propositions sélectionnées : ${labels.join(" ; ")}`, createdAt: now };
-      const proposalTurn = session.runtimeTurns.find(t => t.role === "NOXIA" && t.turnId === composition.sourceResponseRef);
-      if (!proposalTurn) throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_NOT_FOUND");
-      const contribution = buildStudyProposalSelectionContribution({ composition, selectedOptionRefs: selectedOptions, selectedAtomRefs: selectedAtoms,
-        project: session.project, projectId: session.projectId, conversationId: session.conversationId, proposalTurn, selectionTurn: userTurn, createdAt: now });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
+      const { userTurn, contribution, candidate } = stageStudyProposalSelection(session, composition, selectedOptions, selectedAtoms, now);
       await confirmContribution(contribution.identity.contributionId, { userTurn, originalText: userTurn.content,
         gatewayState: session.conversationLanguageGateway, traceLedger: session.scientificExecutionTraceLedger,
         stylePreference: null, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs },
@@ -2740,24 +2429,7 @@ export default function ProtocolDesignerWorkspace({
     if (busy || !composition || composition.digest !== digest) return;
     try {
       const now = new Date().toISOString();
-      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: `${status === "REJECTED" ? "Je refuse" : "Je diffère"} uniquement les propositions sélectionnées.`, createdAt: now };
-      const proposalTurn = session.runtimeTurns.find(t => t.role === "NOXIA" && t.turnId === composition.sourceResponseRef);
-      if (!proposalTurn) throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_NOT_FOUND");
-      const atomRefs = selectedStudyProposalAtoms(composition, selectedOptions, selectedAtoms);
-      const contribution = buildStudyProposalSelectionContribution({ composition, selectedOptionRefs: selectedOptions, selectedAtomRefs: selectedAtoms,
-        project: session.project, projectId: session.projectId, conversationId: session.conversationId, proposalTurn, selectionTurn: userTurn, createdAt: now, disposition: status });
-      const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
-      const common = { contribution, current: session.project, authority: session.projectAuthority, selectedChangeRefs: candidate.humanReviewProjection.coveredChangeRefs, reviewedProjection: candidate.humanReviewProjection };
-      const decision = status === "REJECTED" ? rejectResearchProjectContribution({ ...common, rejectedAt: now, rejectionSourceRefs: [userTurn.turnId] })
-        : deferResearchProjectContribution({ ...common, deferredAt: now });
-      const feedback = status === "REJECTED" ? "Les propositions sélectionnées ne sont pas retenues. Le projet confirmé est inchangé." : "Les propositions sélectionnées sont différées. Le projet confirmé est inchangé.";
-      setSession(current => ({ ...current, studyProposal: projectStudyProposalDisposition(composition, decision, atomRefs, selectedOptions),
-        retainedContributionCandidates: recordContributionCandidateHumanDecision({ retained: markContributionCandidatePresented({
-          retained: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, null), candidateRef: contribution.identity.contributionId, presentedAt: now }),
-        candidateRef: contribution.identity.contributionId, decision }),
-        runtimeTurns: [...current.runtimeTurns, userTurn, { turnId: createTurnId(), role: "NOXIA", content: feedback, createdAt: now }],
-        entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content: userTurn.content, createdAt: now },
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now }], updatedAt: now }));
+      setSession(stageStudyProposalDisposition(session, composition, status, selectedOptions, selectedAtoms, now));
     } catch { setSession(current => ({ ...current, entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: "Cette décision n'a pas été enregistrée. Le projet et les propositions sont conservés.", createdAt: new Date().toISOString() }] })); }
   };
 
@@ -2771,119 +2443,7 @@ export default function ProtocolDesignerWorkspace({
     if (!contributionHasAcknowledgedPresentation(contributionId)) return;
     const now = new Date().toISOString();
     try {
-      const decision = rejectResearchProjectContribution({
-        contribution,
-        current: session.project,
-        authority: session.projectAuthority,
-        rejectedAt: now,
-        rejectionSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
-        selectedChangeRefs: naturalDecision?.selectedChangeRefs,
-        reviewedProjection: session.entries.find(entry => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId)?.kind === "REVIEW"
-          ? prepareResearchProjectContributionCandidate(contribution, session.project).humanReviewProjection : undefined,
-      });
-      const originalRecord = session.retainedContributionCandidates?.find(record => record.candidateRef === contributionId);
-      const remainder = naturalDecision?.selectedChangeRefs && originalRecord ? retainUndecidedContributionScope({
-        record: originalRecord, currentBefore: session.project, currentAfter: session.project,
-        settledChangeRefs: naturalDecision.selectedChangeRefs, decisionSourceRef: naturalDecision.userTurn.turnId, retainedAt: now,
-      }) : null;
-      const remainderEntryId = remainder ? createConversationEntryId() : null;
-      setSession((current) => {
-        const reviewEntry = current.entries.find((entry) => entry.kind === "REVIEW"
-          && entry.contribution.identity.contributionId === contributionId);
-        const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
-          ? reviewEntry.traceRunId
-          : current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
-        const scientificExecutionTraceLedger = recordContributionRejectionTrace({
-          ledger: naturalDecision?.traceLedger ?? current.scientificExecutionTraceLedger,
-          traceRunId: correlatedTraceRunId,
-          conversationId: current.conversationId,
-          recordedAt: now,
-          contribution,
-          decision,
-          project: current.project,
-        });
-        const rejectionReply = naturalDecision?.selectedChangeRefs ? "Les éléments refusés ne sont pas retenus. Les autres propositions restent en attente ; le projet confirmé est inchangé." : "Proposition refusée. Le projet confirmé reste inchangé.";
-        const rejectionTurn: ScientificInterpretationTurn = {
-          turnId: createTurnId(), role: "NOXIA", content: rejectionReply, createdAt: now,
-        };
-        return {
-        ...current,
-        studyProposal: current.studyProposal?.recomputation?.contributionRef === contributionId
-          ? requireStudyProposalReview(current.studyProposal, current.project) : current.studyProposal,
-        pendingContribution: remainder?.contribution ?? null,
-        retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
-          retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId, decision,
-        }), ...(remainder ? [remainder] : [])],
-        studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.studyDesignInteraction,
-            status: "ACTIVE",
-            selectedOptionRef: null,
-            pendingContributionRef: null,
-          }
-          : current.studyDesignInteraction,
-        scientificThinkingInteraction: current.scientificThinkingInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.scientificThinkingInteraction,
-            status: "ACTIVE",
-            selectedCandidateRef: null,
-            pendingContributionRef: null,
-          }
-          : current.scientificThinkingInteraction,
-        observabilityInteraction: current.observabilityInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.observabilityInteraction,
-            status: "ACTIVE",
-            selectedMeasurementRef: null,
-            pendingContributionRef: null,
-          }
-          : current.observabilityInteraction,
-        imagingInteraction: current.imagingInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.imagingInteraction,
-            status: "ACTIVE",
-            selectedOptionRef: null,
-            pendingContributionRef: null,
-          }
-          : current.imagingInteraction,
-        biostatisticsInteraction: current.biostatisticsInteraction?.pendingContributionRef === contributionId
-          ? {
-            ...current.biostatisticsInteraction,
-            status: "ACTIVE",
-            selectedStrategyRef: null,
-            pendingContributionRef: null,
-          }
-          : current.biostatisticsInteraction,
-        runtimeTurns: naturalDecision
-          ? [...current.runtimeTurns, naturalDecision.userTurn, rejectionTurn]
-          : current.runtimeTurns,
-        entries: [
-          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
-            ? { ...entry, status: "REJECTED" as const, decision,
-              ...(naturalDecision?.selectedChangeRefs ? { decisionPartition: { refused: naturalDecision.selectedChangeRefs, corrected: [],
-                pending: originalRecord?.candidate.humanReviewProjection.coveredChangeRefs.filter(ref => !naturalDecision.selectedChangeRefs!.includes(ref)) ?? [] } } : {}) }
-            : entry),
-          ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
-            contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
-          ...(naturalDecision ? [{
-            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const,
-            content: naturalDecision.originalText, createdAt: naturalDecision.userTurn.createdAt,
-          }, {
-            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
-            content: rejectionReply, createdAt: now,
-          }] : []),
-        ],
-        bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
-          ? { ...trace, humanDecision: projectHumanDecisionForBridgeTrace(decision), projectVersionAfter: current.project?.versionId ?? null }
-          : trace),
-        scientificExecutionTraceLedger,
-        conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
-        conversationPreferences: naturalDecision?.stylePreference
-          ? { responseLength: naturalDecision.stylePreference.responseLength, source: naturalDecision.stylePreference.source }
-          : current.conversationPreferences,
-        updatedAt: now,
-      };
-      });
+      setSession(stageProjectRejection(session, contribution, contributionId, now, naturalDecision));
     } catch {
       setSession((current) => ({
         ...current,
@@ -3136,8 +2696,7 @@ export default function ProtocolDesignerWorkspace({
     const review = projectPreparationReview(current);
     const adoptionTrace = createProjectAdoptionTrace(current, review, selectedChangeRefs);
     adoptionTrace.received();
-    if (!review || !review.applicable || review.blocker || busy || workingDraftBusy
-      || review.newerTurns.length > 0 && !selectedChangeRefs?.length) {
+    if (!review || !projectPreparationConfirmationApplicable(review, busy, workingDraftBusy, selectedChangeRefs)) {
       setReviewError("Relisez le périmètre de cette préparation avant de confirmer. Une base incompatible exige une nouvelle préparation.");
       adoptionTrace.fail(new Error("PROJECT_REVIEW_NOT_APPLICABLE"), current.project);
       setSession(value => ({ ...value, scientificExecutionTraceLedger: adoptionTrace.ledger() }));
@@ -3145,9 +2704,7 @@ export default function ProtocolDesignerWorkspace({
     }
     const { prepared, composition, checkpoint } = review;
     setReviewError(null);
-    const scope = recommendedWorkingScope(composition);
-    const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER",
-      content: `Validation explicite de la préparation ${checkpoint.preparationId}`, createdAt: new Date().toISOString() };
+    const { scope, userTurn } = projectPreparationConfirmationInput(review, createTurnId(), new Date().toISOString());
     try {
     const result = await confirmContribution(prepared.contribution.identity.contributionId, {
       userTurn, originalText: "Valider ces choix", gatewayState: current.conversationLanguageGateway,
