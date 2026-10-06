@@ -53,6 +53,16 @@ const initialChat = async () => { send(DOMAINS[0].text); await screen.findByText
   await waitFor(() => expect(screen.queryByText("NOXIA réfléchit…")).not.toBeInTheDocument()); };
 
 describe("explicit Project preparation — real bridge/owners, synthetic provider only", () => {
+  it("exposes Human Review in Standard and reserves the technical preparation control for diagnostics", async () => {
+    const h = setup();
+    expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Préparer la mise à jour du projet" })).toBeNull();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
+    expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Revoir les choix du projet" })).toBeNull();
+    expect(h.state().project).toBeNull(); expect(bridge).not.toHaveBeenCalled();
+  });
   it.each(["oui je valide", "Quelles études existent ?", "Je précise mon projet."])("keeps ordinary conversation without heavy automatic work: %s", async text => {
     const h = setup(); await initialChat(); send(text);
     await waitFor(() => expect(h.state().runtimeTurns.filter(t => t.role === "NOXIA")).toHaveLength(2));
@@ -61,7 +71,7 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
   });
   it("captures one preparation on repeated clicks and preserves it during later conversation", async () => {
     const h = setup(); await initialChat();
-    const button = screen.getByRole("button", { name: "Préparer la mise à jour du projet" });
+    const button = screen.getByRole("button", { name: "Revoir les choix du projet" });
     fireEvent.click(button); fireEvent.click(button);
     await waitFor(() => expect(h.wdCalls()).toHaveLength(1));
     const request = JSON.stringify(h.wdCalls()[0][0]);
@@ -75,13 +85,13 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(bridge.mock.calls.some(([r]) => r.documentDraftRequest)).toBe(false);
   });
   it("never turns assent after a ready review into adoption", async () => {
-    const h = setup(); await initialChat(); fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    const h = setup(); await initialChat(); fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await act(async () => h.release()); await screen.findByTestId("project-finalization-card"); send("je valide");
     await waitFor(() => expect(h.state().runtimeTurns.filter(t => t.role === "USER")).toHaveLength(2));
     expect(h.state().project).toBeNull(); expect(h.wdCalls()).toHaveLength(1);
   });
   it("adopts the explicit review exactly once, persists it and never calls DOC", async () => {
-    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
     const button=screen.getByRole("button",{name:"Valider ces choix"});fireEvent.click(button);fireEvent.click(button);
     await waitFor(()=>expect(h.state().project?.revision).toBe(1));
@@ -91,7 +101,7 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(bridge.mock.calls.some(([r])=>r.documentDraftRequest)).toBe(false);
   });
   it.each(["NO_CHANGE","CYCLE","TRUNCATED","TIMEOUT"] as const)("persists an honest terminal outcome: %s",async outcome=>{
-    const h=setup(outcome);await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup(outcome);await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     await act(async()=>h.release());
     await waitFor(()=>expect(h.state().workingDraftPreparations?.at(-1)?.status).not.toBe("PREPARING"));
     expect(h.state().workingDraftPreparations?.at(-1)?.status).toBe(outcome==="NO_CHANGE"?"NO_CHANGE":outcome==="TIMEOUT"?"UNKNOWN/INTERRUPTED":"FAILED");
@@ -100,7 +110,7 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(h.wdCalls()).toHaveLength(1);
   });
   it.each(["oui", "ça me convient", "oui je valide. ce sera en France"])("retains receipt, checkpoint and explicit review across early assent: %s",async text=>{
-    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     await waitFor(()=>expect(h.wdCalls()).toHaveLength(1));const before=JSON.stringify(h.state().workingDraftPreparations?.[0].checkpoint);
     send(text);await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
@@ -110,7 +120,7 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     persistFunctionalResetSession(localStorage,h.state());expect(loadFunctionalResetSession(localStorage).conversationConfirmationReceipts).toHaveLength(1);
   });
   it.each(["Je précise deux centres", "Je corrige l'âge à 40 ans"])("preserves a later change without silently applying the old scope: %s",async text=>{
-    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     const checkpoint=JSON.stringify(h.state().workingDraftPreparations?.[0].checkpoint);
     send(text);await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
@@ -119,14 +129,14 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();expect(h.state().project).toBeNull();
   });
   it("keeps a refused checkpoint visible but cannot override the known refusal",async()=>{
-    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     send("non, je refuse cette proposition");await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
     expect(h.state().workingDraftPreparations?.[0].postCutoffBlocker).toContain("REFUSAL_OR_CORRECTION");
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();expect(h.state().project).toBeNull();
   });
   it("requires actual per-group review after a later question and permits explicit compatible adoption",async()=>{
-    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     send("Existe-t-il une bibliographie ?");await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();

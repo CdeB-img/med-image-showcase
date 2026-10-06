@@ -1,5 +1,5 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
-import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -87,7 +87,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(v1.queryNavigation?.currentAction).toBeTruthy();
 
     const projectV1BeforeDocument = JSON.stringify(v1.project);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
     const previewV1 = await openArchivedProtocolPreview();
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     fireEvent.click(within(previewV1).getByRole("button", { name: "Télécharger le protocole (.html)" }));
@@ -120,7 +120,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     });
 
     const projectV2BeforeDocument = JSON.stringify(staleV1.project);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
     const previewV2 = await openArchivedProtocolPreview();
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
@@ -141,6 +141,10 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(v2WithDocuments.project).not.toHaveProperty("documentProjections");
 
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
+    // Technical projection inspection is diagnostic-only; restore Standard
+    // before testing the explicit diagnostic mode switch itself.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     const providerRequestsBeforeSwitch = runtime.request.mock.calls.length;
     const stateBeforeSwitch = window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
     fireEvent.click(screen.getByLabelText("Plus d’options"));

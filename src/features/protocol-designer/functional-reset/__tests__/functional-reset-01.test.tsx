@@ -42,7 +42,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Prélèvements / échantillons", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité", "Documents"]) {
       expect(within(project).getAllByText(label).length).toBeGreaterThan(0);
     }
-    expect(within(project).getByText("Projet à confirmer")).toBeInTheDocument();
+    expect(within(project).getByText("Aucune génération documentaire.")).toBeInTheDocument();
     expect(within(project).getAllByText("À définir")).toHaveLength(14);
     expect(within(project).getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
     expect(screen.queryByText(/Actor|Mandate|Branch|Gate|Guided Intake|Orientation/)).toBeNull();

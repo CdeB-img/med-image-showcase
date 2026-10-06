@@ -227,7 +227,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
             </form>
             <section className="grid gap-4 sm:grid-cols-2" aria-label="Projets enregistrés">{list.projects.map((saved) => {
               const name = projectTitle(saved);
-              const documentCount = saved.session.documents.projections.length;
+              const documentCount = saved.session.drciDraftPacks?.length ?? 0;
               return <article key={saved.key} className="relative rounded-2xl border bg-background p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0"><h2 className="truncate text-lg font-semibold">{name}</h2><p className="mt-2 text-sm text-muted-foreground">{saved.session.project ? "Conception confirmée" : "Conception en cours"}</p></div>
@@ -239,7 +239,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
                     </div>
                   </details>
                 </div>
-                <p className="mt-3 text-xs text-muted-foreground">Modifié le {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium" }).format(new Date(saved.session.updatedAt))} · {saved.session.documentArchive?.currentGenerationId || saved.session.documentArchive?.currentProjectionId ? "Historique documentaire archivé · non chargé" : documentCount ? `${documentCount} version${documentCount > 1 ? "s" : ""} documentaire${documentCount > 1 ? "s" : ""}` : "Aucun document"}</p>
+                <p className="mt-3 text-xs text-muted-foreground">Modifié le {new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium" }).format(new Date(saved.session.updatedAt))} · {saved.session.documentArchive?.currentGenerationId ? "Générations documentaires archivées · non chargées" : documentCount ? `${documentCount} génération${documentCount > 1 ? "s" : ""} documentaire${documentCount > 1 ? "s" : ""}` : "Aucun document"}</p>
                 <button type="button" disabled={Boolean(error)} onClick={() => open(saved)} className={`${buttonClass} mt-4`}>Ouvrir</button>
               </article>;
             })}</section>

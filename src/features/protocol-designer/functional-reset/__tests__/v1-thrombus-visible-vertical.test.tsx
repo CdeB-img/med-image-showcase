@@ -179,6 +179,9 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
       expect(url).toBe("/api/protocol-designer-bridge");
       expect(JSON.parse(String(init?.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
     }
+    fireEvent.click(within(screen.getByTestId("functional-protocol-preview")).getByRole("button", { name: "Retour à la conversation" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(document.body.textContent).not.toMatch(/ownerResultRef|traceRunId|SCIENTIFIC_THINKING_PROPOSAL|QUERY_NAVIGATION/);
   });
 });

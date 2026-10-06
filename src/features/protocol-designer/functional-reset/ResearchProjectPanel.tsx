@@ -1,6 +1,7 @@
 import { presentResearchProjectAssertion } from "@/features/research-project-construction/contribution-owner-boundary";
 import type { FunctionalResetDocumentPortfolio, StudyDeliverablePortfolio } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
+import type { DocumentArchivePointer } from "@/features/document-projection/generation-persistence";
 import {
   emptyResearchProjectSections,
   ensureCanonicalProjectState,
@@ -13,6 +14,7 @@ import {
 type Props = {
   project: ResearchProjectOwnerProjection | null;
   documents: FunctionalResetDocumentPortfolio;
+  documentArchive?: DocumentArchivePointer | null;
   mode: "STANDARD" | "EXPERT";
   onOpenProtocol: (projectionId: string) => void;
   onRequestProtocol: () => void;
@@ -23,6 +25,7 @@ type Props = {
   suppressDocumentAction?: boolean;
   showDocumentAction?: boolean;
   documentActionDisabledReason?: string;
+  technicalProjectionOnly?: boolean;
 };
 
 const projectVersionLabel = (versionId: string) => versionId.match(/:version:(\d+)$/)?.[1] ?? versionId;
@@ -62,6 +65,7 @@ const roleLabel = (role: string | null) => {
 export default function ResearchProjectPanel({
   project,
   documents,
+  documentArchive,
   mode,
   onOpenProtocol,
   onRequestProtocol,
@@ -72,6 +76,7 @@ export default function ResearchProjectPanel({
   suppressDocumentAction = false,
   showDocumentAction = true,
   documentActionDisabledReason,
+  technicalProjectionOnly = false,
 }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const canonicalProject = project ? ensureCanonicalProjectState(project) : null;
@@ -197,7 +202,7 @@ export default function ResearchProjectPanel({
         {showDocumentAction && <div className="mt-3 border-t pt-3" data-testid="project-document-action">
           <button type="button" onClick={onRequestProtocol} disabled={Boolean(documentActionReason)}
             className="min-h-11 w-full rounded-xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
-            Générer les documents
+            {technicalProjectionOnly ? "Calculer la projection technique" : "Générer les documents"}
           </button>
           {documentActionReason && <p className="mt-1.5 text-xs text-muted-foreground">{documentActionReason}</p>}
         </div>}
@@ -246,17 +251,23 @@ export default function ResearchProjectPanel({
 
       <section className="rounded-2xl border px-4 py-3" aria-labelledby="functional-project-documents">
         <h3 id="functional-project-documents" className="text-sm font-semibold"><span>Documents</span><span> / Livrables de l’étude</span></h3>
+        {mode === "STANDARD" && <div className="mt-3 text-sm" data-testid="project-document-generation-summary">
+          {documentArchive?.currentGeneration ? <>
+            <p>G{documentArchive.currentGeneration.displayVersion} — basée sur le projet V{projectVersionLabel(documentArchive.currentGeneration.project.projectVersion)}</p>
+            {documentArchive.currentGeneration.project.projectDigest !== project?.projectDigest && <p className="mt-1 text-xs text-muted-foreground">Historique · à actualiser par une nouvelle génération explicite.</p>}
+          </> : <p className="text-muted-foreground">Aucune génération documentaire.</p>}
+        </div>}
         {deliverablePortfolio && onOpenDeliverables && <div className="mt-3">
-          <ul className="space-y-1.5 text-xs text-muted-foreground" data-testid="study-deliverable-summary">
+          {mode === "EXPERT" && <ul className="space-y-1.5 text-xs text-muted-foreground" data-testid="study-deliverable-summary">
             {deliverablePortfolio.artifacts.map((item) => <li key={item.artifactId} className="flex items-start justify-between gap-3">
               <span>{item.name}</span><span className="shrink-0 font-medium">{item.status}</span>
             </li>)}
-          </ul>
+          </ul>}
           <button type="button" onClick={onOpenDeliverables} className="mt-3 min-h-10 w-full rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">
             Ouvrir les livrables de l’étude
           </button>
         </div>}
-        {protocol && <div className="mt-3 space-y-2.5">
+        {mode === "EXPERT" && protocol && <div className="mt-3 space-y-2.5">
           <article className="rounded-xl bg-muted/60 p-3">
             <div className="flex items-start justify-between gap-3">
               <p className="text-sm font-medium">Protocole</p>
@@ -273,16 +284,7 @@ export default function ResearchProjectPanel({
               </div>
             </details>}
             {protocol.canOpen && protocol.projectionId && <button type="button" onClick={() => onOpenProtocol(protocol.projectionId!)} className="mt-3 min-h-10 rounded-lg border bg-background px-3 text-xs font-medium">Ouvrir les documents</button>}
-            {protocol.canRequestProjection && project && !suppressDocumentAction && !showDocumentAction && <div className="mt-3 rounded-lg border bg-background p-2.5">
-              <p className="text-xs leading-relaxed">{protocol.freshness === "STALE"
-                ? "Le projet a changé depuis la dernière génération documentaire."
-                : protocol.templateStatus === "ENGINE_ERROR" ? "Les documents n’ont pas pu être générés. Le projet confirmé est conservé."
-                  : "Les documents de travail peuvent être générés depuis ce projet confirmé."}</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{protocol.templateStatus === "ENGINE_ERROR" ? "Réessayer la génération" : protocol.freshness === "STALE" ? "Mettre à jour les documents" : "Générer les documents"}</button>
-                {onCompleteAdministration && <button type="button" onClick={onCompleteAdministration} className="min-h-10 rounded-lg border px-3 text-xs font-medium">Compléter les informations d’abord</button>}
-              </div>
-            </div>}
+            {protocol.canRequestProjection && project && !suppressDocumentAction && onCompleteAdministration && <button type="button" onClick={onCompleteAdministration} className="mt-2 min-h-10 rounded-lg border px-3 text-xs font-medium">Compléter les informations d’abord</button>}
             {historicalProtocols.length > 0 && <details className="mt-3 text-xs" data-testid="protocol-history-disclosure">
               <summary className="cursor-pointer font-medium">Versions précédentes ({historicalProtocols.length})</summary>
               <ul className="mt-2 space-y-2">{historicalProtocols.map((projection) => <li key={projection.projectionId} className="rounded-lg border bg-background p-2.5">

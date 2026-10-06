@@ -287,9 +287,9 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     fireEvent.click(within(preview).getByRole("button", { name: "Retour à la conversation" }));
     submit("Exporte mon CRF pour mon logiciel de collecte.");
     const portfolioWorkspace = await screen.findByTestId("study-deliverable-workspace");
-    // CURRENT_SEMANTIC_INVARIANT: inspect frozen outputs, not the superseded
-    // eager portfolio. Readiness and scientific semantics are checked below.
-    await within(portfolioWorkspace).findByRole("button", { name: "Ouvrir redcap-data-dictionary.csv" });
+    // CURRENT_SEMANTIC_INVARIANT: the exact frozen technical CRF is retained;
+    // SUPERSEDED_CONTRACT: it is not a provider-generated user document.
+    expect(within(portfolioWorkspace).queryByRole("button", { name: "Ouvrir redcap-data-dictionary.csv" })).toBeNull();
 
     const finalSession = stored();
     const projectBeforeProjection = structuredClone(projectV2);
@@ -307,6 +307,8 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
       expect(portfolio.artifacts.find((item) => item.kind === kind)?.canonicalVariableRefs).toContain(canonicalVariable.objectId);
     }
     const redcap = portfolio.artifacts.find((item) => item.kind === "EDC_IMPORT_PACKAGE")!.files.find((file) => file.fileName === "redcap-data-dictionary.csv")!;
+    const frozenTechnical = await offlineArchiveClient(finalSession.sessionId, finalSession.project!).body(protocolProjection.projectionId);
+    expect(frozenTechnical.body.files.find(file => file.fileName === redcap.fileName)?.content).toBe(redcap.content);
     expect(redcap.content).toContain("Variable / Field Name,Form Name");
     expect(redcap.content).toContain("record_id,study_identification");
     expect(redcap.content).toContain(canonicalVariable.objectId);
@@ -338,10 +340,10 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
       expect(uncompressedZipText).toContain(fileName);
     }
 
-    const previousDownloads = vi.mocked(URL.createObjectURL).mock.calls.length;
-    fireEvent.click((await within(portfolioWorkspace).findAllByRole("button", { name: "Exporter cette version (.zip)" }))[0]);
-    await waitFor(() => expect(URL.createObjectURL).toHaveBeenCalledTimes(previousDownloads + 1));
-    expect(URL.createObjectURL).toHaveBeenLastCalledWith(expect.any(Blob));
+    // SUPERSEDED_CONTRACT: technical exports must not masquerade as real Gn.
+    // CURRENT_STRUCTURAL_INVARIANT: user ZIP dispatch/lazy reuse is covered by
+    // lazy-generation-history; technical ZIP content remains verified above.
+    expect(within(portfolioWorkspace).queryByRole("button", { name: "Exporter la génération (.zip)" })).toBeNull();
 
     expect(runtime.language).not.toHaveBeenCalled();
     expect(globalThis.fetch).toHaveBeenCalledTimes(2);
@@ -349,6 +351,8 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
       expect(url).toBe("/api/protocol-designer-bridge");
       expect(JSON.parse(String(init?.body)).operation).toBe("PERSIST_PROJECT_SNAPSHOT");
     }
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(document.body.textContent).not.toMatch(/ownerResultRef|traceRunId|STUDY_DESIGN_COHERENCE|QUERY_NAVIGATION/);
   });
 });

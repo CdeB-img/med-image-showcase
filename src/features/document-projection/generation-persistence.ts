@@ -28,8 +28,9 @@ export type DocumentGenerationRef = Readonly<{
   generationId: string;
   family: DocumentNativeGeneration["family"];
   project: DocumentProjectBinding;
+  /** Physical archive cursor across internal projections and real generations. */
   ordinal: number;
-  /** Committed labels are immutable, never derived from a page index. */
+  /** Immutable per-family counter; DRCI displays Gn, independently of Project Vn. */
   displayVersion: number;
   generatedAt: string;
   predecessorId: string | null;

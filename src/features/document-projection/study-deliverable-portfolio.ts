@@ -431,5 +431,5 @@ export const downloadStudyPackage = (portfolio: Readonly<StudyDeliverablePortfol
 );
 
 export const downloadFrozenStudyFiles = (files: readonly StudyDeliverableFile[], generatedAt: string, version: number) => triggerDownload(
-  new Blob([buildStudyFilesZipBytes(files, generatedAt)], { type: "application/zip" }), `noxia-documents-v${version}.zip`,
+  new Blob([buildStudyFilesZipBytes(files, generatedAt)], { type: "application/zip" }), `noxia-documents-g${version}.zip`,
 );

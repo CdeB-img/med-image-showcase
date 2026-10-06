@@ -46,7 +46,7 @@ const contexts = (session: ReturnType<typeof source>["session"]) => {
 };
 afterEach(() => { localStorage.clear(); resetOfflineArchiveClients(); vi.unstubAllGlobals(); });
 describe("clean DOC cutover and native archive growth — no provider/network", () => {
-  it("starts clean, commits G1, reloads references, creates G2 and retains G1 byte-for-byte", async () => {
+  it("starts clean, reloads technical projection references and preserves their immutable bodies outside user history", async () => {
     const network = vi.fn(async () => { throw new Error("NETWORK_FORBIDDEN"); }); vi.stubGlobal("fetch", network);
     const old = { ...createFunctionalResetSession(), contentEpoch: undefined, runtimeTurns: [{ role: "USER", content: "OLD_CONTENT_MUST_NOT_REAPPEAR" }] };
     const oldKey = "noxia-protocol-designer-functional-reset-v3"; localStorage.setItem(oldKey, JSON.stringify(old));
@@ -68,10 +68,11 @@ describe("clean DOC cutover and native archive growth — no provider/network", 
     const g1 = await create(base, 1); persistFunctionalResetSession(localStorage, g1.session);
     const firstBytes = JSON.stringify(g1.body), reopened = loadFunctionalResetSession(localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as typeof base;
     expect(reopened.project).toEqual(project); expect(reopened.documents.projections).toEqual([]); expect(reopened.drciDraftPacks).toEqual([]);
-    const page1 = await client.history(); expect(page1.entries).toHaveLength(1); expect(page1.entries[0]).not.toHaveProperty("native");
+    // CURRENT_STRUCTURAL_INVARIANT: durable technical bodies, not user G1/G2.
+    expect((await client.history()).entries).toEqual([]);
     const g2 = await create(reopened, 2); persistFunctionalResetSession(localStorage, g2.session);
     const reopenedAgain = loadFunctionalResetSession(localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
-    expect((await client.history()).entries.map(ref => ref.displayVersion)).toEqual([2, 1]);
+    expect((await client.history()).entries).toEqual([]);
     expect(JSON.stringify((await client.body(g1.receipt.generation.generationId)).body)).toBe(firstBytes);
     expect((await client.body(reopenedAgain.documentArchive!.currentProjectionId!)).body).toEqual(g2.body);
     expect(JSON.stringify(reopenedAgain)).not.toContain(g1.body.files[0].content);

@@ -118,13 +118,13 @@ describe("independent Standard workspace through public admission", () => {
     });
     const requests = wirePublicHandler(provider), workspace = mount();
     send(initialText); await screen.findByText("Discussion contrôlée intacte.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
     await screen.findByTestId("project-finalization-card");
     const previous = workspace.current().studyProposal?.digest;
     send("Et si je garde seulement ce critère ?");
     await waitFor(() => expect(workspace.current().runtimeTurns.filter(turn => turn.role === "NOXIA")).toHaveLength(2));
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
     expect(workspace.current().studyProposal?.digest).toBe(previous);
     expect(workspace.current().entries.filter(e => e.kind === "TEXT" && e.role === "NOXIA" && e.content === "Discussion contrôlée intacte.")).toHaveLength(2);
@@ -160,7 +160,7 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("FAILED"));
     const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
     expect(preparationFor(workspace.current(), turnRef)).toMatchObject({ status: "FAILED",
@@ -184,7 +184,7 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send("Bonjour, je réfléchis à une étude.");
     await screen.findByText("Discussion contrôlée intacte.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("NO_CHANGE"));
     // NO_CHANGE is a known valid outcome, not a FAILED result with a synthetic error code.
     expect(workspace.current().workingDraftPreparations?.at(-1)?.code).toBeNull();
@@ -221,7 +221,7 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     try {
       await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("UNKNOWN/INTERRUPTED"));
       expect(screen.getByRole("alert")).toHaveTextContent(/résultat n’est pas vérifié/iu);
@@ -253,7 +253,7 @@ describe("independent Standard workspace through public admission", () => {
     render(<HelmetProvider><ProjectWorkspace /></HelmetProvider>);
     send(DOMAINS[1].text);
     await screen.findByText("Brouillon proposé, non adopté.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await screen.findByText(/Enregistrement local impossible/);
     expect(readProjectSessions(localStorage).projects[0].session.workingDraftPreparations?.at(-1)?.status).not.toBe("READY_FOR_REVIEW");
     const before = vi.mocked(fetch).mock.calls.length;
@@ -281,7 +281,7 @@ describe("independent Standard workspace through public admission", () => {
     });
     const requests = wirePublicHandler(provider, concurrentUiTestGuard()), workspace = mount();
     send(firstMessage); await screen.findByText("Réponse contrôlée 1.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(provider).toHaveBeenCalledTimes(2));
     expect(screen.getByRole("textbox", { name: "Votre message" })).not.toBeDisabled();
     send(nextMessage);
@@ -292,7 +292,7 @@ describe("independent Standard workspace through public admission", () => {
     await waitFor(() => expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[1]?.conversation.turns.filter(t => t.role === "USER").at(-1)?.turnId));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
     expect(workspace.current().workingDraftPreparations?.[0]?.checkpoint?.request.conversation.turns.filter(t => t.role === "USER")).toHaveLength(1);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations).toHaveLength(2));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW"));
     expect(workspace.current().workingDraft?.sourceUserTurnRef).toBe(requests[3]?.conversation.turns.filter(t => t.role === "USER").at(-1)?.turnId);
@@ -333,7 +333,7 @@ describe("independent Standard workspace through public admission", () => {
     const workspace = mount();
     send(DOMAINS[1].text);
     await screen.findByText("Discussion contrôlée intacte.");
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(workspace.current().workingDraftPreparations?.at(-1)?.status).toBe("PREPARING"));
     const turnRef = workspace.current().runtimeTurns.find(turn => turn.role === "USER")!.turnId;
     expect(preparationFor(workspace.current(), turnRef)?.status).toBe("PREPARING");

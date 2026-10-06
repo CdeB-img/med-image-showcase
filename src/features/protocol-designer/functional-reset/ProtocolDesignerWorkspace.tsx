@@ -589,8 +589,8 @@ export default function ProtocolDesignerWorkspace({
       && projection.source.projectId === session.project!.projectId
       && isFunctionalDocumentProjectionCurrent(projection, session.project!, administration)) ?? null
     : null;
-  const archiveClient = useMemo(() => session.project && session.documentArchive?.storageMode === "DURABLE_ONLY"
-    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project, session.documentArchive]);
+  const archiveClient = useMemo(() => session.project
+    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project]);
   const deliverablePortfolio = useMemo(() => {
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
@@ -606,6 +606,7 @@ export default function ProtocolDesignerWorkspace({
   const projectPanel = <ResearchProjectPanel
     project={session.project}
     documents={session.documents}
+    documentArchive={session.documentArchive}
     mode={projectionMode}
     onOpenProtocol={(projectionId) => {
       setDeliverableWorkspaceOpen(Boolean(session.documentArchive?.storageMode === "DURABLE_ONLY"));
@@ -616,7 +617,8 @@ export default function ProtocolDesignerWorkspace({
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
     suppressDocumentAction={Boolean(busy || (!session.project && preparedFinalization) || session.documentRetryUnsafe || documentGenerationPending)}
-    showDocumentAction={!deliverableWorkspaceOpen && !sourceLibraryOpen}
+    showDocumentAction={!deliverableWorkspaceOpen && !sourceLibraryOpen && (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" || projectionMode === "EXPERT")}
+    technicalProjectionOnly={import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA"}
     documentActionDisabledReason={session.documentRetryUnsafe
       ? "Le résultat de la dernière génération est incertain ; aucune nouvelle génération n’est autorisée depuis cette page."
       : documentGenerationPending ? "Une génération documentaire est déjà en cours."
@@ -641,16 +643,18 @@ export default function ProtocolDesignerWorkspace({
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
   const currentDrciDraftPack = session.project && session.documentArchive?.currentGeneration?.project.projectDigest === session.project.projectDigest;
-  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe ? <section
+  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe
+    && (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" || projectionMode === "EXPERT") ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
       data-testid="adopted-project-document-generation"
     >
       <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents du projet</p>
       <h2 className="mt-1 text-xl font-semibold">Choix enregistrés dans le projet · version {session.project.revision}</h2>
-      <p className="mt-2 text-sm text-muted-foreground">{currentDrciDraftPack ? "Une version documentaire existe déjà. Une nouvelle génération sera conservée séparément." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" ? "Diagnostic interne : cette projection n’est pas une génération documentaire."
+        : currentDrciDraftPack ? "Une génération documentaire existe déjà. Une nouvelle génération sera conservée séparément." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
       <button type="button" disabled={documentGenerationPending || busy} onClick={() => void requestProtocolProjection()}
         className="mt-4 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
-        Générer les documents
+        {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" ? "Calculer la projection technique" : "Générer les documents"}
       </button>
     </section> : null;
   const documentGenerationRecovery = !preparedFinalization && session.project && session.documents.lastFailure ? <section
@@ -759,7 +763,9 @@ export default function ProtocolDesignerWorkspace({
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
           archiveClient={archiveClient}
+          currentGenerationId={session.documentArchive?.currentGenerationId}
           archiveOnly={Boolean(archiveClient)}
+          diagnosticProjectionId={projectionMode === "EXPERT" ? session.documentArchive?.currentProjectionId : null}
           isArchivedProjectionCurrent={projection => Boolean(session.project && isFunctionalDocumentProjectionCurrent(projection, session.project, administration))}
           onArchivedFileDownloaded={(body, file) => {
             if (body.native.family !== "TEMPLATE" || file.format !== "HTML") return;
@@ -996,13 +1002,14 @@ export default function ProtocolDesignerWorkspace({
             <button type="button" onClick={() => void preparationController.start()}
               disabled={busy || !canCaptureProjectPreparation(session)}
               className="min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold disabled:opacity-40">
-              Préparer la mise à jour du projet
+              {projectionMode === "EXPERT" ? "Préparer la mise à jour du projet" : "Revoir les choix du projet"}
             </button>
             <p className="mt-1 text-xs text-muted-foreground">{busy
               ? "Attendez la réponse complète : elle ne sera pas capturée avant sa fin."
               : workingDraftBusy ? "La préparation existante utilise les échanges figés au lancement. Aucun second calcul ne sera lancé."
                 : !canCaptureProjectPreparation(session) ? "Échangez d’abord avec NOXIA pour disposer d’une réponse complète à préparer."
-                : "Capture les échanges jusqu’à la dernière réponse complète. Le projet ne change qu’après votre validation explicite de la revue."}</p>
+                : projectionMode === "EXPERT" ? "Capture les échanges jusqu’à la dernière réponse complète. Le projet ne change qu’après votre validation explicite de la revue."
+                  : "Examinez les choix issus de la conversation. Votre confirmation explicite est nécessaire pour modifier le projet."}</p>
           </div>}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {!autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
@@ -1040,7 +1047,7 @@ export default function ProtocolDesignerWorkspace({
       data-testid="document-generation-progress">
       <button type="button" className="flex min-h-8 w-full items-center justify-between gap-2 text-left text-sm font-semibold"
         aria-expanded={documentProgressExpanded} onClick={() => setDocumentProgressExpanded(value => !value)}>
-        <span>Documents V{documentGenerationVersion} {documentGenerationComplete ? "disponibles" : "en cours"}</span>
+        <span>Génération G{documentGenerationVersion} {documentGenerationComplete ? "disponible" : "en cours"}</span>
         <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
       </button>
       {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">

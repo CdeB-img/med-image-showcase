@@ -54,7 +54,8 @@ describe("DOC client verifies immutable bodies and transport receipts", () => {
     };
     const selected = await run.client.body(receipt.generation.generationId);
     expect(JSON.stringify(selected.body)).toBe(JSON.stringify(run.body));
-    expect((await run.client.history()).entries).toHaveLength(1);
+    // SUPERSEDED_CONTRACT: technical projections are no longer user generations.
+    expect((await run.client.history()).entries).toEqual([]);
     expect(await run.client.receipt("new-template")).toEqual(receipt);
   });
   it("rejects corrupted native bytes instead of displaying an unverified result", async () => {
@@ -72,11 +73,17 @@ describe("DOC client verifies immutable bodies and transport receipts", () => {
     expect(run.fixture.bodies()).toHaveLength(1); // Durable commit survived; no false publication.
   });
   it("rejects scientific text injected into metadata-only history", async () => {
-    const run = await runtime(); await run.client.commit("new-template", run.body);
+    const run = await runtime(), receipt = await run.client.commit("new-template", run.body);
     run.mutate.result = value => {
-      const response = value as { result: { entries: { files: { content?: string }[] }[] } };
-      response.result.entries[0].files[0].content = "BODY_MUST_NOT_BE_METADATA"; return value;
+      const response = value as { result: { entries: { family: string; files: { content?: string }[] }[] } };
+      response.result.entries = [{ ...receipt.generation, family: "DRCI", files: receipt.generation.files.map(file => ({ ...file, content: "BODY_MUST_NOT_BE_METADATA" })) }];
+      return value;
     };
+    await expect(run.client.history()).rejects.toThrow("DOC_ARCHIVE_METADATA_INVALID");
+  });
+  it("rejects a technical projection incorrectly returned in user history", async () => {
+    const run = await runtime(), receipt = await run.client.commit("new-template", run.body);
+    run.mutate.result = () => ({ contract: receipt.contract, result: { entries: [receipt.generation], nextBeforeOrdinal: null } });
     await expect(run.client.history()).rejects.toThrow("DOC_ARCHIVE_METADATA_INVALID");
   });
   it("does not convert archive unavailability into an empty history", async () => {

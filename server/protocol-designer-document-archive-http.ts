@@ -36,7 +36,7 @@ export const executeDocumentArchiveOperation = async (input: {
     switch (body.operation) {
       case "DOC_ARCHIVE_HISTORY":
         if (keys !== "beforeOrdinal,operation,projectRef,sessionId") throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
-        result = await archive.history(access, body.beforeOrdinal === null ? undefined : body.beforeOrdinal as number); break;
+        result = await archive.history(access, body.beforeOrdinal === null ? undefined : body.beforeOrdinal as number, "DRCI"); break;
       case "DOC_ARCHIVE_BODY":
         if (keys !== "generationId,operation,projectRef,sessionId" || typeof body.generationId !== "string" || body.generationId.length > 600) throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
         result = await archive.body(access, body.generationId); break;

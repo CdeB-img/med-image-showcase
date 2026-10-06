@@ -6,7 +6,7 @@ import postgres, { type Sql } from "postgres";
 import { logicalDigest, stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, documentFileManifest, documentNativeGeneratedAt, documentNativeIdentity,
   documentNativePredecessor, documentNativeProject, type DocumentGenerationBody, type DocumentGenerationRef,
-  type DocumentHistoryPage, type DocumentPersistenceReceipt } from "../src/features/document-projection/generation-persistence.js";
+  type DocumentHistoryPage, type DocumentPersistenceReceipt, type DocumentNativeGeneration } from "../src/features/document-projection/generation-persistence.js";
 import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 
 export const docSha256 = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
@@ -43,7 +43,7 @@ export type DocumentArchiveStore = Readonly<{
   admit(access: DocumentArchiveAccess, intent: DocumentArchiveIntent): Promise<AdmittedDocumentIntent>;
   commit(access: DocumentArchiveAccess, requestId: string, body: DocumentGenerationBody): Promise<DocumentPersistenceReceipt>;
   receipt(access: DocumentArchiveAccess, requestId: string): Promise<DocumentPersistenceReceipt | null>;
-  history(access: DocumentArchiveAccess, beforeOrdinal?: number): Promise<DocumentHistoryPage>;
+  history(access: DocumentArchiveAccess, beforeOrdinal?: number, family?: DocumentNativeGeneration["family"]): Promise<DocumentHistoryPage>;
   body(access: DocumentArchiveAccess, generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
   reject(access: DocumentArchiveAccess, requestId: string): Promise<void>;
 }>;
@@ -155,7 +155,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
           and generation_id = ${generationId} and state = 'COMMITTED'`)[0];
         if (collision) throw new DocumentArchiveError(collision.body_sha256 === hash ? "DOC_ARCHIVE_GENERATION_ALREADY_COMMITTED" : "DOC_ARCHIVE_CONTENT_DIVERGENCE");
         const prior = (await tx`select generation_id from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}
-          and state = 'COMMITTED' order by ordinal desc limit 1`)[0];
+          and state = 'COMMITTED' and metadata->>'family' = ${body.native.family} order by ordinal desc limit 1`)[0];
         const labels = (await tx`select coalesce(max((metadata->>'displayVersion')::int), 0)::int as last_label from noxia_durable.doc_generation
           where session_key_hash = ${sessionKey} and project_id = ${projectId} and state = 'COMMITTED' and metadata->>'family' = ${body.native.family}`)[0];
         const ref: DocumentGenerationRef = { contract: DOC_ARCHIVE_CONTRACT, generationId, family: body.native.family,
@@ -174,10 +174,14 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       const row = (await sql`select request_id, state, metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
       return row ? receiptFor(row) : null;
     },
-    async history(access, beforeOrdinal) {
+    async history(access, beforeOrdinal, family) {
       const { sessionKey, projectId } = await authorize(access);
       if (beforeOrdinal !== undefined && (!Number.isSafeInteger(beforeOrdinal) || beforeOrdinal < 1)) throw new DocumentArchiveError("DOC_ARCHIVE_CURSOR_INVALID", 400);
-      const rows = await sql`select metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}
+      // Filter before pagination. Technical projections remain durable/internal;
+      // their physical archive cursor never becomes a user generation ordinal.
+      const rows = family ? await sql`select metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}
+        and state = 'COMMITTED' and metadata->>'family' = ${family} and ordinal < ${beforeOrdinal ?? Number.MAX_SAFE_INTEGER} order by ordinal desc limit ${DOC_HISTORY_PAGE_SIZE + 1}`
+        : await sql`select metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId}
         and state = 'COMMITTED' and ordinal < ${beforeOrdinal ?? Number.MAX_SAFE_INTEGER} order by ordinal desc limit ${DOC_HISTORY_PAGE_SIZE + 1}`;
       const entries = rows.slice(0, DOC_HISTORY_PAGE_SIZE).map(row => row.metadata as DocumentGenerationRef);
       return { entries, nextBeforeOrdinal: rows.length > DOC_HISTORY_PAGE_SIZE ? entries.at(-1)!.ordinal : null };

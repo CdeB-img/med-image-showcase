@@ -178,8 +178,10 @@ describe("Living document: owner evidence, immutable revisions and scoped change
     expect(read.projects[0]!.session.project).toEqual(project);
     expect(read.projects[0]!.session.sourceLibrary).toEqual(library);
     expect(read.projects[0]!.session.documents.projections).toEqual([]);
-    const page = await archived.client.history();
-    expect((await Promise.all([...page.entries].reverse().map(ref => archived.client.body(ref.generationId)))).map(item => item.body.native.value)).toEqual([projection, next]);
+    // CURRENT_SEMANTIC_INVARIANT: exact native source/citation continuity.
+    // SUPERSEDED_CONTRACT: technical revisions are not user generations.
+    expect((await archived.client.history()).entries).toEqual([]);
+    expect((await Promise.all([projection, next].map(ref => archived.client.body(ref.projectionId)))).map(item => item.body.native.value)).toEqual([projection, next]);
     localStorage.clear();
   });
 });

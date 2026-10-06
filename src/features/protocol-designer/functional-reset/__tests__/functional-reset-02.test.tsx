@@ -1,5 +1,5 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
-import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
@@ -156,9 +156,9 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
+    expect(await within(projectPanel).findByText("Aucune génération documentaire.")).toBeInTheDocument();
     expect(within(projectPanel).queryByText(/DMP|SAP/)).toBeNull();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
 
     const previewV1 = await openArchivedProtocolPreview();
     expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
@@ -174,7 +174,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
     expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
     expect(within(projectPanel).getByText("Le corps documentaire reste dans l’archive et sera chargé uniquement sur demande.")).toBeInTheDocument();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
 
     const previewV2 = await openArchivedProtocolPreview();
     expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
@@ -183,7 +183,8 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     const storedV2 = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
     expect(storedV2.documents.projections).toHaveLength(0);
     expect((await archivedProtocol(storedV2)).source.projectVersion).toBe(storedV2.project.versionId);
-    expect((await offlineArchiveClient(storedV2.sessionId, storedV2.project).history()).entries).toHaveLength(2);
+    // SUPERSEDED_CONTRACT: read-only projections do not become user generations.
+    expect((await offlineArchiveClient(storedV2.sessionId, storedV2.project).history()).entries).toEqual([]);
 
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
     submit(COLCHICINE_LATER_MODIFICATION);
@@ -198,7 +199,10 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     renderDemo();
     const reloadedProject = screen.getByTestId("functional-research-project");
     expect(within(reloadedProject).getByText("Version 3")).toBeInTheDocument();
-    expect(within(reloadedProject).getByText("À actualiser")).toBeInTheDocument();
+    // CURRENT_STRUCTURAL_INVARIANT: no real generation from technical work.
+    expect(within(reloadedProject).getByText("Aucune génération documentaire.")).toBeInTheDocument();
+    const afterReload = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
+    expect((await archivedProtocol(afterReload)).source.projectDigest).not.toBe(afterReload.project!.projectDigest);
     expect(screen.getByText(COLCHICINE_LATER_MODIFICATION)).toBeInTheDocument();
     expect(screen.queryByText(/Guided Intake|Orientation|Actor|Mandate|Scientific Reasoning Graph/)).toBeNull();
 

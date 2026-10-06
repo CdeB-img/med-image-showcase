@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Download, PackageOpen } from "lucide-react";
 import {
   downloadStudyDeliverableFile,
@@ -18,9 +18,11 @@ type Props = {
   onClose: () => void;
   saveWarning?: string | null;
   archiveClient?: DocumentArchiveClient;
+  currentGenerationId?: string | null;
   archiveOnly?: boolean;
   onArchivedFileDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   isArchivedProjectionCurrent?: (projection: DocumentProjection) => boolean;
+  diagnosticProjectionId?: string | null;
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
@@ -32,17 +34,41 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
+  const [diagnosticError, setDiagnosticError] = useState(false);
+  const diagnosticRequest = useRef(0);
+  const diagnosticLifetime = useRef(0);
+  useEffect(() => {
+    const epoch = ++diagnosticLifetime.current;
+    return () => { diagnosticLifetime.current = epoch + 1; };
+  }, [archiveClient, diagnosticProjectionId]);
+  const openTechnicalProjection = async (previous: boolean) => {
+    if (!archiveClient || !diagnosticProjectionId) return;
+    const token = ++diagnosticRequest.current;
+    const epoch = diagnosticLifetime.current;
+    setDiagnosticError(false);
+    try {
+      let selected = await archiveClient.body(diagnosticProjectionId);
+      if (previous && selected.body.native.family === "TEMPLATE" && selected.body.native.value.priorProjectionId) {
+        selected = await archiveClient.body(selected.body.native.value.priorProjectionId);
+      } else if (previous) throw new Error("DOC_TECHNICAL_PREDECESSOR_ABSENT");
+      if (diagnosticRequest.current !== token || diagnosticLifetime.current !== epoch) return;
+      const file = selected.body.files.find(file => file.fileName === "protocol-complet.html");
+      if (selected.body.native.family !== "TEMPLATE" || !file) throw new Error("DOC_TECHNICAL_PROJECTION_INVALID");
+      setSelectedBody(selected.body); setOpenFile(file);
+    } catch { if (diagnosticRequest.current === token && diagnosticLifetime.current === epoch) setDiagnosticError(true); }
+  };
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
-  if (selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <ProtocolPreview
+  if (diagnosticProjectionId && selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <section>
+    <p className="mb-2 text-xs text-muted-foreground">Diagnostic interne · projection technique, pas une génération documentaire.</p><ProtocolPreview
     projection={selectedBody.native.value}
     stale={isArchivedProjectionCurrent ? !isArchivedProjectionCurrent(selectedBody.native.value) : selectedBody.native.value.source.projectDigest !== portfolio.projectRef.projectDigest}
     onClose={onClose}
     onDownloadFrozenHtml={() => { downloadStudyDeliverableFile(openFile); onArchivedFileDownloaded?.(selectedBody, openFile); }}
-  />;
+  /></section>;
   return <section
     aria-labelledby="study-deliverable-workspace-title"
     className="min-w-0 rounded-3xl border bg-background shadow-sm"
@@ -58,7 +84,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
           <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {archiveOnly ? "Historique durable : choisissez une version pour ouvrir ou télécharger ses fichiers figés." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""} depuis le projet version ${portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
+            {archiveOnly ? "Historique durable : choisissez une génération pour ouvrir ou télécharger ses fichiers figés." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""} depuis le projet version ${portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
           </p>
         </div>
         {!archiveOnly && <button
@@ -72,9 +98,15 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
       </div>
     </header>
 
-    {portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {archiveClient && <DocumentArchiveHistory client={archiveClient} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
-    {openFile && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
+    {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
+    {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">
+      <p>Diagnostic interne · ces projections ne sont pas des générations documentaires.</p>
+      <button type="button" className="mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(false)}>Ouvrir la projection technique</button>
+      <button type="button" className="ml-2 mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(true)}>Ouvrir la projection technique précédente</button>
+      {diagnosticError && <p role="alert">Projection technique indisponible.</p>}
+    </aside>}
+    {openFile && selectedBody?.native.family !== "TEMPLATE" && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
       <div className="mb-3 flex items-center justify-between gap-3"><h3 className="font-semibold">{openTitle}</h3>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-sm" onClick={() => setOpenFile(null)}>Fermer le document</button></div>
       {openFile.format === "HTML" ? <iframe title={openTitle} sandbox="" srcDoc={openFile.content} className="h-[75vh] w-full rounded-xl border bg-white" />

@@ -1,5 +1,5 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
-import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -195,7 +195,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
     await confirm();
     const project = screen.getByTestId("functional-research-project");
-    fireEvent.click(within(project).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
 
     const preview = await openArchivedProtocolPreview();
     expect(within(preview).getByRole("heading", { name: "PROTOCOLE DE TRAVAIL" })).toBeInTheDocument();

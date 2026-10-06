@@ -26,7 +26,7 @@ const accessFor = async (sessionId: string, project: ResearchProjectOwnerProject
   return { store: entry.store, access: { identity, project: registration.ref, proof: registration.proof } };
 };
 export const offlineArchiveClient = (sessionId: string, project: ResearchProjectOwnerProjection): DocumentArchiveClient => ({
-  async history(cursor) { const { store, access } = await accessFor(sessionId, project); return store.history(access, cursor); },
+  async history(cursor) { const { store, access } = await accessFor(sessionId, project); return store.history(access, cursor, "DRCI"); },
   async body(id) { const { store, access } = await accessFor(sessionId, project); return store.body(access, id); },
   async receipt(id) { const { store, access } = await accessFor(sessionId, project); return store.receipt(access, id); },
   async commit(id, body) { const { store, access } = await accessFor(sessionId, project);
@@ -42,5 +42,5 @@ export const offlineDocReceipt = async (sessionId: string, project: ResearchProj
 };
 export const offlineArchiveRuntime = async (sessionId: string, project: ResearchProjectOwnerProjection) => {
   const { store, access } = await accessFor(sessionId, project);
-  return { store, access, snapshots: projects.get(project.projectId)!.snapshots };
+  return { store, access, snapshots: projects.get(project.projectId)!.snapshots, fixture: projects.get(project.projectId)!.fixture };
 };

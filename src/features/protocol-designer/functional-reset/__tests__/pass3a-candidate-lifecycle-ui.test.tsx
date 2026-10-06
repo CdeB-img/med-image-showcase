@@ -429,7 +429,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     }
     expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
     expect(screen.getByTestId("project-group-endpoints")).toHaveTextContent("Principal :Taille des lésions microvasculaires à 3 min post-injection");
-    expect(projectPanel).toHaveTextContent("Non généré");
+    expect(projectPanel).toHaveTextContent("Aucune génération documentaire.");
     expect(projectPanel).not.toHaveTextContent("Construction en cours");
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ éléments? confirmés? · \d+ points? à préciser/);

@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { createRecordedProtocolDesignerFetch } from "../../../../../server/protocol-designer-provider-replay";
 import { createCanaryCampaignPolicy } from "../../../../../server/protocol-designer-canary-policy";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
@@ -15,7 +15,7 @@ import { acceptWorkingDraftUpdate, resolveWorkingDraftSourceQuote, compactWorkin
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction/canonical-project-backbone";
-import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession,
+import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, FUNCTIONAL_RESET_STORAGE_KEY,
   projectHumanDecisionForBridgeTrace,
   recordConversationConfirmationReceipt, recordWorkingDraftPreparation, workingDraftRecoveryIdentity } from "../session";
 import type { FunctionalResetSession } from "../session";
@@ -448,7 +448,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = sessionFor("ok");
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]).toMatchObject({
       status: "FAILED", code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
     }));
@@ -498,7 +498,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"), { timeout: 5000 });
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(recoveryRead).toHaveBeenCalled();
@@ -542,7 +542,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const review = projectPreparationReview(saved)!.prepared!.candidate;
     const coveredRefs = review.humanReviewProjection.coveredChangeRefs;
@@ -619,7 +619,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const providerRecords = saved.bridgeTraces.flatMap(item => item.providerCallRecords ?? []);
     expect(providerRecords).toEqual([record]);
@@ -641,7 +641,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       }));
     let saved = sessionFor();
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -660,7 +660,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       "PUBLIC_SESSION_BUDGET_CLOSED"));
     let saved = sessionFor();
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -694,7 +694,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       providerCallRequestObservability([record]), "PROVIDER_HTTP_ERROR"));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -731,7 +731,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       providerCallRequestObservability([record]), "CONVERSATION:PUBLIC_PROVIDER_INCOMPLETE"));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     expect(saved.workingDraftPreparations?.[0]?.code).toBe("WORKING_DRAFT_PROVIDER_INCOMPLETE");
     expect(screen.getByText(/La génération de cette préparation s’est interrompue côté fournisseur/u)).toBeInTheDocument();
@@ -1221,7 +1221,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       body.observability, body.error.details[0], null, diagnostic));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -1444,7 +1444,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(bridge).not.toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-    await screen.findByText(/Dossier V1/);
+    await screen.findByText(/G1 — basée sur le projet V1/);
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
     // SUPERSEDED_CONTRACT: full packs are no longer local session history.
@@ -1455,7 +1455,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(g1.displayVersion).toBe(1);
     expect(g1.project).toEqual({ projectId: saved.project!.projectId, projectVersion: saved.project!.versionId, projectDigest: saved.project!.projectDigest });
     const frozenG1 = JSON.stringify((await client.body(g1.generationId)).body);
-    await waitFor(() => expect(screen.getByTestId(`archived-generation-${g1.ordinal}`)).toHaveTextContent("Dossier V1"));
+    await waitFor(() => expect(screen.getByTestId(`archived-generation-${g1.ordinal}`)).toHaveTextContent("G1 — basée sur le projet V1"));
     if (saveDocuments === "saved") { expect(saved.drciDraftPacks).toEqual([]); expect(saved.documents.projections).toEqual([]); }
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("lien local non enregistré");
     if (saveDocuments === "saved") {
@@ -1473,6 +1473,94 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(2);
       expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(frozenG1);
     }
+  });
+
+  it("keeps Project V1/V2 independent from explicit immutable G1/G2/G3 and reloads metadata without historical bodies", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    const initial = sessionFor();
+    let saved = checkpointSession(initial, updateFor(requestFor(initial)));
+    // CURRENT_STRUCTURAL_INVARIANT: real Review/adoption and DOC archive owners;
+    // the existing meaningful scientific source is not replaced by empty data.
+    bridge.mockImplementation(async (req: ProductBridgeRequest) => {
+      const project = req.currentProject!, source = req.documentDraftRequest!, packet = prepareDrciDraftPack(project, source);
+      const generated = { documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `Qualification ${kind}`,
+        sections: [{ title: "Source adoptée", paragraphs: [kind === "PROTOCOL_SYNOPSIS"
+          ? packet.sourceFacts[0].content + " Texte synthétique de qualification mécanique sans aucune validation scientifique humaine. ".repeat(60)
+          : packet.sourceFacts[0].content], sourceRefs: [packet.sourceFacts[0].ref] }], missingElements: [] })),
+        crfRows: source.crf.fields.map((field, index) => ({ variableRef: field.canonicalVariableId, variableId: `FIELD_${index}`, label: field.label,
+          domain: "À préciser", visit: "À préciser", definition: field.label, entryType: "Texte", unit: null, categories: null,
+          dataOrigin: "UNSPECIFIED", source: "À préciser", required: "À préciser", condition: null, derivedFrom: [], derivation: null,
+          controls: [], analysisImpact: null, specificationStatus: "UNSPECIFIED" })) };
+      const documentDraftPack = materializeDrciDraftPack(generated, { project, packet, generatedAt: source.handoffDecision.timestamp! });
+      return { apiVersion: "1.0.0", assistantReply: "Documents disponibles.", observability: { providerCalls: [] }, documentDraftPack,
+        documentPersistenceReceipt: await offlineDocReceipt(saved.sessionId, project, req.observabilityContext!.clientRequestId, documentDraftPack) };
+    });
+    const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
+    let view = mount();
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(1));
+    const projectV1Owner = saved.project!, projectV1 = JSON.stringify(projectV1Owner);
+    expect(bridge).not.toHaveBeenCalled();
+    expect((await offlineArchiveClient(saved.sessionId, saved.project!).history()).entries).toEqual([]);
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
+    await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+    expect(screen.queryByRole("complementary", { name: "Projection technique interne" })).toBeNull();
+    const firstClient = offlineArchiveClient(saved.sessionId, saved.project!);
+    const g1 = (await firstClient.history()).entries[0];
+    expect(g1.displayVersion).toBe(1); expect(g1.predecessorId).toBeNull();
+    const frozenG1 = JSON.stringify((await firstClient.body(g1.generationId)).body);
+    expect((await firstClient.history()).entries).toHaveLength(1);
+    expect(saved.documents.projections).toEqual([]); expect(saved.drciDraftPacks).toEqual([]);
+    view.unmount();
+    // A new scientific turn leads to a second native candidate, not a DOC call.
+    const nextTurn = { turnId: "u2", role: "USER" as const, content: DOMAINS[1].text + " Je précise la question scientifique.", createdAt: new Date().toISOString() };
+    saved = { ...saved, runtimeTurns: [...saved.runtimeTurns, nextTurn,
+      { turnId: "noxia-turn:22222222-2222-4222-8222-222222222222", role: "NOXIA", content: "Précision candidate à examiner.", createdAt: nextTurn.createdAt }] };
+    const request = requestFor(saved), update = updateFor(request);
+    update.proposal!.atoms.find(atom => atom.ref === "question")!.content += " — précision scientifique";
+    saved = checkpointSession(saved, update);
+    expect(saved.workingDraftPreparations?.at(-1)?.status).toBe("READY_FOR_REVIEW");
+    view = mount();
+    fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(2));
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(JSON.stringify(projectV1Owner)).toBe(projectV1);
+    const client = offlineArchiveClient(saved.sessionId, saved.project!);
+    expect((await client.history()).entries).toEqual([g1]);
+    expect(g1.project.projectVersion).toContain(":version:1");
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+    expect(within(screen.getByTestId(`archived-generation-${g1.ordinal}`)).getByText(/Historique/)).toBeInTheDocument();
+    for (const ordinal of [2, 3]) {
+      fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
+      await within(screen.getByTestId("durable-document-history")).findByText(`G${ordinal} — basée sur le projet V2`);
+      expect((await client.history()).entries).toHaveLength(ordinal);
+    }
+    const generations = (await client.history()).entries;
+    expect(generations.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+    expect(generations.every(ref => ref.family === "DRCI")).toBe(true);
+    expect(generations[0].predecessorId).toBe(generations[1].generationId);
+    expect(generations[1].predecessorId).toBe(g1.generationId);
+    expect(generations.slice(0, 2).every(ref => ref.project.projectDigest === saved.project!.projectDigest)).toBe(true);
+    const frozen = await Promise.all(generations.map(async ref => JSON.stringify((await client.body(ref.generationId)).body)));
+    expect(frozen[2]).toBe(frozenG1);
+    expect(g1.project.projectDigest).toBe(JSON.parse(projectV1).projectDigest);
+    persistFunctionalResetSession(localStorage, saved);
+    const serialized = localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!;
+    for (const body of frozen) expect(serialized).not.toContain(body);
+    view.unmount(); saved = loadFunctionalResetSession(localStorage);
+    expect(saved.documents.projections).toEqual([]); expect(saved.drciDraftPacks).toEqual([]);
+    const { store, access, fixture } = await (await import("../../../document-projection/__tests__/offline-archive-client")).offlineArchiveRuntime(saved.sessionId, saved.project!);
+    expect((await store.history(access)).entries).toHaveLength(6); // Three technical + three real generations.
+    const queryCount = fixture.queries.length;
+    view = mount(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V2");
+    expect(fixture.queries.slice(queryCount).join(" ")).not.toContain("doc_generation_body");
+    expect(bridge).toHaveBeenCalledTimes(3);
+    expect((await client.history()).entries).toEqual(generations);
+    for (const [index, ref] of generations.entries()) expect(JSON.stringify((await client.body(ref.generationId)).body)).toBe(frozen[index]);
   });
 
   it("generates the four documents directly from an already adopted Project without adopting it again", async () => {

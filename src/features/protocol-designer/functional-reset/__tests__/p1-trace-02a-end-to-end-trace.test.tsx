@@ -1,5 +1,5 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
-import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -237,9 +237,8 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     await screen.findByRole("heading", { name: "À enregistrer" });
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByRole("button", { name: "Générer les documents" })).toBeEnabled());
-    fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
+    expect(await within(projectPanel).findByText("Aucune génération documentaire.")).toBeInTheDocument();
+    await requestTechnicalProjection();
     await openArchivedProtocolPreview();
     await waitFor(() => {
       const stored = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true) as {

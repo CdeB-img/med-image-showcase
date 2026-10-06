@@ -32,7 +32,7 @@ export const createDocumentArchiveClient = (sessionId: string, project: Research
   return {
     async history(beforeOrdinal) {
       const page = await operation<DocumentHistoryPage>({ operation: "DOC_ARCHIVE_HISTORY", beforeOrdinal: beforeOrdinal ?? null });
-      if (!page || !Array.isArray(page.entries) || page.entries.length > DOC_HISTORY_PAGE_SIZE || !page.entries.every(ref => isDocumentGenerationRef(ref, project.projectId))
+      if (!page || !Array.isArray(page.entries) || page.entries.length > DOC_HISTORY_PAGE_SIZE || !page.entries.every(ref => isDocumentGenerationRef(ref, project.projectId) && ref.family === "DRCI")
         || !(page.nextBeforeOrdinal === null || Number.isSafeInteger(page.nextBeforeOrdinal) && page.nextBeforeOrdinal > 0)) throw new DocumentArchiveClientError("DOC_ARCHIVE_METADATA_INVALID");
       return page;
     },

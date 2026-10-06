@@ -1,5 +1,5 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
-import { archivedProtocol, openArchivedProtocolPreview } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
+import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -355,8 +355,7 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     await screen.findByRole("heading", { name: "À enregistrer" });
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     const projectPanel = screen.getByTestId("functional-research-project");
-    await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Générer les documents" })).toBeEnabled());
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Générer les documents" }));
+    await requestTechnicalProjection();
     const preview = await openArchivedProtocolPreview();
     expect(storedSession().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).not.toContain("ARTIFACT_GENERATED");
     fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));

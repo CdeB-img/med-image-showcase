@@ -8,9 +8,9 @@ import { docSha256 } from "../../../../server/protocol-designer-document-archive
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import { documentFileManifest, documentNativeIdentity, DOC_ARCHIVE_CONTRACT, type DocumentGenerationRef } from "../generation-persistence";
 import type { DocumentArchiveClient } from "../generation-archive-client";
-import { downloadStudyDeliverableFile } from "../study-deliverable-portfolio";
+import { downloadStudyDeliverableFile, downloadFrozenStudyFiles } from "../study-deliverable-portfolio";
 
-vi.mock("../study-deliverable-portfolio", async original => ({ ...await original<object>(), downloadStudyDeliverableFile: vi.fn() }));
+vi.mock("../study-deliverable-portfolio", async original => ({ ...await original<object>(), downloadStudyDeliverableFile: vi.fn(), downloadFrozenStudyFiles: vi.fn() }));
 afterEach(() => { cleanup(); vi.clearAllMocks(); });
 // CURRENT_STRUCTURAL_INVARIANT: lazy retrieval/lifecycle over the existing
 // scientifically meaningful ECV pack; no new scientific assertion/approval.
@@ -44,15 +44,17 @@ describe("DOC metadata-only history and one selected immutable body", () => {
     expect(client.body).not.toHaveBeenCalled();
     const ref = entries.find(ref => ref.ordinal === 7)!;
     const row = within(screen.getByTestId("archived-generation-7"));
-    expect(row.getByText(/Dossier V107/)).toBeTruthy();
+    expect(row.getByText(/G107 — basée sur le projet V1/)).toBeTruthy();
     const manifest = ref.files[0];
     fireEvent.click(row.getByRole("button", { name: `Ouvrir ${manifest.fileName}` }));
     await waitFor(() => expect(onOpen).toHaveBeenCalledOnce());
     expect(client.body).toHaveBeenCalledExactlyOnceWith(ref.generationId);
     expect(onOpen.mock.calls[0][0]).toEqual(bodies.get(ref.generationId)!.files[0]);
-    fireEvent.click(row.getByRole("button", { name: `Télécharger V107 ${manifest.fileName}` }));
+    fireEvent.click(row.getByRole("button", { name: `Télécharger G107 ${manifest.fileName}` }));
     await waitFor(() => expect(downloadStudyDeliverableFile).toHaveBeenCalledOnce());
     expect(downloadStudyDeliverableFile).toHaveBeenCalledWith(bodies.get(ref.generationId)!.files[0]);
+    fireEvent.click(row.getByRole("button", { name: "Exporter la génération (.zip)" }));
+    await waitFor(() => expect(downloadFrozenStudyFiles).toHaveBeenCalledExactlyOnceWith(bodies.get(ref.generationId)!.files, ref.generatedAt, 107));
     expect(client.body).toHaveBeenCalledOnce();
     fireEvent.click(screen.getByRole("button", { name: "Versions précédentes" }));
     await waitFor(() => expect(screen.getAllByTestId(/archived-generation-/)).toHaveLength(30));

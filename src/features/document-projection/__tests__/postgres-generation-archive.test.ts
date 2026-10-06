@@ -8,6 +8,10 @@ import { DOC_ARCHIVE_CONTRACT, documentNativeGeneratedAt, type DocumentGeneratio
 import { portableDrciFixture } from "./portable-drci-fixture";
 import { archiveSqlFixture } from "./archive-sql-fixture";
 import { logicalDigest } from "../../knowledge-engine/canonical";
+import { authorizeResearchProjectDocumentHandoff } from "../../research-project-construction";
+import { refreshFunctionalResetDocumentPortfolio } from "../functional-reset-boundary";
+import { executeDocumentArchiveOperation } from "../../../../server/protocol-designer-document-archive-http";
+import type { DocumentHistoryPage } from "../generation-persistence";
 
 const setup = async (limits = {}) => {
   const sessionId = "protocol-designer-session:archive-test";
@@ -31,10 +35,51 @@ const setup = async (limits = {}) => {
       rendererVersion: "1.0.0", buildCommit: null };
   };
   const admit = (index: number) => store.admit(access, { requestId: `request-${index}`, requestSha256: docSha256(`native-intent-${index}`), generatedAt: documentNativeGeneratedAt(bodyFor(index).native), reservedBytes: 1_000_000 });
-  return { store, fixture, access, bodyFor, admit, snapshots };
+  return { store, fixture, access, bodyFor, admit, snapshots, project };
 };
 
 describe("transactional DOC-owned Postgres archive (offline SQL boundary)", () => {
+  it("filters technical projections before user-history pagination and keeps generation ordinals/lineage independent", async () => {
+    const run = await setup();
+    const handoffDecision = authorizeResearchProjectDocumentHandoff({ project: run.project,
+      authority: { actorRef: "synthetic-owner", mandateRef: "PROJECT_OWNER", authoritySource: "ACTIVE_RESEARCH_WORKSPACE_SESSION", verification: "DEMO_SESSION_NOT_AUTHENTICATED" },
+      confirmedAt: "2026-10-05T10:00:00.000Z" });
+    let previous: ReturnType<typeof refreshFunctionalResetDocumentPortfolio> | undefined;
+    const realIds: string[] = [], technicalIds: string[] = [];
+    for (let i = 1; i <= 30; i++) {
+      const real = run.bodyFor(i);
+      previous = refreshFunctionalResetDocumentPortfolio({ project: run.project, previous, handoffDecision,
+        requestedAt: documentNativeGeneratedAt(real.native), generateProtocol: true });
+      const technical: DocumentGenerationBody = { ...real, native: { family: "TEMPLATE", value: previous.projections.at(-1)! } };
+      for (const [suffix, body] of [["projection", technical], ["real", real]] as const) {
+        const requestId = `${suffix}-${i}`;
+        await run.store.admit(run.access, { requestId, requestSha256: docSha256(JSON.stringify(body)),
+          generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: 1_000_000 });
+        const receipt = await run.store.commit(run.access, requestId, body);
+        (suffix === "real" ? realIds : technicalIds).push(receipt.generation.generationId);
+        if (suffix === "real") {
+          expect(receipt.generation.displayVersion).toBe(i);
+          expect(receipt.generation.predecessorId).toBe(i === 1 ? null : realIds[i - 2]);
+        }
+      }
+    }
+    const history = async (beforeOrdinal: number | null) => {
+      const result = await executeDocumentArchiveOperation({ body: { operation: "DOC_ARCHIVE_HISTORY", sessionId: run.access.identity.sessionId,
+        projectRef: run.access.project, beforeOrdinal }, proof: run.access.proof, clientAddress: run.access.identity.clientAddress,
+        connection: null, environment: {}, snapshots: run.snapshots, archive: run.store });
+      expect(result.status).toBe(200);
+      return (result.body as { result: DocumentHistoryPage }).result;
+    };
+    const queryCount = run.fixture.queries.length;
+    const first = await history(null), second = await history(first.nextBeforeOrdinal);
+    expect(first.entries.map(ref => ref.displayVersion)).toEqual(Array.from({ length: 25 }, (_, i) => 30 - i));
+    expect(second.entries.map(ref => ref.displayVersion)).toEqual([5, 4, 3, 2, 1]);
+    expect(second.nextBeforeOrdinal).toBeNull();
+    expect([...first.entries, ...second.entries].map(ref => ref.generationId)).toEqual([...realIds].reverse());
+    expect(run.fixture.queries.slice(queryCount).join(" ")).not.toContain("doc_generation_body");
+    expect((await run.store.history(run.access)).entries.some(ref => ref.family === "TEMPLATE")).toBe(true);
+    expect((await run.store.body(run.access, technicalIds[0])).body.native.family).toBe("TEMPLATE");
+  });
   it("encodes an unambiguous, namespaced and PostgreSQL-safe Project lock tuple", () => {
     const identity = documentArchiveProjectLockIdentity;
     expect(identity("ab", "c")).not.toBe(identity("a", "bc"));
