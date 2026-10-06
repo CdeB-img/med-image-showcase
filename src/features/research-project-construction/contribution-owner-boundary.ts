@@ -12,6 +12,7 @@ import {
   applyCanonicalProjectChangeSet,
   buildCanonicalProjectChangeSet,
   canonicalProjectObjectType,
+  canonicalProjectStructuralSlot,
   retainedCanonicalSourceProjection,
   temporalValueItem,
   ensureCanonicalProjectState,
@@ -99,6 +100,13 @@ export type HumanReviewProjectionItem = {
   projectSectionId?: ResearchProjectSectionId;
   objectType?: CanonicalProjectObjectType;
   scientificRole?: string | null;
+  transition?: {
+    current: string;
+    proposed: string;
+    effect: "UPDATE" | "SUPERSEDE";
+    sourcePlan: "USER" | "ASSISTANT_PROPOSAL" | "OWNER_CONTRIBUTION" | "LEGACY_BRIDGE_STATE";
+    sourceTurnRefs: string[];
+  };
 };
 
 export type HumanReviewOpenPoint = {
@@ -994,12 +1002,55 @@ const buildContributionProjectChangeSet = (
     })
     : snapshot;
   const changes: ContributionProjectChange[] = [];
+  const slotFor = (element: ResearchProjectElement) => canonicalProjectStructuralSlot({
+    objectType: canonicalProjectObjectType({ proposedType: element.sourceProposedType ?? null, studyRole: element.sourceStudyRole ?? null }),
+    scientificRole: element.sourceStudyRole ?? null, content: element.content,
+  });
+  const sourceItems = contributionItems(contribution);
 
   for (const proposed of proposedThisTurn) {
+    const sources = sourceItems.filter(item => proposed.element.sourceItemIds.includes(item.itemId));
+    const targetRefs = sources.flatMap(item => item.previousItemIds ?? []);
+    const explicitTargets = previous.filter(candidate => targetRefs.includes(candidate.element.elementId)
+      || candidate.element.sourceItemIds.some(ref => targetRefs.includes(ref)));
     const exactMatch = previous.find((candidate) => candidate.sectionId === proposed.sectionId
       && semanticKeyForElement(candidate.sectionId, candidate.element) === semanticKeyForElement(proposed.sectionId, proposed.element));
     const compatibleTemporalMatches = exactMatch ? [] : previous.filter((candidate) => sameTemporalOccurrence(candidate, proposed));
-    const match = exactMatch ?? (compatibleTemporalMatches.length === 1 ? compatibleTemporalMatches[0] : undefined);
+    const slot = slotFor(proposed.element);
+    const slotTargets = slot ? previous.filter(candidate => slotFor(candidate.element) === slot
+      // An explicit role change already releases this owner. Do not infer a
+      // second replacement when a new endpoint merely takes the released role.
+      && !proposedThisTurn.some(other => other !== proposed && slotFor(other.element) !== slot
+        && (other.element.elementId === candidate.element.elementId
+          || sourceItems.some(item => other.element.sourceItemIds.includes(item.itemId)
+            && (item.previousItemIds ?? []).includes(candidate.element.elementId))))) : [];
+    const pendingSlotClaims = slot ? proposedThisTurn.filter(candidate => slotFor(candidate.element) === slot
+      && !previous.some(old => old.element.elementId === candidate.element.elementId
+        && elementValueKey(old.sectionId, old.element) === elementValueKey(candidate.sectionId, candidate.element)
+        && old.element.sourceStudyRole === candidate.element.sourceStudyRole)) : [];
+    // Resolve only a proposed transition. Native Working Draft preparation is
+    // not assent: a bound owner proposal may be reviewed, never auto-adopted.
+    // An endpoint ROLE is not an endpoint identity; its replacement still
+    // needs a direct target or explicit release of the previous role.
+    const reviewableSource = sources.length > 0 && sources.every(item => {
+      const boundary = item.epistemicBoundary;
+      if (item.polarity !== "AFFIRMED" || boundary.activeState === false || !lastTurnId
+        || !boundary.sourceTurnIds.includes(lastTurnId)
+        || !contribution.source.turns.some(turn => turn.turnId === lastTurnId && turn.role === "USER")) return false;
+      if (["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER"].includes(boundary.epistemicStatus ?? "")) return true;
+      const output = contribution.source;
+      return boundary.epistemicStatus === "OWNER_CANDIDATE" && boundary.originType === "ASSISTANT_OWNER_RESULT"
+        && ["NOXIA_PROPOSAL", "STRONG_CONTEXTUAL_INFERENCE", "PROVISIONAL_ASSUMPTION", "EVIDENCE_SUPPORTED_PROPOSAL"].includes(boundary.originStatus ?? "")
+        && Boolean(output.rawOutputRef && output.rawOutputDigest)
+        && (item.evidenceRefs ?? []).includes(output.rawOutputRef!) && (item.evidenceRefs ?? []).includes(output.rawOutputDigest!)
+        && contribution.source.turns.some(turn => turn.role === "NOXIA" && boundary.sourceTurnIds.includes(turn.turnId));
+    });
+    const slotMatch = slot !== "PRIMARY_ENDPOINT" && reviewableSource && slotTargets.length === 1 && pendingSlotClaims.length === 1
+      ? slotTargets[0] : undefined;
+    // A source may materialize 1→N named fields. Its lineage is not a target
+    // for every sibling: retain the exact field/occasion binding first.
+    const match = exactMatch ?? (compatibleTemporalMatches.length === 1 ? compatibleTemporalMatches[0] : undefined)
+      ?? (slot && explicitTargets.length === 1 ? explicitTargets[0] : undefined) ?? slotMatch;
     if (!match) {
       changes.push(projectChange({ operation: "ADD", sectionId: proposed.sectionId, previous: null, proposed: proposed.element, contribution, rationale: "Nouvel objet structuré explicite absent du Project courant." }));
       continue;
@@ -1352,7 +1403,9 @@ export const buildHumanReviewProjection = (
   });
   const grouped = new Map<string, HumanReviewProjectionItem[]>();
   const add = (label: string, item: HumanReviewProjectionItem) => grouped.set(label, [...(grouped.get(label) ?? []), item]);
-  const previousObject = (objectId: string) => currentState?.objects.find((object) => object.objectId === objectId && object.actuality === "CURRENT") ?? null;
+  const previousObject = (objectId: string, versionRef: string | null) => currentState?.objects.find((object) => (
+    versionRef ? object.objectVersionId === versionRef : object.objectId === objectId && object.actuality === "CURRENT"
+  )) ?? null;
   const previousRelation = (relationId: string) => currentState?.relations.find((relation) => relation.relationId === relationId && relation.actuality === "CURRENT") ?? null;
   const previousTemporal = (qualificationId: string) => currentState?.temporalQualifications.find((item) => item.qualificationId === qualificationId && item.actuality === "CURRENT") ?? null;
   const previousOccasion = (occasionId: string) => currentState?.expectedVariableOccasions.find((item) => item.occasionId === occasionId && item.actuality === "CURRENT") ?? null;
@@ -1362,7 +1415,7 @@ export const buildHumanReviewProjection = (
   const initialStructure = changeSet.baseProjectVersion === null;
 
   changeSet.objectChanges.forEach((change) => {
-    const previous = previousObject(change.objectId);
+    const previous = previousObject(change.objectId, change.previousVersionRef);
     const sectionId = change.candidate?.sectionId ?? previous?.sectionId ?? "ANALYSIS";
     const next = change.candidate;
     const previousLabel = reviewObjectLabel(previous) ?? change.objectId;
@@ -1384,6 +1437,12 @@ export const buildHumanReviewProjection = (
       projectSectionId: sectionId,
       objectType: representedObject?.objectType,
       scientificRole: representedObject?.scientificRole,
+      ...(change.operation === "REPLACE" && previous && next ? { transition: {
+        current: `${previousLabel}${previous.scientificRole !== next.scientificRole ? ` (rôle : ${previous.scientificRole ?? "aucun"})` : ""}`,
+        proposed: `${nextLabel}${previous.scientificRole !== next.scientificRole ? ` (rôle : ${next.scientificRole ?? "aucun"})` : ""}`,
+        effect: previous.objectId === next.objectId ? "UPDATE" as const : "SUPERSEDE" as const,
+        sourcePlan: next.provenance.sourcePlan, sourceTurnRefs: [...next.provenance.sourceTurnRefs],
+      } } : {}),
     });
   });
 

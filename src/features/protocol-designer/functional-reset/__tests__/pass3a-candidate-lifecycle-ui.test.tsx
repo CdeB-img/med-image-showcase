@@ -522,8 +522,18 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     });
     const correctionReview = screen.getAllByTestId("functional-contribution-review").at(-1)!;
     expect(correctionReview).toHaveTextContent("À enregistrer");
-    expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires à 3 min post-injection → Pourcentage de la masse VG représenté par les lésions microvasculaires");
-    expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires → Pourcentage de la masse VG représenté par les lésions microvasculaires");
+    // CURRENT_SEMANTIC_INVARIANT: both exact scientific transitions survive.
+    // The superseded arrow-only presentation now exposes their four fields.
+    const transitions = within(correctionReview).getAllByTestId("human-review-proposed-transition");
+    expect(transitions).toHaveLength(2);
+    for (const [index, current] of ["Taille des lésions microvasculaires à 3 min post-injection", "Taille des lésions microvasculaires"].entries()) {
+      expect(within(transitions[index]).getByText(current, { exact: true })).toBeInTheDocument();
+      expect(within(transitions[index]).getByText(PROPOSED_ENDPOINT, { exact: true })).toBeInTheDocument();
+      expect(transitions[index]).toHaveTextContent("Actuel :");
+      expect(transitions[index]).toHaveTextContent("Proposé :");
+      expect(transitions[index]).toHaveTextContent("Mettre à jour l’état courant");
+      expect(transitions[index]).toHaveTextContent("Nouvelle contribution utilisateur");
+    }
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent("Rôle conservéCritère principal");
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent(/Temporalité conservée.*3 minutes.*injection/i);
     expect(correctionRecord.candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");

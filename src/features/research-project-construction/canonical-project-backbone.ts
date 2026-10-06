@@ -508,7 +508,7 @@ const activeRelations = (state: CanonicalResearchProjectState | null) => (state?
 const activeTemporalQualifications = (state: CanonicalResearchProjectState | null) => (state?.temporalQualifications ?? []).filter((qualification) => qualification.actuality === "CURRENT");
 const activeExpectedVariableOccasions = (state: CanonicalResearchProjectState | null) => (state?.expectedVariableOccasions ?? []).filter((occasion) => occasion.actuality === "CURRENT");
 
-const structuralSlot = (object: Pick<CanonicalProjectObjectVersion, "objectType" | "scientificRole" | "content">) => {
+export const canonicalProjectStructuralSlot = (object: Pick<CanonicalProjectObjectVersion, "objectType" | "scientificRole" | "content">) => {
   if (object.objectType === "SCIENTIFIC_QUESTION") return "SCIENTIFIC_QUESTION";
   if (object.objectType === "STUDY_DESIGN") {
     // Centre count is a setting of the design, not an alternative to its
@@ -522,6 +522,7 @@ const structuralSlot = (object: Pick<CanonicalProjectObjectVersion, "objectType"
   if (object.objectType === "ENDPOINT" && /PRIMARY|PRINCIPAL/.test(object.scientificRole?.toLocaleUpperCase("en-US") ?? "")) return "PRIMARY_ENDPOINT";
   return null;
 };
+const structuralSlot = canonicalProjectStructuralSlot;
 
 const itemBySourceRef = (contribution: ScientificInterpretationContributionEnvelope) => {
   const items = [...new Map([
@@ -705,7 +706,8 @@ export const buildCanonicalProjectChangeSet = (input: {
       // canonical Project identity. A persistent REMOVE also remains present
       // as an inactive contribution item for provenance; that alias must not
       // create a second canonical change for the same object.
-      if (previous && objectChanges.some((change) => change.objectId === previous.objectId)) continue;
+      if (previous && objectChanges.some((change) => change.objectId === previous.objectId
+        || change.previousVersionRef === previous.objectVersionId)) continue;
       if (previous) objectChanges.push({
         changeRef: `canonical-object-change:${logicalDigest({ contribution: input.contribution.identity.contributionId, item: item.itemId, operation: "REMOVE" })}`,
         operation: "REMOVE",
@@ -830,12 +832,27 @@ export const buildCanonicalProjectChangeSet = (input: {
     });
 
   const conflicts: CanonicalProjectConflict[] = [];
+  // Two pending replacements cannot independently supersede the same current
+  // version. REMOVE + REPLACE may describe its native retirement/supersession;
+  // two competing active values still require arbitration.
+  const replacementsByTarget = new Map<string, CanonicalProjectObjectChange[]>();
+  for (const change of objectChanges) {
+    if (change.operation !== "REPLACE" || !change.previousVersionRef) continue;
+    const claims = replacementsByTarget.get(change.previousVersionRef) ?? [];
+    replacementsByTarget.set(change.previousVersionRef, [...claims, change]);
+  }
+  for (const [versionRef, claims] of replacementsByTarget) {
+    if (claims.length < 2) continue;
+    conflicts.push({ conflictId: `project-conflict:${logicalDigest({ versionRef, claims: claims.map(change => change.changeRef) })}`,
+      code: "CONFLICTING_ADOPTED_STATE", message: "Plusieurs changements candidats revendiquent la même version sans arbitrage explicite.",
+      existingRefs: [versionRef], candidateRefs: claims.map(change => change.objectId), status: "BLOCKING" });
+  }
   for (const change of objectChanges.filter((candidate) => candidate.operation === "ADD" && candidate.candidate)) {
     const slot = structuralSlot(change.candidate!);
     if (!slot) continue;
     const existing = currentObjects.filter((object) => {
       if (structuralSlot(object) !== slot || object.objectId === change.objectId) return false;
-      const explicitRelease = objectChanges.find((candidate) => candidate.objectId === object.objectId
+      const explicitRelease = objectChanges.find((candidate) => candidate.previousVersionRef === object.objectVersionId
         && (candidate.operation === "REMOVE" || (candidate.operation === "REPLACE" && structuralSlot(candidate.candidate!) !== slot)));
       return !explicitRelease;
     });

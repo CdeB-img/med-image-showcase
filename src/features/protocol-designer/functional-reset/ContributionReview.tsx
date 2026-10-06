@@ -234,7 +234,16 @@ export default function ContributionReview({ contribution, candidate, currentPro
         <h4 className="text-sm font-semibold">{row.label}</h4>
         <ul className="mt-1 space-y-1 text-sm leading-5">{row.items.map(item => <li key={item.changeRef} data-testid="human-review-decision-row">
           <span className="mr-2 text-xs text-muted-foreground">{decisionNumbers.get(item.changeRef)}.</span>
-          {summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}
+          {item.transition ? <dl className="mt-1" data-testid="human-review-proposed-transition">
+            <div><dt className="inline font-medium">Actuel : </dt><dd className="inline">{item.transition.current}</dd></div>
+            <div><dt className="inline font-medium">Proposé : </dt><dd className="inline">{item.transition.proposed}</dd></div>
+            <div><dt className="inline font-medium">Effet : </dt><dd className="inline">{item.transition.effect === "SUPERSEDE" ? "Remplacer l’état courant" : "Mettre à jour l’état courant"}</dd></div>
+            <div className="text-xs text-muted-foreground" title={item.transition.sourceTurnRefs.join(" · ")}>
+              <dt className="inline">Source : </dt><dd className="inline">{item.transition.sourcePlan === "USER" ? "Nouvelle contribution utilisateur"
+                : item.transition.sourcePlan === "OWNER_CONTRIBUTION" ? "Proposition du propriétaire scientifique, à confirmer"
+                  : item.transition.sourcePlan === "ASSISTANT_PROPOSAL" ? "Proposition NOXIA, à confirmer" : "Contribution historique tracée"}</dd>
+            </div>
+          </dl> : summaryItemContent(item)}{partialDecision ? ` — ${decisionLabel(item)}` : ""}
         </li>)}</ul>
       </section>)}
     </div>

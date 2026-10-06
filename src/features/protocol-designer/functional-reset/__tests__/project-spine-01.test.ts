@@ -29,6 +29,13 @@ import {
   persistFunctionalResetSession,
 } from "../session";
 import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
+import { acceptContextualStudyProposal } from "@/features/scientific-thinking/contextual-study-proposal";
+import { buildStudyProposalSelectionContribution } from "../study-proposal-standard";
+import { controlledStudyProposal } from "./study-proposal-fixtures";
+import { canonicalizeScientificContribution } from "@/features/scientific-interpretation/canonical";
+import { createElement } from "react";
+import { render, within } from "@testing-library/react";
+import ContributionReview from "../ContributionReview";
 
 const authority = {
   actorRef: "project-spine:researcher",
@@ -204,10 +211,267 @@ describe("PROJECT-SPINE-01 — canonical Research Project backbone", () => {
     expect(JSON.stringify(initial)).toBe(before);
   });
 
+  it("stages an explicit MRI-to-biopsy supersession without mutating V1", () => {
+    const initialRaw = "La méthode retenue est une IRM cardiaque.";
+    const initial = adopt(contributionFor({ raw: initialRaw, changes: [change({
+      candidateRef: "method:mri", proposedType: "ACQUISITION", content: "IRM cardiaque", sourceText: initialRaw,
+    })] }));
+    const frozenV1 = JSON.stringify(initial);
+    const raw = "Remplacer l'IRM cardiaque par une biopsie myocardique.";
+    const contribution = contributionFor({ raw, current: initial, changes: [change({
+      operation: "REPLACE", targetProjectRef: "method:mri", candidateRef: "candidate:biopsy",
+      semanticIdentity: "method:biopsy", proposedType: "ACQUISITION", content: "Biopsie myocardique", sourceText: raw,
+    })] });
+    const candidate = prepareResearchProjectContributionCandidate(contribution, initial);
+    expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(candidate.canonicalChangeSet.objectChanges).toEqual([expect.objectContaining({
+      operation: "REPLACE", objectId: "method:mri", previousVersionRef: "method:mri:version:1",
+    })]);
+    expect(candidate.humanReviewProjection.sections.flatMap(section => section.items)[0].content)
+      .toContain("IRM cardiaque → Biopsie myocardique");
+    expect(JSON.stringify(initial)).toBe(frozenV1);
+    const next = confirmResearchProjectContribution({ contribution, current: initial, projectId: initial.projectId,
+      authority, confirmedAt: "2026-10-06T10:00:00.000Z", reviewedProjection: candidate.humanReviewProjection });
+    expect(next.revision).toBe(2);
+    expect(next.canonicalState?.objects).toEqual(expect.arrayContaining([
+      expect.objectContaining({ content: "IRM cardiaque", actuality: "SUPERSEDED", supersededByVersionRef: "method:mri:version:2" }),
+      expect.objectContaining({ content: "Biopsie myocardique", actuality: "CURRENT", supersedesVersionRef: "method:mri:version:1" }),
+    ]));
+    expect(next.canonicalState?.versionHistory.map(version => version.versionId)).toEqual([initial.versionId, next.versionId]);
+    expect(JSON.stringify(initial)).toBe(frozenV1);
+  });
+
+  it("represents one new user-chosen exclusive design as a reviewable update", () => {
+    const initialRaw = "L'étude est monocentrique.";
+    const initial = adopt(contributionFor({ raw: initialRaw, changes: [change({
+      candidateRef: "design:single", proposedType: "STUDY_DESIGN", content: "Étude monocentrique", sourceText: initialRaw,
+    })] }));
+    const frozenV1 = JSON.stringify(initial);
+    const raw = "L'étude sera désormais multicentrique.";
+    const contribution = contributionFor({ raw, current: initial, changes: [change({
+      candidateRef: "design:multi", proposedType: "STUDY_DESIGN", content: "Étude multicentrique", sourceText: raw,
+    })] });
+    const candidate = prepareResearchProjectContributionCandidate(contribution, initial);
+    expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(candidate.humanReviewProjection.expectedChangeRefs).toHaveLength(1);
+    expect(candidate.humanReviewProjection.sections.flatMap(section => section.items)[0].content)
+      .toContain("monocentrique → Étude multicentrique");
+    expect(candidate.projectWriteAuthorized).toBe(false);
+    expect(JSON.stringify(initial)).toBe(frozenV1);
+    const next = adopt(contribution, initial);
+    expect(next.canonicalState?.objects.filter(object => object.actuality === "CURRENT").map(object => object.content))
+      .toEqual(["Étude multicentrique"]);
+    expect(JSON.stringify(initial)).toBe(frozenV1);
+  });
+
+  it("stages a natively bound Working Draft design replacement without treating preparation as assent", () => {
+    const raw = "L'étude âge–ECV sera monocentrique.";
+    const initial = adopt(contributionFor({ raw, changes: [change({ candidateRef: "design:single",
+      proposedType: "STUDY_DESIGN", content: "Étude monocentrique", sourceText: raw })] }));
+    const frozen = JSON.stringify(initial);
+    const proposal = controlledStudyProposal("context:revision");
+    Object.assign(proposal.atoms.find(atom => atom.ref === "design")!, {
+      semanticKey: "design.multicenter", content: "Étude multicentrique", status: "NOXIA_PROPOSAL",
+    });
+    const proposalTurn = turn("noxia:design-revision", "NOXIA", "Proposition de conduite multicentrique de l'étude âge–ECV.");
+    const selectionTurn = turn("user:prepare-revision", "USER", "Préparer les choix à examiner, sans les adopter.");
+    const composition = acceptContextualStudyProposal(proposal, { contextDigest: proposal.contextDigest,
+      sourceTurnRef: selectionTurn.turnId, sourceResponseRef: proposalTurn.turnId,
+      sourceProject: { projectId: initial.projectId, versionId: initial.versionId, projectDigest: researchProjectOwnerDigest(initial) },
+      applicableEvidenceRefs: [], sourceText: raw, scopedAtomRefs: ["design"] });
+    const contribution = buildStudyProposalSelectionContribution({ composition, selectedAtomRefs: ["design"], selectedOptionRefs: [],
+      project: initial, projectId: initial.projectId, conversationId: "conversation:design-revision",
+      proposalTurn, selectionTurn, createdAt: selectionTurn.createdAt, preparingReview: true });
+    expect(contribution.scientificContent.candidateObjects[0].epistemicBoundary.epistemicStatus).toBe("OWNER_CANDIDATE");
+    const candidate = prepareResearchProjectContributionCandidate(contribution, initial);
+    expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(candidate.projectWriteAuthorized).toBe(false);
+    expect(candidate.canonicalChangeSet.objectChanges).toEqual([expect.objectContaining({ operation: "REPLACE",
+      previousVersionRef: "design:single:version:1", candidate: expect.objectContaining({ content: "Étude multicentrique" }) })]);
+    expect(candidate.humanReviewProjection.expectedChangeRefs).toHaveLength(1);
+    expect(JSON.stringify(initial)).toBe(frozen);
+    expect(candidate.humanReviewProjection.sections.flatMap(section => section.items)[0].transition).toMatchObject({
+      current: "Étude monocentrique (rôle : aucun)", proposed: "Étude multicentrique (rôle : DESIGN)",
+      effect: "SUPERSEDE", sourcePlan: "OWNER_CONTRIBUTION",
+    });
+    let confirmations = 0;
+    const view = render(createElement(ContributionReview, { contribution, candidate, currentProject: initial, status: "PENDING",
+      onConfirm: () => { confirmations++; }, onCorrect: () => undefined, onReject: () => undefined }));
+    const transition = within(view.getByTestId("human-review-proposed-transition"));
+    expect(transition.getByText("Actuel :")).toBeTruthy();
+    expect(transition.getByText("Étude monocentrique (rôle : aucun)")).toBeTruthy();
+    expect(transition.getByText("Proposé :")).toBeTruthy();
+    expect(transition.getByText("Étude multicentrique (rôle : DESIGN)")).toBeTruthy();
+    expect(transition.getByText("Remplacer l’état courant")).toBeTruthy();
+    expect(transition.getByText("Proposition du propriétaire scientifique, à confirmer")).toBeTruthy();
+    expect(confirmations).toBe(0);
+    view.unmount();
+    for (const removedRef of [composition.proposalRef, composition.digest]) {
+      const unbound = canonicalizeScientificContribution({ ...contribution, scientificContent: { ...contribution.scientificContent,
+        candidateObjects: contribution.scientificContent.candidateObjects.map(item => ({ ...item,
+          evidenceRefs: item.evidenceRefs?.filter(ref => ref !== removedRef) })) } });
+      expect(prepareResearchProjectContributionCandidate(unbound, initial).status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
+    }
+    const declined = rejectResearchProjectContribution({ contribution, current: initial, authority, rejectedAt: selectionTurn.createdAt });
+    expect(declined.status).toBe("REJECTED");
+    expect(JSON.stringify(initial)).toBe(frozen);
+    const next = confirmResearchProjectContribution({ contribution, current: initial, projectId: initial.projectId,
+      authority, confirmedAt: "2026-10-06T10:00:00.000Z", reviewedProjection: candidate.humanReviewProjection });
+    const replacement = next.canonicalState!.objects.find(object => object.actuality === "CURRENT")!;
+    expect(replacement).toMatchObject({ content: "Étude multicentrique", supersedesVersionRef: "design:single:version:1" });
+    expect(next.canonicalState!.objects).toContainEqual(expect.objectContaining({ objectId: "design:single",
+      actuality: "SUPERSEDED", supersededByVersionRef: replacement.objectVersionId }));
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
+  it("retains unrelated additions alongside a source-bound design supersession", () => {
+    const raw = "L'étude âge–ECV est monocentrique, avec une IRM cardiaque.";
+    const initial = adopt(contributionFor({ raw, changes: [
+      change({ candidateRef: "design:single", proposedType: "STUDY_DESIGN", content: "Étude monocentrique", sourceText: raw }),
+      change({ candidateRef: "method:mri", proposedType: "ACQUISITION", content: "IRM cardiaque", sourceText: raw }),
+    ] }));
+    const frozen = JSON.stringify(initial);
+    const revised = "L'étude devient multicentrique ; inclure des adultes sains de 20 à 89 ans et mesurer l'ECV myocardique en pourcentage.";
+    const contribution = contributionFor({ raw: revised, current: initial, changes: [
+      change({ candidateRef: "design:multi", proposedType: "STUDY_DESIGN", content: "Étude multicentrique", sourceText: revised }),
+      change({ candidateRef: "population:adults", proposedType: "POPULATION", content: "Adultes sains de 20 à 89 ans", sourceText: revised }),
+      change({ candidateRef: "measurement:ecv", proposedType: "MEASUREMENT", content: "ECV myocardique en pourcentage", sourceText: revised }),
+    ] });
+    const candidate = prepareResearchProjectContributionCandidate(contribution, initial);
+    expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(candidate.canonicalChangeSet.objectChanges.map(change => change.operation).sort()).toEqual(["ADD", "ADD", "REPLACE"]);
+    expect(candidate.humanReviewProjection.expectedChangeRefs).toHaveLength(3);
+    expect(candidate.humanReviewProjection.coveredChangeRefs).toEqual(candidate.humanReviewProjection.expectedChangeRefs);
+    expect(candidate.projectWriteAuthorized).toBe(false);
+    const next = confirmResearchProjectContribution({ contribution, current: initial, projectId: initial.projectId,
+      authority, confirmedAt: "2026-10-06T10:00:00.000Z", reviewedProjection: candidate.humanReviewProjection });
+    const current = next.canonicalState!.objects.filter(object => object.actuality === "CURRENT");
+    expect(current.map(object => object.content).sort()).toEqual([
+      "Adultes sains de 20 à 89 ans", "ECV myocardique en pourcentage", "IRM cardiaque", "Étude multicentrique",
+    ].sort());
+    expect(current.find(object => object.objectId === "method:mri"))
+      .toEqual(initial.canonicalState!.objects.find(object => object.objectId === "method:mri"));
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
+  it("preserves V1 through V4 under successive explicit, source-bound human revisions", () => {
+    const initialRaw = "IRM cardiaque, étude monocentrique, suivi 12 mois chez des adultes sains ; analyse de l'association âge et fibrose.";
+    const initial = adopt(contributionFor({ raw: initialRaw, changes: [
+      change({ candidateRef: "method:mri", proposedType: "ACQUISITION", content: "IRM cardiaque", sourceText: initialRaw }),
+      change({ candidateRef: "design:centre", proposedType: "STUDY_DESIGN", content: "Étude monocentrique", sourceText: initialRaw }),
+      change({ candidateRef: "timing:followup", proposedType: "VISIT", content: "Suivi : 12 mois", sourceText: initialRaw, studyRole: "FOLLOW_UP" }),
+      change({ candidateRef: "population:healthy", proposedType: "POPULATION", content: "Adultes sains", sourceText: initialRaw }),
+      change({ candidateRef: "analysis:age", proposedType: "ANALYSIS_SPECIFICATION", content: "Association entre âge et fibrose", sourceText: initialRaw }),
+    ] }));
+    const states = [initial];
+    const frozen = [JSON.stringify(initial)];
+    const unrelated = initial.canonicalState!.objects.filter(object => ["POPULATION", "ANALYSIS_SPECIFICATION"].includes(object.objectType));
+    const steps = [
+      { raw: "Remplacer l'IRM cardiaque par une biopsie myocardique.", target: "method:mri", type: "ACQUISITION", content: "Biopsie myocardique", role: null },
+      { raw: "Remplacer le design monocentrique par multicentrique.", target: "design:centre", type: "STUDY_DESIGN", content: "Étude multicentrique", role: null },
+      { raw: "Passer le suivi de 12 mois à 24 mois.", target: "timing:followup", type: "VISIT", content: "Suivi : 24 mois", role: "FOLLOW_UP" },
+    ];
+    for (const [index, step] of steps.entries()) {
+      const current = states.at(-1)!;
+      const contribution = contributionFor({ raw: step.raw, current, changes: [change({
+        operation: "REPLACE", targetProjectRef: step.target, candidateRef: `revision:${index}`,
+        proposedType: step.type, content: step.content, sourceText: step.raw, studyRole: step.role,
+      })] });
+      const review = prepareResearchProjectContributionCandidate(contribution, current);
+      expect(review.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+      expect(review.canonicalChangeSet.conflicts).toEqual([]);
+      expect(review.humanReviewProjection.expectedChangeRefs).toHaveLength(1);
+      expect(review.projectWriteAuthorized).toBe(false);
+      states.forEach((state, position) => expect(JSON.stringify(state)).toBe(frozen[position]));
+      const next = confirmResearchProjectContribution({ contribution, current, projectId: initial.projectId, authority,
+        confirmedAt: `2026-10-06T10:0${index + 1}:00.000Z`, reviewedProjection: review.humanReviewProjection });
+      expect(next.revision).toBe(index + 2);
+      for (const object of unrelated) expect(next.canonicalState!.objects.find(candidate => candidate.objectVersionId === object.objectVersionId)).toEqual(object);
+      const currentObjects = next.canonicalState!.objects.filter(object => object.actuality === "CURRENT");
+      expect(currentObjects).toContainEqual(expect.objectContaining({ content: "Biopsie myocardique" }));
+      if (index >= 1) expect(currentObjects).toContainEqual(expect.objectContaining({ content: "Étude multicentrique" }));
+      if (index < 1) expect(currentObjects).toContainEqual(expect.objectContaining({ content: "Étude monocentrique" }));
+      expect(currentObjects).toContainEqual(expect.objectContaining({ objectId: "timing:followup", content: index === 2 ? "Suivi : 24 mois" : "Suivi : 12 mois" }));
+      states.push(next); frozen.push(JSON.stringify(next));
+    }
+    expect(states.map(state => state.revision)).toEqual([1, 2, 3, 4]);
+    expect(states.at(-1)!.canonicalState!.versionHistory.map(version => version.versionId)).toEqual(states.map(state => state.versionId));
+    states.forEach((state, position) => expect(JSON.stringify(state)).toBe(frozen[position]));
+  });
+
+  it("does not choose between two new incompatible designs claiming an adopted owner", () => {
+    const raw = "L'étude est observationnelle transversale.";
+    const initial = adopt(contributionFor({ raw, changes: [change({ candidateRef: "design:initial", proposedType: "STUDY_DESIGN", content: raw, sourceText: raw })] }));
+    const frozen = JSON.stringify(initial);
+    const alternatives = "Deux options restent à arbitrer : étude longitudinale ou essai randomisé.";
+    const proposal = contributionFor({ raw: alternatives, current: initial, changes: [
+      change({ candidateRef: "design:longitudinal", proposedType: "STUDY_DESIGN", content: "Étude longitudinale", sourceText: alternatives }),
+      change({ candidateRef: "design:randomized", proposedType: "STUDY_DESIGN", content: "Essai randomisé", sourceText: alternatives }),
+    ] });
+    expect(prepareResearchProjectContributionCandidate(proposal, initial).status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
+    expect(() => adopt(proposal, initial)).toThrow("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
+  it("does not silently supersede MRI when the user merely discusses biopsy", () => {
+    const raw = "L'IRM cardiaque est retenue.";
+    const initial = adopt(contributionFor({ raw, changes: [change({ candidateRef: "method:mri", proposedType: "ACQUISITION", content: "IRM cardiaque", sourceText: raw })] }));
+    const frozen = JSON.stringify(initial);
+    const question = "La biopsie myocardique serait-elle une alternative ?";
+    const conversation = { conversationId: "conversation:biopsy-discussion", language: "fr" as const, turns: [turn("turn:biopsy-question", "USER", question)] };
+    const checked = validatePersistentProjectDelta({ changes: [], relations: [] }, question, initial, conversation);
+    expect(contributionFromPersistentDelta({ candidate: checked.candidate!, conversation, currentProject: initial })).toBeNull();
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
+  it("blocks two simultaneous explicit replacements of the same current scientific owner", () => {
+    const raw = "L'étude est monocentrique.";
+    const initial = adopt(contributionFor({ raw, changes: [change({ candidateRef: "design:centre",
+      proposedType: "STUDY_DESIGN", content: raw, sourceText: raw })] }));
+    const alternatives = "Conduite multicentrique ou dans un seul centre avec une deuxième plateforme : arbitrage requis.";
+    const contribution = contributionFor({ raw: alternatives, current: initial, changes: [
+      change({ operation: "REPLACE", targetProjectRef: "design:centre", candidateRef: "design:first",
+        proposedType: "STUDY_DESIGN", content: "Étude multicentrique", sourceText: alternatives }),
+      change({ operation: "REPLACE", targetProjectRef: "design:centre", candidateRef: "design:second",
+        proposedType: "STUDY_DESIGN", content: "Étude monocentrique sur deux plateformes", sourceText: alternatives }),
+    ] });
+    const frozen = JSON.stringify(initial);
+    expect(prepareResearchProjectContributionCandidate(contribution, initial).canonicalChangeSet).toMatchObject({
+      status: "BLOCKED_BY_STRUCTURAL_CONFLICT", conflicts: [expect.objectContaining({ code: "CONFLICTING_ADOPTED_STATE" })],
+    });
+    expect(() => adopt(contribution, initial)).toThrow("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
+  it("keeps an unresolved relation endpoint blocked even in a legitimate design revision", () => {
+    const raw = "L'étude sera monocentrique.";
+    const initial = adopt(contributionFor({ raw, changes: [change({ candidateRef: "design:centre",
+      proposedType: "STUDY_DESIGN", content: "Étude monocentrique", sourceText: raw })] }));
+    const revised = "Remplacer le design monocentrique par multicentrique, chez des adultes sains.";
+    const contribution = contributionFor({ raw: revised, current: initial, changes: [
+      change({ candidateRef: "design:multi", proposedType: "STUDY_DESIGN", content: "Étude multicentrique", sourceText: revised }),
+      change({ candidateRef: "population:healthy", proposedType: "POPULATION", content: "Adultes sains", sourceText: revised }),
+    ] });
+    const malformed = canonicalizeScientificContribution({ ...contribution, scientificContent: { ...contribution.scientificContent,
+      candidateRelations: [{ relationId: "relation:design-population", relationType: "CONCERNS",
+        sourceItemId: contribution.scientificContent.candidateObjects[0].itemId, targetItemId: "population:absent",
+        polarity: "AFFIRMED", confidence: null, evidenceRefs: [],
+        epistemicBoundary: contribution.scientificContent.candidateObjects[0].epistemicBoundary }] } });
+    const frozen = JSON.stringify(initial);
+    const candidate = prepareResearchProjectContributionCandidate(malformed, initial);
+    expect(candidate.canonicalChangeSet.conflicts).toContainEqual(expect.objectContaining({ code: "PROJECT_RELATION_ENDPOINT_NOT_FOUND" }));
+    expect(candidate.status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
+    expect(() => adopt(malformed, initial)).toThrow("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
+    expect(JSON.stringify(initial)).toBe(frozen);
+  });
+
   it.each([
     ["core design", "Étude observationnelle transversale.", "Étude longitudinale avec suivi répété."],
     ["centre setting", "Conduire cette étude dans un seul centre.", "Conduire cette étude dans plusieurs centres."],
-  ])("keeps a true %s contradiction blocked in Project v2", (_label, adoptedText, proposedText) => {
+  ])("stages a source-bound %s revision for explicit Review in Project v2", (_label, adoptedText, proposedText) => {
+    // SUPERSEDED_CONTRACT: disagreement with adopted state alone is not a
+    // contradiction. Current product decision permits a reviewed revision;
+    // competing alternatives remain covered by the negative test above.
     const initial = adopt(contributionFor({ raw: adoptedText, changes: [
       change({ candidateRef: "design:adopted", proposedType: "STUDY_DESIGN", content: adoptedText, sourceText: adoptedText }),
     ] }));
@@ -215,12 +479,19 @@ describe("PROJECT-SPINE-01 — canonical Research Project backbone", () => {
       change({ candidateRef: "design:competing", proposedType: "STUDY_DESIGN", content: proposedText, sourceText: proposedText }),
     ] });
     const candidate = prepareResearchProjectContributionCandidate(proposal, initial);
-    expect(candidate.status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
-    expect(candidate.canonicalChangeSet.conflicts).toEqual(expect.arrayContaining([
-      expect.objectContaining({ code: "CONFLICTING_ADOPTED_STATE" }),
-    ]));
+    expect(candidate.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(candidate.canonicalChangeSet.conflicts).toEqual([]);
+    expect(candidate.canonicalChangeSet.objectChanges).toEqual([expect.objectContaining({
+      operation: "REPLACE", previousVersionRef: "design:adopted:version:1",
+    })]);
     const frozenV1 = JSON.stringify(initial);
-    expect(() => adopt(proposal, initial)).toThrow("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
+    expect(candidate.projectWriteAuthorized).toBe(false);
+    const next = confirmResearchProjectContribution({ contribution: proposal, current: initial,
+      projectId: initial.projectId, authority, confirmedAt: "2026-10-06T10:00:00.000Z",
+      reviewedProjection: candidate.humanReviewProjection });
+    expect(next.revision).toBe(2);
+    expect(next.canonicalState?.objects.filter(object => object.actuality === "CURRENT").map(object => object.content)).toEqual([proposedText]);
+    expect(next.canonicalState?.objects).toContainEqual(expect.objectContaining({ content: adoptedText, actuality: "SUPERSEDED" }));
     expect(JSON.stringify(initial)).toBe(frozenV1);
   });
 
@@ -605,6 +876,18 @@ describe("PROJECT-SPINE-01R3 — PD-003 temporal runtime conformance", () => {
     expect(corrected.canonicalState?.decisionLedger.at(-1)?.temporalChanges).toEqual([
       expect.objectContaining({ previousVersionRef: "temporal-qualification:irm-acquisition:version:1", candidateAnchor: expect.objectContaining({ lowerBound: 4, upperBound: 6 }), resultingVersionRef: "temporal-qualification:irm-acquisition:version:2" }),
     ]);
+  });
+
+  it("rejects a colliding temporal ADD but accepts an explicit REPLACE of that same owner", () => {
+    const initial = baseProject();
+    const first = adopt(acquisitionTiming(initial, 3, 5), initial);
+    const frozen = JSON.stringify(first);
+    const collision = prepareResearchProjectContributionCandidate(acquisitionTiming(first, 4, 6, "ADD"), first);
+    expect(collision.status).toBe("BLOCKED_BY_STRUCTURAL_CONFLICT");
+    const revision = prepareResearchProjectContributionCandidate(acquisitionTiming(first, 4, 6, "REPLACE"), first);
+    expect(revision.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
+    expect(revision.canonicalChangeSet.temporalQualificationChanges[0].operation).toBe("REPLACE");
+    expect(JSON.stringify(first)).toBe(frozen);
   });
 
   it("T4 — creates three expected occasions for one troponin CanonicalVariable", () => {
