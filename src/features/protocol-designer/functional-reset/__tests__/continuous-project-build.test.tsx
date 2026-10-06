@@ -898,7 +898,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const composition = acceptWorkingDraftUpdate(update, r).composition!;
     const next = { ...r, studyProposalContext: composition };
     const packet = JSON.parse(prepareTerraConversation(next, true).context);
-    expect(packet.OPEN_DECISIONS).toContainEqual(expect.objectContaining({ source: "WORKING_DRAFT_NOT_ADOPTED", owner: "OBS" }));
+    const openAtom = packet.WORKING_STUDY_PROPOSAL.atoms.find((a: { ref: string; status: string; owner: string }) => a.status === "OPEN_DECISION" && a.owner === "OBS");
+    expect(openAtom).toBeDefined();
+    expect(packet.OPEN_DECISIONS).toContainEqual({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: openAtom.ref });
+    expect(packet.workingOpenDecisionReferenceBasis).toBe("WORKING_STUDY_PROPOSAL.atoms");
     const advice = compactWorkingDraftAdvice(next);
     expect(advice).toEqual(expect.objectContaining({ STATUS: expect.any(String), ALTERNATIVES: expect.any(Array) }));
     expect(packet.WORKING_NEXT_ACTION).toEqual(advice);

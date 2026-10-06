@@ -272,6 +272,7 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
   const includedTurns = turns;
   const composition = rehydrateStudyProposal(request.studyProposalContext, request.currentProject);
   const workingProposal = composition && ["CURRENT", "REVIEW_REQUIRED"].includes(composition.state) ? composition : null;
+  const workingProposalContext = workingProposal ? projectStudyProposalConversationContext(workingProposal, request.currentProject) : null;
   const selected = request.currentNavigation?.selected;
   const qry = selected ? { action: selected.actionCategory, label: selected.actionLabel, reason: selected.explanation,
     impacts: selected.impacts, options: selected.knownOptionRefs, blockers: selected.dependencies.filter(item => item.status !== "SATISFIED") } : null;
@@ -283,8 +284,9 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
   const decisionIndexes = new Map(snapshot?.objects.map((object, index) => [object.stableId, index]));
   const relationRef = (ref: string) => decisionIndexes.has(ref) ? { decisionIndex: decisionIndexes.get(ref)! } : ref;
   const packet = {
-    ...(workingProposal ? {
-      WORKING_STUDY_PROPOSAL: projectStudyProposalConversationContext(workingProposal, request.currentProject),
+    ...(workingProposalContext ? {
+      WORKING_STUDY_PROPOSAL: workingProposalContext,
+      workingOpenDecisionReferenceBasis: "WORKING_STUDY_PROPOSAL.atoms",
       ...(autonomousProjectBuild ? {
         WORKING_NEXT_ACTION: (() => { try { return compactWorkingDraftAdvice(request); } catch { return { STATUS: "ADVICE_UNAVAILABLE", projectWriteAuthorized: false }; } })(),
       } : {}),
@@ -306,10 +308,13 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
       sources: providerDiscussion.sources.map(source => ({ ref: source.ref, turnRef: source.turnRef,
         sourceText: source.sourceText, assertionKind: source.assertionKind })),
     } : { status: discussion?.boundary ?? "TRANSCRIPT_ONLY", active: [] },
+    // Full semantics, provenance and qualified dependencies live in the owner
+    // atoms exactly once. This index adds only the not-adopted source marker;
+    // referential ambiguity from discussion is distinct and remains complete.
     OPEN_DECISIONS: [ ...(discussion?.unresolved ?? []),
-      ...(workingProposal ? workingProposal.proposal.atoms.filter(atom => atom.status === "OPEN_DECISION")
-        .map(atom => ({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: atom.ref, content: atom.content, owner: atom.owner,
-          dependsOn: atom.dependsOn, dependencyQualifications: atom.dependencyQualifications ?? [] })) ?? [] : []) ],
+      ...(workingProposalContext?.atoms.filter(atom => atom.status === "OPEN_DECISION"
+        && !workingProposalContext.dispositions.some(disposition => disposition.status === "REJECTED" && disposition.atomRefs.includes(atom.ref)))
+        .map(atom => ({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: atom.ref })) ?? []) ],
     RECENT_CONVERSATION: turns.map(t => ({ ref: t.turnId, role: t.role, content: t.content })),
     // Historical text is conversational evidence, never equally active Project truth.
     HISTORY_POLICY: "CURRENT_PROJECT is adopted truth. Later USER corrections are discussion until human review. Old proposals and refused options in the transcript are not current decisions.",
