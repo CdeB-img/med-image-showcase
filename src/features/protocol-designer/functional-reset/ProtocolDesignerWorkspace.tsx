@@ -120,7 +120,7 @@ export default function ProtocolDesignerWorkspace({
   const [documentGenerationStage, setDocumentGenerationStage] = useState<DocumentGenerationStage>("PREPARING");
   const [documentGenerationStartedAt, setDocumentGenerationStartedAt] = useState<number | null>(null);
   const [documentGenerationElapsed, setDocumentGenerationElapsed] = useState(0);
-  const [documentGenerationVersion, setDocumentGenerationVersion] = useState(1);
+  const [documentGenerationVersion, setDocumentGenerationVersion] = useState<number | null>(null);
   const [documentGenerationComplete, setDocumentGenerationComplete] = useState(false);
   const [documentProgressExpanded, setDocumentProgressExpanded] = useState(true);
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
@@ -1055,7 +1055,7 @@ export default function ProtocolDesignerWorkspace({
       data-testid="document-generation-progress">
       <button type="button" className="flex min-h-8 w-full items-center justify-between gap-2 text-left text-sm font-semibold"
         aria-expanded={documentProgressExpanded} onClick={() => setDocumentProgressExpanded(value => !value)}>
-        <span>Génération G{documentGenerationVersion} {documentGenerationComplete ? "disponible" : "en cours"}</span>
+        <span>{documentGenerationVersion === null ? "Génération des documents" : `Génération G${documentGenerationVersion}`} {documentGenerationComplete ? "disponible" : "en cours"}</span>
         <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
       </button>
       {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">
