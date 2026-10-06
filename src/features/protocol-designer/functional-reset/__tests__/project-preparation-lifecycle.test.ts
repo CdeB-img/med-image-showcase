@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createFunctionalResetSession, persistFunctionalResetSession, loadFunctionalResetSession, type FunctionalResetSession } from "../session";
 import { activeProjectPreparation, addProjectPreparation, captureProjectPreparation, consumeProjectPreparation,
-  preparationCheckpointValid, transitionProjectPreparation } from "../project-preparation-lifecycle";
+  canCaptureProjectPreparation, preparationCheckpointValid, projectPreparationProgress, recordPreparationDecision, transitionProjectPreparation } from "../project-preparation-lifecycle";
 import { createProductTraceRunId } from "../../scientific-execution-trace";
 import { buildTraceInspectorRunProjection } from "../../../validation-architecture/trace-structural-validation";
 import { recordProjectPreparationTrace } from "../project-preparation-trace";
@@ -60,6 +60,7 @@ describe("session-owned immutable checkpoint transitions", () => {
 import {acceptWorkingDraftUpdate, summarizeWorkingReviewOwnerCandidate, workingDraftInputDigest} from "../continuous-project-build";
 import {projectPreparationReview} from "../project-preparation-lifecycle";
 import {controlledStudyProposal,DOMAINS} from "./study-proposal-fixtures";
+import {behaviorContribution,behaviorItem} from "./p1-behavior-01a-contract-fixtures";
 import {confirmResearchProjectContribution} from "../../../research-project-construction";
 const ready = () => {
  const s=source();const p=captureProjectPreparation(s);const req=p.checkpoint!.request;
@@ -104,7 +105,9 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
   expect(p.checkpoint!.request.currentProject?.projectDigest).toBe(project.projectDigest);
   expect(p.checkpoint!.previousDraftDigest).toBeTruthy();
  });
- it("keeps a repeated adopted proposal non-adopting and attributes its owner outcome",()=>{
+ // CURRENT_STRUCTURAL_INVARIANT. Product requirement: identical scientific
+ // input creates no new Project/Review and must not become a false failure.
+ it("keeps an exactly identical full snapshot non-adopting with an honest no-change outcome",()=>{
   const first=ready(), review=projectPreparationReview(first)!;
   const project=confirmResearchProjectContribution({contribution:review.prepared.contribution,current:null,
    projectId:first.projectId,authority:first.projectAuthority,confirmedAt:first.updatedAt,
@@ -123,8 +126,60 @@ describe("checkpoint / real review / canonical Project frontier",()=>{
   const trace=buildTraceInspectorRunProjection({ledger:second.scientificExecutionTraceLedger,
    traceRunId:createProductTraceRunId(second.sessionId,"turn:repeat")});
   expect(trace.events.some(event=>event.stage==="PROJECT_DELTA_VALIDATION")).toBe(true);
-  expect(second.workingDraftPreparations?.at(-1)?.code).toBe("WORKING_REVIEW_OWNER_NOT_READY");
-  expect(trace.firstFailure?.subtype).toBe("NO_NET_CHANGE");
+  expect(second.workingDraftPreparations?.at(-1)).toMatchObject({status:"NO_CHANGE",code:"NO_CANONICAL_CHANGE"});
+  expect(trace.firstFailure).toBeNull();
+  expect(second.studyProposal).toBe(continued.studyProposal);
+  expect(projectPreparationProgress(second).latestPendingScientificTurnRef).toBeNull();
+  expect(canCaptureProjectPreparation(second)).toBe(false);
+ });
+ it("does not declare zero canonical change a no-op when an unresolved scientific fact changed",()=>{
+  const first=ready(), review=projectPreparationReview(first)!;
+  const project=confirmResearchProjectContribution({contribution:review.prepared.contribution,current:null,
+   projectId:first.projectId,authority:first.projectAuthority,confirmedAt:first.updatedAt,
+   reviewedProjection:review.prepared.candidate.humanReviewProjection});
+  const continued={...first,project,runtimeTurns:[...first.runtimeTurns,
+   {turnId:"turn:new-open",role:"USER" as const,content:"L'organisation de la mesure reste à définir.",createdAt:first.updatedAt},
+   {turnId:"noxia-turn:22222222-2222-4222-8222-222222222222",role:"NOXIA" as const,content:"Point encore ouvert.",createdAt:first.updatedAt}]};
+  const preparation=captureProjectPreparation(continued), request=preparation.checkpoint!.request;
+  const proposal=controlledStudyProposal(workingDraftInputDigest(request),DOMAINS[0]);
+  proposal.atoms.find(a=>a.status==="OPEN_DECISION")!.content+=" Organisation du contrôle qualité encore ouverte.";
+  const accepted=acceptWorkingDraftUpdate({requestType:"STUDY_UPDATE",proposal,explicitDecisions:[],inferredAtomRefs:[],rejectedAtomRefs:[]},request);
+  const second=consumeProjectPreparation(addProjectPreparation(continued,preparation),preparation.checkpoint!.preparationId,
+   {workingDraftUpdate:accepted.update,workingStudyProposal:accepted.composition});
+  expect(second.project).toBe(project);
+  expect(second.workingDraftPreparations?.at(-1)?.code).not.toBe("NO_CANONICAL_CHANGE");
+  expect(projectPreparationProgress(second).latestPendingScientificTurnRef).toBe("turn:new-open");
+ });
+ it("never resurrects an older pending Review after explicit adoption of the newer full snapshot",()=>{
+  const first=ready(), frozen=JSON.stringify(first.workingDraftPreparations![0]);
+  const continued={...first,runtimeTurns:[...first.runtimeTurns,
+   {turnId:"turn:refinement",role:"USER" as const,content:"Ajouter un contrôle de concordance des coupes IRM.",createdAt:first.updatedAt},
+   {turnId:"noxia-turn:22222222-2222-4222-8222-222222222222",role:"NOXIA" as const,content:"Contrôle qualité proposé, non adopté.",createdAt:first.updatedAt}]};
+  const preparation=captureProjectPreparation(continued), request=preparation.checkpoint!.request;
+  const proposal=controlledStudyProposal(workingDraftInputDigest(request),DOMAINS[0]);
+  proposal.atoms.push({...proposal.atoms.find(a=>a.ref==="design")!,ref:"added-irm-qc",semanticKey:"quality.concordance",
+   targetType:"PROJECT_INFORMATION",content:"Contrôle de concordance des coupes IRM",owner:"IMAGING",area:"MEASUREMENTS",dependsOn:[]});
+  const accepted=acceptWorkingDraftUpdate({requestType:"STUDY_UPDATE",proposal,explicitDecisions:[],inferredAtomRefs:[],rejectedAtomRefs:[]},request);
+  const readySecond=consumeProjectPreparation(addProjectPreparation(continued,preparation),preparation.checkpoint!.preparationId,
+   {workingDraftUpdate:accepted.update,workingStudyProposal:accepted.composition});
+  const review=projectPreparationReview(readySecond)!;
+  expect(review.preparation.sourceTurnRef).toBe("turn:refinement");
+  const project=confirmResearchProjectContribution({contribution:review.prepared.contribution,current:null,
+   projectId:first.projectId,authority:first.projectAuthority,confirmedAt:first.updatedAt,
+   reviewedProjection:review.prepared.candidate.humanReviewProjection});
+  const confirmed=recordPreparationDecision({...readySecond,project},preparation.checkpoint!.preparationId,"ADOPTED");
+  expect(projectPreparationReview(confirmed)).toBeNull();
+  expect(JSON.stringify(confirmed.workingDraftPreparations![0])).toBe(frozen);
+  const restored=loadFunctionalResetSession({getItem:()=>JSON.stringify(confirmed)});
+  expect(projectPreparationReview(restored)).toBeNull();
+  const source={turnId:"later-native-source",role:"USER" as const,content:"Ajouter une relecture indépendante de la concordance des coupes IRM.",createdAt:first.updatedAt};
+  const contribution=behaviorContribution({contributionId:"later-native-quality",turns:[source],candidateObjects:[
+   behaviorItem({itemId:"later-quality",proposedType:"PROJECT_INFORMATION",content:"Relecture indépendante de concordance des coupes IRM",turnId:source.turnId})]});
+  contribution.source.conversationId=first.conversationId;
+  const laterProject=confirmResearchProjectContribution({contribution,current:project,projectId:first.projectId,
+   authority:first.projectAuthority,confirmedAt:first.updatedAt});
+  expect(laterProject.revision).toBe(2);
+  expect(projectPreparationReview({...confirmed,project:laterProject,runtimeTurns:[...confirmed.runtimeTurns,source]})).toBeNull();
  });
  it("keeps structural conflict and incomplete review as distinct PRJ observations",()=>{
   const candidate=projectPreparationReview(ready())!.prepared.candidate;

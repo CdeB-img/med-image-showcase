@@ -97,16 +97,40 @@ export const activeProjectPreparation = (session: FunctionalResetSession) =>
   [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint
     && p.decision !== "ABANDONED" && ["PREPARING", "UNKNOWN/INTERRUPTED"].includes(p.status));
 /** A local review/adoption acknowledgement is not a server Chat response proof. */
+const latestPreparationSource = (session: FunctionalResetSession) => [...session.runtimeTurns].reverse().find(turn => turn.role === "USER"
+  // Only an owner-certified control event may be ignored. Never classify an
+  // arbitrary user message/assent by its wording or reconstruct a missing receipt.
+  && !session.scientificDiscussionRetention?.sourceCoverage.some(source => source.turnRef === turn.turnId
+    && source.sourceDigest === logicalDigest(turn.content) && source.coverage === "COMPLETE"
+    && source.nonPersistentReason === "GOVERNED_OWNER_EVENT" && source.classificationOwner === "RESEARCH_PROJECT"
+    && Boolean(source.ownerEventRef)));
+
+export const projectPreparationProgress = (session: FunctionalResetSession) => {
+  const latest = latestPreparationSource(session);
+  const latestIndex = latest ? session.runtimeTurns.findIndex(t => t.turnId === latest.turnId) : -1;
+  const prepared = [...session.workingDraftPreparations ?? []].filter(p => p.checkpoint
+    && (p.result || p.status === "NO_CHANGE" && p.code === "NO_CANONICAL_CHANGE"))
+    .sort((a, b) => session.runtimeTurns.findIndex(t => t.turnId === b.checkpoint!.cutoffTurnId)
+      - session.runtimeTurns.findIndex(t => t.turnId === a.checkpoint!.cutoffTurnId))[0];
+  const cutoffIndex = prepared ? session.runtimeTurns.findIndex(t => t.turnId === prepared.checkpoint!.cutoffTurnId) : -1;
+  return { latestScientificTurnRef: latest?.turnId ?? null,
+    latestPreparedTurnRef: prepared?.sourceTurnRef ?? null,
+    checkpointThroughTurnRef: prepared?.checkpoint?.cutoffTurnId ?? null,
+    latestPendingScientificTurnRef: latestIndex > cutoffIndex ? latest?.turnId ?? null : null };
+};
+
 export const canCaptureProjectPreparation = (session: FunctionalResetSession): boolean => {
-  const source = [...session.runtimeTurns].reverse().find(turn => turn.role === "USER");
+  const source = latestPreparationSource(session);
   const recovery = source && workingDraftRecoveryIdentity(session, source.turnId);
+  const prior = session.workingDraftPreparations?.find(p => p.sourceTurnRef === source?.turnId && p.checkpoint && p.decision !== "ABANDONED");
   return Boolean(recovery && /^noxia-turn:[a-f\d-]{36}$/iu.test(recovery.sourceResponseRef)
-    && session.runtimeTurns.at(-1)?.role === "NOXIA");
+    && session.runtimeTurns.at(-1)?.role === "NOXIA" && prior?.decision !== "ADOPTED"
+    && !(prior?.status === "NO_CHANGE" && prior.code === "NO_CANONICAL_CHANGE"));
 };
 export const captureProjectPreparation = (session: FunctionalResetSession, now = new Date().toISOString()): WorkingDraftPreparation => {
   const active = activeProjectPreparation(session);
   if (active) return active;
-  const source = [...session.runtimeTurns].reverse().find(t => t.role === "USER");
+  const source = latestPreparationSource(session);
   const recovery = source && workingDraftRecoveryIdentity(session, source.turnId);
   if (!source || !recovery || !canCaptureProjectPreparation(session)) throw new Error("PREPARATION_CHAT_RESPONSE_REQUIRED");
   const sourceIndex = session.runtimeTurns.findIndex(t => t.turnId === source.turnId);
@@ -191,6 +215,20 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
     const ownerObservation: { current: WorkingReviewOwnerObservation | null } = { current: null };
     const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate, cp.inputDigest, ownerObservation);
     const diagnostic = ownerObservation.current;
+    const previous = cp.request.studyProposalContext?.proposal;
+    if (diagnostic?.subtype === "NO_NET_CHANGE" && workingDraft.failure === "WORKING_REVIEW_OWNER_NOT_READY"
+      && previous && (session.project?.projectDigest ?? null) === (cp.request.currentProject?.projectDigest ?? null)) {
+      const { contextDigest: _newContext, ...newSnapshot } = composition.proposal;
+      const { contextDigest: _oldContext, ...oldSnapshot } = previous;
+      // A zero canonical delta is not enough: new unresolved science may exist.
+      // Only an EXACTLY identical full snapshot (except its context identity),
+      // validated upstream and on the unchanged Project base, certifies no change.
+      if (logicalDigest(newSnapshot) === logicalDigest(oldSnapshot)) return transitionProjectPreparation(
+        recordProjectPreparationTrace(observed, cp, "PROJECT_DELTA_VALIDATION", "SUCCEEDED", {
+          code: "NO_CANONICAL_CHANGE", metadata: { errorSubtype: "NO_NET_CHANGE", netChangeCount: 0,
+            conflictCount: 0, boundedStatus: "IDENTICAL_SCIENTIFIC_SNAPSHOT" },
+        }), id, "NO_CHANGE", "NO_CANONICAL_CHANGE");
+    }
     if (diagnostic) {
       const metadata = {
         candidateStatus: diagnostic.candidateStatus, canonicalStatus: diagnostic.canonicalStatus,
@@ -255,7 +293,17 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
   }
 };
 export const projectPreparationReview = (session: FunctionalResetSession) => {
-  const p = [...session.workingDraftPreparations ?? []].reverse().find(item => item.result && item.decision === "PENDING");
+  const preparations = session.workingDraftPreparations ?? [];
+  // A confirmed newer full snapshot supersedes the earlier review VIEW only.
+  // Keep its immutable evidence and preserve unrelated stale-base blockers.
+  const adoptedContributions = new Set(session.project
+    ? ensureCanonicalProjectState(session.project).versionHistory.map(version => version.sourceContributionRef) : []);
+  const adoptedCutoff = Math.max(-1, ...preparations.filter(item => item.result && item.checkpoint && item.decision === "ADOPTED"
+    && preparationCheckpointValid(session, item.checkpoint)
+    && adoptedContributions.has(item.result.workingDraft.readyReview?.candidate.contributionRef ?? ""))
+    .map(item => session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId)));
+  const p = [...preparations].reverse().find(item => item.result && item.checkpoint && item.decision === "PENDING"
+    && session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId) > adoptedCutoff);
   if (!p?.checkpoint || !p.result) return null;
   const cp = p.checkpoint;
   if (!preparationCheckpointValid(session, cp)) return null;

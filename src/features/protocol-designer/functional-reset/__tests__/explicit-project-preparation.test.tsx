@@ -8,6 +8,7 @@ import { createFunctionalResetSession, loadFunctionalResetSession, persistFuncti
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import { terraResultFixture } from "./terra-result-fixture";
+import { projectPreparationProgress } from "../project-preparation-lifecycle";
 const bridge = vi.hoisted(() => vi.fn());
 const read = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
@@ -53,6 +54,39 @@ const initialChat = async () => { send(DOMAINS[0].text); await screen.findByText
   await waitFor(() => expect(screen.queryByText("NOXIA réfléchit…")).not.toBeInTheDocument()); };
 
 describe("explicit Project preparation — real bridge/owners, synthetic provider only", () => {
+  // CURRENT_STRUCTURAL_INVARIANT: immutable cutoffs, explicit command routing
+  // and native input/source identity; not a scientific interpretation assertion.
+  it.each([false, true])("keeps the later completed turn re-preparable after old review%s", async confirmOld => {
+    const h = setup(); await initialChat();
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    await waitFor(() => expect(h.wdCalls()).toHaveLength(1));
+    const checkpoint = JSON.stringify(h.state().workingDraftPreparations![0].checkpoint);
+    send("Je précise deux centres.");
+    await waitFor(() => expect(h.state().runtimeTurns.filter(t => t.role === "NOXIA")).toHaveLength(2));
+    const later = h.state().runtimeTurns.filter(t => t.role === "USER").at(-1)!;
+    await act(async () => h.release());
+    await screen.findByTestId("project-finalization-card");
+    expect(projectPreparationProgress(h.state()).latestPendingScientificTurnRef).toBe(later.turnId);
+    expect(JSON.stringify(h.state().workingDraftPreparations![0].checkpoint)).toBe(checkpoint);
+    expect(screen.getByTestId("preparation-newer-conversation")).not.toHaveTextContent("relation avec →");
+    if (confirmOld) {
+      for (const checkbox of screen.getAllByRole("checkbox")) fireEvent.click(checkbox);
+      fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+      await waitFor(() => expect(h.state().project?.revision).toBe(1));
+      expect(projectPreparationProgress(h.state()).latestPendingScientificTurnRef).toBe(later.turnId);
+      expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeEnabled();
+      fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    } else {
+      fireEvent.click(screen.getByRole("button", { name: "Repréparer avec les nouveaux échanges" }));
+    }
+    await waitFor(() => expect(h.wdCalls()).toHaveLength(2));
+    const second = h.wdCalls()[1][0] as ProductBridgeRequest;
+    expect(second.workingDraftScientificSource).toMatchObject({ kind: "BOUND_USER_TURN", sourceUserTurnId: later.turnId });
+    expect(second.currentProject?.revision ?? 0).toBe(confirmOld ? 1 : 0);
+    expect(second.conversation.turns.some(t => t.turnId === later.turnId)).toBe(true);
+    expect(JSON.stringify(h.state().workingDraftPreparations![0].checkpoint)).toBe(checkpoint);
+    expect(h.state().project?.revision ?? 0).toBe(confirmOld ? 1 : 0);
+  });
   it("exposes Human Review in Standard and reserves the technical preparation control for diagnostics", async () => {
     const h = setup();
     expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeDisabled();

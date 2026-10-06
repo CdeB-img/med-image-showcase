@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
-import { calculateStudyProposalScenarios, type StudyProposalComposition } from "@/features/scientific-thinking/contextual-study-proposal";
+import { calculateStudyProposalScenarios, studyProposalAtomSchema, type StudyProposalComposition } from "@/features/scientific-thinking/contextual-study-proposal";
 import { confirmResearchProjectContribution, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation/functional-reset-progression";
 import { currentGovernedNavigationInput } from "@/features/query-navigation/current-navigation-evidence";
@@ -78,6 +78,15 @@ const legacy = (c: StudyProposalComposition) => ({ status: "NOT_ADOPTED", propos
 afterEach(() => vi.restoreAllMocks());
 
 describe("Terra adopted StudyProposal current-state projection", () => {
+  it("requires an explicit semantic/provenance classification when the native atom contract grows", () => {
+    // CURRENT_STRUCTURAL_INVARIANT: future native fields must not silently
+    // disappear from the semantic projection. This inventory is exhaustive.
+    expect(Object.keys(studyProposalAtomSchema.shape).sort()).toEqual([
+      "ref", "semanticKey", "content", "rationale", "targetType", "owner", "area", "status", "evidenceRefs", "dependsOn",
+      "dependencyQualifications", "variableRoles", "unit", "strataCount", "plannedSource", "plannedMethod",
+      "participantReported", "analysisMethod", "userChangeRefs",
+    ].sort());
+  });
   it("reproduces the real cardinality envelope at the same 80k boundary, then retains its active semantics", () => {
     const { request, project, composition, candidate } = realShape();
     expect(composition.proposal.atoms).toHaveLength(56);
@@ -91,6 +100,21 @@ describe("Terra adopted StudyProposal current-state projection", () => {
     expect(() => prepareTerraConversation(request, true, m => { oldMeasurement = m; })).toThrow("CONVERSATION_MEMORY_LIMIT");
     expect(oldMeasurement!.packetTotalBytes).toBeGreaterThan(80000);
     spy.mockRestore();
+    const currentProjection = proposalOwner.projectStudyProposalConversationContext;
+    const technicalCopy = vi.spyOn(proposalOwner, "projectStudyProposalConversationContext").mockImplementation((c, p) => {
+      const view = currentProjection(c, p), table = view.adoptedAtomContext!;
+      const fields = [...new Set(c.proposal.atoms.filter(a => c.adoptedAtomRefs.includes(a.ref)).flatMap(a => Object.keys(a)))]
+        .filter(field => field !== "content" && field !== "rationale") as Array<keyof typeof c.proposal.atoms[number]>;
+      return { ...view, adoptedAtomContext: { ...table, fields: ["projectRef", ...fields],
+        rows: table.rows.map(row => {
+          const ref = row[table.fields.indexOf("ref")];
+          const atom = c.proposal.atoms.find(a => a.ref === ref)!;
+          return [row[0], ...fields.map(field => atom[field] ?? null)];
+        }), absentFields: [] } };
+    });
+    let preMissionMeasurement: ConversationContextPacketPreflight | undefined;
+    prepareTerraConversation(request, true, m => { preMissionMeasurement = m; });
+    technicalCopy.mockRestore();
     let measurement: ConversationContextPacketPreflight | undefined;
     const prepared = prepareTerraConversation(request, true, m => { measurement = m; });
     const packet = JSON.parse(prepared.context);
@@ -112,10 +136,19 @@ describe("Terra adopted StudyProposal current-state projection", () => {
       const atom = composition.proposal.atoms.find(a => a.ref === metadata.ref)!;
       const canonical = packet.CURRENT_PROJECT.decisions.find((o: { ref: string }) => o.ref === metadata.projectRef);
       expect(canonical.content).toBe(atom.content);
-      for (const [field, value] of Object.entries(atom)) if (field !== "content" && field !== "rationale") expect(metadata[field]).toEqual(value);
+      // CURRENT_SEMANTIC_INVARIANT: all remaining scientific qualifiers survive.
+      // SUPERSEDED_CONTRACT: replaying settled wire/owner bookkeeping on each
+      // conversation is not semantic preservation; native refs retain provenance.
+      for (const field of ["ref", "variableRoles", "unit", "strataCount", "plannedSource", "plannedMethod", "participantReported", "analysisMethod", "dependsOn", "dependencyQualifications"] as const)
+        if (Object.prototype.hasOwnProperty.call(atom, field)) expect(metadata[field]).toEqual(atom[field]);
+      for (const field of ["semanticKey", "area", "owner", "targetType", "status", "evidenceRefs", "userChangeRefs"])
+        expect(metadata).not.toHaveProperty(field);
     }
     expect(logicalDigest({ request, project, composition })).toBe(before);
-    console.info("REAL_SHAPE_CONTEXT_BYTES=" + JSON.stringify({ before: oldMeasurement!.packetTotalBytes, after: measurement!.packetTotalBytes }));
+    expect(measurement!.packetTotalBytes).toBeLessThan(preMissionMeasurement!.packetTotalBytes);
+    console.info("REAL_SHAPE_CONTEXT_BYTES=" + JSON.stringify({ original: oldMeasurement!.packetTotalBytes,
+      before: preMissionMeasurement!.packetTotalBytes, after: measurement!.packetTotalBytes,
+      partition: measurement }));
   });
 
   it("does not compact unknowns, unproven bindings, stale/review-required composition or changed Project content", () => {

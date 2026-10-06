@@ -86,6 +86,37 @@ describe("DOC generation publication / recovery transaction — no real provider
     expect(run.executed).toHaveBeenCalledOnce(); expect(run.sql.rows()).toHaveLength(1); expect(run.sql.bodies()).toHaveLength(1);
     expect(run.executed.mock.calls[0][6]).toBeUndefined(); // Existing serial memory guard, not the native Postgres ledger.
   });
+  it("serializes concurrent server commands for one digest before dispatch, then reuses the single committed generation", async () => {
+    const run = await runtime();
+    const execute = run.executed.getMockImplementation()!;
+    let release!: () => void;
+    let dispatched!: () => void;
+    const started = new Promise<void>(resolve => { dispatched = resolve; });
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    run.executed.mockImplementation(async (...args) => { dispatched(); await pending; return execute(...args); });
+    const first = run.invoke();
+    await started;
+    const otherCommand = (index: number) => ({ ...run.body,
+      observabilityContext: { ...run.body.observabilityContext, clientRequestId: `drci-draft:${run.project.projectDigest}:concurrent-${index}` } });
+    try {
+      const concurrent = await Promise.all(Array.from({ length: 10 }, (_, index) => run.invoke({ payload: otherCommand(index) })));
+      expect(concurrent.map(result => result.status)).toEqual(Array(10).fill(409));
+      expect(concurrent.every(result => result.body.error?.code === "DOC_ARCHIVE_GENERATION_IN_PROGRESS")).toBe(true);
+      expect(run.executed).toHaveBeenCalledOnce();
+      expect(run.sql.rows()).toHaveLength(1); expect(run.sql.bodies()).toHaveLength(0);
+    } finally { release(); }
+    const committed = await first;
+    expect(committed.status).toBe(200);
+    const recovered = await run.invoke({ payload: otherCommand(11) });
+    expect(recovered.status).toBe(200);
+    expect(recovered.body.documentPersistenceReceipt?.generation).toEqual(committed.body.documentPersistenceReceipt?.generation);
+    expect(recovered.body.documentPersistenceReceipt?.generation.displayVersion).toBe(1);
+    expect(run.executed).toHaveBeenCalledOnce();
+    expect(run.sql.rows()).toHaveLength(1); expect(run.sql.bodies()).toHaveLength(1);
+    // SQL double serializes transactions only; the actual server/archive owner
+    // performs admission and Project-scoped locking. No disabled UI is involved.
+    expect(new Set(run.sql.projectLockArguments).size).toBe(1);
+  });
   it("permits an explicit retry after a known failed generation without incrementing the successful Gn label", async () => {
     const run = await runtime();
     run.executed.mockRejectedValueOnce(new Error("OFFLINE_KNOWN_DOC_FAILURE"));

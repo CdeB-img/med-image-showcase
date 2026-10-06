@@ -4,7 +4,7 @@ import type { ScientificInterpretationTurn } from "@/features/scientific-interpr
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import type { ResearchProjectContributionCandidate, ResearchProjectOwnerProjection } from "@/features/research-project-construction";
 import type { WorkingDraftMetadata } from "./continuous-project-build";
-import ContributionReview from "./ContributionReview";
+import ContributionReview, { reviewDecisionRefsInDisplayOrder } from "./ContributionReview";
 
 type Props = Readonly<{
   contribution: ScientificInterpretationContributionEnvelope;
@@ -16,6 +16,7 @@ type Props = Readonly<{
   capturedAt?: string;
   newerTurns?: readonly ScientificInterpretationTurn[];
   onAbandon?: () => void;
+  onReprepare?: () => void;
   onConfirm: (refs?: readonly string[]) => void;
 }>;
 
@@ -31,11 +32,12 @@ export default function ProjectFinalizationCard({
   workingDraft,
   disabled,
   error,
-  onConfirm, capturedAt, newerTurns = [], onAbandon,
+  onConfirm, capturedAt, newerTurns = [], onAbandon, onReprepare,
 }: Props) {
   const [selectedGroups, setSelectedGroups] = useState<readonly string[]>([]);
   const groups = contributionDecisionScopeGroups(candidate, currentProject);
-  const items = candidate.humanReviewProjection.sections.flatMap(section => section.items);
+  const visibleRefs = reviewDecisionRefsInDisplayOrder(candidate);
+  const decisionNumbers = new Map(visibleRefs.map((ref, index) => [ref, index + 1]));
   const requiresReconciliation = newerTurns.length > 0;
   const selectedRefs = groups.filter(group => selectedGroups.includes(group[0])).flat();
   const decisionCount = visibleDecisionCount(candidate);
@@ -68,10 +70,13 @@ export default function ProjectFinalizationCard({
       <h4 className="font-semibold">Échanges postérieurs à la préparation</h4>
       <ul className="my-2 space-y-1">{newerTurns.map(turn => <li key={turn.turnId}>{turn.content}</li>)}</ul>
       <p>Relisez ces échanges puis sélectionnez uniquement les groupes qui restent valides. Les éléments dépendants sont groupés par l’owner de revue. Si une correction affecte un groupe, ne le validez pas : demandez une nouvelle préparation.</p>
+      {onReprepare && <button type="button" onClick={onReprepare}
+        className="mt-3 min-h-11 rounded-xl border px-4 py-2 font-semibold">Repréparer avec les nouveaux échanges</button>}
       <div className="mt-3 space-y-3">{groups.map(group => <label key={group[0]} className="flex items-start gap-2">
         <input type="checkbox" disabled={disabled} checked={selectedGroups.includes(group[0])}
           onChange={event => setSelectedGroups(current => event.target.checked ? [...current, group[0]] : current.filter(ref => ref !== group[0]))} />
-        <span>Confirmer ce groupe après relecture : {items.filter(item => group.includes(item.changeRef)).map(item => item.content).join(" · ")}</span>
+        <span>Confirmer ce groupe après relecture : {group.flatMap(ref => decisionNumbers.has(ref) ? [`choix ${decisionNumbers.get(ref)}`] : []).join(", ") || "liens associés aux choix de la revue"}
+          <span className="block text-xs text-muted-foreground">Les liens associés sont inclus ; leur détail technique reste consultable.</span></span>
       </label>)}</div>
     </section>}
     {onAbandon && <button type="button" disabled={disabled} onClick={onAbandon} className="mt-3 min-h-9 rounded-lg border px-3 text-sm">Abandonner cette revue</button>}

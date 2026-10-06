@@ -18,6 +18,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:protocol-designer:sentinels": "node scripts/run-protocol-designer-sentinels.mjs",
+    "test:protocol-designer:stability": "vitest run src/features/protocol-designer/functional-reset/__tests__/product-lifecycle-stability.test.tsx src/features/protocol-designer/functional-reset/__tests__/project-spine-01.test.ts src/features/protocol-designer/functional-reset/__tests__/explicit-project-preparation.test.tsx src/features/protocol-designer/functional-reset/__tests__/project-preparation-lifecycle.test.ts src/features/protocol-designer/functional-reset/__tests__/terra-adopted-proposal-context.test.ts src/features/protocol-designer/functional-reset/__tests__/terra-open-decision-context.test.ts src/features/document-projection/__tests__/archive-generation-transaction.test.ts src/features/document-projection/__tests__/postgres-generation-archive.test.ts",
     "test:watch": "vitest",
     "test:semantic": "vitest run src/features/scientific-semantic-reconstruction/__tests__",
     "validate:sem003-authoring": "node semantic-validation/sem-003/authoring/validator.mjs",

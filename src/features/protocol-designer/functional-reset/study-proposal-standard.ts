@@ -119,7 +119,8 @@ export const rehydrateStudyProposal = (value: unknown, project: ResearchProjectO
  * instead of duplicating its content. Unknowns and unproven/1:N bindings retain
  * the full atom. Rationale is closed proposal explanation, not adopted content
  * (the Working Draft output contract requires every scientific condition in
- * content/OPEN_DECISION). All other metadata is retained without summarizing.
+ * content/OPEN_DECISION). Unique scientific qualifiers remain in the table;
+ * settled transport/owner bookkeeping is retrievable by proposal/Project ref.
  * Columns merely avoid repeating field labels, not scientific values. */
 export const projectStudyProposalConversationContext = (composition: StudyProposalComposition,
   project: ResearchProjectOwnerProjection | null) => {
@@ -134,8 +135,12 @@ export const projectStudyProposalConversationContext = (composition: StudyPropos
     return [{ atom, projectRef: materialized[0].objectId }];
   }) : [];
   const adoptedRefs = new Set(adopted.map(({ atom }) => atom.ref));
-  const fields = [...new Set(adopted.flatMap(({ atom }) => Object.keys(atom)))]
-    .filter(field => field !== "content" && field !== "rationale") as Array<keyof StudyProposalAtom>;
+  // Closed provenance/identity has native owners, not a second semantic copy:
+  // projectRef + proposalRef + atom ref bind it without replaying raw receipts.
+  // Do not remove units, method/source, roles or unresolved dependency meaning.
+  const scientificFields: readonly (keyof StudyProposalAtom)[] = ["ref", "variableRoles", "unit", "strataCount",
+    "plannedSource", "plannedMethod", "participantReported", "analysisMethod", "dependsOn", "dependencyQualifications"];
+  const fields = scientificFields.filter(field => adopted.some(({ atom }) => Object.prototype.hasOwnProperty.call(atom, field)));
   return {
     status: "NOT_ADOPTED", proposalRef: composition.proposalRef, state: composition.state,
     adoptedAtomRefs: composition.adoptedAtomRefs, unavailableOptionRefs: composition.unavailableOptionRefs,

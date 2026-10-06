@@ -642,6 +642,8 @@ export default function ProtocolDesignerWorkspace({
         : reviewError}
     capturedAt={preparationReview.checkpoint.capturedAt} newerTurns={preparationReview.newerTurns}
     onConfirm={refs => void confirmProject(refs)}
+    onReprepare={preparationReview.newerTurns.length && canCaptureProjectPreparation(session) && !busy && !workingDraftBusy
+      ? () => void preparationController.start() : undefined}
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
   const currentDrciDraftPack = hasCurrentArchivedGeneration(session);
