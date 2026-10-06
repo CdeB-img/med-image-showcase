@@ -1,5 +1,6 @@
 import { useConversationTurn } from "./useConversationTurn";
 import { useProjectPreparation } from "./useProjectPreparation";
+import { useVersionProduction } from "./useVersionProduction";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
@@ -101,7 +102,7 @@ export default function ProtocolDesignerWorkspace({
   const [reviewError, setReviewError] = useState<string | null>(null);
   const latestSessionRef = useRef(session);
   useEffect(() => { latestSessionRef.current = session; }, [session]);
-  const preparationController = useProjectPreparation({ enabled: autonomousProjectBuild, session,
+  const preparationController = useProjectPreparation({ enabled: true, session,
     latest: latestSessionRef, setSession, save: onSessionChange, captureConfiguration: traceCaptureConfiguration });
   const workingDraftBusy = preparationController.busy;
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
@@ -133,6 +134,8 @@ export default function ProtocolDesignerWorkspace({
   const { requestProtocolProjection, documentRecoveryRef } = useDocumentGeneration({ latestSessionRef, setSession, administration, projectionMode, onSessionChange,
     setDocumentSaveWarning, setDeliverableWorkspaceOpen, setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending, setDocumentGenerationStage });
   const confirmationInFlightRef = useRef<string | null>(null);
+  const versionProduction = useVersionProduction({ session, latest: latestSessionRef, setSession, save: onSessionChange,
+    prepare: preparationController.start, generateDocuments: requestProtocolProjection, administration });
 
   useEffect(() => {
     if (documentGenerationStartedAt === null || !documentGenerationPending) return;
@@ -631,7 +634,7 @@ export default function ProtocolDesignerWorkspace({
       setDeliverableWorkspaceOpen(true);
     }}
   />;
-  const projectFinalizationCard = preparationReview ? <ProjectFinalizationCard
+  const projectFinalizationCard = projectionMode === "EXPERT" && preparationReview ? <ProjectFinalizationCard
     key={`${preparationReview.checkpoint.preparationId}:${preparationReview.newerTurns.map(t => t.turnId).join(":")}`}
     contribution={preparationReview.prepared.contribution} candidate={preparationReview.prepared.candidate}
     currentProject={session.project} workingDraft={preparationReview.workingDraft}
@@ -647,7 +650,7 @@ export default function ProtocolDesignerWorkspace({
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
   const currentDrciDraftPack = hasCurrentArchivedGeneration(session);
-  const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe
+  const adoptedProjectDocumentAction = projectionMode === "EXPERT" && !preparedFinalization && session.project && !session.documentRetryUnsafe
     && (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" || projectionMode === "EXPERT") ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
       data-testid="adopted-project-document-generation"
@@ -709,7 +712,7 @@ export default function ProtocolDesignerWorkspace({
           {onOpenProfile && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onOpenProfile} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Profil / organisation</button>}
           {onEditAdministration && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onEditAdministration} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Informations du projet</button>}
           {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources</button>}
-          <Sheet open={workingProjectOpen} onOpenChange={setWorkingProjectOpen}>
+          {projectionMode === "EXPERT" && <Sheet open={workingProjectOpen} onOpenChange={setWorkingProjectOpen}>
             <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
               <SheetHeader className="sr-only"><SheetTitle>Projet de recherche</SheetTitle><SheetDescription>État actuel du projet et des documents.</SheetDescription></SheetHeader>
@@ -724,7 +727,7 @@ export default function ProtocolDesignerWorkspace({
                 </section>
               </div>
             </SheetContent>
-          </Sheet>
+          </Sheet>}
           <details className="relative">
             <summary aria-label="Plus d’options" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border bg-background text-xl marker:hidden">⋯</summary>
             <div className="absolute right-0 z-50 mt-2 w-56 rounded-xl border bg-background p-1 shadow-xl">
@@ -742,8 +745,17 @@ export default function ProtocolDesignerWorkspace({
 
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
-      <div className="grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
-        <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>
+      {projectionMode === "STANDARD" && <div className="mb-3" data-testid="version-production-action">
+        <button type="button" disabled={busy || documentGenerationPending || !versionProduction.available}
+          onClick={() => void versionProduction.generate()}
+          className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-40">
+          {versionProduction.label}
+        </button>
+        {versionProduction.pending && <p role="status" className="mt-2 text-xs text-muted-foreground">Production de la version en cours… Vous pouvez poursuivre la conversation.</p>}
+        {versionProduction.error && <p role="alert" className="mt-2 text-sm text-destructive">{versionProduction.error}</p>}
+      </div>}
+      <div className={`grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] ${projectionMode === "EXPERT" ? "lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]" : ""}`}>
+        {projectionMode === "EXPERT" && <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>}
 
         {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && !session.project && projectFinalizationCard ? <section
           aria-labelledby="project-documents-title"
@@ -802,7 +814,7 @@ export default function ProtocolDesignerWorkspace({
           <div ref={conversationScrollRef} onScroll={event => setConversationScrolled(event.currentTarget.scrollTop > 320)}
             className="min-h-0 flex-1 space-y-5 px-4 py-5 sm:px-6 lg:overflow-y-auto lg:overscroll-contain"
             aria-live="polite" data-testid="conversation-scroll-panel">
-            {session.entries.map((entry, index) => entry.kind === "FOLLOW_UP_ACTIONS"
+            {session.entries.map((entry, index) => projectionMode === "STANDARD" && (entry.kind !== "TEXT" && entry.kind !== "ERROR" || entry.kind === "TEXT" && entry.reviewInvitation) ? null : entry.kind === "FOLLOW_UP_ACTIONS"
               ? <StandardConversationActionGroup
                 key={entry.entryId}
                 presentation={entry.presentation}
@@ -954,7 +966,7 @@ export default function ProtocolDesignerWorkspace({
                   }}
                 />
               : <article key={entry.entryId} data-testid={entry.kind === "TEXT" && entry.reviewInvitation ? "project-review-invitation" : undefined} ref={entry.role === "NOXIA" && entry.kind === "TEXT" && !session.entries.slice(index + 1).some(item => item.kind === "TEXT" && item.role === "NOXIA") ? latestReplyRef : undefined} className={`scroll-mt-64 flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
-                {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
+                {projectionMode === "EXPERT" && entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
                   ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />
                   : <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
                     entry.kind === "ERROR" ? "border border-destructive/40 bg-destructive/10 text-destructive"
@@ -962,8 +974,8 @@ export default function ProtocolDesignerWorkspace({
                   }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>}
               </article>)}
             {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />{busyMessage}</div></div>}
-            {autonomousProjectBuild && workingDraftBusy && <div role="status" className="px-4 py-2 text-xs text-muted-foreground">Structuration du projet en cours…</div>}
-            {confirmationReceiptStatus && <div role="status" data-testid="conversation-confirmation-receipt"
+            {projectionMode === "EXPERT" && autonomousProjectBuild && workingDraftBusy && <div role="status" className="px-4 py-2 text-xs text-muted-foreground">Structuration du projet en cours…</div>}
+            {projectionMode === "EXPERT" && confirmationReceiptStatus && <div role="status" data-testid="conversation-confirmation-receipt"
               className="mx-4 rounded-xl border bg-primary/5 px-4 py-2 text-xs sm:mx-5">
               {confirmationReceiptStatus === "PREPARATION_FAILED"
                 ? "Accord enregistré sur la proposition précédente ; la préparation a échoué. Le projet reste inchangé."
@@ -973,7 +985,7 @@ export default function ProtocolDesignerWorkspace({
                     ? "Accord conservé sur la proposition précédente ; le résultat de sa préparation n’est pas vérifié."
                     : "Accord enregistré sur la proposition précédente — revue requise."}
             </div>}
-            {autonomousProjectBuild && !workingDraftBusy && ["FAILED", "UNKNOWN/INTERRUPTED", "SUPERSEDED", "NO_CHANGE"].includes(session.workingDraftPreparations?.at(-1)?.status ?? "") && <div role="alert"
+            {projectionMode === "EXPERT" && autonomousProjectBuild && !workingDraftBusy && ["FAILED", "UNKNOWN/INTERRUPTED", "SUPERSEDED", "NO_CHANGE"].includes(session.workingDraftPreparations?.at(-1)?.status ?? "") && <div role="alert"
               data-testid="working-draft-terminal-status" className="mx-4 rounded-xl border border-amber-500/30 bg-amber-500/5 px-4 py-2 text-xs sm:mx-5">
               {session.workingDraftPreparations?.at(-1)?.status === "UNKNOWN/INTERRUPTED"
                 ? "La préparation a été interrompue ; son résultat n’est pas vérifié. La conversation et le dernier projet sont conservés."
@@ -998,11 +1010,11 @@ export default function ProtocolDesignerWorkspace({
             onClick={() => conversationScrollRef.current?.scrollTo({ top: 0, behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>
             <ArrowUp className="h-4 w-4" /> Haut
           </button>}
-          {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
+          {projectionMode === "EXPERT" && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
           {projectFinalizationCard}
-          {autonomousProjectBuild && <div className="border-t px-4 py-3 sm:px-5">
+          {projectionMode === "EXPERT" && autonomousProjectBuild && <div className="border-t px-4 py-3 sm:px-5">
             <button type="button" onClick={() => void preparationController.start()}
               disabled={busy || !canCaptureProjectPreparation(session)}
               className="min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold disabled:opacity-40">
@@ -1016,7 +1028,7 @@ export default function ProtocolDesignerWorkspace({
                   : "Examinez les choix issus de la conversation. Votre confirmation explicite est nécessaire pour modifier le projet."}</p>
           </div>}
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
-            {!autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
+            {projectionMode === "EXPERT" && !autonomousProjectBuild && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && session.runtimeTurns.some(turn => turn.role === "USER") && <button
               type="button" disabled={busy} className="mb-2 min-h-9 rounded-lg border px-3 text-sm disabled:opacity-40"
               onClick={() => void submitTerraText("Je retiens les choix de travail de vos propositions précédentes, tels que corrigés par mes messages, pour préparer leur enregistrement. Présentez une revue groupée avant toute adoption.", true)}
             >Préparer l’enregistrement</button>}

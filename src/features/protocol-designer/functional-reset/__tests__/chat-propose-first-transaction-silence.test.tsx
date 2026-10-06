@@ -1,7 +1,8 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react';
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from 'react-helmet-async';
 import { executeProtocolDesignerBridge } from '../../../../../api/protocol-designer-bridge';
 import { prepareTerraConversation } from '@/features/scientific-thinking/scientific-collaborator-conversation';

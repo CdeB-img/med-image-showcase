@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -242,8 +243,10 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     expect(actionMismatch.conformanceReason).toBe("PROVIDER_PROPOSAL_REJECTED_ACTION_MISMATCH");
   });
 
-  it("shows the natural CEC response and a governed working understanding in Standard without adopting a Project", async () => {
+  it("keeps the natural CEC response in Standard and the governed working understanding in diagnostics without adopting", async () => {
     renderDemo();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.getByTestId("functional-reset-workspace")).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("trace-inspector")).toBeNull();
 
@@ -255,6 +258,8 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
       preProjectNavigation: { owner: "QUERY_NAVIGATION", action: "PROPOSE", projectWriteAuthorized: false },
     });
     expect(await screen.findByText(NATURAL_CEC_RESPONSE)).toBeInTheDocument();
+    // CURRENT_SEMANTIC_INVARIANT: understanding persists; only its technical Review UI moved.
+    openWorkspaceDiagnostic();
     const details = await screen.findByTestId("functional-review-details");
     fireEvent.click(details);
     fireEvent.click(await screen.findByText("Sources et provenance"));
@@ -315,6 +320,9 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     )).toBe(true);
 
     fireEvent.click(screen.getByRole("button",{name:"Close"}));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
+
     fireEvent.click(screen.getByLabelText("Plus d’options"));
     fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(screen.getByTestId("trace-inspector")).toBeInTheDocument();

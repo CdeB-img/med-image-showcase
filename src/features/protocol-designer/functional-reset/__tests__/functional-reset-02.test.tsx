@@ -2,7 +2,8 @@ import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/doc
 import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
 import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -156,7 +157,9 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
 
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Aucune génération documentaire.")).toBeInTheDocument();
+    // CURRENT_STRUCTURAL_INVARIANT: technical work is not an archived generation.
+    await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project).not.toBeNull());
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).documentArchive?.currentGenerationId ?? null).toBeNull();
     expect(within(projectPanel).queryByText(/DMP|SAP/)).toBeNull();
     await requestTechnicalProjection();
 
@@ -200,13 +203,16 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     const reloadedProject = screen.getByTestId("functional-research-project");
     expect(within(reloadedProject).getByText("Version 3")).toBeInTheDocument();
     // CURRENT_STRUCTURAL_INVARIANT: no real generation from technical work.
-    expect(within(reloadedProject).getByText("Aucune génération documentaire.")).toBeInTheDocument();
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).documentArchive?.currentGenerationId ?? null).toBeNull();
     const afterReload = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
     expect((await archivedProtocol(afterReload)).source.projectDigest).not.toBe(afterReload.project!.projectDigest);
     expect(screen.getByText(COLCHICINE_LATER_MODIFICATION)).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.queryByText(/Guided Intake|Orientation|Actor|Mandate|Scientific Reasoning Graph/)).toBeNull();
 
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
+    openWorkspaceDiagnostic();
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 3")).toBeNull());
     const reset = readPersistedSessionForTest(window.localStorage, window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)!, true);
     expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project.revision).toBe(3);

@@ -7,7 +7,8 @@ import { join } from "node:path";
 import { createRecordedProtocolDesignerFetch } from "../../../../../server/protocol-designer-provider-replay";
 import { createCanaryCampaignPolicy } from "../../../../../server/protocol-designer-canary-policy";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../../server/protocol-designer-durable-guard";
@@ -95,13 +96,13 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let view = mount();
     expect(bridge).not.toHaveBeenCalled();
     expect(saved.workingDraftPreparations ?? []).toHaveLength(0);
-    expect(screen.queryByRole("button", { name: "Préparer la mise à jour du projet" })).toBeNull();
+    expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeEnabled();
     bridge.mockImplementation(async (request: ProductBridgeRequest) => {
       expect(request.prepareWorkingDraft).toBe(true);
       const accepted = acceptWorkingDraftUpdate(updateFor(request), request);
       return { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition, observability: { providerCalls: [] } };
     });
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const checkpoint = saved.workingDraftPreparations![0].checkpoint!;
     expect(checkpoint.preparationTrigger).toBe("EXPLICIT_PROJECT_PREPARATION_ACTION");
@@ -474,7 +475,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = sessionFor("ok");
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; persistFunctionalResetSession(localStorage, next); return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]).toMatchObject({
       status: "FAILED", code: "WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID",
     }));
@@ -524,7 +525,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"), { timeout: 5000 });
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(recoveryRead).toHaveBeenCalled();
@@ -568,7 +569,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const review = projectPreparationReview(saved)!.prepared!.candidate;
     const coveredRefs = review.humanReviewProjection.coveredChangeRefs;
@@ -645,7 +646,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
     const providerRecords = saved.bridgeTraces.flatMap(item => item.providerCallRecords ?? []);
     expect(providerRecords).toEqual([record]);
@@ -667,7 +668,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       }));
     let saved = sessionFor();
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -686,7 +687,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       "PUBLIC_SESSION_BUDGET_CLOSED"));
     let saved = sessionFor();
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -720,7 +721,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       providerCallRequestObservability([record]), "PROVIDER_HTTP_ERROR"));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -757,7 +758,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       providerCallRequestObservability([record]), "CONVERSATION:PUBLIC_PROVIDER_INCOMPLETE"));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     expect(saved.workingDraftPreparations?.[0]?.code).toBe("WORKING_DRAFT_PROVIDER_INCOMPLETE");
     expect(screen.getByText(/La génération de cette préparation s’est interrompue côté fournisseur/u)).toBeInTheDocument();
@@ -1247,7 +1248,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       body.observability, body.error.details[0], null, diagnostic));
     let saved = initial;
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("FAILED"));
     const trace = buildTraceInspectorRunProjection({ ledger: saved.scientificExecutionTraceLedger,
       traceRunId: createProductTraceRunId(saved.sessionId, "u1") });
@@ -1529,7 +1530,11 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+    // CURRENT_STRUCTURAL_INVARIANT: the archived technical projection is
+    // available in diagnostics, never exposed as a Standard generation.
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.queryByRole("complementary", { name: "Projection technique interne" })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     const firstClient = offlineArchiveClient(saved.sessionId, saved.project!);
     const g1 = (await firstClient.history()).entries[0];
     expect(g1.displayVersion).toBe(1); expect(g1.predecessorId).toBeNull();

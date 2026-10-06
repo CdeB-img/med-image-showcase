@@ -179,7 +179,9 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
       const response = await requestProtocolDesignerBridge(prepareTerraConversationRequest(session, requestTurns, userTurn, autonomousProjectBuild, prepareRecording));
       records.push(...response.observability.providerCalls ?? []);
       const latest = latestSessionRef.current;
-      if (latest.sessionId !== session.sessionId || latest.project?.versionId !== session.project?.versionId) {
+      const pureDiscussion = !prepareRecording && !response.persistentExtraction.contribution
+        && Boolean(response.scientificConversation?.retainedScientificResult);
+      if (latest.sessionId !== session.sessionId || latest.project?.versionId !== session.project?.versionId && !pureDiscussion) {
         throw new Error("Le projet a changé pendant cette réponse. Rouvrez son état courant ; aucune décision n'a été appliquée.");
       }
       const receivedAt = new Date().toISOString();

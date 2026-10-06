@@ -38,6 +38,22 @@ export function deliverTerraConversationResult(input: {
   runtimeTurns: ScientificInterpretationTurn[]; response: ProductBridgeResponse; receivedAt: string; traceCaptureConfiguration: ScientificTraceCaptureConfiguration;
 }): FunctionalResetSession {
   const { latest, session, traceRunId, userTurn, runtimeTurns, response, receivedAt, traceCaptureConfiguration } = input;
+  // A non-adopting conversation may complete while an independently captured
+  // checkpoint is materialized. Preserve the intervening governed events and
+  // source receipts; never replace them with the dispatch-time transcript.
+  const deliveredTurns = latest.runtimeTurns.some(t => t.turnId === userTurn.turnId) ? latest.runtimeTurns : runtimeTurns;
+  // Keep the scientific request/response causally paired before an intervening
+  // native adoption control. All events and original timestamps survive;
+  // entries below still present replies in their actual arrival order. Never
+  // classify arbitrary user prose as a control or relax Knowledge validation.
+  const sourceIndex = deliveredTurns.findIndex(t => t.turnId === userTurn.turnId);
+  const controlIndex = deliveredTurns.findIndex((turn, index) => index > sourceIndex && turn.role === "USER"
+    && latest.scientificDiscussionRetention?.sourceCoverage.some(source => source.turnRef === turn.turnId
+      && source.sourceDigest === logicalDigest(turn.content) && source.coverage === "COMPLETE"
+      && source.nonPersistentReason === "GOVERNED_OWNER_EVENT" && source.classificationOwner === "RESEARCH_PROJECT"
+      && Boolean(source.ownerEventRef)));
+  const completedTurns = controlIndex < 0 ? [...deliveredTurns, response.assistantTurn]
+    : [...deliveredTurns.slice(0, controlIndex), response.assistantTurn, ...deliveredTurns.slice(controlIndex)];
   let contextTraceLedger = latest.scientificExecutionTraceLedger;
   try {
     contextTraceLedger = recordConversationContextPacketPreflight({
@@ -54,13 +70,13 @@ export function deliverTerraConversationResult(input: {
     ...(!response.conversationFailure && response.scientificConversation?.retainedScientificResult ? {
       scientificDiscussionRetention: retainScientificDiscussionResult({
         state: latest.scientificDiscussionRetention,
-        conversationId: session.conversationId, runtimeTurns: [...runtimeTurns, response.assistantTurn],
+        conversationId: session.conversationId, runtimeTurns: completedTurns,
         userTurn, assistantTurn: response.assistantTurn, result: response.scientificConversation.retainedScientificResult,
         retained: latest.retainedContributionCandidates ?? []
       }),
     } : {}),
     scientificExecutionTraceLedger: contextTraceLedger,
-    runtimeTurns: response.conversationFailure ? runtimeTurns : [...runtimeTurns, response.assistantTurn],
+    runtimeTurns: response.conversationFailure ? deliveredTurns : completedTurns,
     entries: [...latest.entries, {
       entryId: createConversationEntryId(), kind: response.conversationFailure ? "ERROR" : "TEXT",
       role: "NOXIA", content: response.assistantReply, createdAt: receivedAt,

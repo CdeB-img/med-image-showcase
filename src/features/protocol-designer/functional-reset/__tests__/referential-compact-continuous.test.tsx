@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, screen, within } from '@testing-library/react';
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from 'react-helmet-async';
 import ContributionReview from '../ContributionReview';
 import ProtocolDesignerWorkspace from '../ProtocolDesignerWorkspace';

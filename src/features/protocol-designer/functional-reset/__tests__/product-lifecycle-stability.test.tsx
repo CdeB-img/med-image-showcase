@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from "react-helmet-async";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
@@ -189,7 +190,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
       const result = await saveFunctionalResetWorkspaceSession(localStorage, next); saved = next; return result;
     }} /></HelmetProvider>);
     send(initialText); await screen.findByText(semanticResult(0).reply);
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1));
     const frozen = JSON.stringify(saved.workingDraftPreparations![0].checkpoint);
     send(raceText); await screen.findByText(raceSemantic.reply);
@@ -212,7 +213,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(oldSource.turnId).not.toBe(raceTurn.turnId);
     expect(Boolean(oldRecovery && /^noxia-turn:[a-f\d-]{36}$/iu.test(oldRecovery.sourceResponseRef))).toBe(false);
     expect(screen.queryByTestId("project-finalization-card")).toBeNull();
-    expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeEnabled();
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(requests.filter(r => r.documentDraftRequest)).toHaveLength(1));
@@ -233,7 +234,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     const g1 = (await client1.history()).entries[0];
     const g1Body = JSON.stringify((await client1.body(g1.generationId)).body);
     fireEvent.click(screen.getByRole("button", { name: "Conception" }));
-    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     await waitFor(() => expect(saved.workingDraftPreparations?.at(-1)?.status, String(boundaryFailure)).toBe("READY_FOR_REVIEW"));
     expect(requests.filter(r => r.prepareWorkingDraft)).toHaveLength(2);
     expect(JSON.stringify(saved.workingDraftPreparations![0].checkpoint)).toBe(frozen);
@@ -242,7 +243,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     await waitFor(() => expect(saved.project?.revision).toBe(2));
     expect(saved.project!.canonicalState!.objects.some(o => o.actuality === "CURRENT" && o.content === age)).toBe(true);
     expect(projectPreparationProgress(saved).latestPendingScientificTurnRef).toBeNull();
-    expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeDisabled();
     expect(requests.filter(r => r.documentDraftRequest)).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
@@ -295,10 +296,10 @@ describe("product lifecycle stability — meaningful controlled science, native 
     for (step = 0; step < messages.length; step++) {
       send(messages[step]);
       await screen.findByText(semanticResult(step).reply);
-      await waitFor(() => expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeEnabled());
+      await waitFor(() => expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeEnabled());
       expect(dispatches).toEqual({ conversation: step + 1, workingDraft: step, doc: step });
       expect(saved.project?.revision ?? 0).toBe(step); recover();
-      fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+      fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
       await waitFor(() => expect(saved.workingDraftPreparations?.at(-1)?.status, String(boundaryFailure)).toBe("READY_FOR_REVIEW"));
       const ready = projectPreparationReview(saved)!;
       expect(ready.applicable).toBe(true);
@@ -312,8 +313,8 @@ describe("product lifecycle stability — meaningful controlled science, native 
       // Reload must reuse the prepared Review and must not dispatch a WD.
       expect(dispatches.workingDraft).toBe(step + 1);
       const preparedCheckpoint = JSON.stringify(saved.workingDraftPreparations!.at(-1)!.checkpoint);
-      fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
-      fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+      fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
+      fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
       expect(dispatches.workingDraft).toBe(step + 1);
       expect(JSON.stringify(saved.workingDraftPreparations!.at(-1)!.checkpoint)).toBe(preparedCheckpoint);
       fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
@@ -356,7 +357,9 @@ describe("product lifecycle stability — meaningful controlled science, native 
       await waitFor(() => expect(within(screen.getByTestId("durable-document-history")).queryByText(`G${step + 1} — basée sur le projet V${step + 1}`), String(boundaryFailure)).not.toBeNull());
       expect(dispatches.doc).toBe(step + 1);
       expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
+      fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
       expect(screen.queryByRole("complementary", { name: "Projection technique interne" })).toBeNull();
+      fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
       const history = (await client.history()).entries;
       expect(history).toHaveLength(step + 1); expect(history.every(g => g.family === "DRCI")).toBe(true);
       const newest = history[0];

@@ -1,7 +1,8 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from "react-helmet-async";
 import { renderToStaticMarkup } from "react-dom/server";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";

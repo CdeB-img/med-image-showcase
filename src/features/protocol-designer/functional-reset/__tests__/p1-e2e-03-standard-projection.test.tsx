@@ -1,7 +1,8 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
 import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -50,6 +51,8 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     const anchorClick = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
 
     renderDemo();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     const workspace = screen.getByTestId("functional-reset-workspace");
     expect(workspace).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("protocol-designer-development-version")).toBeNull();
@@ -57,6 +60,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(workspace.textContent).not.toMatch(/FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION|projectDigest|contractVersion|NOXIA_PRODUCT_BRIDGE_TRACE|DEV\s*·|SHA/i);
     expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
 
+    openWorkspaceDiagnostic();
     submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("standard-initial-review-summary");
     expect(storedSession().project).toBeNull();
@@ -65,7 +69,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
 
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(await within(projectPanel).findByText("Version 1")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("Dernière version confirmée par vous")).toBeInTheDocument();
+    expect(storedSession().project!.confirmationDecision.status).toBe("ADOPTED");
     const v1 = storedSession();
     expect(v1.project).toMatchObject({
       revision: 1,
@@ -162,6 +166,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);
     expect(runtime.request).toHaveBeenCalledTimes(providerRequestsBeforeSwitch);
 
+    openWorkspaceDiagnostic();
     fireEvent.click(screen.getAllByRole("button", { name: "Ouvrir les livrables de l’étude" })[0]);
     const historicalPreview = await openArchivedProtocolPreview(1);
     expect(within(historicalPreview).getByRole("status")).toHaveTextContent("Le projet ou ses informations administratives ont changé depuis cette version du protocole");

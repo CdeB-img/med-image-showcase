@@ -1,5 +1,6 @@
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -31,21 +32,27 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   });
   afterEach(cleanup);
 
-  it("starts with one conversation, one Project panel and honest document states", () => {
+  it("starts with the Standard action and retains the internal Project panel in diagnostics", () => {
     renderDemo();
     expect(screen.getByTestId("functional-reset-workspace")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.getByTestId("functional-reset-workspace")).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("protocol-designer-development-version")).toBeNull();
     expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
+    // CURRENT_STRUCTURAL_INVARIANT: no internal Project dump in Standard.
+    expect(screen.queryByTestId("functional-research-project")).toBeNull();
+    expect(screen.getByRole("button", { name: "Générer la version" })).toBeDisabled();
+    openWorkspaceDiagnostic();
     const project = screen.getByTestId("functional-research-project");
-    for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Prélèvements / échantillons", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité", "Documents"]) {
+    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Prélèvements / échantillons", "Éléments à observer ou mesurer", "Temporalité", "Analyse", "Documents"]) {
       expect(within(project).getAllByText(label).length).toBeGreaterThan(0);
     }
-    expect(within(project).getByText("Aucune génération documentaire.")).toBeInTheDocument();
-    expect(within(project).getAllByText("À définir")).toHaveLength(14);
+    expect(screen.queryByTestId("durable-document-history")).toBeNull();
+    expect(within(project).getAllByText("À préciser dans la conversation.")).toHaveLength(10);
     expect(within(project).getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
-    expect(screen.queryByText(/Actor|Mandate|Branch|Gate|Guided Intake|Orientation/)).toBeNull();
+
   });
 
   it("creates and then updates the Project through two explicit confirmations", async () => {
@@ -132,6 +139,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(within(reloaded).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
+    openWorkspaceDiagnostic();
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());
     expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
     expect(within(screen.getByTestId("functional-research-project")).queryByText("colchicine")).toBeNull();

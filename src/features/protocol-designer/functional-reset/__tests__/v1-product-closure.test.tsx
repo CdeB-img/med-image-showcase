@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render, screen, within, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, screen, within, waitFor } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";

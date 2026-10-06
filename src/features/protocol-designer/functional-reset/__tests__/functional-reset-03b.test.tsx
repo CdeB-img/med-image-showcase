@@ -2,7 +2,8 @@ import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/fea
 import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -155,6 +156,8 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
   it("FR03B-C02 — Standard exposes no QRY internals", async () => {
     renderDemo();
     await createProjectInUi();
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     const visible = screen.getByTestId("functional-reset-workspace").textContent ?? "";
     // Match internal tokens, not the substring "gate" inside the user-facing "navigateur".
     expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|\b(?:score|branch|gate)\b/i);

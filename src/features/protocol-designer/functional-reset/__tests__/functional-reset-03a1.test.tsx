@@ -1,5 +1,6 @@
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -256,7 +257,8 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     await confirm();
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel.textContent).not.toMatch(/The user wants to study/i);
-    expect(within(projectPanel).getByTestId("project-group-scientific-question")).toHaveTextContent("À définir");
+    // CURRENT_SEMANTIC_INVARIANT: unresolved question stays unresolved in the internal projection.
+    expect(within(projectPanel).getByRole("heading", { name: "Question" }).closest("section")).toHaveTextContent("Question de recherche à préciser.");
     expect(within(projectPanel).queryByText(/Projet sur infarctus du myocarde/)).toBeNull();
   });
 

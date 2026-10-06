@@ -1,5 +1,6 @@
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -424,12 +425,13 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
       .some((item) => /paramètre (?:précoce|tardif)/iu.test(item.content))).toBe(false);
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel).toHaveTextContent("Version 1");
-    for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité"]) {
-      expect(within(projectPanel).getAllByText(label).length).toBeGreaterThanOrEqual(2);
+    for (const label of adopted.sections.map(section => section.label)) {
+      // SUPERSEDED_CONTRACT: duplicate Standard/diagnostic headings are not semantic coverage.
+      expect(within(projectPanel).getAllByText(label).length).toBeGreaterThanOrEqual(1);
     }
     expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
-    expect(screen.getByTestId("project-group-endpoints")).toHaveTextContent("Principal :Taille des lésions microvasculaires à 3 min post-injection");
-    expect(projectPanel).toHaveTextContent("Aucune génération documentaire.");
+    expect(adopted.canonicalState?.objects.some(item => item.actuality === "CURRENT" && item.objectType === "ENDPOINT" && /Taille des lésions microvasculaires/u.test(item.content))).toBe(true);
+    expect(stored().documentArchive?.currentGenerationId ?? null).toBeNull();
     expect(projectPanel).not.toHaveTextContent("Construction en cours");
     expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
     expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ éléments? confirmés? · \d+ points? à préciser/);

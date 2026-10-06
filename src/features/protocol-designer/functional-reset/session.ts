@@ -316,6 +316,8 @@ export type WorkingDraftPreparation = Readonly<{
   checkpoint?: import("./project-preparation-lifecycle.js").ProjectPreparationCheckpoint;
   result?: import("./project-preparation-lifecycle.js").ProjectPreparationResult;
   decision?: import("./project-preparation-lifecycle.js").ProjectPreparationDecision;
+  /** Native PRJ contribution actually adopted, which may be a source-backed subset. */
+  adoptedContributionRef?: string;
   postCutoffBlocker?: string;
   sourceTurnRef: string;
   status: WorkingDraftPreparationStatus;

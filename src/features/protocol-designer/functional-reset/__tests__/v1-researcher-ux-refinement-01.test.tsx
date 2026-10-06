@@ -111,14 +111,14 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Diagnostic technique" })).toBeInTheDocument();
   });
 
-  it("PROJECT_PROGRESS_COLLAPSIBLE / CHAT_COMPOSER_REMAINS_STICKY", async () => {
+  it("STANDARD_INTERNAL_PROJECT_PROGRESS_HIDDEN / CHAT_COMPOSER_REMAINS_STICKY", async () => {
     const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
-    const details = screen.getByTestId("project-progress-details") as HTMLDetailsElement;
-    expect(details.open).toBe(false);
-    expect(within(details).getByText("Voir le détail de l’étude")).toBeInTheDocument();
-    expect(screen.getByTestId("project-cockpit-counts")).toHaveTextContent("0 élément confirmé · 0 point à préciser");
+    // SUPERSEDED_CONTRACT: Standard no longer exposes the internal Project cockpit.
+    expect(screen.queryByTestId("project-progress-details")).toBeNull();
+    expect(screen.queryByTestId("project-cockpit-counts")).toBeNull();
+    expect(screen.getByRole("button", { name: "Générer la version" })).toBeDisabled();
     expect(screen.getByTestId("conversation-composer")).toHaveClass("sticky", "bottom-0");
   });
 

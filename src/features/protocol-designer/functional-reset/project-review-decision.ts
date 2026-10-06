@@ -4,7 +4,7 @@ import { buildStudyProposalSelectionContribution } from "./study-proposal-standa
 import { rejectResearchProjectContribution } from "@/features/research-project-construction";
 import { recordContributionRejectionTrace } from "./end-to-end-trace-adapter";
 import { adoptedProjectInteractionState } from "./project-adoption-effects";
-import { recordPreparationDecision } from "./project-preparation-lifecycle";
+import { preparationCheckpointValid, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { type ProjectAdoptionTrace } from "./project-adoption-trace";
 import { refreshAdoptedProjectConsumers } from "./project-adoption-effects";
 import { confirmResearchProjectContribution } from "@/features/research-project-construction";
@@ -39,6 +39,8 @@ export type NaturalContributionDecisionContext = Readonly<{
   refusedChangeRefs?: readonly string[];
   correctionChangeRefs?: readonly string[];
   prepareRemainingTurn?: boolean;
+  /** Explicit Generate action, not an acknowledgement of an unseen Review. */
+  materialization?: Readonly<{ preparationId: string; requestDigest: string }>;
 }>;
 
 
@@ -139,9 +141,22 @@ export function stageProjectConfirmation(input: {
   administration: Parameters<typeof refreshAdoptedProjectConsumers>[0]["administration"];
 }) {
   const { session, readCurrentSession, contributionId, contribution, now, naturalDecision, proposalSelection, adoptionTrace, administration } = input;
+  const materialization = naturalDecision?.materialization;
+  if (materialization) {
+    const preparation = session.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === materialization.preparationId);
+    if (!preparation?.checkpoint || !preparationCheckpointValid(session, preparation.checkpoint)
+      || preparation.checkpoint.requestDigest !== materialization.requestDigest
+      || preparation.status !== "READY_FOR_REVIEW" || preparation.decision !== "PENDING"
+      || !proposalSelection || preparation.result?.composition.digest !== proposalSelection.expectedDigest
+      || proposalSelection.expectedDigest !== proposalSelection.composition.digest)
+      throw new Error("VERSION_MATERIALIZATION_CHECKPOINT_INVALID");
+    if (selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms)
+      .some(ref => preparation.result!.workingDraft.origins[ref] !== "EXPLICIT_USER"))
+      throw new Error("VERSION_MATERIALIZATION_NOT_SOURCE_BACKED");
+  }
   const reviewEntry = proposalSelection ? { kind: "REVIEW" as const, candidate: proposalSelection.candidate, contribution,
     traceRunId: session.bridgeTraces.find(trace => trace.turnId === proposalSelection.composition.sourceTurnRef)?.traceRunId ?? null } : session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
-  const retainedBeforeDecision = proposalSelection && naturalDecision ? markContributionCandidatePresented({
+  const retainedBeforeDecision = proposalSelection && naturalDecision && !materialization ? markContributionCandidatePresented({
     retained: retainOwnerReviewedCandidate(session, contribution, proposalSelection.candidate, naturalDecision.userTurn, reviewEntry?.kind === "REVIEW" ? reviewEntry.traceRunId ?? null : null, ownerResultNativeDigest),
     candidateRef: contributionId, presentedAt: now,
   }) : session.retainedContributionCandidates ?? [];
@@ -151,7 +166,9 @@ export function stageProjectConfirmation(input: {
     projectId: session.projectId,
     authority: session.projectAuthority,
     confirmedAt: now,
-    confirmationReason: naturalDecision
+    confirmationReason: materialization
+      ? "Demande humaine explicite de générer une version depuis le checkpoint scientifique figé, sans prétendre à la présentation d’une revue."
+      : naturalDecision
       ? naturalDecision.selectedChangeRefs
         ? `Décision partielle : changements confirmés ${naturalDecision.selectedChangeRefs.join(", ")} ; changements refusés ${(naturalDecision.refusedChangeRefs ?? []).join(", ")}.`
         : "L’utilisateur a explicitement confirmé la candidate courante dans son message."
@@ -196,7 +213,7 @@ export function stageProjectConfirmation(input: {
   ];
   // Only generated control acknowledgements receive native event coverage.
   // An arbitrary natural confirmation/correction still requires ST meaning.
-  const generatedConfirmation = naturalDecision?.originalText === "Valider ces choix" ? naturalDecision.userTurn : null;
+  const generatedConfirmation = naturalDecision && (materialization || naturalDecision.originalText === "Valider ces choix") ? naturalDecision.userTurn : null;
   const scientificDiscussionRetention = recordGovernedAdoptionContextEvent(session.scientificDiscussionRetention,
     project, [...(generatedConfirmation ? [generatedConfirmation] : []), confirmationTurn]);
   const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
@@ -250,7 +267,7 @@ export function stageProjectConfirmation(input: {
     currentContribution: contribution,
     pendingContribution: remainder?.contribution ?? null,
     pendingMixedUserTurnRef: naturalDecision?.prepareRemainingTurn ? naturalDecision.userTurn.turnId : null,
-    retainedContributionCandidates: [...recordContributionCandidateHumanDecision({
+    retainedContributionCandidates: materialization ? current.retainedContributionCandidates ?? [] : [...recordContributionCandidateHumanDecision({
       retained: proposalSelection ? retainedBeforeDecision : current.retainedContributionCandidates ?? [], candidateRef: contributionId,
       decision: project.confirmationDecision,
     }), ...(remainder ? [remainder] : [])],
@@ -289,9 +306,10 @@ export function stageProjectConfirmation(input: {
   nextSession = { ...nextSession, scientificDiscussionRetention: settleRetainedDiscussionAdoption(
     nextSession.scientificDiscussionRetention, project, nextSession.retainedContributionCandidates ?? [], updatedStudyProposal) };
   if (proposalSelection) {
-    const preparation = nextSession.workingDraftPreparations?.find(p => p.decision === "PENDING"
-      && p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId);
-    if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED");
+    const preparation = nextSession.workingDraftPreparations?.find(p => p.decision === "PENDING" && (materialization
+      ? p.checkpoint?.preparationId === materialization.preparationId
+      : p.result?.workingDraft.readyReview?.contribution.identity.contributionId === contributionId));
+    if (preparation?.checkpoint) nextSession = recordPreparationDecision(nextSession, preparation.checkpoint.preparationId, "ADOPTED", contributionId);
   }
   return { nextSession, project, previousProject: current.project };
 }

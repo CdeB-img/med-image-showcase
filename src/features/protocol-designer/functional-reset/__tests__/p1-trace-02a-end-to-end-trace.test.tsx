@@ -1,7 +1,8 @@
 import { offlineArchiveClient, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
 import { archivedProtocol, openArchivedProtocolPreview, requestTechnicalProjection } from "@/features/document-projection/__tests__/archive-ui-test-adapter";
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -237,7 +238,9 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     await screen.findByRole("heading", { name: "À enregistrer" });
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Aucune génération documentaire.")).toBeInTheDocument();
+    // CURRENT_STRUCTURAL_INVARIANT: technical work is not an archived generation.
+    await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project).not.toBeNull());
+    expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).documentArchive?.currentGenerationId ?? null).toBeNull();
     await requestTechnicalProjection();
     await openArchivedProtocolPreview();
     await waitFor(() => {

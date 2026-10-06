@@ -27,13 +27,14 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     latest.current = next;
     setSession(next);
   };
-  const start = async () => {
+  const start = async (captured?: ReturnType<typeof captureProjectPreparation>) => {
     const source = latest.current;
     if (!enabled || activeProjectPreparation(source)) return;
     let preparation: ReturnType<typeof captureProjectPreparation>;
-    try { preparation = captureProjectPreparation(source); }
+    try { preparation = captured ?? captureProjectPreparation(source); }
     catch { return; } // UI requires a completed Chat turn before enabling this command.
-    if (!preparation.checkpoint || source.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId)) return;
+    if (!preparation.checkpoint || !preparationCheckpointValid(source, preparation.checkpoint)
+      || source.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId)) return;
     const id = preparation.checkpoint.preparationId;
     const prepared = addProjectPreparation(source, preparation);
     let preflightFailed = false;

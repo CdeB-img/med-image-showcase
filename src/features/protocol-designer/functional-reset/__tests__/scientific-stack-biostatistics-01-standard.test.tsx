@@ -1,5 +1,6 @@
 import { loadFunctionalResetSession as readPersistedSessionForTest } from "@/features/protocol-designer/functional-reset/session";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -113,7 +114,11 @@ describe("SCIENTIFIC-STACK-BIOSTATISTICS-01 — corridor Standard réel", () => 
     expect(afterDispatch.scientificExecutionTraceLedger.events.some((event) => event.owner === "BIOSTATISTICS"
       && event.common?.stage === "BIOSTATISTICS_RESULT"
       && event.common.provider === "NONE")).toBe(true);
+    // CURRENT_STRUCTURAL_INVARIANT: internal codes remain absent in Standard only.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.queryByText(/BIOSTATISTICS_PLANNING|BIOSTATISTICS_REASONING_RESULT|TRACE/i)).toBeNull();
+    openWorkspaceDiagnostic();
 
     const discussion = resolveBiostatisticsConversation({ raw: "Pourquoi cette stratégie plutôt que des comparaisons séparées ?", result: explicit.result });
     expect(discussion.kind).toBe("DISCUSS");

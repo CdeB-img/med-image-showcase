@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { HelmetProvider } from "react-helmet-async";
 import { confirmResearchProjectContribution, authorizeResearchProjectDocumentHandoff } from "@/features/research-project-construction";
 import { refreshFunctionalResetDocumentPortfolio, buildCanonicalCrfPackage } from "@/features/document-projection";

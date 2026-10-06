@@ -25,6 +25,8 @@ export type ProjectPreparationCheckpoint = Readonly<{
   cutoffTurnId: string;
   conversationCutoffTurnId?: string;
   preparationTrigger?: "EXPLICIT_PROJECT_PREPARATION_ACTION";
+  /** Presentation policy only; the immutable scientific request is unchanged. */
+  presentation?: "INTERNAL_VERSION_PRODUCTION";
   scientificSourceIdentity?: ProductBridgeRequest["workingDraftScientificSource"];
   capturedAt: string;
   requestDigest: string;
@@ -127,7 +129,7 @@ export const canCaptureProjectPreparation = (session: FunctionalResetSession): b
     && session.runtimeTurns.at(-1)?.role === "NOXIA" && prior?.decision !== "ADOPTED"
     && !(prior?.status === "NO_CHANGE" && prior.code === "NO_CANONICAL_CHANGE"));
 };
-export const captureProjectPreparation = (session: FunctionalResetSession, now = new Date().toISOString()): WorkingDraftPreparation => {
+export const captureProjectPreparation = (session: FunctionalResetSession, now = new Date().toISOString(), retryFailed = false): WorkingDraftPreparation => {
   const active = activeProjectPreparation(session);
   if (active) return active;
   const source = latestPreparationSource(session);
@@ -136,7 +138,16 @@ export const captureProjectPreparation = (session: FunctionalResetSession, now =
   const sourceIndex = session.runtimeTurns.findIndex(t => t.turnId === source.turnId);
   const prior = [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint
     && p.sourceTurnRef === source.turnId && p.decision !== "ABANDONED");
-  if (prior) return prior;
+  if (prior) {
+    if (!retryFailed || prior.status !== "FAILED") return prior;
+    // A new explicit command may retry a genuinely terminal failure only.
+    // Keep the failed attempt immutable; UNKNOWN is never redispatched here.
+    const preparationId = `${prior.checkpoint!.preparationId}:retry:${session.workingDraftPreparations!.length}`;
+    const request = structuredClone({ ...prior.checkpoint!.request, observabilityContext: {
+      ...prior.checkpoint!.request.observabilityContext!, clientRequestId: preparationId } });
+    return { ...prior, status: "PREPARING", code: null, result: undefined, decision: "PENDING", updatedAt: now,
+      checkpoint: { ...prior.checkpoint!, preparationId, request, capturedAt: now, requestDigest: logicalDigest(request) } };
+  }
   const conversation = { conversationId: session.conversationId, language: "fr" as const,
     turns: session.runtimeTurns.slice(0, session.runtimeTurns.findIndex(t => t.turnId === recovery.compositionResponseRef) + 1) };
   if (conversation.turns.length <= sourceIndex + 1) throw new Error("PREPARATION_CHAT_RESPONSE_REQUIRED");
@@ -279,7 +290,7 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
       ...(currentBase ? { studyProposal: composition, workingDraft, workingDraftFailure: null } : {}),
       workingDraftPreparations: transitioned.workingDraftPreparations!.map(item => item.checkpoint?.preparationId === id
         ? { ...item, result: { composition, workingDraft } } : item),
-      entries: observed.entries.some(e => e.entryId === `preparation-review:${id}`) ? observed.entries : [...observed.entries, {
+      entries: cp.presentation === "INTERNAL_VERSION_PRODUCTION" || observed.entries.some(e => e.entryId === `preparation-review:${id}`) ? observed.entries : [...observed.entries, {
         entryId: `preparation-review:${id}`, kind: "TEXT", role: "NOXIA", createdAt: new Date().toISOString(),
         content: "La préparation est terminée. Consultez les choix proposés puis validez explicitement la revue pour mettre à jour le projet.",
         reviewInvitation: binding }],
@@ -300,7 +311,7 @@ export const projectPreparationReview = (session: FunctionalResetSession) => {
     ? ensureCanonicalProjectState(session.project).versionHistory.map(version => version.sourceContributionRef) : []);
   const adoptedCutoff = Math.max(-1, ...preparations.filter(item => item.result && item.checkpoint && item.decision === "ADOPTED"
     && preparationCheckpointValid(session, item.checkpoint)
-    && adoptedContributions.has(item.result.workingDraft.readyReview?.candidate.contributionRef ?? ""))
+    && adoptedContributions.has(item.adoptedContributionRef ?? item.result.workingDraft.readyReview?.candidate.contributionRef ?? ""))
     .map(item => session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId)));
   const p = [...preparations].reverse().find(item => item.result && item.checkpoint && item.decision === "PENDING"
     && session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId) > adoptedCutoff);
@@ -319,9 +330,9 @@ export const projectPreparationReview = (session: FunctionalResetSession) => {
     blocker: !preparationCheckpointValid(session, cp) ? "PREPARATION_CHECKPOINT_MISMATCH"
       : !baseCurrent ? "PROJECT_BASE_CHANGED" : p.postCutoffBlocker ?? null };
 };
-export const recordPreparationDecision = (session: FunctionalResetSession, id: string, decision: ProjectPreparationDecision): FunctionalResetSession => ({
+export const recordPreparationDecision = (session: FunctionalResetSession, id: string, decision: ProjectPreparationDecision, adoptedContributionRef?: string): FunctionalResetSession => ({
   ...session, workingDraftPreparations: (session.workingDraftPreparations ?? []).map(p => p.checkpoint?.preparationId === id
-    && p.decision === "PENDING" ? { ...p, decision } : p),
+    && p.decision === "PENDING" ? { ...p, decision, ...(decision === "ADOPTED" && adoptedContributionRef ? { adoptedContributionRef } : {}) } : p),
 });
 
 export const projectPreparationConfirmationApplicable = (review: ReturnType<typeof projectPreparationReview>, busy: boolean, workingDraftBusy: boolean, selectedChangeRefs?: readonly string[]) => Boolean(review && review.applicable && !review.blocker && !busy && !workingDraftBusy

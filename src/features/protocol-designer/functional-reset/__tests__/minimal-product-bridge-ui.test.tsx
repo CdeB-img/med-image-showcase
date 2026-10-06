@@ -1,5 +1,6 @@
 import { ACTIVE_PROJECT_STORAGE_KEY } from "../project-workspace-storage";
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { openWorkspaceDiagnostic, renderDiagnosticWorkspace as render } from "./diagnostic-workspace-test-render";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -151,6 +152,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
 
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
+    openWorkspaceDiagnostic();
     submit(COLCHICINE_03A_INITIAL);
     await screen.findByTestId("functional-contribution-review");
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
