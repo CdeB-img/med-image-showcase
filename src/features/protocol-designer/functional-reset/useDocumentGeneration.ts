@@ -1,8 +1,9 @@
 import type { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
-import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity } from "@/features/document-projection/generation-persistence";
+import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, isDocumentGenerationRef, type DocumentGenerationRef } from "@/features/document-projection/generation-persistence";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
-import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
+import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate,
+  readCurrentArchivedGeneration, publishArchivedGeneration } from "@/features/document-projection/generation-session";
 import { useRef } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
@@ -20,7 +21,7 @@ export function useDocumentGeneration(input: {
   administration: Parameters<typeof refreshFunctionalResetDocumentPortfolio>[0]["administration"]; projectionMode: "STANDARD" | "EXPERT";
   onSessionChange?: SessionSave;
   setDocumentSaveWarning: (message: string | null) => void; setDeliverableWorkspaceOpen: (open: boolean) => void;
-  setDocumentGenerationVersion: (version: number) => void; setDocumentGenerationStartedAt: (at: number | null) => void;
+  setDocumentGenerationVersion: (version: number | null) => void; setDocumentGenerationStartedAt: (at: number | null) => void;
   setDocumentGenerationElapsed: (seconds: number) => void; setDocumentGenerationComplete: (complete: boolean) => void;
   setDocumentGenerationPending: (pending: boolean) => void;
   setDocumentGenerationStage: (stage: DocumentGenerationStage) => void;
@@ -37,29 +38,66 @@ export function useDocumentGeneration(input: {
     if (!sourceSession.project || documentCommandInFlightRef.current || sourceSession.documentRetryUnsafe
       || import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && hasCurrentArchivedGeneration(sourceSession)) return;
     documentCommandInFlightRef.current = true;
+    setDocumentGenerationVersion(null);
     setDocumentGenerationPending(true);
     setDocumentGenerationStage("PREPARING");
     setDocumentGenerationStartedAt(Date.now());
     setDocumentGenerationElapsed(0);
     setDocumentGenerationComplete(false);
     const now = new Date().toISOString();
+    const client = createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project);
+    let committedGeneration: DocumentGenerationRef | null = null;
+    let currentProjectionId = sourceSession.documentArchive?.currentProjectionId ?? null;
+    let preparedDocuments: FunctionalResetSession["documents"] | null = null;
+    let documentEvidence: ReturnType<typeof acquireDocumentKnowledge> | undefined;
+    const documentaryContext = (current: FunctionalResetSession): FunctionalResetSession => ({ ...current,
+      ...(preparedDocuments ? { documents: preparedDocuments } : {}),
+      // Do not overwrite a Knowledge update made by a concurrent conversation.
+      ...(current.knowledgeOwnerLedger === sourceSession.knowledgeOwnerLedger
+        && current.sourceLibrary === sourceSession.sourceLibrary ? documentEvidence : {}),
+    });
+    // Both normal delivery and post-commit errors converge on this metadata
+    // read. No provider dispatch, body preload or second generation is involved.
+    const reconcile = async (completion = true) => {
+      if (completion) setDocumentGenerationStage("VERIFYING_ARCHIVE");
+      let generation: DocumentGenerationRef | null;
+      let warning: string | null = null;
+      try { generation = await readCurrentArchivedGeneration(sourceSession, client); }
+      catch {
+        // A verified server commit remains authoritative even if a subsequent
+        // metadata read is temporarily unavailable.
+        generation = committedGeneration;
+        warning = "Documents archivés ; l’historique n’a pas pu être rafraîchi pour le moment.";
+      }
+      generation ??= committedGeneration;
+      const latest = latestSessionRef.current;
+      if (!generation || latest.sessionId !== sourceSession.sessionId
+        || latest.project?.projectDigest !== sourceSession.project?.projectDigest
+        || latest.project?.versionId !== sourceSession.project?.versionId) return false;
+      const next = publishArchivedGeneration(documentaryContext(latest), generation, currentProjectionId);
+      try {
+        if (!(await saveFunctionalResetWorkspaceSession(window.localStorage, next, onSessionChange)).scientificPersisted)
+          warning = "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.";
+      } catch {
+        warning = "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.";
+      }
+      // Conversation may progress during the local save. Rebase only the DOC
+      // pointer on the latest session, without overwriting those new turns.
+      const current = latestSessionRef.current;
+      if (current.sessionId !== sourceSession.sessionId || current.project?.projectDigest !== generation.project.projectDigest
+        || current.project?.versionId !== generation.project.projectVersion) return false;
+      const published = publishArchivedGeneration(documentaryContext(current), generation, currentProjectionId);
+      latestSessionRef.current = published; setSession(published);
+      documentRecoveryRef.current = null;
+      setDocumentSaveWarning(warning); setDocumentGenerationVersion(generation.displayVersion);
+      setDeliverableWorkspaceOpen(true); setDocumentGenerationComplete(true);
+      return true;
+    };
     try {
-      const client = createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project);
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
         // Fresh metadata, not bodies: a missing/stale local pointer must not
         // generate again after reload or after another tab completed DOC.
-        const generation = (await client.history()).entries[0];
-        if (generation?.project.projectDigest === sourceSession.project.projectDigest) {
-          const latest = latestSessionRef.current;
-          if (latest.sessionId === sourceSession.sessionId && latest.project?.projectDigest === sourceSession.project.projectDigest) {
-            const next: FunctionalResetSession = { ...latest, documentArchive: { ...latest.documentArchive,
-              contract: DOC_ARCHIVE_CONTRACT, projectId: sourceSession.project.projectId, historyState: "NOT_LOADED", storageMode: "DURABLE_ONLY",
-              currentGenerationId: generation.generationId, currentProjectionId: latest.documentArchive?.currentProjectionId ?? null,
-              currentGeneration: generation, pendingRequestId: null } };
-            latestSessionRef.current = next; setSession(next); setDeliverableWorkspaceOpen(true);
-          }
-          return;
-        }
+        if (await reconcile(false)) return;
       }
       const loaded = await hydrateDocumentCommandSession(sourceSession, client);
       // A valid empty Knowledge result is allowed. Integrity, binding and
@@ -84,6 +122,9 @@ export function useDocumentGeneration(input: {
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
       const templateReceipt = await persistTemplateGeneration(sourceSession, protocol, client);
       const templateSession = publishArchivedTemplate({ ...sourceSession, documents }, protocol, templateReceipt);
+      currentProjectionId = protocol.projectionId;
+      preparedDocuments = templateSession.documents;
+      documentEvidence = evidence;
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
         if (documentGenerationInFlightRef.current) return;
         const turnId = createTurnId();
@@ -100,7 +141,7 @@ export function useDocumentGeneration(input: {
         const resume = async () => {
           if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
           documentGenerationInFlightRef.current = true;
-          setDocumentGenerationVersion((sourceSession.documentArchive?.currentGeneration?.displayVersion ?? 0) + 1);
+          setDocumentGenerationVersion(null);
           setDocumentGenerationStartedAt(Date.now());
           setDocumentGenerationElapsed(0);
           setDocumentGenerationComplete(false);
@@ -117,29 +158,17 @@ export function useDocumentGeneration(input: {
               throw new Error("Le projet a changé pendant la rédaction. Aucune version documentaire courante n’a été enregistrée.");
             const receipt = response.documentPersistenceReceipt;
             if (!receipt || receipt.contract !== DOC_ARCHIVE_CONTRACT || receipt.requestId !== nativeRequest.observabilityContext?.clientRequestId
+              || !isDocumentGenerationRef(receipt.generation, latest.project.projectId)
               || receipt.generation.persistenceState !== "COMMITTED"
               || receipt.generation.generationId !== documentNativeIdentity({ family: "DRCI", value: pack })
               || receipt.generation.project.projectId !== latest.project.projectId
               || receipt.generation.project.projectVersion !== latest.project.versionId
               || receipt.generation.project.projectDigest !== latest.project.projectDigest) throw new Error("DOC_ARCHIVE_COMMIT_NOT_VERIFIED");
-            setDocumentGenerationStage("VERIFYING_ARCHIVE");
-            const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents: templateSession.documents,
-              drciDraftPacks: [], openDocumentProjectionId: null,
-              documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: latest.project.projectId, historyState: "NOT_LOADED",
-                currentGenerationId: receipt.generation.generationId, currentProjectionId: protocol.projectionId, pendingRequestId: null,
-                currentGeneration: { generationId: receipt.generation.generationId, project: receipt.generation.project,
-                  displayVersion: receipt.generation.displayVersion, generatedAt: receipt.generation.generatedAt }, storageMode: "DURABLE_ONLY" },
-              documentRetryUnsafe: false,
-              entries: latest.entries,
-              updatedAt: now };
-            const saved = (await saveFunctionalResetWorkspaceSession(window.localStorage, nextSession, onSessionChange)).scientificPersisted;
-            setDocumentSaveWarning(saved ? null : "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.");
-            latestSessionRef.current = nextSession; setSession(nextSession);
-            setDocumentGenerationVersion(receipt.generation.displayVersion);
-            setDeliverableWorkspaceOpen(true);
-            setDocumentGenerationComplete(true);
+            committedGeneration = receipt.generation;
+            if (!await reconcile()) throw new Error("DOC_ARCHIVE_PROJECT_BINDING_INVALID");
           } catch (error) {
             if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
+            if (await reconcile()) return;
             // Only a transport failure exposes retrieval. Terminal/UNKNOWN
             // results must not be turned into a fresh paid generation.
             documentRecoveryRef.current = error instanceof TypeError
@@ -148,7 +177,8 @@ export function useDocumentGeneration(input: {
             const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, templateSession.documents, error, records);
             setSession(current => current.sessionId !== sourceSession.sessionId
               || current.project?.projectDigest !== sourceSession.project?.projectDigest ? current : ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
-              documentArchive: templateSession.documentArchive,
+              documentArchive: { ...templateSession.documentArchive!, currentGenerationId: current.documentArchive?.currentGenerationId ?? null,
+                currentGeneration: current.documentArchive?.currentGeneration },
               documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
               updatedAt: now }));
           } finally {
@@ -189,8 +219,11 @@ export function useDocumentGeneration(input: {
       });
       setDeliverableWorkspaceOpen(true);
     } catch (error) {
+      if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && await reconcile()) return;
       const documents = markFunctionalResetDocumentFailure(sourceSession.project, sourceSession.documents, error);
       setSession((current) => {
+        if (current.sessionId !== sourceSession.sessionId || current.project?.projectDigest !== sourceSession.project?.projectDigest
+          || current.project?.versionId !== sourceSession.project?.versionId) return current;
         const correlatedTrace = [...current.bridgeTraces]
           .reverse()
           .find((trace) => trace.traceRunId && trace.projectVersionAfter === sourceSession.project?.versionId);

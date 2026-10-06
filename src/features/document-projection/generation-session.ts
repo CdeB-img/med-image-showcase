@@ -4,13 +4,46 @@ import { documentTextSha256 } from "./generation-archive-client";
 import { freezeDocumentGeneration } from "./generation-exports";
 import { buildStudyDeliverablePortfolio } from "./study-deliverable-portfolio";
 import { unloadFunctionalResetDocumentPortfolio } from "./functional-reset-boundary";
-import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, type DocumentPersistenceReceipt } from "./generation-persistence";
+import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, type DocumentGenerationRef, type DocumentPersistenceReceipt } from "./generation-persistence";
 import type { DocumentProjection } from "./types";
 
 /** Latest successful real generation only; a technical projection is not DOC. */
 export const hasCurrentArchivedGeneration = (session: FunctionalResetSession) => Boolean(session.project
   && session.documentArchive?.currentGeneration?.project.projectId === session.project.projectId
   && session.documentArchive.currentGeneration.project.projectDigest === session.project.projectDigest);
+
+/** Metadata only. A local pointer or an exception is not an archive verdict. */
+export const readCurrentArchivedGeneration = async (session: FunctionalResetSession, client: DocumentArchiveClient) => {
+  if (!session.project) return null;
+  let cursor: number | undefined;
+  do {
+    const page = await client.history(cursor);
+    const generation = page.entries.find(ref => ref.family === "DRCI" && ref.persistenceState === "COMMITTED"
+      && ref.project.projectId === session.project!.projectId
+      && ref.project.projectVersion === session.project!.versionId
+      && ref.project.projectDigest === session.project!.projectDigest);
+    if (generation) return generation;
+    if (page.nextBeforeOrdinal === null) return null;
+    if (cursor !== undefined && page.nextBeforeOrdinal >= cursor) throw new Error("DOC_ARCHIVE_CURSOR_INVALID");
+    cursor = page.nextBeforeOrdinal;
+  } while (cursor !== undefined);
+  return null;
+};
+
+/** Publish the durable owner's identity/ordinal, never manufacture a Gn.
+ * Scientific state and immutable historical bodies remain untouched. */
+export const publishArchivedGeneration = (session: FunctionalResetSession, generation: DocumentGenerationRef,
+  projectionId = session.documentArchive?.currentProjectionId ?? null): FunctionalResetSession => {
+  if (!session.project || generation.family !== "DRCI" || generation.persistenceState !== "COMMITTED"
+    || generation.project.projectId !== session.project.projectId || generation.project.projectVersion !== session.project.versionId
+    || generation.project.projectDigest !== session.project.projectDigest) throw new Error("DOC_ARCHIVE_PROJECT_BINDING_INVALID");
+  return { ...session, documents: { ...session.documents, lastFailure: null }, drciDraftPacks: [], openDocumentProjectionId: null,
+    documentRetryUnsafe: false, documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: generation.project.projectId,
+      historyState: "NOT_LOADED", storageMode: "DURABLE_ONLY", currentGenerationId: generation.generationId,
+      currentProjectionId: projectionId, pendingRequestId: null,
+      currentGeneration: { generationId: generation.generationId, project: generation.project,
+        displayVersion: generation.displayVersion, generatedAt: generation.generatedAt } } };
+};
 
 /** New generations only. No legacy import, relabeling or migration path. */
 export const persistTemplateGeneration = async (session: FunctionalResetSession, projection: DocumentProjection, client: DocumentArchiveClient) => {
