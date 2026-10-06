@@ -13,7 +13,7 @@ import { classifyNaturalConversationActs, readNaturalCandidateDecision } from ".
 import { hasLongitudinalDesignEvidence } from "../study-design/design-reasoning.js";
 import { prepareConversationalDimensioning } from "../data-analysis-planning/dimensioning-calculator.js";
 import { STUDY_PROPOSAL_MANDATE, contextualStudyProposalSchema } from "./contextual-study-proposal.js";
-import { rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
+import { projectStudyProposalConversationContext, rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
 import { terraScientificResultJsonSchema, TERRA_RETENTION_INSTRUCTION } from "../protocol-designer/functional-reset/contribution-discussion-retention.js";
 
 // C2 collaborator mandate, with native text and a general epistemic discipline.
@@ -277,12 +277,14 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
     impacts: selected.impacts, options: selected.knownOptionRefs, blockers: selected.dependencies.filter(item => item.status !== "SATISFIED") } : null;
   const compactQry = qry && new TextEncoder().encode(JSON.stringify(qry)).length > 1_500
     ? { action: selected!.actionCategory, status: "ADVICE_TOO_LARGE_DETAILS_RETRIEVABLE_IN_NAVIGATION" } : qry;
+  // Native identities remain in decisions. Repeating the same long identity on
+  // every relation is not additional science: an index references that exact
+  // decision, without shortening IDs or inventing another canonical identity.
+  const decisionIndexes = new Map(snapshot?.objects.map((object, index) => [object.stableId, index]));
+  const relationRef = (ref: string) => decisionIndexes.has(ref) ? { decisionIndex: decisionIndexes.get(ref)! } : ref;
   const packet = {
     ...(workingProposal ? {
-      WORKING_STUDY_PROPOSAL: { status: "NOT_ADOPTED", proposalRef: workingProposal.proposalRef,
-        state: workingProposal.state, adoptedAtomRefs: workingProposal.adoptedAtomRefs,
-        unavailableOptionRefs: workingProposal.unavailableOptionRefs, dispositions: workingProposal.dispositions ?? [],
-        atoms: workingProposal.proposal.atoms, arbitrations: workingProposal.proposal.arbitrations },
+      WORKING_STUDY_PROPOSAL: projectStudyProposalConversationContext(workingProposal, request.currentProject),
       ...(autonomousProjectBuild ? {
         WORKING_NEXT_ACTION: (() => { try { return compactWorkingDraftAdvice(request); } catch { return { STATUS: "ADVICE_UNAVAILABLE", projectWriteAuthorized: false }; } })(),
       } : {}),
@@ -291,7 +293,8 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
       version: snapshot.sourceProjectVersion,
       decisions: snapshot.objects.map(o => ({ ref: o.stableId, type: o.type, content: o.content,
         polarity: o.polarity, epistemicState: o.epistemicState })),
-      relations: snapshot.relations.map(r => ({ type: r.type, from: r.sourceProjectRef, to: r.targetProjectRef, polarity: r.polarity })),
+      ...(snapshot.relations.length ? { relationReferenceBasis: "CURRENT_PROJECT.decisions" } : {}),
+      relations: snapshot.relations.map(r => ({ type: r.type, from: relationRef(r.sourceProjectRef), to: relationRef(r.targetProjectRef), polarity: r.polarity })),
       temporalQualifications: snapshot.temporalQualifications,
       openIssues: snapshot.openIssues,
     } : null,

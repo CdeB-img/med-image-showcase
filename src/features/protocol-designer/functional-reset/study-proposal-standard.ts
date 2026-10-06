@@ -112,6 +112,50 @@ export const rehydrateStudyProposal = (value: unknown, project: ResearchProjectO
     return { ...composition, dimensioning: activeStudyProposalDimensioning(composition) };
   } catch { return null; }
 };
+
+/** Conversation-only current view. The immutable FULL SNAPSHOT remains the
+ * source for Working Draft/review/recomputation; nothing is settled here.
+ * Only an already adopted, exactly materialized 1:1 atom may use Project truth
+ * instead of duplicating its content. Unknowns and unproven/1:N bindings retain
+ * the full atom. Rationale is closed proposal explanation, not adopted content
+ * (the Working Draft output contract requires every scientific condition in
+ * content/OPEN_DECISION). All other metadata is retained without summarizing.
+ * Columns merely avoid repeating field labels, not scientific values. */
+export const projectStudyProposalConversationContext = (composition: StudyProposalComposition,
+  project: ResearchProjectOwnerProjection | null) => {
+  const objects = project ? ensureCanonicalProjectState(project).objects.filter(o => o.actuality === "CURRENT") : [];
+  const adopted = composition.state === "CURRENT" ? composition.proposal.atoms.flatMap(atom => {
+    if (!composition.adoptedAtomRefs.includes(atom.ref) || atom.status === "OPEN_DECISION") return [];
+    const sources = composition.adoptionSourceRefs?.[atom.ref];
+    if (!sources?.length) return [];
+    const materialized = objects.filter(o => o.sourceItemRefs.some(ref => sources.includes(ref)));
+    if (materialized.length !== 1 || materialized[0].content !== atom.content
+      || materialized[0].projection.sourceProposedType !== atom.targetType) return [];
+    return [{ atom, projectRef: materialized[0].objectId }];
+  }) : [];
+  const adoptedRefs = new Set(adopted.map(({ atom }) => atom.ref));
+  const fields = [...new Set(adopted.flatMap(({ atom }) => Object.keys(atom)))]
+    .filter(field => field !== "content" && field !== "rationale") as Array<keyof StudyProposalAtom>;
+  return {
+    status: "NOT_ADOPTED", proposalRef: composition.proposalRef, state: composition.state,
+    adoptedAtomRefs: composition.adoptedAtomRefs, unavailableOptionRefs: composition.unavailableOptionRefs,
+    dispositions: composition.dispositions ?? [],
+    atoms: composition.proposal.atoms.filter(atom => !adoptedRefs.has(atom.ref)),
+    arbitrations: composition.proposal.arbitrations,
+    ...(adopted.length ? { adoptedAtomContext: {
+      status: "ALREADY_ADOPTED_CURRENT_PROJECT",
+      contentOwner: "CURRENT_PROJECT", rationaleOwner: "RETRIEVABLE_PROPOSAL_HISTORY",
+      // Each row has a native Project ref, followed by values in fields order.
+      fields: ["projectRef", ...fields],
+      rows: adopted.map(({ atom, projectRef }) => [projectRef, ...fields.map(field => atom[field] ?? null)]),
+      // Preserve absent optional fields distinctly from explicit null/UNKNOWN.
+      absentFields: adopted.flatMap(({ atom }) => {
+        const absent = fields.filter(field => !Object.prototype.hasOwnProperty.call(atom, field));
+        return absent.length ? [{ atomRef: atom.ref, fields: absent }] : [];
+      }),
+    } } : {}),
+  };
+};
 /** A singleton baseline option can express a premise required by every other
  * alternative. Keep that option visible, but allow its premise in the stable
  * review scope without choosing any of the narrower alternatives. */
