@@ -69,6 +69,9 @@ export type DurableWorkingDraftRecovery =
   | Readonly<{ state: "REJECTED"; status: 403 | 404; code: string }>;
 
 export interface PublicProtocolDesignerDurableGuard {
+  /** Existing native per-operation reservations support concurrent scopes.
+   * Serial guards/canaries leave this absent; no budget policy is changed. */
+  readonly concurrentProviderOperations?: true;
   prepareRequest(input: Readonly<{
     headers: Headers;
     remoteAddress?: string;
@@ -1127,7 +1130,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
     }
   };
 
-  return Object.freeze({ prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation,
+  return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation,
     close: () => sql.end({ timeout: 5 }) });
 };
 

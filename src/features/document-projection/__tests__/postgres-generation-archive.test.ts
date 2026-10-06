@@ -115,6 +115,49 @@ describe("transactional DOC-owned Postgres archive (offline SQL boundary)", () =
     expect(fixture.rows()).toHaveLength(1); expect(fixture.bodies()).toHaveLength(1);
     expect(new Set(fixture.projectLockArguments).size).toBe(1);
   });
+  it("serializes different DRCI commands for one Project digest and reuses the sole committed generation", async () => {
+    const { store, fixture, access, bodyFor } = await setup();
+    const intent = (suffix: string) => ({ family: "DRCI" as const,
+      requestId: `drci-draft:${access.project.projectDigest}:${suffix}`, requestSha256: docSha256(suffix),
+      generatedAt: documentNativeGeneratedAt(bodyFor(1).native), reservedBytes: 1_000_000 });
+    const results = await Promise.allSettled([store.admit(access, intent("click-1")), store.admit(access, intent("click-2"))]);
+    expect(results.filter(result => result.status === "fulfilled")).toHaveLength(1);
+    const rejected = results.find(result => result.status === "rejected") as PromiseRejectedResult;
+    expect(rejected.reason).toMatchObject({ code: "DOC_ARCHIVE_GENERATION_IN_PROGRESS", status: 409 });
+    expect(fixture.rows()).toHaveLength(1);
+    const reserved = results.find(result => result.status === "fulfilled") as PromiseFulfilledResult<Awaited<ReturnType<typeof store.admit>>>;
+    const committed = await store.commit(access, reserved.value.requestId, bodyFor(1));
+    const reused = await store.admit(access, intent("click-3"));
+    expect(reused.receipt?.generation).toEqual(committed.generation);
+    expect(reused.receipt?.requestId).toBe(intent("click-3").requestId);
+    expect(fixture.rows()).toHaveLength(1); expect(fixture.bodies()).toHaveLength(1);
+    expect(new Set(fixture.projectLockArguments).size).toBe(1);
+  });
+  it("releases a known failed DRCI command for explicit retry without a false successful generation", async () => {
+    const { store, fixture, access, bodyFor } = await setup();
+    const intent = (suffix: string) => ({ family: "DRCI" as const,
+      requestId: `drci-draft:${access.project.projectDigest}:${suffix}`, requestSha256: docSha256(suffix),
+      generatedAt: documentNativeGeneratedAt(bodyFor(1).native), reservedBytes: 1_000_000 });
+    await store.admit(access, intent("failed")); await store.reject(access, intent("failed").requestId);
+    await store.admit(access, intent("retry"));
+    const receipt = await store.commit(access, intent("retry").requestId, bodyFor(1));
+    expect(receipt.generation.displayVersion).toBe(1);
+    expect(receipt.generation.predecessorId).toBeNull();
+    expect(fixture.rows().map(row => row.state)).toEqual(["REJECTED", "COMMITTED"]);
+    expect(fixture.bodies()).toHaveLength(1);
+  });
+  it("does not redispatch beside an existing pre-digest DOC reservation", async () => {
+    const { store, fixture, access, bodyFor } = await setup();
+    const legacy = { requestId: "drci-draft:existing-command", requestSha256: docSha256("existing-command"),
+      generatedAt: documentNativeGeneratedAt(bodyFor(1).native), reservedBytes: 1_000_000 };
+    await store.admit(access, legacy);
+    await expect(store.admit(access, { ...legacy, family: "DRCI",
+      requestId: `drci-draft:${access.project.projectDigest}:new-command` })).rejects.toMatchObject({ code: "DOC_ARCHIVE_GENERATION_IN_PROGRESS" });
+    expect(fixture.rows()).toHaveLength(1);
+    await store.reject(access, legacy.requestId);
+    expect((await store.admit(access, { ...legacy, family: "DRCI",
+      requestId: `drci-draft:${access.project.projectDigest}:explicit-retry` })).receipt).toBeNull();
+  });
   it("rejects a NUL SQL lock parameter instead of silently letting the adapter continue", async () => {
     const fixture = archiveSqlFixture();
     await expect(fixture.sql`select pg_advisory_xact_lock(hashtext(${"session\u0000project"}))`).rejects.toThrow("POSTGRES_TEXT_LOCK_ARGUMENT_INVALID");

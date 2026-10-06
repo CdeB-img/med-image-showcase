@@ -55,6 +55,12 @@ export const archiveSqlFixture = () => {
       && (r.metadata as { family: string }).family === v[2])
       .sort((a, b) => Number(b.ordinal) - Number(a.ordinal)).slice(0, 1).map(r => ({ generation_id: r.generation_id }));
     if (query.startsWith("select body_sha256")) return rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.generation_id === v[2] && r.state === "COMMITTED").map(r => ({ body_sha256: r.body_sha256 }));
+    if (query.startsWith("select request_id") && query.includes("metadata->>'family' = 'DRCI'")) return rows
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.state === "COMMITTED" && (r.metadata as { family: string }).family === "DRCI")
+      .sort((a, b) => Number(b.ordinal) - Number(a.ordinal)).slice(0, 1).map(r => structuredClone(r));
+    if (query.startsWith("select request_id") && query.includes("left(request_id")) return rows
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.state === "RESERVED" && String(r.request_id).startsWith(String(v[2])))
+      .slice(0, 1).map(r => structuredClone(r));
     if (query.startsWith("select *") || query.startsWith("select request_id")) return rows.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.request_id === v[2]).map(r => structuredClone(r));
     throw new Error(`UNEXPECTED_ARCHIVE_SQL:${query}`);
   };

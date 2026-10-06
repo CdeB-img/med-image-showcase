@@ -205,7 +205,7 @@ describe("verified immutable Project transport", () => {
         conversation: { conversationId: "synthetic-conversation", language: "fr", turns: [firstTurn] },
         evaluatePersistentDelta: false, documentDraftRequest,
         observabilityContext: { sessionId, conversationId: "synthetic-conversation", turnId: firstTurn.turnId,
-          clientRequestId: "synthetic-resolved-doc", testSessionId: null },
+          clientRequestId: `drci-draft:${project.projectDigest}:synthetic-resolved-doc`, testSessionId: null },
       },
     }, response, { NODE_ENV: "production", OPENAI_API_KEY: "LOCAL_TEST_ONLY",
       VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON" }, {

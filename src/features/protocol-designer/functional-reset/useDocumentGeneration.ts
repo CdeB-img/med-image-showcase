@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
 import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity } from "@/features/document-projection/generation-persistence";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
-import { hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
+import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 import { useRef } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
@@ -13,6 +13,8 @@ import { recordDocumentProjectionTrace, recordProductErrorBoundary } from "./end
 import { appendFunctionalResetProviderCallRecords, createTurnId, saveFunctionalResetWorkspaceSession, type SessionSave, type FunctionalResetSession } from "./session";
 import { acquireDocumentKnowledge } from "./documentary-conversation";
 
+export type DocumentGenerationStage = "PREPARING" | "WRITING" | "VERIFYING_ARCHIVE";
+
 export function useDocumentGeneration(input: {
   latestSessionRef: MutableRefObject<FunctionalResetSession>; setSession: Dispatch<SetStateAction<FunctionalResetSession>>;
   administration: Parameters<typeof refreshFunctionalResetDocumentPortfolio>[0]["administration"]; projectionMode: "STANDARD" | "EXPERT";
@@ -21,9 +23,10 @@ export function useDocumentGeneration(input: {
   setDocumentGenerationVersion: (version: number) => void; setDocumentGenerationStartedAt: (at: number | null) => void;
   setDocumentGenerationElapsed: (seconds: number) => void; setDocumentGenerationComplete: (complete: boolean) => void;
   setDocumentGenerationPending: (pending: boolean) => void;
+  setDocumentGenerationStage: (stage: DocumentGenerationStage) => void;
 }) {
   const { latestSessionRef, setSession, administration, projectionMode, onSessionChange, setDocumentSaveWarning, setDeliverableWorkspaceOpen,
-    setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending } = input;
+    setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending, setDocumentGenerationStage } = input;
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const documentGenerationInFlightRef = useRef(false);
   const documentCommandInFlightRef = useRef(false);
@@ -31,11 +34,33 @@ export function useDocumentGeneration(input: {
     requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>,
     sourceSession: FunctionalResetSession = latestSessionRef.current,
   ) {
-    if (!sourceSession.project || documentCommandInFlightRef.current) return;
+    if (!sourceSession.project || documentCommandInFlightRef.current || sourceSession.documentRetryUnsafe
+      || import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && hasCurrentArchivedGeneration(sourceSession)) return;
     documentCommandInFlightRef.current = true;
+    setDocumentGenerationPending(true);
+    setDocumentGenerationStage("PREPARING");
+    setDocumentGenerationStartedAt(Date.now());
+    setDocumentGenerationElapsed(0);
+    setDocumentGenerationComplete(false);
     const now = new Date().toISOString();
     try {
       const client = createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project);
+      if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
+        // Fresh metadata, not bodies: a missing/stale local pointer must not
+        // generate again after reload or after another tab completed DOC.
+        const generation = (await client.history()).entries[0];
+        if (generation?.project.projectDigest === sourceSession.project.projectDigest) {
+          const latest = latestSessionRef.current;
+          if (latest.sessionId === sourceSession.sessionId && latest.project?.projectDigest === sourceSession.project.projectDigest) {
+            const next: FunctionalResetSession = { ...latest, documentArchive: { ...latest.documentArchive,
+              contract: DOC_ARCHIVE_CONTRACT, projectId: sourceSession.project.projectId, historyState: "NOT_LOADED", storageMode: "DURABLE_ONLY",
+              currentGenerationId: generation.generationId, currentProjectionId: latest.documentArchive?.currentProjectionId ?? null,
+              currentGeneration: generation, pendingRequestId: null } };
+            latestSessionRef.current = next; setSession(next); setDeliverableWorkspaceOpen(true);
+          }
+          return;
+        }
+      }
       const loaded = await hydrateDocumentCommandSession(sourceSession, client);
       // A valid empty Knowledge result is allowed. Integrity, binding and
       // privacy failures must retain their native error instead of pretending
@@ -69,7 +94,7 @@ export function useDocumentGeneration(input: {
             currentProject: sourceSession.project, evaluatePersistentDelta: false,
             documentDraftRequest: prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: protocol, crf: buildCanonicalCrfPackage(sourceSession.project) }),
             observabilityContext: { sessionId: sourceSession.sessionId, conversationId: sourceSession.conversationId,
-              turnId, clientRequestId: `drci-draft:${turnId}`, testSessionId: null } };
+              turnId, clientRequestId: `drci-draft:${sourceSession.project.projectDigest}:${turnId}`, testSessionId: null } };
         // Keep the exact request, including handoff time and payload, for a
         // transport recovery. The durable owner decides whether dispatch is safe.
         const resume = async () => {
@@ -80,6 +105,7 @@ export function useDocumentGeneration(input: {
           setDocumentGenerationElapsed(0);
           setDocumentGenerationComplete(false);
           setDocumentGenerationPending(true);
+          setDocumentGenerationStage("WRITING");
           const records: ProviderCallRecord[] = [];
           try {
             const response = await requestProtocolDesignerBridge(nativeRequest);
@@ -96,6 +122,7 @@ export function useDocumentGeneration(input: {
               || receipt.generation.project.projectId !== latest.project.projectId
               || receipt.generation.project.projectVersion !== latest.project.versionId
               || receipt.generation.project.projectDigest !== latest.project.projectDigest) throw new Error("DOC_ARCHIVE_COMMIT_NOT_VERIFIED");
+            setDocumentGenerationStage("VERIFYING_ARCHIVE");
             const nextSession: FunctionalResetSession = { ...latest, ...(evidence ?? {}), documents: templateSession.documents,
               drciDraftPacks: [], openDocumentProjectionId: null,
               documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: latest.project.projectId, historyState: "NOT_LOADED",
@@ -195,7 +222,7 @@ export function useDocumentGeneration(input: {
         updatedAt: now,
       };
       });
-    } finally { documentCommandInFlightRef.current = false; }
+    } finally { documentCommandInFlightRef.current = false; setDocumentGenerationPending(false); }
   };
 
   return { requestProtocolProjection, documentRecoveryRef };

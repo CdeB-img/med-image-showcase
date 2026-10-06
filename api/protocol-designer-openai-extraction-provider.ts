@@ -267,6 +267,7 @@ export const executeOpenAIDrciDraft = async (
   instrumentation?: ProviderCallAttemptInstrumentation,
   retainedProtocol?: RetainedDrciProtocol | null,
   transport?: OpenAIProviderTransport,
+  scopeExecution: "SEQUENTIAL" | "CONCURRENT" = "SEQUENTIAL",
 ) => {
   const batches = prepareDrciGenerationBatches(packet);
   const requestedModel = transport?.terraRequestedModel ?? TERRA_REQUESTED_MODEL;
@@ -299,7 +300,7 @@ export const executeOpenAIDrciDraft = async (
   }
   const documents = [...retained?.documents ?? [], ...remaining?.documents ?? []]; const crfRows = [...remaining?.crfRows ?? []];
   let latencyMs = 0; let modelReturned: string | null = null;
-  for (const batch of remaining ? [] : retained ? batches.slice(1) : batches) {
+  const executeBatch = async (batch: typeof batches[number]) => {
     // Distinct physical DOC scopes, one human handoff/one final pack. Each
     // scope must have its own existing ledger identity, never a retry identity.
     const batchInstrumentation = instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
@@ -309,9 +310,27 @@ export const executeOpenAIDrciDraft = async (
         input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
           transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
         service_tier: "default", text: { format: { type: "json_object" } } } });
-    const value = batch.expand(JSON.parse(responseOutputText(result.body)));
-    documents.push(...value.documents); crfRows.push(...value.crfRows); latencyMs += result.latencyMs;
-    modelReturned = result.body.model ?? null;
+    return { value: batch.expand(JSON.parse(responseOutputText(result.body))), result };
+  };
+  const selectedBatches = remaining ? [] : retained ? batches.slice(1) : batches;
+  const completed: Awaited<ReturnType<typeof executeBatch>>[] = [];
+  if (scopeExecution === "CONCURRENT") {
+    // Native durable admission reserves and settles each scope independently.
+    // Both consume the same frozen input, not each other's output. Wait for
+    // every dispatched scope before finalization, including a partial failure.
+    const outcomes = await Promise.allSettled(selectedBatches.map(executeBatch));
+    const failed = outcomes.find(outcome => outcome.status === "rejected");
+    if (failed?.status === "rejected") throw failed.reason;
+    for (const outcome of outcomes) if (outcome.status === "fulfilled") completed.push(outcome.value);
+  } else {
+    // Existing serial canary campaigns prohibit concurrent physical calls.
+    // Preserve their admission contract; they never opt into product concurrency.
+    for (const batch of selectedBatches) completed.push(await executeBatch(batch));
+  }
+  for (const outcome of completed) {
+    documents.push(...outcome.value.documents); crfRows.push(...outcome.value.crfRows);
+    latencyMs = scopeExecution === "CONCURRENT" ? Math.max(latencyMs, outcome.result.latencyMs) : latencyMs + outcome.result.latencyMs;
+    modelReturned = outcome.result.body.model ?? null;
   }
   return { value: { documents, crfRows }, latencyMs,
     modelRequested: mapOpenAIModelForDestination(requestedModel, transport?.destination ?? "openai"),

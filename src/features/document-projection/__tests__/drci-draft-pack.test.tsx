@@ -23,6 +23,7 @@ import { executeKnowledgeEngine } from "@/features/knowledge-engine";
 import { collectProjectKnowledgeSources, emptyProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
 import { documentEvidenceSections, validateDocumentEvidence } from "../scientific-document-revision";
 import { buildScientificNarrative } from "../scientific-narrative";
+import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
 
 const at = "2026-09-17T15:00:00.000Z";
 const project = adoptBehaviorContribution(richStudyContribution(), null, 1);
@@ -39,9 +40,64 @@ const generated = () => ({ documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, t
     derivation: null, controls: [], specificationStatus: "UNSPECIFIED" })) });
 const pack = () => materializeDrciDraftPack(generated(), { project, packet: packet(), generatedAt: at });
 const portfolio = () => buildStudyDeliverablePortfolio({ project, protocolProjection: projection, generatedAt: at });
+// CURRENT_STRUCTURAL_INVARIANT: scope scheduling/settlement; the native
+// meaningful Project/CRF fixture remains unchanged, including open fields.
+const scopeResponse = (init: RequestInit | undefined) => {
+  const context = JSON.parse(JSON.parse(String(init?.body)).input);
+  const facts = new Map(packet().sourceFacts.map((fact, index) => [fact.ref, `f${index}`]));
+  const value = generated();
+  return new Response(JSON.stringify({ status: "completed", model: "gpt-6.1-sol", usage: { input_tokens: 100, output_tokens: 100 },
+    output_text: JSON.stringify({ documents: value.documents.filter(document => context.DOCUMENT_SCOPE.includes(document.kind))
+      .map(document => ({ ...document, sections: document.sections.map(section => ({ ...section,
+        sourceRefs: section.sourceRefs.map(ref => facts.get(ref)),
+        paragraphs: section.paragraphs.map(text => text.replace(/\[\[FACT:([^\]]+)\]\]/gu, (_, ref) => `[[FACT:${facts.get(ref)}]]`)) })) })),
+      crfRows: context.INCLUDE_CRF_ROWS ? value.crfRows.map(row => ({ ...row, variableRef: facts.get(row.variableRef) })) : [] }) }));
+};
 afterEach(() => { vi.useRealTimers(); cleanup(); localStorage.clear(); });
 
 describe("DRCI DOC/DM projections: source, review, stale and actual reading mechanics", () => {
+  it("dispatches independent native DOC scopes concurrently, retains their identities and assembles in canonical order", async () => {
+    vi.useFakeTimers();
+    const finishes = new Map<string, () => void>(); const records: ProviderCallRecord[] = [];
+    const provider = vi.fn<typeof fetch>(async (_url, init) => new Promise<Response>(resolve => {
+      const scope = JSON.parse(JSON.parse(String(init?.body)).input).DOCUMENT_SCOPE.join("+");
+      finishes.set(scope, () => resolve(scopeResponse(init)));
+    }));
+    const run = executeOpenAIDrciDraft(packet(), "OFFLINE_ONLY", provider,
+      { context: { sessionId: "synthetic", conversationId: "synthetic", turnId: "doc", clientRequestId: "explicit-doc", testSessionId: null },
+        purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: record => records.push(record) },
+      null, undefined, "CONCURRENT");
+    await vi.advanceTimersByTimeAsync(0);
+    expect(provider).toHaveBeenCalledTimes(2); expect(finishes.size).toBe(2);
+    await vi.advanceTimersByTimeAsync(40); finishes.get("PROTOCOL_SYNOPSIS+CRF+RECRUITMENT")!();
+    await vi.advanceTimersByTimeAsync(60); finishes.get("PROTOCOL_FULL")!();
+    const result = await run;
+    expect(result.calls).toBe(2); expect(result.latencyMs).toBe(100);
+    expect(result.value.documents.map(document => document.kind)).toEqual(["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS", "CRF", "RECRUITMENT"]);
+    const actual = materializeDrciDraftPack(result.value, { project, packet: packet(), generatedAt: at });
+    expect(actual.crfRows).toEqual(generated().crfRows);
+    expect(records).toHaveLength(2); expect(records.every(record => record.status === "SUCCEEDED" && record.retryIndex === 0)).toBe(true);
+    expect(new Set(records.map(record => record.context.clientRequestId)).size).toBe(2);
+  });
+  it("waits for the other dispatched scope after a provider failure, publishes no partial pack and never retries", async () => {
+    let finishCompanion!: () => void; let settled = false;
+    const records: ProviderCallRecord[] = [];
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      const context = JSON.parse(JSON.parse(String(init?.body)).input);
+      if (!context.INCLUDE_CRF_ROWS) return new Response(JSON.stringify({ error: { code: "OFFLINE_PROVIDER_FAILURE" } }), { status: 503 });
+      return new Promise<Response>(resolve => { finishCompanion = () => resolve(scopeResponse(init)); });
+    });
+    const run = executeOpenAIDrciDraft(packet(), "OFFLINE_ONLY", provider,
+      { context: { sessionId: "synthetic", conversationId: "synthetic", turnId: "doc", clientRequestId: "explicit-doc", testSessionId: null },
+        purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: record => records.push(record) },
+      null, undefined, "CONCURRENT").then(value => { settled = true; return { value }; }, error => { settled = true; return { error }; });
+    await vi.waitFor(() => expect(records.some(record => record.status === "FAILED")).toBe(true));
+    expect(provider).toHaveBeenCalledTimes(2); expect(settled).toBe(false);
+    finishCompanion(); const outcome = await run;
+    expect(outcome).not.toHaveProperty("value"); expect(outcome).toHaveProperty("error");
+    expect(records.map(record => record.status).sort()).toEqual(["FAILED", "SUCCEEDED"]);
+    expect(provider).toHaveBeenCalledTimes(2); expect(records.every(record => record.retryIndex === 0)).toBe(true);
+  });
   it("keeps a portable legacy-owner evidence fixture readable without rebuilding it in the new editorial style", () => {
     const result = executeKnowledgeEngine({ originalQuestion: "ECV myocardique et fibrose en IRM",
       scientificObjectTerms: [{ term: "ECV myocardique", role: "SUBJECT" }], context: {}, externalSearchPolicy: "INTERNAL_ONLY",

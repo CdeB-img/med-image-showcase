@@ -58,9 +58,9 @@ import { projectPreparationConfirmationApplicable, projectPreparationConfirmatio
 import { stageStudyProposalSelection, stageStudyProposalDisposition } from "./project-review-decision";
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { usePostAdoptionContinuation } from "./usePostAdoptionContinuation";
-import { useDocumentGeneration } from "./useDocumentGeneration";
+import { useDocumentGeneration, type DocumentGenerationStage } from "./useDocumentGeneration";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
-import { hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
+import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate } from "@/features/document-projection/generation-session";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -117,6 +117,7 @@ export default function ProtocolDesignerWorkspace({
   const [sourceLibraryOpen, setSourceLibraryOpen] = useState(false);
   const [documentMessage, setDocumentMessage] = useState("");
   const [documentGenerationPending, setDocumentGenerationPending] = useState(false);
+  const [documentGenerationStage, setDocumentGenerationStage] = useState<DocumentGenerationStage>("PREPARING");
   const [documentGenerationStartedAt, setDocumentGenerationStartedAt] = useState<number | null>(null);
   const [documentGenerationElapsed, setDocumentGenerationElapsed] = useState(0);
   const [documentGenerationVersion, setDocumentGenerationVersion] = useState(1);
@@ -130,7 +131,7 @@ export default function ProtocolDesignerWorkspace({
   const endRef = useRef<HTMLDivElement>(null);
   const latestReplyRef = useRef<HTMLElement>(null);
   const { requestProtocolProjection, documentRecoveryRef } = useDocumentGeneration({ latestSessionRef, setSession, administration, projectionMode, onSessionChange,
-    setDocumentSaveWarning, setDeliverableWorkspaceOpen, setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending });
+    setDocumentSaveWarning, setDeliverableWorkspaceOpen, setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending, setDocumentGenerationStage });
   const confirmationInFlightRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -616,12 +617,13 @@ export default function ProtocolDesignerWorkspace({
     onCompleteAdministration={onEditAdministration}
     deliverablePortfolio={deliverablePortfolio}
     queryNavigation={session.queryNavigation}
-    suppressDocumentAction={Boolean(busy || (!session.project && preparedFinalization) || session.documentRetryUnsafe || documentGenerationPending)}
+    suppressDocumentAction={Boolean(busy || (!session.project && preparedFinalization) || session.documentRetryUnsafe || documentGenerationPending || hasCurrentArchivedGeneration(session))}
     showDocumentAction={!deliverableWorkspaceOpen && !sourceLibraryOpen && (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" || projectionMode === "EXPERT")}
     technicalProjectionOnly={import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA"}
     documentActionDisabledReason={session.documentRetryUnsafe
       ? "Le résultat de la dernière génération est incertain ; aucune nouvelle génération n’est autorisée depuis cette page."
       : documentGenerationPending ? "Une génération documentaire est déjà en cours."
+        : hasCurrentArchivedGeneration(session) ? "Documents à jour."
         : !session.project && preparedFinalization ? "Validez d’abord les choix proposés."
           : busy ? "Attendez la fin de la réponse en cours." : undefined}
     onOpenDeliverables={() => {
@@ -642,7 +644,7 @@ export default function ProtocolDesignerWorkspace({
     onConfirm={refs => void confirmProject(refs)}
     onAbandon={() => setSession(current => recordPreparationDecision(current, preparationReview.checkpoint.preparationId, "ABANDONED"))}
   /> : null;
-  const currentDrciDraftPack = session.project && session.documentArchive?.currentGeneration?.project.projectDigest === session.project.projectDigest;
+  const currentDrciDraftPack = hasCurrentArchivedGeneration(session);
   const adoptedProjectDocumentAction = !preparedFinalization && session.project && !session.documentRetryUnsafe
     && (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" || projectionMode === "EXPERT") ? <section
       className="mb-3 rounded-2xl border bg-background p-5 shadow-sm"
@@ -651,8 +653,8 @@ export default function ProtocolDesignerWorkspace({
       <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents du projet</p>
       <h2 className="mt-1 text-xl font-semibold">Choix enregistrés dans le projet · version {session.project.revision}</h2>
       <p className="mt-2 text-sm text-muted-foreground">{import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" ? "Diagnostic interne : cette projection n’est pas une génération documentaire."
-        : currentDrciDraftPack ? "Une génération documentaire existe déjà. Une nouvelle génération sera conservée séparément." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
-      <button type="button" disabled={documentGenerationPending || busy} onClick={() => void requestProtocolProjection()}
+        : currentDrciDraftPack ? "Documents à jour." : "Générez les quatre documents de travail depuis cette version du projet."}</p>
+      <button type="button" disabled={documentGenerationPending || busy || currentDrciDraftPack} onClick={() => void requestProtocolProjection()}
         className="mt-4 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">
         {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" ? "Calculer la projection technique" : "Générer les documents"}
       </button>
@@ -1051,13 +1053,11 @@ export default function ProtocolDesignerWorkspace({
         <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
       </button>
       {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">
-        <div role="progressbar" aria-label="Progression estimée des documents" aria-valuemin={0} aria-valuemax={100}
-          aria-valuenow={documentGenerationComplete ? 100 : Math.min(90, Math.round(documentGenerationElapsed / 240 * 90))}
-          className="h-2 overflow-hidden rounded-full bg-muted">
-          <div className="h-full rounded-full bg-primary" style={{ width: `${documentGenerationComplete ? 100 : Math.min(90, Math.round(documentGenerationElapsed / 240 * 90))}%` }} />
-        </div>
-        <p>{documentGenerationComplete ? "Génération terminée." : "Progression temporelle estimée ; vérification en attente du résultat réel."}</p>
-        <p>{Math.floor(documentGenerationElapsed / 60)} min {String(documentGenerationElapsed % 60).padStart(2, "0")} s écoulées · durée habituelle : 3–4 min</p>
+        <p>{documentGenerationComplete ? "Génération terminée." : documentGenerationStage === "PREPARING"
+          ? "Préparation des documents…" : documentGenerationStage === "WRITING"
+            ? "Rédaction du protocole et des documents associés ; validation et archivage côté serveur…"
+            : "Vérification des documents archivés…"}</p>
+        <p>{Math.floor(documentGenerationElapsed / 60)} min {String(documentGenerationElapsed % 60).padStart(2, "0")} s écoulées</p>
       </div>}
     </aside>}
   </main>;

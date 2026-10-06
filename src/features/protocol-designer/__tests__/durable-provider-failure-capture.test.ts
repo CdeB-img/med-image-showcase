@@ -201,6 +201,11 @@ const run = async (provider: typeof fetch, options: { sessionId?: string; client
 };
 
 describe("durable provider terminal failure capture with the real guard and offline SQL/fetch doubles", () => {
+  it("advertises native independent operation reservations without changing the serial test guard contract", async () => {
+    expect(guard.concurrentProviderOperations).toBe(true);
+    const { createMemoryProtocolDesignerGuardForTests } = await import("../../../../server/protocol-designer-durable-guard");
+    expect(createMemoryProtocolDesignerGuardForTests().concurrentProviderOperations).toBeUndefined();
+  });
   it.each(["short", "rich"])("reaches READY_FOR_REVIEW through the real guard/bridge/owners for synthetic %s input", async size => {
     const session = createFunctionalResetSession();
     session.runtimeTurns = [{ turnId: "u1", role: "USER", createdAt: session.updatedAt,

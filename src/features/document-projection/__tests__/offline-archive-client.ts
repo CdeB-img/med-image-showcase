@@ -13,7 +13,7 @@ import type { DrciDraftPack } from "../drci-draft-contract";
 const projects = new Map<string, ReturnType<typeof state>>();
 const state = () => {
   const snapshots = memoryProjectSnapshotStore(), fixture = archiveSqlFixture();
-  return { snapshots, fixture, proof: null as string | null,
+  return { snapshots, fixture, proof: null as string | null, registrationTail: Promise.resolve() as Promise<unknown>,
     store: createPostgresDocumentArchive("postgres://offline", snapshots, documentArchiveCapacity({}), fixture.sql) };
 };
 export const resetOfflineArchiveClients = () => projects.clear();
@@ -21,8 +21,17 @@ const accessFor = async (sessionId: string, project: ResearchProjectOwnerProject
   let entry = projects.get(project.projectId);
   if (!entry) { entry = state(); projects.set(project.projectId, entry); }
   const identity = { sessionId, clientAddress: "192.0.2.1" };
-  const registration = await entry.snapshots.persist(identity, project, entry.proof);
-  entry.proof = registration.proof;
+  // Concurrent lazy-history and command reads must share the issued proof,
+  // not both attempt an initial registration with proof=null. Keep exercising
+  // the actual snapshot validator, including its rejection of a missing proof.
+  const selected = entry;
+  const pending = selected.registrationTail.then(async () => {
+    const registration = await selected.snapshots.persist(identity, project, selected.proof);
+    selected.proof = registration.proof;
+    return registration;
+  });
+  selected.registrationTail = pending.catch(() => {});
+  const registration = await pending;
   return { store: entry.store, access: { identity, project: registration.ref, proof: registration.proof } };
 };
 export const offlineArchiveClient = (sessionId: string, project: ResearchProjectOwnerProjection): DocumentArchiveClient => ({

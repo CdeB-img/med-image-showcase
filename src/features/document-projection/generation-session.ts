@@ -7,6 +7,11 @@ import { unloadFunctionalResetDocumentPortfolio } from "./functional-reset-bound
 import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, type DocumentPersistenceReceipt } from "./generation-persistence";
 import type { DocumentProjection } from "./types";
 
+/** Latest successful real generation only; a technical projection is not DOC. */
+export const hasCurrentArchivedGeneration = (session: FunctionalResetSession) => Boolean(session.project
+  && session.documentArchive?.currentGeneration?.project.projectId === session.project.projectId
+  && session.documentArchive.currentGeneration.project.projectDigest === session.project.projectDigest);
+
 /** New generations only. No legacy import, relabeling or migration path. */
 export const persistTemplateGeneration = async (session: FunctionalResetSession, projection: DocumentProjection, client: DocumentArchiveClient) => {
   if (!session.project || projection.source.projectDigest !== session.project.projectDigest

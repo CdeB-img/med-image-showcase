@@ -87,6 +87,32 @@ const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { 
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
 
 describe("continuous working composition — synthetic mechanics, no scientific approval", () => {
+  it("keeps preparation lazy and reuses an existing valid Review after reload without another provider call", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
+    let saved = sessionFor();
+    const mount = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
+      onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
+    let view = mount();
+    expect(bridge).not.toHaveBeenCalled();
+    expect(saved.workingDraftPreparations ?? []).toHaveLength(0);
+    expect(screen.queryByRole("button", { name: "Préparer la mise à jour du projet" })).toBeNull();
+    bridge.mockImplementation(async (request: ProductBridgeRequest) => {
+      expect(request.prepareWorkingDraft).toBe(true);
+      const accepted = acceptWorkingDraftUpdate(updateFor(request), request);
+      return { workingDraftUpdate: accepted.update, workingStudyProposal: accepted.composition, observability: { providerCalls: [] } };
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    await waitFor(() => expect(saved.workingDraftPreparations?.[0]?.status).toBe("READY_FOR_REVIEW"));
+    const checkpoint = saved.workingDraftPreparations![0].checkpoint!;
+    expect(checkpoint.preparationTrigger).toBe("EXPLICIT_PROJECT_PREPARATION_ACTION");
+    expect(bridge).toHaveBeenCalledOnce(); expect(saved.project).toBeNull();
+    view.unmount(); view = mount();
+    expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled();
+    expect(projectPreparationReview(saved)?.applicable).toBe(true);
+    expect(saved.workingDraftPreparations![0].checkpoint!.preparationId).toBe(checkpoint.preparationId);
+    expect(bridge).toHaveBeenCalledOnce(); expect(saved.project).toBeNull();
+    view.unmount();
+  });
   it("closes retained meaning through the same Working Draft response and actual explicit Review adoption, preserving its residual", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial = sessionFor();
@@ -1448,7 +1474,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
     // SUPERSEDED_CONTRACT: full packs are no longer local session history.
-    // CURRENT_STRUCTURAL_INVARIANT: real archive receipt, bindings and G1/G2.
+    // CURRENT_STRUCTURAL_INVARIANT: real archive receipt, bindings and immutability.
     const client = offlineArchiveClient(initial.sessionId, saved.project!);
     const firstPage = await client.history();
     const g1 = firstPage.entries.find(ref => ref.family === "DRCI")!;
@@ -1459,23 +1485,20 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     if (saveDocuments === "saved") { expect(saved.drciDraftPacks).toEqual([]); expect(saved.documents.projections).toEqual([]); }
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("lien local non enregistré");
     if (saveDocuments === "saved") {
-      fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-      await waitFor(() => expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(2));
-      expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(2);
-      expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(frozenG1);
-      const previousEntries = saved.entries.length;
-      bridge.mockRejectedValueOnce(new Error("LOCAL_SYNTHETIC_DOC_FAILURE"));
-      fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-      await screen.findByTestId("document-generation-recovery");
+      // SUPERSEDED_CONTRACT: an unchanged Project is not another paid Gn.
+      const button = screen.getByTestId("adopted-project-document-generation").querySelector("button")!;
+      expect(button).toBeDisabled();
+      for (let i = 0; i < 10; i++) fireEvent.click(button);
+      expect(bridge).toHaveBeenCalledTimes(1);
+      expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Documents à jour.");
       expect(saved.drciDraftPacks).toHaveLength(0);
       expect(saved.project?.revision).toBe(1);
-      expect(saved.entries).toHaveLength(previousEntries);
-      expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(2);
+      expect((await client.history()).entries.filter(ref => ref.family === "DRCI")).toHaveLength(1);
       expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(frozenG1);
     }
   });
 
-  it("keeps Project V1/V2 independent from explicit immutable G1/G2/G3 and reloads metadata without historical bodies", async () => {
+  it("keeps Project V1/V2/V3 independent from explicit immutable G1/G2/G3 and reloads metadata without historical bodies", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial = sessionFor();
     let saved = checkpointSession(initial, updateFor(requestFor(initial)));
@@ -1527,23 +1550,41 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.revision).toBe(2));
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(projectV1Owner)).toBe(projectV1);
-    const client = offlineArchiveClient(saved.sessionId, saved.project!);
+    let client = offlineArchiveClient(saved.sessionId, saved.project!);
     expect((await client.history()).entries).toEqual([g1]);
     expect(g1.project.projectVersion).toContain(":version:1");
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
     expect(within(screen.getByTestId(`archived-generation-${g1.ordinal}`)).getByText(/Historique/)).toBeInTheDocument();
-    for (const ordinal of [2, 3]) {
-      fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-      await within(screen.getByTestId("durable-document-history")).findByText(`G${ordinal} — basée sur le projet V2`);
-      expect((await client.history()).entries).toHaveLength(ordinal);
-    }
+    fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
+    await within(screen.getByTestId("durable-document-history")).findByText("G2 — basée sur le projet V2");
+    const projectV2Owner = saved.project!, projectV2 = JSON.stringify(projectV2Owner);
+    expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
+    view.unmount();
+    // CURRENT_STRUCTURAL_INVARIANT: G3 requires a new explicitly adopted
+    // scientific change, not another click on the unchanged V2.
+    const thirdTurn = { turnId: "u3", role: "USER" as const,
+      content: DOMAINS[1].text + " La question porte désormais sur la reproductibilité inter-opérateurs.", createdAt: new Date().toISOString() };
+    saved = { ...saved, runtimeTurns: [...saved.runtimeTurns, thirdTurn,
+      { turnId: "noxia-turn:33333333-3333-4333-8333-333333333333", role: "NOXIA", content: "Nouvelle question candidate à examiner.", createdAt: thirdTurn.createdAt }] };
+    const thirdUpdate = updateFor(requestFor(saved));
+    thirdUpdate.proposal!.atoms.find(atom => atom.ref === "question")!.content += " — reproductibilité inter-opérateurs";
+    saved = checkpointSession(saved, thirdUpdate);
+    view = mount(); fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
+    await waitFor(() => expect(saved.project?.revision).toBe(3));
+    expect(JSON.stringify(projectV1Owner)).toBe(projectV1); expect(JSON.stringify(projectV2Owner)).toBe(projectV2);
+    client = offlineArchiveClient(saved.sessionId, saved.project!);
+    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
+    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V3");
     const generations = (await client.history()).entries;
     expect(generations.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
     expect(generations.every(ref => ref.family === "DRCI")).toBe(true);
     expect(generations[0].predecessorId).toBe(generations[1].generationId);
     expect(generations[1].predecessorId).toBe(g1.generationId);
-    expect(generations.slice(0, 2).every(ref => ref.project.projectDigest === saved.project!.projectDigest)).toBe(true);
+    expect(generations[0].project.projectDigest).toBe(saved.project!.projectDigest);
+    expect(generations[1].project.projectDigest).toBe(projectV2Owner.projectDigest);
+    expect(new Set(generations.map(ref => ref.project.projectDigest)).size).toBe(3);
     const frozen = await Promise.all(generations.map(async ref => JSON.stringify((await client.body(ref.generationId)).body)));
     expect(frozen[2]).toBe(frozenG1);
     expect(g1.project.projectDigest).toBe(JSON.parse(projectV1).projectDigest);
@@ -1556,14 +1597,14 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await store.history(access)).entries).toHaveLength(6); // Three technical + three real generations.
     const queryCount = fixture.queries.length;
     view = mount(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V2");
+    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V3");
     expect(fixture.queries.slice(queryCount).join(" ")).not.toContain("doc_generation_body");
     expect(bridge).toHaveBeenCalledTimes(3);
     expect((await client.history()).entries).toEqual(generations);
     for (const [index, ref] of generations.entries()) expect(JSON.stringify((await client.body(ref.generationId)).body)).toBe(frozen[index]);
   });
 
-  it("generates the four documents directly from an already adopted Project without adopting it again", async () => {
+  it("retries a known DOC failure from an adopted Project, accepts ten clicks once and never adopts the Project again", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial=sessionFor(), request=requestFor(initial), update=updateFor(request);
     const composition=acceptWorkingDraftUpdate(update,request).composition!;
@@ -1592,11 +1633,23 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Choix enregistrés dans le projet · version 1");
     expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
     const adoptedVersion=project.versionId;
+    bridge.mockRejectedValueOnce(new Error("LOCAL_SYNTHETIC_KNOWN_DOC_FAILURE"));
     fireEvent.click(screen.getByRole("button",{name:"Générer les documents"}));
-    await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(1));
+    await screen.findByTestId("document-generation-recovery");
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(saved.documentArchive?.currentGenerationId).toBeNull();
+    expect((await offlineArchiveClient(initial.sessionId, project).history()).entries).toHaveLength(0);
+    const generate = screen.getByRole("button",{name:"Générer les documents"});
+    expect(generate).toBeEnabled();
+    for (let i = 0; i < 10; i++) fireEvent.click(generate);
+    expect(generate).toBeDisabled();
+    await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(2));
     await waitFor(() => expect(saved.documentArchive?.currentGenerationId).toBeTruthy());
     expect(bridge.mock.calls[0][0].currentProject?.versionId).toBe(adoptedVersion);
     expect(saved.project?.versionId).toBe(adoptedVersion);
+    expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(1);
+    expect((await offlineArchiveClient(initial.sessionId, project).history()).entries).toHaveLength(1);
+    expect(generate).toBeDisabled();
     const archived = await offlineArchiveClient(initial.sessionId, project).body(saved.documentArchive!.currentGenerationId!);
     expect(archived.body.native.family).toBe("DRCI");
     if (archived.body.native.family === "DRCI") expect(archived.body.native.value.documents.map(document => document.kind)).toEqual([...DRCI_DOCUMENT_KINDS]);
@@ -1619,7 +1672,8 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await screen.findByTestId("document-generation-progress");
-    expect(screen.getByRole("progressbar", { name: "Progression estimée des documents" })).toHaveAttribute("aria-valuenow", "0");
+    expect(screen.queryByRole("progressbar", { name: "Progression estimée des documents" })).toBeNull();
+    expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Préparation des documents");
     fireEvent.click(screen.getByRole("button", { name: "Conception" }));
     expect(screen.getByTestId("document-generation-progress")).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();

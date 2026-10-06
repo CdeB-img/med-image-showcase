@@ -158,6 +158,8 @@ export const executeProtocolDesignerBridge = async (input: {
   now?: () => number;
   /** Stable DOC intent time; does not alter Conversation/Working Draft timestamps. */
   documentGeneratedAt?: string;
+  /** Enabled only by the native server admission that supports independent reservations. */
+  documentScopeExecution?: "CONCURRENT";
   providerAttemptPolicy?: ProviderAttemptPolicy;
   /** Server-owned retained provider evidence; never supplied by browser JSON. */
   readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
@@ -358,7 +360,7 @@ export const executeProtocolDesignerBridge = async (input: {
       }
       const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained,
-        input.openAiTransport);
+        input.openAiTransport, input.documentScopeExecution);
       const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: documentGeneratedAt,
         reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision });
       const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
@@ -1027,6 +1029,7 @@ export const handleProtocolDesignerBridge = async (
       if (!archive) throw new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
       const requestId = context.clientRequestId;
       const admitted = await archive.admit(access, { requestId, requestSha256: docSha256(JSON.stringify(body)),
+        family: "DRCI",
         generatedAt: new Date(dependencies.now?.() ?? Date.now()).toISOString(),
         reservedBytes: documentArchiveCapacity(environment).maxBodyBytesPerGeneration });
       doc = { archive, access, requestId, generatedAt: admitted.generatedAt };
@@ -1098,6 +1101,7 @@ export const handleProtocolDesignerBridge = async (
       fetchImpl: providerFetch,
       now: dependencies.now,
       documentGeneratedAt: doc?.generatedAt,
+      documentScopeExecution: durableGuard.concurrentProviderOperations ? "CONCURRENT" : undefined,
       providerAttemptPolicy: dependencies.providerAttemptPolicy,
     });
     let archived: { status: number; body: unknown };

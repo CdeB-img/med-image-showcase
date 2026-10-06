@@ -37,7 +37,9 @@ export const documentArchiveCapacity = (env: Record<string, string | undefined>)
   };
 };
 export type DocumentArchiveAccess = Readonly<{ identity: ProjectSnapshotIdentity; project: ProjectSnapshotRef; proof: string | null }>;
-export type DocumentArchiveIntent = Readonly<{ requestId: string; requestSha256: string; generatedAt: string; reservedBytes: number }>;
+export type DocumentArchiveIntent = Readonly<{ requestId: string; requestSha256: string; generatedAt: string; reservedBytes: number;
+  /** Native real-generation command only; technical/revision archive writes retain their own contracts. */
+  family?: "DRCI" }>;
 export type AdmittedDocumentIntent = DocumentArchiveIntent & Readonly<{ receipt: DocumentPersistenceReceipt | null }>;
 export type DocumentArchiveStore = Readonly<{
   admit(access: DocumentArchiveAccess, intent: DocumentArchiveIntent): Promise<AdmittedDocumentIntent>;
@@ -121,6 +123,30 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
             throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_DIVERGENCE");
           }
           return { ...intent, generatedAt: String(row.generated_at), receipt: receiptFor(row) };
+        }
+        if (intent.family === "DRCI") {
+          // The existing Project transaction lock is also the digest-level
+          // single-flight boundary. No second registry or schema is needed.
+          const prefix = `drci-draft:${access.project.projectDigest}:`;
+          if (!intent.requestId.startsWith(prefix)) throw new DocumentArchiveError("DOC_ARCHIVE_INTENT_INVALID", 400);
+          const current = (await tx`select request_id, state, metadata from noxia_durable.doc_generation
+            where session_key_hash = ${sessionKey} and project_id = ${projectId}
+            and state = 'COMMITTED' and metadata->>'family' = 'DRCI'
+            order by ordinal desc limit 1`)[0];
+          const receipt = current && receiptFor(current);
+          if (receipt?.generation.project.projectDigest === access.project.projectDigest) {
+            // Acknowledge retrieval under the incoming command identity;
+            // the committed generation/body/history remain untouched.
+            return { ...intent, generatedAt: receipt.generation.generatedAt,
+              receipt: { ...receipt, requestId: intent.requestId } };
+          }
+          // One physical DOC generation per Project while reserved also covers
+          // existing pre-digest command IDs; their snapshot cannot be inferred.
+          const commandPrefix = "drci-draft:";
+          const inFlight = await tx`select request_id from noxia_durable.doc_generation
+            where session_key_hash = ${sessionKey} and project_id = ${projectId} and state = 'RESERVED'
+            and left(request_id, length(${commandPrefix})) = ${commandPrefix} limit 1`;
+          if (inFlight.length) throw new DocumentArchiveError("DOC_ARCHIVE_GENERATION_IN_PROGRESS", 409);
         }
         const stats = (await tx`select count(*) filter (where state != 'REJECTED')::int as generations, coalesce(sum(case when state = 'COMMITTED' then body_bytes when state = 'RESERVED' then reserved_bytes else 0 end), 0)::text as bytes,
           count(*) filter (where state = 'RESERVED')::int as writes, coalesce(max(ordinal), 0)::text as last_ordinal
