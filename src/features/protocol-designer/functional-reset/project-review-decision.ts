@@ -27,6 +27,7 @@ import { ownerResultNativeDigest } from "@/features/protocol-designer/product-ow
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { retainOwnerReviewedCandidate } from "./contribution-lifecycle";
 import { type FunctionalResetSession } from "./session";
+import { readNaturalCandidateDecision } from "./natural-conversation-policy";
 
 // Application retention delegates validation and lifecycle to their existing owners.
 export type NaturalContributionDecisionContext = Readonly<{
@@ -196,7 +197,13 @@ export function stageProjectConfirmation(input: {
   ];
   // Only generated control acknowledgements receive native event coverage.
   // An arbitrary natural confirmation/correction still requires ST meaning.
-  const generatedConfirmation = naturalDecision?.originalText === "Valider ces choix" ? naturalDecision.userTurn : null;
+  const naturalConfirmation = naturalDecision && proposalSelection
+    ? readNaturalCandidateDecision(naturalDecision.originalText) : null;
+  // The native adoption has now proved the exact prepared scope and human
+  // authority. Only a pure bound assent is a governed control event; a mixed
+  // scientific correction still requires Scientific Thinking coverage.
+  const generatedConfirmation = naturalDecision && (naturalDecision.originalText === "Valider ces choix"
+    || naturalConfirmation?.act === "CONFIRM" && !naturalConfirmation.qualified) ? naturalDecision.userTurn : null;
   const scientificDiscussionRetention = recordGovernedAdoptionContextEvent(session.scientificDiscussionRetention,
     project, [...(generatedConfirmation ? [generatedConfirmation] : []), confirmationTurn]);
   const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId

@@ -250,10 +250,14 @@ describe("Propose then arbitrate — offline product properties", () => {
   });
 });
 
-it("actual Standard UI bulk click writes once and survives reopen, without provider or real document generation", async () => {
+it("Expert arbitration bulk click writes once and survives reopen, without provider or real document generation", async () => {
   noNetwork(); let latest = createFunctionalResetSession(); latest.conversationLanguageGateway = { ...latest.conversationLanguageGateway, conversationLanguage: "fr" };
   bridge.mockImplementation(async (request: ProductBridgeRequest) => (await runBridge(request)).response);
   render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
+  // CURRENT_SEMANTIC_INVARIANT: scientific choice and native human adoption.
+  // SUPERSEDED_CONTRACT: checkbox arbitration in Standard.
+  fireEvent.click(screen.getByLabelText("Plus d’options"));
+  fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
   fireEvent.change(screen.getByRole("textbox"), { target: { value: FIBROSIS_EXACT } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
   await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible()); expect(latest.project).toBeNull();
   const review = within(screen.getByTestId("study-proposal-review")); fireEvent.click(review.getByLabelText("Sept classes d'âge ; bornes à discuter", { exact: false }));
@@ -268,10 +272,13 @@ it("actual Standard UI bulk click writes once and survives reopen, without provi
   const allPreviews = buildStudyCandidateProjections(restored.studyProposal!, restored.project); expect(allPreviews.every(p => p.freshness === "CURRENT")).toBe(true);
 });
 
-it.each(["REJECTED", "DEFERRED"] as const)("actual Standard UI %s is recorded once, leaves the Project untouched and survives reopen", async status => {
+it.each(["REJECTED", "DEFERRED"] as const)("Expert arbitration %s is recorded once, leaves the Project untouched and survives reopen", async status => {
   noNetwork(); let latest = createFunctionalResetSession(); latest.conversationLanguageGateway = { ...latest.conversationLanguageGateway, conversationLanguage: "fr" };
   bridge.mockImplementation(async (request: ProductBridgeRequest) => (await runBridge(request)).response);
   render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
+  // CURRENT_STRUCTURAL_INVARIANT: explicit rejection/defer lifecycle is unchanged.
+  fireEvent.click(screen.getByLabelText("Plus d’options"));
+  fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
   fireEvent.change(screen.getByRole("textbox"), { target: { value: FIBROSIS_EXACT } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
   await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible());
   const review = within(screen.getByTestId("study-proposal-review"));

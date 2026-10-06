@@ -64,6 +64,9 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     for (const label of ["Design", "Intervention / comparateur", "Évaluations / critère principal"]) {
       expect(within(proposal).getByText(label)).toBeInTheDocument();
     }
+    // CURRENT_SEMANTIC_INVARIANT: original science unchanged; technical evidence is Expert-only.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     fireEvent.click(within(proposal).getByText("Voir les détails"));
     await screen.findByTestId("review-audit-detail");
     for (const label of ["Population", "Design", "Intervention / comparateur", "Évaluations / critère principal"]) {

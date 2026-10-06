@@ -241,7 +241,7 @@ describe("Propose/arbitrate/recompute — native offline closure", () => {
 
 });
 
-it.each(CASES.flatMap(test => (["button", "natural"] as const).map(mode => ({ ...test, mode }))))("actual Standard freeform $id $mode confirmation writes without returning to the bundle", async test => {
+it.each(CASES.flatMap(test => (["button", "natural"] as const).map(mode => ({ ...test, mode }))))("Expert arbitration with native freeform $id $mode confirmation writes without returning to the bundle", async test => {
   const mode = `${test.id}-${test.mode}`;
   let latest = createFunctionalResetSession(); latest.conversationLanguageGateway = { ...latest.conversationLanguageGateway, conversationLanguage: "fr" };
   bridge.mockImplementation(async (request: ProductBridgeRequest) => {
@@ -250,6 +250,10 @@ it.each(CASES.flatMap(test => (["button", "natural"] as const).map(mode => ({ ..
     const response = (await run(request, wire, p => candidateReply(p, test))).response; writeFileSync(ROOT + `standard-response-${mode}.json`, JSON.stringify({ request, response }, null, 2)); return response;
   });
   render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={latest} onSessionChange={explicitTestSave(s => { latest = s; })} /></HelmetProvider>);
+  // CURRENT_SEMANTIC_INVARIANT: option/recomputation meaning unchanged.
+  // SUPERSEDED_CONTRACT: technical arbitration UI is now Expert-only.
+  fireEvent.click(screen.getByLabelText("Plus d’options"));
+  fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
   const send = (text: string) => { fireEvent.change(screen.getByRole("textbox"), { target: { value: text } }); fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
   send(FIBROSIS_EXACT); await waitFor(() => expect(screen.getByTestId("study-proposal-review")).toBeVisible());
   if (test.id === "C") fireEvent.click(screen.getByLabelText("Sept classes d'âge ; bornes à discuter", { exact: false }));

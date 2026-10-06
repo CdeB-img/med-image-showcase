@@ -84,6 +84,9 @@ describe("beta review handshake", () => {
     const workingDraft=saved.workingDraft!;
     expect(workingDraft.readyReview).toBeTruthy();
     const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
+    // CURRENT_STRUCTURAL_INVARIANT: diagnostic counts belong to Expert, not Standard.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("24 décisions prêtes à confirmer");
     expect(screen.getByTestId("project-finalization-card")).toHaveTextContent("15 points restent à définir");
     expect(saved.workingDraftPreparations?.[0].status).toBe("READY_FOR_REVIEW");

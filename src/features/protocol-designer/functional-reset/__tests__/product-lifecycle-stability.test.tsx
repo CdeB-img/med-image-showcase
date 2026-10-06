@@ -200,9 +200,13 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(saved.workingDraftPreparations![0].checkpoint!.request.conversation.turns.some(t => t.turnId === raceTurn.turnId)).toBe(false);
     expect(screen.getByRole("button", { name: "Repréparer avec les nouveaux échanges" })).toBeEnabled();
     expect(screen.getByTestId("preparation-newer-conversation")).not.toHaveTextContent("relation avec →");
+    // CURRENT_STRUCTURAL_INVARIANT: stale-cutoff partial reconciliation is Expert-only.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     for (const checkbox of screen.getAllByRole("checkbox")) fireEvent.click(checkbox);
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     const v1 = JSON.stringify(saved.project);
     expect(projectPreparationProgress(saved).latestPendingScientificTurnRef).toBe(raceTurn.turnId);
     // Reproduce the previous owner branch: the last physical USER is the

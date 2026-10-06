@@ -8,7 +8,7 @@ import { createFunctionalResetSession, loadFunctionalResetSession, persistFuncti
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import { terraResultFixture } from "./terra-result-fixture";
-import { projectPreparationProgress } from "../project-preparation-lifecycle";
+import { conversationalPreparationConfirmation, projectPreparationProgress } from "../project-preparation-lifecycle";
 const bridge = vi.hoisted(() => vi.fn());
 const read = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
@@ -18,7 +18,7 @@ const response = (text: string) => new Response(JSON.stringify({ id: "LOCAL_SYNT
   output: [{ content: [{ type: "output_text", text: text.trim().startsWith("{") ? text : JSON.stringify(terraResultFixture(text)) }] }], usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } }));
 const send = (text: string) => { fireEvent.change(screen.getByRole("textbox", { name: "Votre message" }), { target: { value: text } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" })); };
-const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT" = "VALID") => {
+const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT" = "VALID", rejectAdoption = false) => {
   vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
   let saved = createFunctionalResetSession(); let release!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
@@ -47,7 +47,10 @@ const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT
     return result.body;
   });
   const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
-    onSessionChange={explicitTestSave((next: FunctionalResetSession) => { saved = next; return true; })} /></HelmetProvider>);
+    onSessionChange={explicitTestSave((next: FunctionalResetSession) => {
+      if (rejectAdoption && next.project) return false;
+      saved = next; return true;
+    })} /></HelmetProvider>);
   return { view, state: () => saved, provider, release, wdCalls: () => bridge.mock.calls.filter(([request]) => request.prepareWorkingDraft) };
 };
 const initialChat = async () => { send(DOMAINS[0].text); await screen.findByText("LOCAL_SYNTHETIC — réponse scientifique conservée.");
@@ -70,12 +73,16 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(JSON.stringify(h.state().workingDraftPreparations![0].checkpoint)).toBe(checkpoint);
     expect(screen.getByTestId("preparation-newer-conversation")).not.toHaveTextContent("relation avec →");
     if (confirmOld) {
+      // CURRENT_STRUCTURAL_INVARIANT: partial stale-cutoff reconciliation is
+      // an Expert action. Standard requires a fresh conversational summary.
+      fireEvent.click(screen.getByLabelText("Plus d’options"));
+      fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
       for (const checkbox of screen.getAllByRole("checkbox")) fireEvent.click(checkbox);
       fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
       await waitFor(() => expect(h.state().project?.revision).toBe(1));
       expect(projectPreparationProgress(h.state()).latestPendingScientificTurnRef).toBe(later.turnId);
-      expect(screen.getByRole("button", { name: "Revoir les choix du projet" })).toBeEnabled();
-      fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+      expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeEnabled();
+      fireEvent.click(screen.getByRole("button", { name: "Préparer la mise à jour du projet" }));
     } else {
       fireEvent.click(screen.getByRole("button", { name: "Repréparer avec les nouveaux échanges" }));
     }
@@ -118,11 +125,22 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(screen.getByTestId("preparation-newer-conversation")).toBeInTheDocument();
     expect(bridge.mock.calls.some(([r]) => r.documentDraftRequest)).toBe(false);
   });
-  it("never turns assent after a ready review into adoption", async () => {
+  it("binds explicit conversational assent to the exact ready review without another provider call", async () => {
     const h = setup(); await initialChat(); fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
-    await act(async () => h.release()); await screen.findByTestId("project-finalization-card"); send("je valide");
+    await act(async () => h.release()); await screen.findByTestId("project-finalization-card");
+    const openBefore = h.state().studyProposal!.proposal.atoms.filter(atom => atom.status === "OPEN_DECISION").length;
+    send("je valide");
     await waitFor(() => expect(h.state().runtimeTurns.filter(t => t.role === "USER")).toHaveLength(2));
-    expect(h.state().project).toBeNull(); expect(h.wdCalls()).toHaveLength(1);
+    await waitFor(() => expect(h.state().project?.revision).toBe(1));
+    expect(h.state().workingDraftPreparations?.at(-1)?.decision).toBe("ADOPTED");
+    expect(h.state().studyProposal!.proposal.atoms.filter(atom => atom.status === "OPEN_DECISION")).toHaveLength(openBefore);
+    const assent = h.state().runtimeTurns.filter(t => t.role === "USER").at(-1)!;
+    expect(assent.content).toBe("je valide");
+    expect(h.state().scientificDiscussionRetention?.sourceCoverage.find(source => source.turnRef === assent.turnId))
+      .toMatchObject({ nonPersistentReason: "GOVERNED_OWNER_EVENT", classificationOwner: "RESEARCH_PROJECT" });
+    expect(h.wdCalls()).toHaveLength(1);
+    expect(bridge).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole("checkbox")).toBeNull();
   });
   it("adopts the explicit review exactly once, persists it and never calls DOC", async () => {
     const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
@@ -133,6 +151,37 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     persistFunctionalResetSession(localStorage,h.state());
     expect(loadFunctionalResetSession(localStorage).project?.projectDigest).toBe(h.state().project?.projectDigest);
     expect(bridge.mock.calls.some(([r])=>r.documentDraftRequest)).toBe(false);
+  });
+  it("keeps Standard conversational, and refuses qualified, stale or misbound assent", async () => {
+    const h = setup(); await initialChat();
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    await act(async () => h.release()); await screen.findByTestId("project-finalization-card");
+    expect(screen.queryByRole("checkbox")).toBeNull();
+    expect(screen.queryByText("Voir / modifier les choix")).toBeNull();
+    expect(screen.getByText(/Est-ce que je mets à jour le projet sur cette base/)).toHaveTextContent("Restent ouverts");
+    expect(conversationalPreparationConfirmation(h.state(), "oui")).not.toBeNull();
+    expect(conversationalPreparationConfirmation(h.state(), "oui, mais sans injection")).toBeNull();
+    expect(conversationalPreparationConfirmation(h.state(), "oui. Ajoutez une biopsie")).toBeNull();
+    const invitation = h.state().entries.at(-1)!;
+    expect(invitation.kind).toBe("TEXT");
+    if (invitation.kind !== "TEXT" || !invitation.reviewInvitation) throw new Error("EXPECTED_INVITATION");
+    const forged = { ...h.state(), entries: [...h.state().entries.slice(0, -1), { ...invitation,
+      reviewInvitation: { ...invitation.reviewInvitation, compositionDigest: "wrong-digest" } }] };
+    expect(conversationalPreparationConfirmation(forged, "oui")).toBeNull();
+    send("Je précise un sous-groupe recevant une biopsie.");
+    await waitFor(() => expect(h.state().runtimeTurns.filter(t => t.role === "NOXIA")).toHaveLength(2));
+    expect(conversationalPreparationConfirmation(h.state(), "oui")).toBeNull();
+    expect(h.state().project).toBeNull(); expect(h.wdCalls()).toHaveLength(1);
+  });
+  it("preserves a failed conversational confirmation without publishing adoption or retrying a provider", async () => {
+    const h = setup("VALID", true); await initialChat();
+    fireEvent.click(screen.getByRole("button", { name: "Revoir les choix du projet" }));
+    await act(async () => h.release()); await screen.findByTestId("project-finalization-card");
+    send("oui");
+    await waitFor(() => expect(screen.getByRole("textbox", { name: "Votre message" })).toHaveValue("oui"));
+    expect(h.state().project).toBeNull();
+    expect(h.state().workingDraftPreparations?.at(-1)?.decision).toBe("PENDING");
+    expect(bridge).toHaveBeenCalledTimes(2);
   });
   it.each(["NO_CHANGE","CYCLE","TRUNCATED","TIMEOUT"] as const)("persists an honest terminal outcome: %s",async outcome=>{
     const h=setup(outcome);await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
@@ -169,10 +218,12 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     expect(h.state().workingDraftPreparations?.[0].postCutoffBlocker).toContain("REFUSAL_OR_CORRECTION");
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();expect(h.state().project).toBeNull();
   });
-  it("requires actual per-group review after a later question and permits explicit compatible adoption",async()=>{
+  it("reserves partial per-group reconciliation for Expert and permits explicit compatible adoption",async()=>{
     const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Revoir les choix du projet"}));
     send("Existe-t-il une bibliographie ?");await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(screen.getByRole("button",{name:"Valider ces choix"})).toBeDisabled();
     for(const checkbox of screen.getAllByRole("checkbox"))fireEvent.click(checkbox);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));

@@ -12,6 +12,7 @@ type Props = Readonly<{
   currentProject: ResearchProjectOwnerProjection | null;
   workingDraft: WorkingDraftMetadata;
   disabled: boolean;
+  projectionMode?: "STANDARD" | "EXPERT";
   error?: string | null;
   capturedAt?: string;
   newerTurns?: readonly ScientificInterpretationTurn[];
@@ -32,7 +33,7 @@ export default function ProjectFinalizationCard({
   workingDraft,
   disabled,
   error,
-  onConfirm, capturedAt, newerTurns = [], onAbandon, onReprepare,
+  onConfirm, capturedAt, newerTurns = [], onAbandon, onReprepare, projectionMode = "EXPERT",
 }: Props) {
   const [selectedGroups, setSelectedGroups] = useState<readonly string[]>([]);
   const groups = contributionDecisionScopeGroups(candidate, currentProject);
@@ -43,6 +44,22 @@ export default function ProjectFinalizationCard({
   const decisionCount = visibleDecisionCount(candidate);
   const openPointCount = workingDraft.metrics.openHighValueDecisions;
   const superseded = workingDraft.history.filter((item) => item.status === "SUPERSEDED");
+
+  if (projectionMode === "STANDARD") return <section data-testid="project-finalization-card"
+    className="border-t px-4 py-3 text-sm sm:px-5" aria-label="Confirmation du projet">
+    {requiresReconciliation ? <div data-testid="preparation-newer-conversation">
+      <p>Vos nouveaux échanges ne sont pas inclus dans les choix ci-dessus. Reprenons-les avant de mettre à jour le projet.</p>
+      <ul className="mt-2 space-y-1">{newerTurns.map(turn => <li key={turn.turnId}>{turn.content}</li>)}</ul>
+      {onReprepare && <button type="button" onClick={onReprepare} className="mt-2 min-h-11 rounded-xl border px-4 py-2">
+        Repréparer avec les nouveaux échanges
+      </button>}
+    </div> : <p>Vous pouvez confirmer ces choix dans la conversation. Les points ouverts resteront ouverts.</p>}
+    <button type="button" disabled={disabled || requiresReconciliation} onClick={() => onConfirm()}
+      className="mt-2 min-h-11 rounded-xl border px-4 py-2 disabled:opacity-40">Valider ces choix</button>
+    {onAbandon && <button type="button" disabled={disabled} onClick={onAbandon}
+      className="ml-2 min-h-11 rounded-xl px-3 py-2">Poursuivre sans enregistrer</button>}
+    {error && <p role="alert" className="mt-2 text-destructive">{error}</p>}
+  </section>;
 
   return <section className="border-t bg-primary/5 px-4 py-4 sm:px-5" data-testid="project-finalization-card" aria-labelledby="project-finalization-title">
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

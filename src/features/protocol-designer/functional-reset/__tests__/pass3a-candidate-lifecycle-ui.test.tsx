@@ -394,6 +394,9 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     });
     expect(retained.candidate.humanReviewProjection.sections.find((section) => section.label === "Critère principal")?.items)
       .toContainEqual(expect.objectContaining({ changeRef: primaryEndpointItem?.changeRef }));
+    // CURRENT_SEMANTIC_INVARIANT: candidate/source survival, no fixture weakening.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     const details = screen.getByTestId("functional-review-details");
     expect(screen.queryByTestId("understanding-review-card")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText("Voir les détails"));
@@ -422,6 +425,8 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(adopted.canonicalState?.objects.filter((item) => item.actuality === "CURRENT" && item.objectType === "ACQUISITION")).toHaveLength(1);
     expect(adopted.canonicalState?.objects.filter((item) => item.actuality === "CURRENT" && item.objectType === "CANONICAL_VARIABLE")
       .some((item) => /paramètre (?:précoce|tardif)/iu.test(item.content))).toBe(false);
+    // CURRENT_SEMANTIC_INVARIANT: keep the original Standard Project projection.
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel).toHaveTextContent("Version 1");
     for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité"]) {

@@ -309,6 +309,10 @@ describe("independent Standard workspace through public admission", () => {
     send("je retiens cette architecture, montre-moi ce qui va être enregistré");
     await waitFor(() => expect(requests).toHaveLength(5));
     expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeDisabled();
+    // CURRENT_STRUCTURAL_INVARIANT: public admission and immutable cutoff;
+    // partial group reconciliation is now exclusively an Expert action.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     for (const group of screen.getAllByRole("checkbox", { name: /Confirmer ce groupe après relecture/iu })) fireEvent.click(group);
     expect(screen.getByRole("button", { name: "Valider ces choix" })).toBeEnabled();
     expect(loadFunctionalResetSession(localStorage).project).toBeNull();

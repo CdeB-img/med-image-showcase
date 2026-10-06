@@ -132,6 +132,9 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const first = renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     const firstReview = await screen.findByTestId("functional-contribution-review");
+    // CURRENT_STRUCTURAL_INVARIANT: explicit adoption/reload; audit details moved to Expert.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     fireEvent.click(within(firstReview).getByTestId("functional-review-details"));
     fireEvent.click(await screen.findByText("Sources et provenance"));
     expect(screen.getByText(/comparaison avec/,{selector:"li p"})).toBeVisible();
@@ -180,6 +183,9 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     first.unmount();
     renderDemo();
     const reloadedReview = await screen.findByTestId("functional-contribution-review");
+    // LEGACY_COMPATIBILITY: keep the old persisted shape, inspect it in Expert.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     fireEvent.click(within(reloadedReview).getByTestId("functional-review-details"));
     fireEvent.click(await screen.findByText("Sources et provenance"));
     expect(screen.getByText(/comparaison avec/,{selector:"li p"})).toBeVisible();

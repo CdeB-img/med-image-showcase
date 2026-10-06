@@ -255,6 +255,10 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
       preProjectNavigation: { owner: "QUERY_NAVIGATION", action: "PROPOSE", projectWriteAuthorized: false },
     });
     expect(await screen.findByText(NATURAL_CEC_RESPONSE)).toBeInTheDocument();
+    // CURRENT_SEMANTIC_INVARIANT: source/meaning assertions unchanged.
+    // SUPERSEDED_CONTRACT: technical source inspection in Standard.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     const details = await screen.findByTestId("functional-review-details");
     fireEvent.click(details);
     fireEvent.click(await screen.findByText("Sources et provenance"));
@@ -315,8 +319,7 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     )).toBe(true);
 
     fireEvent.click(screen.getByRole("button",{name:"Close"}));
-    fireEvent.click(screen.getByLabelText("Plus d’options"));
-    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
+    // Already in Expert following the explicit source inspection above.
     expect(screen.getByTestId("trace-inspector")).toBeInTheDocument();
     expect(screen.getByTestId("protocol-designer-development-diagnostics")).toHaveTextContent("MOTIVATES_DATA_NEED");
   });

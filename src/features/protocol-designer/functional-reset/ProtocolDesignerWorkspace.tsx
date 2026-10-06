@@ -13,7 +13,7 @@ import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "luc
 import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
 import { insertDictationAtCaret } from "@/features/protocol-designer/voice/voice-dictation-contract";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import { DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, type ScientificTraceCaptureConfiguration } from "@/features/protocol-designer/scientific-execution-trace";
@@ -494,6 +494,8 @@ export default function ProtocolDesignerWorkspace({
   const { submitText, submitTerraText, applyStudyDesignInput, applyObservabilityInput, applyImagingInput, applyBiostatisticsInput } = useConversationTurn({
     session, latestSessionRef, setSession, busy, setBusy, setBusyMessage, setDraft, correctionMode, setCorrectionMode,
     autonomousProjectBuild, traceCaptureConfiguration, setPostAdoptionContinuationJob, confirmContribution, rejectContribution,
+    conversationalConfirmationEnabled: projectionMode === "STANDARD",
+    confirmPreparedProject: userTurn => confirmProject(undefined, userTurn),
     dispatchProductDocumentAction, handleDocumentInstruction, persistenceFailureMessage,
   });
 
@@ -508,7 +510,7 @@ export default function ProtocolDesignerWorkspace({
   const confirmationReceiptStatus = visibleConfirmationReceipt
     ? conversationConfirmationReceiptStatus(session, visibleConfirmationReceipt) : null;
 
-  const confirmProject = async (selectedChangeRefs?: readonly string[]) => {
+  const confirmProject = async (selectedChangeRefs?: readonly string[], explicitUserTurn?: ScientificInterpretationTurn) => {
     const current = latestSessionRef.current;
     const review = projectPreparationReview(current);
     const adoptionTrace = createProjectAdoptionTrace(current, review, selectedChangeRefs);
@@ -521,10 +523,10 @@ export default function ProtocolDesignerWorkspace({
     }
     const { prepared, composition, checkpoint } = review;
     setReviewError(null);
-    const { scope, userTurn } = projectPreparationConfirmationInput(review);
+    const { scope, userTurn } = projectPreparationConfirmationInput(review, explicitUserTurn);
     try {
     const result = await confirmContribution(prepared.contribution.identity.contributionId, {
-      userTurn, originalText: "Valider ces choix", gatewayState: current.conversationLanguageGateway,
+      userTurn, originalText: explicitUserTurn?.content ?? "Valider ces choix", gatewayState: current.conversationLanguageGateway,
       traceLedger: adoptionTrace.ledger(), stylePreference: null,
       selectedChangeRefs: selectedChangeRefs ?? prepared.candidate.humanReviewProjection.coveredChangeRefs,
       prepareRemainingTurn: false,
@@ -635,6 +637,7 @@ export default function ProtocolDesignerWorkspace({
     key={`${preparationReview.checkpoint.preparationId}:${preparationReview.newerTurns.map(t => t.turnId).join(":")}`}
     contribution={preparationReview.prepared.contribution} candidate={preparationReview.prepared.candidate}
     currentProject={session.project} workingDraft={preparationReview.workingDraft}
+    projectionMode={projectionMode}
     disabled={busy || workingDraftBusy || !preparationReview.applicable || Boolean(preparationReview.blocker)}
     error={preparationReview.blocker === "PROJECT_BASE_CHANGED"
       ? "La version du projet a changé. Cette revue est conservée ; préparez une nouvelle mise à jour depuis la version courante."
@@ -719,7 +722,7 @@ export default function ProtocolDesignerWorkspace({
                   {!session.entries.some(entry => entry.kind === "REVIEW") && <p className="text-sm text-muted-foreground">Les pistes discutées figurent dans la conversation. Aucun choix n’est encore soumis à confirmation.</p>}
                   {session.entries.filter(entry => entry.kind === "REVIEW").map(entry => entry.kind === "REVIEW" && <ContributionReview
                     key={entry.entryId} contribution={entry.contribution} candidate={entry.candidate ?? prepareResearchProjectContributionCandidate(entry.contribution, projectExistedForReview(session.entries.indexOf(entry)) ? session.project : null)}
-                    status={entry.status} reviewDecision={entry.decision} decisionPartition={entry.decisionPartition} expanded readOnly
+                    status={entry.status} reviewDecision={entry.decision} decisionPartition={entry.decisionPartition} projectionMode={projectionMode} expanded readOnly
                     onConfirm={() => undefined} onCorrect={() => undefined} onReject={() => undefined} />)}
                 </section>
               </div>
@@ -830,6 +833,7 @@ export default function ProtocolDesignerWorkspace({
                 )}
                 currentProject={projectExistedForReview(index) ? session.project : null}
                 status={entry.status}
+                projectionMode={projectionMode}
                 reviewDecision={entry.decision}
                 decisionPartition={entry.decisionPartition}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
@@ -998,7 +1002,7 @@ export default function ProtocolDesignerWorkspace({
             onClick={() => conversationScrollRef.current?.scrollTo({ top: 0, behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>
             <ArrowUp className="h-4 w-4" /> Haut
           </button>}
-          {import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
+          {projectionMode === "EXPERT" && import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME !== "TERRA" && session.studyProposal && (!session.studyProposal.recomputation || session.pendingContribution?.identity.contributionId !== session.studyProposal.recomputation.contributionRef) && <div className="px-4 pb-4 sm:px-5"><StudyProposalReview key={session.studyProposal.digest}
             composition={session.studyProposal} project={session.project} disabled={busy} onValidate={validateStudyProposal} onDisposition={disposeStudyProposal}
             onDiscuss={subject => { setDraft(`Je souhaite discuter ${subject} : `); }} /></div>}
           {projectFinalizationCard}

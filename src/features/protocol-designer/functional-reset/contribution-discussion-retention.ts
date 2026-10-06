@@ -23,8 +23,12 @@ const coverage = z.object({
   nonPersistentReason: z.enum(["NO_SCIENTIFIC_MEANING", "PRESENTATION_ONLY"]).nullable(),
   elements: z.array(meaning),
 }).strict();
+const contributionOutcome = z.enum(["ACCEPT_AS_CLEAR", "PROPOSE_INTERPRETATION", "ASK_CLARIFICATION"]);
 export const terraScientificResultSchema = z.object({
   reply: ref,
+  // Historical receipts remain readable; new provider outputs must classify
+  // the turn. Meaning remains in the existing elements, not a second store.
+  contributionOutcome: contributionOutcome.optional(),
   userContribution: coverage,
   assistantContribution: coverage,
   dispositions: z.array(z.object({
@@ -37,7 +41,7 @@ export const terraScientificResultSchema = z.object({
 }).strict();
 export type TerraScientificResult = z.infer<typeof terraScientificResultSchema>;
 export const terraScientificResultJsonSchema = () => {
-  const { $schema: _dialect, ...schema } = z.toJSONSchema(terraScientificResultSchema);
+  const { $schema: _dialect, ...schema } = z.toJSONSchema(terraScientificResultSchema.extend({ contributionOutcome }));
   return schema;
 };
 type Turn = Pick<ScientificInterpretationTurn, "turnId" | "role" | "content">;
@@ -97,11 +101,28 @@ const rejectRetention = (field: string, valueClass: string, invariant: string, b
 };
 // An unknown property name can itself contain private text. Only contract
 // field names and anonymous array positions may enter a schema diagnostic.
-const receiptFieldNames = new Set(["reply", "userContribution", "assistantContribution", "coverage", "nonPersistentReason",
+const receiptFieldNames = new Set(["reply", "contributionOutcome", "userContribution", "assistantContribution", "coverage", "nonPersistentReason",
   "elements", "id", "content", "epistemicState", "polarity", "conditions", "linkedIds", "dispositions", "elementRef",
   "status", "replacementId", "explicitUserDirection", "candidateBindings", "candidateRef", "changeRef"]);
 const sanitizedReceiptField = (path: readonly PropertyKey[]) => ("result" + path.slice(0, 10).map(part => typeof part === "number"
   ? "[]" : typeof part === "string" && receiptFieldNames.has(part) ? `.${part}` : ".unknownField").join("")).slice(0, 160);
+
+/** Validate the producer's declared outcome, never infer materiality from text.
+ * Clarification succeeds as conversation but cannot settle or bind a decision. */
+export const assertTerraContributionOutcome = (result: TerraScientificResult): void => {
+  if (result.contributionOutcome === "PROPOSE_INTERPRETATION"
+    && !result.assistantContribution.elements.some(element => element.epistemicState === "PROPOSED_NOT_ADOPTED"))
+    rejectRetention("result.contributionOutcome", "INTERPRETATION_WITHOUT_PROPOSED_MEANING",
+      "INTERPRETATION_REMAINS_PROPOSED_NOT_ADOPTED", "INTERPRETATION_PROPOSED_MEANING");
+  if (result.contributionOutcome !== "ASK_CLARIFICATION") return;
+  if (![...result.userContribution.elements, ...result.assistantContribution.elements]
+    .some(element => element.epistemicState === "OPEN_UNKNOWN"))
+    rejectRetention("result.contributionOutcome", "CLARIFICATION_WITHOUT_OPEN_MEANING",
+      "MATERIAL_CLARIFICATION_RETAINS_UNRESOLVED_MEANING", "CLARIFICATION_OPEN_MEANING");
+  if (result.candidateBindings.length || result.dispositions.length)
+    rejectRetention("result.contributionOutcome", "CLARIFICATION_WITH_DECISION_EFFECT",
+      "CLARIFICATION_NEITHER_BINDS_NOR_SETTLES_DECISIONS", "CLARIFICATION_DECISION_EFFECT");
+};
 
 export const validateScientificDiscussionRetention = (state: ScientificDiscussionRetention, conversationId: string,
   turns: readonly Turn[], onFailure?: (diagnostic: ScientificDiscussionRetentionDiagnostic) => void): boolean => {
@@ -175,6 +196,7 @@ export const retainScientificDiscussionResult = (input: {
     sanitizedReceiptField(parsed.error.issues[0]?.path ?? []), "INVALID_SCHEMA", "TERRA_SCIENTIFIC_RESULT_SCHEMA",
     "RESULT_SCHEMA", "terraScientificResultSchema"));
   const result = parsed.data;
+  assertTerraContributionOutcome(result);
   const previous = input.state ?? emptyScientificDiscussionRetention(input.conversationId);
   let stateFailure: ScientificDiscussionRetentionDiagnostic | null = null;
   const observeStateFailure = (diagnostic: ScientificDiscussionRetentionDiagnostic) => { stateFailure = diagnostic; };
@@ -343,6 +365,7 @@ export const recordGovernedAdoptionContextEvent = (state: ScientificDiscussionRe
 };
 
 export const TERRA_RETENTION_INSTRUCTION = `\nRetourne l'enveloppe structurée demandée, avec reply contenant uniquement la réponse française naturelle visible.
+contributionOutcome qualifie le dernier tour : ACCEPT_AS_CLEAR, PROPOSE_INTERPRETATION ou ASK_CLARIFICATION. Ce sont des issues conversationnelles réussies, pas des autorisations d'adoption. Ne montre jamais ces codes dans reply. Pour ASK_CLARIFICATION, conserve le sens matériel non résolu dans au moins un élément OPEN_UNKNOWN ; candidateBindings=[] et dispositions=[] : la question ne choisit, ne remplace ni ne ferme une décision. Les faits indépendants clairement fournis restent représentés sans résoudre cette ambiguïté. Pour PROPOSE_INTERPRETATION, l'interprétation NOXIA reste PROPOSED_NOT_ADOPTED et l'incertitude résiduelle OPEN_UNKNOWN ; elle ne devient pas USER_STATED. L'issue ACCEPT_AS_CLEAR ne ferme pas les autres inconnues de l'étude.
 SCIENTIFIC_THINKING porte la qualification sémantique de chaque source : classifie exhaustivement le dernier USER et ta réponse en éléments scientifiques minimum suffisants, ou déclare explicitement NO_SCIENTIFIC_MEANING/PRESENTATION_ONLY. Pas de copie systématique du texte complet, pas de résumé du transcript ni de nouvelle synthèse du Project. Conserve chaque négation, condition, incertitude et relation matérielle. Un fragment adopté ne couvre pas le reste du message. Si la couverture est incertaine, déclare PARTIAL/UNKNOWN ; ne prétends jamais COMPLETE par défaut. Une suggestion NOXIA reste PROPOSED_NOT_ADOPTED.
 LIENS INTERNES AUX CONTRIBUTIONS : elements[].id identifie uniquement un élément local et doit être unique dans sa contribution. Chaque linkedIds doit correspondre exactement à un id réellement émis dans elements de la même contribution : userContribution et assistantContribution ont des espaces de liens séparés. Ne référence jamais dans linkedIds un élément de l'autre contribution, un tour/source, un objet Project, une candidate, une contribution précédente ni un libellé conceptuel. Les ancrages source/provenance sont portés par les bindings dédiés existants et par le propriétaire natif, jamais par linkedIds. Si aucun élément cible local n'est émis, retourne linkedIds=[] ; n'invente ni cible ni correspondance. Conserve le sens scientifique dans content/conditions, sans masquer une relation matérielle par cette absence de lien. Exemple structurel : si elements contient les ids local-a et local-b, local-b peut référencer local-a ; un id source externe ou absent reste interdit. Avant de retourner le receipt, vérifie séparément la fermeture de tous les linkedIds dans chacune des deux contributions.
 Les dispositions ne concernent que les refs actives fournies et une direction USER explicite dans ce tour ; une absence, ancienneté, silence ou simple similarité ne ferme jamais une contribution. SUPERSEDED exige replacementId d'un nouvel élément USER. Une fermeture partielle n'élimine pas les autres éléments. candidateBindings exprime une correspondance sémantique précise avec un changement natif validé déjà fourni, ancré à la même source ; ce lien n'adopte rien. Aucun write Project/QRY/Review/DOC. Aucun contenu historique clos dans la réponse nominale.`;

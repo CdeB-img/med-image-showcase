@@ -16,6 +16,7 @@ type Props = {
   candidate: ResearchProjectContributionCandidate;
   currentProject?: ResearchProjectOwnerProjection | null;
   status: "PENDING" | "CONFIRMED" | "REJECTED";
+  projectionMode?: "STANDARD" | "EXPERT";
   reviewDecision?: Readonly<{ status: string; targets: readonly string[] }> | null;
   decisionPartition?: Readonly<{ refused: readonly string[]; corrected: readonly string[]; pending: readonly string[] }>;
   actionable?: boolean;
@@ -181,7 +182,7 @@ const preservedProjectPropertiesForReview = (
     .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
 };
 
-export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, actionable = true, disabled = false, expanded = false, readOnly = false, detailedUnderstanding, onConfirm, onConfirmScope, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, currentProject, status, reviewDecision, decisionPartition, projectionMode = "EXPERT", actionable = true, disabled = false, expanded = false, readOnly = false, detailedUnderstanding, onConfirm, onConfirmScope, onCorrect, onReject }: Props) {
   const scopeGroups = useMemo(() => contributionDecisionScopeGroups(candidate, currentProject ?? null), [candidate, currentProject]);
   const [selectedGroups, setSelectedGroups] = useState<readonly string[] | null>(null);
   const scopeItems = candidate.humanReviewProjection.sections.flatMap(section => section.items);
@@ -255,7 +256,9 @@ export default function ContributionReview({ contribution, candidate, currentPro
       {preservedProperties.map(property => <div key={property.id}><dt className="font-semibold">{property.label}</dt><dd>{property.content}</dd></div>)}
     </dl>}
     <p className="mt-3 text-xs text-muted-foreground">{summaryRows.reduce((count, row) => count + row.items.length, 0)} choix proposés · {clarificationPoints.length} points ouverts</p>
-    {!readOnly && onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
+    {projectionMode === "STANDARD" && status === "PENDING" && !readOnly && actionable
+      && <p className="mt-3 text-sm">Les points ouverts restent ouverts. Est-ce que je mets à jour le projet sur cette base ?</p>}
+    {projectionMode === "EXPERT" && !readOnly && onConfirmScope && status === "PENDING" && actionable && scopeGroups.length > 1 && <details className="mt-4 rounded-xl border p-3">
       <summary className="cursor-pointer text-sm font-medium">Choisir les éléments à enregistrer</summary>
       <p className="mt-2 text-xs text-muted-foreground">Les éléments dépendants sont regroupés. Les éléments non sélectionnés restent en discussion.</p>
       <div className="mt-2 space-y-2">{scopeGroups.map(group => {
@@ -273,7 +276,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
         {!readOnly && status === "PENDING" && actionable && <button type="button" disabled={disabled} onClick={() => { onConfirm(); setDetailsOpen(false); }} className="mt-5 min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Confirmer les choix et enregistrer</button>}
         {!readOnly && status === "PENDING" && actionable && <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={disabled} onClick={() => { onCorrect(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Décrire une correction</button><button type="button" disabled={disabled} onClick={() => { onReject(); setDetailsOpen(false); }} className="min-h-10 rounded-xl border px-3 text-sm">Refuser cette proposition</button></div>}
 
-    <Sheet open={detailsOpen} onOpenChange={setDetailsOpen}>
+    {projectionMode === "EXPERT" && <Sheet open={detailsOpen} onOpenChange={setDetailsOpen}>
       <SheetTrigger asChild><button type="button" className="mt-1 min-h-8 text-sm font-medium underline underline-offset-4" data-testid="functional-review-details">Voir les détails</button></SheetTrigger>
       <SheetContent className="w-[min(96vw,680px)] overflow-y-auto sm:max-w-[680px]">
         <SheetHeader><SheetTitle>Détails techniques de la revue</SheetTitle><SheetDescription>Relations, sources et provenance des choix proposés.</SheetDescription></SheetHeader>
@@ -320,7 +323,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
       </div>}
         </details>
       </SheetContent>
-    </Sheet>
+    </Sheet>}
 
 
 

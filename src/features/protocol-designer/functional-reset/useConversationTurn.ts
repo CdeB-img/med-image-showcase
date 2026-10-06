@@ -25,6 +25,7 @@ import { projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-proje
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { prepareConversationTurnContext, prepareConfiguredConversationRequest, prepareTerraConversationRequest, assertConversationSubmissionContextCurrent } from "./conversation-request";
 import { deliverTerraConversationResult, prepareTerraRecordingResult, prepareConfiguredConversationReceipt, realizeConfiguredConversationReceipt, applyConfiguredConversationReceipt } from "./conversation-result-application";
+import { conversationalPreparationConfirmation } from "./project-preparation-lifecycle";
 
 type ConversationTurnPorts = Readonly<{
   session: FunctionalResetSession;
@@ -37,6 +38,8 @@ type ConversationTurnPorts = Readonly<{
   correctionMode: boolean;
   setCorrectionMode: Dispatch<SetStateAction<boolean>>;
   autonomousProjectBuild: boolean;
+  conversationalConfirmationEnabled?: boolean;
+  confirmPreparedProject?: (userTurn: ScientificInterpretationTurn) => Promise<FunctionalResetSession | false | null>;
   traceCaptureConfiguration: ScientificTraceCaptureConfiguration;
   setPostAdoptionContinuationJob: Dispatch<SetStateAction<PostAdoptionContinuationJob | null>>;
   confirmContribution: (contributionId: string, naturalDecision?: NaturalContributionDecisionContext) => Promise<FunctionalResetSession | false | null>;
@@ -50,7 +53,8 @@ type ConversationTurnPorts = Readonly<{
 // Foreground lifecycle only. Scientific decisions, requests, receipts and persistence
 // remain delegated to their existing owners and application boundaries.
 export function useConversationTurn({ session, latestSessionRef, setSession, busy, setBusy, setBusyMessage, setDraft,
-  correctionMode, setCorrectionMode, autonomousProjectBuild, traceCaptureConfiguration, setPostAdoptionContinuationJob,
+  correctionMode, setCorrectionMode, autonomousProjectBuild, conversationalConfirmationEnabled, confirmPreparedProject,
+  traceCaptureConfiguration, setPostAdoptionContinuationJob,
   confirmContribution, rejectContribution, dispatchProductDocumentAction, handleDocumentInstruction, persistenceFailureMessage,
 }: ConversationTurnPorts) {
   const foregroundInFlightRef = useRef(false);
@@ -210,6 +214,17 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
   };
   const submitText = async (content: string, continuedTurn?: ScientificInterpretationTurn) => {
     if (!content || busy) return;
+    if (!continuedTurn && conversationalConfirmationEnabled && confirmPreparedProject
+      && conversationalPreparationConfirmation(latestSessionRef.current, content)) {
+      if (foregroundInFlightRef.current) return;
+      foregroundInFlightRef.current = true;
+      setDraft("");
+      try {
+        const result = await confirmPreparedProject({ turnId: createTurnId(), role: "USER", content, createdAt: new Date().toISOString() });
+        if (!result) setDraft(current => current || content);
+      } finally { foregroundInFlightRef.current = false; }
+      return;
+    }
     if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
       if (continuedTurn) {
         await submitTerraText(content, false, continuedTurn);

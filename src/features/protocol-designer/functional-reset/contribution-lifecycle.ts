@@ -14,6 +14,23 @@ export type { ScientificDiscussionContext } from "./contribution-discussion-cont
 // Session-consumer lifecycle only. These records never become Project objects,
 // never perform adoption, and never schedule a provider or an extraction.
 export type CandidateBaseProject = Readonly<Pick<ResearchProjectOwnerProjection, "projectId" | "versionId" | "projectDigest">> | null;
+/** Standard conversational projection of the native review. No truncation,
+ * new scientific interpretation or independent decision identities. */
+export const conversationalProjectConfirmation = (candidate: ResearchProjectContributionCandidate): string => {
+  const sections = candidate.humanReviewProjection.sections.map(section => {
+    const choices = [...new Set(section.items.filter(item => item.objectType !== "UNCERTAINTY").map(item =>
+      item.transition ? `Remplacer « ${item.transition.current} » par « ${item.transition.proposed} »`
+        : item.operation === "REMOVE" ? `Retirer : ${item.content}` : item.content))];
+    return choices.length ? `${section.label} : ${choices.join(" ; ")}` : null;
+  }).filter(Boolean);
+  const open = [...new Set([
+    ...candidate.humanReviewProjection.sections.flatMap(section => section.items.filter(item => item.objectType === "UNCERTAINTY").map(item => item.content)),
+    ...candidate.humanReviewProjection.openPoints.map(point => point.content),
+  ])];
+  return `Je propose de retenir les choix suivants.\n\n${sections.join("\n\n")}\n\n${open.length
+    ? `Restent ouverts : ${open.join(" ; ")}. Cette confirmation ne les résout pas.`
+    : "Aucun autre point ouvert n'est signalé dans ce périmètre."}\n\nEst-ce que je mets à jour le projet sur cette base ?`;
+};
 export type CandidateDependencyBinding = Readonly<{
   ref: string;
   version: string;

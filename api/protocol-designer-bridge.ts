@@ -13,7 +13,7 @@ import { prepareScientificCollaboratorConversation, guardScientificCollaboratorL
 import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { STUDY_PROPOSAL_CAPACITY } from "../src/features/scientific-thinking/study-proposal-capacity.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
-import { terraScientificResultSchema, retainScientificDiscussionResult, scientificDiscussionRetentionFailureDiagnostic } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
+import { terraScientificResultSchema, assertTerraContributionOutcome, retainScientificDiscussionResult, scientificDiscussionRetentionFailureDiagnostic } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
@@ -394,6 +394,7 @@ export const executeProtocolDesignerBridge = async (input: {
           reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
       try { retainedScientificResult = terraScientificResultSchema.parse(JSON.parse(terraConversation.value)); }
       catch { throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID"); }
+      assertTerraContributionOutcome(retainedScientificResult);
       retainScientificDiscussionResult({ conversationId: request.conversation.conversationId,
         runtimeTurns: [...request.conversation.turns, { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply }],
         userTurn: latestUser, assistantTurn: { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply },
@@ -437,7 +438,8 @@ export const executeProtocolDesignerBridge = async (input: {
   let extractionAttempts: 0 | 1 | 2 = 0;
   let recoveryContext: Omit<NonNullable<ProductBridgeResponse["persistentExtraction"]["recovery"]>, "outcome"> | null = null;
 
-  if (request.evaluatePersistentDelta && (input.chatRuntime !== "TERRA" || terraConversation)) {
+  if (request.evaluatePersistentDelta && (input.chatRuntime !== "TERRA"
+    || terraConversation && retainedScientificResult?.contributionOutcome !== "ASK_CLARIFICATION")) {
     try {
       if (!input.openAiApiKey?.trim()) {
         throw new ProductBridgeProviderError(

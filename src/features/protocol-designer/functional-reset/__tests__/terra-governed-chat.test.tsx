@@ -177,6 +177,9 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
     let accepted = false; const persist = vi.fn((next) => { if (next.project && !accepted) return false; persistFunctionalResetSession(localStorage, next); return true; });
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(persist)} /></HelmetProvider>);
     await waitFor(() => expect(loadFunctionalResetSession(localStorage).retainedContributionCandidates?.[0].presentedAt).toBeTruthy());
+    // CURRENT_STRUCTURAL_INVARIANT: scientific-save verdict, not Standard audit UX.
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     fireEvent.click(screen.getByRole("button", { name: "Voir les détails" }));
     fireEvent.click(screen.getByRole("button", { name: "Confirmer les choix et enregistrer" }));
     await waitFor(() => expect(screen.getByText(/n’a pas pu mettre à jour cette partie du projet/)).toBeInTheDocument());

@@ -74,7 +74,8 @@ export function prepareTerraRecordingResult(input: {
   session: FunctionalResetSession; response: ProductBridgeResponse; prepareRecording: boolean; traceRunId: string; userTurn: ScientificInterpretationTurn; receivedAt: string; content: string;
 }) {
   const { session, response, prepareRecording, traceRunId, userTurn, receivedAt, content } = input;
-  const contribution = prepareRecording ? response.persistentExtraction.contribution : null;
+  const recordingRequested = prepareRecording && response.scientificConversation?.retainedScientificResult?.contributionOutcome !== "ASK_CLARIFICATION";
+  const contribution = recordingRequested ? response.persistentExtraction.contribution : null;
   let candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> | null = null;
   let retained = session.retainedContributionCandidates;
   let preparationFailed = false;
@@ -102,7 +103,7 @@ export function prepareTerraRecordingResult(input: {
       entryId: createConversationEntryId(), kind: "REVIEW" as const, role: "NOXIA" as const,
       contribution, candidate, traceRunId, status: "PENDING" as const, createdAt: receivedAt
     }] : []),
-    ...(prepareRecording && !reviewable ? [{
+    ...(recordingRequested && !reviewable ? [{
       entryId: createConversationEntryId(), kind: "ERROR" as const,
       role: "NOXIA" as const, content: !preparationFailed && response.persistentExtraction.status === "NO_CHANGE"
         ? "Aucun nouveau changement à enregistrer. Le projet adopté est conservé."

@@ -16,6 +16,7 @@ import { recordProjectPreparationTrace } from "./project-preparation-trace.js";
 import type { WorkingReviewOwnerObservation } from "./continuous-project-build.js";
 import { bindRetainedDiscussionProposal } from "./contribution-discussion-retention.js";
 import { buildScientificDiscussionContext } from "./contribution-discussion-context.js";
+import { conversationalProjectConfirmation } from "./contribution-lifecycle.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -281,7 +282,7 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
         ? { ...item, result: { composition, workingDraft } } : item),
       entries: observed.entries.some(e => e.entryId === `preparation-review:${id}`) ? observed.entries : [...observed.entries, {
         entryId: `preparation-review:${id}`, kind: "TEXT", role: "NOXIA", createdAt: new Date().toISOString(),
-        content: "La préparation est terminée. Consultez les choix proposés puis validez explicitement la revue pour mettre à jour le projet.",
+        content: conversationalProjectConfirmation(prepared.candidate),
         reviewInvitation: binding }],
     };
   } catch (error) {
@@ -327,10 +328,33 @@ export const recordPreparationDecision = (session: FunctionalResetSession, id: s
 export const projectPreparationConfirmationApplicable = (review: ReturnType<typeof projectPreparationReview>, busy: boolean, workingDraftBusy: boolean, selectedChangeRefs?: readonly string[]) => Boolean(review && review.applicable && !review.blocker && !busy && !workingDraftBusy
   && !(review.newerTurns.length > 0 && !selectedChangeRefs?.length));
 
-export const projectPreparationConfirmationInput = (review: NonNullable<ReturnType<typeof projectPreparationReview>>) => {
+/** A bare assent is authority only immediately after this exact current
+ * invitation. Later science, a stale base or a qualified assent never adopts. */
+export const conversationalPreparationConfirmation = (session: FunctionalResetSession, text: string) => {
+  const decision = readNaturalCandidateDecision(text);
+  if (decision?.act !== "CONFIRM" || decision.qualified) return null;
+  const review = projectPreparationReview(session);
+  const invitation = session.entries.at(-1);
+  if (!review || !projectPreparationConfirmationApplicable(review, false, false)
+    || invitation?.kind !== "TEXT" || invitation.role !== "NOXIA"
+    || invitation.entryId !== `preparation-review:${review.checkpoint.preparationId}`
+    || !invitation.reviewInvitation) return null;
+  const binding = invitation.reviewInvitation;
+  return binding.sessionId === session.sessionId && binding.conversationId === session.conversationId
+    && binding.projectId === review.checkpoint.projectId
+    && binding.sourceProjectVersion === (session.project?.versionId ?? null)
+    && binding.sourceProjectDigest === (session.project?.projectDigest ?? null)
+    && binding.compositionDigest === review.composition.digest
+    && binding.reviewScopeDigest === review.workingDraft.reviewScopeDigest
+    && binding.candidateRef === review.prepared.contribution.identity.contributionId
+    && binding.contributionDigest === review.prepared.contribution.identity.contributionDigest ? review : null;
+};
+
+export const projectPreparationConfirmationInput = (review: NonNullable<ReturnType<typeof projectPreparationReview>>,
+  explicitUserTurn?: FunctionalResetSession["runtimeTurns"][number]) => {
   const scope = recommendedWorkingScope(review.composition);
   // Preserve the existing order: validate scope before creating identity/time.
-  const userTurn = { turnId: createTurnId(), role: "USER" as const,
+  const userTurn = explicitUserTurn ?? { turnId: createTurnId(), role: "USER" as const,
     content: `Validation explicite de la préparation ${review.checkpoint.preparationId}`, createdAt: new Date().toISOString() };
   return { scope, userTurn };
 };
