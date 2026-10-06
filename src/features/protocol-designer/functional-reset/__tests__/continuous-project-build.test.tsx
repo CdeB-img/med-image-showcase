@@ -1679,6 +1679,9 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeEnabled();
     send("Peut-on discuter de l’analyse ?");
     await screen.findByText("LOCAL_SYNTHETIC — Chat pendant DOC.");
+    // CURRENT_STRUCTURAL_INVARIANT: inject the transport failure only once
+    // the native command consumes it, after asynchronous archive preparation.
+    await waitFor(() => expect(bridge.mock.calls.some(([req]) => Boolean(req.documentDraftRequest))).toBe(true));
     await act(async () => { failDocument(new Error("LOCAL_SYNTHETIC_DOC_FAILURE")); });
     expect(saved.project?.versionId).toBe(project.versionId);
     expect(saved.entries.some(entry => entry.kind === "TEXT" && entry.role === "NOXIA" && entry.content === "LOCAL_SYNTHETIC — Chat pendant DOC.")).toBe(true);
