@@ -246,6 +246,7 @@ export type DrciDraftPack = Readonly<{
   crossConsistency: "SOURCE_BINDINGS_CHECKED_HUMAN_REVIEW_PENDING";
   projectWriteAuthorized: false;
   reusedProtocolEvidenceRef: string | null;
+  reusedScopeEvidenceRefs?: { scope: string; operationRef: string }[];
   evidenceContent?: DocumentEvidenceContent;
   preparationBinding: string;
   synopsisRevision?: import("./synopsis-revision.js").SynopsisRevisionProvenance;
@@ -376,6 +377,7 @@ COHÉRENCE : population, effectif et son statut, critères, parcours, temporalit
 
 export const materializeDrciDraftPack = (value: unknown, input: {
   project: ResearchProjectOwnerProjection; packet: ReturnType<typeof prepareDrciDraftPack>; generatedAt: string; reusedProtocolEvidenceRef?: string | null;
+  reusedScopeEvidenceRefs?: { scope: string; operationRef: string }[];
   synopsisRevision?: import("./synopsis-revision.js").SynopsisRevisionProvenance;
   humanRevision?: { parentPack: DrciDraftPack; record: DrciHumanPackRevision; ancestorPacks?: readonly DrciDraftPack[] };
 }): DrciDraftPack => {
@@ -452,6 +454,7 @@ export const materializeDrciDraftPack = (value: unknown, input: {
     const admittedParent = materializeDrciDraftPack({ documents: parentPack.documents, crfRows: parentPack.crfRows }, {
       project: input.project, packet: input.packet, generatedAt: parentPack.generatedAt,
       reusedProtocolEvidenceRef: parentPack.reusedProtocolEvidenceRef, synopsisRevision: parentPack.synopsisRevision,
+      reusedScopeEvidenceRefs: parentPack.reusedScopeEvidenceRefs,
       ...(ancestor ? { humanRevision: { parentPack: ancestor, record: parentPack.humanRevision!,
         ancestorPacks: input.humanRevision.ancestorPacks?.filter(pack => pack.packDigest !== ancestor.packDigest) } } : {}),
     });
@@ -466,6 +469,7 @@ export const materializeDrciDraftPack = (value: unknown, input: {
     canonicalCrfPackageRef: input.packet.crf.packageId, documents: generated.documents, crfRows: generated.crfRows,
     crossConsistency: "SOURCE_BINDINGS_CHECKED_HUMAN_REVIEW_PENDING" as const, projectWriteAuthorized: false as const,
     reusedProtocolEvidenceRef: input.reusedProtocolEvidenceRef ?? null,
+    ...(input.reusedScopeEvidenceRefs?.length ? { reusedScopeEvidenceRefs: input.reusedScopeEvidenceRefs } : {}),
     ...(evidenceContent ? { evidenceContent } : {}),
     preparationBinding: prepareDrciGenerationBatches(input.packet)[0].runtimeBinding.preparation,
     ...(input.synopsisRevision ? { synopsisRevision: input.synopsisRevision } : {}),

@@ -163,6 +163,7 @@ export const executeProtocolDesignerBridge = async (input: {
   providerAttemptPolicy?: ProviderAttemptPolicy;
   /** Server-owned retained provider evidence; never supplied by browser JSON. */
   readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
+  readReusableDocumentScope?: import("./protocol-designer-openai-extraction-provider.js").ReadReusableDrciScope;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
   const providerCalls: ProviderCallRecord[] = [];
@@ -360,9 +361,10 @@ export const executeProtocolDesignerBridge = async (input: {
       }
       const generated = await executeOpenAIDrciDraft(packet, input.openAiApiKey, input.fetchImpl,
         { context: observationContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, retained,
-        input.openAiTransport, input.documentScopeExecution);
+        input.openAiTransport, input.documentScopeExecution, input.readReusableDocumentScope);
       const pack = materializeDrciDraftPack(generated.value, { project: request.currentProject, packet, generatedAt: documentGeneratedAt,
-        reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision });
+        reusedProtocolEvidenceRef: generated.reusedProtocolEvidenceRef, synopsisRevision: generated.synopsisRevision,
+        reusedScopeEvidenceRefs: "reusedScopeEvidenceRefs" in generated ? generated.reusedScopeEvidenceRefs : undefined });
       const reply = "Le protocole, le synopsis, le CRF et le pré-screening sont disponibles pour revue depuis la version actuelle du projet. Les éléments restant à compléter sont signalés dans les documents.";
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: reply,
         assistantTurn: { turnId: `noxia-drci:${observationContext.clientRequestId}`, role: "NOXIA", content: reply, createdAt },
@@ -1102,6 +1104,8 @@ export const handleProtocolDesignerBridge = async (
       now: dependencies.now,
       documentGeneratedAt: doc?.generatedAt,
       documentScopeExecution: durableGuard.concurrentProviderOperations ? "CONCURRENT" : undefined,
+      readReusableDocumentScope: doc && durableGuard.readReusableDocumentScope
+        ? scope => durableGuard.readReusableDocumentScope!({ context: publicAdmission, body, ...scope }) : undefined,
       providerAttemptPolicy: dependencies.providerAttemptPolicy,
     });
     let archived: { status: number; body: unknown };

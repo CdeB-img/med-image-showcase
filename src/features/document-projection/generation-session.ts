@@ -9,8 +9,24 @@ import type { DocumentProjection } from "./types";
 
 /** Latest successful real generation only; a technical projection is not DOC. */
 export const hasCurrentArchivedGeneration = (session: FunctionalResetSession) => Boolean(session.project
+  && session.documentArchive?.currentGenerationId === session.documentArchive?.currentGeneration?.generationId
   && session.documentArchive?.currentGeneration?.project.projectId === session.project.projectId
+  && session.documentArchive.currentGeneration.project.projectVersion === session.project.versionId
   && session.documentArchive.currentGeneration.project.projectDigest === session.project.projectDigest);
+
+/** An explicit retry keeps the original native handoff/source. A changed
+ * Project or documentary administration is a new input, never a partial resume. */
+export const failedDocumentRetryProjection = (session: FunctionalResetSession,
+  administration?: Parameters<typeof import("./functional-reset-boundary").refreshFunctionalResetDocumentPortfolio>[0]["administration"]) => {
+  const projection = session.documents.projections.at(-1);
+  const binding = session.documents.projectRef;
+  return session.documents.lastFailure && session.project && projection
+    && binding?.projectId === session.project.projectId && binding.projectVersion === session.project.versionId
+    && binding.projectDigest === session.project.projectDigest
+    && projection.source.projectId === session.project.projectId && projection.source.projectVersion === session.project.versionId
+    && projection.source.projectDigest === session.project.projectDigest
+    && projection.source.administrationDigest === administration?.digest ? projection : null;
+};
 
 /** Metadata only. A local pointer or an exception is not an archive verdict. */
 export const readCurrentArchivedGeneration = async (session: FunctionalResetSession, client: DocumentArchiveClient) => {

@@ -1633,7 +1633,8 @@ describe("continuous working composition — synthetic mechanics, no scientific 
         observability:{providerCalls:[]},documentDraftPack,
         documentPersistenceReceipt: await offlineDocReceipt(initial.sessionId, project, req.observabilityContext!.clientRequestId, documentDraftPack)};
     });
-    render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
+    const mountRetry = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
+    const retryView = mountRetry();
     fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
     expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Choix enregistrés dans le projet · version 1");
     expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
@@ -1644,14 +1645,26 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.documentArchive?.currentGenerationId).toBeNull();
     expect((await offlineArchiveClient(initial.sessionId, project).history()).entries).toHaveLength(0);
+    persistFunctionalResetSession(localStorage, saved);
+    retryView.unmount(); saved = loadFunctionalResetSession(localStorage);
+    const laterChat = { turnId: "later-chat-during-doc-failure", role: "USER" as const,
+      content: "Je poursuis la discussion sans modifier les choix adoptés.", createdAt: new Date(Date.now() + 1000).toISOString() };
+    saved = { ...saved, runtimeTurns: [...saved.runtimeTurns, laterChat] };
+    mountRetry(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     const generate = screen.getByRole("button",{name:"Générer les documents"});
     expect(generate).toBeEnabled();
     for (let i = 0; i < 10; i++) fireEvent.click(generate);
     expect(generate).toBeDisabled();
     await waitFor(()=>expect(bridge).toHaveBeenCalledTimes(2));
-    await waitFor(() => expect(saved.documentArchive?.currentGenerationId).toBeTruthy());
+    await act(async () => { await bridge.mock.results[1].value; });
+    await waitFor(() => expect(saved.documentArchive?.currentGenerationId, saved.documents.lastFailure?.message).toBeTruthy());
+    // CURRENT_STRUCTURAL_INVARIANT: explicit failed-scope retry is a new
+    // command over the exact original handoff/source, not a fresh DOC input.
+    expect(bridge.mock.calls[1][0].documentDraftRequest).toEqual(bridge.mock.calls[0][0].documentDraftRequest);
+    expect(bridge.mock.calls[1][0].observabilityContext!.clientRequestId).not.toBe(bridge.mock.calls[0][0].observabilityContext!.clientRequestId);
     expect(bridge.mock.calls[0][0].currentProject?.versionId).toBe(adoptedVersion);
     expect(saved.project?.versionId).toBe(adoptedVersion);
+    expect(saved.runtimeTurns).toContainEqual(laterChat);
     expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(1);
     expect((await offlineArchiveClient(initial.sessionId, project).history()).entries).toHaveLength(1);
     expect(generate).toBeDisabled();

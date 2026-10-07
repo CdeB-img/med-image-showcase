@@ -184,10 +184,8 @@ export default function ProtocolDesignerWorkspace({
         saveWarningRef.current.session = warning;
         setSessionSaveWarning(warning);
       }
-      if (!saved.scientificPersisted && session.documentArchive?.currentGenerationId) {
-        const documentWarning = session.documentArchive?.currentGenerationId
-          ? "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet."
-          : "Documents disponibles mais non enregistrés dans ce navigateur. Exportez le dossier avant de fermer cette page.";
+      if (!saved.scientificPersisted && hasCurrentArchivedGeneration(session)) {
+        const documentWarning = "Documents enregistrés dans l’archive ; lien local non enregistré dans ce navigateur. Les versions restent récupérables depuis l’archive du projet.";
         if (saveWarningRef.current.document !== documentWarning) {
           saveWarningRef.current.document = documentWarning;
           setDocumentSaveWarning(documentWarning);
@@ -792,7 +790,7 @@ export default function ProtocolDesignerWorkspace({
               conversationId: current.conversationId, generatedAt, projection, format: "HTML",
             }) }));
           }}
-          saveWarning={documentSaveWarning ?? sessionSaveWarning}
+          saveWarning={(hasCurrentArchivedGeneration(session) ? documentSaveWarning : null) ?? sessionSaveWarning}
           onClose={() => setDeliverableWorkspaceOpen(false)}
           />
         </div> : openProjection ? <ProtocolPreview

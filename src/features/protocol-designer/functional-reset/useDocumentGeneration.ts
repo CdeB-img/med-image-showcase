@@ -1,15 +1,15 @@
 import type { Dispatch, SetStateAction, MutableRefObject } from "react";
-import { isDrciDraftPackCurrent, prepareDrciDraftSource } from "@/features/document-projection/drci-draft-pack";
+import { isDrciDraftPackCurrent, prepareDrciDraftSource, validateDrciHandoff } from "@/features/document-projection/drci-draft-pack";
 import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, isDocumentGenerationRef, type DocumentGenerationRef } from "@/features/document-projection/generation-persistence";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
 import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate,
-  readCurrentArchivedGeneration, publishArchivedGeneration } from "@/features/document-projection/generation-session";
+  readCurrentArchivedGeneration, publishArchivedGeneration, failedDocumentRetryProjection } from "@/features/document-projection/generation-session";
 import { useRef } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
 import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
 import { authorizeResearchProjectDocumentHandoff } from "@/features/research-project-construction";
-import { buildCanonicalCrfPackage, markFunctionalResetDocumentFailure, refreshFunctionalResetDocumentPortfolio } from "@/features/document-projection";
+import { buildCanonicalCrfPackage, markFunctionalResetDocumentFailure, refreshFunctionalResetDocumentPortfolio, unloadFunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import { recordDocumentProjectionTrace, recordProductErrorBoundary } from "./end-to-end-trace-adapter";
 import { appendFunctionalResetProviderCallRecords, createTurnId, saveFunctionalResetWorkspaceSession, type SessionSave, type FunctionalResetSession } from "./session";
 import { acquireDocumentKnowledge } from "./documentary-conversation";
@@ -103,13 +103,15 @@ export function useDocumentGeneration(input: {
       // A valid empty Knowledge result is allowed. Integrity, binding and
       // privacy failures must retain their native error instead of pretending
       // that no literature was found.
-      const evidence = requestedEvidence ?? acquireDocumentKnowledge(sourceSession, now);
-      const decision = authorizeResearchProjectDocumentHandoff({
+      const retryProjection = requestedEvidence ? null : failedDocumentRetryProjection(loaded, administration);
+      const evidence = retryProjection ? undefined : requestedEvidence ?? acquireDocumentKnowledge(sourceSession, now);
+      const decision = retryProjection ? validateDrciHandoff(sourceSession.project,
+        retryProjection.humanDecisions.find(item => item.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")) : authorizeResearchProjectDocumentHandoff({
         project: sourceSession.project,
         authority: sourceSession.projectAuthority,
         confirmedAt: now,
       });
-      const documents = refreshFunctionalResetDocumentPortfolio({
+      const documents = retryProjection ? { ...loaded.documents, lastFailure: null } : refreshFunctionalResetDocumentPortfolio({
         knowledgeLibrary: evidence?.sourceLibrary,
         administration,
         project: sourceSession.project,
@@ -120,9 +122,9 @@ export function useDocumentGeneration(input: {
       });
       const protocol = documents.projections.at(-1) ?? null;
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
-      const templateReceipt = await persistTemplateGeneration(sourceSession, protocol, client);
-      const templateSession = publishArchivedTemplate({ ...sourceSession, documents }, protocol, templateReceipt);
-      currentProjectionId = protocol.projectionId;
+      const templateSession = retryProjection ? { ...sourceSession, documents: unloadFunctionalResetDocumentPortfolio(documents, protocol) }
+        : publishArchivedTemplate({ ...sourceSession, documents }, protocol, await persistTemplateGeneration(sourceSession, protocol, client));
+      currentProjectionId = templateSession.documentArchive?.currentProjectionId ?? protocol.projectionId;
       preparedDocuments = templateSession.documents;
       documentEvidence = evidence;
       if (import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA") {
@@ -131,7 +133,11 @@ export function useDocumentGeneration(input: {
         const nativeRequest: Omit<ProductBridgeRequest, "apiVersion"> = { requestKind: "USER_TURN",
             // DOC consumes the adopted Project, not the scientific transcript.
             // Keep the original last user turn for request correlation only.
-            conversation: { conversationId: sourceSession.conversationId, language: "fr", turns: sourceSession.runtimeTurns.filter(turn => turn.role === "USER").slice(-1) },
+            // A concurrent/later Chat turn is not a changed DOC source. Reuse
+            // the existing correlation turn captured before the failed handoff;
+            // never reconstruct prose or remove later turns from the session.
+            conversation: { conversationId: sourceSession.conversationId, language: "fr", turns: sourceSession.runtimeTurns
+              .filter(turn => turn.role === "USER" && (!retryProjection || Date.parse(turn.createdAt) <= Date.parse(retryProjection.requestedAt))).slice(-1) },
             currentProject: sourceSession.project, evaluatePersistentDelta: false,
             documentDraftRequest: prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: protocol, crf: buildCanonicalCrfPackage(sourceSession.project) }),
             observabilityContext: { sessionId: sourceSession.sessionId, conversationId: sourceSession.conversationId,

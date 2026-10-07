@@ -261,6 +261,12 @@ export const executeOpenAITerraConversation = async (
 
 const usedSynopsisRevisionOriginals = new Set<string>();
 
+/** Server-only lookup of a paid successful scope. No browser-supplied result
+ * and no physical call record is manufactured for reuse. */
+export type ReadReusableDrciScope = (input: Readonly<{
+  scope: string; endpoint: string; payload: string;
+}>) => Promise<Readonly<{ responseBody: string; operationRef: string }> | null>;
+
 /** Document writing uses the same stateless Responses transport and recorder. */
 export const executeOpenAIDrciDraft = async (
   packet: { context: string; instruction: string; projectBinding: DrciProjectBinding }, apiKey: string, fetchImpl: typeof fetch = fetch,
@@ -268,6 +274,7 @@ export const executeOpenAIDrciDraft = async (
   retainedProtocol?: RetainedDrciProtocol | null,
   transport?: OpenAIProviderTransport,
   scopeExecution: "SEQUENTIAL" | "CONCURRENT" = "SEQUENTIAL",
+  readReusableScope?: ReadReusableDrciScope,
 ) => {
   const batches = prepareDrciGenerationBatches(packet);
   const requestedModel = transport?.terraRequestedModel ?? TERRA_REQUESTED_MODEL;
@@ -300,41 +307,59 @@ export const executeOpenAIDrciDraft = async (
   }
   const documents = [...retained?.documents ?? [], ...remaining?.documents ?? []]; const crfRows = [...remaining?.crfRows ?? []];
   let latencyMs = 0; let modelReturned: string | null = null;
-  const executeBatch = async (batch: typeof batches[number]) => {
-    // Distinct physical DOC scopes, one human handoff/one final pack. Each
-    // scope must have its own existing ledger identity, never a retry identity.
+  const reusedScopeEvidenceRefs: { scope: string; operationRef: string }[] = [];
+  const selectedBatches = remaining ? [] : retained ? batches.slice(1) : batches;
+  // Validate every reusable sibling before authorizing a new physical scope.
+  // Corrupt or native-invalid evidence must not cause another paid dispatch.
+  const planned = await Promise.all(selectedBatches.map(async batch => {
+    const payload = { model: requestedModel, instructions: batch.instruction,
+        input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
+          transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
+        service_tier: "default", text: { format: { type: "json_object" } } };
+    const prior = await readReusableScope?.({ scope: batch.requestScope,
+      endpoint: transport?.responsesEndpoint ?? OPENAI_RESPONSES_ENDPOINT,
+      payload: JSON.stringify({ ...payload, model: mapOpenAIModelForDestination(requestedModel, transport?.destination ?? "openai") }) });
+    if (prior) {
+      const body: OpenAIResponseBody = JSON.parse(prior.responseBody);
+      if (body.status !== "completed") throw new Error("DOC_REUSED_SCOPE_NOT_COMPLETED");
+      const value = batch.expand(JSON.parse(responseOutputText(body)));
+      reusedScopeEvidenceRefs.push({ scope: batch.requestScope, operationRef: prior.operationRef });
+      return { batch, payload, reused: { value, result: null, modelReturned: body.model ?? null } };
+    }
+    return { batch, payload, reused: null };
+  }));
+  const executeBatch = async ({ batch, payload, reused }: typeof planned[number]) => {
+    if (reused) return reused;
+    // One native ledger identity for each physical scope of this explicit command.
     const batchInstrumentation = instrumentation ? { ...instrumentation, context: { ...instrumentation.context,
       clientRequestId: `${instrumentation.context.clientRequestId}:doc-scope:${batch.requestScope}` } } : undefined;
     const result = await callOpenAIResponses({ stage: "DOCUMENT_PROJECTION", apiKey, fetchImpl,
-      modelRequested: requestedModel, instrumentation: batchInstrumentation, transport, payload: { model: requestedModel, instructions: batch.instruction,
-        input: batch.context, reasoning: { effort: "medium" }, max_output_tokens:
-          transport?.destination === "azure" && batch.requestScope === "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT" ? 16000 : 8000, store: false,
-        service_tier: "default", text: { format: { type: "json_object" } } } });
-    return { value: batch.expand(JSON.parse(responseOutputText(result.body))), result };
+      modelRequested: requestedModel, instrumentation: batchInstrumentation, transport, payload });
+    return { value: batch.expand(JSON.parse(responseOutputText(result.body))), result, modelReturned: result.body.model ?? null };
   };
-  const selectedBatches = remaining ? [] : retained ? batches.slice(1) : batches;
   const completed: Awaited<ReturnType<typeof executeBatch>>[] = [];
   if (scopeExecution === "CONCURRENT") {
     // Native durable admission reserves and settles each scope independently.
     // Both consume the same frozen input, not each other's output. Wait for
     // every dispatched scope before finalization, including a partial failure.
-    const outcomes = await Promise.allSettled(selectedBatches.map(executeBatch));
+    const outcomes = await Promise.allSettled(planned.map(executeBatch));
     const failed = outcomes.find(outcome => outcome.status === "rejected");
     if (failed?.status === "rejected") throw failed.reason;
     for (const outcome of outcomes) if (outcome.status === "fulfilled") completed.push(outcome.value);
   } else {
     // Existing serial canary campaigns prohibit concurrent physical calls.
     // Preserve their admission contract; they never opt into product concurrency.
-    for (const batch of selectedBatches) completed.push(await executeBatch(batch));
+    for (const batch of planned) completed.push(await executeBatch(batch));
   }
   for (const outcome of completed) {
     documents.push(...outcome.value.documents); crfRows.push(...outcome.value.crfRows);
-    latencyMs = scopeExecution === "CONCURRENT" ? Math.max(latencyMs, outcome.result.latencyMs) : latencyMs + outcome.result.latencyMs;
-    modelReturned = outcome.result.body.model ?? null;
+    latencyMs = scopeExecution === "CONCURRENT" ? Math.max(latencyMs, outcome.result?.latencyMs ?? 0) : latencyMs + (outcome.result?.latencyMs ?? 0);
+    modelReturned = outcome.modelReturned;
   }
   return { value: { documents, crfRows }, latencyMs,
     modelRequested: mapOpenAIModelForDestination(requestedModel, transport?.destination ?? "openai"),
-    modelReturned, calls: remaining ? 0 as const : retained ? 1 as const : 2 as const,
+    modelReturned, calls: completed.filter(outcome => outcome.result !== null).length as 0 | 1 | 2,
+    reusedScopeEvidenceRefs,
     reusedProtocolEvidenceRef: retainedProtocol?.rawOutputRef ?? null, synopsisRevision: undefined };
 };
 

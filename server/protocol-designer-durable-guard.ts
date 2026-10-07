@@ -79,6 +79,10 @@ export interface PublicProtocolDesignerDurableGuard {
   }>): Promise<DurablePublicRequestPreparation>;
   createBudgetedFetch(context: DurablePublicRequestContext, fetchImpl?: typeof fetch): typeof fetch;
   completeRequest(context: DurablePublicRequestContext, status: number, body: unknown): Promise<void>;
+  /** Read-only reuse inside a new explicit DOC command; never an automatic retry. */
+  readReusableDocumentScope?(input: Readonly<{
+    context: DurablePublicRequestContext; body: unknown; scope: string; endpoint: string; payload: string;
+  }>): Promise<Readonly<{ responseBody: string; operationRef: string }> | null>;
   readWorkingDraftPreparation(input: Readonly<{
     headers: Headers; remoteAddress?: string; sessionId: string; sourceTurnRef: string; sourceResponseRef: string; clientRequestId?: string;
   }>): Promise<DurableWorkingDraftRecovery>;
@@ -1056,6 +1060,64 @@ export const createPostgresProtocolDesignerDurableGuard = (
     });
   };
 
+  const readReusableDocumentScope: NonNullable<PublicProtocolDesignerDurableGuard["readReusableDocumentScope"]> = async (input) => {
+    const identity = publicIdentity(input.body);
+    const body = object(input.body) ? input.body : null;
+    if (!identity || !body || !object(body.documentDraftRequest)
+      || input.context.sessionKey !== hash(identity.sessionId)
+      || input.context.requestDigest !== hash(canonicalJson(body))
+      || !["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT"].includes(input.scope)) return null;
+    const configurationDigest = hash(canonicalJson({ purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0,
+      ...(openAIProviderDestinationFromEndpoint(input.endpoint) === "azure" ? { inputAdmissionPolicy: AZURE_LOCAL_INPUT_POLICY } : {}) }));
+    // Existing ledger identity: exact native bridge request (including Project,
+    // handoff and output-contract inputs) + exact physical payload/configuration.
+    // Only request correlation IDs may differ. No lossy semantic comparison.
+    const rows = await sql`
+      select o.operation_key, o.state, o.provider_http_status, o.provider_response_body,
+        o.provider_response_digest, o.settled_at, o.qualification_failure_code,
+        o.endpoint_digest, o.payload_digest, o.configuration_digest,
+        a.request_digest, a.response_body, a.session_key_hash, s.client_key_hash
+      from noxia_durable.public_provider_operation o
+      join noxia_durable.public_bridge_admission a on a.admission_key = o.admission_key
+      join noxia_durable.public_guard_session s on s.session_key_hash = a.session_key_hash
+      where a.session_key_hash = ${input.context.sessionKey} and s.client_key_hash = ${input.context.clientKey}
+        and a.admission_key <> ${input.context.admissionKey}
+        and a.state = 'COMPLETED' and a.response_status <> 200
+        and o.purpose = 'DOCUMENT_PROJECTION' and o.state in ('CONSUMED', 'VALIDATED', 'COMPLETED_RECEIVED')
+        and o.provider_http_status = 200 and o.settled_at is not null and o.qualification_failure_code is null
+        and o.endpoint_digest = ${hash(input.endpoint)} and o.payload_digest = ${hash(input.payload)}
+        and o.configuration_digest = ${configurationDigest}
+      order by o.completed_at desc limit 32
+    `;
+    for (const row of rows) {
+      // Repeat the identity guards at the read boundary (including test SQL doubles).
+      if (row.session_key_hash !== input.context.sessionKey || row.client_key_hash !== input.context.clientKey
+        || !["CONSUMED", "VALIDATED", "COMPLETED_RECEIVED"].includes(String(row.state))
+        || asNumber(row.provider_http_status) !== 200 || !row.settled_at || row.qualification_failure_code
+        || row.endpoint_digest !== hash(input.endpoint) || row.payload_digest !== hash(input.payload)
+        || row.configuration_digest !== configurationDigest) continue;
+      const prior = object(row.response_body) && object(row.response_body.observability) ? row.response_body.observability : null;
+      const records = Array.isArray(prior?.providerCalls) ? prior.providerCalls : [];
+      const suffix = `:doc-scope:${input.scope}`;
+      const record = records.find(r => object(r) && r.purpose === "DOCUMENT_PROJECTION" && r.status === "SUCCEEDED"
+        && object(r.context) && typeof r.context.clientRequestId === "string" && r.context.clientRequestId.endsWith(suffix));
+      if (!object(record) || !object(record.context) || !object(body.observabilityContext)) continue;
+      const oldContext = record.context;
+      const rootRequest = String(oldContext.clientRequestId).slice(0, -suffix.length);
+      const comparable = { ...body, observabilityContext: { ...body.observabilityContext,
+        turnId: oldContext.turnId, clientRequestId: rootRequest } };
+      if (oldContext.sessionId !== identity.sessionId || hash(canonicalJson(comparable)) !== row.request_digest) continue;
+      if (typeof row.provider_response_body !== "string" || hash(row.provider_response_body) !== row.provider_response_digest)
+        throw new DurablePublicGuardError("PUBLIC_PROVIDER_RESULT_NOT_RECOVERABLE");
+      const response: unknown = JSON.parse(row.provider_response_body);
+      const payload: unknown = JSON.parse(input.payload);
+      if (!object(response) || response.status !== "completed" || !object(payload)
+        || record.modelRequested !== payload.model || response.model !== record.modelReturned) continue;
+      return { responseBody: row.provider_response_body, operationRef: `durable-provider-operation:${row.operation_key}` };
+    }
+    return null;
+  };
+
   const readWorkingDraftPreparation: PublicProtocolDesignerDurableGuard["readWorkingDraftPreparation"] = async (input) => {
     const { sessionId, sourceTurnRef, sourceResponseRef } = input;
     if (!sessionId || sessionId.length > 240 || !sourceTurnRef.startsWith("turn:") || sourceTurnRef.length > 240
@@ -1130,7 +1192,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
     }
   };
 
-  return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation,
+  return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation, readReusableDocumentScope,
     close: () => sql.end({ timeout: 5 }) });
 };
 
