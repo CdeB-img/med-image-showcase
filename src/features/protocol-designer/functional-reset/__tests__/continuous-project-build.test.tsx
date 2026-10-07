@@ -1,5 +1,6 @@
 import { explicitTestSave } from "./legacy-persistence-test-adapter";
 import { offlineDocReceipt, offlineArchiveClient, resetOfflineArchiveClients } from "../../../document-projection/__tests__/offline-archive-client";
+import * as archiveClient from "../../../document-projection/generation-archive-client";
 import { captureProjectPreparation, addProjectPreparation, consumeProjectPreparation, preparationCheckpointValid, projectPreparationReview } from "../project-preparation-lifecycle";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -1400,12 +1401,19 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await call(r, provider, false)).status).toBe(422); expect(provider).not.toHaveBeenCalled();
     expect(prepareTerraConversation(r).instruction).not.toContain("CONSTRUCTION CONTINUE ACTIVE");
   });
-  it("uses one explicit action, preserves adopted Project on transport failure, and retrieves the same request without another adoption", async () => {
+  it("uses one explicit action, preserves adopted Project on transport failure, and reads the same request without provider redispatch or another adoption", async () => {
     vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
     const initial = sessionFor(), request = requestFor(initial), update = updateFor(request);
     const composition = acceptWorkingDraftUpdate(update, request).composition!;
     const workingDraft = prepareContinuousWorkingDraft(initial, composition, update, prepareWorkingDraftRequest(request).inputDigest);
     let saved: FunctionalResetSession = checkpointSession(initial, update);
+    // CURRENT_STRUCTURAL_INVARIANT: UI recovery reads the persisted admission
+    // identity. The superseded closure used to POST the full provider command
+    // twice; even an UNKNOWN recovery result must now leave dispatch at one.
+    // The combined native archive/reload regression covers successful commit.
+    const recover = vi.fn(async () => ({ state: "UNKNOWN" as const }));
+    vi.spyOn(archiveClient, "createDocumentArchiveClient").mockImplementation((sessionId, project) => ({
+      ...offlineArchiveClient(sessionId, project), recover }));
     bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(state => { saved = state; return true; })} /></HelmetProvider>);
 
@@ -1430,10 +1438,14 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(screen.getByText("La génération des documents n’a pas abouti. Votre projet et les versions précédentes sont conservés.")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Valider ces choix" })).toBeNull();
 
-    const firstRequest = JSON.stringify(bridge.mock.calls[0][0]);
+    const firstRequest = bridge.mock.calls[0][0];
     fireEvent.click(screen.getByRole("button", { name: "Retrouver les documents" }));
-    await waitFor(() => expect(bridge).toHaveBeenCalledTimes(2));
-    expect(JSON.stringify(bridge.mock.calls[1][0])).toBe(firstRequest);
+    await waitFor(() => expect(recover).toHaveBeenCalledOnce());
+    expect(bridge).toHaveBeenCalledTimes(1);
+    expect(recover).toHaveBeenCalledWith(expect.objectContaining({ requestId: firstRequest.observabilityContext!.clientRequestId,
+      projectionId: firstRequest.documentDraftRequest!.protocolProjection.projectionId,
+      handoffDigest: logicalDigest(firstRequest.documentDraftRequest!.handoffDecision),
+      project: { projectId: saved.project!.projectId, projectVersion: adoptedVersion, projectDigest: saved.project!.projectDigest } }));
     expect(saved.project?.versionId).toBe(adoptedVersion);
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
   });

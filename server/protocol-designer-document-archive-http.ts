@@ -1,6 +1,12 @@
 import { parseProjectSnapshotRef, ProjectSnapshotError, sharedPostgresProjectSnapshotStore, type ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256, DocumentArchiveError, type DocumentArchiveAccess, type DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 import type { DocumentGenerationBody } from "../src/features/document-projection/generation-persistence.js";
+import { DurablePublicGuardError, durableGuardSessionRequestLimit, durableGuardPublicBudget, sharedPostgresProtocolDesignerDurableGuard, type PublicProtocolDesignerDurableGuard } from "./protocol-designer-durable-guard.js";
+import { PRODUCT_BRIDGE_API_VERSION, type ProductBridgeResponse } from "../src/features/protocol-designer/product-bridge.js";
+import { isDrciDraftPackCurrent, drciDraftPackArtifacts } from "../src/features/document-projection/drci-draft-pack.js";
+import { freezeDocumentGeneration } from "../src/features/document-projection/generation-exports.js";
+import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
+import type { ResearchProjectOwnerProjection } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 
 const stores = new Map<string, DocumentArchiveStore>();
 export const sharedDocumentArchive = (connection: string, env: Record<string, string | undefined>, snapshots: ProtocolDesignerProjectSnapshotStore) => {
@@ -19,6 +25,7 @@ export const executeDocumentArchiveOperation = async (input: {
   body: Record<string, unknown>; proof: string | null; clientAddress: string;
   connection: string | null; environment: Record<string, string | undefined>;
   snapshots?: ProtocolDesignerProjectSnapshotStore; archive?: DocumentArchiveStore;
+  guard?: PublicProtocolDesignerDurableGuard;
 }): Promise<{ status: number; body: unknown }> => {
   try {
     if (Buffer.byteLength(JSON.stringify(input.body), "utf8") > 4_400_000) throw new DocumentArchiveError("DOC_ARCHIVE_PAYLOAD_TOO_LARGE", 413);
@@ -34,6 +41,50 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_RECOVER": {
+        if (keys !== "handoffDigest,operation,projectRef,projectionId,requestId,sessionId"
+          || typeof body.projectionId !== "string" || !/^document-projection:ke1-[a-f0-9]{16}$/.test(body.projectionId)
+          || typeof body.handoffDigest !== "string" || !/^ke1-[a-f0-9]{16}$/.test(body.handoffDigest)
+          || !requestId().startsWith(`drci-draft:${access.project.projectDigest}:`)) throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID", 403);
+        // Resolve the original immutable source under the existing Project capability.
+        // No admission, no new reservation and no provider path are reachable here.
+        if (!snapshots) throw new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
+        const project = await snapshots.resolve(access.identity, access.project, access.proof) as unknown as ResearchProjectOwnerProjection;
+        const source = await archive.body(access, body.projectionId);
+        if (source.body.native.family !== "TEMPLATE") throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID", 403);
+        const projection = source.body.native.value;
+        const handoff = projection.humanDecisions.find(item => item.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION");
+        if (projection.source.projectVersion !== access.project.versionId || projection.source.projectDigest !== access.project.projectDigest
+          || !handoff || logicalDigest(handoff) !== body.handoffDigest) throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID", 403);
+        const committed = await archive.receipt(access, requestId());
+        if (committed) {
+          const saved = await archive.body(access, committed.generation.generationId);
+          if (saved.body.native.family !== "DRCI" || saved.body.native.value.protocolProjectionId !== body.projectionId
+            || saved.body.native.value.handoffDecisionDigest !== body.handoffDigest
+            || !isDrciDraftPackCurrent(saved.body.native.value, project)) throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID", 403);
+          result = { state: "COMMITTED", receipt: committed }; break;
+        }
+        const guard = input.guard ?? (input.connection ? sharedPostgresProtocolDesignerDurableGuard(input.connection,
+          durableGuardSessionRequestLimit(input.environment), durableGuardPublicBudget(input.environment)) : null);
+        if (!guard?.readDocumentGenerationResult) throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_UNAVAILABLE", 503);
+        const evidence = await guard.readDocumentGenerationResult({ headers: { "x-forwarded-for": input.clientAddress },
+          sessionId: access.identity.sessionId, clientRequestId: requestId() });
+        if (evidence.state === "REJECTED") throw new DocumentArchiveError(evidence.code, evidence.status);
+        if (evidence.state !== "COMPLETED") {
+          result = evidence; break;
+        }
+        const response = evidence.response as Partial<ProductBridgeResponse> | null;
+        const pack = response?.documentDraftPack;
+        if (response?.apiVersion !== PRODUCT_BRIDGE_API_VERSION || !pack || !isDrciDraftPackCurrent(pack, project)
+          || pack.protocolProjectionId !== body.projectionId || pack.handoffDecisionDigest !== body.handoffDigest)
+          throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID", 403);
+        const frozen = await freezeDocumentGeneration({ native: { family: "DRCI", value: pack },
+          artifacts: drciDraftPackArtifacts(pack, project), sha256: docSha256,
+          buildCommit: /^[a-f0-9]{40}$/u.test(input.environment.VERCEL_GIT_COMMIT_SHA ?? "") ? input.environment.VERCEL_GIT_COMMIT_SHA : null,
+          renderOrigin: "GENERATION_TIME" });
+        // commit checks original reservation identity/time/capacity atomically.
+        result = { state: "COMMITTED", receipt: await archive.commit(access, requestId(), frozen) }; break;
+      }
       case "DOC_ARCHIVE_HISTORY":
         if (keys !== "beforeOrdinal,operation,projectRef,sessionId") throw new DocumentArchiveError("DOC_ARCHIVE_REQUEST_INVALID", 400);
         result = await archive.history(access, body.beforeOrdinal === null ? undefined : body.beforeOrdinal as number, "DRCI"); break;
@@ -61,6 +112,7 @@ export const executeDocumentArchiveOperation = async (input: {
     }
     return { status: 200, body: { contract: "DOC_GENERATION_ARCHIVE_V1", result } };
   } catch (error) {
+    if (error instanceof DurablePublicGuardError) return { status: error.status, body: { error: { code: error.code } } };
     const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError
       ? error : new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
     return { status: failure.status, body: { error: { code: failure.code } } };

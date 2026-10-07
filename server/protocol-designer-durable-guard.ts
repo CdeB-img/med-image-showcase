@@ -86,6 +86,10 @@ export interface PublicProtocolDesignerDurableGuard {
   readWorkingDraftPreparation(input: Readonly<{
     headers: Headers; remoteAddress?: string; sessionId: string; sourceTurnRef: string; sourceResponseRef: string; clientRequestId?: string;
   }>): Promise<DurableWorkingDraftRecovery>;
+  /** Existing admission evidence only: no prepare, reservation or provider dispatch. */
+  readDocumentGenerationResult?(input: Readonly<{
+    headers: Headers; remoteAddress?: string; sessionId: string; clientRequestId: string;
+  }>): Promise<DurableWorkingDraftRecovery>;
   close(): Promise<void>;
 }
 
@@ -153,6 +157,17 @@ const recoveredWorkingDraftFailure = (value: unknown, operationState?: unknown, 
   const detail = Array.isArray(error?.details) ? error.details[0] : null;
   const code = typeof detail === "string" && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(detail) ? detail : error?.code;
   return { state: "FAILED", errorCode: typeof code === "string" ? code : null };
+};
+
+const documentUnknownStates = ["UNKNOWN_AFTER_DISPATCH", "COUNT_UNKNOWN_AFTER_DISPATCH", "INPUT_TOKEN_DIVERGENCE", "QUALIFICATION_INVALID"];
+const recoveredDocumentFailure = (value: unknown, states: readonly unknown[] = []): DurableWorkingDraftRecovery => {
+  const body = object(value) ? value : null;
+  const observability = body && object(body.observability) ? body.observability : null;
+  const records = Array.isArray(observability?.providerCalls) ? observability.providerCalls : [];
+  const observed = records.map(record => object(record) && object(record.durableFailure) ? record.durableFailure.lastConfirmedDurableState : null);
+  if (JSON.stringify(value ?? null).includes("UNKNOWN_AFTER_DISPATCH") || [...states, ...observed].some(state => documentUnknownStates.includes(String(state)))) return { state: "UNKNOWN" };
+  const error = body && object(body.error) ? body.error : null;
+  return { state: "FAILED", errorCode: typeof error?.code === "string" && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(error.code) ? error.code : null };
 };
 
 
@@ -1192,7 +1207,36 @@ export const createPostgresProtocolDesignerDurableGuard = (
     }
   };
 
-  return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation, readReusableDocumentScope,
+  const readDocumentGenerationResult: NonNullable<PublicProtocolDesignerDurableGuard["readDocumentGenerationResult"]> = async (input) => {
+    if (!input.sessionId || input.sessionId.length > 240 || !input.clientRequestId.startsWith("drci-draft:") || input.clientRequestId.length > 320)
+      return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
+    const admissionKey = hash(`${input.sessionId}\u0000${input.clientRequestId}`);
+    try {
+      const rows = await sql`select a.state, a.response_status, a.response_body, a.created_at,
+        a.session_key_hash, a.client_request_id_hash, s.client_key_hash
+        from noxia_durable.public_bridge_admission a
+        join noxia_durable.public_guard_session s on s.session_key_hash = a.session_key_hash
+        where a.admission_key = ${admissionKey}`;
+      const row = rows[0];
+      if (!row || row.session_key_hash !== hash(input.sessionId) || row.client_request_id_hash !== hash(input.clientRequestId)
+        || row.client_key_hash !== hash(clientAddress(input.headers, input.remoteAddress)))
+        return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
+      if (row.state === "COMPLETED") {
+        if (asNumber(row.response_status) === 200) return row.response_body == null ? { state: "UNKNOWN" } : { state: "COMPLETED", response: row.response_body };
+        const operations = await sql`select state from noxia_durable.public_provider_operation where admission_key = ${admissionKey}`;
+        return recoveredDocumentFailure(row.response_body, operations.map(op => op.state));
+      }
+      // A completed physical scope alone is not a complete native DOC pack.
+      // An expired lease is uncertainty, never permission to redispatch/unlock.
+      const operations = await sql`select state, count_lease_expires_at, dispatch_lease_expires_at
+        from noxia_durable.public_provider_operation where admission_key = ${admissionKey}`;
+      if (operations.some(op => documentUnknownStates.includes(String(op.state)))) return { state: "UNKNOWN" };
+      const deadlines = [new Date(row.created_at as string).getTime() + PROVIDER_DISPATCH_LEASE_MS,
+        ...operations.map(op => new Date((op.dispatch_lease_expires_at ?? op.count_lease_expires_at) as string).getTime())];
+      return { state: deadlines.some(deadline => deadline > Date.now()) ? "IN_PROGRESS" : "UNKNOWN" };
+    } catch { throw new DurablePublicGuardError("PUBLIC_DURABLE_STORE_UNAVAILABLE"); }
+  };
+  return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation, readReusableDocumentScope, readDocumentGenerationResult,
     close: () => sql.end({ timeout: 5 }) });
 };
 
@@ -1303,6 +1347,16 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       return !result ? { state: "IN_PROGRESS" }
         : result.status !== 200 ? recoveredWorkingDraftFailure(result.body)
           : { state: "COMPLETED", response: result.body };
+    },
+    readDocumentGenerationResult: async (input): Promise<DurableWorkingDraftRecovery> => {
+      const key = hash(`${input.sessionId}\u0000${input.clientRequestId}`);
+      const context = prepared.get(key);
+      if (!context || context.sessionKey !== hash(input.sessionId)
+        || context.clientKey !== hash(clientAddress(input.headers, input.remoteAddress))) return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
+      const result = completed.get(key);
+      if (!result) return { state: "IN_PROGRESS" };
+      if (result.status === 200) return { state: "COMPLETED", response: result.body };
+      return recoveredDocumentFailure(result.body);
     },
     async close() {},
   });

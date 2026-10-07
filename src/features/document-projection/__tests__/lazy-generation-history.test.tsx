@@ -32,7 +32,7 @@ const setup = async () => {
   }
   const client: DocumentArchiveClient = { history: vi.fn(async cursor => ({ entries: entries.filter(ref => ref.ordinal < (cursor ?? 31)).slice(0, 25), nextBeforeOrdinal: cursor ? null : 6 })),
     body: vi.fn(async id => ({ ref: entries.find(ref => ref.generationId === id)!, body: bodies.get(id)! })),
-    commit: vi.fn(), receipt: vi.fn() };
+    commit: vi.fn(), receipt: vi.fn(), recover: vi.fn() };
   return { client, entries, bodies };
 };
 describe("DOC metadata-only history and one selected immutable body", () => {

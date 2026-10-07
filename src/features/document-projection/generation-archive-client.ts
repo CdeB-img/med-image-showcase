@@ -1,7 +1,7 @@
 import { ensureServerProjectSnapshot } from "../protocol-designer/product-bridge-client";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, isDocumentGenerationRef, documentNativeIdentity, documentNativeProject, documentFileManifest, type DocumentGenerationBody, type DocumentGenerationRef, type DocumentHistoryPage,
-  type DocumentPersistenceReceipt } from "./generation-persistence";
+  type DocumentPersistenceReceipt, type DocumentRecoveryIdentity, type DocumentRecoveryResult } from "./generation-persistence";
 
 export class DocumentArchiveClientError extends Error {
   constructor(readonly code: string) { super(code); }
@@ -16,6 +16,7 @@ export type DocumentArchiveClient = Readonly<{
   body(generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
   receipt(requestId: string): Promise<DocumentPersistenceReceipt | null>;
   commit(requestId: string, body: DocumentGenerationBody): Promise<DocumentPersistenceReceipt>;
+  recover(identity: DocumentRecoveryIdentity): Promise<DocumentRecoveryResult>;
 }>;
 export const createDocumentArchiveClient = (sessionId: string, project: ResearchProjectOwnerProjection): DocumentArchiveClient => {
   const operation = async <T>(command: Record<string, unknown>): Promise<T> => {
@@ -30,6 +31,18 @@ export const createDocumentArchiveClient = (sessionId: string, project: Research
     return value.result as T;
   };
   return {
+    async recover(identity) {
+      if (identity.project.projectId !== project.projectId || identity.project.projectVersion !== project.versionId
+        || identity.project.projectDigest !== project.projectDigest) throw new DocumentArchiveClientError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");
+      const result = await operation<DocumentRecoveryResult>({ operation: "DOC_ARCHIVE_RECOVER", requestId: identity.requestId,
+        projectionId: identity.projectionId, handoffDigest: identity.handoffDigest });
+      if (!result || !["IN_PROGRESS", "UNKNOWN", "FAILED", "COMMITTED"].includes(result.state)) throw new DocumentArchiveClientError("DOC_ARCHIVE_RECOVERY_RESPONSE_INVALID");
+      if (result.state === "COMMITTED" && (result.receipt?.contract !== DOC_ARCHIVE_CONTRACT
+        || result.receipt.requestId !== identity.requestId || !isDocumentGenerationRef(result.receipt.generation, project.projectId)
+        || result.receipt.generation.project.projectVersion !== project.versionId
+        || result.receipt.generation.project.projectDigest !== project.projectDigest)) throw new DocumentArchiveClientError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");
+      return result;
+    },
     async history(beforeOrdinal) {
       const page = await operation<DocumentHistoryPage>({ operation: "DOC_ARCHIVE_HISTORY", beforeOrdinal: beforeOrdinal ?? null });
       if (!page || !Array.isArray(page.entries) || page.entries.length > DOC_HISTORY_PAGE_SIZE || !page.entries.every(ref => isDocumentGenerationRef(ref, project.projectId) && ref.family === "DRCI")

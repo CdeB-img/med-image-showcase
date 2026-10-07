@@ -35,6 +35,7 @@ const accessFor = async (sessionId: string, project: ResearchProjectOwnerProject
   return { store: entry.store, access: { identity, project: registration.ref, proof: registration.proof } };
 };
 export const offlineArchiveClient = (sessionId: string, project: ResearchProjectOwnerProjection): DocumentArchiveClient => ({
+  async recover() { throw new Error("OFFLINE_RECOVERY_TRANSPORT_NOT_CONFIGURED"); },
   async history(cursor) { const { store, access } = await accessFor(sessionId, project); return store.history(access, cursor, "DRCI"); },
   async body(id) { const { store, access } = await accessFor(sessionId, project); return store.body(access, id); },
   async receipt(id) { const { store, access } = await accessFor(sessionId, project); return store.receipt(access, id); },

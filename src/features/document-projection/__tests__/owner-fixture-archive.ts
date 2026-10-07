@@ -27,6 +27,7 @@ export const archiveOwnerFixtureSession = async (source: FunctionalResetSession,
     return project;
   } }, documentArchiveCapacity({}), sql.sql);
   const client: DocumentArchiveClient = {
+    async recover() { throw new Error("OFFLINE_RECOVERY_TRANSPORT_NOT_CONFIGURED"); },
     history: cursor => archive.history(access, cursor, "DRCI"), body: id => archive.body(access, id), receipt: id => archive.receipt(access, id),
     async commit(requestId, body) {
       await archive.admit(access, { requestId, requestSha256: docSha256(JSON.stringify(body)), generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: Buffer.byteLength(JSON.stringify(body)) });

@@ -61,7 +61,7 @@ export const publishArchivedGeneration = (session: FunctionalResetSession, gener
   return { ...session, documents: { ...session.documents, lastFailure: null }, drciDraftPacks: [], openDocumentProjectionId: null,
     documentRetryUnsafe: false, documentArchive: { contract: DOC_ARCHIVE_CONTRACT, projectId: generation.project.projectId,
       historyState: "NOT_LOADED", storageMode: "DURABLE_ONLY", currentGenerationId: generation.generationId,
-      currentProjectionId: projectionId, pendingRequestId: null,
+      currentProjectionId: projectionId, pendingRequestId: null, pendingRecovery: null,
       currentGeneration: { generationId: generation.generationId, project: generation.project,
         displayVersion: generation.displayVersion, generatedAt: generation.generatedAt } } };
 };

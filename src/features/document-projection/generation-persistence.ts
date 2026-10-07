@@ -45,6 +45,15 @@ export type DocumentPersistenceReceipt = Readonly<{
   generation: DocumentGenerationRef;
 }>;
 export type DocumentHistoryPage = Readonly<{ entries: readonly DocumentGenerationRef[]; nextBeforeOrdinal: number | null }>;
+/** Existing admission linkage only; never a local copy of the scientific payload. */
+export type DocumentRecoveryIdentity = Readonly<{
+  requestId: string; project: DocumentProjectBinding; projectionId: string; handoffDigest: string;
+}>;
+export type DocumentRecoveryResult =
+  | Readonly<{ state: "IN_PROGRESS" }>
+  | Readonly<{ state: "UNKNOWN" }>
+  | Readonly<{ state: "FAILED"; errorCode: string | null }>
+  | Readonly<{ state: "COMMITTED"; receipt: DocumentPersistenceReceipt }>;
 export type DocumentArchivePointer = Readonly<{
   contract: typeof DOC_ARCHIVE_CONTRACT;
   projectId: string;
@@ -53,6 +62,7 @@ export type DocumentArchivePointer = Readonly<{
   currentProjectionId: string | null;
   currentGeneration?: Readonly<Pick<DocumentGenerationRef, "generationId" | "project" | "displayVersion" | "generatedAt">>;
   pendingRequestId: string | null;
+  pendingRecovery?: DocumentRecoveryIdentity | null;
   storageMode: "DURABLE_ONLY";
 }>;
 

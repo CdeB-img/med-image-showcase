@@ -2,9 +2,10 @@ import type { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { isDrciDraftPackCurrent, prepareDrciDraftSource, validateDrciHandoff } from "@/features/document-projection/drci-draft-pack";
 import { DOC_ARCHIVE_CONTRACT, documentNativeIdentity, isDocumentGenerationRef, type DocumentGenerationRef } from "@/features/document-projection/generation-persistence";
 import { createDocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { hasCurrentArchivedGeneration, hydrateDocumentCommandSession, persistTemplateGeneration, publishArchivedTemplate,
   readCurrentArchivedGeneration, publishArchivedGeneration, failedDocumentRetryProjection } from "@/features/document-projection/generation-session";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import { type ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
 import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
@@ -31,10 +32,94 @@ export function useDocumentGeneration(input: {
   const documentRecoveryRef = useRef<{ projectDigest: string; resume: () => Promise<void> } | null>(null);
   const documentGenerationInFlightRef = useRef(false);
   const documentCommandInFlightRef = useRef(false);
+  const recoveryInFlightRef = useRef(false);
+  const dispatchedRequestRef = useRef<string | null>(null);
+  const mountedRef = useRef(true);
+  const [recoveryObservation, setRecoveryObservation] = useState(0);
+  useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
+  // Read/materialize the existing admission only. This function deliberately
+  // cannot call requestProtocolDesignerBridge or create a generation intent.
+  async function recoverPendingDocument(isMounted = () => mountedRef.current): Promise<"IN_PROGRESS" | "DONE"> {
+    const source = latestSessionRef.current, identity = source.documentArchive?.pendingRecovery;
+    if (recoveryInFlightRef.current) return "IN_PROGRESS";
+    if (documentCommandInFlightRef.current) return "DONE";
+    if (!source.documentArchive?.pendingRequestId) return "DONE";
+    recoveryInFlightRef.current = true;
+    setDocumentGenerationVersion(null); setDocumentGenerationPending(true);
+    setDocumentGenerationStartedAt(Date.now()); setDocumentGenerationElapsed(0);
+    setDocumentGenerationComplete(false); setDocumentGenerationStage("VERIFYING_ARCHIVE");
+    const matches = (current: FunctionalResetSession) => current.sessionId === source.sessionId
+      && current.project?.projectId === source.project?.projectId && current.project?.versionId === source.project?.versionId
+      && current.project?.projectDigest === source.project?.projectDigest;
+    let inProgress = false;
+    try {
+      if (!identity || !source.project || identity.requestId !== source.documentArchive.pendingRequestId
+        || identity.project.projectId !== source.project.projectId || identity.project.projectVersion !== source.project.versionId
+        || identity.project.projectDigest !== source.project.projectDigest) throw new Error("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");
+      const recovered = await createDocumentArchiveClient(source.sessionId, source.project).recover(identity);
+      if (!isMounted() || !matches(latestSessionRef.current)) return "DONE";
+      if (recovered.state === "IN_PROGRESS") { inProgress = true; return "IN_PROGRESS"; }
+      if (recovered.state === "UNKNOWN") throw new Error("DOC_ARCHIVE_RECOVERY_UNKNOWN");
+      const current = latestSessionRef.current;
+      const next = recovered.state === "COMMITTED"
+        ? publishArchivedGeneration(current, recovered.receipt.generation, identity.projectionId)
+        : { ...current, documentArchive: { ...current.documentArchive!, pendingRequestId: null, pendingRecovery: null },
+          documentRetryUnsafe: false, documents: markFunctionalResetDocumentFailure(current.project!, current.documents,
+            new Error(recovered.errorCode ?? "DOC_ARCHIVE_PROVIDER_FAILED")) };
+      const saved = await saveFunctionalResetWorkspaceSession(window.localStorage, next, onSessionChange);
+      if (!isMounted() || !matches(latestSessionRef.current)) return "DONE";
+      // Preserve conversation updates while publishing only the DOC result/link.
+      const latest = latestSessionRef.current;
+      const published = recovered.state === "COMMITTED"
+        ? publishArchivedGeneration(latest, recovered.receipt.generation, identity.projectionId)
+        : { ...latest, documents: next.documents, documentArchive: next.documentArchive, documentRetryUnsafe: false };
+      latestSessionRef.current = published; setSession(published);
+      documentRecoveryRef.current = null;
+      if (recovered.state === "COMMITTED") {
+        setDocumentGenerationVersion(recovered.receipt.generation.displayVersion);
+        setDeliverableWorkspaceOpen(true); setDocumentGenerationComplete(true);
+      }
+      setDocumentSaveWarning(saved.scientificPersisted ? null : "Lien local non enregistré ; la génération durable reste récupérable.");
+    } catch (error) {
+      if (isMounted() && matches(latestSessionRef.current)) {
+        const current = latestSessionRef.current;
+        const failed = { ...current, documentRetryUnsafe: true,
+          documents: current.project ? markFunctionalResetDocumentFailure(current.project, current.documents, error) : current.documents };
+        latestSessionRef.current = failed; setSession(failed);
+        const nativeCode = error instanceof Error && /^[A-Z][A-Z0-9_:.-]{0,159}$/.test(error.message)
+          ? error.message : "DOC_ARCHIVE_RECOVERY_UNAVAILABLE";
+        setDocumentSaveWarning(`La finalisation ne peut pas être vérifiée (${nativeCode}). La demande d’origine est conservée ; aucune nouvelle rédaction n’est lancée.`);
+        documentRecoveryRef.current = { projectDigest: source.project?.projectDigest ?? "", resume: resumePendingDocument };
+      }
+    } finally {
+      recoveryInFlightRef.current = false;
+      if (isMounted() && !inProgress) setDocumentGenerationPending(false);
+    }
+    return "DONE";
+  }
+  async function resumePendingDocument() {
+    if (await recoverPendingDocument() === "IN_PROGRESS" && mountedRef.current) setRecoveryObservation(value => value + 1);
+  }
+  const recoveryRunner = useRef(recoverPendingDocument);
+  recoveryRunner.current = recoverPendingDocument;
+  const pendingRequestId = latestSessionRef.current.documentArchive?.pendingRequestId;
+  const currentProjectDigest = latestSessionRef.current.project?.projectDigest;
+  useEffect(() => {
+    if (!pendingRequestId || pendingRequestId === dispatchedRequestRef.current && recoveryObservation === 0 || documentCommandInFlightRef.current) return;
+    let mounted = true, timer: ReturnType<typeof setTimeout> | undefined;
+    const read = async () => {
+      const state = await recoveryRunner.current(() => mounted);
+      // Observation only while the durable owner says genuinely in-flight.
+      if (mounted && state === "IN_PROGRESS") timer = setTimeout(() => { void read(); }, 2000);
+    };
+    void read();
+    return () => { mounted = false; clearTimeout(timer); };
+  }, [pendingRequestId, currentProjectDigest, recoveryObservation]);
   async function requestProtocolProjection(
     requestedEvidence?: ReturnType<typeof acquireDocumentKnowledge>,
     sourceSession: FunctionalResetSession = latestSessionRef.current,
   ) {
+    if (sourceSession.documentArchive?.pendingRequestId) { await resumePendingDocument(); return; }
     if (!sourceSession.project || documentCommandInFlightRef.current || sourceSession.documentRetryUnsafe
       || import.meta.env.VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME === "TERRA" && hasCurrentArchivedGeneration(sourceSession)) return;
     documentCommandInFlightRef.current = true;
@@ -145,8 +230,24 @@ export function useDocumentGeneration(input: {
             documentDraftRequest: prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: protocol, crf: buildCanonicalCrfPackage(sourceSession.project) }),
             observabilityContext: { sessionId: sourceSession.sessionId, conversationId: sourceSession.conversationId,
               turnId, clientRequestId: `drci-draft:${sourceSession.project.projectDigest}:${turnId}`, testSessionId: null } };
-        // Keep the exact request, including handoff time and payload, for a
-        // transport recovery. The durable owner decides whether dispatch is safe.
+        const recoveryIdentity = { requestId: nativeRequest.observabilityContext!.clientRequestId,
+          project: { projectId: sourceSession.project.projectId, projectVersion: sourceSession.project.versionId, projectDigest: sourceSession.project.projectDigest },
+          projectionId: protocol.projectionId, handoffDigest: logicalDigest(decision) };
+        // Persist the immutable source link and admission identity BEFORE dispatch.
+        // Fail closed if local scientific persistence cannot retain this linkage.
+        const latestBeforeDispatch = latestSessionRef.current;
+        if (latestBeforeDispatch.sessionId !== sourceSession.sessionId || latestBeforeDispatch.project?.versionId !== sourceSession.project.versionId
+          || latestBeforeDispatch.project?.projectDigest !== sourceSession.project.projectDigest) throw new Error("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");
+        const pendingSession = { ...documentaryContext(latestBeforeDispatch),
+          documentArchive: { ...templateSession.documentArchive!, currentGenerationId: latestBeforeDispatch.documentArchive?.currentGenerationId ?? null,
+            currentGeneration: latestBeforeDispatch.documentArchive?.currentGeneration, pendingRequestId: recoveryIdentity.requestId, pendingRecovery: recoveryIdentity } };
+        dispatchedRequestRef.current = recoveryIdentity.requestId;
+        if (!(await saveFunctionalResetWorkspaceSession(window.localStorage, pendingSession, onSessionChange)).scientificPersisted)
+          throw new Error("DOC_ARCHIVE_RECOVERY_IDENTITY_NOT_PERSISTED");
+        latestSessionRef.current = { ...documentaryContext(latestSessionRef.current), documentArchive: pendingSession.documentArchive };
+        setSession(latestSessionRef.current);
+        // This closure performs the initial explicit dispatch only. Recovery
+        // uses the persisted admission link and the non-provider archive path.
         const resume = async () => {
           if (documentGenerationInFlightRef.current || latestSessionRef.current.project?.projectDigest !== sourceSession.project?.projectDigest) return;
           documentGenerationInFlightRef.current = true;
@@ -180,15 +281,18 @@ export function useDocumentGeneration(input: {
             if (await reconcile()) return;
             // Only a transport failure exposes retrieval. Terminal/UNKNOWN
             // results must not be turned into a fresh paid generation.
-            documentRecoveryRef.current = error instanceof TypeError
-              || error instanceof ProductBridgeClientError && ["DOC_ARCHIVE_PERSISTENCE_FAILED", "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED"].includes(error.code)
-              ? { projectDigest: sourceSession.project!.projectDigest, resume } : null;
+            const retrievalAllowed = error instanceof TypeError
+              || error instanceof ProductBridgeClientError && ["DOC_ARCHIVE_PERSISTENCE_FAILED", "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED"].includes(error.code);
+            const recoverable = retrievalAllowed || error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH");
+            documentRecoveryRef.current = retrievalAllowed
+              ? { projectDigest: sourceSession.project!.projectDigest, resume: resumePendingDocument } : null;
             const failedDocuments = markFunctionalResetDocumentFailure(sourceSession.project, templateSession.documents, error, records);
             setSession(current => current.sessionId !== sourceSession.sessionId
               || current.project?.projectDigest !== sourceSession.project?.projectDigest ? current : ({ ...current, ...(evidence ?? {}), documents: failedDocuments,
               documentArchive: { ...templateSession.documentArchive!, currentGenerationId: current.documentArchive?.currentGenerationId ?? null,
-                currentGeneration: current.documentArchive?.currentGeneration },
-              documentRetryUnsafe: error instanceof ProductBridgeClientError && error.code.includes("UNKNOWN_AFTER_DISPATCH"),
+                currentGeneration: current.documentArchive?.currentGeneration, pendingRequestId: recoverable ? recoveryIdentity.requestId : null,
+                pendingRecovery: recoverable ? recoveryIdentity : null },
+              documentRetryUnsafe: recoverable,
               updatedAt: now }));
           } finally {
             setSession(current => appendFunctionalResetProviderCallRecords(current, { turnId, requestKind: "USER_TURN", records }));

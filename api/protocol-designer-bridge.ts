@@ -853,7 +853,7 @@ export const handleProtocolDesignerBridge = async (
       proof: header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
       clientAddress: header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous",
       connection: durableGuardConnectionString(environment), environment,
-      snapshots: dependencies.projectSnapshotStore, archive: dependencies.documentArchive });
+      snapshots: dependencies.projectSnapshotStore, archive: dependencies.documentArchive, guard: dependencies.durableGuard });
     return response.status(result.status).json(result.body);
   }
   if (!protocolDesignerStandardConversationCallsAllowed(environment)) return response.status(503).json({

@@ -11,24 +11,38 @@ import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 import { prepareDrciDraftSource, prepareDrciDraftPack, DRCI_DOCUMENT_KINDS } from "../drci-draft-contract";
 import type { ProductBridgeResponse } from "../../protocol-designer/product-bridge";
 import { archiveSqlFixture } from "./archive-sql-fixture";
+import { renderHook, act, waitFor, cleanup } from "@testing-library/react";
+import { useRef, useState } from "react";
+import { useDocumentGeneration } from "../../protocol-designer/functional-reset/useDocumentGeneration";
+import { createFunctionalResetSession, loadFunctionalResetSession, persistFunctionalResetSession, type FunctionalResetSession } from "../../protocol-designer/functional-reset/session";
+import * as bridgeClient from "../../protocol-designer/product-bridge-client";
+import * as archiveClient from "../generation-archive-client";
+import { documentNativeGeneratedAt, type DocumentRecoveryResult } from "../generation-persistence";
+import { materializeDrciDraftPack, drciDraftPackArtifacts } from "../drci-draft-pack";
+import { logicalDigest } from "../../knowledge-engine/canonical";
+import { COLCHICINE_MODIFICATION } from "../../protocol-designer/functional-reset/__tests__/functional-reset-fixtures";
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => { cleanup(); vi.restoreAllMocks(); localStorage.clear(); vi.unstubAllEnvs(); });
 let clientOrdinal = 0;
-const runtime = async (limits = {}) => {
+const runtime = async (limits = {}, withV2 = false) => {
   const clientIndex = ++clientOrdinal;
-  const sessionId = `protocol-designer-session:doc-transaction-${clientIndex}`, at = "2026-10-05T10:00:00.000Z";
-  const authority = { actorRef: "synthetic", mandateRef: "PROJECT_OWNER" as const, authoritySource: "ACTIVE_RESEARCH_WORKSPACE_SESSION" as const, verification: "DEMO_SESSION_NOT_AUTHENTICATED" as const };
+  const at = "2026-10-05T10:00:00.000Z", initial = createFunctionalResetSession(at);
+  const sessionId = initial.sessionId, authority = initial.projectAuthority;
   const turn = { turnId: "source", role: "USER" as const, content: COLCHICINE_INITIAL, createdAt: at };
-  const project = confirmResearchProjectContribution({ contribution: makeFunctionalResetContribution([turn]), current: null,
+  const v1 = confirmResearchProjectContribution({ contribution: makeFunctionalResetContribution([turn]), current: null,
     projectId: `${sessionId}:research-project`, authority, confirmedAt: at });
+  const second = { ...turn, turnId: "source-v2", content: COLCHICINE_MODIFICATION };
+  const project = withV2 ? confirmResearchProjectContribution({ contribution: makeFunctionalResetContribution([turn, second]), current: v1,
+    projectId: v1.projectId, authority, confirmedAt: at }) : v1;
   const handoffDecision = authorizeResearchProjectDocumentHandoff({ project, authority, confirmedAt: at });
   const projection = refreshFunctionalResetDocumentPortfolio({ project, handoffDecision, requestedAt: at, generateProtocol: true }).projections.at(-1)!;
   const source = prepareDrciDraftSource({ handoffDecision, protocolProjection: projection, crf: buildCanonicalCrfPackage(project) });
   const packet = prepareDrciDraftPack(project, source);
-  const value = { documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `Qualification ${kind}`,
+  const valueFor = (packet: ReturnType<typeof prepareDrciDraftPack>, source: ReturnType<typeof prepareDrciDraftSource>) => ({ documents: DRCI_DOCUMENT_KINDS.map(kind => ({ kind, title: `Qualification ${kind}`,
     sections: [{ title: "Cadre de recherche", paragraphs: [packet.sourceFacts[0].content + (kind === "PROTOCOL_SYNOPSIS" ? " Qualification déterministe sans validation scientifique. ".repeat(120) : "")], sourceRefs: [packet.sourceFacts[0].ref] }], missingElements: [] })),
     crfRows: source.crf.fields.map((field, i) => ({ variableRef: field.canonicalVariableId, variableId: `FIELD_${i}`, label: field.label, domain: "À préciser", visit: "À préciser", definition: field.label,
-      entryType: "Texte", unit: null, categories: null, dataOrigin: "UNSPECIFIED", source: "À préciser", required: "À préciser", condition: null, derivedFrom: [], derivation: null, controls: [], analysisImpact: null, specificationStatus: "UNSPECIFIED" })) };
+      entryType: "Texte", unit: null, categories: null, dataOrigin: "UNSPECIFIED" as const, source: "À préciser", required: "À préciser", condition: null, derivedFrom: [], derivation: null, controls: [], analysisImpact: null, specificationStatus: "UNSPECIFIED" as const })) });
+  const value = valueFor(packet, source);
   const executed = vi.spyOn(provider, "executeOpenAIDrciDraft").mockResolvedValue({ value, calls: 1, latencyMs: 0, modelRequested: "gpt-6-sol", modelReturned: "gpt-6-sol", reusedProtocolEvidenceRef: null } as Awaited<ReturnType<typeof provider.executeOpenAIDrciDraft>>);
   const snapshots = memoryProjectSnapshotStore(), sql = archiveSqlFixture();
   // Independent deterministic tester sessions must not share the server's
@@ -41,20 +55,189 @@ const runtime = async (limits = {}) => {
   const body = { apiVersion: "1.0.0", requestKind: "USER_TURN", conversation: { conversationId: "conversation", language: "fr", turns: [turn] }, currentProject: project,
     evaluatePersistentDelta: false, documentDraftRequest: source, observabilityContext: { sessionId, conversationId: "conversation", turnId: turn.turnId, clientRequestId: requestId, testSessionId: null } };
   let now = Date.parse(at);
-  const invoke = async (options: { ledgerFailure?: boolean; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean } = {}) => {
+  const invoke = async (options: { ledgerFailure?: boolean; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean; clientAddress?: string; proof?: string } = {}) => {
     let status = 0, returned: unknown;
     const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(result) {
       if (options.lostResponse) throw new TypeError("OFFLINE_LOST_HTTP_RESPONSE"); returned = result;
     } };
-    await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", host: "noxia.test", origin: "https://noxia.test", "x-forwarded-for": identity.clientAddress,
-      "x-noxia-project-snapshot-proof": registration.proof }, body: options.payload ?? body }, response,
+    await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", host: "noxia.test", origin: "https://noxia.test", "x-forwarded-for": options.clientAddress ?? identity.clientAddress,
+      "x-noxia-project-snapshot-proof": options.proof ?? registration.proof }, body: options.payload ?? body }, response,
     options.noProviderConfig ? {} : { VERCEL_ENV: "preview", OPENAI_API_KEY: "OFFLINE_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA" },
     { projectSnapshotStore: snapshots, documentArchive: archive, durableGuard: options.ledgerFailure ? { ...guard, completeRequest: async () => { throw new Error("OFFLINE_LEDGER_FAILURE"); } } : guard,
       now: () => now, fetchImpl: vi.fn(async () => { throw new Error("NETWORK_FORBIDDEN"); }) });
     return { status, body: returned as ProductBridgeResponse & { error?: { code: string } } };
   };
-  return { invoke, archive, access, sql, executed, project, requestId, body, advance: () => { now += 60_000; } };
+  return { invoke, archive, access, sql, executed, project, v1, projection, source, snapshots, guard, requestId, body, at, authority, initial, valueFor,
+    advance: () => { now += 60_000; } };
 };
+
+// CURRENT_STRUCTURAL_INVARIANT: real native handler/admission/archive/hook +
+// real session serialization. Only physical provider execution and SQL transport
+// are deterministic doubles; source science and DOC validation are unchanged.
+const reloadRuntime = async () => {
+  vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
+  const run = await runtime({}, true);
+  const decision = authorizeResearchProjectDocumentHandoff({ project: run.v1, authority: run.authority, confirmedAt: run.at });
+  const projection = refreshFunctionalResetDocumentPortfolio({ project: run.v1, handoffDecision: decision, requestedAt: run.at, generateProtocol: true }).projections.at(-1)!;
+  const source = prepareDrciDraftSource({ handoffDecision: decision, protocolProjection: projection, crf: buildCanonicalCrfPackage(run.v1) });
+  const packet = prepareDrciDraftPack(run.v1, source);
+  const pack = materializeDrciDraftPack(run.valueFor(packet, source), { project: run.v1, packet, generatedAt: run.at });
+  const { freezeDocumentGeneration } = await import("../generation-exports");
+  const g1Body = await freezeDocumentGeneration({ native: { family: "DRCI", value: pack }, artifacts: drciDraftPackArtifacts(pack, run.v1), sha256: docSha256, renderOrigin: "GENERATION_TIME" });
+  const g1Request = `drci-draft:${run.v1.projectDigest}:g1`;
+  const v1Registration = await run.snapshots.persist(run.access.identity, run.v1, run.access.proof);
+  const v1Access = { ...run.access, project: v1Registration.ref, proof: v1Registration.proof };
+  await run.archive.admit(v1Access, { family: "DRCI", requestId: g1Request, requestSha256: docSha256(g1Request), generatedAt: run.at, reservedBytes: 4_000_000 });
+  const g1 = await run.archive.commit(v1Access, g1Request, g1Body);
+  const initial: FunctionalResetSession = { ...run.initial, project: run.project, runtimeTurns: run.body.conversation.turns,
+    documentArchive: { ...run.initial.documentArchive!, currentGenerationId: g1.generation.generationId,
+      currentGeneration: g1.generation } };
+  let latest = initial;
+  const client: archiveClient.DocumentArchiveClient = {
+    history: cursor => run.archive.history(run.access, cursor, "DRCI"),
+    body: id => run.archive.body(run.access, id), receipt: id => run.archive.receipt(run.access, id),
+    async commit(id, body) {
+      await run.archive.admit(run.access, { requestId: id, requestSha256: docSha256(JSON.stringify(body)), generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: Buffer.byteLength(JSON.stringify(body)) });
+      return run.archive.commit(run.access, id, body);
+    },
+    async recover(identity) {
+      const response = await run.invoke({ noProviderConfig: true, payload: { operation: "DOC_ARCHIVE_RECOVER",
+        sessionId: initial.sessionId, projectRef: run.access.project, requestId: identity.requestId,
+        projectionId: identity.projectionId, handoffDigest: identity.handoffDigest } });
+      if (response.status !== 200) throw new archiveClient.DocumentArchiveClientError(response.body.error!.code);
+      return (response.body as unknown as { result: DocumentRecoveryResult }).result;
+    },
+  };
+  const recover = vi.spyOn(client, "recover");
+  vi.spyOn(archiveClient, "createDocumentArchiveClient").mockReturnValue(client);
+  const requests: unknown[] = [];
+  const dispatch = vi.spyOn(bridgeClient, "requestProtocolDesignerBridge").mockImplementation(async request => {
+    // This assertion is at the actual dispatch boundary, not an after-save mock.
+    const persisted = loadFunctionalResetSession(localStorage, undefined, true);
+    expect(persisted.documentArchive!.pendingRequestId).toBe(request.observabilityContext!.clientRequestId);
+    expect(persisted.documents.projections).toEqual([]);
+    requests.push(request);
+    run.sql.failMetadataCommit(true);
+    const result = await run.invoke({ payload: { ...request, apiVersion: "1.0.0" } });
+    if (result.status !== 200) throw new bridgeClient.ProductBridgeClientError(result.body.error!.code, "OFFLINE_ARCHIVE_WRITE_FAILURE");
+    return result.body;
+  });
+  const stage = vi.fn(), pending = vi.fn();
+  const mount = (source = latest) => renderHook(() => {
+    const [session, setSession] = useState(source), ref = useRef(session);
+    ref.current = session; latest = session;
+    return useDocumentGeneration({ latestSessionRef: ref, setSession, projectionMode: "STANDARD", administration: undefined,
+      setDocumentSaveWarning: vi.fn(), setDeliverableWorkspaceOpen: vi.fn(), setDocumentGenerationVersion: vi.fn(),
+      setDocumentGenerationStartedAt: vi.fn(), setDocumentGenerationElapsed: vi.fn(), setDocumentGenerationComplete: vi.fn(),
+      setDocumentGenerationPending: pending, setDocumentGenerationStage: stage });
+  });
+  return { ...run, client, recover, dispatch, requests, mount, stage, pending, g1, g1Body,
+    latest: () => latest, reload: () => loadFunctionalResetSession(localStorage, undefined, true) };
+};
+
+describe("same DOC admission survives archive failure + browser reload", () => {
+  it("persists R1 before dispatch, then recovers exactly one G2 without a provider call or second reservation", async () => {
+    const run = await reloadRuntime(), beforeProject = JSON.stringify(run.project);
+    const first = run.mount(); await act(() => first.result.current.requestProtocolProjection());
+    const identity = run.latest().documentArchive!.pendingRecovery!;
+    expect(identity).toBeDefined(); expect(run.executed).toHaveBeenCalledOnce();
+    expect(run.latest().documents.lastFailure).not.toBeNull();
+    expect((await run.client.history()).entries.map(g => g.displayVersion)).toEqual([1]);
+    const rows = run.sql.rows().length;
+    const admission = vi.spyOn(run.archive, "admit");
+    const source = JSON.stringify(await run.client.body(identity.projectionId));
+    first.unmount(); run.advance(); run.sql.failMetadataCommit(false);
+    const reopened = run.reload(); expect(reopened.documentArchive!.pendingRecovery).toEqual(identity);
+    const second = run.mount(reopened);
+    await waitFor(() => expect(run.latest().documentArchive!.currentGeneration?.displayVersion).toBe(2));
+    expect(run.recover).toHaveBeenCalledWith(identity);
+    expect(run.dispatch).toHaveBeenCalledOnce(); expect(run.executed).toHaveBeenCalledOnce();
+    expect(run.sql.rows()).toHaveLength(rows);
+    expect(admission).not.toHaveBeenCalled();
+    expect((await run.client.history()).entries.map(g => g.displayVersion)).toEqual([2, 1]);
+    expect(run.latest().documentArchive!.pendingRequestId).toBeNull(); expect(run.latest().documents.lastFailure).toBeNull();
+    expect(run.latest().documentArchive!.currentGeneration?.project.projectDigest).toBe(run.project.projectDigest);
+    expect(JSON.stringify(await run.client.body(identity.projectionId))).toBe(source);
+    expect((await run.client.body(run.g1.generation.generationId)).body).toEqual(run.g1Body);
+    expect(JSON.stringify(run.project)).toBe(beforeProject);
+    expect(run.stage).toHaveBeenCalledWith("VERIFYING_ARCHIVE");
+    second.unmount(); const final = run.mount(run.reload());
+    await act(() => final.result.current.requestProtocolProjection());
+    expect(run.dispatch).toHaveBeenCalledOnce(); expect(run.latest().documentArchive!.currentGeneration?.displayVersion).toBe(2);
+  });
+
+  it("observes genuinely in-flight work after reload without a second execution", async () => {
+    const run = await reloadRuntime(); let release!: () => void, started!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; }), dispatched = new Promise<void>(resolve => { started = resolve; });
+    const execute = run.executed.getMockImplementation()!;
+    run.executed.mockImplementation(async (...args) => { started(); await pending; return execute(...args); });
+    const first = run.mount(); let work!: Promise<void>;
+    await act(async () => { work = first.result.current.requestProtocolProjection(); await dispatched; });
+    first.unmount(); const rows = run.sql.rows().length;
+    const second = run.mount(run.reload());
+    await waitFor(() => expect(run.recover).toHaveBeenCalledOnce());
+    expect(await run.recover.mock.results[0].value).toEqual({ state: "IN_PROGRESS" });
+    expect(run.dispatch).toHaveBeenCalledOnce(); expect(run.executed).toHaveBeenCalledOnce(); expect(run.sql.rows()).toHaveLength(rows);
+    second.unmount(); await act(async () => { release(); await work; });
+  });
+
+  it("does not report success for a terminal provider failure recovered after reload", async () => {
+    const run = await reloadRuntime(); run.executed.mockRejectedValueOnce(new Error("OFFLINE_TERMINAL_PROVIDER_FAILURE"));
+    const first = run.mount(); await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    // Reproduce a lost terminal response: the pre-dispatch durable linkage remains.
+    const request = run.requests[0] as Parameters<typeof bridgeClient.requestProtocolDesignerBridge>[0];
+    const old = run.reload(), projectionId = old.documentArchive!.currentProjectionId!;
+    const pending = { ...old, documentArchive: { ...old.documentArchive!, pendingRequestId: request.observabilityContext!.clientRequestId,
+      pendingRecovery: { requestId: request.observabilityContext!.clientRequestId, project: { projectId: run.project.projectId,
+        projectVersion: run.project.versionId, projectDigest: run.project.projectDigest }, projectionId,
+        handoffDigest: logicalDigest(request.documentDraftRequest!.handoffDecision) } } };
+    persistFunctionalResetSession(localStorage, pending);
+    run.mount(run.reload());
+    await waitFor(() => expect(run.latest().documents.lastFailure).not.toBeNull());
+    await waitFor(() => expect(run.latest().documentArchive!.pendingRequestId).toBeNull());
+    expect(run.latest().documentArchive!.currentGeneration?.displayVersion).toBe(1);
+    expect(run.dispatch).toHaveBeenCalledOnce(); expect(run.executed).toHaveBeenCalledOnce();
+    expect((await run.client.history()).entries).toHaveLength(1);
+  });
+
+  it("fails closed for stale Project identity and preserves the original reserved attempt", async () => {
+    const run = await reloadRuntime(), first = run.mount(); await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const reopened = run.reload(), identity = reopened.documentArchive!.pendingRecovery!;
+    const stale = { ...reopened, project: run.v1 };
+    run.mount(stale);
+    await waitFor(() => expect(run.latest().documents.lastFailure?.message).toContain("DOC_ARCHIVE_RECOVERY_BINDING_INVALID"));
+    expect(run.latest().documentArchive!.pendingRecovery).toEqual(identity);
+    expect(run.recover).not.toHaveBeenCalled(); expect(run.dispatch).toHaveBeenCalledOnce();
+    expect(run.sql.rows().filter(row => row.state === "RESERVED")).toHaveLength(1);
+  });
+  it("reconciles a post-commit reload even when the old pending pointer remains on disk", async () => {
+    const run = await reloadRuntime(), first = run.mount(); await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const pending = run.reload(), identity = pending.documentArchive!.pendingRecovery!;
+    run.sql.failMetadataCommit(false);
+    expect(await run.client.recover(identity)).toMatchObject({ state: "COMMITTED" });
+    const count = run.sql.rows().length;
+    run.mount(pending);
+    await waitFor(() => expect(run.latest().documentArchive!.currentGeneration?.displayVersion).toBe(2));
+    expect(run.latest().documentArchive!.pendingRequestId).toBeNull(); expect(run.sql.rows()).toHaveLength(count);
+    expect(run.executed).toHaveBeenCalledOnce(); expect((await run.client.history()).entries).toHaveLength(2);
+  });
+  it("rejects foreign, altered handoff, stale version and absent request identities at the native HTTP boundary", async () => {
+    const run = await reloadRuntime(), first = run.mount(); await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const identity = run.reload().documentArchive!.pendingRecovery!;
+    const payload = { operation: "DOC_ARCHIVE_RECOVER", sessionId: run.access.identity.sessionId, projectRef: run.access.project,
+      requestId: identity.requestId, projectionId: identity.projectionId, handoffDigest: identity.handoffDigest };
+    const unchanged = JSON.stringify(run.sql.rows());
+    for (const invalid of [
+      { ...payload, sessionId: "protocol-designer-session:foreign" },
+      { ...payload, handoffDigest: "ke1-0000000000000000" },
+      { ...payload, projectRef: { ...payload.projectRef, versionId: run.v1.versionId, projectDigest: run.v1.projectDigest } },
+      { ...payload, requestId: `drci-draft:${run.project.projectDigest}:absent` },
+    ]) expect((await run.invoke({ payload: invalid, noProviderConfig: true })).status).toBeGreaterThanOrEqual(400);
+    expect((await run.invoke({ payload, clientAddress: "192.0.2.254", noProviderConfig: true })).status).toBe(403);
+    expect((await run.invoke({ payload, proof: "A".repeat(43), noProviderConfig: true })).status).toBe(403);
+    expect(JSON.stringify(run.sql.rows())).toBe(unchanged); expect(run.executed).toHaveBeenCalledOnce();
+  });
+});
 
 describe("DOC generation publication / recovery transaction — no real provider", () => {
   it("rejects a full archive write envelope before provider admission or dispatch", async () => {

@@ -151,6 +151,7 @@ describe("explicit partial DOC resume (native boundaries, no real provider)", ()
       documents: refreshFunctionalResetDocumentPortfolio({ project: run.v2, administration, requestedAt: at }) } };
     const frozenV2 = JSON.stringify(run.v2), requests: typeof run.body[] = [];
     vi.spyOn(archiveClient, "createDocumentArchiveClient").mockReturnValue({
+      async recover() { throw new Error("OFFLINE_RECOVERY_TRANSPORT_NOT_CONFIGURED"); },
       history: cursor => run.archive.history(run.access, cursor, "DRCI"),
       body: id => run.archive.body(run.access, id), receipt: id => run.archive.receipt(run.access, id),
       async commit(id, body) {
