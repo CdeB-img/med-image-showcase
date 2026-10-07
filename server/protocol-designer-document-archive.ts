@@ -8,6 +8,7 @@ import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, documentFileManifest, docu
   documentNativePredecessor, documentNativeProject, type DocumentGenerationBody, type DocumentGenerationRef,
   type DocumentHistoryPage, type DocumentPersistenceReceipt, type DocumentNativeGeneration } from "../src/features/document-projection/generation-persistence.js";
 import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
+import { createDocumentWorkingRevisions, type DocumentWorkingRevisionStore } from "./protocol-designer-document-working-revision.js";
 
 export const docSha256 = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
 /** Project-scoped transaction identity: request IDs belong to idempotence,
@@ -42,6 +43,7 @@ export type DocumentArchiveIntent = Readonly<{ requestId: string; requestSha256:
   family?: "DRCI" }>;
 export type AdmittedDocumentIntent = DocumentArchiveIntent & Readonly<{ receipt: DocumentPersistenceReceipt | null }>;
 export type DocumentArchiveStore = Readonly<{
+  workingRevisions?: DocumentWorkingRevisionStore;
   admit(access: DocumentArchiveAccess, intent: DocumentArchiveIntent): Promise<AdmittedDocumentIntent>;
   commit(access: DocumentArchiveAccess, requestId: string, body: DocumentGenerationBody): Promise<DocumentPersistenceReceipt>;
   receipt(access: DocumentArchiveAccess, requestId: string): Promise<DocumentPersistenceReceipt | null>;
@@ -105,7 +107,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
   };
   const receiptFor = (row: Record<string, unknown>): DocumentPersistenceReceipt | null => row.state === "COMMITTED"
     ? { contract: DOC_ARCHIVE_CONTRACT, requestId: String(row.request_id), generation: row.metadata as DocumentGenerationRef } : null;
-  return {
+  const archive: DocumentArchiveStore = {
     async admit(access, intent) {
       if (!string(intent.requestId, 600) || !/^[a-f0-9]{64}$/u.test(intent.requestSha256)
         || !Number.isFinite(Date.parse(intent.generatedAt)) || !Number.isSafeInteger(intent.reservedBytes) || intent.reservedBytes < 1) {
@@ -236,4 +238,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       });
     },
   };
+  return { ...archive, workingRevisions: createDocumentWorkingRevisions({
+    sql, sha256: docSha256, authorize, readSource: archive.body, maxBodyBytes: capacity.maxBodyBytesPerGeneration,
+  }) };
 };

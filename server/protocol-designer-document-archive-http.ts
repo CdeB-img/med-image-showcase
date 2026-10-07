@@ -1,6 +1,7 @@
 import { parseProjectSnapshotRef, ProjectSnapshotError, sharedPostgresProjectSnapshotStore, type ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256, DocumentArchiveError, type DocumentArchiveAccess, type DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 import type { DocumentGenerationBody } from "../src/features/document-projection/generation-persistence.js";
+import { DocumentWorkingRevisionError, type EditableDocumentContent } from "../src/features/document-projection/working-revision.js";
 import { DurablePublicGuardError, durableGuardSessionRequestLimit, durableGuardPublicBudget, sharedPostgresProtocolDesignerDurableGuard, type PublicProtocolDesignerDurableGuard } from "./protocol-designer-durable-guard.js";
 import { PRODUCT_BRIDGE_API_VERSION, type ProductBridgeResponse } from "../src/features/protocol-designer/product-bridge.js";
 import { isDrciDraftPackCurrent, drciDraftPackArtifacts } from "../src/features/document-projection/drci-draft-pack.js";
@@ -41,6 +42,33 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_REVISION_CREATE":
+      case "DOC_ARCHIVE_REVISION_GET":
+      case "DOC_ARCHIVE_REVISION_SAVE":
+      case "DOC_ARCHIVE_REVISION_ABANDON": {
+        const owner = archive.workingRevisions;
+        if (!owner) throw new DocumentWorkingRevisionError("DOC_REVISION_UNAVAILABLE", 503);
+        if (typeof body.revisionId !== "string") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+        if (body.operation === "DOC_ARCHIVE_REVISION_CREATE") {
+          if (keys !== "baseGenerationBodyDigest,baseGenerationId,nativeDocumentRef,operation,projectRef,revisionId,sessionId"
+            || typeof body.baseGenerationId !== "string" || typeof body.baseGenerationBodyDigest !== "string"
+            || typeof body.nativeDocumentRef !== "string") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+          result = await owner.create(access, { revisionId: body.revisionId, baseGenerationId: body.baseGenerationId,
+            baseGenerationBodyDigest: body.baseGenerationBodyDigest, nativeDocumentRef: body.nativeDocumentRef });
+        } else if (body.operation === "DOC_ARCHIVE_REVISION_GET") {
+          if (keys !== "operation,projectRef,revisionId,sessionId") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+          result = await owner.get(access, body.revisionId);
+        } else {
+          const expected = body.operation === "DOC_ARCHIVE_REVISION_SAVE"
+            ? "content,expectedSaveSequence,operation,projectRef,revisionId,sessionId" : "expectedSaveSequence,operation,projectRef,revisionId,sessionId";
+          if (keys !== expected || typeof body.expectedSaveSequence !== "number") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+          const input = { revisionId: body.revisionId, expectedSaveSequence: body.expectedSaveSequence };
+          result = body.operation === "DOC_ARCHIVE_REVISION_SAVE"
+            ? await owner.save(access, { ...input, content: body.content as EditableDocumentContent })
+            : await owner.abandon(access, input);
+        }
+        break;
+      }
       case "DOC_ARCHIVE_RECOVER": {
         if (keys !== "handoffDigest,operation,projectRef,projectionId,requestId,sessionId"
           || typeof body.projectionId !== "string" || !/^document-projection:ke1-[a-f0-9]{16}$/.test(body.projectionId)
@@ -113,7 +141,7 @@ export const executeDocumentArchiveOperation = async (input: {
     return { status: 200, body: { contract: "DOC_GENERATION_ARCHIVE_V1", result } };
   } catch (error) {
     if (error instanceof DurablePublicGuardError) return { status: error.status, body: { error: { code: error.code } } };
-    const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError
+    const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError || error instanceof DocumentWorkingRevisionError
       ? error : new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
     return { status: failure.status, body: { error: { code: failure.code } } };
   }

@@ -5,10 +5,13 @@ import type { Sql } from "postgres";
 export const archiveSqlFixture = () => {
   let rows: Record<string, unknown>[] = [];
   let bodies: Record<string, unknown>[] = [];
+  let revisions: Record<string, unknown>[] = [];
+  const snapshots: Record<string, unknown>[] = [];
   let tail: Promise<unknown> = Promise.resolve();
   const queries: string[] = [];
   const projectLockArguments: string[] = [];
   let failCommit = false;
+  let failRevision = false;
   const tag = async (parts: TemplateStringsArray, ...v: unknown[]): Promise<Record<string, unknown>[]> => {
     const query = parts.join("?").replace(/\s+/gu, " ").trim(); queries.push(query);
     if (query.startsWith("select pg_advisory")) {
@@ -19,6 +22,19 @@ export const archiveSqlFixture = () => {
       }
       return [];
     }
+    if (query.startsWith("select revision from noxia_durable.doc_working_revision")) return revisions
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2])
+      .sort((a, b) => Number(b.save_sequence) - Number(a.save_sequence)).slice(0, 1).map(r => ({ revision: structuredClone(r.revision) }));
+    if (query.startsWith("insert into noxia_durable.doc_working_revision")) {
+      if (failRevision) throw new Error("OFFLINE_REVISION_WRITE_FAILURE");
+      if (revisions.some(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2] && r.save_sequence === v[3]))
+        throw new Error("DOC_REVISION_DUPLICATE_SEQUENCE");
+      revisions.push({ session_key_hash: v[0], project_id: v[1], revision_id: v[2], save_sequence: v[3],
+        base_generation_id: v[4], base_body_sha256: v[5], logical_document_ref: v[6], status: v[7], revision: structuredClone(v[8]) });
+      return [];
+    }
+    if (query.startsWith("select version_id, project_digest from noxia_durable.public_project_snapshot")) return snapshots
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1]).sort((a, b) => Number(b.revision) - Number(a.revision)).slice(0, 1);
     if (query.startsWith("insert into noxia_durable.doc_generation_body")) {
       bodies.push({ session_key_hash: v[0], project_id: v[1], request_id: v[2], native_body_text: v[3], body_sha256: v[4] }); return [];
     }
@@ -71,12 +87,21 @@ export const archiveSqlFixture = () => {
         // Only row settlement mutates fields. Immutable TEXT/metadata are shared
         // safely; copying hundreds of frozen bodies would test the double's RAM,
         // not the archive. A failed transaction still restores all row changes.
-        const beforeRows = rows.map(row => ({ ...row })), beforeBodies = [...bodies];
-        try { return await callback(sql); } catch (error) { rows = beforeRows; bodies = beforeBodies; throw error; }
+        const beforeRows = rows.map(row => ({ ...row })), beforeBodies = [...bodies], beforeRevisions = [...revisions];
+        try { return await callback(sql); } catch (error) { rows = beforeRows; bodies = beforeBodies; revisions = beforeRevisions; throw error; }
       });
       tail = next.catch(() => {}); return next;
     },
   });
   return { sql: sql as unknown as Sql, queries, projectLockArguments, rows: () => structuredClone(rows), bodies: () => structuredClone(bodies),
+    revisions: () => structuredClone(revisions), failRevisionSave: (fail: boolean) => { failRevision = fail; },
+    corruptBody: (generationId: string) => {
+      const row = rows.find(item => item.generation_id === generationId)!;
+      const body = bodies.find(item => item.session_key_hash === row.session_key_hash && item.project_id === row.project_id && item.request_id === row.request_id)!;
+      body.native_body_text = String(body.native_body_text) + "corrupt";
+    },
+    recordSnapshot: (sessionKey: string, project: { projectId: string; versionId: string; projectDigest: string; revision: number }) => {
+      snapshots.push({ session_key_hash: sessionKey, project_id: project.projectId, version_id: project.versionId, project_digest: project.projectDigest, revision: project.revision });
+    },
     failMetadataCommit: (fail: boolean) => { failCommit = fail; } };
 };

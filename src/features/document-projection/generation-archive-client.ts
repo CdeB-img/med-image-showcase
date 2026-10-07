@@ -1,5 +1,7 @@
 import { ensureServerProjectSnapshot } from "../protocol-designer/product-bridge-client";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
+import { createDocumentWorkingRevisionClient } from "./working-revision-client";
+import type { DocumentWorkingRevisionClient } from "./working-revision";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, isDocumentGenerationRef, documentNativeIdentity, documentNativeProject, documentFileManifest, type DocumentGenerationBody, type DocumentGenerationRef, type DocumentHistoryPage,
   type DocumentPersistenceReceipt, type DocumentRecoveryIdentity, type DocumentRecoveryResult } from "./generation-persistence";
 
@@ -12,6 +14,7 @@ export const documentTextSha256 = async (text: string) => {
   return [...new Uint8Array(hash)].map(byte => byte.toString(16).padStart(2, "0")).join("");
 };
 export type DocumentArchiveClient = Readonly<{
+  workingRevisions?: DocumentWorkingRevisionClient;
   history(beforeOrdinal?: number): Promise<DocumentHistoryPage>;
   body(generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
   receipt(requestId: string): Promise<DocumentPersistenceReceipt | null>;
@@ -31,6 +34,7 @@ export const createDocumentArchiveClient = (sessionId: string, project: Research
     return value.result as T;
   };
   return {
+    workingRevisions: createDocumentWorkingRevisionClient(operation, project.projectId),
     async recover(identity) {
       if (identity.project.projectId !== project.projectId || identity.project.projectVersion !== project.versionId
         || identity.project.projectDigest !== project.projectDigest) throw new DocumentArchiveClientError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");

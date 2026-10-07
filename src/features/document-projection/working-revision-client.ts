@@ -1,0 +1,33 @@
+import { DocumentWorkingRevisionError, workingRevisionResultSchema, workingRevisionContentDigest,
+  type DocumentWorkingRevisionClient, type DocumentWorkingRevisionResult } from "./working-revision.js";
+
+/** Transport is the existing archive capability boundary, not a second fetch/auth path. */
+export const createDocumentWorkingRevisionClient = (
+  operation: <T>(command: Record<string, unknown>) => Promise<T>, projectId: string,
+): DocumentWorkingRevisionClient => {
+  const execute = async (command: Record<string, unknown>): Promise<DocumentWorkingRevisionResult> => {
+    const value = await operation<unknown>(command);
+    const parsed = workingRevisionResultSchema.safeParse(value);
+    if (!parsed.success || parsed.data.revision.revisionId !== command.revisionId
+      || parsed.data.revision.project.projectId !== projectId
+      || parsed.data.revision.contentDigest !== workingRevisionContentDigest(parsed.data.revision.content)
+      || parsed.data.baseState.stale !== (!parsed.data.baseState.projectCurrent || !parsed.data.baseState.generationCurrent)
+      || command.operation === "DOC_ARCHIVE_REVISION_CREATE" && (parsed.data.revision.baseGenerationId !== command.baseGenerationId
+        || parsed.data.revision.baseGenerationBodyDigest !== command.baseGenerationBodyDigest
+        || parsed.data.revision.identitySource.nativeDocumentRef !== command.nativeDocumentRef
+        || parsed.data.revision.status !== "ACTIVE")
+      || command.operation === "DOC_ARCHIVE_REVISION_SAVE" && (parsed.data.revision.status !== "ACTIVE"
+        || parsed.data.revision.contentDigest !== workingRevisionContentDigest(command.content)
+        || ![command.expectedSaveSequence, Number(command.expectedSaveSequence) + 1].includes(parsed.data.revision.saveSequence))
+      || command.operation === "DOC_ARCHIVE_REVISION_ABANDON" && (parsed.data.revision.status !== "ABANDONED"
+        || ![command.expectedSaveSequence, Number(command.expectedSaveSequence) + 1].includes(parsed.data.revision.saveSequence)))
+      throw new DocumentWorkingRevisionError("DOC_REVISION_RESPONSE_INVALID", 503);
+    return parsed.data as DocumentWorkingRevisionResult;
+  };
+  return {
+    create: input => execute({ operation: "DOC_ARCHIVE_REVISION_CREATE", ...input }),
+    get: revisionId => execute({ operation: "DOC_ARCHIVE_REVISION_GET", revisionId }),
+    save: input => execute({ operation: "DOC_ARCHIVE_REVISION_SAVE", ...input }),
+    abandon: input => execute({ operation: "DOC_ARCHIVE_REVISION_ABANDON", ...input }),
+  };
+};
