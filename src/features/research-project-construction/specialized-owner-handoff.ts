@@ -1,14 +1,14 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
 import {
   TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION,
   calculateTwoGroupContinuousSampleSize,
   type TwoGroupContinuousDimensioningInput,
-} from "@/features/data-analysis-planning/dimensioning-calculator";
-import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+} from "../data-analysis-planning/dimensioning-calculator.js";
+import type { ScientificInterpretationContributionEnvelope } from "../scientific-interpretation/contracts.js";
 import {
   buildProjectContextSnapshot,
   type ProjectContextSnapshot,
-} from "./canonical-project-backbone";
+} from "./canonical-project-backbone.js";
 import {
   confirmResearchProjectContribution,
   prepareResearchProjectContributionCandidate,
@@ -16,7 +16,7 @@ import {
   type ResearchProjectContributionCandidate,
   type ResearchProjectOwnerAuthority,
   type ResearchProjectOwnerProjection,
-} from "./contribution-owner-boundary";
+} from "./contribution-owner-boundary.js";
 
 export const SPECIALIZED_OWNER_HANDOFF_CONTRACT = "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF" as const;
 export const SPECIALIZED_OWNER_HANDOFF_VERSION = "0.1.0" as const;
@@ -80,14 +80,14 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     role: "SPECIALIZED_OWNER",
     status: "AVAILABLE_WITH_LIMITATIONS",
     implementationVersion: "1.3.0",
-    inputContract: "ScientificThinkingInput",
-    outputContract: "ScientificThinkingOutput / ResearchDesignHandoff",
+    inputContract: "ScientificThinkingInput / StudioScientificContribution",
+    outputContract: "ScientificThinkingOutput / ResearchDesignHandoff / StudioScientificAssessment",
     pd003V2Compatibility: "COMPATIBLE_THROUGH_ADAPTER",
     readsProjectSnapshot: true,
     canProduceProjectContribution: true,
     canWriteProject: false,
-    externalProvider: "NONE",
-    limitations: ["Existing runtime is deterministic and expects its native context projection.", "Proposals are never adopted automatically."],
+    externalProvider: "OPTIONAL_GOVERNED",
+    limitations: ["Existing ScientificThinkingInput runtime remains deterministic; native Studio assessment uses the governed provider boundary.", "Proposals are never adopted automatically."],
   },
   {
     capabilityId: "STUDY_DESIGN_COHERENCE",

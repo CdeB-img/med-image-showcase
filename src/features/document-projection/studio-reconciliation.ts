@@ -1,14 +1,14 @@
-import { logicalDigest, stableStringify } from "../knowledge-engine/canonical";
-import { buildProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone";
-import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
+import { logicalDigest, stableStringify } from "../knowledge-engine/canonical.js";
+import { buildProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone.js";
+import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import { prepareStudioScientificHandoff, requireStudioScientificAssessment,
-  type StudioScientificAssessment, type StudioScientificAssessmentPort } from "../scientific-thinking/studio-contribution";
-import { documentTextSha256, type DocumentArchiveClient } from "./generation-archive-client";
-import type { DocumentGenerationBody, DocumentGenerationRef } from "./generation-persistence";
+  type StudioScientificAssessment, type StudioScientificAssessmentPort } from "../scientific-thinking/studio-contribution.js";
+import { documentTextSha256 } from "./document-text-sha256.js";
+import type { DocumentGenerationBody, DocumentGenerationRef } from "./generation-persistence.js";
 import { assertWorkingRevision, editableArchivedDocument, validateWorkingRevisionContent,
-  type DocumentWorkingRevision, type EditableDocumentContent } from "./working-revision";
+  type DocumentWorkingRevision, type EditableDocumentContent, type DocumentWorkingRevisionClient } from "./working-revision.js";
 import { STUDIO_RECONCILIATION_CONTRACT, StudioReconciliationError,
-  type StudioNativeDelta, type StudioReconciliationPlan, type StudioReconciliationRequest, type StudioScientificState } from "./studio-reconciliation-contract";
+  type StudioNativeDelta, type StudioReconciliationPlan, type StudioReconciliationRequest, type StudioScientificState } from "./studio-reconciliation-contract.js";
 
 type ArchivedSource = { ref: DocumentGenerationRef; body: DocumentGenerationBody };
 const cloneFrozen = <T>(value: T): T => {
@@ -75,7 +75,8 @@ export const createStudioReconciliationRequest = async (input: { revision: Docum
   const requestDigest = logicalDigest(material);
   return cloneFrozen({ ...material, requestDigest, requestId: `studio-reconciliation:${requestDigest}` });
 };
-export const readSavedStudioReconciliationRequest = async (input: { client: DocumentArchiveClient; revisionId: string;
+export const readSavedStudioReconciliationRequest = async (input: { client: { workingRevisions?: DocumentWorkingRevisionClient;
+  body(generationId: string): Promise<ArchivedSource> }; revisionId: string;
   expectedSaveSequence: number; currentProject: ResearchProjectOwnerProjection; scientificState: StudioScientificState }) => {
   if (!input.client.workingRevisions) throw new StudioReconciliationError("STUDIO_REVISION_UNAVAILABLE");
   const { revision } = await input.client.workingRevisions.get(input.revisionId);

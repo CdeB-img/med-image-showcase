@@ -47,6 +47,7 @@ export type ContextualReasoningProviderOutput = Required<Omit<ParsedProvider, "c
   questions: Required<ParsedProvider["questions"][number]>[];
 };
 export type ContextualReasoningRequest = Readonly<{
+  nativeStudioSource?: import("./studio-runtime.js").StudioPreparationProvenance;
   owner: "SCIENTIFIC_THINKING"; requestRef: string; contextDigest: string;
   sourceTurnRef: string; sourceText: string;
   turns: readonly ScientificInterpretationTurn[];
@@ -74,8 +75,14 @@ export type ContextualReasoningReceipt = Readonly<{
 }>;
 
 export const buildContextualReasoningRequest = (input: Omit<ContextualReasoningRequest, "owner" | "requestRef" | "contextDigest" | "studyDesign">): ContextualReasoningRequest => {
-  if (!input.turns.some(t => t.role === "USER" && t.turnId === input.sourceTurnRef && t.content === input.sourceText)) throw new Error("ST_REASONING_SOURCE_MISMATCH");
-  const studyDesign = buildContextualStudyDesignCompetence(input.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"));
+  const studio = input.nativeStudioSource;
+  if (studio ? studio.origin !== "STUDIO" || studio.requestId !== input.sourceTurnRef
+    || studio.edits.map(edit => edit.afterText).join("\n") !== input.sourceText
+    || studio.currentProject.projectId !== input.project?.projectId || studio.currentProject.projectVersion !== input.project?.versionId
+    || studio.currentProject.projectDigest !== input.project?.projectDigest
+    : !input.turns.some(t => t.role === "USER" && t.turnId === input.sourceTurnRef && t.content === input.sourceText)) throw new Error("ST_REASONING_SOURCE_MISMATCH");
+  const studyDesign = buildContextualStudyDesignCompetence([...input.turns.filter(t => t.role === "USER").map(t => t.content),
+    ...studio?.edits.map(edit => edit.afterText) ?? []].join("\n"));
   const digest = logicalDigest({ ...input, studyDesign });
   return Object.freeze({ ...input, studyDesign, owner: "SCIENTIFIC_THINKING", requestRef: `ST-CONTEXTUAL:${digest}`, contextDigest: digest });
 };

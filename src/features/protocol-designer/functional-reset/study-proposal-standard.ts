@@ -17,6 +17,7 @@ export const studyProposalRevisionDigest = (composition: StudyProposalCompositio
   unavailableOptionRefs: composition.unavailableOptionRefs, revision: composition.revision, dispositions: composition.dispositions ?? [],
   ...(composition.adoptionSourceRefs ? { adoptionSourceRefs: composition.adoptionSourceRefs } : {}),
   ...(composition.recomputation ? { recomputation: composition.recomputation } : {}),
+  ...(composition.nativeStudioSource ? { nativeStudioSource: composition.nativeStudioSource } : {}),
 });
 export const activeStudyProposalDimensioning = (composition: StudyProposalComposition): StudyProposalComposition["dimensioning"] => {
   if (composition.state !== "CURRENT") return [];
@@ -91,7 +92,8 @@ export const requireStudyProposalReview = (composition: StudyProposalComposition
 export const assertStudyProposalCurrent = (composition: StudyProposalComposition, project: ResearchProjectOwnerProjection | null) => {
   contextualStudyProposalSchema.parse(composition.proposal);
   const originalDigest = logicalDigest({ proposal: composition.proposal, sourceProject: composition.originalSourceProject,
-    sourceTurnRef: composition.sourceTurnRef, sourceResponseRef: composition.sourceResponseRef });
+    sourceTurnRef: composition.sourceTurnRef, sourceResponseRef: composition.sourceResponseRef,
+    ...(composition.nativeStudioSource ? { nativeStudioSource: composition.nativeStudioSource } : {}) });
   const expectedDigest = composition.revision === 1 ? originalDigest : studyProposalRevisionDigest(composition);
   if (composition.proposalRef !== `scientific-study-proposal:${originalDigest}` || composition.digest !== expectedDigest) throw new Error("STUDY_PROPOSAL_CONTENT_DRIFT");
   if (composition.revision === 1 && (composition.adoptedAtomRefs.length || composition.unavailableOptionRefs.length || composition.dispositions?.length)) throw new Error("STUDY_PROPOSAL_CONTENT_DRIFT");
@@ -324,26 +326,42 @@ export const selectedStudyProposalAtoms = (composition: StudyProposalComposition
 export const buildStudyProposalSelectionContribution = (input: {
   composition: StudyProposalComposition; selectedOptionRefs: readonly string[]; selectedAtomRefs?: readonly string[];
   project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
-  proposalTurn: ScientificInterpretationTurn; selectionTurn: ScientificInterpretationTurn; createdAt: string;
+  proposalTurn?: ScientificInterpretationTurn; selectionTurn?: ScientificInterpretationTurn; createdAt: string;
   disposition?: "ACCEPT" | "REJECTED" | "DEFERRED";
   /** Preparation is not user assent; only the later native review authorizes adoption. */
   preparingReview?: boolean;
 }): ScientificInterpretationContributionEnvelope => {
   assertStudyProposalCurrent(input.composition, input.project);
-  if (input.proposalTurn.role !== "NOXIA" || input.proposalTurn.turnId !== input.composition.sourceResponseRef
-    || input.selectionTurn.role !== "USER") throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_BINDING_INVALID");
+  const studio = input.composition.nativeStudioSource;
+  if (!studio && (input.proposalTurn?.role !== "NOXIA" || input.proposalTurn.turnId !== input.composition.sourceResponseRef
+    || input.selectionTurn?.role !== "USER")) throw new Error("STUDY_PROPOSAL_VISIBLE_TURN_BINDING_INVALID");
+  if (studio && (studio.requestId !== input.composition.sourceTurnRef || studio.assessmentRef !== input.composition.sourceResponseRef
+    || studio.currentProject.projectId !== input.project?.projectId || studio.currentProject.projectVersion !== input.project?.versionId
+    || studio.currentProject.projectDigest !== input.project?.projectDigest || !input.preparingReview))
+    throw new Error("STUDY_PROPOSAL_STUDIO_BINDING_INVALID");
+  const sourceTurns = studio ? [] : [input.proposalTurn!, input.selectionTurn!];
+  const sourceIds = sourceTurns.map(turn => turn.turnId);
+  const sourceText = studio ? studio.edits.map(edit => edit.afterText).join("\n") : input.selectionTurn!.content;
+  const sourceRefs = studio ? [studio.requestId, studio.requestDigest, studio.assessmentRef, studio.assessmentDigest,
+    studio.workingRevisionId, studio.contentDigest, studio.logicalDocumentRef, studio.baseGenerationId,
+    studio.baseGenerationBodyDigest, ...studio.edits.flatMap(edit => [edit.editRef, edit.nativeAnchor, edit.beforeDigest, edit.afterDigest, ...edit.provenanceRefs])]
+    : sourceIds;
   const atomRefs = selectedStudyProposalAtoms(input.composition, input.selectedOptionRefs, input.selectedAtomRefs);
   const objects = input.project ? ensureCanonicalProjectState(input.project).objects : [];
   const items = input.composition.proposal.atoms.filter(a => atomRefs.includes(a.ref)).map(atom => {
-    const semanticIdentity = `${input.projectId}:study-strategy:${atom.semanticKey}`;
-    const previous = objects.find(o => o.actuality === "CURRENT" && o.objectId === semanticIdentity);
+    const nativeTargets = studio ? objects.filter(object => object.actuality === "CURRENT"
+      && atom.userChangeRefs?.some(ref => ref === object.objectId || ref === object.objectVersionId)) : [];
+    if (nativeTargets.length > 1 || nativeTargets.some(target => target.objectType !== atom.targetType))
+      throw new Error("STUDY_PROPOSAL_STUDIO_TARGET_INVALID");
+    const semanticIdentity = nativeTargets[0]?.objectId ?? `${input.projectId}:study-strategy:${atom.semanticKey}`;
+    const previous = nativeTargets[0] ?? objects.find(o => o.actuality === "CURRENT" && o.objectId === semanticIdentity);
     return { itemId: studyProposalAtomItemRef(input.composition, atom.ref), semanticIdentity,
       proposedType: atom.targetType, content: atom.content, polarity: "AFFIRMED", studyRole: atom.area,
       confidence: null, previousItemIds: previous ? [previous.objectId, ...previous.sourceItemRefs] : [],
       evidenceRefs: [input.composition.proposalRef, input.composition.digest, atom.ref, ...atom.evidenceRefs],
       epistemicBoundary: { ownership: atom.owner, epistemicState: "ASSUMED" as const, epistemicStatus: !input.preparingReview && (!input.disposition || input.disposition === "ACCEPT") ? "CONFIRMED_BY_USER" : "OWNER_CANDIDATE",
-        adoptionStatus: "CANDIDATE_PENDING_HUMAN_CONFIRMATION", originType: "ASSISTANT_OWNER_RESULT", originStatus: atom.status,
-        activeState: true, sourceTurnIds: [input.proposalTurn.turnId, input.selectionTurn.turnId], sourceText: input.selectionTurn.content } };
+        adoptionStatus: "CANDIDATE_PENDING_HUMAN_CONFIRMATION", originType: studio ? "STUDIO_SCIENTIFIC_ASSESSMENT" : "ASSISTANT_OWNER_RESULT", originStatus: atom.status,
+        activeState: true, sourceTurnIds: sourceIds, sourceText } };
   });
   // Native PRJ relation closure groups indispensable choices for partial review.
   // Refinements stay in the working composition, never as adopted unknowns.
@@ -363,15 +381,15 @@ export const buildStudyProposalSelectionContribution = (input: {
     proposedType: "UNCERTAINTY", content: atom.content, polarity: null, studyRole: atom.area, confidence: null,
     evidenceRefs: [input.composition.proposalRef, atom.ref],
     epistemicBoundary: { ownership: atom.owner, epistemicState: "UNKNOWN" as const, epistemicStatus: "OWNER_CANDIDATE",
-      adoptionStatus: "NOT_ADOPTED", originType: "ASSISTANT_OWNER_RESULT", originStatus: "OPEN_DECISION",
-      activeState: true, sourceTurnIds: [input.proposalTurn.turnId, input.selectionTurn.turnId], sourceText: input.selectionTurn.content },
+      adoptionStatus: "NOT_ADOPTED", originType: studio ? "STUDIO_SCIENTIFIC_ASSESSMENT" : "ASSISTANT_OWNER_RESULT", originStatus: "OPEN_DECISION",
+      activeState: true, sourceTurnIds: sourceIds, sourceText },
   })) : [];
   return canonicalizeScientificContribution({ contract: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE", contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
-    identity: { contributionId: `study-proposal-selection:${logicalDigest({ digest: input.composition.digest, atomRefs, userTurn: input.selectionTurn.turnId })}`,
+    identity: { contributionId: `study-proposal-selection:${logicalDigest({ digest: input.composition.digest, atomRefs, userTurn: studio?.requestId ?? input.selectionTurn!.turnId })}`,
       previousContributionId: input.project?.contributionRef ?? null, contractVersion: "1.0.0", runtimeId: "STANDARD_CONTEXTUAL_PROPOSAL_SELECTION_ADAPTER", runtimeVersion: "1.0.0", createdAt: input.createdAt },
-    source: { conversationId: input.conversationId, originalRequest: input.selectionTurn.content, turns: [input.proposalTurn, input.selectionTurn],
+    source: { conversationId: input.conversationId, originalRequest: sourceText, turns: sourceTurns,
       sourceRefs: [input.composition.proposalRef, input.composition.digest, ...atomRefs, ...input.selectedOptionRefs,
-        ...input.composition.dispositions?.map(d => d.decisionRef) ?? [], input.proposalTurn.turnId, input.selectionTurn.turnId], rawOutputRef: input.composition.proposalRef, rawOutputDigest: input.composition.digest },
+        ...input.composition.dispositions?.map(d => d.decisionRef) ?? [], ...sourceRefs], rawOutputRef: input.composition.proposalRef, rawOutputDigest: input.composition.digest },
     runtimeEvidence: { provider: null, model: null, promptDigest: null, schemaDigest: logicalDigest("SCIENTIFIC_THINKING_STUDY_PROPOSAL_1"),
       configurationDigest: logicalDigest("STANDARD_CONTEXTUAL_PROPOSAL_SELECTION_ADAPTER_1"), technicalStatus: "VISIBLE_CHOICES_SELECTED_FOR_HUMAN_DECISION", parseStatus: "NOT_REQUIRED", validationErrors: [] },
     scientificContent: { normalizedUnderstanding: input.composition.proposal.understanding.join(" · "), routeProposal: null, explicitStatements: [], candidateObjects: items,

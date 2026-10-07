@@ -1,6 +1,6 @@
-import { z } from "zod";
-import type { ProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone";
-import type { DocumentProjectBinding } from "./generation-persistence";
+import { z } from "zod/v4";
+import type { ProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone.js";
+import type { DocumentProjectBinding } from "./generation-persistence.js";
 
 export const STUDIO_RECONCILIATION_CONTRACT = "STUDIO_RECONCILIATION_V1" as const;
 export type StudioNativeDelta = Readonly<{

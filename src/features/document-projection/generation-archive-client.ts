@@ -1,18 +1,18 @@
-import { ensureServerProjectSnapshot } from "../protocol-designer/product-bridge-client";
-import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary";
-import { createDocumentWorkingRevisionClient } from "./working-revision-client";
-import type { DocumentWorkingRevisionClient } from "./working-revision";
+import { ensureServerProjectSnapshot } from "../protocol-designer/product-bridge-client.js";
+import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
+import { createDocumentWorkingRevisionClient } from "./working-revision-client.js";
+import type { DocumentWorkingRevisionClient } from "./working-revision.js";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, isDocumentGenerationRef, documentNativeIdentity, documentNativeProject, documentFileManifest, type DocumentGenerationBody, type DocumentGenerationRef, type DocumentHistoryPage,
-  type DocumentPersistenceReceipt, type DocumentRecoveryIdentity, type DocumentRecoveryResult } from "./generation-persistence";
+  type DocumentPersistenceReceipt, type DocumentRecoveryIdentity, type DocumentRecoveryResult } from "./generation-persistence.js";
 
 export class DocumentArchiveClientError extends Error {
   constructor(readonly code: string) { super(code); }
 }
 export const documentTextSha256 = async (text: string) => {
   if (!globalThis.crypto?.subtle) throw new DocumentArchiveClientError("DOC_ARCHIVE_HASH_UNAVAILABLE");
-  const hash = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return [...new Uint8Array(hash)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+  return hashNativeDocumentText(text);
 };
+import { documentTextSha256 as hashNativeDocumentText } from "./document-text-sha256.js";
 export type DocumentArchiveClient = Readonly<{
   workingRevisions?: DocumentWorkingRevisionClient;
   history(beforeOrdinal?: number): Promise<DocumentHistoryPage>;

@@ -1,4 +1,8 @@
 import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate, WorkingDraftArbitrationCollisionError } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
+import { acceptStudioAssessment, prepareStudioAssessmentRequest, studioHasNoChanges, noChangeStudioAssessment,
+  assertStudioScientificInput, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
+import { verifySavedStudioScientificSource } from "../server/protocol-designer-studio-scientific.js";
+import { logicalDigest as studioDigest } from "../src/features/knowledge-engine/canonical.js";
 import { executeDocumentArchiveOperation, documentArchiveAccess, sharedDocumentArchive } from "../server/protocol-designer-document-archive-http.js";
 import { DocumentArchiveError, docSha256, documentArchiveCapacity, type DocumentArchiveStore, type DocumentArchiveAccess } from "../server/protocol-designer-document-archive.js";
 import { freezeDocumentGeneration } from "../src/features/document-projection/generation-exports.js";
@@ -269,17 +273,44 @@ export const executeProtocolDesignerBridge = async (input: {
       } };
     }
   }
+  const native = input.body as Partial<StudioScientificOperation> | null;
+  if (native?.operation === "STUDIO_SCIENTIFIC_ASSESSMENT") {
+    try {
+      if (native.apiVersion !== PRODUCT_BRIDGE_API_VERSION || !native.observabilityContext
+        || native.observabilityContext.turnId !== null || !native.currentProject || !native.studioRequest)
+        throw new Error("STUDIO_ASSESSMENT_BINDING_INVALID");
+      assertStudioScientificInput(native.studioRequest, native.currentProject);
+      const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
+      if (studioHasNoChanges(native.studioRequest)) return { status: 200, body: {
+        apiVersion: PRODUCT_BRIDGE_API_VERSION, studioAssessment: acceptStudioAssessment(native.studioRequest,
+          native.currentProject, noChangeStudioAssessment(native.studioRequest), createdAt), observability: { calls: 0 } } };
+      if (native.studioRequest.delta.some(edit => detectSensitiveData(edit.beforeText).length || detectSensitiveData(edit.afterText).length))
+        return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED" } } };
+      if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA") throw new Error("AUTONOMOUS_PROJECT_BUILD_OFF");
+      if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
+      const packet = prepareStudioAssessmentRequest(native.studioRequest, native.currentProject);
+      const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
+        { context: native.observabilityContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium",
+          retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
+      const studioAssessment = acceptStudioAssessment(native.studioRequest, native.currentProject, JSON.parse(generated.value), createdAt);
+      return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, studioAssessment,
+        observability: { calls: 1, projectWrites: 0, ...providerCallRequestObservability(providerCalls) } } };
+    } catch { return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "STUDIO_SCIENTIFIC_ASSESSMENT_FAILED" }, observability: providerCallRequestObservability(providerCalls) } }; }
+  }
   const request = parseProductBridgeRequest(input.body);
   if (!request) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "Contrat du pont produit invalide." } } };
   const latestUser = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
-  if (!latestUser) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "USER_TURN_MISSING", message: "Message utilisateur manquant." } } };
-  if (detectSensitiveData(latestUser.content).length) return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
+  if (!latestUser && !request.studioPreparationSource) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "USER_TURN_MISSING", message: "Message utilisateur manquant." } } };
+  if (latestUser && detectSensitiveData(latestUser.content).length) return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
+  if (request.studioPreparationSource?.request.delta.some(edit => detectSensitiveData(edit.beforeText).length || detectSensitiveData(edit.afterText).length))
+    return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED" } } };
 
   const conversationModel = resolveGeminiConversationModel(input.geminiModel);
   const extractionModel = resolveOpenAIExtractionModel(input.openAiExtractionModel);
   const observationContext = technicalContext(request.observabilityContext, {
     conversationId: request.conversation.conversationId,
-    turnId: latestUser.turnId,
+    turnId: latestUser?.turnId ?? null,
   });
 
   const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
@@ -295,6 +326,9 @@ export const executeProtocolDesignerBridge = async (input: {
         input.openAiTransport, { maxOutputTokens: STUDY_PROPOSAL_CAPACITY.workingDraftMaxOutputTokens,
           ...(input.openAiTransport?.destination === "azure" ? { timeoutMs: 300_000 } : {}) });
       const result = acceptWorkingDraftUpdate(JSON.parse(generated.value), request);
+      if (request.studioPreparationSource) return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        workingDraftUpdate: result.update, workingStudyProposal: result.composition,
+        observability: { calls: 1, projectWrites: 0, ...providerCallRequestObservability(providerCalls) } } };
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, assistantReply: "",
         assistantTurn: { turnId: `working-draft:${observationContext.clientRequestId}`, role: "NOXIA", content: "", createdAt },
         workingDraftUpdate: result.update, workingStudyProposal: result.composition,
@@ -304,7 +338,10 @@ export const executeProtocolDesignerBridge = async (input: {
           conversationCalls: 0, conversationLatencyMs: 0, extractionLatencyMs: null, projectWrites: 0,
           ...providerCallRequestObservability(providerCalls) } } satisfies ProductBridgeResponse };
     } catch (error) {
-      console.warn("WORKING_DRAFT_OWNER_PREPARATION_FAILED", error instanceof Error ? error.message : "UNKNOWN");
+      const nativeErrorCode = error instanceof Error && /^[A-Z][A-Z0-9_]{1,120}$/u.test(error.message)
+        ? error.message : "NATIVE_STUDIO_PREPARATION_REJECTED";
+      console.warn("WORKING_DRAFT_OWNER_PREPARATION_FAILED", request.studioPreparationSource
+        ? nativeErrorCode : error instanceof Error ? error.message : "UNKNOWN");
       const safeId = (value: string) => /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,119}$/u.test(value);
       const collision = error instanceof WorkingDraftArbitrationCollisionError
         && safeId(error.explicitDecisionId) && safeId(error.arbitrationId)
@@ -333,7 +370,7 @@ export const executeProtocolDesignerBridge = async (input: {
             ? "WORKING_DRAFT_INCOMPLETE_MAX_OUTPUT_TOKENS"
             : error instanceof ProductBridgeProviderError && error.providerStatus?.startsWith("incomplete:")
               ? "WORKING_DRAFT_PROVIDER_INCOMPLETE"
-              : error instanceof Error ? error.message : "UNKNOWN"],
+              : request.studioPreparationSource ? nativeErrorCode : error instanceof Error ? error.message : "UNKNOWN"],
           ...(collision ? { workingDraftDiagnostic: collision } : {}),
           ...(binding ? { workingDraftBindingDiagnostic: binding } : {}) },
         observability: providerCallRequestObservability(providerCalls) } };
@@ -1016,6 +1053,32 @@ export const handleProtocolDesignerBridge = async (
     }
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
+  const studioBody = body as Partial<StudioScientificOperation> & Partial<import("../src/features/protocol-designer/product-bridge.js").ProductBridgeRequest>;
+  const studioRequest = studioBody?.operation === "STUDIO_SCIENTIFIC_ASSESSMENT"
+    ? studioBody.studioRequest : studioBody?.studioPreparationSource?.request;
+  if (studioRequest) {
+    try {
+      if (!studioBody.currentProject || !studioBody.observabilityContext?.sessionId) throw new Error("STUDIO_ASSESSMENT_BINDING_INVALID");
+      const project = studioBody.currentProject;
+      const access = documentArchiveAccess({ sessionId: studioBody.observabilityContext.sessionId,
+        projectRef: { projectId: project.projectId, versionId: project.versionId, projectDigest: project.projectDigest } },
+        header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
+        header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous");
+      const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
+      const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
+      if (!archive) throw new Error("DOC_REVISION_UNAVAILABLE");
+      await verifySavedStudioScientificSource(archive, access, project, studioRequest);
+      if (studioBody.studioPreparationSource) {
+        const retained = await durableGuard.readNativeStudioResult?.({ headers: request.headers, remoteAddress: request.socket?.remoteAddress,
+          sessionId: access.identity.sessionId, clientRequestId: `studio-assessment:${studioRequest.requestDigest}` });
+        const result = retained?.state === "COMPLETED" ? retained.response as { studioAssessment?: unknown } : null;
+        if (!result?.studioAssessment || studioDigest(result.studioAssessment) !== studioDigest(studioBody.studioPreparationSource.assessment))
+          throw new Error("STUDIO_ASSESSMENT_DURABLE_PROOF_REQUIRED");
+      } else if (studioBody.observabilityContext.clientRequestId !== `studio-assessment:${studioRequest.requestDigest}`)
+        throw new Error("STUDIO_ASSESSMENT_BINDING_INVALID");
+    } catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "STUDIO_SCIENTIFIC_SOURCE_INVALID" }, observability: providerCallRequestObservability([]) }); }
+  }
   let doc: { archive: DocumentArchiveStore; access: DocumentArchiveAccess; requestId: string; generatedAt: string } | null = null;
   if (workingDraftRequest?.documentDraftRequest) {
     try {

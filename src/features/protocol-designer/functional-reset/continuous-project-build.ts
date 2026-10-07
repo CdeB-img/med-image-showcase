@@ -13,6 +13,7 @@ import { STUDY_PROPOSAL_CAPACITY, preflightStudyProposalCapacity } from "../../s
 import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, preserveStudyProposalAdoptions, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import { retainedDiscussionProposalBindingsSchema } from "./contribution-discussion-retention.js";
+import { studioPreparationProvenance } from "../../scientific-thinking/studio-runtime.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
   runtimeTurns: ScientificInterpretationTurn[]; updatedAt: string; studyProposal?: StudyProposalComposition | null; workingDraft?: WorkingDraftMetadata | null };
 
@@ -24,6 +25,7 @@ const responseSchema = z.object({
   requestType: z.enum(["STUDY_UPDATE", "TARGETED_QUESTION", "INSUFFICIENT"]),
   proposal: contextualStudyProposalSchema.nullable(),
   explicitDecisions: z.array(z.object({ atomRef: z.string(), sourceTurnRef: z.string(), quote: z.string().min(1) }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
+  explicitStudioDecisions: z.array(z.object({ atomRef: z.string(), editRef: z.string(), quote: z.string().min(1) }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms).optional(),
   inferredAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   rejectedAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   // Complete-snapshot metadata, not a delta. Optional on historical outputs.
@@ -143,6 +145,7 @@ export type WorkingDraftMetadata = {
   sourceUserTurnRef: string;
   origins: Record<string, "EXPLICIT_USER" | "INFERRED" | "PROPOSED" | "OPEN">;
   explicitDecisions: WorkingDraftUpdate["explicitDecisions"];
+  explicitStudioDecisions?: WorkingDraftUpdate["explicitStudioDecisions"];
   history: readonly { atom: StudyProposalComposition["proposal"]["atoms"][number]; status: "REJECTED" | "SUPERSEDED" }[];
   readyReview: { contribution: ReturnType<typeof buildStudyProposalSelectionContribution>; candidate: ReturnType<typeof prepareResearchProjectContributionCandidate> } | null;
   readiness: Record<"PROTOCOL" | "SYNOPSIS" | "CRF" | "RECRUITMENT", { status: "WORKING_DRAFT" | "OPEN"; blockers: readonly string[] }>;
@@ -207,13 +210,13 @@ export const validatePreparedWorkingReview = (session: WorkingDraftSession, allo
   try {
     assertStudyProposalCurrent(composition, session.project);
     const lastUser = [...session.runtimeTurns].reverse().find(t => t.role === "USER");
-    if (lastUser?.turnId !== draft.sourceUserTurnRef && lastUser?.turnId !== allowedConfirmationTurnRef
+    if (!composition.nativeStudioSource && lastUser?.turnId !== draft.sourceUserTurnRef && lastUser?.turnId !== allowedConfirmationTurnRef
       && !isWorkingDraftReviewOnlyRequest(lastUser?.content ?? "")) return null;
     const reply = session.runtimeTurns.find(t => t.turnId === composition.sourceResponseRef)!;
     const source = session.runtimeTurns.find(t => t.turnId === composition.sourceTurnRef)!;
     const expected = buildStudyProposalSelectionContribution({ composition, ...recommendedWorkingScope(composition),
       project: session.project, projectId: session.projectId, conversationId: session.conversationId,
-      proposalTurn: reply, selectionTurn: source, createdAt: reply.createdAt ?? session.updatedAt, preparingReview: true });
+      proposalTurn: reply, selectionTurn: source, createdAt: composition.nativeStudioSource?.capturedAt ?? reply?.createdAt ?? session.updatedAt, preparingReview: true });
     const checked = prepareResearchProjectContributionCandidate(prepared.contribution, session.project);
     if (logicalDigest(expected) !== logicalDigest(prepared.contribution)
       || checked.contributionDigest !== prepared.candidate.contributionDigest
@@ -225,6 +228,7 @@ export const validatePreparedWorkingReview = (session: WorkingDraftSession, allo
 export const workingDraftInputDigest = (request: ProductBridgeRequest) => logicalDigest({
   turns: request.conversation.turns, project: studyProposalBinding(request.currentProject),
   scientificSource: request.workingDraftScientificSource ?? null,
+  ...(request.studioPreparationSource ? { studioSource: request.studioPreparationSource } : {}),
   previous: request.studyProposalContext?.digest ?? null, rejected: request.workingDraftHistory ?? [],
 });
 
@@ -232,7 +236,8 @@ export const workingDraftInputDigest = (request: ProductBridgeRequest) => logica
  * The provider must spell every field; historical stored candidates retain
  * their optional fields and still use the unchanged native validation rules.
  */
-export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBridgeRequest["conversation"]["turns"] = []) => {
+export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBridgeRequest["conversation"]["turns"] = [],
+  studioSource?: ProductBridgeRequest["studioPreparationSource"]) => {
   // Constrain the existing quote/turn pair to immutable source spans. Strict
   // provider schemas reject layout controls in enum literals; project only
   // ASCII layout here. Native acceptance restores the unique exact raw span.
@@ -248,7 +253,17 @@ export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBr
   const explicitDecision = sourceBindings.length === 1 ? sourceBindings[0]!
     : sourceBindings.length > 1 ? z.union(sourceBindings as [typeof sourceBindings[number], typeof sourceBindings[number], ...typeof sourceBindings[number][]])
       : responseSchema.shape.explicitDecisions.element;
-  const wire = responseSchema.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0), proposal: contextualStudyProposalSchema.extend({
+  const scientificEditRefs = new Set(studioSource?.assessment.nativePayload.edits.filter(edit =>
+    edit.classification === "PROJECT_CHANGE" && edit.projectCoverage?.coverage !== "COMPLETE").map(edit => edit.editRef));
+  const studioBindings = studioSource?.request.delta.filter(edit => scientificEditRefs.has(edit.editRef) && edit.afterText).map(edit =>
+    responseSchema.shape.explicitStudioDecisions.unwrap().element.extend({ editRef: z.literal(edit.editRef),
+      quote: z.literal(edit.afterText.replace(/[ \t\r\n]+/gu, " ")) })) ?? [];
+  const studioDecision = studioBindings.length === 1 ? studioBindings[0] : studioBindings.length > 1
+    ? z.union(studioBindings as [typeof studioBindings[number], typeof studioBindings[number], ...typeof studioBindings[number][]])
+    : responseSchema.shape.explicitStudioDecisions.unwrap().element;
+  const nativeResponse = studioSource ? responseSchema.extend({ explicitStudioDecisions: studioDecision.array()
+    .max(studioBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0) }) : responseSchema.omit({ explicitStudioDecisions: true });
+  const wire = nativeResponse.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0), proposal: contextualStudyProposalSchema.extend({
     contextDigest: z.literal(inputDigest),
     atoms: contextualStudyProposalSchema.shape.atoms.element.extend({
       // This owner currently admits no qualified external evidence. USER
@@ -273,7 +288,9 @@ export const prepareWorkingDraftRequest = (request: ProductBridgeRequest) => {
   preflightStudyProposalCapacity(previous?.proposal, request.workingDraftHistory?.length ?? 0);
   if (previous) assertStudyProposalCurrent(previous, request.currentProject);
   const inputDigest = workingDraftInputDigest(request);
-  const base = JSON.parse(prepareTerraConversation(request).context);
+  const base = request.studioPreparationSource ? { CURRENT_PROJECT: request.studioPreparationSource.request.currentProject,
+    NATIVE_STUDIO_SOURCE: studioPreparationProvenance(request.studioPreparationSource, request.currentProject!,
+      request.studioPreparationSource.assessment.completedAt) } : JSON.parse(prepareTerraConversation(request).context);
   const context = JSON.stringify({ ...base, contextDigest: inputDigest,
     // Keep the quote and the exact output-contract key on the same source object.
     // This is the existing transcript, not a second provenance store.
@@ -305,7 +322,8 @@ Réponds UNIQUEMENT avec l'enveloppe JSON {requestType,proposal,explicitDecision
 GRAPHE DE PRÉREQUIS : dependsOn va de l'atome dépendant vers son prérequis ; il ne représente pas toute relation scientifique. Pour chaque lien, identifie ce que le prérequis rend possible : HARD_BLOCKING_DEPENDENCY si son absence empêche l'interprétation ou l'adoption scientifique du dépendant ; SOFT_REFINEMENT_DEPENDENCY ou OPTIONAL_DETAIL uniquement pour un raffinement ou détail orienté, sans blocage du choix autonome. Une contextualisation, une précision d'indication, un contexte de sélection ou une conséquence ne crée pas à elle seule un prérequis inverse : conserve cette information dans content/rationale, sans fabriquer un dependsOn réciproque. Réévalue les liens hérités lorsque les choix évoluent ; conserver les branches non affectées ne signifie pas recopier un lien devenu purement contextuel. Si un prérequis dépend déjà directement ou indirectement du dépendant, n'ajoute pas le lien inverse. Examine le sens des deux relations, sans supprimer arbitrairement une arête ni affaiblir un vrai prérequis HARD. Si un atome mélange un prérequis et sa conséquence, sépare ces concepts avec les atomes/types natifs nécessaires, en conservant leur matière scientifique et leurs qualifications. Avant émission, vérifie l'absence de tout cycle, y compris SOFT/OPTIONAL et mixte ; un changement de qualification ne résout pas un cycle.
 RÉDACTION BACKGROUND COMPACTE : conserve intégralement les décisions, distinctions scientifiques, liens, qualifications et arbitrages utiles. La concision porte sur leur explication, jamais sur leur suppression. Une justification ne répète pas le contenu : rationale d'atome ≤180 caractères, rationale de dépendance ≤100, rationale d'arbitrage ≤180 ; benefits/limits/consequences ≤140 chacun, understanding ≤150 chacun. proposal.reply ≤120 caractères car non affiché ; recruitmentNotice et participantQuestionnaireIntroduction ≤120 chacun, sans aperçu documentaire. N'ajoute pas de scénario chiffré pour remplir une rubrique. Les branches non affectées conservent leur contenu et leurs références ; ne les reformule pas pour le style. Ne tronque aucun texte ni lien pour respecter ces cibles ; garde une explication plus longue si elle est indispensable à son sens. Émets du JSON sans indentation ni commentaires.`;
   return { context, instruction: instruction + `\nRÉTENTION SCIENTIFIQUE : retainedDiscussionBindings relie uniquement les éléments retainedMeaning actifs fournis aux atomRefs qui en préservent TOUT le sens, négations, conditions et incertitudes comprises. Reprends elementRef et sourceTurnRef exacts. Pas de similarité approximative ni de correspondance partielle. Si un élément reste non représenté, ne crée pas de binding : il reste actif. Ce lien ne ferme rien avant confirmation humaine et matérialisation native du Project. Aucun appel supplémentaire.`,
-    inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns) };
+    ...(request.studioPreparationSource ? { instruction: instruction + `\nNATIVE STUDIO SOURCE: NATIVE_STUDIO_SOURCE is user-authored saved documentary work, NOT conversation. Its edits carry exact editRef/afterText, anchors, revision/save and assessment provenance. Only these PROJECT_CHANGE edits require recomposition. Preserve the supplied governed current Project and unaffected proposals. Use explicitStudioDecisions:{atomRef,editRef,quote} for literal afterText, never explicitDecisions/sourceTurnRef for Studio. For a revision of an existing Project object, put its exact CURRENT_PROJECT stableId/versionRef in userChangeRefs; do not invent a target or replace another object. A beforeText is historical context, not a current user instruction. Editorial edits are excluded. A model inference is not user assent; all new candidates await native human decision. There is no visible reply required for this source. genuine RECENT_CONVERSATION remains a separate source when present.` } : {}),
+    inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns, request.studioPreparationSource) };
 };
 
 export const recommendedWorkingScope = (composition: StudyProposalComposition) => {
@@ -356,7 +374,7 @@ export class WorkingDraftArbitrationCollisionError extends Error {
  * unresolved prerequisites remain governed by the existing fail-closed check. */
 const liftSharedExplicitDecisionsFromOptions = (update: WorkingDraftUpdate) => {
   if (!update.proposal) return;
-  const explicitRefs = new Set(update.explicitDecisions.map(decision => decision.atomRef));
+  const explicitRefs = new Set([...update.explicitDecisions, ...update.explicitStudioDecisions ?? []].map(decision => decision.atomRef));
   const arbitrations = update.proposal.arbitrations;
   const optionRefs = new Set(arbitrations.flatMap(a => a.options.flatMap(o => o.atomRefs)));
   const liftable = new Set(update.proposal.atoms.filter(atom => explicitRefs.has(atom.ref)
@@ -422,11 +440,14 @@ export const assertWorkingDraftSnapshotContinuity = (update: WorkingDraftUpdate,
 
 export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeRequest) => {
   const update = responseSchema.parse(raw);
+  const studio = request.studioPreparationSource ? studioPreparationProvenance(request.studioPreparationSource,
+    request.currentProject!, request.studioPreparationSource.assessment.completedAt) : undefined;
+  if (!studio && update.explicitStudioDecisions?.length) throw new Error("WORKING_DRAFT_USER_PROVENANCE_INVALID");
   if (update.retainedDiscussionBindings?.some(b => !request.scientificDiscussionContext?.retainedMeaning?.some(e =>
     e.ref === b.elementRef && e.sourceTurnRef === b.sourceTurnRef)
     || b.atomRefs.some(ref => !update.proposal?.atoms.some(a => a.ref === ref)))) throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
   if (update.requestType !== "STUDY_UPDATE") {
-    if (update.proposal || update.explicitDecisions.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length
+    if (update.proposal || update.explicitDecisions.length || update.explicitStudioDecisions?.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length
       || update.supersededAtomRefs?.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");
     return { update, composition: null };
   }
@@ -438,7 +459,7 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   assertStudyProposalOptionBindings(update.proposal);
   const user = [...request.conversation.turns].reverse().find(t => t.role === "USER")!;
   const reply = [...request.conversation.turns].reverse().find(t => t.role === "NOXIA");
-  if (!reply) throw new Error("WORKING_DRAFT_VISIBLE_REPLY_REQUIRED");
+  if (!reply && !studio) throw new Error("WORKING_DRAFT_VISIBLE_REPLY_REQUIRED");
   const atoms = new Set(update.proposal.atoms.map(a => a.ref));
   if (update.inferredAtomRefs.some(r => !atoms.has(r))) throw new Error("WORKING_DRAFT_USER_PROVENANCE_INVALID");
   update.explicitDecisions = update.explicitDecisions.map(decision => {
@@ -446,6 +467,12 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
     const source = sources.length === 1 && sources[0]!.role === "USER" ? sources[0] : null;
     const anchor = source && resolveWorkingDraftSourceQuote(source.content, decision.quote);
     if (!atoms.has(decision.atomRef) || !anchor) throw new Error("WORKING_DRAFT_USER_PROVENANCE_INVALID");
+    return { ...decision, quote: anchor.quote };
+  });
+  if (studio) update.explicitStudioDecisions = (update.explicitStudioDecisions ?? []).map(decision => {
+    const source = studio.edits.find(edit => edit.editRef === decision.editRef);
+    const anchor = source && resolveWorkingDraftSourceQuote(source.afterText, decision.quote);
+    if (!atoms.has(decision.atomRef) || !anchor) throw new Error("WORKING_DRAFT_STUDIO_PROVENANCE_INVALID");
     return { ...decision, quote: anchor.quote };
   });
   liftSharedExplicitDecisionsFromOptions(update);
@@ -459,13 +486,15 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   // Native specialized inputs are prepared from a non-adopted contribution.
   // This temporary composition never escapes the owner qualification below.
   const sourceProject = studyProposalBinding(request.currentProject);
-  const digest = logicalDigest({ proposal: update.proposal, sourceProject, sourceTurnRef: user.turnId, sourceResponseRef: reply.turnId });
+  const sourceTurnRef = studio?.requestId ?? user.turnId, sourceResponseRef = studio?.assessmentRef ?? reply!.turnId;
+  const digest = logicalDigest({ proposal: update.proposal, sourceProject, sourceTurnRef, sourceResponseRef,
+    ...(studio ? { nativeStudioSource: studio } : {}) });
   const provisional: StudyProposalComposition = { proposal: update.proposal, proposalRef: `scientific-study-proposal:${digest}`,
-    digest, sourceTurnRef: user.turnId, sourceResponseRef: reply.turnId, sourceProject, originalSourceProject: sourceProject,
+    digest, sourceTurnRef, sourceResponseRef, ...(studio ? { nativeStudioSource: studio } : {}), sourceProject, originalSourceProject: sourceProject,
     revision: 1, adoptedAtomRefs: [], unavailableOptionRefs: [], state: "CURRENT", dimensioning: [], ownerReceipts: [] };
   // An option label cannot silently demote a current explicit decision. Reject
   // the producer's grouping; never select its alternative or weaken closure.
-  const explicitRefs = new Set(update.explicitDecisions.map(decision => decision.atomRef));
+  const explicitRefs = new Set([...update.explicitDecisions, ...update.explicitStudioDecisions ?? []].map(decision => decision.atomRef));
   const optionRefs = new Set(update.proposal.arbitrations.flatMap(arbitration =>
     arbitration.options.flatMap(option => option.atomRefs)));
   const hidden = workingDraftReviewCoverage(provisional).excluded.find(atom =>
@@ -476,18 +505,21 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   const contribution = buildStudyProposalSelectionContribution({ composition: provisional, ...recommendedWorkingScope(provisional),
     project: request.currentProject, projectId: request.currentProject?.projectId ?? `discussion:${request.conversation.conversationId}`,
     conversationId: request.conversation.conversationId, proposalTurn: reply, selectionTurn: user,
-    createdAt: reply.createdAt ?? user.createdAt ?? new Date().toISOString(), preparingReview: true });
+    createdAt: studio?.capturedAt ?? reply?.createdAt ?? user.createdAt ?? new Date().toISOString(), preparingReview: true });
   const ownerContext = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
     sessionId: request.conversation.conversationId,
-    workingDraftKnowledgeSource: preflightWorkingDraftKnowledgeSource(request) });
+    nativeStudioSource: studio, workingDraftKnowledgeSource: preflightWorkingDraftKnowledgeSource(request) });
   const accepted = acceptContextualStudyProposal(update.proposal, { contextDigest: workingDraftInputDigest(request),
-    sourceTurnRef: user.turnId, sourceResponseRef: reply.turnId, sourceProject: studyProposalBinding(request.currentProject),
+    sourceTurnRef, sourceResponseRef, sourceProject: studyProposalBinding(request.currentProject),
+    ...(studio ? { nativeStudioSource: studio } : {}),
     // Open/unselected branches remain working proposals. Only the native scope
     // receives specialized qualification, with exactly the handoffs built for it.
     scopedAtomRefs: contribution.scientificContent.candidateObjects.map(item => item.evidenceRefs!.find(ref => atoms.has(ref))!),
-    ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: request.conversation.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"),
+    ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: studio
+      ? [...request.studioPreparationSource!.request.currentProject.objects.map(object => object.content), ...studio.edits.map(edit => edit.afterText)].join("\n")
+      : request.conversation.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"),
   });
-  const composition = preserveStudyProposalAdoptions(previous, accepted, request.currentProject);
+  const composition = preserveStudyProposalAdoptions(previous, { ...accepted, ...(studio ? { nativeStudioSource: studio } : {}) }, request.currentProject);
   if (ownerAreaNormalizations.length) console.info("WORKING_DRAFT_OWNER_AREA_NORMALIZED", {
     clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: ownerAreaNormalizations,
   });
@@ -505,7 +537,7 @@ export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, comp
   assertStudyProposalCurrent(composition, session.project);
   const origins: WorkingDraftMetadata["origins"] = {};
   for (const atom of composition.proposal.atoms) origins[atom.ref] = atom.status === "OPEN_DECISION" ? "OPEN"
-    : update.explicitDecisions.some(d => d.atomRef === atom.ref) ? "EXPLICIT_USER"
+    : [...update.explicitDecisions, ...update.explicitStudioDecisions ?? []].some(d => d.atomRef === atom.ref) ? "EXPLICIT_USER"
     : update.inferredAtomRefs.includes(atom.ref) ? "INFERRED" : "PROPOSED";
   const rejected = new Set(update.rejectedAtomRefs);
   const history = [...session.workingDraft?.history ?? [], ...session.studyProposal?.proposal.atoms
@@ -519,7 +551,7 @@ export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, comp
     const reply = session.runtimeTurns.find(t => t.turnId === composition.sourceResponseRef)!;
     const contribution = buildStudyProposalSelectionContribution({ composition, ...scope,
       project: session.project, projectId: session.projectId, conversationId: session.conversationId,
-      proposalTurn: reply, selectionTurn: user, createdAt: reply.createdAt ?? session.updatedAt, preparingReview: true });
+      proposalTurn: reply, selectionTurn: user, createdAt: composition.nativeStudioSource?.capturedAt ?? reply?.createdAt ?? session.updatedAt, preparingReview: true });
     const candidate = prepareResearchProjectContributionCandidate(contribution, session.project);
     if (observation) try { observation.current = summarizeWorkingReviewOwnerCandidate(candidate); }
     catch { /* A TRACE projection cannot change the PRJ candidate outcome. */ }
@@ -543,8 +575,8 @@ export const prepareContinuousWorkingDraft = (session: WorkingDraftSession, comp
     CRF: ready(["MEASUREMENTS", "DESCRIPTION"]), RECRUITMENT: ready(["POPULATION", "ELIGIBILITY", "RECRUITMENT"]) };
   const previousTurns = session.workingDraft?.metrics.substantiveTurns ?? 0;
   return { compositionDigest: composition.digest, reviewScopeDigest: logicalDigest({ composition: composition.digest, scope }), inputDigest, sourceUserTurnRef: composition.sourceTurnRef, origins,
-    explicitDecisions: update.explicitDecisions, history, readyReview, readiness,
-    metrics: { userExplicitElements: update.explicitDecisions.length, noxiaPrebuiltElements: Object.values(origins).filter(v => v === "INFERRED" || v === "PROPOSED").length,
+    explicitDecisions: update.explicitDecisions, ...(update.explicitStudioDecisions ? { explicitStudioDecisions: update.explicitStudioDecisions } : {}), history, readyReview, readiness,
+    metrics: { userExplicitElements: update.explicitDecisions.length + (update.explicitStudioDecisions?.length ?? 0), noxiaPrebuiltElements: Object.values(origins).filter(v => v === "INFERRED" || v === "PROPOSED").length,
       openHighValueDecisions: open.length, substantiveTurns: previousTurns + 1,
       turnsToReadyReview: session.workingDraft?.metrics.turnsToReadyReview ?? (readyReview ? session.runtimeTurns.filter(t => t.role === "USER").length : null) }, failure };
 };

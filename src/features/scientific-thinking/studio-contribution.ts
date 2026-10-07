@@ -1,7 +1,7 @@
-import { logicalDigest } from "../knowledge-engine/canonical";
-import { createSpecializedOwnerHandoffRequestFromSnapshot, type SpecializedOwnerResult } from "../research-project-construction/specialized-owner-handoff";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { createSpecializedOwnerHandoffRequestFromSnapshot, type SpecializedOwnerResult } from "../research-project-construction/specialized-owner-handoff.js";
 import { studioAssessmentPayloadSchema, StudioReconciliationError,
-  type StudioAssessmentPayload, type StudioReconciliationRequest } from "../document-projection/studio-reconciliation-contract";
+  type StudioAssessmentPayload, type StudioReconciliationRequest } from "../document-projection/studio-reconciliation-contract.js";
 
 /** Reverse DOC contribution into the existing ST/SPINE ownership boundary.
  * No fabricated conversation, scientific classifier, transport or PRJ write. */
@@ -12,7 +12,11 @@ export const prepareStudioScientificHandoff = (request: StudioReconciliationRequ
     sourceProject: request.currentProject, nativeInputType: "StudioScientificContribution", nativeInputVersion: "1.0.0",
     nativeInput: { origin: request.origin, requestId: request.requestId, requestDigest: request.requestDigest,
       logicalDocumentRef: request.logicalDocumentRef, baseGenerationId: request.baseGenerationId,
+      workingRevisionId: request.workingRevisionId, saveSequence: request.workingRevisionSaveSequence,
+      contentDigest: request.workingRevisionContentDigest, nativeDocumentRef: request.nativeDocumentRef,
       baseGenerationBodyDigest: request.baseGenerationBodyDigest, baseProject: request.baseProject,
+      currentProject: { projectId: request.currentProject.sourceProjectRef,
+        projectVersion: request.currentProject.sourceProjectVersion, projectDigest: request.currentProject.sourceProjectDigest },
       scientificState: request.scientificState, edits: request.delta.filter(edit => edit.change !== "UNCHANGED") },
   });
 export type StudioScientificHandoff = ReturnType<typeof prepareStudioScientificHandoff>;
@@ -39,6 +43,9 @@ export const requireStudioScientificAssessment = (request: StudioReconciliationR
     || !payload.success || payload.data.requestDigest !== request.requestDigest)
     throw new StudioReconciliationError("STUDIO_ASSESSMENT_BINDING_INVALID");
   const edits = request.delta.filter(edit => edit.change !== "UNCHANGED");
+  if ((request.scientificState.pendingTurnRef || request.scientificState.pendingPreparationId)
+    && payload.data.scientificStateDisposition === "NO_NET_CHANGE")
+    throw new StudioReconciliationError("STUDIO_PENDING_SCIENCE_NOT_ASSESSED");
   const ids = new Set(payload.data.edits.map(edit => edit.editRef));
   if (ids.size !== payload.data.edits.length || ids.size !== edits.length || edits.some(edit => !ids.has(edit.editRef)))
     throw new StudioReconciliationError("STUDIO_ASSESSMENT_COVERAGE_INVALID");

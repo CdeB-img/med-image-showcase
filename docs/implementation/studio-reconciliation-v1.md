@@ -4,7 +4,8 @@ Note d'implémentation, non nouvelle autorité. DOC possède le delta documentai
 la préservation et l'identité de future finalisation. Scientific Thinking possède
 l'évaluation scientifique via le handoff SPINE existant. PRJ conserve seul
 l'adoption ; QRY/conversation conserve la clarification. Aucun moteur, stockage,
-endpoint, migration, bouton ou appel fournisseur n'est ajouté.
+endpoint HTTP, migration ou bouton n'est ajouté. Le runtime réutilise le
+corridor fournisseur existant ; cette qualification n'exécute aucun appel réel.
 
 ## Entrées exactes et frontières
 
@@ -33,11 +34,43 @@ devra maintenir cette vérification à sa frontière d'exécution existante.
 capability `SCIENTIFIC_THINKING_PROPOSAL`, payload `StudioScientificContribution`
 avec origin STUDIO, avant/après, anchors et bindings. Aucun faux transcript.
 
-L'intégration scientifique fournit un résultat natif via le port explicitement
-injecté `StudioScientificAssessmentPort`. Sans résultat lié aux entrées exactes,
-la primitive échoue fermée. **Cette mission n'implémente ni classifieur automatique
-de texte libre, ni exécution provider de ce port.** Les tests contrôlent les
-résultats scientifiques et qualifient leurs frontières, pas leur qualité clinique.
+L'intégration scientifique conserve `StudioScientificAssessmentPort` et dispose
+désormais du producteur natif `scientific-thinking/studio-runtime.ts`, via
+`STUDIO_SCIENTIFIC_ASSESSMENT` sur le bridge, le transport et l'admission existants.
+Le serveur vérifie la sauvegarde et les bytes natifs archivés avant admission.
+L'assessment est lié au handoff spécialisé et à tous les bindings Studio/Project.
+Un no-op exact ne dispatch aucun provider. Les tests mockent le fournisseur et
+qualifient les frontières et le lifecycle, pas une classification clinique réelle.
+
+`captureStudioProjectPreparation` ajoute le type source
+`NATIVE_STUDIO_CONTRIBUTION` aux checkpoints existants. Il ne crée aucun tour.
+Le Knowledge input garde la provenance du delta Studio ; ses citations sont dans
+`explicitStudioDecisions`, séparées des `explicitDecisions` conversationnelles.
+Le même producteur Working Draft, les mêmes validators spécialisés, StudyProposal
+et candidate/Review PRJ sont utilisés. Une cible PRJ déjà existante est liée par
+ses refs natives dans `userChangeRefs`, sans appariement lexical. L'assessment
+et la préparation ne constituent jamais une décision humaine ni une adoption.
+
+La préparation publique exige le résultat ST déjà conservé dans l'admission
+durable de cette session/client ; un assessment injecté par le navigateur est
+refusé. Le lecteur natif réutilise les admissions existantes, sans nouvelle table.
+Une sauvegarde plus récente ou un autre Project invalide les anciens bindings.
+Le captureur scientifique existant vérifie également l'état gouverné courant :
+un nouveau tour ou autre contribution externe invalide l'ancien assessment.
+Le résultat du checkpoint natif exact n'est pas confondu avec un nouveau changement
+externe lors de sa réutilisation ; son entrée reste liée au snapshot initial.
+La préparation est réutilisable uniquement avec la source exacte, un checkpoint
+valide et un résultat natif prêt. UNKNOWN/FAILED n'autorise aucun retry implicite.
+
+Limite V1 explicite : des changements conversationnels scientifiques encore
+pending conjointement à un nouveau delta Studio renvoient
+`MIXED_SOURCE_PREPARATION_GAP`. Ils restent séparés, sans reconstruction de
+transcript ni recomposition commune prétendument qualifiée. Une information
+conversationnelle déjà adoptée est réutilisée via le Project courant. Les
+ambiguïtés matérielles indiquent `EXISTING_QRY_PATH`, sans moteur Studio dédié.
+Les edits éditoriaux restent chez DOC et n'entrent pas dans la source scientifique.
+
+Cette extension n'ajoute ni finalisation UI, ni nouvelle génération, ni write PRJ.
 
 Mapping : DOCUMENT_ONLY → changement documentaire ; PROJECT_CHANGE → contribution
 scientifique non adoptée ; AMBIGUOUS → interprétations matériellement incompatibles.

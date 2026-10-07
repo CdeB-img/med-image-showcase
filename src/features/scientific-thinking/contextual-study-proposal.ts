@@ -84,6 +84,7 @@ export const studyProposalOptionDecisionRefs = (proposal: ContextualStudyProposa
   });
 export type ProposalProjectBinding = null | { projectId: string; versionId: string; projectDigest: string };
 export type StudyProposalComposition = Readonly<{
+  nativeStudioSource?: import("./studio-runtime.js").StudioPreparationProvenance;
   proposalRef: string; digest: string; sourceTurnRef: string; sourceResponseRef: string;
   sourceProject: ProposalProjectBinding; originalSourceProject: ProposalProjectBinding;
   revision: number; proposal: ContextualStudyProposal; adoptedAtomRefs: readonly string[];
@@ -173,6 +174,7 @@ export const acceptContextualStudyProposal = (raw: unknown, input: {
   userAssumptions?: readonly { parameter: string; value: number; sourceRef: string }[];
   scopedAtomRefs?: readonly string[]; previousOwnerReceipts?: StudyProposalComposition["ownerReceipts"];
   sourceText?: string; ownerContext?: ContextualReasoningRequest | null;
+  nativeStudioSource?: StudyProposalComposition["nativeStudioSource"];
 }): StudyProposalComposition => {
   const proposal = contextualStudyProposalSchema.parse(raw);
   if (proposal.contextDigest !== input.contextDigest) throw new Error("STUDY_PROPOSAL_CONTEXT_MISMATCH");
@@ -203,7 +205,8 @@ export const acceptContextualStudyProposal = (raw: unknown, input: {
     if (scenario.input.assumptions.some(a => a.provenance === "USER_ASSUMPTION" && !input.userAssumptions?.some(source =>
       source.parameter === a.parameter && source.value === a.value && source.sourceRef === a.sourceRef))) throw new Error("STUDY_PROPOSAL_USER_ASSUMPTION_UNVERIFIED");
   }
-  const digest = logicalDigest({ proposal, sourceProject: input.sourceProject, sourceTurnRef: input.sourceTurnRef, sourceResponseRef: input.sourceResponseRef });
+  const digest = logicalDigest({ proposal, sourceProject: input.sourceProject, sourceTurnRef: input.sourceTurnRef, sourceResponseRef: input.sourceResponseRef,
+    ...(input.nativeStudioSource ? { nativeStudioSource: input.nativeStudioSource } : {}) });
   const evaluatedAtoms = input.scopedAtomRefs ? proposal.atoms.filter(a => input.scopedAtomRefs!.includes(a.ref)) : proposal.atoms;
   const designAtoms = evaluatedAtoms.filter(a => a.owner === "STUDY_DESIGN");
   const designReceipt = designAtoms.length ? acceptStudyStrategyCandidates(input.ownerContext?.studyDesign
@@ -213,6 +216,7 @@ export const acceptContextualStudyProposal = (raw: unknown, input: {
   qualifyCandidateCollection(evaluatedAtoms.filter(a => ["OBS", "IMAGING", "DATA_MANAGEMENT", "BIOSTATISTICS"].includes(a.owner)));
   return { proposalRef: `scientific-study-proposal:${digest}`, digest, sourceTurnRef: input.sourceTurnRef,
     sourceResponseRef: input.sourceResponseRef, sourceProject: input.sourceProject, originalSourceProject: input.sourceProject,
+    ...(input.nativeStudioSource ? { nativeStudioSource: input.nativeStudioSource } : {}),
     revision: 1, proposal, adoptedAtomRefs: [], unavailableOptionRefs: [], state: "CURRENT",
     dimensioning: calculateStudyProposalScenarios(proposal),
     ownerReceipts: [...(input.previousOwnerReceipts ?? []).filter(r => !evaluatedAtoms.some(a => a.owner === r.owner)), ...(designReceipt ? [designReceipt] : []), ...(imagingReceipt ? [imagingReceipt] : []), ...[...new Set(evaluatedAtoms.map(a => a.owner))].filter(o => !["STUDY_DESIGN", "IMAGING"].includes(o)).map(owner => ({ owner,

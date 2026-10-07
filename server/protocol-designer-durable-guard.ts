@@ -90,6 +90,10 @@ export interface PublicProtocolDesignerDurableGuard {
   readDocumentGenerationResult?(input: Readonly<{
     headers: Headers; remoteAddress?: string; sessionId: string; clientRequestId: string;
   }>): Promise<DurableWorkingDraftRecovery>;
+  /** Same retained admission reader, restricted to native Studio identities. */
+  readNativeStudioResult?(input: Readonly<{
+    headers: Headers; remoteAddress?: string; sessionId: string; clientRequestId: string;
+  }>): Promise<DurableWorkingDraftRecovery>;
   close(): Promise<void>;
 }
 
@@ -1207,8 +1211,11 @@ export const createPostgresProtocolDesignerDurableGuard = (
     }
   };
 
-  const readDocumentGenerationResult: NonNullable<PublicProtocolDesignerDurableGuard["readDocumentGenerationResult"]> = async (input) => {
-    if (!input.sessionId || input.sessionId.length > 240 || !input.clientRequestId.startsWith("drci-draft:") || input.clientRequestId.length > 320)
+  const readRetainedAdmission = async (input: Parameters<NonNullable<PublicProtocolDesignerDurableGuard["readDocumentGenerationResult"]>>[0],
+    nativeStudio = false): Promise<DurableWorkingDraftRecovery> => {
+    if (!input.sessionId || input.sessionId.length > 240 || !(nativeStudio
+      ? /^(?:studio-assessment:|working-draft:studio:)ke1-[a-f0-9]{16}$/u.test(input.clientRequestId)
+      : input.clientRequestId.startsWith("drci-draft:") && input.clientRequestId.length <= 320))
       return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
     const admissionKey = hash(`${input.sessionId}\u0000${input.clientRequestId}`);
     try {
@@ -1223,6 +1230,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
         return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
       if (row.state === "COMPLETED") {
         if (asNumber(row.response_status) === 200) return row.response_body == null ? { state: "UNKNOWN" } : { state: "COMPLETED", response: row.response_body };
+        if (nativeStudio) return { state: "FAILED", errorCode: "STUDIO_SCIENTIFIC_OPERATION_FAILED" };
         const operations = await sql`select state from noxia_durable.public_provider_operation where admission_key = ${admissionKey}`;
         return recoveredDocumentFailure(row.response_body, operations.map(op => op.state));
       }
@@ -1236,7 +1244,10 @@ export const createPostgresProtocolDesignerDurableGuard = (
       return { state: deadlines.some(deadline => deadline > Date.now()) ? "IN_PROGRESS" : "UNKNOWN" };
     } catch { throw new DurablePublicGuardError("PUBLIC_DURABLE_STORE_UNAVAILABLE"); }
   };
+  const readDocumentGenerationResult: NonNullable<PublicProtocolDesignerDurableGuard["readDocumentGenerationResult"]> = input => readRetainedAdmission(input);
+  const readNativeStudioResult: NonNullable<PublicProtocolDesignerDurableGuard["readNativeStudioResult"]> = input => readRetainedAdmission(input, true);
   return Object.freeze({ concurrentProviderOperations: true as const, prepareRequest, createBudgetedFetch, completeRequest, readWorkingDraftPreparation, readReusableDocumentScope, readDocumentGenerationResult,
+    readNativeStudioResult,
     close: () => sql.end({ timeout: 5 }) });
 };
 
@@ -1357,6 +1368,14 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       if (!result) return { state: "IN_PROGRESS" };
       if (result.status === 200) return { state: "COMPLETED", response: result.body };
       return recoveredDocumentFailure(result.body);
+    },
+    readNativeStudioResult: async (input): Promise<DurableWorkingDraftRecovery> => {
+      if (!/^(?:studio-assessment:|working-draft:studio:)ke1-[a-f0-9]{16}$/u.test(input.clientRequestId)) return { state: "REJECTED", status: 404, code: "STUDIO_RESULT_NOT_FOUND" };
+      const key = hash(`${input.sessionId}\u0000${input.clientRequestId}`), context = prepared.get(key);
+      if (!context || context.clientKey !== hash(clientAddress(input.headers, input.remoteAddress))) return { state: "REJECTED", status: 404, code: "STUDIO_RESULT_NOT_FOUND" };
+      const result = completed.get(key);
+      return !result ? { state: "IN_PROGRESS" } : result.status === 200 ? { state: "COMPLETED", response: result.body }
+        : { state: "FAILED", errorCode: "STUDIO_SCIENTIFIC_OPERATION_FAILED" };
     },
     async close() {},
   });

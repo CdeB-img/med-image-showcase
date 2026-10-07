@@ -970,11 +970,14 @@ export type ProductBridgeRequest = {
   evaluatePersistentDelta: boolean;
   /** Non-adopting ST preparation, gated by server configuration. */
   prepareWorkingDraft?: boolean;
+  /** Native Studio source, never a fabricated conversation turn. */
+  studioPreparationSource?: import("../scientific-thinking/studio-runtime.js").StudioPreparationSource;
   /** Immutable Knowledge source for an explicit preparation; distinct from its latest conversation turn. */
   workingDraftScientificSource?:
     | Readonly<{ kind: "BOUND_USER_TURN"; sourceUserTurnId: string; sourceResponseTurnId: string; sourceDigest: string }>
     | Readonly<{ kind: "CURRENT_PROJECT_QUESTION"; projectId: string; versionId: string;
-      projectDigest: string; objectVersionId: string; sourceDigest: string }>;
+      projectDigest: string; objectVersionId: string; sourceDigest: string }>
+    | Readonly<{ kind: "NATIVE_STUDIO_CONTRIBUTION"; requestDigest: string; assessmentRef: string; sourceDigest: string }>;
   /** Read-only rejected proposals from the existing working composition history. */
   workingDraftHistory?: import("./functional-reset/continuous-project-build.js").WorkingDraftMetadata["history"];
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
@@ -1884,11 +1887,14 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
       || record.prepareWorkingDraft && (record.evaluatePersistentDelta || record.documentDraftRequest !== undefined)))
     || (record.workingDraftScientificSource !== undefined && (!record.prepareWorkingDraft
       || !record.workingDraftScientificSource || typeof record.workingDraftScientificSource !== "object"
-      || !(["BOUND_USER_TURN", "CURRENT_PROJECT_QUESTION"] as const).includes(record.workingDraftScientificSource.kind)
+      || !(["BOUND_USER_TURN", "CURRENT_PROJECT_QUESTION", "NATIVE_STUDIO_CONTRIBUTION"] as const).includes(record.workingDraftScientificSource.kind)
       || typeof record.workingDraftScientificSource.sourceDigest !== "string"
       || (record.workingDraftScientificSource.kind === "BOUND_USER_TURN"
         ? typeof record.workingDraftScientificSource.sourceUserTurnId !== "string"
           || typeof record.workingDraftScientificSource.sourceResponseTurnId !== "string"
+        : record.workingDraftScientificSource.kind === "NATIVE_STUDIO_CONTRIBUTION"
+          ? !record.studioPreparationSource || typeof record.workingDraftScientificSource.requestDigest !== "string"
+            || typeof record.workingDraftScientificSource.assessmentRef !== "string"
         : typeof record.workingDraftScientificSource.projectId !== "string"
           || typeof record.workingDraftScientificSource.versionId !== "string"
           || typeof record.workingDraftScientificSource.projectDigest !== "string"
@@ -1896,12 +1902,14 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || (record.workingDraftHistory !== undefined && (!Array.isArray(record.workingDraftHistory)
       || record.workingDraftHistory.length > STUDY_PROPOSAL_CAPACITY.maxRejectedHistoryEntries || !record.workingDraftHistory.every(h => h && h.status === "REJECTED"
         && h.atom && typeof h.atom.ref === "string" && typeof h.atom.content === "string" && h.atom.content.length <= 600)))
+    || (record.studioPreparationSource !== undefined && (!record.prepareWorkingDraft || !record.currentProject
+      || !record.studioPreparationSource?.request || !record.studioPreparationSource.assessment))
     || (record.requestKind !== undefined && !["USER_TURN", "POST_ADOPTION_QRY_CONTINUATION"].includes(record.requestKind))
     || !record.conversation
     || typeof record.conversation.conversationId !== "string"
     || !["fr", "en"].includes(record.conversation.language)
     || !Array.isArray(record.conversation.turns)
-    || !record.conversation.turns.length
+    || (!record.conversation.turns.length && !record.studioPreparationSource)
     || !record.conversation.turns.every((turn) => turn && typeof turn.turnId === "string"
       && ["USER", "NOXIA"].includes(turn.role)
       && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= (turn.role === "USER" ? 4_000 : 64_000))) return null;

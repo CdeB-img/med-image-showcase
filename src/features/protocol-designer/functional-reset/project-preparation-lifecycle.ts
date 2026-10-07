@@ -16,6 +16,10 @@ import { recordProjectPreparationTrace } from "./project-preparation-trace.js";
 import type { WorkingReviewOwnerObservation } from "./continuous-project-build.js";
 import { bindRetainedDiscussionProposal } from "./contribution-discussion-retention.js";
 import { buildScientificDiscussionContext } from "./contribution-discussion-context.js";
+import { studioScientificRoute, studioPreparationProvenance, type StudioPreparationSource } from "../../scientific-thinking/studio-runtime.js";
+import { assertStudioReconciliationCurrent } from "../../document-projection/studio-reconciliation.js";
+import type { DocumentWorkingRevision } from "../../document-projection/working-revision.js";
+import { captureStudioScientificState } from "./studio-scientific-context.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -24,7 +28,7 @@ export type ProjectPreparationCheckpoint = Readonly<{
   projectId: string;
   cutoffTurnId: string;
   conversationCutoffTurnId?: string;
-  preparationTrigger?: "EXPLICIT_PROJECT_PREPARATION_ACTION";
+  preparationTrigger?: "EXPLICIT_PROJECT_PREPARATION_ACTION" | "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION";
   /** Presentation policy only; the immutable scientific request is unchanged. */
   presentation?: "INTERNAL_VERSION_PRODUCTION";
   scientificSourceIdentity?: ProductBridgeRequest["workingDraftScientificSource"];
@@ -55,15 +59,79 @@ const inputSession = (session: FunctionalResetSession, checkpoint: ProjectPrepar
 export const preparationCheckpointValid = (session: FunctionalResetSession, checkpoint: ProjectPreparationCheckpoint): boolean => {
   if (!checkpoint || !checkpoint.request?.conversation || !Array.isArray(checkpoint.request.conversation.turns)) return false;
   const cutoff = session.runtimeTurns.findIndex(turn => turn.turnId === checkpoint.cutoffTurnId);
+  const studio = checkpoint.request.studioPreparationSource;
+  const native = checkpoint.preparationTrigger === "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION";
+  if (native) try {
+    if (!studio || !session.project || studioScientificRoute(studio, session.project).action !== "EXISTING_SCIENTIFIC_PREPARATION_PATH") return false;
+  } catch { return false; }
   return checkpoint.contract === "EXPLICIT_PROJECT_PREPARATION_V1" && checkpoint.sessionId === session.sessionId
-    && checkpoint.projectId === session.projectId && cutoff >= 0
+    && checkpoint.projectId === session.projectId && (cutoff >= 0 || native && session.runtimeTurns.length === 0)
     && logicalDigest(checkpoint.request) === checkpoint.requestDigest
-    && (checkpoint.preparationTrigger === undefined || checkpoint.preparationTrigger === "EXPLICIT_PROJECT_PREPARATION_ACTION")
+    && (checkpoint.preparationTrigger === undefined || checkpoint.preparationTrigger === "EXPLICIT_PROJECT_PREPARATION_ACTION" || native)
     && (checkpoint.conversationCutoffTurnId === undefined || checkpoint.conversationCutoffTurnId === checkpoint.cutoffTurnId)
     && logicalDigest(checkpoint.scientificSourceIdentity ?? null) === logicalDigest(checkpoint.request.workingDraftScientificSource ?? null)
     && logicalDigest(checkpoint.previousDraft) === checkpoint.previousDraftDigest
     && workingDraftInputDigest(checkpoint.request) === checkpoint.inputDigest
     && logicalDigest(session.runtimeTurns.slice(0, cutoff + 1)) === logicalDigest(checkpoint.request.conversation.turns);
+};
+
+/** Another SOURCE TYPE for the same checkpoint, result and human-review owners.
+ * Mixed pending science is an explicit bounded gap, never a fabricated transcript.
+ */
+export const captureStudioProjectPreparation = (session: FunctionalResetSession, source: StudioPreparationSource,
+  savedRevision: DocumentWorkingRevision,
+  now = new Date().toISOString()) => {
+  if (!session.project) throw new Error("STUDIO_PREPARATION_PROJECT_REQUIRED");
+  assertStudioReconciliationCurrent(source.request, savedRevision, session.project, source.request.scientificState);
+  const previous = [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint?.request.studioPreparationSource
+    && logicalDigest(p.checkpoint.request.studioPreparationSource) === logicalDigest(source)
+    && p.decision !== "ABANDONED" && preparationCheckpointValid(session, p.checkpoint));
+  // The exact preparation's own result is not a new external scientific source.
+  // Keep later turns/retention/other preparations intact when checking staleness.
+  const checkpoint = previous?.checkpoint;
+  const externalState = checkpoint ? { ...session,
+    workingDraftPreparations: session.workingDraftPreparations?.filter(p => p !== previous),
+    studyProposal: session.studyProposal?.nativeStudioSource?.requestDigest === source.request.requestDigest
+      ? checkpoint.request.studyProposalContext ?? null : session.studyProposal,
+    workingDraft: session.workingDraft?.inputDigest === checkpoint.inputDigest ? checkpoint.previousDraft : session.workingDraft,
+  } : session;
+  if (logicalDigest(captureStudioScientificState(externalState)) !== logicalDigest(source.request.scientificState))
+    throw new Error("STUDIO_SCIENTIFIC_STATE_STALE");
+  const route = studioScientificRoute(source, session.project);
+  if (route.action === "EXISTING_QRY_PATH" || route.action === "MIXED_SOURCE_PREPARATION_GAP")
+    return { action: route.action, preparation: null };
+  if (source.request.scientificState.pendingTurnRef || source.request.scientificState.pendingPreparationId)
+    return { action: "MIXED_SOURCE_PREPARATION_GAP" as const, preparation: null };
+  if (!route.workingDraftRequired) return { action: route.action, preparation: null };
+  if (previous?.result && previous.status === "READY_FOR_REVIEW") {
+    const { composition, workingDraft } = previous.result;
+    if (composition.proposal.contextDigest !== checkpoint!.inputDigest || workingDraft.inputDigest !== checkpoint!.inputDigest
+      || logicalDigest(composition.nativeStudioSource) !== logicalDigest(studioPreparationProvenance(source, session.project, source.assessment.completedAt))
+      || !validatePreparedWorkingReview({ ...inputSession(session, checkpoint!), studyProposal: composition, workingDraft }))
+      throw new Error("STUDIO_PREPARATION_RESULT_INVALID");
+    return { action: "REUSE_VALID_PREPARATION" as const, preparation: previous };
+  }
+  if (previous) return { action: "EXISTING_PREPARATION_STATE" as const, preparation: previous };
+  const scientificSourceIdentity: NonNullable<ProductBridgeRequest["workingDraftScientificSource"]> = {
+    kind: "NATIVE_STUDIO_CONTRIBUTION", requestDigest: source.request.requestDigest, assessmentRef: source.assessment.resultId,
+    sourceDigest: logicalDigest(route.edits.map(edit => edit.afterText).join("\n")) };
+  const scientificRequest: ProductBridgeRequest = { apiVersion: "1.0.0", evaluatePersistentDelta: false,
+    prepareWorkingDraft: true, currentProject: session.project, studioPreparationSource: structuredClone(source),
+    workingDraftScientificSource: scientificSourceIdentity,
+    conversation: { conversationId: session.conversationId, language: "fr", turns: structuredClone(session.runtimeTurns) },
+    workingDraftHistory: (session.workingDraft?.history ?? []).filter(item => item.status === "REJECTED"),
+    ...(session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}) };
+  const inputDigest = workingDraftInputDigest(scientificRequest), preparationId = `working-draft:studio:${inputDigest}`;
+  const request: ProductBridgeRequest = { ...scientificRequest, observabilityContext: { sessionId: session.sessionId,
+    conversationId: session.conversationId, turnId: null, clientRequestId: preparationId, testSessionId: null } };
+  const cutoffTurnId = session.runtimeTurns.at(-1)?.turnId ?? source.request.requestId;
+  const preparation: WorkingDraftPreparation = { sourceTurnRef: source.request.requestId, status: "PREPARING", code: null,
+    updatedAt: now, decision: "PENDING", checkpoint: { contract: "EXPLICIT_PROJECT_PREPARATION_V1", preparationId,
+      sessionId: session.sessionId, projectId: session.projectId, cutoffTurnId, conversationCutoffTurnId: cutoffTurnId,
+      preparationTrigger: "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION", presentation: "INTERNAL_VERSION_PRODUCTION", scientificSourceIdentity, capturedAt: now,
+      inputDigest, requestDigest: logicalDigest(request), request, previousDraftDigest: logicalDigest(session.workingDraft ?? null),
+      previousDraft: structuredClone(session.workingDraft ?? null) } };
+  return { action: "WORKING_DRAFT_REQUIRED" as const, preparation };
 };
 /** Selects only an already linked conversation response or the adopted canonical question. */
 const scientificSourceForPreparation = (session: FunctionalResetSession,
@@ -212,7 +280,8 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
       response.workingDraftUpdate && response.workingDraftUpdate.requestType !== "STUDY_UPDATE" ? null : "WORKING_DRAFT_PROPOSAL_MISSING");
   }
   const composition = response.workingStudyProposal;
-  if (composition.sourceTurnRef !== p.sourceTurnRef || composition.sourceResponseRef !== p.recovery?.compositionResponseRef
+  if (composition.sourceTurnRef !== p.sourceTurnRef || composition.sourceResponseRef !== (cp.request.studioPreparationSource
+    ? cp.request.studioPreparationSource.assessment.resultId : p.recovery?.compositionResponseRef)
     || composition.proposal.contextDigest !== cp.inputDigest) return transitionProjectPreparation(recordProjectPreparationTrace(observed, cp,
       "WORKING_DRAFT_VALIDATION", "FAILED", { code: "PREPARATION_RESULT_BINDING_MISMATCH",
         failureFunction: "consumeProjectPreparation", failureInvariant: "COMPOSITION_CHECKPOINT_BINDING",
@@ -329,7 +398,9 @@ export const projectPreparationReview = (session: FunctionalResetSession) => {
     && adoptedContributions.has(item.adoptedContributionRef ?? item.result.workingDraft.readyReview?.candidate.contributionRef ?? ""))
     .map(item => session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId)));
   const p = [...preparations].reverse().find(item => item.result && item.checkpoint && item.decision === "PENDING"
-    && session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId) > adoptedCutoff);
+    && (item.checkpoint.preparationTrigger === "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION"
+      ? preparationCheckpointValid(session, item.checkpoint)
+      : session.runtimeTurns.findIndex(turn => turn.turnId === item.checkpoint!.cutoffTurnId) > adoptedCutoff));
   if (!p?.checkpoint || !p.result) return null;
   const cp = p.checkpoint;
   if (!preparationCheckpointValid(session, cp)) return null;
