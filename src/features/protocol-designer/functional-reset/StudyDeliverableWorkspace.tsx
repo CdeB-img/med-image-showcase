@@ -12,6 +12,8 @@ import type { DocumentGenerationBody } from "@/features/document-projection/gene
 import DocumentArchiveHistory from "./DocumentArchiveHistory";
 import ProtocolPreview from "./ProtocolPreview";
 import type { DocumentProjection } from "@/features/document-projection";
+import DocumentStudio from "@/features/document-projection/DocumentStudio";
+import type { DocumentStudioTarget } from "@/features/document-projection/studio-document";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
@@ -39,6 +41,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
   const [diagnosticError, setDiagnosticError] = useState(false);
+  const [studioTarget, setStudioTarget] = useState<DocumentStudioTarget | null>(null);
   const diagnosticRequest = useRef(0);
   const diagnosticLifetime = useRef(0);
   useEffect(() => {
@@ -62,6 +65,8 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     } catch { if (diagnosticRequest.current === token && diagnosticLifetime.current === epoch) setDiagnosticError(true); }
   };
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
+  if (studioTarget && archiveClient) return <DocumentStudio key={`${studioTarget.generation.generationId}:${studioTarget.nativeDocumentRef}`}
+    client={archiveClient} target={studioTarget} onClose={() => setStudioTarget(null)} />;
   if (diagnosticProjectionId && selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <section>
     <p className="mb-2 text-xs text-muted-foreground">Diagnostic interne · projection technique, pas une génération documentaire.</p><ProtocolPreview
     projection={selectedBody.native.value}
@@ -99,7 +104,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     </header>
 
     {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {archiveClient && <DocumentArchiveHistory client={archiveClient} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
     {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">
       <p>Diagnostic interne · ces projections ne sont pas des générations documentaires.</p>
       <button type="button" className="mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(false)}>Ouvrir la projection technique</button>

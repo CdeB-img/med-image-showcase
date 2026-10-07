@@ -1,14 +1,16 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { randomUUID } from "node:crypto";
 import type { JSONValue, Sql } from "postgres";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, assertWorkingRevision, editableArchivedDocument,
   validateWorkingRevisionContent, workingRevisionContentDigest, type AbandonWorkingRevision, type CreateWorkingRevision,
-  type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
+  type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 
 export type DocumentWorkingRevisionStore = Readonly<{
+  open(access: DocumentArchiveAccess, input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(access: DocumentArchiveAccess, input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(access: DocumentArchiveAccess, revisionId: string): Promise<DocumentWorkingRevisionResult>;
   save(access: DocumentArchiveAccess, input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
@@ -123,6 +125,32 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     return { ...observedResult, revision };
   };
   return {
+    async open(access, input) {
+      // Exact native base + logical document, never a filename, browser cache or
+      // G(n+1) guess. Serialize opens so concurrent tabs resume one ACTIVE draft.
+      const { document } = await sourceFor(access, input);
+      const revision = await locked(access, `base:${input.baseGenerationId}:${document.logicalDocumentRef}`, async (db, sessionKey) => {
+        const active = await db`select revision from (
+          select distinct on (revision_id) revision_id, save_sequence, status, revision
+          from noxia_durable.doc_working_revision
+          where session_key_hash = ${sessionKey} and project_id = ${access.project.projectId}
+          and base_generation_id = ${input.baseGenerationId} and logical_document_ref = ${document.logicalDocumentRef}
+          order by revision_id, save_sequence desc
+        ) latest where status = 'ACTIVE' limit 2`;
+        if (active.length > 1) throw new DocumentWorkingRevisionError("DOC_REVISION_ACTIVE_CONFLICT", 409);
+        if (active[0]) return assertWorkingRevision(active[0].revision);
+        const now = new Date().toISOString();
+        const created: DocumentWorkingRevision = { contract: DOCUMENT_WORKING_REVISION_CONTRACT,
+          revisionId: `document-working-revision:${randomUUID()}`, ...document,
+          baseGenerationId: input.baseGenerationId, baseGenerationBodyDigest: input.baseGenerationBodyDigest,
+          contentDigest: workingRevisionContentDigest(document.content), saveSequence: 1, status: "ACTIVE", createdAt: now, updatedAt: now,
+          provenance: { origin: "ARCHIVED_NATIVE_DOCUMENT", sessionRef: access.identity.sessionId, lastAction: "CREATE", semanticImpact: "UNASSESSED" },
+          boundary: "NOT_PROJECT_TRUTH_NOT_GENERATED_DOCUMENT" };
+        await insert(db, sessionKey, created);
+        return created;
+      });
+      return resultFor(access, revision);
+    },
     async create(access, input) {
       request(input.revisionId);
       const { document } = await sourceFor(access, input);

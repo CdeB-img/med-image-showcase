@@ -121,9 +121,11 @@ export const validateWorkingRevisionContent = (value: unknown, base: EditableDoc
 };
 
 export type CreateWorkingRevision = { revisionId: string; baseGenerationId: string; baseGenerationBodyDigest: string; nativeDocumentRef: string };
+export type OpenWorkingRevision = Omit<CreateWorkingRevision, "revisionId">;
 export type SaveWorkingRevision = { revisionId: string; expectedSaveSequence: number; content: EditableDocumentContent };
 export type AbandonWorkingRevision = { revisionId: string; expectedSaveSequence: number };
 export type DocumentWorkingRevisionClient = Readonly<{
+  open(input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(revisionId: string): Promise<DocumentWorkingRevisionResult>;
   save(input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;

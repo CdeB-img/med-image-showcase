@@ -22,6 +22,15 @@ export const archiveSqlFixture = () => {
       }
       return [];
     }
+    if (query.startsWith("select revision from (")) {
+      const latest = new Map<string, Record<string, unknown>>();
+      for (const row of revisions.filter(r => r.session_key_hash === v[0] && r.project_id === v[1]
+        && r.base_generation_id === v[2] && r.logical_document_ref === v[3])) {
+        const previous = latest.get(String(row.revision_id));
+        if (!previous || Number(row.save_sequence) > Number(previous.save_sequence)) latest.set(String(row.revision_id), row);
+      }
+      return [...latest.values()].filter(r => r.status === "ACTIVE").slice(0, 2).map(r => ({ revision: structuredClone(r.revision) }));
+    }
     if (query.startsWith("select revision from noxia_durable.doc_working_revision")) return revisions
       .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2])
       .sort((a, b) => Number(b.save_sequence) - Number(a.save_sequence)).slice(0, 1).map(r => ({ revision: structuredClone(r.revision) }));

@@ -8,11 +8,11 @@ export const createDocumentWorkingRevisionClient = (
   const execute = async (command: Record<string, unknown>): Promise<DocumentWorkingRevisionResult> => {
     const value = await operation<unknown>(command);
     const parsed = workingRevisionResultSchema.safeParse(value);
-    if (!parsed.success || parsed.data.revision.revisionId !== command.revisionId
+    if (!parsed.success || command.operation !== "DOC_ARCHIVE_REVISION_OPEN" && parsed.data.revision.revisionId !== command.revisionId
       || parsed.data.revision.project.projectId !== projectId
       || parsed.data.revision.contentDigest !== workingRevisionContentDigest(parsed.data.revision.content)
       || parsed.data.baseState.stale !== (!parsed.data.baseState.projectCurrent || !parsed.data.baseState.generationCurrent)
-      || command.operation === "DOC_ARCHIVE_REVISION_CREATE" && (parsed.data.revision.baseGenerationId !== command.baseGenerationId
+      || ["DOC_ARCHIVE_REVISION_CREATE", "DOC_ARCHIVE_REVISION_OPEN"].includes(String(command.operation)) && (parsed.data.revision.baseGenerationId !== command.baseGenerationId
         || parsed.data.revision.baseGenerationBodyDigest !== command.baseGenerationBodyDigest
         || parsed.data.revision.identitySource.nativeDocumentRef !== command.nativeDocumentRef
         || parsed.data.revision.status !== "ACTIVE")
@@ -25,6 +25,7 @@ export const createDocumentWorkingRevisionClient = (
     return parsed.data as DocumentWorkingRevisionResult;
   };
   return {
+    open: input => execute({ operation: "DOC_ARCHIVE_REVISION_OPEN", ...input }),
     create: input => execute({ operation: "DOC_ARCHIVE_REVISION_CREATE", ...input }),
     get: revisionId => execute({ operation: "DOC_ARCHIVE_REVISION_GET", revisionId }),
     save: input => execute({ operation: "DOC_ARCHIVE_REVISION_SAVE", ...input }),

@@ -42,6 +42,15 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_REVISION_OPEN": {
+        if (keys !== "baseGenerationBodyDigest,baseGenerationId,nativeDocumentRef,operation,projectRef,sessionId"
+          || typeof body.baseGenerationId !== "string" || typeof body.baseGenerationBodyDigest !== "string"
+          || typeof body.nativeDocumentRef !== "string") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+        if (!archive.workingRevisions) throw new DocumentWorkingRevisionError("DOC_REVISION_UNAVAILABLE", 503);
+        result = await archive.workingRevisions.open(access, { baseGenerationId: body.baseGenerationId,
+          baseGenerationBodyDigest: body.baseGenerationBodyDigest, nativeDocumentRef: body.nativeDocumentRef });
+        break;
+      }
       case "DOC_ARCHIVE_REVISION_CREATE":
       case "DOC_ARCHIVE_REVISION_GET":
       case "DOC_ARCHIVE_REVISION_SAVE":

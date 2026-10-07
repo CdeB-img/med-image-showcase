@@ -5,6 +5,36 @@ import { editableArchivedDocument, validateWorkingRevisionContent } from "../wor
 import { workingRevisionFixture } from "./working-revision-fixture";
 
 describe("DOC-owned working revisions / immutable native bases", () => {
+  it("opens the exact ACTIVE logical-document/base once across concurrent tabs and reload", async () => {
+    const run = await workingRevisionFixture();
+    const { revisionId: _id, ...input } = run.createInput;
+    const [a, b] = await Promise.all([run.owner.open(run.access2, input), run.owner.open(run.access2, input)]);
+    expect(a.revision.revisionId).toBe(b.revision.revisionId);
+    const content = structuredClone(a.revision.content); content.title = "Titre sauvegardé";
+    const saved = await run.owner.save(run.access2, { revisionId: a.revision.revisionId, expectedSaveSequence: 1, content });
+    const reloaded = createPostgresDocumentArchive("postgres://offline", run.snapshots, documentArchiveCapacity({}), run.fixture.sql);
+    expect(await reloaded.workingRevisions!.open(run.access2, input)).toEqual(saved);
+    expect(run.fixture.revisions()).toHaveLength(2);
+  });
+  it("never resumes an abandoned draft or a draft of another base/document", async () => {
+    const run = await workingRevisionFixture(), { revisionId: _id, ...input } = run.createInput;
+    const old = await run.owner.open(run.access2, input);
+    await run.owner.abandon(run.access2, { revisionId: old.revision.revisionId, expectedSaveSequence: 1 });
+    const active = await run.owner.open(run.access2, input);
+    expect(active.revision.revisionId).not.toBe(old.revision.revisionId); expect(active.revision.status).toBe("ACTIVE");
+    const g1 = await run.owner.open(run.access2, { ...input, baseGenerationId: run.g1.ref.generationId, baseGenerationBodyDigest: run.g1.ref.bodySha256 });
+    const other = await run.owner.open(run.access2, { ...input, nativeDocumentRef: "RECRUITMENT" });
+    expect(g1.revision.baseGenerationId).toBe(run.g1.ref.generationId);
+    expect(g1.revision.logicalDocumentRef).toBe(active.revision.logicalDocumentRef);
+    expect(other.revision.logicalDocumentRef).not.toBe(active.revision.logicalDocumentRef);
+  });
+  it("rejects ambiguous legacy ACTIVE duplicates rather than selecting arbitrary content", async () => {
+    const run = await workingRevisionFixture();
+    await run.owner.create(run.access2, run.createInput);
+    await run.owner.create(run.access2, { ...run.createInput, revisionId: "document-working-revision:second-explicit-id" });
+    await expect(run.owner.open(run.access2, run.createInput)).rejects.toMatchObject({ code: "DOC_REVISION_ACTIVE_CONFLICT" });
+    expect(run.fixture.revisions()).toHaveLength(2);
+  });
   it("A: creates from native protocol_full G2 without rendering or changing generations", async () => {
     const run = await workingRevisionFixture(), rows = run.fixture.rows(), bodies = run.fixture.bodies();
     const result = await run.owner.create(run.access2, run.createInput);

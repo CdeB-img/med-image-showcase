@@ -33,6 +33,7 @@ is available from this primitive.
 Use `createDocumentArchiveClient(sessionId, project).workingRevisions`:
 
 - `create({revisionId, baseGenerationId, baseGenerationBodyDigest, nativeDocumentRef})`
+- `open({baseGenerationId, baseGenerationBodyDigest, nativeDocumentRef})`
 - `get(revisionId)`
 - `save({revisionId, expectedSaveSequence, content})`
 - `abandon({revisionId, expectedSaveSequence})`
@@ -40,8 +41,16 @@ Use `createDocumentArchiveClient(sessionId, project).workingRevisions`:
 The caller chooses a stable revision ID for idempotent CREATE and subsequent
 reload/GET. A different ID is a distinct working copy, not a new generation.
 The existing bridge/archive origin and PRJ session/network capability checks
-protect all four operations. No separate database, pool, credential or local
+protect all operations. No separate database, pool, credential or local
 body store is introduced.
+
+Studio uses OPEN: the owner resolves the latest ACTIVE revision for the exact
+logical document and immutable base generation, under a base/document lock.
+Concurrent opens create at most one draft. Abandoned histories are excluded;
+opening again creates a new draft, never resurrects the abandoned one.
+Multiple ACTIVE copies created through explicit legacy CREATE IDs fail closed
+with `DOC_REVISION_ACTIVE_CONFLICT` rather than selecting arbitrary content.
+OPEN uses the existing table; no migration or new head/pointer store is added.
 
 Migration `004_doc_working_revision.sql` is additive. It creates one DOC table,
 with append-only confirmed saves, exact source-generation FK and UPDATE/DELETE
@@ -69,4 +78,35 @@ integrity, concurrency and genericity (including existing RECRUITMENT).
 The SQL boundary double exercises actual owner transactions/rollback, not a
 live PostgreSQL installation. Migration application in an environment remains
 a later deployment/integration gate; this mission performs no real DB write.
-No Studio UI, semantic classifier, publication or adaptive portfolio is added.
+## Document Studio V1
+
+The archive/history exposes an additional native-document selection and
+"Ouvrir dans Studio" action. Existing file open/download/ZIP remain unchanged.
+Routing uses the actual native document selector and exact generation/body
+digest, not files or artifact IDs. The same view supports existing RECRUITMENT
+and CRF native documents; no future kind ontology is introduced.
+
+Studio edits native title, section headings and paragraph text. FACT/CITE-bearing
+text is read-only in V1, displaying only already-bound native references.
+References, open items and collection specifications remain read-only; all
+other protected objects remain attached to the immutable source.
+
+Explicit SAVE only: CLEAN/DIRTY/SAVING/SAVE_FAILED/CONFLICT are screen states.
+Errors/conflicts keep the local buffer; an explicit confirmed reload replaces it
+with the durable save, without merge. Navigation back from Studio requires a
+dirty confirmation; browser reload/close uses beforeunload while dirty/saving.
+Unsaved hard-reload recovery and unrelated host navigation are not guaranteed.
+Reopening after reload resolves the exact saved ACTIVE draft through OPEN,
+without localStorage or a session-body copy.
+
+Comparison is textual, at title/section-heading/paragraph granularity: unchanged,
+added (previously empty), removed (now empty), modified. No node insertion,
+deletion, layout diff or scientific equivalence is claimed.
+Abandon requires explicit confirmation; failed abandonment does not leave the
+view or erase the buffer. Historical bases show a stale warning and retain their
+bindings. All edits remain UNASSESSED.
+
+No AI rewrite, provider call, classifier, propagation, publication, new
+generation, adaptive portfolio or editor dependency is added.
+Before any Preview hands-on Studio use, apply/verify migration 004 there.
+Production migration/deployment is outside this implementation mission.

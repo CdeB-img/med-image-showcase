@@ -28,6 +28,19 @@ const runtime = async () => {
 };
 
 describe("bounded DOC revision API/client, existing capability and transport", () => {
+  it("opens/resumes by exact native base and rejects extra fields or substituted source responses", async () => {
+    const run = await runtime(), { revisionId: _id, ...input } = run.createInput;
+    const first = await run.client.open(input);
+    expect(await run.client.open(input)).toEqual(first);
+    expect(run.fixture.revisions()).toHaveLength(1);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_OPEN", { ...input, revisionId: "untrusted" }))).status).toBe(400);
+    run.mutate.response = value => {
+      const result = value as { result: DocumentWorkingRevisionResult };
+      result.result.revision.baseGenerationId = "another-base";
+      return value;
+    };
+    await expect(run.client.open(input)).rejects.toThrow("DOC_REVISION_RESPONSE_INVALID");
+  });
   it("creates, saves, reloads and abandons via native archive operations only", async () => {
     const run = await runtime(), before = run.fixture.rows(), bodyBefore = run.fixture.bodies();
     const initial = await run.client.create(run.createInput), content = structuredClone(initial.revision.content);
