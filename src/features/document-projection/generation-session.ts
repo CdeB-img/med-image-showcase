@@ -14,13 +14,18 @@ export const hasCurrentArchivedGeneration = (session: FunctionalResetSession) =>
   && session.documentArchive.currentGeneration.project.projectVersion === session.project.versionId
   && session.documentArchive.currentGeneration.project.projectDigest === session.project.projectDigest);
 
-/** An explicit retry keeps the original native handoff/source. A changed
- * Project or documentary administration is a new input, never a partial resume. */
+/** The archived current source, without a committed generation for this exact
+ * Project, identifies an incomplete command. lastFailure is presentation only:
+ * reload refreshes it and must not create a second authorization event.
+ * A changed Project/administration is a new input, never a partial resume. */
 export const failedDocumentRetryProjection = (session: FunctionalResetSession,
   administration?: Parameters<typeof import("./functional-reset-boundary").refreshFunctionalResetDocumentPortfolio>[0]["administration"]) => {
   const projection = session.documents.projections.at(-1);
   const binding = session.documents.projectRef;
-  return session.documents.lastFailure && session.project && projection
+  const archivedId = session.documentArchive?.currentProjectionId;
+  const incomplete = archivedId ? session.documentArchive?.projectId === session.project?.projectId
+    && projection?.projectionId === archivedId && !hasCurrentArchivedGeneration(session) : Boolean(session.documents.lastFailure);
+  return incomplete && session.project && projection && !hasCurrentArchivedGeneration(session)
     && binding?.projectId === session.project.projectId && binding.projectVersion === session.project.versionId
     && binding.projectDigest === session.project.projectDigest
     && projection.source.projectId === session.project.projectId && projection.source.projectVersion === session.project.versionId
@@ -87,7 +92,8 @@ export const publishArchivedTemplate = (session: FunctionalResetSession, project
  * These native values are temporary owner input and never session history. */
 export const hydrateDocumentCommandSession = async (session: FunctionalResetSession, client: DocumentArchiveClient, ancestor = false) => {
   const id = session.documentArchive?.currentProjectionId;
-  if (!id || session.documents.projections.length) return session;
+  // A loaded historical/revision body is not the source of this command.
+  if (!id || session.documents.projections.at(-1)?.projectionId === id) return session;
   const selected = await client.body(id);
   if (selected.body.native.family !== "TEMPLATE") throw new Error("DOC_ARCHIVE_NATIVE_FAMILY_MISMATCH");
   const projection = selected.body.native.value;

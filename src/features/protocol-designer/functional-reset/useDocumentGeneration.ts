@@ -111,7 +111,10 @@ export function useDocumentGeneration(input: {
         authority: sourceSession.projectAuthority,
         confirmedAt: now,
       });
-      const documents = retryProjection ? { ...loaded.documents, lastFailure: null } : refreshFunctionalResetDocumentPortfolio({
+      // Restore the authorization from the immutable source itself, not the
+      // refreshed presentation portfolio. The durable scope owner still checks
+      // the exact model/payload/configuration/contract before reusing a result.
+      const documents = retryProjection ? { ...loaded.documents, handoffDecision: decision, lastFailure: null } : refreshFunctionalResetDocumentPortfolio({
         knowledgeLibrary: evidence?.sourceLibrary,
         administration,
         project: sourceSession.project,

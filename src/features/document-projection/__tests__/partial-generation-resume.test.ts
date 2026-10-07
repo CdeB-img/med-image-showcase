@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { act, cleanup, renderHook } from "@testing-library/react";
 import { executeProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
 import { createPostgresProtocolDesignerDurableGuard, type DurablePublicRequestContext } from "../../../../server/protocol-designer-durable-guard";
 import { AZURE_LOCAL_INPUT_POLICY } from "../../../../server/protocol-designer-local-token-admission";
@@ -11,9 +12,17 @@ import { makeFunctionalResetContribution, COLCHICINE_INITIAL } from "../../proto
 import { authorizeResearchProjectDocumentHandoff, confirmResearchProjectContribution } from "../../research-project-construction";
 import { refreshFunctionalResetDocumentPortfolio, markFunctionalResetDocumentFailure } from "../functional-reset-boundary";
 import { failedDocumentRetryProjection, hasCurrentArchivedGeneration, publishArchivedGeneration } from "../generation-session";
-import { createFunctionalResetSession } from "../../protocol-designer/functional-reset/session";
+import { createFunctionalResetSession, FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../../protocol-designer/functional-reset/session";
+import { encodeSessionStorage } from "../../protocol-designer/functional-reset/session-storage-codec";
+import { readProjectSessions } from "../../protocol-designer/functional-reset/project-workspace-storage";
+import { documentAdministrationFrom, emptyProjectAdministration } from "../../protocol-designer/functional-reset/project-administration";
+import { useDocumentGeneration } from "../../protocol-designer/functional-reset/useDocumentGeneration";
+import { providerCallRequestObservability } from "../../protocol-designer/provider-call-observability";
+import * as bridgeClient from "../../protocol-designer/product-bridge-client";
+import * as archiveClient from "../generation-archive-client";
+import { documentNativeGeneratedAt } from "../generation-persistence";
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
-import { materializeDrciDraftPack, prepareDrciDraftPack, prepareDrciDraftSource, prepareDrciGenerationBatches } from "../drci-draft-contract";
+import { materializeDrciDraftPack, prepareDrciDraftPack, prepareDrciDraftSource, prepareDrciGenerationBatches, validateDrciHandoff } from "../drci-draft-contract";
 import { freezeDocumentGeneration } from "../generation-exports";
 import { drciDraftPackArtifacts } from "../drci-draft-pack";
 import type { ProductBridgeResponse } from "../../protocol-designer/product-bridge";
@@ -30,13 +39,18 @@ vi.mock("postgres", () => ({ default: () => Object.assign(async (parts: Template
   if (query.includes("select o.operation_key")) return rows;
   throw new Error("UNEXPECTED_SQL");
 }, { end: async () => {} }) }));
-afterEach(() => { rows = []; queries.length = 0; vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); localStorage.clear(); rows = []; queries.length = 0; vi.useRealTimers(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
 const hash = (text: string) => createHash("sha256").update(text).digest("hex");
 const canonical = (value: unknown): string => value && typeof value === "object"
   ? Array.isArray(value) ? `[${value.map(canonical).join(",")}]`
     : `{${Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`
   : JSON.stringify(value);
-const at = "2026-10-07T10:00:00.000Z", endpoint = "https://qualification.services.ai.azure.com/api/projects/offline/openai/v1/responses";
+// SANITIZED_HISTORICAL_REPLAY: lifecycle shape of archived projections
+// document-projection:ke1-d058ec851a6e9531 / ke1-c1e3a1bd80241199.
+// Only the two causal timestamps are historical. Native identities/content
+// are generated from the meaningful current clinical fixture, not private prose.
+const at = "2026-10-07T01:02:23.202Z", retryAt = "2026-10-07T10:18:27.898Z";
+const endpoint = "https://qualification.services.ai.azure.com/api/projects/offline/openai/v1/responses";
 const scopeCompanion = "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT";
 const sourceFor = (project: ReturnType<typeof confirmResearchProjectContribution>) => {
   const handoffDecision = authorizeResearchProjectDocumentHandoff({ project, authority: behaviorAuthority, confirmedAt: at });
@@ -59,12 +73,12 @@ const scopeOutput = (packet: ReturnType<typeof prepareDrciDraftPack>, scope: str
 const completed = (packet: ReturnType<typeof prepareDrciDraftPack>, scope: string) => JSON.stringify({ id: `response-${scope}`, status: "completed",
   model: "gpt-6.1-sol", output_text: JSON.stringify(scopeOutput(packet, scope)), usage: { input_tokens: 100, output_tokens: 100 } });
 
-const setup = async () => {
-  const sessionId = "protocol-designer-session:partial-doc", clientAddress = "192.0.2.20";
+const setup = async (sessionId = "protocol-designer-session:partial-doc") => {
+  const clientAddress = "192.0.2.20";
   const initial = behaviorTurn("initial", COLCHICINE_INITIAL);
   const v1 = confirmResearchProjectContribution({ contribution: makeFunctionalResetContribution([initial]), current: null,
     projectId: `${sessionId}:research-project`, authority: behaviorAuthority, confirmedAt: at });
-  const turn = behaviorTurn("revision", "L'étude clinique sera monocentrique.");
+  const turn = { ...behaviorTurn("revision", "L'étude clinique sera monocentrique."), createdAt: at };
   const v2 = confirmResearchProjectContribution({ contribution: behaviorContribution({ contributionId: "revision", turns: [turn], candidateObjects: [
     behaviorItem({ itemId: "site", proposedType: "PROJECT_INFORMATION", content: turn.content, turnId: turn.turnId }),
   ] }), current: v1, projectId: v1.projectId, authority: behaviorAuthority, confirmedAt: at });
@@ -72,6 +86,7 @@ const setup = async () => {
   const context = { sessionId, conversationId: "conversation", turnId: "doc-attempt", clientRequestId: `drci-draft:${v2.projectDigest}:first`, testSessionId: null };
   const body = { apiVersion: "1.0.0", requestKind: "USER_TURN", evaluatePersistentDelta: false, currentProject: v2,
     conversation: { conversationId: "conversation", language: "fr", turns: [turn] }, documentDraftRequest: source, observabilityContext: context };
+  let dispatchedBody = body;
   const guard = createPostgresProtocolDesignerDurableGuard("postgres://offline");
   let filtered = true;
   const dispatched: string[] = [], operationRefs: string[] = [];
@@ -89,7 +104,7 @@ const setup = async () => {
       provider_http_status: 200, provider_response_body: response, provider_response_digest: hash(response), settled_at: at,
       qualification_failure_code: null, endpoint_digest: hash(endpoint), payload_digest: hash(payload),
       configuration_digest: hash(canonical({ purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, inputAdmissionPolicy: AZURE_LOCAL_INPUT_POLICY })),
-      session_key_hash: hash(sessionId), client_key_hash: hash(clientAddress), request_digest: hash(canonical(body)) });
+      session_key_hash: hash(sessionId), client_key_hash: hash(clientAddress), request_digest: hash(canonical(dispatchedBody)) });
     return new Response(response, { status: 200 });
   });
   const snapshots = memoryProjectSnapshotStore(), fixture = archiveSqlFixture();
@@ -107,6 +122,7 @@ const setup = async () => {
   const frozenG1 = JSON.stringify(await archive.body(access, g1.generation.generationId));
   const reg2 = await snapshots.persist(identity, v2, access.proof); access = { identity, project: reg2.ref, proof: reg2.proof };
   const invoke = async (requestBody = body) => {
+    dispatchedBody = requestBody;
     const preparation = await guard.prepareRequest({ headers: { "x-forwarded-for": clientAddress }, body: requestBody });
     const result = await executeProtocolDesignerBridge({ body: requestBody, openAiApiKey: "OFFLINE", apiKey: null, chatRuntime: "TERRA",
       openAiTransport: transport, fetchImpl: fetchImpl as typeof fetch, documentScopeExecution: "CONCURRENT", documentGeneratedAt: at,
@@ -124,6 +140,78 @@ const setup = async () => {
 };
 
 describe("explicit partial DOC resume (native boundaries, no real provider)", () => {
+  it("reloads the failed attempt and retries its immutable original authorization/projection at the actual command and durable lookup boundaries", async () => {
+    vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA");
+    vi.useFakeTimers({ toFake: ["Date"] }); vi.setSystemTime(at);
+    const base = createFunctionalResetSession(at), run = await setup(base.sessionId);
+    base.workspace = { title: "Qualification clinique", revision: 0, administration: emptyProjectAdministration() };
+    const administration = documentAdministrationFrom(base.projectId, base.workspace);
+    const latest: { current: FunctionalResetSession } = { current: { ...publishArchivedGeneration({ ...base, project: run.v1 }, run.g1.generation),
+      project: run.v2, runtimeTurns: run.body.conversation.turns,
+      documents: refreshFunctionalResetDocumentPortfolio({ project: run.v2, administration, requestedAt: at }) } };
+    const frozenV2 = JSON.stringify(run.v2), requests: typeof run.body[] = [];
+    vi.spyOn(archiveClient, "createDocumentArchiveClient").mockReturnValue({
+      history: cursor => run.archive.history(run.access, cursor, "DRCI"),
+      body: id => run.archive.body(run.access, id), receipt: id => run.archive.receipt(run.access, id),
+      async commit(id, body) {
+        await run.archive.admit(run.access, { requestId: id, requestSha256: docSha256(JSON.stringify(body)),
+          generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: Buffer.byteLength(JSON.stringify(body)) });
+        return run.archive.commit(run.access, id, body);
+      },
+    });
+    vi.spyOn(bridgeClient, "requestProtocolDesignerBridge").mockImplementation(async request => {
+      const native = JSON.parse(JSON.stringify({ ...request, apiVersion: "1.0.0" })) as typeof run.body;
+      requests.push(native);
+      const requestId = native.observabilityContext.clientRequestId;
+      await run.archive.admit(run.access, { family: "DRCI", requestId, requestSha256: hash(canonical(native)), generatedAt: at, reservedBytes: 4_000_000 });
+      const response = await run.invoke(native);
+      if (response.status !== 200) {
+        await run.archive.reject(run.access, requestId);
+        const failure = response.body as { error: { code: string; message: string }; observability?: ProductBridgeResponse["observability"] };
+        throw new bridgeClient.ProductBridgeClientError(failure.error.code, failure.error.message, null,
+          providerCallRequestObservability(failure.observability?.providerCalls ?? []));
+      }
+      const result = response.body as ProductBridgeResponse, pack = result.documentDraftPack!;
+      const body = await freezeDocumentGeneration({ native: { family: "DRCI", value: pack }, artifacts: drciDraftPackArtifacts(pack, run.v2),
+        sha256: docSha256, renderOrigin: "GENERATION_TIME" });
+      return { ...result, documentPersistenceReceipt: await run.archive.commit(run.access, requestId, body) };
+    });
+    const mount = () => renderHook(() => useDocumentGeneration({ latestSessionRef: latest,
+      setSession: update => { latest.current = typeof update === "function" ? update(latest.current) : update; },
+      administration, projectionMode: "STANDARD", onSessionChange: async () => ({ scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" }),
+      setDocumentSaveWarning: vi.fn(), setDeliverableWorkspaceOpen: vi.fn(), setDocumentGenerationVersion: vi.fn(),
+      setDocumentGenerationStartedAt: vi.fn(), setDocumentGenerationElapsed: vi.fn(), setDocumentGenerationComplete: vi.fn(),
+      setDocumentGenerationPending: vi.fn(), setDocumentGenerationStage: vi.fn(),
+    }));
+    const first = mount(); await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    expect(requests).toHaveLength(1); expect(run.dispatched).toEqual(["PROTOCOL_FULL", scopeCompanion]);
+    expect(latest.current.documents.lastFailure).not.toBeNull();
+    const originalId = latest.current.documentArchive!.currentProjectionId!;
+    const original = await run.archive.body(run.access, originalId), immutable = JSON.stringify(original);
+    expect((await run.archive.history(run.access, undefined, "DRCI")).entries.map(g => g.displayVersion)).toEqual([1]);
+    // Actual storage reload refreshes presentation and clears lastFailure;
+    // the durable source pointer must still identify the incomplete attempt.
+    localStorage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, encodeSessionStorage(latest.current));
+    const reopened = readProjectSessions(localStorage);
+    expect(reopened.unreadable).toEqual([]); latest.current = reopened.projects[0].session;
+    expect(latest.current.documents.lastFailure).toBeNull(); expect(latest.current.documents.projections).toEqual([]);
+    vi.setSystemTime(retryAt); run.succeed();
+    const retry = mount(); await act(() => retry.result.current.requestProtocolProjection());
+    expect(requests).toHaveLength(2);
+    expect(requests[1].documentDraftRequest).toEqual(requests[0].documentDraftRequest);
+    expect(requests[1].documentDraftRequest.handoffDecision.timestamp).toBe(at);
+    expect(latest.current.documentArchive!.currentProjectionId).toBe(originalId);
+    const normalized = { ...requests[1], observabilityContext: requests[0].observabilityContext };
+    expect(hash(canonical(normalized))).toBe(hash(canonical(requests[0])));
+    expect(run.dispatched).toEqual(["PROTOCOL_FULL", scopeCompanion, "PROTOCOL_FULL"]);
+    expect(JSON.stringify(await run.archive.body(run.access, originalId))).toBe(immutable);
+    expect(latest.current.documentArchive!.currentGeneration!.displayVersion).toBe(2);
+    expect(latest.current.documents.lastFailure).toBeNull(); expect(latest.current.documents.projections).toEqual([]);
+    expect(JSON.stringify(run.v2)).toBe(frozenV2);
+    expect(JSON.stringify(await run.archive.body(run.access, run.g1.generation.generationId))).toBe(run.frozenG1);
+    expect((await run.archive.history(run.access, undefined, "DRCI")).entries.map(g => g.displayVersion)).toEqual([2, 1]);
+    await act(() => retry.result.current.requestProtocolProjection()); expect(requests).toHaveLength(2);
+  });
   it("retains the native failed handoff but never treats historical G1 as a committed current V2 generation", async () => {
     const run = await setup();
     const source = sourceFor(run.v2);
@@ -133,6 +221,24 @@ describe("explicit partial DOC resume (native boundaries, no real provider)", ()
     expect(failedDocumentRetryProjection(session)).toBe(documents.projections.at(-1));
     expect(failedDocumentRetryProjection({ ...session, project: run.v1 })).toBeNull();
     expect(failedDocumentRetryProjection({ ...session, documents: { ...session.documents, lastFailure: null } })).toBeNull();
+    const projection = documents.projections.at(-1)!;
+    const archived = { ...session, documents: { ...session.documents, lastFailure: null }, documentArchive: {
+      ...session.documentArchive!, projectId: run.v2.projectId, currentProjectionId: projection.projectionId,
+    } };
+    expect(failedDocumentRetryProjection(archived)).toBe(projection);
+    expect(failedDocumentRetryProjection({ ...archived, project: run.v1 })).toBeNull();
+    expect(failedDocumentRetryProjection({ ...archived, project: { ...run.v2, projectId: "another-project" } })).toBeNull();
+    expect(failedDocumentRetryProjection({ ...archived, project: { ...run.v2, projectDigest: "changed" } })).toBeNull();
+    expect(failedDocumentRetryProjection({ ...archived, project: { ...run.v2, versionId: "changed" } })).toBeNull();
+    expect(failedDocumentRetryProjection({ ...archived, documentArchive: { ...archived.documentArchive, currentProjectionId: "another-source" } })).toBeNull();
+    const administration = documentAdministrationFrom(run.v2.projectId, { title: "Nouveau contexte", revision: 1, administration: emptyProjectAdministration() });
+    expect(failedDocumentRetryProjection(archived, administration)).toBeNull();
+    // The lifecycle recovers, never repairs/re-authorizes, an old native
+    // envelope. Its existing validator must reject an invalid authorization.
+    for (const invalid of [{ ...source.handoffDecision, status: "REJECTED" },
+      { ...source.handoffDecision, projectVersion: run.v1.versionId }, { ...source.handoffDecision, targets: ["unrelated-attempt"] }]) {
+      expect(() => validateDrciHandoff(run.v2, invalid)).toThrow();
+    }
     const current = publishArchivedGeneration({ ...session, project: run.v1 }, run.g1.generation);
     expect(hasCurrentArchivedGeneration(current)).toBe(true);
     expect(hasCurrentArchivedGeneration({ ...current, project: run.v2 })).toBe(false);
@@ -169,7 +275,7 @@ describe("explicit partial DOC resume (native boundaries, no real provider)", ()
     expect(run.dispatched).toEqual(["PROTOCOL_FULL", scopeCompanion, "PROTOCOL_FULL"]);
     expect((await run.archive.history(run.access, undefined, "DRCI")).entries).toHaveLength(1);
   });
-  it.each(["project-id", "project-version", "project-digest", "handoff", "model", "prompt", "scope", "output-schema", "endpoint", "session", "client", "settlement", "terminal-state", "input"])("forbids scope reuse on %s mismatch", async mismatch => {
+  it.each(["project-id", "project-version", "project-digest", "handoff", "model", "prompt", "scope", "output-schema", "configuration", "payload", "endpoint", "session", "client", "settlement", "terminal-state", "input"])("forbids scope reuse on %s mismatch", async mismatch => {
     const run = await setup(); await run.invoke();
     const row = run.rows.find(r => r.scope === scopeCompanion)!;
     const payload = JSON.parse(JSON.stringify({ model: "gpt-6.1-sol", instructions: prepareDrciGenerationBatches(run.packet)[1].instruction,
@@ -183,6 +289,8 @@ describe("explicit partial DOC resume (native boundaries, no real provider)", ()
     if (mismatch === "model") payload.model = "gpt-6-sol";
     if (mismatch === "prompt") payload.instructions += "new contract";
     if (mismatch === "output-schema") payload.input = JSON.stringify({ ...JSON.parse(payload.input), DOCUMENT_SPECIFICATION: "DRCI_OPERATIONAL_V3" });
+    if (mismatch === "configuration") row.configuration_digest = hash("changed native provider configuration");
+    if (mismatch === "payload") payload.input = JSON.stringify({ ...JSON.parse(payload.input), DATA_MANAGEMENT_CRF: {} });
     if (mismatch === "endpoint") row.endpoint_digest = hash("other endpoint");
     if (mismatch === "session") row.session_key_hash = hash("other session");
     if (mismatch === "client") row.client_key_hash = hash("other client");
