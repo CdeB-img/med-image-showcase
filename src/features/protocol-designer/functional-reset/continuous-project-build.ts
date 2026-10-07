@@ -10,7 +10,7 @@ import { buildCurrentTurnNavigation, selectStudyProposalArbitrations } from "../
 import type { ProductBridgeRequest } from "../product-bridge.js";
 import type { ScientificInterpretationTurn } from "../../scientific-interpretation/contracts.js";
 import { STUDY_PROPOSAL_CAPACITY, preflightStudyProposalCapacity } from "../../scientific-thinking/study-proposal-capacity.js";
-import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, studyProposalBinding } from "./study-proposal-standard.js";
+import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, commonBaselineOptionAtomRefs, preserveStudyProposalAdoptions, studyProposalBinding } from "./study-proposal-standard.js";
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import { retainedDiscussionProposalBindingsSchema } from "./contribution-discussion-retention.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
@@ -480,13 +480,14 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   const ownerContext = prepareStandardContextualReasoningRequest({ contribution, turns: request.conversation.turns,
     sessionId: request.conversation.conversationId,
     workingDraftKnowledgeSource: preflightWorkingDraftKnowledgeSource(request) });
-  const composition = acceptContextualStudyProposal(update.proposal, { contextDigest: workingDraftInputDigest(request),
+  const accepted = acceptContextualStudyProposal(update.proposal, { contextDigest: workingDraftInputDigest(request),
     sourceTurnRef: user.turnId, sourceResponseRef: reply.turnId, sourceProject: studyProposalBinding(request.currentProject),
     // Open/unselected branches remain working proposals. Only the native scope
     // receives specialized qualification, with exactly the handoffs built for it.
     scopedAtomRefs: contribution.scientificContent.candidateObjects.map(item => item.evidenceRefs!.find(ref => atoms.has(ref))!),
     ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: request.conversation.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"),
   });
+  const composition = preserveStudyProposalAdoptions(previous, accepted, request.currentProject);
   if (ownerAreaNormalizations.length) console.info("WORKING_DRAFT_OWNER_AREA_NORMALIZED", {
     clientRequestId: request.observabilityContext?.clientRequestId ?? null, changes: ownerAreaNormalizations,
   });
@@ -587,7 +588,7 @@ export const compactWorkingDraftAdvice = (request: ProductBridgeRequest) => {
   const source = request.conversation.turns.find(t => t.turnId === composition.sourceTurnRef);
   if (!proposalTurn || !source) throw new Error("WORKING_DRAFT_SOURCE_MISSING");
   // Existing QRY selector owns priority; this projection never owns the phrasing.
-  const selectable = composition.proposal.atoms.filter(a => a.status !== "OPEN_DECISION" && !a.dependsOn.length
+  const selectable = composition.proposal.atoms.filter(a => a.status !== "OPEN_DECISION" && !composition.adoptedAtomRefs.includes(a.ref) && !a.dependsOn.length
     && !composition.proposal.arbitrations.some(r => r.options.some(o => o.atomRefs.includes(a.ref)))).map(a => a.ref);
   if (!selectable.length) return null;
   const contribution = buildStudyProposalSelectionContribution({ composition, project: request.currentProject,
@@ -599,12 +600,18 @@ export const compactWorkingDraftAdvice = (request: ProductBridgeRequest) => {
     validation: null, currentProject: request.currentProject, substantiveProposalEligible: true });
   const selection = selectStudyProposalArbitrations({ composition, navigation });
   const action = selection.selected;
-  const advice = (item: typeof selection.nonDominated[number]) => ({ action: item.actionCategory,
-    label: item.actionLabel, reason: item.explanation, impacts: item.impacts, options: item.knownOptionRefs,
-    blockers: item.dependencies.filter(d => d.status !== "SATISFIED") });
+  // QRY still chooses. Its arbitration explanation/impacts are exact copies of
+  // the canonical arbitration; reference it instead of replaying that science.
+  const advice = (item: typeof selection.nonDominated[number]) => {
+    const arbitration = composition.proposal.arbitrations.find(a => a.ref === item.candidateId);
+    return arbitration ? { action: item.actionCategory, arbitrationRef: arbitration.ref,
+      options: item.knownOptionRefs, blockers: item.dependencies.filter(d => d.status !== "SATISFIED") }
+      : { action: item.actionCategory, label: item.actionLabel, reason: item.explanation,
+        impacts: item.impacts, options: item.knownOptionRefs, blockers: item.dependencies.filter(d => d.status !== "SATISFIED") };
+  };
   return { STATUS: selection.trace.outcome, TRACE_REF: selection.trace.traceId,
     ALTERNATIVES: selection.nonDominated.map(advice),
-    ...(action ? { NEXT_HIGH_VALUE_ACTION: action.actionLabel, WHY_NOW: action.explanation,
-      IMPACT: action.impacts, OPTIONS: action.knownOptionRefs, BLOCKERS: action.dependencies.filter(d => d.status !== "SATISFIED") } : {}) };
+    ...(action ? { NEXT_HIGH_VALUE_ACTION: advice(action) } : {}),
+    ARBITRATION_REFERENCE_BASIS: "WORKING_STUDY_PROPOSAL.arbitrations" };
 
 };

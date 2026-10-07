@@ -17,7 +17,7 @@ import { createFunctionalResetSession, loadFunctionalResetSession, saveFunctiona
 import { prepareTerraConversationRequest } from "../conversation-request";
 import { activeScientificDiscussionRetention, type TerraScientificResult } from "../contribution-discussion-retention";
 import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
-import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { controlledStudyProposal, DOMAINS, readConversationProposalAtoms } from "./study-proposal-fixtures";
 
 const bridge = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(), requestProtocolDesignerBridge: bridge }));
@@ -222,7 +222,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(JSON.stringify(saved.project)).toBe(v1);
     const packet = JSON.parse(packets.at(-1)!);
     expect(new TextEncoder().encode(packets.at(-1)!).length).toBeLessThan(80_000);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms).toHaveLength(1);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL)).toHaveLength(1);
     expect(packet.CURRENT_DISCUSSION.retainedMeaning.some((e: { content: string }) => e.content === age)).toBe(true);
     for (const privateDocKey of ["documentDraftRequest", "documentDraftPack", "drciDraftPacks", "documents", "documentArchive"])
       expect(packets.at(-1)).not.toContain(`"${privateDocKey}"`);
@@ -343,8 +343,8 @@ describe("product lifecycle stability — meaningful controlled science, native 
       const bytes = new TextEncoder().encode(JSON.stringify(packet)).length;
       packetSizes.push(bytes); expect(bytes).toBeLessThan(80_000);
       expect(packet.coverage.transcript).toBe("RECENT_WINDOW");
-      expect(packet.WORKING_STUDY_PROPOSAL?.atoms.some((a: StudyProposalAtom) => saved.studyProposal!.adoptedAtomRefs.includes(a.ref)) ?? false).toBe(false);
-      expect(packet.WORKING_STUDY_PROPOSAL?.atoms.filter((a: StudyProposalAtom) => a.status === "OPEN_DECISION")).toHaveLength(1);
+      expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).some((a: StudyProposalAtom) => saved.studyProposal!.adoptedAtomRefs.includes(a.ref))).toBe(false);
+      expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).filter((a: StudyProposalAtom) => a.status === "OPEN_DECISION")).toHaveLength(1);
       expect(packet.OPEN_DECISIONS.filter((d: { source?: string }) => d.source === "WORKING_DRAFT_NOT_ADOPTED")).toEqual([{ source: "WORKING_DRAFT_NOT_ADOPTED", ref: "bounds" }]);
       expect(activeScientificDiscussionRetention(saved.scientificDiscussionRetention!, saved.retainedContributionCandidates ?? [], saved.project, saved.studyProposal)
         .every(e => e.status === "NOT_ADOPTED")).toBe(true);

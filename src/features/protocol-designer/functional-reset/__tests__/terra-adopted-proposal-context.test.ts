@@ -9,7 +9,7 @@ import { buildProjectContextSnapshot } from "@/features/research-project-constru
 import type { ProductBridgeRequest } from "../../product-bridge";
 import type { ConversationContextPacketPreflight } from "../../provider-call-observability";
 import * as proposalOwner from "../study-proposal-standard";
-import { controlledStudyProposal } from "./study-proposal-fixtures";
+import { controlledStudyProposal, readConversationProposalAtoms } from "./study-proposal-fixtures";
 import { createFunctionalResetSession } from "../session";
 import { buildScientificDiscussionContext } from "../contribution-discussion-context";
 import { activeScientificDiscussionRetention, retainScientificDiscussionResult, type ScientificDiscussionRetention } from "../contribution-discussion-retention";
@@ -95,11 +95,15 @@ describe("Terra adopted StudyProposal current-state projection", () => {
     expect(project.canonicalState!.relations.filter(r => r.actuality === "CURRENT")).toHaveLength(32);
     expect(candidate.humanReviewProjection.status).toBe("COMPLETE");
     const before = logicalDigest({ request, project, composition });
+    // Reproduce the historical wire too; current table encoding must not make
+    // an old failure-size assertion into a test of today's different encoding.
+    const oldWire = vi.spyOn(proposalOwner, "compactStudyProposalConversationContext").mockImplementation(c => c);
     const spy = vi.spyOn(proposalOwner, "projectStudyProposalConversationContext").mockImplementation(c => legacy(c));
     let oldMeasurement: ConversationContextPacketPreflight | undefined;
     expect(() => prepareTerraConversation(request, true, m => { oldMeasurement = m; })).toThrow("CONVERSATION_MEMORY_LIMIT");
     expect(oldMeasurement!.packetTotalBytes).toBeGreaterThan(80000);
     spy.mockRestore();
+    oldWire.mockRestore();
     const currentProjection = proposalOwner.projectStudyProposalConversationContext;
     const technicalCopy = vi.spyOn(proposalOwner, "projectStudyProposalConversationContext").mockImplementation((c, p) => {
       const view = currentProjection(c, p), table = view.adoptedAtomContext!;
@@ -119,7 +123,7 @@ describe("Terra adopted StudyProposal current-state projection", () => {
     const prepared = prepareTerraConversation(request, true, m => { measurement = m; });
     const packet = JSON.parse(prepared.context);
     expect(measurement!.packetTotalBytes).toBeLessThan(80000);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms).toEqual(composition.proposal.atoms.filter(a => !composition.adoptedAtomRefs.includes(a.ref)));
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL)).toEqual(composition.proposal.atoms.filter(a => !composition.adoptedAtomRefs.includes(a.ref)));
     expect(packet.WORKING_STUDY_PROPOSAL.arbitrations).toEqual(composition.proposal.arbitrations);
     expect(packet.WORKING_STUDY_PROPOSAL.unavailableOptionRefs).toEqual(["opt-1-1"]);
     expect(packet.QRY).toBeTruthy();
@@ -220,7 +224,7 @@ describe("Terra adopted StudyProposal current-state projection", () => {
     expect(packet.RECENT_CONVERSATION).toHaveLength(10);
     expect(packet.CURRENT_DISCUSSION.retainedMeaning.some((e: { content: string }) => e.content === "Délai post-injection non défini.")).toBe(true);
     expect(activeScientificDiscussionRetention(state!, [], project)).toHaveLength(2);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms).toHaveLength(15);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL)).toHaveLength(15);
     expect(packet.CURRENT_DISCUSSION.active.some((e: { content: string }) => e.content === "Contrôle indépendant de concordance des coupes ECV proposé, non adopté.")).toBe(true);
     expect(packet.QRY).toBeTruthy();
     expect(candidate.humanReviewProjection.status).toBe("COMPLETE");

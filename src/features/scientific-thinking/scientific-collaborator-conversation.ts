@@ -13,7 +13,7 @@ import { classifyNaturalConversationActs, readNaturalCandidateDecision } from ".
 import { hasLongitudinalDesignEvidence } from "../study-design/design-reasoning.js";
 import { prepareConversationalDimensioning } from "../data-analysis-planning/dimensioning-calculator.js";
 import { STUDY_PROPOSAL_MANDATE, contextualStudyProposalSchema } from "./contextual-study-proposal.js";
-import { projectStudyProposalConversationContext, rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
+import { compactStudyProposalConversationContext, projectStudyProposalConversationContext, rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
 import { terraScientificResultJsonSchema, TERRA_RETENTION_INSTRUCTION } from "../protocol-designer/functional-reset/contribution-discussion-retention.js";
 
 // C2 collaborator mandate, with native text and a general epistemic discipline.
@@ -273,6 +273,7 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
   const composition = rehydrateStudyProposal(request.studyProposalContext, request.currentProject);
   const workingProposal = composition && ["CURRENT", "REVIEW_REQUIRED"].includes(composition.state) ? composition : null;
   const workingProposalContext = workingProposal ? projectStudyProposalConversationContext(workingProposal, request.currentProject) : null;
+  const workingProposalWire = workingProposalContext ? compactStudyProposalConversationContext(workingProposalContext) : null;
   const selected = request.currentNavigation?.selected;
   const qry = selected ? { action: selected.actionCategory, label: selected.actionLabel, reason: selected.explanation,
     impacts: selected.impacts, options: selected.knownOptionRefs, blockers: selected.dependencies.filter(item => item.status !== "SATISFIED") } : null;
@@ -285,8 +286,9 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
   const relationRef = (ref: string) => decisionIndexes.has(ref) ? { decisionIndex: decisionIndexes.get(ref)! } : ref;
   const packet = {
     ...(workingProposalContext ? {
-      WORKING_STUDY_PROPOSAL: workingProposalContext,
-      workingOpenDecisionReferenceBasis: "WORKING_STUDY_PROPOSAL.atoms",
+      WORKING_STUDY_PROPOSAL: workingProposalWire,
+      workingOpenDecisionReferenceBasis: workingProposalWire && "atomTable" in workingProposalWire
+        ? "WORKING_STUDY_PROPOSAL.atomTable (rows in fields order; absentFields preserve omissions)" : "WORKING_STUDY_PROPOSAL.atoms",
       ...(autonomousProjectBuild ? {
         WORKING_NEXT_ACTION: (() => { try { return compactWorkingDraftAdvice(request); } catch { return { STATUS: "ADVICE_UNAVAILABLE", projectWriteAuthorized: false }; } })(),
       } : {}),

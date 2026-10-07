@@ -7,7 +7,7 @@ import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation
 import { currentGovernedNavigationInput } from "@/features/query-navigation/current-navigation-evidence";
 import { type ProductBridgeRequest } from "../../product-bridge";
 import { type ConversationContextPacketPreflight } from "../../provider-call-observability";
-import { controlledStudyProposal } from "./study-proposal-fixtures";
+import { controlledStudyProposal, readConversationProposalAtoms } from "./study-proposal-fixtures";
 import { createFunctionalResetSession } from "../session";
 import * as proposalOwner from "../study-proposal-standard";
 import { buildScientificDiscussionContext } from "../contribution-discussion-context";
@@ -113,9 +113,9 @@ describe("Terra single semantic representation of active open decisions", () => 
     expect(bytes(previous)).toBeGreaterThan(80000);
     expect(measurement!.packetTotalBytes).toBeLessThan(80000);
     expect(packet.OPEN_DECISIONS).toEqual(opens.map(a => ({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: a.ref })));
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms.filter((a: StudyProposalAtom) => a.status === "OPEN_DECISION")).toEqual(opens);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).filter((a: StudyProposalAtom) => a.status === "OPEN_DECISION")).toEqual(opens);
     expect(packet.WORKING_STUDY_PROPOSAL.adoptedAtomContext.rows).toHaveLength(36);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms.filter((a: StudyProposalAtom) => composition.adoptedAtomRefs.includes(a.ref))).toHaveLength(0);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).filter((a: StudyProposalAtom) => composition.adoptedAtomRefs.includes(a.ref))).toHaveLength(0);
     expect(logicalDigest({ request, composition, project })).toBe(before);
     console.info("HANDS_ON_OPEN_DECISION_BYTES=" + JSON.stringify({ before: bytes(previous), after: measurement!.packetTotalBytes, openBefore: opens.length, openAfter: packet.OPEN_DECISIONS.length }));
   });
@@ -132,10 +132,10 @@ describe("Terra single semantic representation of active open decisions", () => 
     expect(request.currentProject!.confirmationDecision.status).toBe("ADOPTED");
     const pending = smallInitial();
     const packet = JSON.parse(prepareTerraConversation({ ...request, currentProject: null, currentNavigation: undefined, studyProposalContext: pending }, true).context);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms).toEqual(pending.proposal.atoms);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL)).toEqual(pending.proposal.atoms);
     expect(packet.WORKING_STUDY_PROPOSAL.adoptedAtomContext).toBeUndefined();
     for (const index of packet.OPEN_DECISIONS) {
-      expect(packet.WORKING_STUDY_PROPOSAL.atoms.find((a: StudyProposalAtom) => a.ref === index.ref)).toEqual(pending.proposal.atoms.find(a => a.ref === index.ref));
+      expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).find((a: StudyProposalAtom) => a.ref === index.ref)).toEqual(pending.proposal.atoms.find(a => a.ref === index.ref));
     }
   });
 
@@ -150,7 +150,7 @@ describe("Terra single semantic representation of active open decisions", () => 
     settled.proposalRef = `scientific-study-proposal:${digest}`;
     settled.digest = digest;
     const packet = JSON.parse(prepareTerraConversation({ ...request, currentProject: null, currentNavigation: undefined, studyProposalContext: settled }, true).context);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms).toEqual(settled.proposal.atoms);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL)).toEqual(settled.proposal.atoms);
     expect(packet.OPEN_DECISIONS).toEqual([]);
   });
 
@@ -187,7 +187,7 @@ describe("Terra single semantic representation of active open decisions", () => 
     const packet = JSON.parse(prepared.context);
     expect(prepared.context.split(JSON.stringify(open.content))).toHaveLength(2);
     expect(packet.OPEN_DECISIONS.filter((i: { ref: string }) => i.ref === open.ref)).toEqual([{ source: "WORKING_DRAFT_NOT_ADOPTED", ref: open.ref }]);
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms.find((a: StudyProposalAtom) => a.ref === open.ref)).toEqual(open);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).find((a: StudyProposalAtom) => a.ref === open.ref)).toEqual(open);
   });
 
   it.each(["REJECTED", "SUPERSEDED"] as const)("does not resurrect %s retained meaning or lose another active unknown", status => {
@@ -229,6 +229,6 @@ describe("Terra single semantic representation of active open decisions", () => 
     expect(packet.OPEN_DECISIONS).toContainEqual(discussion.unresolved[0]);
     const atom = composition.proposal.atoms.find(a => a.status === "OPEN_DECISION")!;
     expect(packet.OPEN_DECISIONS).toContainEqual({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: atom.ref });
-    expect(packet.WORKING_STUDY_PROPOSAL.atoms.find((a: StudyProposalAtom) => a.ref === atom.ref)).toEqual(atom);
+    expect(readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).find((a: StudyProposalAtom) => a.ref === atom.ref)).toEqual(atom);
   });
 });

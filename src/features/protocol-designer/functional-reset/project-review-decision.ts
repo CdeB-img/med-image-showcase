@@ -1,6 +1,8 @@
 import { projectStudyProposalDisposition } from "./study-proposal-standard";
 import { deferResearchProjectContribution } from "@/features/research-project-construction/contribution-owner-boundary";
 import { buildStudyProposalSelectionContribution } from "./study-proposal-standard";
+import { assertStudyProposalCurrent, sourceBackedStudyProposalScope } from "./study-proposal-standard";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { rejectResearchProjectContribution } from "@/features/research-project-construction";
 import { recordContributionRejectionTrace } from "./end-to-end-trace-adapter";
 import { adoptedProjectInteractionState } from "./project-adoption-effects";
@@ -150,8 +152,11 @@ export function stageProjectConfirmation(input: {
       || !proposalSelection || preparation.result?.composition.digest !== proposalSelection.expectedDigest
       || proposalSelection.expectedDigest !== proposalSelection.composition.digest)
       throw new Error("VERSION_MATERIALIZATION_CHECKPOINT_INVALID");
-    if (selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms)
-      .some(ref => preparation.result!.workingDraft.origins[ref] !== "EXPLICIT_USER"))
+    assertStudyProposalCurrent(proposalSelection.composition, session.project);
+    selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms);
+    const scope = sourceBackedStudyProposalScope(proposalSelection.composition, preparation.result!.workingDraft.origins);
+    if ("clarification" in scope || logicalDigest(scope) !== logicalDigest({
+      selectedAtomRefs: proposalSelection.selectedAtoms, selectedOptionRefs: proposalSelection.selectedOptions }))
       throw new Error("VERSION_MATERIALIZATION_NOT_SOURCE_BACKED");
   }
   const reviewEntry = proposalSelection ? { kind: "REVIEW" as const, candidate: proposalSelection.candidate, contribution,

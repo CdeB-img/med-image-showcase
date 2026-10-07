@@ -29,6 +29,8 @@ const initial = "Étudier la relation entre l'âge et l'ECV myocardique chez des
   + "L'étude est transversale. Sécurité, effectif et analyse détaillée restent ouverts.";
 const revision = "Je veux remplacer l’IRM par une biopsie cardiaque.";
 const ambiguous = initial.replace("par IRM cardiaque", "par IRM ou biopsie, sans avoir choisi la procédure");
+const dependencyInitial = initial.replace("L'étude est transversale. ", "");
+const dependencyRevision = "Hématocrite prélevé à l'IRM avant perfusion, sur le cathéter ; la méthode de mesure reste à vérifier.";
 const proposalFor = (request: ProductBridgeRequest) => {
   const p = controlledStudyProposal(prepareWorkingDraftRequest(request).inputDigest, DOMAINS[2]);
   const revised = request.conversation.turns.some(t => t.content === revision);
@@ -42,12 +44,25 @@ const proposalFor = (request: ProductBridgeRequest) => {
   p.arbitrations = [{ ...p.arbitrations[1], ref: "open-details", material: false, recommendedRefs: [],
     options: [{ ...p.arbitrations[1].options[0], ref: "define-details", atomRefs: ["bounds"] }] }];
   p.dimensioningScenarios = []; p.understanding = ["Choix exprimés et limites non résolues conservés séparément."];
-  const source = request.conversation.turns.find(t => t.content === initial || t.content === ambiguous)!;
-  const changed = request.conversation.turns.find(t => t.content === revision);
+  const closure = request.conversation.turns.some(t => t.content === dependencyInitial);
+  if (closure) {
+    const design = p.atoms.find(a => a.ref === "design")!;
+    design.ref = "a05";
+    if (request.conversation.turns.some(t => t.content === dependencyRevision)) {
+      p.atoms.push({ ...design, ref: "a08", semanticKey: "timing.single.mri", owner: "STUDY_DESIGN", area: "TIMING", targetType: "VISIT",
+        content: "Une visite d'IRM transversale par participant, sans suivi longitudinal.", dependsOn: ["a05"],
+        dependencyQualifications: [{ ref: "a05", kind: "HARD_BLOCKING_DEPENDENCY", rationale: "La visite met en œuvre le cadre transversal." }] },
+      { ...design, ref: "a69", semanticKey: "timing.hematocrit.before.infusion", owner: "STUDY_DESIGN", area: "TIMING", targetType: "CONSTRAINT",
+        content: dependencyRevision, dependsOn: ["a08"],
+        dependencyQualifications: [{ ref: "a08", kind: "HARD_BLOCKING_DEPENDENCY", rationale: "Le timing se situe dans la visite d'IRM." }] });
+    }
+  }
+  const source = request.conversation.turns.find(t => [initial, ambiguous, dependencyInitial].includes(t.content))!;
+  const changed = request.conversation.turns.find(t => t.content === revision || t.content === dependencyRevision);
   const update: WorkingDraftUpdate = { requestType: "STUDY_UPDATE", proposal: p, inferredAtomRefs: [], rejectedAtomRefs: [],
-    explicitDecisions: p.atoms.filter(a => a.status !== "OPEN_DECISION").map(a => ({ atomRef: a.ref,
-      sourceTurnRef: a.ref === "measurement" && changed ? changed.turnId : source.turnId,
-      quote: a.ref === "measurement" && changed ? changed.content : source.content })),
+    explicitDecisions: p.atoms.filter(a => a.status !== "OPEN_DECISION" && !["a05", "a08"].includes(a.ref)).map(a => ({ atomRef: a.ref,
+      sourceTurnRef: (a.ref === "measurement" && revised || a.ref === "a69") && changed ? changed.turnId : source.turnId,
+      quote: (a.ref === "measurement" && revised || a.ref === "a69") && changed ? changed.content : source.content })),
     retainedDiscussionBindings: (request.scientificDiscussionContext?.retainedMeaning ?? []).flatMap(e => {
       const a = p.atoms.find(a => a.status !== "OPEN_DECISION" && a.content === e.content);
       return a ? [{ elementRef: e.ref, atomRefs: [a.ref], sourceTurnRef: e.sourceTurnRef }] : [];
@@ -55,10 +70,11 @@ const proposalFor = (request: ProductBridgeRequest) => {
   return update;
 };
 const semantic = (text: string): TerraScientificResult => {
-  const meanings = text === initial ? ["Relation entre l'âge et l'ECV myocardique", "Adultes sains", "Étude transversale", "France", "IRM cardiaque"]
+  const meanings = text === initial || text === dependencyInitial ? ["Relation entre l'âge et l'ECV myocardique", "Adultes sains", ...(text === initial ? ["Étude transversale"] : []), "France", "IRM cardiaque"]
     : text === revision ? ["Biopsie cardiaque"] : [text];
   return { reply: text === revision ? "La biopsie remplace l’IRM dans votre demande. Sa justification et sa sécurité chez des volontaires sains restent à préciser."
-    : text === initial ? "L'étude porte sur l'âge et l'ECV chez des adultes sains en France. Les modalités et la sécurité restent ouvertes."
+    : text === initial || text === dependencyInitial ? "L'étude porte sur l'âge et l'ECV chez des adultes sains en France. Les modalités et la sécurité restent ouvertes."
+      : text === dependencyRevision ? "Le timing de l'hématocrite est précisé ; la méthode de mesure reste à vérifier."
       : "Ce point reste en discussion, sans changement automatique du projet.",
     userContribution: { coverage: "COMPLETE", nonPersistentReason: null, elements: meanings.map((content, i) => ({ id: `u${i}`, content,
       epistemicState: "USER_STATED", polarity: "AFFIRMED", conditions: [], linkedIds: [] })) },
@@ -139,6 +155,32 @@ const expectNoInternals = () => {
 const generate = (name = "Générer la version") => fireEvent.click(screen.getByRole("button", { name }));
 
 describe("Standard single-action two-version scientific flow", () => {
+  it("creates V2/G2 through the unique proposed a69/a08/a05 closure, with no false clarification and immutable G1", async () => {
+    const h = setup(); send(dependencyInitial); await screen.findByText(semantic(dependencyInitial).reply);
+    generate(); await screen.findByText("G1 — basée sur le projet V1");
+    const v1 = JSON.stringify(h.state().project), client = offlineArchiveClient(h.state().sessionId, h.state().project!);
+    const g1 = (await client.history()).entries[0], body1 = JSON.stringify((await client.body(g1.generationId)).body);
+    fireEvent.click(screen.getByRole("button", { name: "Conception" })); send(dependencyRevision);
+    await screen.findByText(semantic(dependencyRevision).reply);
+    expect(JSON.stringify(h.state().project)).toBe(v1);
+    generate("Générer une nouvelle version");
+    await waitFor(() => expect(h.state().project?.revision, JSON.stringify({ failure: String(h.failure()),
+      preparations: h.state().workingDraftPreparations?.map(p => ({ status: p.status, code: p.code })) })).toBe(2));
+    await screen.findByText("G2 — basée sur le projet V2");
+    expect(h.state().project?.revision, String(h.failure())).toBe(2);
+    expect(screen.queryByText(/Quel choix souhaitez-vous retenir/u)).toBeNull();
+    const latest = h.state().workingDraftPreparations!.at(-1)!;
+    expect(latest.result!.workingDraft.origins.a69).toBe("EXPLICIT_USER");
+    expect(latest.result!.workingDraft.origins.a08).toBe("PROPOSED");
+    expect(latest.result!.workingDraft.origins.a05).toBe("PROPOSED");
+    expect(buildProjectContextSnapshot({ project: h.state().project! }).objects.map(o => o.content)).toContain(dependencyRevision);
+    expect(JSON.stringify((await client.body(g1.generationId)).body)).toBe(body1);
+    expect((await client.history()).entries.map(g => g.displayVersion)).toEqual([2, 1]);
+    fireEvent.click(screen.getByRole("button", { name: "Conception" })); send("Quelles précisions restent ouvertes ?");
+    await screen.findByText(semantic("Quelles précisions restent ouvertes ?").reply);
+    expect(new TextEncoder().encode(h.packets.at(-1)!).length).toBeLessThan(80000);
+    expectNoInternals();
+  });
   it("creates V1/G1 then an explicit MRI-to-biopsy V2/G2, preserving immutable history and reload", async () => {
     const h = setup(); expectNoInternals(); send(initial); await screen.findByText(semantic(initial).reply);
     expect(h.requests).toHaveLength(1); expect(h.state().project).toBeNull();

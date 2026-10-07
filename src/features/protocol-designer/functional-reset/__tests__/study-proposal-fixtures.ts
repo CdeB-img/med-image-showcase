@@ -3,6 +3,21 @@ import type { ProductBridgeRequest } from "../../product-bridge";
 import { routeProductEntry } from "../product-entry-routing";
 import { buildPreProjectNavigationDecision } from "@/features/query-navigation/pre-project-navigation";
 
+// CURRENT_STRUCTURAL_INVARIANT: decode only the lossless conversation wire
+// projection. Semantic tests still compare every value against native atoms.
+export const readConversationProposalAtoms = (context?: { atoms?: StudyProposalAtom[]; atomTable?: {
+  fields: (keyof StudyProposalAtom)[]; rows: unknown[][]; absentFields: { atomRef: string; fields: (keyof StudyProposalAtom)[] }[];
+} }): StudyProposalAtom[] => {
+  if (context?.atoms) return context.atoms;
+  if (!context?.atomTable) return [];
+  const { fields, rows, absentFields } = context.atomTable;
+  return rows.map(row => {
+    const ref = row[fields.indexOf("ref")];
+    const absent = absentFields.find(a => a.atomRef === ref)?.fields ?? [];
+    return Object.fromEntries(fields.flatMap((field, i) => absent.includes(field) ? [] : [[field, row[i]]])) as StudyProposalAtom;
+  });
+};
+
 // Exact human spelling and line breaks from the mission. Controlled owner
 // outputs below are LOCAL_SYNTHETIC, never a naturalness/scientific approval.
 export const FIBROSIS_EXACT = "je veux créer un projet sur la fibrose normale. évaluer l'évolution de la\nfibrose en fonction de l'age en prenant plusieurs patients sains de différentes\ntranche d'age et en leur faisant passer une irm cardiaque et en évaluant l'ECV\npour chacun d'eux. C'est donc une étude sur volontaire sains sans rémunération";

@@ -97,6 +97,34 @@ export const assertStudyProposalCurrent = (composition: StudyProposalComposition
   if (composition.revision === 1 && (composition.adoptedAtomRefs.length || composition.unavailableOptionRefs.length || composition.dispositions?.length)) throw new Error("STUDY_PROPOSAL_CONTENT_DRIFT");
   if (composition.state !== "CURRENT" || logicalDigest(composition.sourceProject) !== logicalDigest(studyProposalBinding(project))) throw new Error("STUDY_PROPOSAL_STALE_PROJECT");
 };
+/** A FULL SNAPSHOT is a new receipt, not a new adoption. Carry only unchanged
+ * native atoms whose prior human adoption is still materialized exactly 1:1.
+ * Neither lexical equality alone nor a provider reference can certify adoption. */
+export const preserveStudyProposalAdoptions = (previous: StudyProposalComposition | null | undefined,
+  composition: StudyProposalComposition, project: ResearchProjectOwnerProjection | null): StudyProposalComposition => {
+  if (!previous || !project || previous.state !== "CURRENT" || composition.state !== "CURRENT") return composition;
+  try { assertStudyProposalCurrent(previous, project); assertStudyProposalCurrent(composition, project); }
+  catch { return composition; }
+  const objects = ensureCanonicalProjectState(project).objects.filter(o => o.actuality === "CURRENT");
+  const adoptionSourceRefs: Record<string, readonly string[]> = {};
+  for (const atom of composition.proposal.atoms) {
+    const old = previous.proposal.atoms.find(a => a.ref === atom.ref && a.semanticKey === atom.semanticKey);
+    if (!old || atom.status === "OPEN_DECISION" || !previous.adoptedAtomRefs.includes(old.ref)
+      || logicalDigest(atom) !== logicalDigest(old)) continue;
+    const sources = previous.adoptionSourceRefs?.[old.ref] ?? [studyProposalAtomItemRef(previous, old.ref)];
+    const materialized = objects.filter(o => o.sourceItemRefs.some(ref => sources.includes(ref)));
+    if (materialized.length !== 1) continue;
+    const object = materialized[0];
+    if (object.objectId !== `${project.projectId}:study-strategy:${atom.semanticKey}`
+      || object.content !== atom.content || object.projection.sourceProposedType !== atom.targetType
+      || object.adoptionStatus !== "ADOPTED_BY_HUMAN_DECISION" || !object.decisionRefs.length
+      || object.coherence !== "CONSISTENT") continue;
+    adoptionSourceRefs[atom.ref] = sources.filter(ref => object.sourceItemRefs.includes(ref));
+  }
+  if (!Object.keys(adoptionSourceRefs).length) return composition;
+  const next = { ...composition, revision: composition.revision + 1, adoptedAtomRefs: Object.keys(adoptionSourceRefs), adoptionSourceRefs };
+  return { ...next, digest: studyProposalRevisionDigest(next), dimensioning: activeStudyProposalDimensioning(next) };
+};
 export const rehydrateStudyProposal = (value: unknown, project: ResearchProjectOwnerProjection | null): StudyProposalComposition | null => {
   if (value === null || value === undefined) return null;
   try {
@@ -161,6 +189,21 @@ export const projectStudyProposalConversationContext = (composition: StudyPropos
     } } : {}),
   };
 };
+/** Lossless wire projection for Scientific Thinking only. All values (including
+ * OPEN meanings, rationales and qualified dependencies) remain in column order;
+ * absent optional fields are distinct from explicit null. No lifecycle change.
+ * The native FULL SNAPSHOT and all other consumers retain their object shape. */
+export const compactStudyProposalConversationContext = (context: ReturnType<typeof projectStudyProposalConversationContext>) => {
+  const { atoms, ...rest } = context;
+  const fields = [...new Set(atoms.flatMap(atom => Object.keys(atom) as (keyof StudyProposalAtom)[]))];
+  const atomTable = { fields, rows: atoms.map(atom => fields.map(field => atom[field] ?? null)),
+    absentFields: atoms.flatMap(atom => {
+      const absent = fields.filter(field => !Object.prototype.hasOwnProperty.call(atom, field) || atom[field] === undefined);
+      return absent.length ? [{ atomRef: atom.ref, fields: absent }] : [];
+    }) };
+  return new TextEncoder().encode(JSON.stringify({ atomTable })).length < new TextEncoder().encode(JSON.stringify({ atoms })).length
+    ? { ...rest, atomTable } : context;
+};
 /** A singleton baseline option can express a premise required by every other
  * alternative. Keep that option visible, but allow its premise in the stable
  * review scope without choosing any of the narrower alternatives. */
@@ -188,6 +231,67 @@ export const commonBaselineOptionAtomRefs = (proposal: StudyProposalComposition[
     }
   }
   return result;
+};
+/** One source-backed Generate scope, reused by selection and authorization.
+ * Complete only declared hard dependencies; keep origins untouched. */
+export const sourceBackedStudyProposalScope = (composition: StudyProposalComposition, origins: Readonly<Record<string, string>>):
+  { selectedAtomRefs: string[]; selectedOptionRefs: string[] } | { clarification: string } => {
+  const explicit = new Set(Object.entries(origins).filter(([, origin]) => origin === "EXPLICIT_USER").map(([ref]) => ref));
+  const available = composition.proposal.atoms.filter(a => explicit.has(a.ref)
+    && a.status !== "OPEN_DECISION" && !composition.adoptedAtomRefs.includes(a.ref));
+  const options: string[] = [];
+  const baseline = commonBaselineOptionAtomRefs(composition.proposal, composition.unavailableOptionRefs);
+  const optionAtoms = new Set(composition.proposal.arbitrations.flatMap(a => a.options.flatMap(o => o.atomRefs)));
+  for (const arbitration of composition.proposal.arbitrations) {
+    const matches = arbitration.options.filter(o => !composition.unavailableOptionRefs.includes(o.ref)
+      && studyProposalOptionDecisionRefs(composition.proposal, o).length > 0
+      && studyProposalOptionDecisionRefs(composition.proposal, o).every(ref => explicit.has(ref) && !composition.adoptedAtomRefs.includes(ref)));
+    if (arbitration.selection === "ONE" && matches.length > 1)
+      return { clarification: `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?` };
+    options.push(...matches.map(o => o.ref));
+    if (arbitration.material && matches.length === 0
+      && arbitration.options.some(o => o.atomRefs.some(ref => !baseline.has(ref) && available.some(a => a.ref === ref))))
+      return { clarification: `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?` };
+  }
+  const atoms = available.filter(a => !optionAtoms.has(a.ref) || baseline.has(a.ref)).map(a => a.ref);
+  const selected = new Set([...atoms, ...composition.proposal.arbitrations.flatMap(a => a.options.filter(o => options.includes(o.ref))
+    .flatMap(o => studyProposalOptionDecisionRefs(composition.proposal, o)))]);
+  const byRef = new Map(composition.proposal.atoms.map(a => [a.ref, a]));
+  const pending = [...selected], visited = new Set<string>();
+  while (pending.length) {
+    const ref = pending.shift()!;
+    if (visited.has(ref)) continue;
+    visited.add(ref);
+    const atom = byRef.get(ref);
+    if (!atom) throw new Error("STUDY_PROPOSAL_DEPENDENCY_INVALID");
+    for (const dependency of hardStudyProposalDependencies(atom)) {
+      if (composition.adoptedAtomRefs.includes(dependency) || selected.has(dependency)) continue;
+      const required = byRef.get(dependency);
+      if (!required) throw new Error("STUDY_PROPOSAL_DEPENDENCY_INVALID");
+      const governing = composition.proposal.arbitrations.filter(a => a.options.some(o => o.atomRefs.includes(dependency)));
+      for (const arbitration of governing) {
+        const alternatives = arbitration.options.filter(o => !composition.unavailableOptionRefs.includes(o.ref));
+        if (arbitration.selection === "ONE" && alternatives.length > 1 && !baseline.has(dependency)
+          && !alternatives.some(o => options.includes(o.ref) && o.atomRefs.includes(dependency)))
+          return { clarification: `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?` };
+      }
+      if (required.status === "OPEN_DECISION") throw new Error("STUDY_PROPOSAL_UNKNOWN_CANNOT_BE_ADOPTED");
+      if (governing.length && !baseline.has(dependency)) {
+        for (const arbitration of governing) {
+          const matches = arbitration.options.filter(o => !composition.unavailableOptionRefs.includes(o.ref) && o.atomRefs.includes(dependency));
+          if (matches.length !== 1) throw new Error("STUDY_PROPOSAL_SELECTION_INVALID");
+          const option = matches[0];
+          if (!options.includes(option.ref)) options.push(option.ref);
+          for (const optionRef of studyProposalOptionDecisionRefs(composition.proposal, option)) {
+            if (byRef.get(optionRef)?.status === "OPEN_DECISION") throw new Error("STUDY_PROPOSAL_UNKNOWN_CANNOT_BE_ADOPTED");
+            if (!composition.adoptedAtomRefs.includes(optionRef) && !selected.has(optionRef)) { selected.add(optionRef); pending.push(optionRef); }
+          }
+        }
+      } else { atoms.push(dependency); selected.add(dependency); pending.push(dependency); }
+    }
+  }
+  if (!selected.size) throw new Error("VERSION_SOURCE_BACKED_CONTENT_MISSING");
+  return { selectedAtomRefs: atoms, selectedOptionRefs: options };
 };
 export const selectedStudyProposalAtoms = (composition: StudyProposalComposition, selectedOptionRefs: readonly string[], selectedAtomRefs: readonly string[] = []) => {
   if (!selectedOptionRefs.length && !selectedAtomRefs.length) throw new Error("STUDY_PROPOSAL_EMPTY_SELECTION");

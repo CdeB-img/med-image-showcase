@@ -21,7 +21,7 @@ import { createFunctionalResetSession, loadFunctionalResetSession, persistFuncti
   recordConversationConfirmationReceipt, recordWorkingDraftPreparation, workingDraftRecoveryIdentity } from "../session";
 import type { FunctionalResetSession } from "../session";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../../product-bridge";
-import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
+import { controlledStudyProposal, DOMAINS, readConversationProposalAtoms } from "./study-proposal-fixtures";
 import { terraResultFixture } from "./terra-result-fixture";
 import { retainScientificDiscussionResult, activeScientificDiscussionRetention } from "../contribution-discussion-retention";
 import { buildScientificDiscussionContext } from "../contribution-discussion-context";
@@ -925,10 +925,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const composition = acceptWorkingDraftUpdate(update, r).composition!;
     const next = { ...r, studyProposalContext: composition };
     const packet = JSON.parse(prepareTerraConversation(next, true).context);
-    const openAtom = packet.WORKING_STUDY_PROPOSAL.atoms.find((a: { ref: string; status: string; owner: string }) => a.status === "OPEN_DECISION" && a.owner === "OBS");
+    const openAtom = readConversationProposalAtoms(packet.WORKING_STUDY_PROPOSAL).find(a => a.status === "OPEN_DECISION" && a.owner === "OBS");
     expect(openAtom).toBeDefined();
     expect(packet.OPEN_DECISIONS).toContainEqual({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: openAtom.ref });
-    expect(packet.workingOpenDecisionReferenceBasis).toBe("WORKING_STUDY_PROPOSAL.atoms");
+    expect(packet.workingOpenDecisionReferenceBasis).toContain("WORKING_STUDY_PROPOSAL.atomTable");
     const advice = compactWorkingDraftAdvice(next);
     expect(advice).toEqual(expect.objectContaining({ STATUS: expect.any(String), ALTERNATIVES: expect.any(Array) }));
     expect(packet.WORKING_NEXT_ACTION).toEqual(advice);

@@ -219,14 +219,29 @@ export const consumeProjectPreparation = (session: FunctionalResetSession, id: s
         attribution: "ROOT_CAUSE_PROVEN" }), id, "FAILED", "PREPARATION_RESULT_BINDING_MISMATCH");
   try {
     const base = inputSession(observed, cp);
+    assertStudyProposalCurrent(composition, base.project);
     assertStudyProposalOptionBindings(composition.proposal);
     observed = recordProjectPreparationTrace(observed, cp, "WORKING_DRAFT_VALIDATION", "SUCCEEDED", {
       code: "STUDY_PROPOSAL_OPTION_BINDING_VALID",
     });
     const ownerObservation: { current: WorkingReviewOwnerObservation | null } = { current: null };
+    const previous = cp.request.studyProposalContext?.proposal;
+    const scope = recommendedWorkingScope(composition);
+    // Preserved native adoptions can leave no new selectable scope. Reuse the
+    // existing EXACT full-snapshot no-change certificate, never an empty review
+    // nor a new adoption. New/open/unselected science still changes this digest.
+    if (previous && composition.adoptedAtomRefs.length && !scope.selectedAtomRefs.length && !scope.selectedOptionRefs.length
+      && (session.project?.projectDigest ?? null) === (cp.request.currentProject?.projectDigest ?? null)) {
+      const { contextDigest: _newContext, ...newSnapshot } = composition.proposal;
+      const { contextDigest: _oldContext, ...oldSnapshot } = previous;
+      if (logicalDigest(newSnapshot) === logicalDigest(oldSnapshot)) return transitionProjectPreparation(
+        recordProjectPreparationTrace(observed, cp, "PROJECT_DELTA_VALIDATION", "SUCCEEDED", {
+          code: "NO_CANONICAL_CHANGE", metadata: { errorSubtype: "NO_NET_CHANGE", netChangeCount: 0,
+            conflictCount: 0, boundedStatus: "IDENTICAL_SCIENTIFIC_SNAPSHOT" },
+        }), id, "NO_CHANGE", "NO_CANONICAL_CHANGE");
+    }
     const workingDraft = prepareContinuousWorkingDraft(base, composition, response.workingDraftUpdate, cp.inputDigest, ownerObservation);
     const diagnostic = ownerObservation.current;
-    const previous = cp.request.studyProposalContext?.proposal;
     if (diagnostic?.subtype === "NO_NET_CHANGE" && workingDraft.failure === "WORKING_REVIEW_OWNER_NOT_READY"
       && previous && (session.project?.projectDigest ?? null) === (cp.request.currentProject?.projectDigest ?? null)) {
       const { contextDigest: _newContext, ...newSnapshot } = composition.proposal;

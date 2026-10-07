@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type Dispatch, type MutableRefObject, type SetStateAction } from "react";
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
-import { hardStudyProposalDependencies, studyProposalOptionDecisionRefs } from "@/features/scientific-thinking/contextual-study-proposal";
-import { buildStudyProposalSelectionContribution } from "./study-proposal-standard";
+import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, sourceBackedStudyProposalScope } from "./study-proposal-standard";
 import { captureProjectPreparation, canCaptureProjectPreparation, projectPreparationProgress } from "./project-preparation-lifecycle";
 import { stageProjectConfirmation, type ProjectProposalSelection } from "./project-review-decision";
 import { persistAdoptedProjectSession } from "./project-adoption-effects";
@@ -15,32 +14,10 @@ import { hasCurrentArchivedGeneration } from "@/features/document-projection/gen
 export function sourceBackedVersionSelection(session: FunctionalResetSession, preparation: WorkingDraftPreparation):
   { selection: ProjectProposalSelection } | { clarification: string } {
   const { composition, workingDraft } = preparation.result!;
-  const explicit = new Set(Object.entries(workingDraft.origins).filter(([, origin]) => origin === "EXPLICIT_USER").map(([ref]) => ref));
-  const available = composition.proposal.atoms.filter(a => explicit.has(a.ref)
-    && a.status !== "OPEN_DECISION" && !composition.adoptedAtomRefs.includes(a.ref));
-  const options: string[] = [];
-  const optionAtoms = new Set(composition.proposal.arbitrations.flatMap(a => a.options.flatMap(o => o.atomRefs)));
-  for (const arbitration of composition.proposal.arbitrations) {
-    const matches = arbitration.options.filter(o => !composition.unavailableOptionRefs.includes(o.ref)
-      && studyProposalOptionDecisionRefs(composition.proposal, o).length > 0
-      && studyProposalOptionDecisionRefs(composition.proposal, o).every(ref => explicit.has(ref) && !composition.adoptedAtomRefs.includes(ref)));
-    if (arbitration.selection === "ONE" && matches.length > 1)
-      return { clarification: `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?` };
-    options.push(...matches.map(o => o.ref));
-    if (arbitration.material && matches.length === 0
-      && arbitration.options.some(o => o.atomRefs.some(ref => available.some(a => a.ref === ref))))
-      return { clarification: `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?` };
-  }
-  const atoms = available.filter(a => !optionAtoms.has(a.ref)).map(a => a.ref);
-  const selected = new Set([...atoms, ...composition.proposal.arbitrations.flatMap(a => a.options.filter(o => options.includes(o.ref))
-    .flatMap(o => studyProposalOptionDecisionRefs(composition.proposal, o)))]);
-  const missing = available.flatMap(a => hardStudyProposalDependencies(a)).find(ref => !selected.has(ref) && !composition.adoptedAtomRefs.includes(ref));
-  if (missing) {
-    const arbitration = composition.proposal.arbitrations.find(a => a.material && a.options.some(o => o.atomRefs.includes(missing)));
-    return { clarification: arbitration ? `Quel choix souhaitez-vous retenir pour ${arbitration.label.replace(/[?\s]+$/u, "")} ?`
-      : "Quel choix souhaitez-vous retenir pour la dépendance scientifique encore ouverte ?" };
-  }
-  if (selected.size === 0) throw new Error("VERSION_SOURCE_BACKED_CONTENT_MISSING");
+  assertStudyProposalCurrent(composition, session.project);
+  const scope = sourceBackedStudyProposalScope(composition, workingDraft.origins);
+  if ("clarification" in scope) return scope;
+  const { selectedAtomRefs: atoms, selectedOptionRefs: options } = scope;
   const cp = preparation.checkpoint!;
   const proposalTurn = cp.request.conversation.turns.find(t => t.turnId === composition.sourceResponseRef)!;
   const selectionTurn = cp.request.conversation.turns.find(t => t.turnId === composition.sourceTurnRef)!;
