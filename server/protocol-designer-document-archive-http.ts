@@ -10,6 +10,7 @@ import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import type { ResearchProjectOwnerProjection } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import { StudioFinalizationIntentError, type StudioFinalizationFrozenInput, type StudioFinalizationHumanDecision } from "../src/features/document-projection/studio-finalization-intent.js";
 import type { StudioScientificAssessment } from "../src/features/scientific-thinking/studio-contribution.js";
+import { studioAssessmentResultRequestId } from "../src/features/scientific-thinking/studio-runtime.js";
 import type { WorkingDraftPreparation } from "../src/features/protocol-designer/functional-reset/project-preparation-contract.js";
 import { prepareContinuousWorkingDraft } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 import { studioProviderRequestId } from "../src/features/document-projection/studio-finalization-document.js";
@@ -150,7 +151,7 @@ export const executeDocumentArchiveOperation = async (input: {
           if (keys !== "assessment,expectedSequence,intentId,operation,projectRef,sessionId" || !body.assessment)
             throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
           const evidence = await guard?.readNativeStudioResult?.({ headers: { "x-forwarded-for": input.clientAddress },
-            sessionId: access.identity.sessionId, clientRequestId: `studio-assessment:${intent.frozen.scientificSources.request.requestDigest}` });
+            sessionId: access.identity.sessionId, clientRequestId: studioAssessmentResultRequestId(intent.frozen.scientificSources.request, body.assessment as StudioScientificAssessment) });
           const retained = evidence?.state === "COMPLETED" ? evidence.response as { studioAssessment?: unknown } : null;
           if (!retained?.studioAssessment || logicalDigest(retained.studioAssessment) !== logicalDigest(body.assessment))
             throw new StudioFinalizationIntentError("STUDIO_INTENT_ASSESSMENT_DURABLE_PROOF_REQUIRED", 422);

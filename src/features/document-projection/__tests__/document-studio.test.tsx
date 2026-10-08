@@ -15,6 +15,7 @@ import { freezeStudioFinalizationWork } from "../../protocol-designer/functional
 import { acceptStudioAssessment } from "../../scientific-thinking/studio-runtime";
 import { prepareDrciDraftSource } from "../drci-draft-contract";
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
+import * as feedback from "@/hooks/use-toast";
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 /** SYNTHETIC_CURRENT_CONTRACT: actual PRJ/DOC owners and scientific native
@@ -182,16 +183,27 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     const field = await run.ready(), text = "L’étude devient multicentrique. Modification humaine non évaluée.";
     fireEvent.change(field, { target: { value: text } });
     expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Modifications non enregistrées");
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeEnabled();
     expect(run.fixture.revisions()).toHaveLength(1); // no autosave
     await save();
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+    expect(screen.getByText("✓ Enregistré").closest("footer")).not.toBeNull();
     expect(run.revision().content.sections[0].blocks[0].text).toBe(text);
     expect(run.revision().provenance.semanticImpact).toBe("UNASSESSED");
     expect(run.revision().saveSequence).toBe(2);
     expect(run.project2).toEqual(project); expect(run.fixture.rows()).toEqual(rows); expect(run.fixture.bodies()).toEqual(bodies);
   });
-  it("D: unchanged explicit save remains CLEAN and produces no durable save version", async () => {
+  it("D: CLEAN disables save and reverting edits restores CLEAN without any durable save", async () => {
     const run = await runtime(); run.open(); await run.ready();
-    await save();
+    const field = await run.ready(), original = run.revision().content.sections[0].blocks[0].text;
+    const calls = run.transport.mock.calls.length;
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Enregistrer" }));
+    expect(run.transport).toHaveBeenCalledTimes(calls);
+    fireEvent.change(field, { target: { value: original + " — modification" } });
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeEnabled();
+    fireEvent.change(field, { target: { value: original } });
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
     expect(run.revision().saveSequence).toBe(1); expect(run.fixture.revisions()).toHaveLength(1);
   });
   it("E: hard-reload equivalent remount resumes the exact last confirmed saved state", async () => {
@@ -212,6 +224,30 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(field).toHaveValue("Texte local non confirmé");
     expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Échec de l’enregistrement");
     expect(run.revision()).toEqual(before);
+    expect(screen.queryByText("✓ Enregistré")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeEnabled();
+  });
+  it("finalization failure uses destructive viewport toast, keeps exact saved draft/retry and hides internal details", async () => {
+    const run = await runtime(), toast = vi.spyOn(feedback, "toast").mockImplementation(() => ({ id: "offline", dismiss: vi.fn(), update: vi.fn() }));
+    const error = new bridge.ProductBridgeClientError("STUDIO_SCIENTIFIC_ASSESSMENT_FAILED", "Private provider prose must not be shown", null, null, null, null, null,
+      { contract: "STUDIO_ASSESSMENT_FAILURE_V1", owner: "SCIENTIFIC_THINKING", function: "acceptStudioAssessment", code: "STUDIO_ASSESSMENT_PROJECT_COVERAGE_INVALID" });
+    const execute = vi.fn<StudioFinalizationRuntime["run"]>(async (_revision, _stage, resumeOnly) => { if (resumeOnly) return null; throw error; });
+    const view = run.open({ run: execute }); const field = await run.ready();
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    fireEvent.change(field, { target: { value: "Texte humain conservé après échec" } }); await save();
+    const saved = structuredClone(run.revision()), archived = structuredClone(run.fixture.rows());
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await screen.findByRole("alert");
+    expect(toast).toHaveBeenCalledWith(expect.objectContaining({ variant: "destructive", title: "La création de la version n’a pas abouti.", description: expect.stringContaining("conservés") }));
+    expect(screen.getByRole("alert")).toHaveClass("text-destructive");
+    expect(screen.queryByText(/STUDIO_ASSESSMENT_PROJECT_COVERAGE_INVALID|Private provider prose/u)).not.toBeInTheDocument();
+    expect(field).toHaveValue(saved.content.sections[0].blocks[0].text);
+    expect(run.revision()).toEqual(saved); expect(run.fixture.rows()).toEqual(archived);
+    expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await waitFor(() => expect(execute).toHaveBeenCalledTimes(3));
+    view.unmount(); run.open({ run: execute }); expect(await run.ready()).toHaveValue(saved.content.sections[0].blocks[0].text);
+    expect(run.revision()).toEqual(saved);
   });
   it("G: stale save shows conflict, preserves local buffer and does not overwrite the other tab", async () => {
     const run = await runtime(); run.open(); const field = await run.ready(), initial = run.revision();

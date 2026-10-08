@@ -33,13 +33,65 @@ export const assertStudioScientificInput = (request: StudioReconciliationRequest
     throw new StudioReconciliationError("STUDIO_ASSESSMENT_BINDING_INVALID");
 };
 
+export const STUDIO_ASSESSMENT_PRODUCER_VERSION = "1.1.0" as const;
+/** Scientific object versions, NOT the global Project version binding. */
+export const studioAssessmentCoverageRefs = (request: StudioReconciliationRequest): string[] => [...new Set([
+  ...request.currentProject.objects, ...request.currentProject.relations,
+  ...request.currentProject.temporalQualifications, ...request.currentProject.expectedVariableOccasions,
+].map(object => object.versionRef))].sort();
+
+/** One producer contract/identity for client dispatch and durable proof lookup.
+ * The frozen Studio request/intent is unchanged; only the assessment operation
+ * changes when its provider contract changes. Historical receipts stay intact. */
+const studioAssessmentProducerContract = (request: StudioReconciliationRequest) => {
+  const allowedProjectCoverageRefs = studioAssessmentCoverageRefs(request);
+  const nativeEdit = studioAssessmentPayloadSchema.shape.edits.element;
+  const projectCoverage = allowedProjectCoverageRefs.length
+    ? nativeEdit.shape.projectCoverage.unwrap().extend({ projectVersionRefs: z.array(z.enum(allowedProjectCoverageRefs as [string, ...string[]])).min(1) }).nullable()
+    : z.null();
+  const schema = studioAssessmentPayloadSchema.extend({ edits: z.array(nativeEdit.extend({ projectCoverage })) });
+  const { $schema: _dialect, ...outputSchema } = z.toJSONSchema(schema, { target: "draft-7", io: "input" });
+  const instruction = `You are the existing Scientific Thinking owner assessing a native StudioScientificContribution, not a conversation. Assess every changed edit exactly once; copy requestDigest and editRef exactly. DOCUMENT_ONLY requires demonstrated unchanged scientific meaning in the exact Project context. PROJECT_CHANGE covers possible scientific impact, not adoption. projectCoverage.projectVersionRefs must select ONLY scientific object.versionRef values from assessmentContract.allowedProjectCoverageRefs. The global snapshot.sourceProjectVersion binds the Research Project as a whole and is NEVER a scientific object coverage reference. Never invent or substitute coverage identifiers. If no object coverage can be demonstrated, projectCoverage is null. COMPLETE projectCoverage requires the entire edited meaning already adopted in the supplied exact known scientific object versions; references alone do not prove coverage. PARTIAL/UNKNOWN never certify equivalence. AMBIGUOUS requires at least two materially incompatible interpretations and their distinct consequences; an ordinary unresolved operational detail is not blocking. Preserve unknowns, source provenance and user intent; no invented decisions, no Project writes. beforeText is historical context, afterText is user-authored Studio work, not a USER turn. scientificStateDisposition concerns pending governed conversation/preparation state, never raw transcript reconstruction. Pending refs/digests do not supply scientific meaning and cannot certify NO_NET_CHANGE; retain PENDING_HUMAN_CONFIRMATION when pending meaning has not been assessed. Return only the structured assessment, with no Project contribution or adoption.`;
+  const contract = { contract: "STUDIO_SCIENTIFIC_ASSESSMENT_PRODUCER", version: STUDIO_ASSESSMENT_PRODUCER_VERSION,
+    allowedProjectCoverageRefs, outputSpecDigest: logicalDigest(outputSchema), instructionDigest: logicalDigest(instruction) };
+  const contractDigest = logicalDigest(contract);
+  return { contract, contractDigest, outputSchema, instruction,
+    clientRequestId: `studio-assessment:${request.requestDigest}:${contractDigest}` };
+};
+export const studioAssessmentOperationIdentity = (request: StudioReconciliationRequest) => studioAssessmentProducerContract(request).clientRequestId;
+/** Old valid results retain their original durable proof; a failed response is
+ * never an assessment. A forged/foreign producer identity cannot fall back. */
+export const studioAssessmentResultRequestId = (request: StudioReconciliationRequest, assessment: StudioScientificAssessment) => {
+  requireStudioScientificAssessment(request, assessment);
+  const identities = assessment.provenance.filter(ref => ref.startsWith("studio-assessment:"));
+  if (!identities.length) return `studio-assessment:${request.requestDigest}`;
+  const expected = studioAssessmentOperationIdentity(request);
+  if (identities.length !== 1 || identities[0] !== expected) throw new StudioReconciliationError("STUDIO_ASSESSMENT_BINDING_INVALID");
+  return expected;
+};
+
+export type StudioAssessmentFailureDiagnostic = Readonly<{
+  contract: "STUDIO_ASSESSMENT_FAILURE_V1"; owner: "SCIENTIFIC_THINKING";
+  function: "prepareStudioAssessmentRequest" | "executeOpenAITerraConversation" | "acceptStudioAssessment";
+  code: string;
+}>;
+export const readStudioAssessmentFailureDiagnostic = (value: unknown): StudioAssessmentFailureDiagnostic | null => {
+  if (!value || typeof value !== "object") return null;
+  const item = value as Record<string, unknown>;
+  if (item.contract !== "STUDIO_ASSESSMENT_FAILURE_V1" || item.owner !== "SCIENTIFIC_THINKING"
+    || !["prepareStudioAssessmentRequest", "executeOpenAITerraConversation", "acceptStudioAssessment"].includes(String(item.function))
+    || typeof item.code !== "string" || !/^STUDIO_[A-Z_]{1,100}$/u.test(item.code)) return null;
+  return { contract: "STUDIO_ASSESSMENT_FAILURE_V1", owner: "SCIENTIFIC_THINKING",
+    function: item.function as StudioAssessmentFailureDiagnostic["function"], code: item.code };
+};
+
 /** Provider packet on the existing ST transport. No lexical classifier. */
 export const prepareStudioAssessmentRequest = (request: StudioReconciliationRequest, project: ResearchProjectOwnerProjection) => {
   assertStudioScientificInput(request, project);
   const handoff = prepareStudioScientificHandoff(request);
-  const { $schema: _dialect, ...outputSchema } = z.toJSONSchema(studioAssessmentPayloadSchema, { target: "draft-7", io: "input" });
-  return { context: stableStringify(handoff), outputSchema, outputSchemaName: "StudioScientificAssessment",
-    instruction: `You are the existing Scientific Thinking owner assessing a native StudioScientificContribution, not a conversation. Assess every changed edit exactly once; copy requestDigest and editRef exactly. DOCUMENT_ONLY requires demonstrated unchanged scientific meaning in the exact Project context. PROJECT_CHANGE covers possible scientific impact, not adoption. COMPLETE projectCoverage requires the entire edited meaning already adopted in the supplied exact known Project versions; references alone do not prove coverage. PARTIAL/UNKNOWN never certify equivalence. AMBIGUOUS requires at least two materially incompatible interpretations and their distinct consequences; an ordinary unresolved operational detail is not blocking. Preserve unknowns, source provenance and user intent; no invented decisions, no Project writes. beforeText is historical context, afterText is user-authored Studio work, not a USER turn. scientificStateDisposition concerns pending governed conversation/preparation state, never raw transcript reconstruction. Pending refs/digests do not supply scientific meaning and cannot certify NO_NET_CHANGE; retain PENDING_HUMAN_CONFIRMATION when pending meaning has not been assessed. Return only the structured assessment, with no Project contribution or adoption.` };
+  const producer = studioAssessmentProducerContract(request);
+  return { context: stableStringify({ ...handoff, assessmentContract: producer.contract }), outputSchema: producer.outputSchema,
+    outputSchemaName: "StudioScientificAssessment", instruction: producer.instruction };
 };
 
 /** Exact replay yields the same result identity; completion time is observation only. */
@@ -51,7 +103,7 @@ export const acceptStudioAssessment = (request: StudioReconciliationRequest, pro
     resultId: `studio-assessment:${logicalDigest({ requestDigest: request.requestDigest, payload })}`,
     resultVersion: "1.0.0", completedAt, status: "COMPLETED", resultKind: "INFORMATIONAL_ONLY",
     nativePayloadType: "StudioScientificAssessment", nativePayloadVersion: "1.0.0", nativePayload: payload,
-    provenance: ["STUDIO", request.requestId, request.workingRevisionId, request.workingRevisionContentDigest],
+    provenance: ["STUDIO", request.requestId, request.workingRevisionId, request.workingRevisionContentDigest, studioAssessmentOperationIdentity(request)],
     humanDecisionRequired: payload.scientificStateDisposition !== "NO_NET_CHANGE"
       || payload.edits.some(edit => edit.classification === "AMBIGUOUS"
         || edit.classification === "PROJECT_CHANGE" && edit.projectCoverage?.coverage !== "COMPLETE") });

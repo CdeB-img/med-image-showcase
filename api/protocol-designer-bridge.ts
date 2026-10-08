@@ -1,6 +1,7 @@
 import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate, WorkingDraftArbitrationCollisionError } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 import { acceptStudioAssessment, prepareStudioAssessmentRequest, studioHasNoChanges, noChangeStudioAssessment,
-  assertStudioScientificInput, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
+  assertStudioScientificInput, studioAssessmentOperationIdentity, studioAssessmentResultRequestId,
+  type StudioAssessmentFailureDiagnostic, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
 import { verifySavedStudioScientificSource } from "../server/protocol-designer-studio-scientific.js";
 import { logicalDigest as studioDigest } from "../src/features/knowledge-engine/canonical.js";
 import { studioDocumentRequestId, studioProviderRequestId, studioDocumentAdmissionMaterial } from "../src/features/document-projection/studio-finalization-document.js";
@@ -276,6 +277,7 @@ export const executeProtocolDesignerBridge = async (input: {
   }
   const native = input.body as Partial<StudioScientificOperation> | null;
   if (native?.operation === "STUDIO_SCIENTIFIC_ASSESSMENT") {
+    let failedFunction: StudioAssessmentFailureDiagnostic["function"] = "prepareStudioAssessmentRequest";
     try {
       if (native.apiVersion !== PRODUCT_BRIDGE_API_VERSION || !native.observabilityContext
         || native.observabilityContext.turnId !== null || !native.currentProject || !native.studioRequest)
@@ -290,14 +292,22 @@ export const executeProtocolDesignerBridge = async (input: {
       if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA") throw new Error("AUTONOMOUS_PROJECT_BUILD_OFF");
       if (!input.openAiApiKey?.trim()) throw new Error("OPENAI_API_KEY_MISSING");
       const packet = prepareStudioAssessmentRequest(native.studioRequest, native.currentProject);
+      failedFunction = "executeOpenAITerraConversation";
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
         { context: native.observabilityContext, purpose: "CONVERSATION_REALIZATION", reasoningEffort: "medium",
           retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
+      failedFunction = "acceptStudioAssessment";
       const studioAssessment = acceptStudioAssessment(native.studioRequest, native.currentProject, JSON.parse(generated.value), createdAt);
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, studioAssessment,
         observability: { calls: 1, projectWrites: 0, ...providerCallRequestObservability(providerCalls) } } };
-    } catch { return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      error: { code: "STUDIO_SCIENTIFIC_ASSESSMENT_FAILED" }, observability: providerCallRequestObservability(providerCalls) } }; }
+    } catch (error) {
+      const code = error && typeof error === "object" && "code" in error && typeof error.code === "string"
+        && /^STUDIO_[A-Z_]{1,100}$/u.test(error.code) ? error.code : "STUDIO_ASSESSMENT_UNEXPECTED_FAILURE";
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: "STUDIO_SCIENTIFIC_ASSESSMENT_FAILED", diagnostic: {
+          contract: "STUDIO_ASSESSMENT_FAILURE_V1", owner: "SCIENTIFIC_THINKING", function: failedFunction, code,
+        } satisfies StudioAssessmentFailureDiagnostic }, observability: providerCallRequestObservability(providerCalls) } };
+    }
   }
   const request = parseProductBridgeRequest(input.body);
   if (!request) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "Contrat du pont produit invalide." } } };
@@ -1072,11 +1082,11 @@ export const handleProtocolDesignerBridge = async (
         studioBody.finalizationIntentId ?? studioBody.studioPreparationSource?.finalizationIntentId);
       if (studioBody.studioPreparationSource) {
         const retained = await durableGuard.readNativeStudioResult?.({ headers: request.headers, remoteAddress: request.socket?.remoteAddress,
-          sessionId: access.identity.sessionId, clientRequestId: `studio-assessment:${studioRequest.requestDigest}` });
+          sessionId: access.identity.sessionId, clientRequestId: studioAssessmentResultRequestId(studioRequest, studioBody.studioPreparationSource.assessment) });
         const result = retained?.state === "COMPLETED" ? retained.response as { studioAssessment?: unknown } : null;
         if (!result?.studioAssessment || studioDigest(result.studioAssessment) !== studioDigest(studioBody.studioPreparationSource.assessment))
           throw new Error("STUDIO_ASSESSMENT_DURABLE_PROOF_REQUIRED");
-      } else if (studioBody.observabilityContext.clientRequestId !== `studio-assessment:${studioRequest.requestDigest}`)
+      } else if (studioBody.observabilityContext.clientRequestId !== studioAssessmentOperationIdentity(studioRequest))
         throw new Error("STUDIO_ASSESSMENT_BINDING_INVALID");
     } catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
       error: { code: "STUDIO_SCIENTIFIC_SOURCE_INVALID" }, observability: providerCallRequestObservability([]) }); }

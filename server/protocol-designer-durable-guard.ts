@@ -1214,7 +1214,7 @@ export const createPostgresProtocolDesignerDurableGuard = (
   const readRetainedAdmission = async (input: Parameters<NonNullable<PublicProtocolDesignerDurableGuard["readDocumentGenerationResult"]>>[0],
     nativeStudio = false): Promise<DurableWorkingDraftRecovery> => {
     if (!input.sessionId || input.sessionId.length > 240 || !(nativeStudio
-      ? /^(?:studio-assessment:|working-draft:studio:)ke1-[a-f0-9]{16}$/u.test(input.clientRequestId)
+      ? /^(?:studio-assessment:ke1-[a-f0-9]{16}(?::ke1-[a-f0-9]{16})?|working-draft:studio:ke1-[a-f0-9]{16})$/u.test(input.clientRequestId)
       : input.clientRequestId.startsWith("drci-draft:") && input.clientRequestId.length <= 320))
       return { state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" };
     const admissionKey = hash(`${input.sessionId}\u0000${input.clientRequestId}`);
@@ -1370,7 +1370,7 @@ export const createMemoryProtocolDesignerGuardForTests = (): PublicProtocolDesig
       return recoveredDocumentFailure(result.body);
     },
     readNativeStudioResult: async (input): Promise<DurableWorkingDraftRecovery> => {
-      if (!/^(?:studio-assessment:|working-draft:studio:)ke1-[a-f0-9]{16}$/u.test(input.clientRequestId)) return { state: "REJECTED", status: 404, code: "STUDIO_RESULT_NOT_FOUND" };
+      if (!/^(?:studio-assessment:ke1-[a-f0-9]{16}(?::ke1-[a-f0-9]{16})?|working-draft:studio:ke1-[a-f0-9]{16})$/u.test(input.clientRequestId)) return { state: "REJECTED", status: 404, code: "STUDIO_RESULT_NOT_FOUND" };
       const key = hash(`${input.sessionId}\u0000${input.clientRequestId}`), context = prepared.get(key);
       if (!context || context.clientKey !== hash(clientAddress(input.headers, input.remoteAddress))) return { state: "REJECTED", status: 404, code: "STUDIO_RESULT_NOT_FOUND" };
       const result = completed.get(key);

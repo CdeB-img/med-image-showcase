@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Columns2, Save, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Columns2, Save, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
   AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
@@ -10,6 +10,8 @@ import { editableArchivedDocument, type DocumentWorkingRevisionResult, type Edit
 import { hasProtectedTextBinding, studioBoundText, type DocumentStudioTarget } from "./studio-document";
 import type { StudioFinalizationRuntime, StudioFinalizationStage } from "../protocol-designer/functional-reset/studio-finalization-runtime";
 import type { StudioFinalizationIntent } from "./studio-finalization-intent";
+import { toast } from "@/hooks/use-toast";
+import { readStudioAssessmentFailureDiagnostic, type StudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
 const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
@@ -31,6 +33,9 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   const [finalizing, setFinalizing] = useState(false);
   const [stage, setStage] = useState<StudioFinalizationStage | null>(null);
   const [finalizationMessage, setFinalizationMessage] = useState<string | null>(null);
+  const [finalizationFailure, setFinalizationFailure] = useState<{
+    code: string | null; diagnostic: StudioAssessmentFailureDiagnostic | null;
+  } | null>(null);
   const [completed, setCompleted] = useState(false);
   const [saveFeedback, setSaveFeedback] = useState(false);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
@@ -38,6 +43,17 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   const epoch = useRef(0), flight = useRef(false);
   const dirty = Boolean(loaded && buffer && stableStringify(buffer) !== stableStringify(loaded.result.revision.content));
   const busy = saveState === "SAVING" || finalizing;
+  const reportFinalizationFailure = (error: unknown) => {
+    const code = codeOf(error);
+    const diagnostic = error && typeof error === "object" && "studioAssessmentFailureDiagnostic" in error
+      ? readStudioAssessmentFailureDiagnostic(error.studioAssessmentFailureDiagnostic) : null;
+    // Bounded internal details are retained separately, never rendered as
+    // Standard feedback and never copied from scientific/provider prose.
+    setFinalizationFailure({ code: typeof code === "string" && /^[A-Z_]{1,120}$/u.test(code) ? code : null, diagnostic });
+    setFinalizationMessage(null);
+    toast({ variant: "destructive", title: "La création de la version n’a pas abouti.",
+      description: "Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération." });
+  };
   const finish = (intent: StudioFinalizationIntent | null) => {
     if (!intent) return;
     if (intent.resolution.documentReceipt) {
@@ -49,6 +65,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   useEffect(() => {
     const token = ++epoch.current; flight.current = false;
     setLoaded(null); setBuffer(null); setLoadFailed(false); setSaveState("CLEAN");
+    setFinalizationFailure(null); setSaveFeedback(false);
     void (async () => {
       const archiveClient = clientRef.current;
       if (!archiveClient.workingRevisions) throw new Error("DOC_REVISION_UNAVAILABLE");
@@ -68,7 +85,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
       if (runtimeRef.current) {
         flight.current = true; setFinalizing(true);
         try { const intent = await runtimeRef.current.run(result.revision, setStage, true); if (epoch.current === token) finish(intent); }
-        catch { if (epoch.current === token) setFinalizationMessage("La version n’a pas pu être confirmée. Le brouillon est conservé ; vous pouvez reprendre la finalisation."); }
+        catch (error) { if (epoch.current === token) reportFinalizationFailure(error); }
         finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
       }
     })().catch(() => { if (epoch.current === token) setLoadFailed(true); });
@@ -89,7 +106,8 @@ export default function DocumentStudio({ client, target, finalization, onClose }
     if (saveState !== "CONFLICT" && saveState !== "SAVE_FAILED") setSaveState(stableStringify(next) === stableStringify(loaded.result.revision.content) ? "CLEAN" : "DIRTY");
   };
   const save = async () => {
-    if (!loaded || !buffer || !client.workingRevisions || flight.current || saveState === "CONFLICT") return;
+    if (!loaded || !buffer || !client.workingRevisions || flight.current || saveState === "CONFLICT"
+      || !dirty && saveState !== "SAVE_FAILED") return;
     const token = epoch.current; flight.current = true; setSaveState("SAVING"); setActionFailed(false);
     try {
       const result = await client.workingRevisions.save({ revisionId: loaded.result.revision.revisionId,
@@ -103,7 +121,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   };
   const createNextVersion = async () => {
     if (!loaded || !buffer || !runtimeRef.current || flight.current || saveState === "CONFLICT" || completed) return;
-    const token = epoch.current; flight.current = true; setFinalizing(true); setFinalizationMessage(null);
+    const token = epoch.current; flight.current = true; setFinalizing(true); setFinalizationMessage(null); setFinalizationFailure(null);
     let saved = loaded.result;
     try {
       if (dirty) {
@@ -120,7 +138,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
       }
       const intent = await runtimeRef.current.run(saved.revision, setStage);
       if (epoch.current === token) finish(intent);
-    } catch { if (epoch.current === token) setFinalizationMessage("La création de la version n’a pas abouti. Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération."); }
+    } catch (error) { if (epoch.current === token) reportFinalizationFailure(error); }
     finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
   };
   const confirmAction = async () => {
@@ -180,8 +198,11 @@ export default function DocumentStudio({ client, target, finalization, onClose }
         <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>
       </div>}
     </header>
-    {saveFeedback && <p role="status" className="px-5 pt-3 text-sm text-emerald-800">✓ Enregistré</p>}
     {finalizationMessage && <p role="status" className="px-5 py-3 text-sm">{finalizationMessage}</p>}
+    {finalizationFailure && <aside role="alert" className="m-5 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+      <p className="font-semibold">La création de la version n’a pas abouti.</p>
+      <p className="mt-1">Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération.</p>
+    </aside>}
     {stage && <p role="status" className="px-5 py-3 text-sm">{{ ASSESSMENT: "Préparation des modifications…", SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Préparation des documents…", ARCHIVE: "Enregistrement de la version…" }[stage]}</p>}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
@@ -214,7 +235,9 @@ export default function DocumentStudio({ client, target, finalization, onClose }
     </main>}
     {loaded && <footer className="flex flex-wrap items-center justify-between gap-3 border-t p-5 sm:px-6">
       <p className="text-xs text-muted-foreground">Sauvegarde explicite uniquement · état {loaded.result.revision.saveSequence}</p>
-      <div className="flex flex-wrap gap-3"><Button variant="outline" onClick={() => void save()} disabled={busy || completed || saveState === "CONFLICT"}><Save />Enregistrer</Button>
+      <div className="flex flex-wrap items-center gap-3">
+      {saveFeedback && <span role="status" className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-semibold text-primary"><CheckCircle2 className="h-4 w-4" aria-hidden="true" />✓ Enregistré</span>}
+      <Button variant="outline" onClick={() => void save()} disabled={busy || completed || saveState === "CONFLICT" || !dirty && saveState !== "SAVE_FAILED"}><Save />Enregistrer</Button>
       {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>Créer la version suivante</Button>}</div>
     </footer>}
     <AlertDialog open={dialog !== null} onOpenChange={open => { if (!open) setDialog(null); }}>

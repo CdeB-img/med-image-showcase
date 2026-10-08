@@ -7,7 +7,7 @@ import { workingRevisionFixture } from "../../document-projection/__tests__/work
 import { createStudioReconciliationRequest, assertStudioReconciliationCurrent } from "../../document-projection/studio-reconciliation";
 import type { StudioAssessmentPayload } from "../../document-projection/studio-reconciliation-contract";
 import { prepareStudioScientificHandoff, requireStudioScientificAssessment } from "../studio-contribution";
-import { acceptStudioAssessment, studioScientificRoute, prepareStudioAssessmentRequest } from "../studio-runtime";
+import { acceptStudioAssessment, studioScientificRoute, prepareStudioAssessmentRequest, studioAssessmentOperationIdentity } from "../studio-runtime";
 import { createFunctionalResetSession, loadFunctionalResetSession } from "../../protocol-designer/functional-reset/session";
 import { captureStudioProjectPreparation, addProjectPreparation, consumeProjectPreparation,
   preparationCheckpointValid } from "../../protocol-designer/functional-reset/project-preparation-lifecycle";
@@ -60,7 +60,7 @@ const assessmentFor = (run: Awaited<ReturnType<typeof setup>>, payload = payload
 const nativeBody = (run: Awaited<ReturnType<typeof setup>>) => ({ apiVersion: "1.0.0", operation: "STUDIO_SCIENTIFIC_ASSESSMENT",
   studioRequest: run.request, currentProject: run.project2,
   observabilityContext: { sessionId: run.sessionId, conversationId: null, turnId: null,
-    clientRequestId: `studio-assessment:${run.request.requestDigest}`, testSessionId: null } });
+    clientRequestId: studioAssessmentOperationIdentity(run.request), testSessionId: null } });
 const provider = (value: unknown, model = "fixture-model") => vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ id: "OFFLINE_NATIVE_STUDIO",
   model, status: "completed", output: [{ content: [{ type: "output_text", text: JSON.stringify(value) }] }],
   usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 } })));

@@ -5,7 +5,7 @@ import { workingRevisionFixture } from "../../document-projection/__tests__/work
 import { createStudioReconciliationRequest } from "../../document-projection/studio-reconciliation";
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import { buildScientificPreparationSourceSet } from "../preparation-source-set";
-import { acceptStudioAssessment } from "../studio-runtime";
+import { acceptStudioAssessment, studioAssessmentOperationIdentity } from "../studio-runtime";
 import { createFunctionalResetSession, loadFunctionalResetSession, type FunctionalResetSession } from "../../protocol-designer/functional-reset/session";
 import { captureStudioScientificState } from "../../protocol-designer/functional-reset/studio-scientific-context";
 import { captureStudioProjectPreparation, captureProjectPreparation, addProjectPreparation, consumeProjectPreparation,
@@ -272,7 +272,7 @@ describe("one governed scientific preparation for conversation + Studio", () => 
     };
     const assessed = await invoke({ apiVersion: "1.0.0", operation: "STUDIO_SCIENTIFIC_ASSESSMENT", studioRequest: run.source.request,
       currentProject: run.project2, observabilityContext: { sessionId: run.sessionId, conversationId: "mixed-science", turnId: null,
-        clientRequestId: `studio-assessment:${run.source.request.requestDigest}`, testSessionId: null } });
+        clientRequestId: studioAssessmentOperationIdentity(run.source.request), testSessionId: null } });
     expect(assessed.status, JSON.stringify(assessed.response)).toBe(200);
     const source = { request: run.source.request, assessment: (assessed.response as { studioAssessment: typeof run.source.assessment }).studioAssessment };
     const preparation = captureStudioProjectPreparation(run.session, source, run.revision).preparation!;

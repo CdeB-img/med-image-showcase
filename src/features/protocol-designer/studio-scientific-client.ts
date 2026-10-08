@@ -3,6 +3,7 @@ import type { ResearchProjectOwnerProjection } from "../research-project-constru
 import type { StudioReconciliationRequest } from "../document-projection/studio-reconciliation-contract.js";
 import { requireStudioScientificAssessment, type StudioScientificAssessment } from "../scientific-thinking/studio-contribution.js";
 import type { ProductBridgeRequest } from "./product-bridge.js";
+import { studioAssessmentOperationIdentity, readStudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime.js";
 
 /** Existing HTTP / Project proof / durable guard corridor. No UI or auto-dispatch. */
 const nativeStudioRequest = async (sessionId: string, project: ResearchProjectOwnerProjection, body: Record<string, unknown>) => {
@@ -12,7 +13,8 @@ const nativeStudioRequest = async (sessionId: string, project: ResearchProjectOw
     body: JSON.stringify({ ...body, apiVersion: "1.0.0", currentProject: null, currentProjectRef: snapshot.ref }) });
   const value = await response.json().catch(() => null);
   if (!response.ok || value?.apiVersion !== "1.0.0") throw new ProductBridgeClientError(
-    value?.error?.code ?? "STUDIO_SCIENTIFIC_OPERATION_FAILED", "L’évaluation scientifique n’a pas abouti ; le brouillon est conservé.");
+    value?.error?.code ?? "STUDIO_SCIENTIFIC_OPERATION_FAILED", "L’évaluation scientifique n’a pas abouti ; le brouillon est conservé.",
+    null, null, null, null, null, readStudioAssessmentFailureDiagnostic(value?.error?.diagnostic));
   return value;
 };
 export const requestStudioScientificAssessment = async (sessionId: string, project: ResearchProjectOwnerProjection,
@@ -20,7 +22,7 @@ export const requestStudioScientificAssessment = async (sessionId: string, proje
   const value = await nativeStudioRequest(sessionId, project, { operation: "STUDIO_SCIENTIFIC_ASSESSMENT", studioRequest: request,
     ...(finalizationIntentId ? { finalizationIntentId } : {}),
     observabilityContext: { sessionId, conversationId: null, turnId: null,
-      clientRequestId: `studio-assessment:${request.requestDigest}`, testSessionId: null } });
+      clientRequestId: studioAssessmentOperationIdentity(request), testSessionId: null } });
   requireStudioScientificAssessment(request, value.studioAssessment);
   return value.studioAssessment;
 };
