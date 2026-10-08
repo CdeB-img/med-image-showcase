@@ -76,7 +76,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
         saved = next; return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
       }} /></HelmetProvider>);
       fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-      await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+      await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
       const observed: string[] = [];
       const observer = new MutationObserver(() => {
         const progress = screen.queryByTestId("document-generation-progress"); if (progress) observed.push(progress.textContent!);
@@ -86,10 +86,10 @@ describe("durable DOC commit is authoritative over client generation state", () 
         fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
         await waitFor(() => expect(bridge).toHaveBeenCalledOnce());
         expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Génération des documents en cours");
-        expect(screen.getByTestId("document-generation-progress")).not.toHaveTextContent(/Génération G\d/);
+        expect(screen.getByTestId("document-generation-progress")).not.toHaveTextContent(/Version \d/);
         await act(async () => { release(); });
-        await within(screen.getByTestId("durable-document-history")).findByText("G2 — basée sur le projet V2");
-        expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Génération G2 disponible");
+        await within(screen.getByTestId("durable-document-history")).findByText("Version 2");
+        expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Version 2 disponible");
         expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Documents à jour.");
         expect(screen.queryByTestId("document-generation-recovery")).toBeNull();
         expect(saved.documents.lastFailure).toBeNull();
@@ -98,7 +98,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
         expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(archived!.displayVersion);
         expect(saved.project).toEqual(run.project2);
         expect(saved.drciDraftPacks).toEqual([]);
-        expect(observed.every(text => !/Génération G1 (?:en cours|disponible)/.test(text))).toBe(true);
+        expect(observed.every(text => !/Version 1 (?:en cours|disponible)/.test(text))).toBe(true);
         expect(bridge).toHaveBeenCalledOnce();
         expect((await run.client.history()).entries.map(ref => ref.displayVersion)).toEqual([2, 1]);
         expect(JSON.stringify((await run.client.body(run.g1.generation.generationId)).body)).toBe(run.frozenG1);
@@ -144,7 +144,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Documents à jour."));
-    expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Génération G2 disponible");
+    expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Version 2 disponible");
     expect(screen.queryByTestId("document-generation-recovery")).toBeNull();
     expect(saved.documents.lastFailure).toBeNull();
     expect(saved.documentArchive?.currentGeneration?.displayVersion).toBe(2);
@@ -171,7 +171,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
     const button = screen.getByRole("button", { name: "Générer les documents" });
     expect(button).toBeEnabled();
     for (let index = 0; index < 10; index++) fireEvent.click(button);
-    await within(screen.getByTestId("durable-document-history")).findByText("G2 — basée sur le projet V2");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 2");
     expect(bridge).toHaveBeenCalledTimes(2);
     expect(saved.documents.lastFailure).toBeNull();
     expect(button).toBeDisabled();

@@ -44,13 +44,13 @@ describe("DOC metadata-only history and one selected immutable body", () => {
     expect(client.body).not.toHaveBeenCalled();
     const ref = entries.find(ref => ref.ordinal === 7)!;
     const row = within(screen.getByTestId("archived-generation-7"));
-    expect(row.getByText(/G107 — basée sur le projet V1/)).toBeTruthy();
+    expect(row.getByText(/Version 107/)).toBeTruthy();
     const manifest = ref.files[0];
     fireEvent.click(row.getByRole("button", { name: `Ouvrir ${manifest.fileName}` }));
     await waitFor(() => expect(onOpen).toHaveBeenCalledOnce());
     expect(client.body).toHaveBeenCalledExactlyOnceWith(ref.generationId);
     expect(onOpen.mock.calls[0][0]).toEqual(bodies.get(ref.generationId)!.files[0]);
-    fireEvent.click(row.getByRole("button", { name: `Télécharger G107 ${manifest.fileName}` }));
+    fireEvent.click(row.getByRole("button", { name: `Télécharger Version 107 ${manifest.fileName}` }));
     await waitFor(() => expect(downloadStudyDeliverableFile).toHaveBeenCalledOnce());
     expect(downloadStudyDeliverableFile).toHaveBeenCalledWith(bodies.get(ref.generationId)!.files[0]);
     fireEvent.click(row.getByRole("button", { name: "Exporter la génération (.zip)" }));

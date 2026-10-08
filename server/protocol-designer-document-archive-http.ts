@@ -12,6 +12,8 @@ import { StudioFinalizationIntentError, type StudioFinalizationFrozenInput, type
 import type { StudioScientificAssessment } from "../src/features/scientific-thinking/studio-contribution.js";
 import type { WorkingDraftPreparation } from "../src/features/protocol-designer/functional-reset/project-preparation-contract.js";
 import { prepareContinuousWorkingDraft } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
+import { studioProviderRequestId } from "../src/features/document-projection/studio-finalization-document.js";
+import type { DrciDraftSource } from "../src/features/document-projection/drci-draft-contract.js";
 
 const stores = new Map<string, DocumentArchiveStore>();
 export const sharedDocumentArchive = (connection: string, env: Record<string, string | undefined>, snapshots: ProtocolDesignerProjectSnapshotStore) => {
@@ -46,6 +48,62 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_BASE": {
+        if (keys !== "baseGenerationId,logicalDocumentRef,operation,projectRef,sessionId" || typeof body.baseGenerationId !== "string"
+          || typeof body.logicalDocumentRef !== "string" || !archive.finalizationIntents)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        result = await archive.finalizationIntents.recoverForBase(access, body.baseGenerationId, body.logicalDocumentRef); break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_ACTIVE": {
+        if (keys !== "operation,projectRef,revisionId,sessionId" || typeof body.revisionId !== "string" || !archive.finalizationIntents)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        result = await archive.finalizationIntents.recoverActive(access, body.revisionId); break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_DOCUMENTS": {
+        if (keys !== "expectedSequence,intentId,operation,projectRef,sessionId,source" || typeof body.intentId !== "string"
+          || typeof body.expectedSequence !== "number" || !body.source)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        if (!archive.finalizationIntents) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
+        result = await archive.finalizationIntents.prepareDocuments(access, body.intentId, body.expectedSequence, body.source as DrciDraftSource); break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_FINALIZE": {
+        if (keys !== "intentId,operation,projectRef,sessionId" || typeof body.intentId !== "string")
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        const owner = archive.finalizationIntents;
+        if (!owner) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
+        try { result = await owner.finalizeDocuments(access, body.intentId); }
+        catch (error) {
+          if (!(error instanceof StudioFinalizationIntentError) || error.code !== "STUDIO_DOCUMENT_PROVIDER_REQUIRED") throw error;
+          const intent = await owner.get(access, body.intentId);
+          const guard = input.guard ?? (input.connection ? sharedPostgresProtocolDesignerDurableGuard(input.connection,
+            durableGuardSessionRequestLimit(input.environment), durableGuardPublicBudget(input.environment)) : null);
+          const evidence = await guard?.readDocumentGenerationResult?.({ headers: { "x-forwarded-for": input.clientAddress },
+            sessionId: access.identity.sessionId, clientRequestId: studioProviderRequestId(intent) });
+          if (evidence?.state === "COMPLETED") {
+            const pack = (evidence.response as Partial<ProductBridgeResponse>)?.documentDraftPack;
+            if (!pack) throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_RESULT_INVALID", 422);
+            result = await owner.finalizeDocuments(access, body.intentId, pack);
+          } else if (evidence?.state === "IN_PROGRESS") throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_IN_PROGRESS");
+          else if (evidence?.state === "FAILED") throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_PROVIDER_FAILED");
+          else if (evidence?.state === "UNKNOWN" || evidence?.state === "REJECTED" && evidence.status !== 404)
+            throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_PROVIDER_UNRESOLVED");
+          else throw error;
+        }
+        break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_RETRY_DOCUMENTS": {
+        if (keys !== "expectedSequence,intentId,operation,projectRef,sessionId" || typeof body.intentId !== "string"
+          || typeof body.expectedSequence !== "number" || !archive.finalizationIntents)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        const owner = archive.finalizationIntents, intent = await owner.get(access, body.intentId);
+        const guard = input.guard ?? (input.connection ? sharedPostgresProtocolDesignerDurableGuard(input.connection,
+          durableGuardSessionRequestLimit(input.environment), durableGuardPublicBudget(input.environment)) : null);
+        const failedRequestId = studioProviderRequestId(intent);
+        const evidence = await guard?.readDocumentGenerationResult?.({ headers: { "x-forwarded-for": input.clientAddress },
+          sessionId: access.identity.sessionId, clientRequestId: failedRequestId });
+        if (evidence?.state !== "FAILED") throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_RETRY_NOT_TERMINAL");
+        result = await owner.retryDocuments(access, body.intentId, body.expectedSequence, failedRequestId); break;
+      }
       case "DOC_ARCHIVE_STUDIO_INTENT_CREATE": {
         if (keys !== "frozen,operation,projectRef,sessionId" || !body.frozen || typeof body.frozen !== "object")
           throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
@@ -127,6 +185,12 @@ export const executeDocumentArchiveOperation = async (input: {
         result = await archive.workingRevisions.open(access, { baseGenerationId: body.baseGenerationId,
           baseGenerationBodyDigest: body.baseGenerationBodyDigest, nativeDocumentRef: body.nativeDocumentRef });
         break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_DECISION": {
+        if (keys !== "decision,expectedSequence,intentId,operation,projectRef,sessionId" || typeof body.intentId !== "string"
+          || typeof body.expectedSequence !== "number" || !body.decision || !archive.finalizationIntents)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        result = await archive.finalizationIntents.recordHumanDecision(access, body.intentId, body.expectedSequence, body.decision as StudioFinalizationHumanDecision); break;
       }
       case "DOC_ARCHIVE_REVISION_CREATE":
       case "DOC_ARCHIVE_REVISION_GET_SAVE":

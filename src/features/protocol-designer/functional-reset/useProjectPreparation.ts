@@ -28,16 +28,19 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     latest.current = next;
     setSession(next);
   };
-  const start = async (captured?: ReturnType<typeof captureProjectPreparation>) => {
+  const start = async (captured?: ReturnType<typeof captureProjectPreparation>, resumeNativeIntent = false) => {
     const source = latest.current;
-    if (!enabled || activeProjectPreparation(source)) return;
+    const existing = captured?.checkpoint && source.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === captured.checkpoint!.preparationId);
+    const exactNativeResume = resumeNativeIntent && captured?.checkpoint?.request.studioPreparationSource?.finalizationIntentId
+      && existing?.status === "PREPARING" && existing.checkpoint?.requestDigest === captured.checkpoint.requestDigest;
+    if (!enabled || activeProjectPreparation(source) && !exactNativeResume) return;
     let preparation: ReturnType<typeof captureProjectPreparation>;
     try { preparation = captured ?? captureProjectPreparation(source); }
     catch { return; } // UI requires a completed Chat turn before enabling this command.
     if (!preparation.checkpoint || !preparationCheckpointValid(source, preparation.checkpoint)
-      || source.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId)) return;
+      || source.workingDraftPreparations?.some(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId) && !exactNativeResume) return;
     const id = preparation.checkpoint.preparationId;
-    const prepared = addProjectPreparation(source, preparation);
+    const prepared = exactNativeResume ? source : addProjectPreparation(source, preparation);
     let preflightFailed = false;
     try { preflightWorkingDraftKnowledgeSource(preparation.checkpoint.request); }
     catch { preflightFailed = true; }

@@ -13,6 +13,19 @@ export const createStudioFinalizationIntentClient = (operation: <T>(command: Rec
   return {
     create: (frozen: StudioFinalizationFrozenInput) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_CREATE", frozen }),
     get: (intentId: string) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_GET", intentId }),
+    recoverActive: async (revisionId: string) => {
+      const intent = await operation<StudioFinalizationIntent | null>({ operation: "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_ACTIVE", revisionId });
+      if (intent && (assertStudioIntent(intent).frozen.workingRevisionId !== revisionId || intent.frozen.sourceProject.projectId !== projectId))
+        throw new StudioFinalizationIntentError("STUDIO_INTENT_RESPONSE_INVALID", 503);
+      return intent;
+    },
+    recoverForBase: async (baseGenerationId: string, logicalDocumentRef: string) => {
+      const intent = await operation<StudioFinalizationIntent | null>({ operation: "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_BASE", baseGenerationId, logicalDocumentRef });
+      if (intent && (assertStudioIntent(intent).frozen.baseGenerationId !== baseGenerationId
+        || intent.frozen.logicalDocumentRef !== logicalDocumentRef || intent.frozen.sourceProject.projectId !== projectId))
+        throw new StudioFinalizationIntentError("STUDIO_INTENT_RESPONSE_INVALID", 503);
+      return intent;
+    },
     recoverForSave: async (save: Readonly<{ revisionId: string; saveSequence: number; contentDigest: string }>) => {
       const intent = await operation<StudioFinalizationIntent | null>({ operation: "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_SAVE", ...save });
       if (!intent) return null;
@@ -26,5 +39,10 @@ export const createStudioFinalizationIntentClient = (operation: <T>(command: Rec
     assess: (intentId: string, expectedSequence: number, assessment: StudioScientificAssessment) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_ASSESS", intentId, expectedSequence, assessment }),
     linkPreparation: (intentId: string, expectedSequence: number, preparation: WorkingDraftPreparation) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_PREPARATION", intentId, expectedSequence, preparation }),
     resolveAdoption: (intentId: string, expectedSequence: number, decision: StudioFinalizationHumanDecision) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_ADOPTION", intentId, expectedSequence, decision }),
+    recordHumanDecision: (intentId: string, expectedSequence: number, decision: StudioFinalizationHumanDecision) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_DECISION", intentId, expectedSequence, decision }),
+    prepareDocuments: (intentId: string, expectedSequence: number, source: import("./drci-draft-contract.js").DrciDraftSource) =>
+      execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_DOCUMENTS", intentId, expectedSequence, source }),
+    finalizeDocuments: (intentId: string) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_FINALIZE", intentId }),
+    retryDocuments: (intentId: string, expectedSequence: number) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_RETRY_DOCUMENTS", intentId, expectedSequence }),
   };
 };

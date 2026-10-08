@@ -1,6 +1,9 @@
 import { useConversationTurn } from "./useConversationTurn";
 import { useProjectPreparation } from "./useProjectPreparation";
 import { useVersionProduction } from "./useVersionProduction";
+import { createStudioFinalizationRuntime, retainStudioAdoptionConcurrentWork } from "./studio-finalization-runtime";
+import { stageStudioIntentAdoption } from "./studio-finalization-lifecycle";
+import { publishArchivedGeneration, readCurrentArchivedGeneration } from "@/features/document-projection/generation-session";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
 import ProjectFinalizationCard from "./ProjectFinalizationCard";
@@ -136,6 +139,67 @@ export default function ProtocolDesignerWorkspace({
   const confirmationInFlightRef = useRef<string | null>(null);
   const versionProduction = useVersionProduction({ session, latest: latestSessionRef, setSession, save: onSessionChange,
     prepare: preparationController.start, generateDocuments: requestProtocolProjection, administration });
+  const studioPorts = useRef({ preparationController, administration, onSessionChange });
+  studioPorts.current = { preparationController, administration, onSessionChange };
+  const studioFinalization = useMemo(() => createStudioFinalizationRuntime({
+    session: () => latestSessionRef.current,
+    publish: next => { latestSessionRef.current = next; setSession(next); },
+    client: current => {
+      if (!current.project) throw new Error("STUDIO_INTENT_PROJECT_INVALID");
+      return createDocumentArchiveClient(current.sessionId, current.project);
+    },
+    prepare: captured => studioPorts.current.preparationController.start(captured, true),
+    adopt: async intent => {
+      const current = latestSessionRef.current;
+      if (!intent.resolution.humanDecision) throw new Error("STUDIO_INTENT_HUMAN_DECISION_NOT_READY");
+      const staged = stageStudioIntentAdoption({ intent, decision: intent.resolution.humanDecision, session: current,
+        readCurrentSession: () => latestSessionRef.current, now: new Date().toISOString(), administration: studioPorts.current.administration });
+      const committed = await persistAdoptedProjectSession({ storage: window.localStorage,
+        session: { ...staged.nextSession, project: staged.project }, previousProject: staged.previousProject,
+        save: studioPorts.current.onSessionChange, uploadSnapshot: true });
+      if (committed.status !== "COMMITTED") throw new Error("STUDIO_PROJECT_ADOPTION_FAILED");
+      const latest = latestSessionRef.current;
+      if (latest.sessionId !== current.sessionId || latest.project?.projectDigest !== current.project?.projectDigest)
+        throw new Error("STUDIO_PROJECT_ADOPTION_CONFLICT");
+      const next = retainStudioAdoptionConcurrentWork(committed.session, current, latest);
+      latestSessionRef.current = next; setSession(next);
+      if (await committed.auxiliaryUpload !== "UPLOADED") throw new Error("STUDIO_PROJECT_SNAPSHOT_UNAVAILABLE");
+    },
+    clarify: intent => {
+      const current = latestSessionRef.current, assessment = intent.resolution.assessment?.nativePayload;
+      const question = assessment?.edits.find(edit => edit.ambiguity)?.ambiguity?.question
+        ?? assessment?.scientificStateAmbiguity?.question
+        ?? "Une précision scientifique est nécessaire avant de créer la version suivante. Le brouillon est conservé.";
+      const entryId = `studio-clarification:${intent.intentDigest}`;
+      if (!current.entries.some(entry => entry.entryId === entryId)) {
+        const next = { ...current, entries: [...current.entries, { entryId, kind: "TEXT" as const, role: "NOXIA" as const,
+          content: question, createdAt: new Date().toISOString() }] };
+        latestSessionRef.current = next; setSession(next);
+      }
+    },
+    committed: async intent => {
+      let generation = intent.resolution.documentReceipt?.generation;
+      if (!generation) return;
+      const source = latestSessionRef.current;
+      if (!source.project || source.project.projectId !== generation.project.projectId) throw new Error("STUDIO_INTENT_PROJECT_INVALID");
+      // Exact intent receipt proves this completion. Metadata reconciliation may
+      // select a newer proven commit, never an older same-Project false success.
+      const archived = await readCurrentArchivedGeneration(source, createDocumentArchiveClient(source.sessionId, source.project)).catch(() => null);
+      if (archived && archived.displayVersion >= generation.displayVersion) generation = archived;
+      const current = latestSessionRef.current;
+      if (current.sessionId !== source.sessionId || current.project?.projectId !== generation.project.projectId)
+        throw new Error("STUDIO_INTENT_PROJECT_INVALID");
+      const exactCurrent = current.project.versionId === generation.project.projectVersion && current.project.projectDigest === generation.project.projectDigest;
+      const next = exactCurrent ? publishArchivedGeneration(current, generation,
+        intent.resolution.documentSource?.protocolProjection.projectionId) : { ...current, documentArchive: { ...current.documentArchive!, currentGenerationId: generation.generationId,
+        currentGeneration: { generationId: generation.generationId, project: generation.project,
+          displayVersion: generation.displayVersion, generatedAt: generation.generatedAt }, historyState: "NOT_LOADED" as const,
+        pendingRequestId: null, pendingRecovery: null } };
+      latestSessionRef.current = next; setSession(next);
+      // Archive is authoritative even if this auxiliary browser save fails.
+      await saveFunctionalResetWorkspaceSession(window.localStorage, next, studioPorts.current.onSessionChange).catch(() => undefined);
+    },
+  }), []);
 
   useEffect(() => {
     if (documentGenerationStartedAt === null || !documentGenerationPending) return;
@@ -777,6 +841,7 @@ export default function ProtocolDesignerWorkspace({
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
           archiveClient={archiveClient}
+          studioFinalization={studioFinalization}
           currentGenerationId={session.documentArchive?.currentGenerationId}
           archiveOnly={Boolean(archiveClient)}
           diagnosticProjectionId={projectionMode === "EXPERT" ? session.documentArchive?.currentProjectionId : null}
@@ -1061,7 +1126,7 @@ export default function ProtocolDesignerWorkspace({
       data-testid="document-generation-progress">
       <button type="button" className="flex min-h-8 w-full items-center justify-between gap-2 text-left text-sm font-semibold"
         aria-expanded={documentProgressExpanded} onClick={() => setDocumentProgressExpanded(value => !value)}>
-        <span>{documentGenerationVersion === null ? "Génération des documents" : `Génération G${documentGenerationVersion}`} {documentGenerationComplete ? "disponible" : "en cours"}</span>
+        <span>{documentGenerationVersion === null ? "Génération des documents" : `Version ${documentGenerationVersion}`} {documentGenerationComplete ? "disponible" : "en cours"}</span>
         <span aria-hidden="true">{documentProgressExpanded ? "−" : "+"}</span>
       </button>
       {documentProgressExpanded && <div className="mt-2 space-y-2 text-xs text-muted-foreground">

@@ -19,7 +19,7 @@ const cloneFrozen = <T>(value: T): T => {
 };
 const projectBinding = (request: StudioReconciliationRequest) => ({ projectId: request.currentProject.sourceProjectRef,
   projectVersion: request.currentProject.sourceProjectVersion, projectDigest: request.currentProject.sourceProjectDigest });
-const nativeNodes = (content: EditableDocumentContent) => [
+export const studioNativeTextNodes = (content: EditableDocumentContent) => [
   { nodeId: "document-title", nativeAnchor: "title", field: "TITLE" as const, text: content.title,
     contextDigest: logicalDigest({ field: "TITLE", sections: content.sections.map(s => ({ id: s.nodeId, anchor: s.nativeAnchor })) }), provenanceRefs: [] as string[] },
   ...content.sections.flatMap(section => {
@@ -31,6 +31,7 @@ const nativeNodes = (content: EditableDocumentContent) => [
     }))];
   }),
 ];
+const nativeNodes = studioNativeTextNodes;
 const verifySource = async (source: ArchivedSource) => {
   if (source.ref.persistenceState !== "COMMITTED"
     || source.ref.bodySha256 !== await documentTextSha256(JSON.stringify(source.body))

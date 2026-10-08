@@ -19,9 +19,17 @@ import { createProductValidationRunLedger } from "../../protocol-designer/produc
 import { createScientificExecutionTraceLedger } from "../../protocol-designer/scientific-execution-trace";
 import { assertStudioIntentHumanDecision } from "../studio-finalization-intent";
 import { documentAdministrationFrom, emptyProjectAdministration } from "../../protocol-designer/functional-reset/project-administration";
+import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
+import { prepareDrciDraftSource, materializeDrciDraftPack, prepareDrciDraftPack } from "../drci-draft-pack";
+import { createStudioFinalizationRuntime, retainStudioAdoptionConcurrentWork } from "../../protocol-designer/functional-reset/studio-finalization-runtime";
+import type { DocumentArchiveClient } from "../generation-archive-client";
+import { studioDocumentRequestId, studioProviderRequestId, composeStudioFinalizationPack } from "../studio-finalization-document";
+import { documentNativeGeneratedAt } from "../generation-persistence";
+import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
+import * as documentProvider from "../../../../api/protocol-designer-openai-extraction-provider";
 
 const NOW = "2026-10-08T12:00:00.000Z";
-const setup = async (kind: "editorial" | "science" | "none" | "already-adopted" = "editorial", mixed = false) => {
+const setup = async (kind: "editorial" | "science" | "none" | "already-adopted" = "editorial", mixed = false, editorialWithScience = false) => {
   const run = await workingRevisionFixture({ monocentric: kind !== "already-adopted" });
   let { revision } = await run.owner.create(run.access2, run.createInput);
   if (kind !== "none") {
@@ -29,6 +37,7 @@ const setup = async (kind: "editorial" | "science" | "none" | "already-adopted" 
     if (kind === "science") content.sections[0].blocks[0].text = content.sections[0].blocks[0].text.replace("monocentrique", "multicentrique");
     else if (kind === "already-adopted") content.sections[0].blocks[0].text = content.sections[0].blocks[0].text.replace("étude multicentrique", "Étude conduite dans plusieurs centres");
     else content.title += " — rédaction humaine";
+    if (editorialWithScience) content.title += " — rédaction humaine conservée";
     revision = (await run.owner.save(run.access2, { revisionId: revision.revisionId, expectedSaveSequence: revision.saveSequence, content })).revision;
   }
   const fresh = createFunctionalResetSession(NOW);
@@ -58,7 +67,8 @@ const assessment = (run: Awaited<ReturnType<typeof setup>>, classification: Stud
   return acceptStudioAssessment(request, run.project2, { requestDigest: request.requestDigest,
     scientificStateDisposition: request.scientificState.pendingTurnRef ? "PENDING_HUMAN_CONFIRMATION" : "NO_NET_CHANGE",
     scientificStateReason: "Controlled native assessment; not clinical qualification", scientificStateAmbiguity: null,
-    edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef, classification,
+    edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef,
+      classification: classification === "PROJECT_CHANGE" && edit.field === "TITLE" && edit.afterText.endsWith("rédaction humaine conservée") ? "DOCUMENT_ONLY" : classification,
       reason: "Exact controlled Scientific Thinking assessment", provenanceRefs: [edit.editRef], projectCoverage: null,
       ambiguity: classification === "AMBIGUOUS" ? { question: "Remplacement ou ajout d’un centre pour un sous-groupe ?",
         materialProjectRefs: [request.currentProject.objects[0].versionRef], alternatives: [
@@ -67,18 +77,20 @@ const assessment = (run: Awaited<ReturnType<typeof setup>>, classification: Stud
 };
 const assessed = async (run: Awaited<ReturnType<typeof setup>>, classification: Parameters<typeof assessment>[1] = "DOCUMENT_ONLY") =>
   run.intents.assess(run.access2, run.intent.finalizationIntentId, run.intent.sequence, assessment(run, classification));
-const prepare = async (run: Awaited<ReturnType<typeof setup>>) => {
-  let intent = await assessed(run, "PROJECT_CHANGE");
-  const capture = captureStudioIntentPreparation(intent, run.session, run.revision, NOW);
+const prepare = async (run: Awaited<ReturnType<typeof setup>>, existing?: Awaited<ReturnType<typeof assessed>>,
+  provided?: Parameters<typeof addProjectPreparation>[1]) => {
+  let intent = existing ?? await assessed(run, "PROJECT_CHANGE");
+  const capture = provided ? { preparation: provided } : captureStudioIntentPreparation(intent, run.session, run.revision, NOW);
   const preparation = capture.preparation!, cp = preparation.checkpoint!;
-  intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+  if (!intent.resolution.preparation) intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
   const domain = { ...DOMAINS[1], question: "Évaluer la colchicine versus placebo après infarctus", population: "Adultes après infarctus",
     design: "étude multicentrique", outcome: "Critère de recherche après infarctus", exposure: "Colchicine versus placebo" };
   const proposal = controlledStudyProposal(cp.inputDigest, domain as typeof DOMAINS[1]);
   const target = cp.request.studioPreparationSource!.request.currentProject.objects.find(object => object.content === "étude monocentrique")!;
   proposal.atoms.find(atom => atom.ref === "design")!.userChangeRefs = [target.versionRef];
   const output = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [],
-    explicitStudioDecisions: run.frozen.scientificSources.request.delta.filter(edit => edit.change !== "UNCHANGED")
+    explicitStudioDecisions: run.frozen.scientificSources.request.delta.filter(edit => cp.request.studioPreparationSource!.assessment.nativePayload.edits
+      .some(assessment => assessment.editRef === edit.editRef && assessment.classification === "PROJECT_CHANGE"))
       .map(edit => ({ atomRef: "design", editRef: edit.editRef, quote: edit.afterText })),
     retainedDiscussionBindings: cp.request.scientificDiscussionContext?.retainedMeaning?.map(element => ({ elementRef: element.ref,
       sourceTurnRef: element.sourceTurnRef, atomRefs: ["population"] })) ?? [],
@@ -94,7 +106,7 @@ const prepare = async (run: Awaited<ReturnType<typeof setup>>) => {
     result.body as Parameters<typeof consumeProjectPreparation>[2]);
   const ready = session.workingDraftPreparations!.at(-1)!;
   expect(ready.status, ready.code ?? "").toBe("READY_FOR_REVIEW");
-  intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, ready);
+  if (!provided) intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, ready);
   return { intent, session, cp, fetchImpl, response: result.body };
 };
 const adopt = async (run: Awaited<ReturnType<typeof setup>>) => {
@@ -105,6 +117,67 @@ const adopt = async (run: Awaited<ReturnType<typeof setup>>) => {
   const access = await run.register(staged.project, run.access2.proof);
   const intent = await run.intents.resolveAdoption(access, prepared.intent.finalizationIntentId, prepared.intent.sequence, decision);
   return { ...prepared, decision, staged, access, intent };
+};
+const documentSource = (run: Awaited<ReturnType<typeof setup>>) => prepareDrciDraftSource({
+  handoffDecision: run.g2.projection.humanDecisions.find(d => d.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")!,
+  protocolProjection: run.g2.projection, crf: buildCanonicalCrfPackage(run.project2) });
+const readyDocuments = async (run: Awaited<ReturnType<typeof setup>>) => {
+  const intent = await assessed(run);
+  return run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource(run));
+};
+const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed = false, editorialWithScience = false) => {
+  const run = await setup(kind, mixed, editorialWithScience);
+  let session = run.session, access = run.access2;
+  const client = (): DocumentArchiveClient => ({
+    body: id => run.archive.body(access, id), history: before => run.archive.history(access, before, "DRCI"),
+    receipt: id => run.archive.receipt(access, id), recover: vi.fn(),
+    commit: async (id, body) => {
+      await run.archive.admit(access, { requestId: id, requestSha256: (await import("../../../../server/protocol-designer-document-archive")).docSha256(JSON.stringify(body)),
+        generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: 1_000_000 });
+      return run.archive.commit(access, id, body);
+    },
+    workingRevisions: {
+      open: input => run.owner.open(access, input), create: input => run.owner.create(access, input),
+      get: id => run.owner.get(access, id), getSave: input => run.owner.getSave(access, input),
+      save: input => run.owner.save(access, input), abandon: input => run.owner.abandon(access, input),
+    },
+    finalizationIntents: {
+      create: frozen => run.intents.create(access, frozen), get: id => run.intents.get(access, id),
+      recoverActive: id => run.intents.recoverActive(access, id), recoverForSave: save => run.intents.recoverForSave(access, save),
+      recoverForBase: (base, document) => run.intents.recoverForBase(access, base, document),
+      waitForAssessment: (id, seq) => run.intents.waitForAssessment(access, id, seq),
+      assess: (id, seq, result) => run.intents.assess(access, id, seq, result),
+      linkPreparation: (id, seq, prep) => run.intents.linkPreparation(access, id, seq, prep),
+      recordHumanDecision: (id, seq, decision) => run.intents.recordHumanDecision(access, id, seq, decision),
+      resolveAdoption: (id, seq, decision) => run.intents.resolveAdoption(access, id, seq, decision),
+      prepareDocuments: (id, seq, source) => run.intents.prepareDocuments(access, id, seq, source),
+      finalizeDocuments: id => run.intents.finalizeDocuments(access, id),
+      retryDocuments: async (id, seq) => run.intents.retryDocuments(access, id, seq, studioProviderRequestId(await run.intents.get(access, id))),
+    },
+  });
+  const preparePort = vi.fn(async (captured: Parameters<typeof addProjectPreparation>[1]) => {
+    const intent = await run.intents.get(access, run.intent.finalizationIntentId);
+    const result = await prepare(run, intent, captured); session = result.session;
+  });
+  const adopted = vi.fn(async (intent: Awaited<ReturnType<typeof assessed>>) => {
+    const staged = stageStudioIntentAdoption({ intent, decision: intent.resolution.humanDecision!, session,
+      readCurrentSession: () => session, now: NOW, administration: run.administration });
+    access = await run.register(staged.project, access.proof); session = staged.nextSession;
+  });
+  const generate = vi.fn(async (request: import("../../protocol-designer/product-bridge").ProductBridgeRequest) => {
+    const intent = await run.intents.get(access, request.documentFinalizationIntentId!);
+    const native = run.nativeGeneration(session.project!, intent.createdAt).pack;
+    const pack = materializeDrciDraftPack({ documents: native.documents, crfRows: native.crfRows }, {
+      project: session.project!, packet: prepareDrciDraftPack(session.project!, request.documentDraftRequest!), generatedAt: intent.createdAt });
+    await run.intents.finalizeDocuments(access, intent.finalizationIntentId, pack);
+    return { documentDraftPack: pack, observability: { calls: 0 } } as Awaited<ReturnType<typeof import("../../protocol-designer/product-bridge-client").requestProtocolDesignerBridge>>;
+  });
+  const clarify = vi.fn(), committed = vi.fn(async () => undefined);
+  const runtime = createStudioFinalizationRuntime({ session: () => session, publish: next => { session = next; },
+    client, prepare: preparePort, adopt: adopted, clarify, committed, generate,
+    assess: vi.fn(async () => assessment(run, kind === "science" ? "PROJECT_CHANGE" : "DOCUMENT_ONLY")) });
+  return { ...run, client, runtime, preparePort, adopted, generate, clarify, committed, session: () => session,
+    setSession: (next: FunctionalResetSession) => { session = next; } };
 };
 
 describe("DOC durable frozen intent / native ST and human adoption / no generation", () => {
@@ -288,5 +361,282 @@ describe("DOC durable frozen intent / native ST and human adoption / no generati
     expect(restored.workingDraftPreparations).toEqual([recovered.resolution.preparation]);
     expect(captureStudioIntentPreparation(recovered, restored, run.revision, NOW).action).toBe("REUSE_VALID_PREPARATION");
     expect(prepared.fetchImpl).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Create next version / native runtime → complete pack → exact archive", () => {
+  it("G/H/N: real HTTP DOC boundary resolves exact Studio intent and commits once, without fabricated conversation", async () => {
+    const run = await finalizationHarness("science", true), guard = createMemoryProtocolDesignerGuardForTests();
+    const executed = vi.spyOn(documentProvider, "executeOpenAIDrciDraft");
+    run.generate.mockImplementation(async request => {
+      const project = run.session().project!, native = run.nativeGeneration(project);
+      executed.mockResolvedValue({ value: { documents: native.pack.documents, crfRows: native.pack.crfRows }, calls: 1,
+        latencyMs: 0, modelRequested: "gpt-6-sol", modelReturned: "gpt-6-sol", reusedProtocolEvidenceRef: null } as Awaited<ReturnType<typeof documentProvider.executeOpenAIDrciDraft>>);
+      const invoke = async (payload: typeof request) => {
+        let status = 0, body: unknown;
+        const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(value) { body = value; } };
+        await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", host: "noxia.test",
+          origin: "https://noxia.test", "x-forwarded-for": run.identity.clientAddress, "x-noxia-project-snapshot-proof": run.access2.proof }, body: payload }, response,
+        { VERCEL_ENV: "preview", OPENAI_API_KEY: "OFFLINE_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA" }, {
+          projectSnapshotStore: run.snapshots, documentArchive: run.archive, durableGuard: guard, now: () => Date.parse(NOW),
+          fetchImpl: vi.fn(async () => { throw new Error("NETWORK_FORBIDDEN"); }) });
+        return { status, body: body as import("../../protocol-designer/product-bridge").ProductBridgeResponse };
+      };
+      expect(request.conversation.turns).toEqual([]);
+      const wrong = await invoke({ ...request, documentDraftRequest: { ...request.documentDraftRequest!, handoffDecision: {
+        ...request.documentDraftRequest!.handoffDecision, timestamp: "2026-10-08T23:00:00.000Z" } } });
+      expect(wrong.status).toBe(403); expect(executed).not.toHaveBeenCalled();
+      const first = await invoke(request); expect(first.status, JSON.stringify(first.body)).toBe(200);
+      const second = await invoke(request); expect(second.status).toBe(200);
+      expect(second.body.documentPersistenceReceipt).toEqual(first.body.documentPersistenceReceipt);
+      expect(executed).toHaveBeenCalledOnce(); return first.body;
+    });
+    const completed = await run.runtime.run(run.revision, () => undefined);
+    expect(completed!.state).toBe("CLOSED"); expect(completed!.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+    expect(run.preparePort).toHaveBeenCalledOnce(); expect(run.adopted).toHaveBeenCalledOnce();
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+  });
+  it("U: adoption acknowledgement preserves late governed meaning and native control-event coverage", async () => {
+    const run = await setup("science", true), prepared = await prepare(run);
+    const decision = prepareStudioIntentHumanDecision(prepared.intent, prepared.session);
+    const staged = stageStudioIntentAdoption({ intent: prepared.intent, decision, session: prepared.session,
+      readCurrentSession: () => prepared.session, now: NOW, administration: run.administration });
+    const late = { turnId: "user-turn:late-confirmation", role: "USER" as const, content: "Ajouter une visite de sécurité", createdAt: NOW };
+    const reply = { turnId: "noxia-turn:late-confirmation", role: "NOXIA" as const, content: "Visite à préparer ultérieurement", createdAt: NOW };
+    const runtimeTurns = [...prepared.session.runtimeTurns, late, reply];
+    const retention = retainScientificDiscussionResult({ state: prepared.session.scientificDiscussionRetention,
+      conversationId: prepared.session.conversationId, userTurn: late, assistantTurn: reply, runtimeTurns,
+      retained: [], result: { reply: reply.content, userContribution: { coverage: "COMPLETE", nonPersistentReason: null,
+        elements: [{ id: "late-safety", content: late.content, epistemicState: "USER_STATED", polarity: "AFFIRMED", conditions: [], linkedIds: [] }] },
+        assistantContribution: { coverage: "COMPLETE", nonPersistentReason: "PRESENTATION_ONLY", elements: [] }, dispositions: [], candidateBindings: [] } });
+    const latest = { ...prepared.session, runtimeTurns, scientificDiscussionRetention: retention, pendingMixedUserTurnRef: late.turnId };
+    const merged = retainStudioAdoptionConcurrentWork(staged.nextSession, prepared.session, latest);
+    expect(merged.project).toEqual(staged.project); expect(merged.pendingMixedUserTurnRef).toBe(late.turnId);
+    expect(merged.runtimeTurns.filter(turn => turn.role === "USER")).toEqual(runtimeTurns.filter(turn => turn.role === "USER"));
+    expect(merged.scientificDiscussionRetention!.elements.find(element => element.content === late.content)?.status).toBe("PROPOSED_NOT_ADOPTED");
+    for (const source of staged.nextSession.scientificDiscussionRetention!.sourceCoverage)
+      expect(merged.scientificDiscussionRetention!.sourceCoverage).toContainEqual(source);
+    expect(JSON.stringify(prepared.intent.frozen.scientificSources)).not.toContain(late.turnId);
+  });
+  it("G/Q: explicit terminal DOC retry retains intent/source; UNKNOWN or active evidence never authorizes retry", async () => {
+    const run = await finalizationHarness("science"); run.generate.mockRejectedValueOnce(new Error("OFFLINE_DOC_FAILED"));
+    await expect(run.runtime.run(run.revision, () => undefined)).rejects.toThrow("OFFLINE_DOC_FAILED");
+    const project = run.session().project!, access = { ...run.access2, project: {
+      projectId: project.projectId, versionId: project.versionId, projectDigest: project.projectDigest } };
+    const intent = await run.intents.get(access, run.intent.finalizationIntentId), originalSource = logicalDigest(intent.resolution.documentSource);
+    const read = vi.fn<NonNullable<ReturnType<typeof createMemoryProtocolDesignerGuardForTests>["readDocumentGenerationResult"]>>();
+    const guard = { ...createMemoryProtocolDesignerGuardForTests(), readDocumentGenerationResult: read };
+    const retry = () => executeDocumentArchiveOperation({ body: { operation: "DOC_ARCHIVE_STUDIO_INTENT_RETRY_DOCUMENTS",
+      intentId: intent.finalizationIntentId, expectedSequence: intent.sequence, sessionId: run.sessionId, projectRef: access.project },
+      proof: access.proof, clientAddress: run.identity.clientAddress, connection: null, environment: {},
+      archive: run.archive, snapshots: run.snapshots, guard });
+    for (const state of ["UNKNOWN", "IN_PROGRESS"] as const) {
+      read.mockResolvedValue({ state }); expect((await retry()).status).toBe(409);
+      expect((await run.intents.get(access, intent.finalizationIntentId)).resolution.documentAttempt).toBeUndefined();
+    }
+    read.mockResolvedValue({ state: "FAILED", errorCode: "DOC_SCOPE_FAILED" });
+    const response = await retry(); expect(response.status).toBe(200);
+    const resumed = (response.body as { result: typeof intent }).result;
+    expect(resumed.finalizationIntentId).toBe(intent.finalizationIntentId);
+    expect(logicalDigest(resumed.frozen)).toBe(logicalDigest(intent.frozen));
+    expect(logicalDigest(resumed.resolution.documentSource)).toBe(originalSource);
+    expect(studioDocumentRequestId(resumed)).toBe(studioDocumentRequestId(intent));
+    expect(studioProviderRequestId(resumed)).not.toBe(studioProviderRequestId(intent));
+    expect(read).toHaveBeenLastCalledWith(expect.objectContaining({ clientRequestId: studioProviderRequestId(intent) }));
+    // New foreground click resumes the same durable operation, not another WD/adoption.
+    const completed = await run.runtime.run(run.revision, () => undefined);
+    expect(completed!.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+    expect(run.preparePort).toHaveBeenCalledOnce(); expect(run.adopted).toHaveBeenCalledOnce();
+    expect(run.generate).toHaveBeenCalledTimes(2);
+    expect((await run.archive.history(access, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+  });
+  it("L: changed native context underneath an editorial edit fails closed, retains exact draft", async () => {
+    const run = await setup(), revision = (await run.owner.save(run.access2, { revisionId: run.revision.revisionId,
+      expectedSaveSequence: run.revision.saveSequence, content: { ...run.revision.content,
+        sections: run.revision.content.sections.map(section => ({ ...section, blocks: section.blocks.map(block => ({ ...block, text: block.text + " Rédaction humaine." })) })) } })).revision;
+    const frozen = await freezeStudioFinalizationWork({ ...run, revision });
+    let intent = await run.intents.create(run.access2, frozen);
+    const result = acceptStudioAssessment(frozen.scientificSources.request, run.project2, { requestDigest: frozen.scientificSources.request.requestDigest,
+      scientificStateDisposition: "NO_NET_CHANGE", scientificStateReason: "Controlled fixture", scientificStateAmbiguity: null,
+      edits: frozen.scientificSources.request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef,
+        classification: "DOCUMENT_ONLY", reason: "Controlled editorial fixture", provenanceRefs: [edit.editRef], projectCoverage: null, ambiguity: null })) }, NOW);
+    intent = await run.intents.assess(run.access2, intent.finalizationIntentId, intent.sequence, result);
+    if (run.g2.body.native.family !== "DRCI") throw new Error("Expected native pack");
+    const native = run.g2.body.native.value, documents = structuredClone(native.documents);
+    documents.find(document => document.kind === "PROTOCOL_FULL")!.sections[0].title += " Contexte scientifiquement recomposé";
+    const source = documentSource(run), target = materializeDrciDraftPack({ documents, crfRows: native.crfRows }, {
+      project: run.project2, packet: prepareDrciDraftPack(run.project2, source), generatedAt: intent.createdAt });
+    expect(() => composeStudioFinalizationPack({ intent, project: run.project2, target, source, ancestorPacks: [] }))
+      .toThrow("STUDIO_DOCUMENT_EDITORIAL_COLLISION");
+    expect((await run.owner.get(run.access2, revision.revisionId)).revision).toEqual(revision);
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([2, 1]);
+  });
+  it("M: unrelated old same-Project generation receipt cannot satisfy finalization", async () => {
+    const run = await setup(), intent = await readyDocuments(run);
+    // The exact receipt owner, never a Project-only current lookup.
+    const outcome = await executeDocumentArchiveOperation({ body: { operation: "DOC_ARCHIVE_STUDIO_INTENT_FINALIZE",
+      sessionId: run.sessionId, projectRef: run.access2.project, intentId: intent.finalizationIntentId }, proof: run.access2.proof,
+      clientAddress: run.identity.clientAddress, connection: null, environment: {}, archive: run.archive, snapshots: run.snapshots });
+    expect(outcome.status).toBe(200);
+    const finished = (outcome.body as { result: Awaited<ReturnType<typeof assessed>> }).result;
+    expect(finished.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+    expect(finished.resolution.documentReceipt!.generation.generationId).not.toBe(run.g2.ref.generationId);
+  });
+  it("F: a qualified exact checkpoint is consumed at runtime with zero new WD", async () => {
+    const run = await finalizationHarness("science"), prepared = await prepare({ ...run, session: run.session() });
+    run.setSession(prepared.session);
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    expect(finished!.state).toBe("CLOSED"); expect(run.preparePort).not.toHaveBeenCalled();
+    expect(run.adopted).toHaveBeenCalledTimes(1);
+  });
+  it("K: mixed scientific change and compatible editorial title both survive", async () => {
+    const run = await finalizationHarness("science", true, true);
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    const saved = await run.archive.body(run.access2, finished!.resolution.documentReceipt!.generation.generationId);
+    if (saved.body.native.family !== "DRCI") throw new Error("Expected native pack");
+    const protocol = saved.body.native.value.documents.find(doc => doc.kind === "PROTOCOL_FULL")!;
+    expect(protocol.title).toBe(run.revision.content.title);
+    expect(protocol.sections.flatMap(section => section.paragraphs).join(" ")).toContain("multicentrique");
+    expect(run.preparePort).toHaveBeenCalledTimes(1);
+  });
+  it("P: client publication exception cannot replace proven V3 with false failure", async () => {
+    const run = await finalizationHarness(); run.committed.mockRejectedValueOnce(new Error("OFFLINE_CLIENT_AFTER_COMMIT"));
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    expect(finished!.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+    expect(run.committed).toHaveBeenCalledTimes(2);
+  });
+  it("D/K/M/R/S: editorial V2 → V3, PRJ unchanged, zero WD/provider, immutable V2 and new draft base", async () => {
+    const run = await finalizationHarness(), old = JSON.stringify(run.g2.body), stages: string[] = [];
+    const finished = await run.runtime.run(run.revision, stage => stages.push(stage));
+    const receipt = finished!.resolution.documentReceipt!;
+    expect(finished!.state).toBe("CLOSED"); expect(receipt.generation.displayVersion).toBe(3);
+    expect(receipt.generation.project).toEqual(run.g2.ref.project);
+    expect(receipt.generation.generationId).not.toBe(run.g2.ref.generationId);
+    expect(run.preparePort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled(); expect(run.adopted).not.toHaveBeenCalled();
+    expect(stages).not.toContain("SCIENCE");
+    const saved = await run.archive.body(run.access2, receipt.generation.generationId);
+    expect(saved.body.native.family).toBe("DRCI");
+    if (saved.body.native.family === "DRCI" && run.g2.body.native.family === "DRCI") {
+      expect(saved.body.native.value.documents.find(d => d.kind === "PROTOCOL_FULL")!.title).toBe(run.revision.content.title);
+      expect(saved.body.native.value.documents.filter(d => d.kind !== "PROTOCOL_FULL")).toEqual(run.g2.body.native.value.documents.filter(d => d.kind !== "PROTOCOL_FULL"));
+      expect(saved.body.native.value.crfRows).toEqual(run.g2.body.native.value.crfRows);
+    }
+    expect(JSON.stringify((await run.archive.body(run.access2, run.g2.ref.generationId)).body)).toBe(old);
+    expect((await run.owner.get(run.access2, run.revision.revisionId)).revision.status).toBe("ABANDONED");
+    const newDraft = await run.owner.open(run.access2, { baseGenerationId: receipt.generation.generationId,
+      baseGenerationBodyDigest: receipt.generation.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
+    expect(newDraft.revision.baseGenerationId).toBe(receipt.generation.generationId);
+    expect(newDraft.revision.revisionId).not.toBe(run.revision.revisionId);
+  });
+  it("C: no-op closes with no generation, no WD and no provider", async () => {
+    const run = await finalizationHarness("none"), before = run.fixture.rows();
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    expect(finished!.resolution.documentNoChange).toBe(true); expect(finished!.resolution.documentReceipt).toBeUndefined();
+    expect(run.fixture.rows()).toEqual(before); expect(run.preparePort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled();
+  });
+  it("D/S: successive editorial versions retain native ancestry on the same Project with zero WD", async () => {
+    const run = await finalizationHarness(), first = await run.runtime.run(run.revision, () => undefined);
+    const v3 = await run.archive.body(run.access2, first!.resolution.documentReceipt!.generation.generationId);
+    const frozenV3 = JSON.stringify(v3.body);
+    let { revision } = await run.owner.open(run.access2, { baseGenerationId: v3.ref.generationId,
+      baseGenerationBodyDigest: v3.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
+    revision = (await run.owner.save(run.access2, { revisionId: revision.revisionId, expectedSaveSequence: revision.saveSequence,
+      content: { ...revision.content, title: revision.content.title + " — seconde révision éditoriale" } })).revision;
+    const frozen = await freezeStudioFinalizationWork({ session: run.session(), revision, source: v3,
+      projectionSource: await run.archive.body(run.access2, run.g2.projection.projectionId) });
+    let intent = await run.intents.create(run.access2, frozen);
+    intent = await run.intents.assess(run.access2, intent.finalizationIntentId, intent.sequence, assessment({ ...run, session: run.session(), frozen }));
+    intent = await run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource({ ...run, session: run.session() }));
+    intent = await run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    expect(intent.resolution.documentReceipt!.generation.displayVersion).toBe(4);
+    expect(intent.resolution.documentReceipt!.generation.project).toEqual(run.g2.ref.project);
+    expect(JSON.stringify((await run.archive.body(run.access2, v3.ref.generationId)).body)).toBe(frozenV3);
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([4, 3, 2, 1]);
+    expect(run.preparePort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled();
+  });
+  it("N/V: exact retry and process reload resolve one V3, never old same-Project V2", async () => {
+    const run = await finalizationHarness(), first = await run.runtime.run(run.revision, () => undefined);
+    const restarted = createPostgresDocumentArchive("postgres://offline", run.snapshots, documentArchiveCapacity({}), run.fixture.sql);
+    const recovered = await restarted.finalizationIntents!.finalizeDocuments(run.access2, first!.finalizationIntentId);
+    expect(recovered).toEqual(first);
+    expect((await restarted.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+    expect(recovered.resolution.documentReceipt!.requestId).toBe(studioDocumentRequestId(first!));
+    expect(run.fixture.rows().filter(row => row.state === "COMMITTED" && (row.metadata as { family: string }).family === "DRCI")).toHaveLength(3);
+  });
+  it("O: archive failure preserves V2 and draft, same intent retry produces one V3", async () => {
+    const run = await setup(), intent = await readyDocuments(run); run.fixture.failMetadataCommit(true);
+    await expect(run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId)).rejects.toThrow();
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries[0]).toEqual(run.g2.ref);
+    expect((await run.owner.get(run.access2, run.revision.revisionId)).revision.status).toBe("ACTIVE");
+    run.fixture.failMetadataCommit(false);
+    const finished = await run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    expect(finished.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+  });
+  it("P: post-commit intent-ack failure recovers exact V3 after a new process", async () => {
+    const run = await setup(), intent = await readyDocuments(run); run.fixture.failIntentSave(true);
+    await expect(run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId)).rejects.toThrow();
+    const receipt = await run.archive.receipt(run.access2, studioDocumentRequestId(intent));
+    expect(receipt!.generation.displayVersion).toBe(3);
+    run.fixture.failIntentSave(false);
+    const restarted = createPostgresDocumentArchive("postgres://offline", run.snapshots, documentArchiveCapacity({}), run.fixture.sql);
+    const recovered = await restarted.finalizationIntents!.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    expect(recovered.state).toBe("CLOSED"); expect(recovered.resolution.documentReceipt).toEqual(receipt);
+  });
+  it("T/U/V: late Studio save and conversation excluded, retained; reload recovers original intent", async () => {
+    const run = await setup("editorial", false), intent = await readyDocuments(run), content = structuredClone(run.revision.content);
+    content.title += " — suite tardive";
+    const later = (await run.owner.save(run.access2, { revisionId: run.revision.revisionId, expectedSaveSequence: run.revision.saveSequence, content })).revision;
+    const recovered = await run.intents.recoverActive(run.access2, later.revisionId);
+    expect(recovered!.frozen.workingRevisionSaveSequence).toBe(run.revision.saveSequence);
+    const finished = await run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    const body = (await run.archive.body(run.access2, finished.resolution.documentReceipt!.generation.generationId)).body;
+    expect(JSON.stringify(body.native)).not.toContain("suite tardive");
+    expect((await run.owner.get(run.access2, later.revisionId)).revision).toEqual(later);
+    expect(later.status).toBe("ACTIVE");
+  });
+  it("G/H: native scientific/mixed runtime invokes one preparation and resumes same intent after adoption", async () => {
+    for (const mixed of [false, true]) {
+      const run = await finalizationHarness("science", mixed);
+      const finished = await run.runtime.run(run.revision, () => undefined);
+      expect(finished!.state).toBe("CLOSED"); expect(finished!.finalizationIntentId).toBe(run.intent.finalizationIntentId);
+      expect(run.preparePort).toHaveBeenCalledTimes(1); expect(run.adopted).toHaveBeenCalledTimes(1); expect(run.generate).toHaveBeenCalledTimes(1);
+      expect(run.session().project!.revision).toBe(3);
+      expect(finished!.resolution.documentReceipt!.generation.project.projectDigest).toBe(run.session().project!.projectDigest);
+      expect(finished!.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+      expect(run.session().runtimeTurns.filter(turn => turn.role === "USER")).toHaveLength(mixed ? 1 : 0);
+    }
+  });
+  it("E: owner-proven already adopted science finalizes without WD", async () => {
+    const run = await setup("already-adopted"), request = run.frozen.scientificSources.request;
+    const object = request.currentProject.objects.find(o => o.content === "étude multicentrique")!;
+    const result = acceptStudioAssessment(request, run.project2, { ...assessment(run, "PROJECT_CHANGE").nativePayload,
+      edits: request.delta.filter(e => e.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef,
+        classification: "PROJECT_CHANGE", reason: "Complete adopted meaning", provenanceRefs: [edit.editRef],
+        projectCoverage: { coverage: "COMPLETE", projectVersionRefs: [object.versionRef] }, ambiguity: null })) }, NOW);
+    let intent = await run.intents.assess(run.access2, run.intent.finalizationIntentId, run.intent.sequence, result);
+    intent = await run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource(run));
+    const finished = await run.intents.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    expect(finished.resolution.preparation).toBeNull(); expect(finished.resolution.documentReceipt!.generation.project).toEqual(run.g2.ref.project);
+  });
+  it("Q: PRJ adoption survives DOC failure; same intent recoverable, documents stale", async () => {
+    const run = await finalizationHarness("science"); run.fixture.failMetadataCommit(true);
+    await expect(run.runtime.run(run.revision, () => undefined)).rejects.toThrow();
+    expect(run.session().project!.revision).toBe(3);
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries[0].project.projectDigest).not.toBe(run.session().project!.projectDigest);
+    const intent = await run.intents.get(run.access2, run.intent.finalizationIntentId);
+    expect(intent.resolution.resolvedProject!.projectDigest).toBe(run.session().project!.projectDigest);
+    expect(intent.state).not.toBe("CLOSED"); expect((await run.owner.get(run.access2, run.revision.revisionId)).revision.status).toBe("ACTIVE");
+  });
+  it("J: material ambiguity remains non-adopting and creates no version", async () => {
+    const run = await setup("science"), intent = await assessed(run, "AMBIGUOUS");
+    await expect(run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource(run))).rejects.toThrow();
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(r => r.displayVersion)).toEqual([2, 1]);
+    expect((await run.owner.get(run.access2, run.revision.revisionId)).revision.status).toBe("ACTIVE");
+  });
+  it("wrong resolved Project or projection is refused before any documentary dispatch", async () => {
+    const run = await setup(), intent = await assessed(run), source = documentSource(run);
+    await expect(run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence,
+      { ...source, handoffDecision: { ...source.handoffDecision, timestamp: "2026-10-08T20:00:00.000Z" } })).rejects.toThrow("STUDIO_DOCUMENT_SOURCE_INVALID");
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(r => r.displayVersion)).toEqual([2, 1]);
   });
 });

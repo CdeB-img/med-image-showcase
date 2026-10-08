@@ -157,7 +157,7 @@ const generate = (name = "Générer la version") => fireEvent.click(screen.getBy
 describe("Standard single-action two-version scientific flow", () => {
   it("creates V2/G2 through the unique proposed a69/a08/a05 closure, with no false clarification and immutable G1", async () => {
     const h = setup(); send(dependencyInitial); await screen.findByText(semantic(dependencyInitial).reply);
-    generate(); await screen.findByText("G1 — basée sur le projet V1");
+    generate(); await screen.findByText("Version 1");
     const v1 = JSON.stringify(h.state().project), client = offlineArchiveClient(h.state().sessionId, h.state().project!);
     const g1 = (await client.history()).entries[0], body1 = JSON.stringify((await client.body(g1.generationId)).body);
     fireEvent.click(screen.getByRole("button", { name: "Conception" })); send(dependencyRevision);
@@ -166,7 +166,7 @@ describe("Standard single-action two-version scientific flow", () => {
     generate("Générer une nouvelle version");
     await waitFor(() => expect(h.state().project?.revision, JSON.stringify({ failure: String(h.failure()),
       preparations: h.state().workingDraftPreparations?.map(p => ({ status: p.status, code: p.code })) })).toBe(2));
-    await screen.findByText("G2 — basée sur le projet V2");
+    await screen.findByText("Version 2");
     expect(h.state().project?.revision, String(h.failure())).toBe(2);
     expect(screen.queryByText(/Quel choix souhaitez-vous retenir/u)).toBeNull();
     const latest = h.state().workingDraftPreparations!.at(-1)!;
@@ -185,7 +185,7 @@ describe("Standard single-action two-version scientific flow", () => {
     const h = setup(); expectNoInternals(); send(initial); await screen.findByText(semantic(initial).reply);
     expect(h.requests).toHaveLength(1); expect(h.state().project).toBeNull();
     generate(); generate();
-    await screen.findByText("G1 — basée sur le projet V1"); expectNoInternals();
+    await screen.findByText("Version 1"); expectNoInternals();
     expect(h.state().project?.revision, String(h.failure())).toBe(1);
     const v1 = JSON.stringify(h.state().project), client = offlineArchiveClient(h.state().sessionId, h.state().project!);
     const g1 = (await client.history()).entries[0], body1 = JSON.stringify((await client.body(g1.generationId)).body);
@@ -193,7 +193,7 @@ describe("Standard single-action two-version scientific flow", () => {
     fireEvent.click(screen.getByRole("button", { name: "Conception" })); send(revision); await screen.findByText(semantic(revision).reply);
     expect(JSON.stringify(h.state().project)).toBe(v1); expectNoInternals();
     generate("Générer une nouvelle version");
-    await screen.findByText("G2 — basée sur le projet V2"); expect(h.state().project?.revision, String(h.failure())).toBe(2);
+    await screen.findByText("Version 2"); expect(h.state().project?.revision, String(h.failure())).toBe(2);
     const snapshot = buildProjectContextSnapshot({ project: h.state().project! });
     expect(snapshot.objects.some(o => o.content === "Biopsie cardiaque")).toBe(true);
     expect(snapshot.objects.some(o => o.content === "IRM cardiaque")).toBe(false);
@@ -216,8 +216,8 @@ describe("Standard single-action two-version scientific flow", () => {
     const frozen = loadFunctionalResetSession(localStorage); expect(frozen.project?.projectDigest).toBe(h.state().project?.projectDigest);
     h.view.unmount(); const reload = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={frozen} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G2 — basée sur le projet V2");
-    expect(screen.getByText("G1 — basée sur le projet V1")).toBeInTheDocument();
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 2");
+    expect(screen.getByText("Version 1")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Documents à jour" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Conception" })); send("Quelles limites restent à discuter ?");
     await screen.findByText(semantic("Quelles limites restent à discuter ?").reply);
@@ -235,18 +235,18 @@ describe("Standard single-action two-version scientific flow", () => {
     await waitFor(() => expect(h.requests.filter(r => r.documentDraftRequest)).toHaveLength(1));
     expect(buildProjectContextSnapshot({ project: h.state().project! }).objects.some(o => o.content === "IRM cardiaque")).toBe(true);
     expect(h.requests.find(r => r.documentDraftRequest)!.conversation.turns.some(t => t.content === revision)).toBe(false);
-    await act(async () => documents.release()); await screen.findByText("G1 — basée sur le projet V1");
+    await act(async () => documents.release()); await screen.findByText("Version 1");
     expect(JSON.stringify(h.state().workingDraftPreparations![0].checkpoint)).toBe(checkpoint);
     expect(projectPreparationProgress(h.state()).latestPendingScientificTurnRef).not.toBeNull();
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer une nouvelle version" })).toBeEnabled());
-    generate("Générer une nouvelle version"); await screen.findByText("G2 — basée sur le projet V2");
+    generate("Générer une nouvelle version"); await screen.findByText("Version 2");
   });
   it("reuses the prepared/adopted checkpoint after a genuine DOC failure without a false Project version", async () => {
     const h = setup(undefined, true); send(initial); await screen.findByText(semantic(initial).reply); generate();
     await waitFor(() => expect(h.state().documents.lastFailure).not.toBeNull());
     expect(h.state().project?.revision).toBe(1); expect(h.requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1);
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer la version" })).toBeEnabled()); generate();
-    await screen.findByText("G1 — basée sur le projet V1"); expect(h.state().project?.revision).toBe(1);
+    await screen.findByText("Version 1"); expect(h.state().project?.revision).toBe(1);
     expect(h.requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1);
     expect((await offlineArchiveClient(h.state().sessionId, h.state().project!).history()).entries).toHaveLength(1);
   });
@@ -275,12 +275,12 @@ describe("Standard single-action two-version scientific flow", () => {
     expect(JSON.stringify(h.state().project)).toBe(v1); expect(h.state().workingDraftPreparations![0].decision).toBe("ADOPTED");
     expect(h.state().runtimeTurns.some(t => t.content === "Générer la version")).toBe(true);
     expect(h.state().scientificDiscussionRetention?.sourceCoverage.filter(s => s.classificationOwner === "RESEARCH_PROJECT").length).toBeGreaterThan(0);
-    await act(async () => documents.release()); await screen.findByText("G1 — basée sur le projet V1");
+    await act(async () => documents.release()); await screen.findByText("Version 1");
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer une nouvelle version" })).toBeEnabled());
     generate("Générer une nouvelle version");
     await waitFor(() => expect(h.state().project?.revision, JSON.stringify({ failure: String(h.failure()),
       preparations: h.state().workingDraftPreparations?.map(p => ({ status: p.status, code: p.code })) })).toBe(2));
-    await screen.findByText("G2 — basée sur le projet V2");
+    await screen.findByText("Version 2");
   });
   it("retries only on a new explicit click after terminal preparation failure, preserving the failed checkpoint", async () => {
     const h = setup({ failPreparationOnce: true }); send(initial); await screen.findByText(semantic(initial).reply); generate();
@@ -288,7 +288,7 @@ describe("Standard single-action two-version scientific flow", () => {
     expect(h.state().project).toBeNull(); expect(h.requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1);
     const failed = JSON.stringify(h.state().workingDraftPreparations![0]);
     await waitFor(() => expect(screen.getByRole("button", { name: "Générer la version" })).toBeEnabled()); generate();
-    await screen.findByText("G1 — basée sur le projet V1"); expect(h.state().project?.revision).toBe(1);
+    await screen.findByText("Version 1"); expect(h.state().project?.revision).toBe(1);
     expect(JSON.stringify(h.state().workingDraftPreparations![0])).toBe(failed);
     expect(h.requests.filter(r => r.prepareWorkingDraft)).toHaveLength(2); expect(h.requests.filter(r => r.documentDraftRequest)).toHaveLength(1);
   });

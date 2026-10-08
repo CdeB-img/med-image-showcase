@@ -229,7 +229,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1); // no eager preparation
     await act(async () => releaseDocuments());
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-    await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("G1 — basée sur le projet V1"));
+    await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("Version 1"));
     const client1 = offlineArchiveClient(saved.sessionId, saved.project!);
     const g1 = (await client1.history()).entries[0];
     const g1Body = JSON.stringify((await client1.body(g1.generationId)).body);
@@ -247,7 +247,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(requests.filter(r => r.documentDraftRequest)).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-    await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("G2 — basée sur le projet V2"));
+    await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("Version 2"));
     const client2 = offlineArchiveClient(saved.sessionId, saved.project!);
     expect((await client2.history()).entries.map(g => g.displayVersion)).toEqual([2, 1]);
     expect(JSON.stringify((await client2.body(g1.generationId)).body)).toBe(g1Body);
@@ -354,7 +354,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
       fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
       // Ten rapid clicks still represent one explicit command.
       for (let click = 0; click < 10; click++) fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-      await waitFor(() => expect(within(screen.getByTestId("durable-document-history")).queryByText(`G${step + 1} — basée sur le projet V${step + 1}`), String(boundaryFailure)).not.toBeNull());
+      await waitFor(() => expect(within(screen.getByTestId("durable-document-history")).queryByText(`Version ${step + 1}`), String(boundaryFailure)).not.toBeNull());
       expect(dispatches.doc).toBe(step + 1);
       expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
       fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));

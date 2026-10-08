@@ -23,7 +23,7 @@ export const workingRevisionSchema = z.object({
   saveSequence: z.number().int().positive().safe(), status: z.enum(["ACTIVE", "ABANDONED"]),
   createdAt: z.string().datetime(), updatedAt: z.string().datetime(),
   provenance: z.object({ origin: z.literal("ARCHIVED_NATIVE_DOCUMENT"), sessionRef: ref,
-    lastAction: z.enum(["CREATE", "USER_TEXT_EDIT", "USER_ABANDON"]), semanticImpact: z.literal("UNASSESSED") }).strict(),
+    lastAction: z.enum(["CREATE", "USER_TEXT_EDIT", "USER_ABANDON", "FINALIZE"]), finalizationRef: ref.optional(), semanticImpact: z.literal("UNASSESSED") }).strict(),
   boundary: z.literal("NOT_PROJECT_TRUTH_NOT_GENERATED_DOCUMENT"),
 }).strict();
 export type DocumentWorkingRevision = {
@@ -33,7 +33,7 @@ export type DocumentWorkingRevision = {
   project: { projectId: string; projectVersion: string; projectDigest: string };
   content: EditableDocumentContent; contentDigest: string; saveSequence: number; status: "ACTIVE" | "ABANDONED";
   createdAt: string; updatedAt: string; provenance: { origin: "ARCHIVED_NATIVE_DOCUMENT"; sessionRef: string;
-    lastAction: "CREATE" | "USER_TEXT_EDIT" | "USER_ABANDON"; semanticImpact: "UNASSESSED" };
+    lastAction: "CREATE" | "USER_TEXT_EDIT" | "USER_ABANDON" | "FINALIZE"; finalizationRef?: string; semanticImpact: "UNASSESSED" };
   boundary: "NOT_PROJECT_TRUTH_NOT_GENERATED_DOCUMENT";
 };
 export const workingRevisionResultSchema = z.object({ revision: workingRevisionSchema,
@@ -53,6 +53,19 @@ export const assertWorkingRevision = (value: unknown): DocumentWorkingRevision =
 };
 
 type ArchivedSource = { ref: DocumentGenerationRef; body: DocumentGenerationBody };
+/** Shared native adapter for archived bodies and validated, not-yet-committed packs. */
+export const editableDrciDocumentContent = (logicalDocumentRef: string, document: import("./drci-draft-contract.js").DrciDraftPack["documents"][number]): EditableDocumentContent => ({
+  title: document.title, sections: document.sections.map((section, index) => ({
+    nodeId: `document-section:${logicalDigest([logicalDocumentRef, index])}`, nativeAnchor: `documents/${document.kind}/sections/${index}`,
+    title: section.title, provenanceRefs: [...section.sourceRefs], blocks: section.paragraphs.map((text, paragraphIndex) => {
+      const anchor = `documents/${document.kind}/sections/${index}/paragraphs/${paragraphIndex}`;
+      return { nodeId: `document-text:${logicalDigest([logicalDocumentRef, anchor])}`, nativeAnchor: anchor, text,
+        nativeDigest: logicalDigest(text), provenanceRefs: [...section.sourceRefs],
+        factRefs: [...text.matchAll(/\[\[FACT:([^\]]+)\]\]/gu)].map(match => match[1]),
+        citationRefs: [...text.matchAll(/\[\[CITE:([^\]]+)\]\]/gu)].map(match => match[1]) };
+    }),
+  })),
+});
 /** Native adapters only. The open string is a selector of an existing document,
  * not an ontology/portfolio registry or a filename-derived identity. */
 export const editableArchivedDocument = (source: ArchivedSource, nativeDocumentRef: string, projectionSource?: ArchivedSource) => {
@@ -84,12 +97,7 @@ export const editableArchivedDocument = (source: ArchivedSource, nativeDocumentR
   if (native.family === "DRCI") {
     const document = native.value.documents.find(item => item.kind === nativeDocumentRef);
     if (!document) throw new DocumentWorkingRevisionError("DOC_REVISION_DOCUMENT_NOT_FOUND", 404);
-    content = { title: document.title, sections: document.sections.map((section, index) => ({
-      nodeId: `document-section:${logicalDigest([logicalDocumentRef, index])}`, nativeAnchor: `documents/${nativeDocumentRef}/sections/${index}`,
-      title: section.title, provenanceRefs: [...section.sourceRefs],
-      blocks: section.paragraphs.map((paragraph, paragraphIndex) => block(paragraph,
-        `documents/${nativeDocumentRef}/sections/${index}/paragraphs/${paragraphIndex}`, section.sourceRefs)),
-    })) };
+    content = editableDrciDocumentContent(logicalDocumentRef, document);
   } else {
     if (nativeDocumentRef !== (projection.documentDefinition?.documentId ?? projection.projectionType))
       throw new DocumentWorkingRevisionError("DOC_REVISION_DOCUMENT_NOT_FOUND", 404);

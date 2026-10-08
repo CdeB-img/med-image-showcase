@@ -983,6 +983,8 @@ export type ProductBridgeRequest = {
   workingDraftHistory?: import("./functional-reset/continuous-project-build.js").WorkingDraftMetadata["history"];
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
   documentDraftRequest?: import("../document-projection/drci-draft-contract.js").DrciDraftSource;
+  /** DOC-owned native finalization, verified against the durable frozen intent. */
+  documentFinalizationIntentId?: string;
   /** Server-only: native text proposals remain distinct from the user assent. */
   nativeConversationRecording?: boolean;
   preProjectNavigation?: ProductBridgePreProjectNavigation;
@@ -1912,7 +1914,9 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || typeof record.conversation.conversationId !== "string"
     || !["fr", "en"].includes(record.conversation.language)
     || !Array.isArray(record.conversation.turns)
-    || (!record.conversation.turns.length && !record.studioPreparationSource)
+    || (record.documentFinalizationIntentId !== undefined && (!record.documentDraftRequest
+      || typeof record.documentFinalizationIntentId !== "string" || !/^studio-finalization-intent:ke1-[a-f0-9]{16}$/u.test(record.documentFinalizationIntentId)))
+    || (!record.conversation.turns.length && !record.studioPreparationSource && !record.documentFinalizationIntentId)
     || !record.conversation.turns.every((turn) => turn && typeof turn.turnId === "string"
       && ["USER", "NOXIA"].includes(turn.role)
       && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= (turn.role === "USER" ? 4_000 : 64_000))) return null;

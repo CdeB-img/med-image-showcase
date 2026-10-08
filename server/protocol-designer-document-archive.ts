@@ -244,7 +244,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
     sql, sha256: docSha256, authorize, readSource: archive.body, maxBodyBytes: capacity.maxBodyBytesPerGeneration,
   });
   return { ...archive, workingRevisions, finalizationIntents: createStudioFinalizationIntents({
-    sql, sha256: docSha256, authorize, revisions: workingRevisions, body: archive.body,
+    sql, sha256: docSha256, authorize, revisions: workingRevisions, body: archive.body, archive,
     maxBodyBytes: capacity.maxBodyBytesPerGeneration,
     readProject: async access => await snapshots.resolve(access.identity, access.project, access.proof) as unknown as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection,
   }) };

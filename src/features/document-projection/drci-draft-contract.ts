@@ -255,7 +255,7 @@ export type DrciDraftPack = Readonly<{
 
 /** Extends the existing DOC revision provenance to native packs; never a Project change. */
 export type DrciHumanRevisionEntry = {
-  document: typeof DRCI_DOCUMENT_KINDS[number]; field: "PARAGRAPH" | "MISSING_ELEMENT"; sectionIndex: number | null;
+  document: typeof DRCI_DOCUMENT_KINDS[number]; field: "PARAGRAPH" | "MISSING_ELEMENT" | "TITLE" | "SECTION_HEADING"; sectionIndex: number | null;
   section: string; index: number; originalText: string | null; revisedText: string | null;
   originalDigest: string; revisedDigest: string; revisionOrigin: "HUMAN_REVIEW"; reason: string;
   projectBinding: DrciProjectBinding; documentPackBinding: string;
@@ -273,6 +273,16 @@ export const applyDrciHumanRevisionEntries = (parent: DrciDraftPack, entries: re
   for (const entry of entries) {
     const doc = value.documents.find(doc => doc.kind === entry.document);
     const section = entry.sectionIndex === null ? null : doc?.sections[entry.sectionIndex];
+    if (entry.field === "TITLE" || entry.field === "SECTION_HEADING") {
+      const original = entry.field === "TITLE" ? doc?.title : section?.title;
+      if (!doc || original === undefined || entry.originalText !== original || entry.revisedText === null
+        || entry.originalDigest !== logicalDigest(original) || entry.revisedDigest !== logicalDigest(entry.revisedText)
+        || entry.revisionOrigin !== "HUMAN_REVIEW" || !entry.reason.trim()
+        || logicalDigest(entry.projectBinding) !== logicalDigest(parent.project) || entry.documentPackBinding !== parent.packDigest)
+        throw new Error("DRCI_HUMAN_REVISION_ANCHOR_INVALID");
+      if (entry.field === "TITLE") doc.title = entry.revisedText; else section!.title = entry.revisedText;
+      continue;
+    }
     const list = entry.field === "MISSING_ELEMENT" ? doc?.missingElements : section?.paragraphs;
     if (!doc || !list || entry.section !== (section?.title ?? "missingElements") || !Number.isInteger(entry.index)
       || entry.index < 0 || entry.index > list.length || entry.originalText !== (list[entry.index] ?? null)

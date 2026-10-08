@@ -1483,7 +1483,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(bridge).not.toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
-    await screen.findByText(/G1 — basée sur le projet V1/);
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
     expect(bridge).toHaveBeenCalledTimes(1);
     expect(saved.project?.revision).toBe(1);
     // SUPERSEDED_CONTRACT: full packs are no longer local session history.
@@ -1494,7 +1494,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(g1.displayVersion).toBe(1);
     expect(g1.project).toEqual({ projectId: saved.project!.projectId, projectVersion: saved.project!.versionId, projectDigest: saved.project!.projectDigest });
     const frozenG1 = JSON.stringify((await client.body(g1.generationId)).body);
-    await waitFor(() => expect(screen.getByTestId(`archived-generation-${g1.ordinal}`)).toHaveTextContent("G1 — basée sur le projet V1"));
+    await waitFor(() => expect(screen.getByTestId(`archived-generation-${g1.ordinal}`)).toHaveTextContent("Version 1"));
     if (saveDocuments === "saved") { expect(saved.drciDraftPacks).toEqual([]); expect(saved.documents.projections).toEqual([]); }
     if (saveDocuments !== "saved") expect(screen.getByRole("alert")).toHaveTextContent("lien local non enregistré");
     if (saveDocuments === "saved") {
@@ -1541,7 +1541,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await offlineArchiveClient(saved.sessionId, saved.project!).history()).entries).toEqual([]);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
     // CURRENT_STRUCTURAL_INVARIANT: the archived technical projection is
     // available in diagnostics, never exposed as a Standard generation.
     fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
@@ -1571,10 +1571,10 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await client.history()).entries).toEqual([g1]);
     expect(g1.project.projectVersion).toContain(":version:1");
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G1 — basée sur le projet V1");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
     expect(within(screen.getByTestId(`archived-generation-${g1.ordinal}`)).getByText(/Historique/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G2 — basée sur le projet V2");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 2");
     const projectV2Owner = saved.project!, projectV2 = JSON.stringify(projectV2Owner);
     expect(screen.getByRole("button", { name: "Générer les documents" })).toBeDisabled();
     view.unmount();
@@ -1593,7 +1593,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     client = offlineArchiveClient(saved.sessionId, saved.project!);
     fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V3");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 3");
     const generations = (await client.history()).entries;
     expect(generations.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
     expect(generations.every(ref => ref.family === "DRCI")).toBe(true);
@@ -1614,7 +1614,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect((await store.history(access)).entries).toHaveLength(6); // Three technical + three real generations.
     const queryCount = fixture.queries.length;
     view = mount(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
-    await within(screen.getByTestId("durable-document-history")).findByText("G3 — basée sur le projet V3");
+    await within(screen.getByTestId("durable-document-history")).findByText("Version 3");
     expect(fixture.queries.slice(queryCount).join(" ")).not.toContain("doc_generation_body");
     expect(bridge).toHaveBeenCalledTimes(3);
     expect((await client.history()).entries).toEqual(generations);

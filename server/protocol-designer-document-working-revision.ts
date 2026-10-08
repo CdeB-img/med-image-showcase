@@ -18,6 +18,8 @@ export type DocumentWorkingRevisionStore = Readonly<{
   getSave(access: DocumentArchiveAccess, input: { revisionId: string; saveSequence: number; contentDigest: string }): Promise<DocumentWorkingRevisionResult>;
   save(access: DocumentArchiveAccess, input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   abandon(access: DocumentArchiveAccess, input: AbandonWorkingRevision): Promise<DocumentWorkingRevisionResult>;
+  /** DOC-internal, after proven commit. Later saves are never consumed. */
+  finalizeSave(access: DocumentArchiveAccess, input: AbandonWorkingRevision, finalizationRef: string): Promise<DocumentWorkingRevisionResult>;
 }>;
 type Ports = {
   sql: Sql; sha256(text: string): string; maxBodyBytes: number;
@@ -99,7 +101,7 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       return callback(tx as unknown as Sql, sessionKey);
     });
   };
-  const modify = async (access: DocumentArchiveAccess, input: AbandonWorkingRevision | SaveWorkingRevision, abandon: boolean) => {
+  const modify = async (access: DocumentArchiveAccess, input: AbandonWorkingRevision | SaveWorkingRevision, abandon: boolean, finalizationRef?: string) => {
     request(input.revisionId, input.expectedSaveSequence);
     // Verify the immutable base outside the write transaction: the archive's
     // existing reader uses the shared pool, never a nested connection under lock.
@@ -110,7 +112,10 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     const revision = await locked(access, input.revisionId, async (db, sessionKey) => {
       const current = await load(db, sessionKey, access.project.projectId, input.revisionId);
       if (!current) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
-      if (current.saveSequence !== input.expectedSaveSequence) throw new DocumentWorkingRevisionError("DOC_REVISION_SAVE_CONFLICT", 409);
+      if (current.saveSequence !== input.expectedSaveSequence) {
+        if (finalizationRef) return current;
+        throw new DocumentWorkingRevisionError("DOC_REVISION_SAVE_CONFLICT", 409);
+      }
       if (stableStringify(current) !== stableStringify(observed)) throw new DocumentWorkingRevisionError("DOC_REVISION_SAVE_CONFLICT", 409);
       if (current.status === "ABANDONED") {
         if (abandon) return current;
@@ -121,7 +126,8 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       if (!abandon && contentDigest === current.contentDigest && stableStringify(content) === stableStringify(current.content)) return current;
       const next: DocumentWorkingRevision = { ...current, content, contentDigest, saveSequence: current.saveSequence + 1,
         status: abandon ? "ABANDONED" : "ACTIVE", updatedAt: new Date().toISOString(),
-        provenance: { ...current.provenance, lastAction: abandon ? "USER_ABANDON" : "USER_TEXT_EDIT" } };
+        provenance: { ...current.provenance, lastAction: finalizationRef ? "FINALIZE" : abandon ? "USER_ABANDON" : "USER_TEXT_EDIT",
+          ...(finalizationRef ? { finalizationRef } : {}) } };
       await insert(db, sessionKey, next);
       return next;
     });
@@ -204,5 +210,9 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     },
     save: (access, input) => modify(access, input, false),
     abandon: (access, input) => modify(access, input, true),
+    finalizeSave: (access, input, finalizationRef) => {
+      if (!/^studio-finalization-intent:ke1-[a-f0-9]{16}$/u.test(finalizationRef)) throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+      return modify(access, input, true, finalizationRef);
+    },
   };
 };

@@ -16,8 +16,9 @@ const nativeStudioRequest = async (sessionId: string, project: ResearchProjectOw
   return value;
 };
 export const requestStudioScientificAssessment = async (sessionId: string, project: ResearchProjectOwnerProjection,
-  request: StudioReconciliationRequest): Promise<StudioScientificAssessment> => {
+  request: StudioReconciliationRequest, finalizationIntentId?: string): Promise<StudioScientificAssessment> => {
   const value = await nativeStudioRequest(sessionId, project, { operation: "STUDIO_SCIENTIFIC_ASSESSMENT", studioRequest: request,
+    ...(finalizationIntentId ? { finalizationIntentId } : {}),
     observabilityContext: { sessionId, conversationId: null, turnId: null,
       clientRequestId: `studio-assessment:${request.requestDigest}`, testSessionId: null } });
   requireStudioScientificAssessment(request, value.studioAssessment);

@@ -14,12 +14,14 @@ import ProtocolPreview from "./ProtocolPreview";
 import type { DocumentProjection } from "@/features/document-projection";
 import DocumentStudio from "@/features/document-projection/DocumentStudio";
 import type { DocumentStudioTarget } from "@/features/document-projection/studio-document";
+import type { StudioFinalizationRuntime } from "./studio-finalization-runtime";
 
 type Props = {
   portfolio: Readonly<StudyDeliverablePortfolio>;
   onClose: () => void;
   saveWarning?: string | null;
   archiveClient?: DocumentArchiveClient;
+  studioFinalization?: StudioFinalizationRuntime;
   currentGenerationId?: string | null;
   archiveOnly?: boolean;
   onArchivedFileDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
@@ -36,7 +38,7 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
@@ -66,7 +68,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
   };
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
   if (studioTarget && archiveClient) return <DocumentStudio key={`${studioTarget.generation.generationId}:${studioTarget.nativeDocumentRef}`}
-    client={archiveClient} target={studioTarget} onClose={() => setStudioTarget(null)} />;
+    client={archiveClient} target={studioTarget} finalization={studioFinalization} onClose={() => setStudioTarget(null)} />;
   if (diagnosticProjectionId && selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <section>
     <p className="mb-2 text-xs text-muted-foreground">Diagnostic interne · projection technique, pas une génération documentaire.</p><ProtocolPreview
     projection={selectedBody.native.value}

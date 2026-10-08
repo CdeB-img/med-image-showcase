@@ -37,6 +37,16 @@ export const archiveSqlFixture = () => {
       .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2] && r.save_sequence === v[3]
         && JSON.parse(String(r.record_text)).frozen.workingRevisionContentDigest === v[4]).map(r => String(r.intent_id)))]
       .slice(0, 2).map(intent_id => ({ intent_id }));
+    if (query.startsWith("select intent_id from (")) {
+      const latest = new Map<string, Record<string, unknown>>();
+      for (const row of intents.filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && (query.includes("baseGenerationId")
+        ? JSON.parse(String(r.record_text)).frozen.baseGenerationId === v[2] && JSON.parse(String(r.record_text)).frozen.logicalDocumentRef === v[3]
+        : r.revision_id === v[2]))) {
+        const previous = latest.get(String(row.intent_id));
+        if (!previous || Number(row.sequence) > Number(previous.sequence)) latest.set(String(row.intent_id), row);
+      }
+      return [...latest.values()].filter(row => JSON.parse(String(row.record_text)).state !== "CLOSED").slice(0, 2).map(row => ({ intent_id: row.intent_id }));
+    }
     if (query.startsWith("select record_text, record_sha256 from noxia_durable.doc_studio_finalization_intent")) return intents
       .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.intent_id === v[2])
       .sort((a, b) => Number(b.sequence) - Number(a.sequence)).slice(0, 1).map(r => structuredClone(r));

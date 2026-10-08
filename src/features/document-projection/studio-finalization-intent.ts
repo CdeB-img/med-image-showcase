@@ -35,6 +35,12 @@ export type StudioFinalizationIntent = Readonly<{
     | "WAITING_FOR_HUMAN_DECISION" | "READY_FOR_DOCUMENT_FINALIZATION" | "BLOCKED" | "CLOSED";
   sequence: number; createdAt: string; updatedAt: string;
   resolution: Readonly<{
+    documentSource?: import("./drci-draft-contract.js").DrciDraftSource;
+    documentReceipt?: import("./generation-persistence.js").DocumentPersistenceReceipt;
+    documentNoChange?: boolean;
+    /** Explicit retries change correlation only; frozen authorization/source and
+     * final archive identity remain the same operation. */
+    documentAttempt?: number;
     assessment: StudioScientificAssessment | null;
     sourceSet: ScientificPreparationSourceSet | null;
     preparation: WorkingDraftPreparation | null;
@@ -60,7 +66,8 @@ export const assertStudioIntent = (intent: StudioFinalizationIntent) => {
   if (!intent || intent.contract !== "STUDIO_FINALIZATION_INTENT_V1" || intent.owner !== "DOC"
     || intent.intentDigest !== logicalDigest(intent.frozen)
     || intent.finalizationIntentId !== `studio-finalization-intent:${intent.intentDigest}`
-    || !Number.isSafeInteger(intent.sequence) || intent.sequence < 1)
+    || !Number.isSafeInteger(intent.sequence) || intent.sequence < 1
+    || intent.resolution?.documentAttempt !== undefined && (!Number.isSafeInteger(intent.resolution.documentAttempt) || intent.resolution.documentAttempt < 1))
     fail("STUDIO_INTENT_INVALID");
   return intent;
 };
@@ -169,12 +176,13 @@ export const assertStudioIntentHumanDecision = (intent: StudioFinalizationIntent
 };
 export const resolveStudioIntentAdoption = (intent: StudioFinalizationIntent, project: ResearchProjectOwnerProjection,
   decision: StudioFinalizationHumanDecision, now: string) => {
-  if (intent.resolution.humanDecision) {
+  if (intent.resolution.adoptionReceipt) {
     if (!same(intent.resolution.humanDecision, decision) || !same(intent.resolution.resolvedProject, studioProjectBinding(project))
       || !same(intent.resolution.adoptionReceipt, project.confirmationDecision)) fail("STUDIO_INTENT_ADOPTION_BINDING_INVALID");
     return assertStudioIntent(intent);
   }
   assertStudioIntentHumanDecision(intent, decision);
+  if (intent.resolution.humanDecision && !same(intent.resolution.humanDecision, decision)) fail("STUDIO_INTENT_HUMAN_DECISION_INVALID");
   const receipt = project.confirmationDecision;
   if (project.projectId !== intent.frozen.sourceProject.projectId || project.previousVersionId !== intent.frozen.sourceProject.projectVersion
     || receipt.status !== "ADOPTED" || receipt.actor !== decision.actorRef
@@ -190,6 +198,7 @@ export const resolveStudioIntentAdoption = (intent: StudioFinalizationIntent, pr
 };
 export const resumeStudioIntent = (intent: StudioFinalizationIntent, currentProject: ResearchProjectOwnerProjection, now: string) => {
   assertStudioIntent(intent);
+  if (intent.state === "CLOSED") return intent;
   const expected = intent.resolution.resolvedProject ?? intent.frozen.sourceProject;
   if (same(expected, studioProjectBinding(currentProject))) return intent;
   const blocked = transitionStudioIntent(intent, "BLOCKED", { ...intent.resolution, reason: "STUDIO_INTENT_PROJECT_STALE" }, now);

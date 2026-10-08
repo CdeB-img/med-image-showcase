@@ -3,6 +3,7 @@ import { acceptStudioAssessment, prepareStudioAssessmentRequest, studioHasNoChan
   assertStudioScientificInput, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
 import { verifySavedStudioScientificSource } from "../server/protocol-designer-studio-scientific.js";
 import { logicalDigest as studioDigest } from "../src/features/knowledge-engine/canonical.js";
+import { studioDocumentRequestId, studioProviderRequestId, studioDocumentAdmissionMaterial } from "../src/features/document-projection/studio-finalization-document.js";
 import { executeDocumentArchiveOperation, documentArchiveAccess, sharedDocumentArchive } from "../server/protocol-designer-document-archive-http.js";
 import { DocumentArchiveError, docSha256, documentArchiveCapacity, type DocumentArchiveStore, type DocumentArchiveAccess } from "../server/protocol-designer-document-archive.js";
 import { freezeDocumentGeneration } from "../src/features/document-projection/generation-exports.js";
@@ -301,7 +302,7 @@ export const executeProtocolDesignerBridge = async (input: {
   const request = parseProductBridgeRequest(input.body);
   if (!request) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "Contrat du pont produit invalide." } } };
   const latestUser = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
-  if (!latestUser && !request.studioPreparationSource) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "USER_TURN_MISSING", message: "Message utilisateur manquant." } } };
+  if (!latestUser && !request.studioPreparationSource && !request.documentFinalizationIntentId) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "USER_TURN_MISSING", message: "Message utilisateur manquant." } } };
   if (latestUser && detectSensitiveData(latestUser.content).length) return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
   if (request.studioPreparationSource?.request.delta.some(edit => detectSensitiveData(edit.beforeText).length || detectSensitiveData(edit.afterText).length))
     return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED" } } };
@@ -1093,10 +1094,18 @@ export const handleProtocolDesignerBridge = async (
       const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
       const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
       if (!archive) throw new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
-      const requestId = context.clientRequestId;
-      const admitted = await archive.admit(access, { requestId, requestSha256: docSha256(JSON.stringify(body)),
-        family: "DRCI",
-        generatedAt: new Date(dependencies.now?.() ?? Date.now()).toISOString(),
+      const studioIntent = workingDraftRequest.documentFinalizationIntentId
+        ? await archive.finalizationIntents?.get(access, workingDraftRequest.documentFinalizationIntentId) : null;
+      if (workingDraftRequest.documentFinalizationIntentId && (!studioIntent || studioIntent.state !== "READY_FOR_DOCUMENT_FINALIZATION"
+        || studioDigest(studioIntent.resolution.resolvedProject) !== studioDigest({ projectId: project.projectId, projectVersion: project.versionId, projectDigest: project.projectDigest })
+        || studioDigest(studioIntent.resolution.documentSource) !== studioDigest(workingDraftRequest.documentDraftRequest)
+        || context.clientRequestId !== studioProviderRequestId(studioIntent) || workingDraftRequest.evaluatePersistentDelta
+        || workingDraftRequest.prepareWorkingDraft || workingDraftRequest.conversation.turns.length))
+        throw new DocumentArchiveError("STUDIO_DOCUMENT_SOURCE_INVALID", 403);
+      const requestId = studioIntent ? studioDocumentRequestId(studioIntent) : context.clientRequestId;
+      const admitted = await archive.admit(access, { requestId, requestSha256: docSha256(studioIntent ? studioDocumentAdmissionMaterial(studioIntent) : JSON.stringify(body)),
+        ...(studioIntent ? {} : { family: "DRCI" as const }),
+        generatedAt: studioIntent?.createdAt ?? new Date(dependencies.now?.() ?? Date.now()).toISOString(),
         reservedBytes: documentArchiveCapacity(environment).maxBodyBytesPerGeneration });
       doc = { archive, access, requestId, generatedAt: admitted.generatedAt };
       if (admitted.receipt) {
@@ -1117,6 +1126,14 @@ export const handleProtocolDesignerBridge = async (
   const archiveResult = async (result: { status: number; body: unknown }) => {
     const candidate = result.body as Partial<ProductBridgeResponse> | null;
     if (!doc || result.status !== 200 || !candidate?.documentDraftPack || !workingDraftRequest?.currentProject) return result;
+    if (workingDraftRequest.documentFinalizationIntentId) {
+      const intent = await doc.archive.finalizationIntents!.finalizeDocuments(doc.access, workingDraftRequest.documentFinalizationIntentId, candidate.documentDraftPack);
+      const receipt = intent.resolution.documentReceipt;
+      if (!receipt) throw new DocumentArchiveError("STUDIO_DOCUMENT_RECEIPT_INVALID", 503);
+      const saved = await doc.archive.body(doc.access, receipt.generation.generationId);
+      if (saved.body.native.family !== "DRCI") throw new DocumentArchiveError("STUDIO_DOCUMENT_PACK_REQUIRED", 503);
+      return { ...result, body: { ...candidate, documentDraftPack: saved.body.native.value, documentPersistenceReceipt: receipt } };
+    }
     const native = { family: "DRCI" as const, value: candidate.documentDraftPack };
     const frozen = await freezeDocumentGeneration({ native,
       artifacts: drciDraftPackArtifacts(native.value, workingDraftRequest.currentProject), sha256: docSha256,
@@ -1147,7 +1164,7 @@ export const handleProtocolDesignerBridge = async (
       } catch { return response.status(503).json({ error: { code: "DOC_ARCHIVE_PERSISTENCE_FAILED" } }); }
     }
     if ("code" in publicAdmission) {
-      if (doc) await doc.archive.reject(doc.access, doc.requestId);
+      if (doc && !workingDraftRequest?.documentFinalizationIntentId) await doc.archive.reject(doc.access, doc.requestId);
       return response.status(publicAdmission.status).json({
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
       error: { code: publicAdmission.code, message: publicAdmission.message },
@@ -1173,7 +1190,7 @@ export const handleProtocolDesignerBridge = async (
       providerAttemptPolicy: dependencies.providerAttemptPolicy,
     });
     let archived: { status: number; body: unknown };
-    if (doc && result.status !== 200 && !JSON.stringify(result.body).includes("UNKNOWN_AFTER_DISPATCH")) {
+    if (doc && !workingDraftRequest?.documentFinalizationIntentId && result.status !== 200 && !JSON.stringify(result.body).includes("UNKNOWN_AFTER_DISPATCH")) {
       await doc.archive.reject(doc.access, doc.requestId);
     }
     try { archived = await archiveResult(result); }

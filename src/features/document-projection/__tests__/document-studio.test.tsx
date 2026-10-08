@@ -9,6 +9,12 @@ import * as bridge from "../../protocol-designer/product-bridge-client";
 import { executeDocumentArchiveOperation } from "../../../../server/protocol-designer-document-archive-http";
 import type { DocumentWorkingRevisionResult } from "../working-revision";
 import { hasProtectedTextBinding, studioBoundText } from "../studio-document";
+import type { StudioFinalizationRuntime } from "../../protocol-designer/functional-reset/studio-finalization-runtime";
+import { createFunctionalResetSession } from "../../protocol-designer/functional-reset/session";
+import { freezeStudioFinalizationWork } from "../../protocol-designer/functional-reset/studio-finalization-lifecycle";
+import { acceptStudioAssessment } from "../../scientific-thinking/studio-runtime";
+import { prepareDrciDraftSource } from "../drci-draft-contract";
+import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 /** SYNTHETIC_CURRENT_CONTRACT: actual PRJ/DOC owners and scientific native
@@ -28,7 +34,7 @@ const runtime = async () => {
   const client = createDocumentArchiveClient(run.sessionId, run.project2);
   const target = { generation: run.g2.ref, nativeDocumentRef: "PROTOCOL_FULL" };
   const close = vi.fn();
-  const open = () => render(<DocumentStudio client={client} target={target} onClose={close} />);
+  const open = (finalization?: StudioFinalizationRuntime) => render(<DocumentStudio client={client} target={target} finalization={finalization} onClose={close} />);
   const ready = () => screen.findByRole("textbox", { name: "Section 1 · paragraphe 1" });
   const revision = () => run.fixture.revisions().at(-1)!.revision as DocumentWorkingRevisionResult["revision"];
   return { ...run, client, target, transport, close, open, ready, revision };
@@ -40,6 +46,114 @@ const save = async () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("P/V: reload after archive commit and lost intent acknowledgement resolves consumed historical save, not a new draft", async () => {
+    const run = await runtime(), source = await run.client.body(run.g2.ref.generationId);
+    let { revision } = await run.client.workingRevisions!.open({ baseGenerationId: run.g2.ref.generationId,
+      baseGenerationBodyDigest: run.g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
+    revision = (await run.client.workingRevisions!.save({ revisionId: revision.revisionId, expectedSaveSequence: revision.saveSequence,
+      content: { ...revision.content, title: revision.content.title + " — rédaction confirmée" } })).revision;
+    const session = { ...createFunctionalResetSession("2026-10-08T18:00:00.000Z"), sessionId: run.sessionId,
+      projectId: run.project2.projectId, project: run.project2 };
+    const frozen = await freezeStudioFinalizationWork({ session, revision, source,
+      projectionSource: await run.client.body(run.g2.projection.projectionId) });
+    const owner = run.archive.finalizationIntents!; let intent = await owner.create(run.access2, frozen);
+    const request = frozen.scientificSources.request;
+    intent = await owner.assess(run.access2, intent.finalizationIntentId, intent.sequence, acceptStudioAssessment(request, run.project2, {
+      requestDigest: request.requestDigest, scientificStateDisposition: "NO_NET_CHANGE", scientificStateReason: "Controlled fixture",
+      scientificStateAmbiguity: null, edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({
+        editRef: edit.editRef, classification: "DOCUMENT_ONLY", reason: "Controlled fixture", provenanceRefs: [edit.editRef],
+        projectCoverage: null, ambiguity: null })) }, session.updatedAt));
+    intent = await owner.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, prepareDrciDraftSource({
+      handoffDecision: run.g2.projection.humanDecisions.find(decision => decision.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")!,
+      protocolProjection: run.g2.projection, crf: buildCanonicalCrfPackage(run.project2) }));
+    run.fixture.failIntentSave(true);
+    await expect(owner.finalizeDocuments(run.access2, intent.finalizationIntentId)).rejects.toThrow();
+    expect(run.revision().status).toBe("ABANDONED"); run.fixture.failIntentSave(false);
+    const saveCount = run.fixture.revisions().length;
+    const execute = vi.fn<StudioFinalizationRuntime["run"]>(async (saved, _stage, resumeOnly) => {
+      expect(resumeOnly).toBe(true); expect(saved).toEqual(revision);
+      return owner.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    });
+    run.open({ run: execute }); await screen.findByText("✓ Version 3 créée");
+    expect(execute).toHaveBeenCalledOnce();
+    expect(run.fixture.revisions()).toHaveLength(saveCount);
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+  });
+  it("next version D/M/R: UI dirty save → real native archive V3 → positive commit feedback, no G4 on repeated click", async () => {
+    const run = await runtime();
+    const now = "2026-10-08T18:00:00.000Z", fresh = createFunctionalResetSession(now);
+    const session = { ...fresh, sessionId: run.sessionId, projectId: run.project2.projectId, project: run.project2 };
+    const execute: StudioFinalizationRuntime["run"] = async (revision, stage, resumeOnly) => {
+      if (resumeOnly) return null;
+      stage("ASSESSMENT");
+      const frozen = await freezeStudioFinalizationWork({ session, revision, source: { ref: run.g2.ref, body: run.g2.body },
+        projectionSource: await run.archive.body(run.access2, run.g2.projection.projectionId) });
+      const owner = run.archive.finalizationIntents!; let intent = await owner.create(run.access2, frozen);
+      const request = frozen.scientificSources.request;
+      const result = acceptStudioAssessment(request, run.project2, { requestDigest: request.requestDigest, scientificStateDisposition: "NO_NET_CHANGE",
+        scientificStateReason: "Controlled fixture, not clinical qualification", scientificStateAmbiguity: null,
+        edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef, classification: "DOCUMENT_ONLY",
+          reason: "Controlled editorial fixture", provenanceRefs: [edit.editRef], projectCoverage: null, ambiguity: null })) }, now);
+      intent = await owner.assess(run.access2, intent.finalizationIntentId, intent.sequence, result); stage("DOCUMENTS");
+      intent = await owner.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, prepareDrciDraftSource({
+        handoffDecision: run.g2.projection.humanDecisions.find(decision => decision.gateId === "PRJ-GATE-DOCUMENT-WORKING-PROJECTION")!,
+        protocolProjection: run.g2.projection, crf: buildCanonicalCrfPackage(run.project2) }));
+      stage("ARCHIVE"); return owner.finalizeDocuments(run.access2, intent.finalizationIntentId);
+    };
+    run.open({ run: execute }); await run.ready();
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    fireEvent.change(screen.getByRole("textbox", { name: "Titre du document" }), { target: { value: "Nouvelle rédaction native" } });
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await screen.findByText("✓ Version 3 créée");
+    expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeDisabled();
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
+    expect(run.revision().status).toBe("ABANDONED"); expect(run.revision().provenance.lastAction).toBe("FINALIZE");
+  });
+  it("next version A: dirty buffer saves durably before finalization, exact save is passed", async () => {
+    const run = await runtime();
+    const execute = vi.fn(async (revision: DocumentWorkingRevisionResult["revision"], _stage: unknown, resume?: boolean) => {
+      if (!resume) { expect(run.revision()).toEqual(revision); expect(revision.content.title).toBe("Titre édité et confirmé"); }
+      return null;
+    });
+    run.open({ run: execute }); await run.ready();
+    fireEvent.change(screen.getByRole("textbox", { name: "Titre du document" }), { target: { value: "Titre édité et confirmé" } });
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await waitFor(() => expect(execute.mock.calls.some(call => call[2] !== true)).toBe(true));
+    expect(run.revision().saveSequence).toBe(2);
+    expect(screen.getByText("✓ Enregistré")).toBeInTheDocument();
+    expect(run.fixture.rows().filter(row => row.state === "COMMITTED" && (row.metadata as { family: string }).family === "DRCI")).toHaveLength(2);
+  });
+  it("next version B: save failure stops finalization and retains exact local work", async () => {
+    const run = await runtime(), execute = vi.fn(async () => null);
+    run.open({ run: execute }); const field = await run.ready();
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    execute.mockClear();
+    fireEvent.change(field, { target: { value: "Texte encore local à préserver" } }); run.fixture.failRevisionSave(true);
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await waitFor(() => expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Échec de l’enregistrement"));
+    expect(field).toHaveValue("Texte encore local à préserver"); expect(execute).not.toHaveBeenCalled();
+    expect(run.fixture.intents()).toHaveLength(0);
+  });
+  it("next version B: concurrent save conflict stops before freezing stale content", async () => {
+    const run = await runtime(), execute = vi.fn(async () => null);
+    run.open({ run: execute }); const field = await run.ready();
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled()); execute.mockClear();
+    const other = structuredClone(run.revision().content); other.title = "Autre onglet";
+    await run.owner.save(run.access2, { revisionId: run.revision().revisionId, expectedSaveSequence: run.revision().saveSequence, content: other });
+    fireEvent.change(field, { target: { value: "Texte de cet onglet" } });
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await waitFor(() => expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Conflit de sauvegarde"));
+    expect(execute).not.toHaveBeenCalled(); expect(field).toHaveValue("Texte de cet onglet"); expect(run.revision().content.title).toBe("Autre onglet");
+  });
+  it("next version V: remount asks native runtime to resume only, never creates an intent on open", async () => {
+    const run = await runtime(), execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => null), view = run.open({ run: execute }); await run.ready();
+    await waitFor(() => expect(execute).toHaveBeenCalledTimes(1));
+    expect(execute.mock.calls[0][2]).toBe(true);
+    view.unmount(); run.open({ run: execute }); await run.ready();
+    await waitFor(() => expect(execute).toHaveBeenCalledTimes(2));
+    expect(execute.mock.calls[1][2]).toBe(true); expect(run.fixture.intents()).toHaveLength(0);
+  });
   it("A: opens G2 through the existing lazy archive entry and creates a native draft, not a generation", async () => {
     const run = await runtime(), bodies = run.fixture.bodies(), rows = run.fixture.rows();
     const portfolio = buildStudyDeliverablePortfolio({ project: run.project2, protocolProjection: run.g2.projection, generatedAt: run.project2.adoptedAt });
@@ -48,9 +162,9 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(run.fixture.revisions()).toHaveLength(0);
     expect(run.transport.mock.calls.some(([, init]) => JSON.parse(String(init?.body)).operation === "DOC_ARCHIVE_BODY")).toBe(false);
     fireEvent.click(within(item).getByRole("button", { name: "Choisir un document pour Studio" }));
-    fireEvent.click(await within(item).findByRole("button", { name: /Ouvrir dans Studio G2 · .*PROTOCOL_FULL/u }));
+    fireEvent.click(await within(item).findByRole("button", { name: /Ouvrir dans Studio Version 2 · .*PROTOCOL_FULL/u }));
     await run.ready();
-    expect(screen.getByText("Basé sur G2 · Projet V2")).toBeInTheDocument();
+    expect(screen.getByText("Basé sur la Version 2")).toBeInTheDocument();
     expect(run.revision().baseGenerationId).toBe(run.g2.ref.generationId);
     expect(run.revision().content.sections[0].blocks[0].text).toContain("colchicine");
     expect(run.fixture.rows()).toEqual(rows); expect(run.fixture.bodies()).toEqual(bodies);
@@ -157,7 +271,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(old.logicalDocumentRef).toBe(current.logicalDocumentRef);
     expect(old.baseGenerationId).toBe(run.g1.ref.generationId);
     expect(current.baseGenerationId).toBe(run.g2.ref.generationId);
-    expect(screen.getByText("Basé sur G1 · Projet V1")).toBeInTheDocument();
+    expect(screen.getByText("Basé sur la Version 1")).toBeInTheDocument();
   });
   it("L: the existing RECRUITMENT native document uses the same Studio routing, without filenames", async () => {
     const run = await runtime();

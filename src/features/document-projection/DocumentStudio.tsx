@@ -8,6 +8,8 @@ import type { DocumentArchiveClient } from "./generation-archive-client";
 import type { DocumentGenerationBody } from "./generation-persistence";
 import { editableArchivedDocument, type DocumentWorkingRevisionResult, type EditableDocumentContent } from "./working-revision";
 import { hasProtectedTextBinding, studioBoundText, type DocumentStudioTarget } from "./studio-document";
+import type { StudioFinalizationRuntime, StudioFinalizationStage } from "../protocol-designer/functional-reset/studio-finalization-runtime";
+import type { StudioFinalizationIntent } from "./studio-finalization-intent";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
 const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
@@ -16,8 +18,8 @@ const codeOf = (error: unknown) => error && typeof error === "object" && "code" 
 
 /** Native text editing only. Buffers are screen-owned; confirmed saves, source
  * integrity, ACTIVE lookup and concurrency belong to the existing DOC owner. */
-export default function DocumentStudio({ client, target, onClose }: {
-  client: DocumentArchiveClient; target: DocumentStudioTarget; onClose: () => void;
+export default function DocumentStudio({ client, target, finalization, onClose }: {
+  client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void;
 }) {
   const [loaded, setLoaded] = useState<{ result: DocumentWorkingRevisionResult; base: EditableDocumentContent; body: DocumentGenerationBody } | null>(null);
   const [buffer, setBuffer] = useState<EditableDocumentContent | null>(null);
@@ -26,27 +28,55 @@ export default function DocumentStudio({ client, target, onClose }: {
   const [compare, setCompare] = useState(false);
   const [dialog, setDialog] = useState<"LEAVE" | "ABANDON" | "RELOAD" | null>(null);
   const [actionFailed, setActionFailed] = useState(false);
+  const [finalizing, setFinalizing] = useState(false);
+  const [stage, setStage] = useState<StudioFinalizationStage | null>(null);
+  const [finalizationMessage, setFinalizationMessage] = useState<string | null>(null);
+  const [completed, setCompleted] = useState(false);
+  const [saveFeedback, setSaveFeedback] = useState(false);
+  const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
+  const clientRef = useRef(client); clientRef.current = client;
   const epoch = useRef(0), flight = useRef(false);
   const dirty = Boolean(loaded && buffer && stableStringify(buffer) !== stableStringify(loaded.result.revision.content));
-  const busy = saveState === "SAVING";
+  const busy = saveState === "SAVING" || finalizing;
+  const finish = (intent: StudioFinalizationIntent | null) => {
+    if (!intent) return;
+    if (intent.resolution.documentReceipt) {
+      setFinalizationMessage(`✓ Version ${intent.resolution.documentReceipt.generation.displayVersion} créée`); setCompleted(true);
+    } else if (intent.resolution.documentNoChange) setFinalizationMessage("Aucune modification à intégrer dans une nouvelle version.");
+    else setFinalizationMessage("Une précision est nécessaire dans la conversation. Le brouillon est conservé.");
+  };
   const generation = target.generation;
   useEffect(() => {
     const token = ++epoch.current; flight.current = false;
     setLoaded(null); setBuffer(null); setLoadFailed(false); setSaveState("CLEAN");
     void (async () => {
-      if (!client.workingRevisions) throw new Error("DOC_REVISION_UNAVAILABLE");
-      const source = await client.body(generation.generationId);
+      const archiveClient = clientRef.current;
+      if (!archiveClient.workingRevisions) throw new Error("DOC_REVISION_UNAVAILABLE");
+      const source = await archiveClient.body(generation.generationId);
       if (source.ref.bodySha256 !== generation.bodySha256) throw new Error("DOC_REVISION_SOURCE_DIGEST_MISMATCH");
-      const projection = source.body.native.family === "DRCI" ? await client.body(source.body.native.value.protocolProjectionId) : undefined;
+      const projection = source.body.native.family === "DRCI" ? await archiveClient.body(source.body.native.value.protocolProjectionId) : undefined;
       const native = editableArchivedDocument(source, target.nativeDocumentRef, projection);
-      const result = await client.workingRevisions.open({ baseGenerationId: generation.generationId,
-        baseGenerationBodyDigest: generation.bodySha256, nativeDocumentRef: target.nativeDocumentRef });
+      const pending = runtimeRef.current && await archiveClient.finalizationIntents?.recoverForBase(generation.generationId, native.logicalDocumentRef);
+      if (pending && !archiveClient.workingRevisions.getSave) throw new Error("STUDIO_INTENT_SAVE_INVALID");
+      const result = pending ? await archiveClient.workingRevisions.getSave!({ revisionId: pending.frozen.workingRevisionId,
+        saveSequence: pending.frozen.workingRevisionSaveSequence, contentDigest: pending.frozen.workingRevisionContentDigest })
+        : await archiveClient.workingRevisions.open({ baseGenerationId: generation.generationId,
+          baseGenerationBodyDigest: generation.bodySha256, nativeDocumentRef: target.nativeDocumentRef });
       if (result.revision.logicalDocumentRef !== native.logicalDocumentRef) throw new Error("DOC_REVISION_LOGICAL_SOURCE_INVALID");
       if (epoch.current !== token) return;
       setLoaded({ result, base: native.content, body: source.body }); setBuffer(structuredClone(result.revision.content));
+      if (runtimeRef.current) {
+        flight.current = true; setFinalizing(true);
+        try { const intent = await runtimeRef.current.run(result.revision, setStage, true); if (epoch.current === token) finish(intent); }
+        catch { if (epoch.current === token) setFinalizationMessage("La version n’a pas pu être confirmée. Le brouillon est conservé ; vous pouvez reprendre la finalisation."); }
+        finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
+      }
     })().catch(() => { if (epoch.current === token) setLoadFailed(true); });
     return () => { epoch.current = token + 1; };
-  }, [client, generation.generationId, generation.bodySha256, target.nativeDocumentRef]);
+  // PRJ adoption may change the archive capability/client object. It must not
+  // reset this buffer or detach the durable intent while finalization runs.
+  }, [generation.generationId, generation.bodySha256, target.nativeDocumentRef]);
+  useEffect(() => { if (!saveFeedback) return; const timer = setTimeout(() => setSaveFeedback(false), 2500); return () => clearTimeout(timer); }, [saveFeedback]);
   useEffect(() => {
     if (!dirty && !busy) return;
     const warn = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
@@ -54,7 +84,7 @@ export default function DocumentStudio({ client, target, onClose }: {
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty, busy]);
   const edit = (change: (content: EditableDocumentContent) => void) => {
-    if (!buffer || !loaded || flight.current) return;
+    if (!buffer || !loaded || flight.current || completed) return;
     const next = structuredClone(buffer); change(next); setBuffer(next); setActionFailed(false);
     if (saveState !== "CONFLICT" && saveState !== "SAVE_FAILED") setSaveState(stableStringify(next) === stableStringify(loaded.result.revision.content) ? "CLEAN" : "DIRTY");
   };
@@ -66,9 +96,32 @@ export default function DocumentStudio({ client, target, onClose }: {
         expectedSaveSequence: loaded.result.revision.saveSequence, content: buffer });
       if (epoch.current !== token) return;
       setLoaded({ ...loaded, result }); setBuffer(structuredClone(result.revision.content)); setSaveState("CLEAN");
+      setSaveFeedback(true);
     } catch (error) {
       if (epoch.current === token) setSaveState(codeOf(error) === "DOC_REVISION_SAVE_CONFLICT" || codeOf(error) === "DOC_REVISION_ABANDONED" ? "CONFLICT" : "SAVE_FAILED");
     } finally { if (epoch.current === token) flight.current = false; }
+  };
+  const createNextVersion = async () => {
+    if (!loaded || !buffer || !runtimeRef.current || flight.current || saveState === "CONFLICT" || completed) return;
+    const token = epoch.current; flight.current = true; setFinalizing(true); setFinalizationMessage(null);
+    let saved = loaded.result;
+    try {
+      if (dirty) {
+        setSaveState("SAVING");
+        try {
+          saved = await clientRef.current.workingRevisions!.save({ revisionId: saved.revision.revisionId,
+            expectedSaveSequence: saved.revision.saveSequence, content: structuredClone(buffer) });
+        } catch (error) {
+          if (epoch.current === token) setSaveState(codeOf(error) === "DOC_REVISION_SAVE_CONFLICT" || codeOf(error) === "DOC_REVISION_ABANDONED" ? "CONFLICT" : "SAVE_FAILED");
+          return;
+        }
+        if (epoch.current !== token) return;
+        setLoaded({ ...loaded, result: saved }); setBuffer(structuredClone(saved.revision.content)); setSaveState("CLEAN"); setSaveFeedback(true);
+      }
+      const intent = await runtimeRef.current.run(saved.revision, setStage);
+      if (epoch.current === token) finish(intent);
+    } catch { if (epoch.current === token) setFinalizationMessage("La création de la version n’a pas abouti. Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération."); }
+    finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
   };
   const confirmAction = async () => {
     const action = dialog; setDialog(null);
@@ -99,13 +152,13 @@ export default function DocumentStudio({ client, target, onClose }: {
     hasProtectedTextBinding(original) ? <div className="rounded-lg bg-muted/40 p-3">
       <p className="whitespace-pre-wrap break-words leading-7">{display(value)}</p>
       <p className="mt-2 text-xs text-muted-foreground">Lecture seule · références natives protégées</p>
-    </div> : <StudioText value={value} label={label} heading={heading} disabled={busy} onChange={value => edit(content => change(content, value))} />;
+    </div> : <StudioText value={value} label={label} heading={heading} disabled={busy || completed} onChange={value => edit(content => change(content, value))} />;
   const pair = (before: string, after: string, label: string) => {
     const kind = before === after ? "Inchangé" : !before ? "Ajouté" : !after ? "Retiré" : "Modifié";
     return <article className="mb-4 rounded-xl border p-4" key={label}>
       <h4 className="mb-3 text-sm font-semibold">{label} · {kind}</h4>
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
-        <div className="min-w-0"><p className="mb-2 text-xs font-medium text-muted-foreground">Base G{generation.displayVersion}</p><p className="whitespace-pre-wrap break-words text-sm leading-7">{display(before) || "Texte vide"}</p></div>
+        <div className="min-w-0"><p className="mb-2 text-xs font-medium text-muted-foreground">Base · Version {generation.displayVersion}</p><p className="whitespace-pre-wrap break-words text-sm leading-7">{display(before) || "Texte vide"}</p></div>
         <div className="min-w-0 border-l-2 border-primary/30 pl-4"><p className="mb-2 text-xs font-medium text-muted-foreground">Brouillon actuel</p><p className="whitespace-pre-wrap break-words text-sm leading-7">{display(after) || "Texte vide"}</p></div>
       </div>
     </article>;
@@ -118,14 +171,18 @@ export default function DocumentStudio({ client, target, onClose }: {
       </div>
       <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-primary">Document Studio · brouillon</p>
       <h2 className="mt-2 break-words text-xl font-semibold">{loaded?.base.title ?? "Document archivé"}</h2>
-      <p className="mt-1 text-sm text-muted-foreground">Basé sur G{generation.displayVersion} · Projet V{generation.project.projectVersion.split(":").at(-1)}</p>
+      <p className="mt-1 text-sm text-muted-foreground">Basé sur la Version {generation.displayVersion}</p>
+      <details className="mt-2 text-xs text-muted-foreground"><summary>Provenance technique</summary><p>Projet {generation.project.projectVersion} · {generation.generationId}</p></details>
       <p className="mt-3 max-w-3xl text-sm text-muted-foreground">Les modifications ne sont pas évaluées scientifiquement. Enregistrer ce brouillon ne modifie ni le projet ni les générations archivées.</p>
       {loaded?.result.baseState.stale && <p role="status" className="mt-3 rounded-lg border bg-amber-50 p-3 text-sm text-amber-950">Ce brouillon est basé sur une génération ou un état du projet antérieur. Sa source reste inchangée ; aucun rebasage automatique.</p>}
-      {loaded && <div className="mt-4 flex flex-wrap gap-2">
+      {loaded && !completed && <div className="mt-4 flex flex-wrap gap-2">
         <Button variant="outline" onClick={() => setCompare(!compare)} aria-pressed={compare}><Columns2 />{compare ? "Revenir à l’édition" : "Comparer à la base"}</Button>
         <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>
       </div>}
     </header>
+    {saveFeedback && <p role="status" className="px-5 pt-3 text-sm text-emerald-800">✓ Enregistré</p>}
+    {finalizationMessage && <p role="status" className="px-5 py-3 text-sm">{finalizationMessage}</p>}
+    {stage && <p role="status" className="px-5 py-3 text-sm">{{ ASSESSMENT: "Préparation des modifications…", SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Préparation des documents…", ARCHIVE: "Enregistrement de la version…" }[stage]}</p>}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
       <p>{saveState === "CONFLICT" ? "Ce brouillon a été modifié ou abandonné ailleurs. Vos modifications locales sont conservées ; rechargez la dernière version avant de poursuivre."
@@ -136,7 +193,7 @@ export default function DocumentStudio({ client, target, onClose }: {
     {loaded && buffer && <main className="bg-muted/20 p-4 sm:p-8">
       <div className="mx-auto min-w-0 max-w-4xl rounded-xl border bg-background p-5 shadow-sm sm:p-8">
         {compare ? <section aria-label="Comparaison du brouillon avec sa base">
-          <h3 className="mb-5 text-lg font-semibold">Comparaison · base G{generation.displayVersion} / brouillon</h3>
+          <h3 className="mb-5 text-lg font-semibold">Comparaison · Version {generation.displayVersion} / brouillon</h3>
           {pair(loaded.base.title, buffer.title, "Titre du document")}
           {buffer.sections.map((section, index) => <section key={section.nodeId}>
             {pair(loaded.base.sections[index].title, section.title, `Titre de la section ${index + 1}`)}
@@ -157,7 +214,8 @@ export default function DocumentStudio({ client, target, onClose }: {
     </main>}
     {loaded && <footer className="flex flex-wrap items-center justify-between gap-3 border-t p-5 sm:px-6">
       <p className="text-xs text-muted-foreground">Sauvegarde explicite uniquement · état {loaded.result.revision.saveSequence}</p>
-      <Button onClick={() => void save()} disabled={busy || saveState === "CONFLICT"}><Save />Enregistrer</Button>
+      <div className="flex flex-wrap gap-3"><Button variant="outline" onClick={() => void save()} disabled={busy || completed || saveState === "CONFLICT"}><Save />Enregistrer</Button>
+      {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>Créer la version suivante</Button>}</div>
     </footer>}
     <AlertDialog open={dialog !== null} onOpenChange={open => { if (!open) setDialog(null); }}>
       <AlertDialogContent>

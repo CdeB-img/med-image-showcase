@@ -49,8 +49,7 @@ export const workingRevisionFixture = async (options: { monocentric?: boolean } 
       generatedAt: documentNativeGeneratedAt(body.native), reservedBytes: 1_000_000 });
     return (await archive.commit(access, requestId, body)).generation;
   };
-  const generation = async (project: typeof project1, access: DocumentArchiveAccess) => {
-    const generatedAt = `2026-10-07T11:0${project.revision}:00.000Z`;
+  const nativeGeneration = (project: typeof project1, generatedAt = `2026-10-07T11:0${project.revision}:00.000Z`) => {
     const handoffDecision = authorizeResearchProjectDocumentHandoff({ project, authority, confirmedAt: generatedAt });
     const projection = refreshFunctionalResetDocumentPortfolio({ project, handoffDecision, requestedAt: generatedAt, generateProtocol: true }).projections.at(-1)!;
     const source = { handoffDecision, protocolProjection: projection, crf: buildCanonicalCrfPackage(project) };
@@ -73,8 +72,12 @@ export const workingRevisionFixture = async (options: { monocentric?: boolean } 
       contract: DOC_ARCHIVE_CONTRACT, native, files: [], rendererVersion: "1.0.0", buildCommit: null,
     });
     const projectionBody = body({ family: "TEMPLATE", value: projection });
-    await commit(access, `projection-${project.revision}`, projectionBody);
     const nativeBody = body({ family: "DRCI", value: pack });
+    return { pack, body: nativeBody, projection, projectionBody };
+  };
+  const generation = async (project: typeof project1, access: DocumentArchiveAccess) => {
+    const { body: nativeBody, projection, projectionBody } = nativeGeneration(project);
+    await commit(access, `projection-${project.revision}`, projectionBody);
     const ref = await commit(access, `generation-${project.revision}`, nativeBody);
     return { ref, body: nativeBody, projection, projectionBody };
   };
@@ -82,5 +85,5 @@ export const workingRevisionFixture = async (options: { monocentric?: boolean } 
   const createInput = { revisionId: "document-working-revision:qualification", baseGenerationId: g2.ref.generationId,
     baseGenerationBodyDigest: g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" };
   return { sessionId, identity, archive, owner: archive.workingRevisions!, snapshots, fixture, project1, project2, project3,
-    access1, access2, register, generation, g1, g2, createInput };
+    access1, access2, register, generation, nativeGeneration, g1, g2, createInput };
 };
