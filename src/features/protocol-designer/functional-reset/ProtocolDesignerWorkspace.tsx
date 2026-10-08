@@ -3,6 +3,7 @@ import { useProjectPreparation } from "./useProjectPreparation";
 import { useVersionProduction } from "./useVersionProduction";
 import { createStudioFinalizationRuntime, retainStudioAdoptionConcurrentWork } from "./studio-finalization-runtime";
 import { stageStudioIntentAdoption } from "./studio-finalization-lifecycle";
+import { presentStudioFinalizationQuestion } from "../../query-navigation/studio-finalization-navigation";
 import { publishArchivedGeneration, readCurrentArchivedGeneration } from "@/features/document-projection/generation-session";
 import { canCaptureProjectPreparation, projectPreparationReview, recordPreparationDecision } from "./project-preparation-lifecycle";
 import { createProjectAdoptionTrace, type ProjectAdoptionTrace } from "./project-adoption-trace";
@@ -165,17 +166,10 @@ export default function ProtocolDesignerWorkspace({
       latestSessionRef.current = next; setSession(next);
       if (await committed.auxiliaryUpload !== "UPLOADED") throw new Error("STUDIO_PROJECT_SNAPSHOT_UNAVAILABLE");
     },
-    clarify: intent => {
-      const current = latestSessionRef.current, assessment = intent.resolution.assessment?.nativePayload;
-      const question = assessment?.edits.find(edit => edit.ambiguity)?.ambiguity?.question
-        ?? assessment?.scientificStateAmbiguity?.question
-        ?? "Une précision scientifique est nécessaire avant de créer la version suivante. Le brouillon est conservé.";
-      const entryId = `studio-clarification:${intent.intentDigest}`;
-      if (!current.entries.some(entry => entry.entryId === entryId)) {
-        const next = { ...current, entries: [...current.entries, { entryId, kind: "TEXT" as const, role: "NOXIA" as const,
-          content: question, createdAt: new Date().toISOString() }] };
-        latestSessionRef.current = next; setSession(next);
-      }
+    clarify: (_intent, question) => {
+      if (!question) return;
+      const next = presentStudioFinalizationQuestion(latestSessionRef.current, question);
+      latestSessionRef.current = next; setSession(next);
     },
     committed: async intent => {
       let generation = intent.resolution.documentReceipt?.generation;
@@ -842,6 +836,7 @@ export default function ProtocolDesignerWorkspace({
           portfolio={deliverablePortfolio}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}
+          onStudioConversation={() => { setDeliverableWorkspaceOpen(false); requestAnimationFrame(() => composerRef.current?.focus()); }}
           currentGenerationId={session.documentArchive?.currentGenerationId}
           archiveOnly={Boolean(archiveClient)}
           diagnosticProjectionId={projectionMode === "EXPERT" ? session.documentArchive?.currentProjectionId : null}

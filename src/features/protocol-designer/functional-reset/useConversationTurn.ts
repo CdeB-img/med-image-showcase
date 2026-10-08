@@ -1,4 +1,5 @@
 import { stageConfiguredConversationCandidate, prepareConfiguredConversationFailure } from "./conversation-result-application";
+import { bindStudioConversationAnswer } from "../../query-navigation/studio-finalization-navigation";
 import { prepareConversationEntry, prepareRequestedProposalNavigation } from "./conversation-request";
 import { type Dispatch, type SetStateAction, type MutableRefObject, useEffect, useRef } from "react";
 import { requestsScientificExplanation } from "@/features/query-navigation/current-navigation-evidence";
@@ -148,20 +149,24 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
     if (!mountedRef.current || latestSessionRef.current.sessionId !== requestedSessionId) {
       foregroundInFlightRef.current = false; setBusy(false); return;
     }
-    const session = latestSessionRef.current;
+    const initialSession = latestSessionRef.current;
     const now = new Date().toISOString();
-    const lastTurn = session.runtimeTurns.at(-1), lastEntry = session.entries.at(-1);
+    const lastTurn = initialSession.runtimeTurns.at(-1), lastEntry = initialSession.entries.at(-1);
     const retry = !continuedTurn && lastTurn?.role === "USER" && lastTurn.content === content
       && lastEntry?.kind === "ERROR" && lastEntry.turnId === lastTurn.turnId;
     const userTurn: ScientificInterpretationTurn = continuedTurn ?? (retry ? lastTurn : { turnId: createTurnId(), role: "USER", content, createdAt: now });
+    const session = bindStudioConversationAnswer(initialSession, userTurn);
+    const studioAnswer = session.queryNavigation?.currentPresentation?.targetRef.startsWith("studio-finalization-intent:")
+      && session.queryNavigation.memory.responses.some(response => response.responseId === `studio-answer:${userTurn.turnId}`);
     const traceRunId = createProductTraceRunId(session.sessionId, userTurn.turnId);
     const runtimeTurns = continuedTurn || retry ? session.runtimeTurns : [...session.runtimeTurns, userTurn];
     const requestTurns = continuedTurn && runtimeTurns.at(-1)?.role === "NOXIA"
       && runtimeTurns.at(-2)?.turnId === continuedTurn.turnId ? runtimeTurns.slice(0, -1) : runtimeTurns;
     setDraft(""); setBusy(true); setBusyMessage("NOXIA réfléchit…");
     setSession(current => {
-      const withReceipt = pendingConfirmation?.act === "CONFIRM" && !retry && !continuedTurn
-        ? recordConversationConfirmationReceipt(current, userTurn, pendingConfirmation) : current;
+      const bound = bindStudioConversationAnswer(current, userTurn);
+      const withReceipt = pendingConfirmation?.act === "CONFIRM" && !studioAnswer && !retry && !continuedTurn
+        ? recordConversationConfirmationReceipt(bound, userTurn, pendingConfirmation) : bound;
       // Existing structured refusal policy is evidence, never a new compatibility classifier.
       const refusesScope = pendingConfirmation?.act === "REFUSE"
         || pendingConfirmation?.qualified && !pendingConfirmation.separableContinuation;

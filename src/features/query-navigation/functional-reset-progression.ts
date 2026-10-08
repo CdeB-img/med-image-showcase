@@ -1249,6 +1249,7 @@ export const recordFunctionalResetQueryResponse = (input: {
   actorRole: string;
   receivedAt: string;
   responseId: string;
+  provenanceRefs?: readonly string[];
 }): FunctionalResetQueryNavigation => {
   const action = input.navigation.currentAction;
   const presentation = input.navigation.currentPresentation;
@@ -1266,7 +1267,7 @@ export const recordFunctionalResetQueryResponse = (input: {
     selectedOptionRefs: [],
     disposition: "ANSWER",
     receivedAt: input.receivedAt,
-    provenanceRefs: [input.actorRef],
+    provenanceRefs: [...new Set([input.actorRef, ...input.provenanceRefs ?? []])],
   });
   const freshness = inspectNavigationActionFreshness(action, {
     projectVersion: input.navigation.projectVersion,

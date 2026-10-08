@@ -16,6 +16,8 @@ import { acceptStudioAssessment } from "../../scientific-thinking/studio-runtime
 import { prepareDrciDraftSource } from "../drci-draft-contract";
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 import * as feedback from "@/hooks/use-toast";
+import { studioFinalizationQuestion } from "../../query-navigation/studio-finalization-navigation";
+import { transitionStudioIntent } from "../studio-finalization-intent";
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 /** SYNTHETIC_CURRENT_CONTRACT: actual PRJ/DOC owners and scientific native
@@ -35,7 +37,7 @@ const runtime = async () => {
   const client = createDocumentArchiveClient(run.sessionId, run.project2);
   const target = { generation: run.g2.ref, nativeDocumentRef: "PROTOCOL_FULL" };
   const close = vi.fn();
-  const open = (finalization?: StudioFinalizationRuntime) => render(<DocumentStudio client={client} target={target} finalization={finalization} onClose={close} />);
+  const open = (finalization?: StudioFinalizationRuntime, onConversation?: () => void) => render(<DocumentStudio client={client} target={target} finalization={finalization} onClose={close} onConversation={onConversation} />);
   const ready = () => screen.findByRole("textbox", { name: "Section 1 · paragraphe 1" });
   const revision = () => run.fixture.revisions().at(-1)!.revision as DocumentWorkingRevisionResult["revision"];
   return { ...run, client, target, transport, close, open, ready, revision };
@@ -47,6 +49,87 @@ const save = async () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("N: plain Error code is preserved next to the initiating action; private/error prose is not rendered", async () => {
+    const run = await runtime();
+    const execute = vi.fn<StudioFinalizationRuntime["run"]>(async (_revision, _progress, opening) => {
+      if (opening) return null;
+      throw new Error("STUDIO_INTENT_PREPARATION_DIVERGENCE");
+    });
+    run.open({ run: execute }); await run.ready();
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    const status = screen.getByTestId("studio-finalization-status");
+    await waitFor(() => expect(status).toHaveAttribute("data-state", "FAILED"));
+    expect(within(screen.getByTestId("studio-action-area")).getByText("STUDIO_INTENT_PREPARATION_DIVERGENCE")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reprendre la création" })).toBeEnabled();
+  });
+  it("N: unbounded plain Error message is never copied into the UI", async () => {
+    const run = await runtime();
+    run.open({ run: async (_r, _p, opening) => { if (opening) return null; throw new Error("Private scientific text: not a bounded code"); } });
+    await run.ready(); await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    await screen.findByRole("alert");
+    expect(screen.queryByText(/Private scientific text/u)).not.toBeInTheDocument();
+    expect(screen.queryByText("Détail technique")).not.toBeInTheDocument();
+  });
+  it("proven native blocking state is FAILED with its bounded reason, not falsely READY_TO_RESUME", async () => {
+    const run = await runtime(), source = await run.client.body(run.g2.ref.generationId);
+    const { revision } = await run.client.workingRevisions!.open({ baseGenerationId: run.g2.ref.generationId,
+      baseGenerationBodyDigest: run.g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
+    const at = "2026-10-08T18:00:00.000Z", session = { ...createFunctionalResetSession(at),
+      sessionId: run.sessionId, projectId: run.project2.projectId, project: run.project2 };
+    const frozen = await freezeStudioFinalizationWork({ session, revision, source,
+      projectionSource: await run.client.body(run.g2.projection.projectionId) });
+    const initial = await run.archive.finalizationIntents!.create(run.access2, frozen);
+    const blocked = transitionStudioIntent(initial, "BLOCKED", { ...initial.resolution, reason: "STUDIO_INTENT_PROJECT_STALE" }, at);
+    const execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => blocked);
+    run.open({ run: execute }); await run.ready();
+    await waitFor(() => expect(screen.getByTestId("studio-finalization-status")).toHaveAttribute("data-state", "FAILED"));
+    expect(within(screen.getByTestId("studio-action-area")).getByText("STUDIO_INTENT_PROJECT_STALE")).toBeInTheDocument();
+    expect(execute).toHaveBeenCalledOnce(); expect(execute.mock.calls[0][2]).toBe(true);
+  });
+  it("O: true progress remains in the persistent sticky action area at the bottom of the long document", async () => {
+    const run = await runtime(); let release!: () => void;
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    run.open({ run: async (_revision, progress, opening) => { if (opening) return null;
+      progress("SCIENCE"); await gate; return null; } });
+    await run.ready(); await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    const action = screen.getByTestId("studio-action-area");
+    expect(action).toHaveClass("sticky", "bottom-0");
+    expect(within(action).getByText(/Création de version en cours · Mise à jour scientifique/u)).toBeInTheDocument();
+    expect(screen.getByTestId("studio-finalization-status")).toHaveAttribute("data-state", "RUNNING");
+    expect(within(action).queryByText(/%/u)).not.toBeInTheDocument();
+    release(); await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled());
+  });
+  it("P/L: waiting state exposes the exact native question and direct conversation path on reopen without executing work", async () => {
+    const run = await runtime(); let { revision } = await run.client.workingRevisions!.open({
+      baseGenerationId: run.g2.ref.generationId, baseGenerationBodyDigest: run.g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
+    revision = (await run.client.workingRevisions!.save({ revisionId: revision.revisionId, expectedSaveSequence: revision.saveSequence,
+      content: { ...revision.content, title: "Changement à clarifier" } })).revision;
+    const session = { ...createFunctionalResetSession("2026-10-08T18:00:00.000Z"), sessionId: run.sessionId,
+      projectId: run.project2.projectId, project: run.project2 };
+    const source = await run.client.body(run.g2.ref.generationId);
+    const frozen = await freezeStudioFinalizationWork({ session, revision, source,
+      projectionSource: await run.client.body(run.g2.projection.projectionId) });
+    const owner = run.archive.finalizationIntents!, started = await owner.create(run.access2, frozen), request = frozen.scientificSources.request;
+    const intent = await owner.assess(run.access2, started.finalizationIntentId, started.sequence,
+      acceptStudioAssessment(request, run.project2, { requestDigest: request.requestDigest, scientificStateDisposition: "NO_NET_CHANGE",
+        scientificStateReason: "Controlled ambiguity", scientificStateAmbiguity: null,
+        edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef,
+          classification: "AMBIGUOUS", reason: "Material interpretations require the existing scientific owner", provenanceRefs: [edit.editRef], projectCoverage: null,
+          ambiguity: { question: "La biopsie remplace-t-elle l’IRM ou est-elle ajoutée pour un sous-groupe ?",
+            materialProjectRefs: [request.currentProject.objects[0].versionRef], alternatives: [
+              { interpretation: "Remplacement", consequence: "Tous les sujets" }, { interpretation: "Ajout", consequence: "Un sous-groupe" }] } })) }, session.updatedAt));
+    const execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => intent), navigate = vi.fn();
+    run.open({ run: execute, clarification: value => studioFinalizationQuestion(value, session) }, navigate);
+    await run.ready(); await waitFor(() => expect(screen.getByTestId("studio-finalization-status")).toHaveAttribute("data-state", "WAITING_FOR_CLARIFICATION"));
+    const action = screen.getByTestId("studio-action-area");
+    expect(within(action).getByText("La biopsie remplace-t-elle l’IRM ou est-elle ajoutée pour un sous-groupe ?")).toBeInTheDocument();
+    fireEvent.click(within(action).getByRole("button", { name: "Répondre dans la conversation" }));
+    expect(navigate).toHaveBeenCalledOnce(); expect(execute).toHaveBeenCalledOnce(); expect(execute.mock.calls[0][2]).toBe(true);
+    expect(run.revision().status).toBe("ACTIVE"); expect(run.fixture.rows()).toHaveLength(4);
+  });
   it("P/V: reload observes lost archive acknowledgement; explicit resume resolves same intent and historical save", async () => {
     const run = await runtime(), source = await run.client.body(run.g2.ref.generationId);
     let { revision } = await run.client.workingRevisions!.open({ baseGenerationId: run.g2.ref.generationId,

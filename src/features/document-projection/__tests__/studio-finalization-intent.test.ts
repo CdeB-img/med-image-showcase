@@ -1,4 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
+import { act, renderHook } from "@testing-library/react";
+import { useRef, useState } from "react";
+import { useConversationTurn } from "../../protocol-designer/functional-reset/useConversationTurn";
+import { readNaturalCandidateDecision } from "../../protocol-designer/functional-reset/natural-conversation-policy";
+import * as bridgeClient from "../../protocol-designer/product-bridge-client";
 import { workingRevisionFixture } from "./working-revision-fixture";
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import { acceptStudioAssessment } from "../../scientific-thinking/studio-runtime";
@@ -19,8 +24,14 @@ import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/pr
 import { createPostgresDocumentArchive, documentArchiveCapacity } from "../../../../server/protocol-designer-document-archive";
 import { createProductKnowledgeOwnerLedger } from "../../protocol-designer/product-knowledge-owner-runtime";
 import { createProductValidationRunLedger } from "../../protocol-designer/product-validation-run-ledger";
-import { createScientificExecutionTraceLedger } from "../../protocol-designer/scientific-execution-trace";
-import { assertStudioIntentHumanDecision } from "../studio-finalization-intent";
+import { createScientificExecutionTraceLedger, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION } from "../../protocol-designer/scientific-execution-trace";
+import { assertStudioIntentHumanDecision, studioIntentDecisionScope } from "../studio-finalization-intent";
+import { studioIntentPostCutoffControl } from "../../protocol-designer/functional-reset/studio-finalization-lifecycle";
+import { studioFinalizationQuestion, presentStudioFinalizationQuestion, bindStudioConversationAnswer } from "../../query-navigation/studio-finalization-navigation";
+import { validateFunctionalResetQueryNavigation } from "../../query-navigation/functional-reset-progression";
+import { validateQuestionResponseEnvelope, validateQueryNavigationMemory } from "../../query-navigation/lifecycle-validation";
+import { prepareTerraConversationRequest } from "../../protocol-designer/functional-reset/conversation-request";
+import { prepareContinuousWorkingDraft, type WorkingReviewOwnerObservation } from "../../protocol-designer/functional-reset/continuous-project-build";
 import { documentAdministrationFrom, emptyProjectAdministration } from "../../protocol-designer/functional-reset/project-administration";
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 import { prepareDrciDraftSource, materializeDrciDraftPack, prepareDrciDraftPack } from "../drci-draft-pack";
@@ -32,12 +43,13 @@ import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/
 import * as documentProvider from "../../../../api/protocol-designer-openai-extraction-provider";
 
 const NOW = "2026-10-08T12:00:00.000Z";
-const setup = async (kind: "editorial" | "science" | "none" | "already-adopted" = "editorial", mixed = false, editorialWithScience = false) => {
+const setup = async (kind: "editorial" | "science" | "deletion" | "none" | "already-adopted" = "editorial", mixed: boolean | "unrelated-proposals" = false, editorialWithScience = false) => {
   const run = await workingRevisionFixture({ monocentric: kind !== "already-adopted" });
   let { revision } = await run.owner.create(run.access2, run.createInput);
   if (kind !== "none") {
     const content = structuredClone(revision.content);
-    if (kind === "science") content.sections[0].blocks[0].text = content.sections[0].blocks[0].text.replace("monocentrique", "multicentrique");
+    if (kind === "deletion") content.sections[0].blocks[0].text = "Document de travail";
+    else if (kind === "science") content.sections[0].blocks[0].text = content.sections[0].blocks[0].text.replace("monocentrique", "multicentrique");
     else if (kind === "already-adopted") content.sections[0].blocks[0].text = content.sections[0].blocks[0].text.replace("étude multicentrique", "Étude conduite dans plusieurs centres");
     else content.title += " — rédaction humaine";
     if (editorialWithScience) content.title += " — rédaction humaine conservée";
@@ -51,7 +63,10 @@ const setup = async (kind: "editorial" | "science" | "none" | "already-adopted" 
     assistantTurn: reply, runtimeTurns, retained: [], result: { reply: reply.content,
       userContribution: { coverage: "COMPLETE", nonPersistentReason: null, elements: [{ id: "population", content: user.content,
         epistemicState: "USER_STATED", polarity: "AFFIRMED", conditions: [], linkedIds: [] }] },
-      assistantContribution: { coverage: "COMPLETE", nonPersistentReason: "PRESENTATION_ONLY", elements: [] }, dispositions: [], candidateBindings: [] } }) : undefined;
+      assistantContribution: mixed === "unrelated-proposals" ? { coverage: "COMPLETE", nonPersistentReason: null, elements: [
+        { id: "quotas", content: "Quotas de recrutement proposés, non adoptés", epistemicState: "PROPOSED_NOT_ADOPTED", polarity: "AFFIRMED", conditions: [], linkedIds: [] },
+        { id: "age", content: "Bornes d’âge non précisées", epistemicState: "OPEN_UNKNOWN", polarity: "UNKNOWN", conditions: [], linkedIds: [] },
+      ] } : { coverage: "COMPLETE", nonPersistentReason: "PRESENTATION_ONLY", elements: [] }, dispositions: [], candidateBindings: [] } }) : undefined;
   const session: FunctionalResetSession = { ...fresh, sessionId: run.sessionId, projectId: run.project2.projectId,
     conversationId: "frozen-studio", project: run.project2, runtimeTurns, scientificDiscussionRetention,
     knowledgeOwnerLedger: createProductKnowledgeOwnerLedger(run.sessionId), validationRunLedger: createProductValidationRunLedger(run.sessionId),
@@ -72,7 +87,9 @@ const assessment = (run: Awaited<ReturnType<typeof setup>>, classification: Stud
     scientificStateReason: "Controlled native assessment; not clinical qualification", scientificStateAmbiguity: null,
     edits: request.delta.filter(edit => edit.change !== "UNCHANGED").map(edit => ({ editRef: edit.editRef,
       classification: classification === "PROJECT_CHANGE" && edit.field === "TITLE" && edit.afterText.endsWith("rédaction humaine conservée") ? "DOCUMENT_ONLY" : classification,
-      reason: "Exact controlled Scientific Thinking assessment", provenanceRefs: [edit.editRef], projectCoverage: null,
+      reason: "Exact controlled Scientific Thinking assessment", provenanceRefs: [edit.editRef],
+      projectCoverage: run.revision.content.sections[0].blocks[0].text === "Document de travail" && classification === "PROJECT_CHANGE"
+        ? { coverage: "PARTIAL", projectVersionRefs: [request.currentProject.objects[0].versionRef] } : null,
       ambiguity: classification === "AMBIGUOUS" ? { question: "Remplacement ou ajout d’un centre pour un sous-groupe ?",
         materialProjectRefs: [request.currentProject.objects[0].versionRef], alternatives: [
           { interpretation: "Remplacement", consequence: "Tous les participants sont concernés" },
@@ -81,7 +98,7 @@ const assessment = (run: Awaited<ReturnType<typeof setup>>, classification: Stud
 const assessed = async (run: Awaited<ReturnType<typeof setup>>, classification: Parameters<typeof assessment>[1] = "DOCUMENT_ONLY") =>
   run.intents.assess(run.access2, run.intent.finalizationIntentId, run.intent.sequence, assessment(run, classification));
 const prepare = async (run: Awaited<ReturnType<typeof setup>>, existing?: Awaited<ReturnType<typeof assessed>>,
-  provided?: Parameters<typeof addProjectPreparation>[1]) => {
+  provided?: Parameters<typeof addProjectPreparation>[1], requiredDependency = false, unresolvedStudio = false) => {
   let intent = existing ?? await assessed(run, "PROJECT_CHANGE");
   const capture = provided ? { preparation: provided } : captureStudioIntentPreparation(intent, run.session, run.revision, NOW);
   const preparation = capture.preparation!, cp = preparation.checkpoint!;
@@ -91,14 +108,26 @@ const prepare = async (run: Awaited<ReturnType<typeof setup>>, existing?: Awaite
   const proposal = controlledStudyProposal(cp.inputDigest, domain as typeof DOMAINS[1]);
   const target = cp.request.studioPreparationSource!.request.currentProject.objects.find(object => object.content === "étude monocentrique")!;
   proposal.atoms.find(atom => atom.ref === "design")!.userChangeRefs = [target.versionRef];
+  const studioAtom = unresolvedStudio ? "a-studio-title-editorial" : "design";
+  if (unresolvedStudio) {
+    const design = proposal.atoms.find(atom => atom.ref === "design")!;
+    proposal.atoms.push({ ...design, ref: studioAtom, semanticKey: "studio-documentary-note", targetType: "PROJECT_INFORMATION",
+      owner: "DATA_MANAGEMENT", area: "DESCRIPTION", content: "Document de travail", dependsOn: [], dependencyQualifications: [], userChangeRefs: [] });
+  }
+  if (requiredDependency) {
+    const atom = proposal.atoms.find(atom => atom.ref === "design")!;
+    atom.dependsOn = [...new Set([...atom.dependsOn, "population"])];
+    atom.dependencyQualifications = [...(atom.dependencyQualifications ?? []).filter(q => q.ref !== "population"),
+      { ref: "population", kind: "HARD_BLOCKING_DEPENDENCY", rationale: "Population requise pour le choix sélectionné" }];
+  }
   const output = { requestType: "STUDY_UPDATE", proposal, explicitDecisions: [], inferredAtomRefs: [], rejectedAtomRefs: [],
     explicitStudioDecisions: run.frozen.scientificSources.request.delta.filter(edit => cp.request.studioPreparationSource!.assessment.nativePayload.edits
       .some(assessment => assessment.editRef === edit.editRef && assessment.classification === "PROJECT_CHANGE"))
-      .map(edit => ({ atomRef: "design", editRef: edit.editRef, quote: edit.afterText })),
+      .map(edit => ({ atomRef: studioAtom, editRef: edit.editRef, quote: edit.afterText })),
     retainedDiscussionBindings: cp.request.scientificDiscussionContext?.retainedMeaning?.map(element => ({ elementRef: element.ref,
       sourceTurnRef: element.sourceTurnRef, atomRefs: ["population"] })) ?? [],
     sourceSetBindings: cp.request.scientificPreparationSourceSet!.sources.filter(source => source.status === "PENDING")
-      .map(source => ({ sourceRef: source.ref, coverage: "COMPLETE", atomRefs: source.origin === "STUDIO" ? ["design"] : ["population"] })) };
+      .map(source => ({ sourceRef: source.ref, coverage: "COMPLETE", atomRefs: source.origin === "STUDIO" ? [studioAtom] : ["population"] })) };
   const fetchImpl = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ id: "OFFLINE_FROZEN_STUDIO", model: "fixture-model",
     status: "completed", output: [{ content: [{ type: "output_text", text: JSON.stringify(output) }] }],
     usage: { input_tokens: 100, output_tokens: 50, total_tokens: 150 } })));
@@ -108,7 +137,11 @@ const prepare = async (run: Awaited<ReturnType<typeof setup>>, existing?: Awaite
   const session = consumeProjectPreparation(addProjectPreparation(run.session, preparation), cp.preparationId,
     result.body as Parameters<typeof consumeProjectPreparation>[2]);
   const ready = session.workingDraftPreparations!.at(-1)!;
-  expect(ready.status, ready.code ?? "").toBe("READY_FOR_REVIEW");
+  const observation: { current: WorkingReviewOwnerObservation | null } = { current: null };
+  if (ready.status !== "READY_FOR_REVIEW") prepareContinuousWorkingDraft(run.session,
+    (result.body as Parameters<typeof consumeProjectPreparation>[2]).workingStudyProposal!,
+    (result.body as Parameters<typeof consumeProjectPreparation>[2]).workingDraftUpdate!, cp.inputDigest, observation);
+  expect(ready.status, JSON.stringify({ code: ready.code, diagnostic: observation.current })).toBe("READY_FOR_REVIEW");
   if (!provided) intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, ready);
   return { intent, session, cp, fetchImpl, response: result.body };
 };
@@ -128,7 +161,7 @@ const readyDocuments = async (run: Awaited<ReturnType<typeof setup>>) => {
   const intent = await assessed(run);
   return run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource(run));
 };
-const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed = false, editorialWithScience = false) => {
+const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed: Parameters<typeof setup>[1] = false, editorialWithScience = false) => {
   const run = await setup(kind, mixed, editorialWithScience);
   let session = run.session, access = run.access2;
   const preparationEvidence = vi.fn(async (): Promise<StudioPreparationEvidence> => ({ state: "NOT_FOUND" }));
@@ -185,6 +218,161 @@ const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editoria
   return { ...run, client, runtime, preparePort, adopted, generate, clarify, committed, session: () => session,
     setSession: (next: FunctionalResetSession) => { session = next; }, preparationEvidence, assessPort };
 };
+
+describe("real Studio coordination shape: immutable receipt, scoped decisions and native QRY", () => {
+  const control = (session: FunctionalResetSession, disposition: "UNKNOWN" | "UNRELATED" = "UNKNOWN"): FunctionalResetSession => {
+    const turn = { turnId: "turn:87ef200a-fb41-4527-8e44-a779f4aca64d", role: "USER" as const,
+      content: "Merci ; mon autre message peut attendre.", createdAt: NOW };
+    const reply = { turnId: "reply:control", role: "NOXIA" as const, content: "Compris.", createdAt: NOW };
+    const runtimeTurns = [...session.runtimeTurns, turn, ...(disposition === "UNRELATED" ? [reply] : [])];
+    const retention = disposition === "UNRELATED" ? retainScientificDiscussionResult({ conversationId: session.conversationId,
+      userTurn: turn, assistantTurn: reply,
+      runtimeTurns, retained: [], state: session.scientificDiscussionRetention,
+      result: { reply: "Compris.", userContribution: { coverage: "COMPLETE", nonPersistentReason: "NO_SCIENTIFIC_MEANING", elements: [] },
+        assistantContribution: { coverage: "COMPLETE", nonPersistentReason: "PRESENTATION_ONLY", elements: [] }, dispositions: [], candidateBindings: [] } })
+      : session.scientificDiscussionRetention;
+    return { ...session, runtimeTurns, scientificDiscussionRetention: retention,
+      workingDraftPreparations: session.workingDraftPreparations!.map(preparation => ({ ...preparation,
+        postCutoffBlocker: `REFUSAL_OR_CORRECTION:${turn.turnId}` })) };
+  };
+  it("A/D: real differing postCutoffBlocker is retained; immutable result/checkpoint mutation still fails closed, even with COMPLETED evidence", async () => {
+    const run = await setup("science"), prepared = await prepare(run);
+    const local = control(prepared.session), durable = prepared.intent.resolution.preparation!;
+    expect(logicalDigest(local.workingDraftPreparations![0])).not.toBe(logicalDigest(durable));
+    expect(logicalDigest(local.workingDraftPreparations![0].checkpoint)).toBe(logicalDigest(durable.checkpoint));
+    expect(logicalDigest(local.workingDraftPreparations![0].result)).toBe(logicalDigest(durable.result));
+    expect(restoreStudioIntentPreparation(prepared.intent, local)).toEqual(local);
+    expect(studioIntentPostCutoffControl(prepared.intent, local).disposition).toBe("UNKNOWN");
+    for (const tamper of [
+      (p: NonNullable<FunctionalResetSession["workingDraftPreparations"]>[number]) => ({ ...p, checkpoint: { ...p.checkpoint!, requestDigest: "ke1-foreign" } }),
+      (p: NonNullable<FunctionalResetSession["workingDraftPreparations"]>[number]) => ({ ...p, result: { ...p.result!, workingDraft: { ...p.result!.workingDraft, inputDigest: "ke1-changed" } } }),
+    ]) expect(() => restoreStudioIntentPreparation(prepared.intent, { ...local,
+      workingDraftPreparations: local.workingDraftPreparations!.map(p => tamper(p)) }, "COMPLETED")).toThrow("STUDIO_INTENT_PREPARATION_DIVERGENCE");
+  });
+  it("B: native explicit rejection of frozen meaning is material, not corruption, and blocks governed adoption", async () => {
+    const run = await setup("science", true), prepared = await prepare(run, undefined, undefined, true), local = control(prepared.session);
+    const element = prepared.session.scientificDiscussionRetention!.elements[0];
+    const material = { ...local, scientificDiscussionRetention: { ...prepared.session.scientificDiscussionRetention!,
+      elements: prepared.session.scientificDiscussionRetention!.elements.map(item => item.ref === element.ref
+        ? { ...item, status: "REJECTED" as const, dispositionSourceRef: local.runtimeTurns.at(-1)!.turnId } : item) } };
+    expect(restoreStudioIntentPreparation(prepared.intent, material)).toEqual(material);
+    expect(studioIntentPostCutoffControl(prepared.intent, material).disposition).toBe("MATERIAL");
+    expect(() => prepareStudioIntentHumanDecision(prepared.intent, material)).toThrow("STUDIO_INTENT_POST_CUTOFF_CLARIFICATION_REQUIRED");
+    expect(studioFinalizationQuestion(prepared.intent, material)?.whyNow).toBe("STUDIO_POST_CUTOFF_SCIENTIFIC_CHANGE");
+    expect(material.project).toEqual(run.project2);
+  });
+  it("C/K/L/M/Q: unrelated native post-cutoff control preserves provenance; explicit resume reuses same assessment/save/WD; reopen is observation only", async () => {
+    const run = await finalizationHarness("science"), prepared = await prepare({ ...run, session: run.session() });
+    const local = control(prepared.session, "UNRELATED"); run.setSession(local);
+    expect(studioIntentPostCutoffControl(prepared.intent, local).disposition).toBe("UNRELATED");
+    expect(() => prepareStudioIntentHumanDecision(prepared.intent, local)).not.toThrow();
+    const rows = JSON.stringify(run.fixture.rows());
+    expect(await run.runtime.run(run.revision, vi.fn(), true)).toEqual(prepared.intent);
+    expect(run.assessPort).not.toHaveBeenCalled(); expect(run.preparePort).not.toHaveBeenCalled();
+    expect(JSON.stringify(run.fixture.rows())).toBe(rows);
+    const done = await run.runtime.run(run.revision, vi.fn());
+    expect(done!.state).toBe("CLOSED");
+    expect(done!.finalizationIntentId).toBe(prepared.intent.finalizationIntentId);
+    expect(done!.frozen).toEqual(prepared.intent.frozen);
+    expect(run.assessPort).not.toHaveBeenCalled(); expect(run.preparePort).not.toHaveBeenCalled();
+    expect(run.preparationEvidence).not.toHaveBeenCalled();
+    expect(run.session().workingDraftPreparations!.find(p => p.checkpoint?.preparationId === prepared.cp.preparationId)?.postCutoffBlocker)
+      .toBe(local.workingDraftPreparations![0].postCutoffBlocker);
+    const late = { ...run.session(), workingDraftPreparations: run.session().workingDraftPreparations!.map(p => ({
+      ...p, postCutoffBlocker: "REFUSAL_OR_CORRECTION:later-control-after-commit" })) };
+    expect(studioFinalizationQuestion(done!, late)).toBeNull();
+    expect(await run.archive.body(run.access2, run.g1.ref.generationId)).toEqual({ ref: run.g1.ref, body: run.g1.body });
+  });
+  it("unknown post-cutoff impact uses an exact bounded clarification, not another preparation or intent", async () => {
+    const run = await finalizationHarness("science"), prepared = await prepare({ ...run, session: run.session() });
+    const local = control(prepared.session); run.setSession(local);
+    const rows = JSON.stringify(run.fixture.rows()), saves = JSON.stringify(run.fixture.revisions());
+    const waiting = await run.runtime.run(run.revision, vi.fn());
+    expect(waiting).toEqual(prepared.intent);
+    expect(run.clarify).toHaveBeenCalledWith(prepared.intent, expect.objectContaining({
+      targetRef: prepared.intent.finalizationIntentId, whyNow: "STUDIO_POST_CUTOFF_IMPACT_UNCERTAIN" }));
+    for (const port of [run.assessPort, run.preparePort, run.adopted, run.generate, run.committed]) expect(port).not.toHaveBeenCalled();
+    expect(JSON.stringify(run.fixture.rows())).toBe(rows); expect(JSON.stringify(run.fixture.revisions())).toBe(saves);
+    expect(run.session().workingDraftPreparations).toEqual(local.workingDraftPreparations);
+    const question = run.runtime.clarification!(waiting!)!;
+    expect(validateFunctionalResetQueryNavigation(presentStudioFinalizationQuestion(local, question).queryNavigation!)).toBe(true);
+  });
+  it("E/F: irrelevant frozen proposals do not require adoption; hard dependencies still do", async () => {
+    const run = await setup("science", "unrelated-proposals"), prepared = await prepare(run);
+    const scope = studioIntentDecisionScope(prepared.intent);
+    expect("clarification" in scope).toBe(false);
+    const decision = prepareStudioIntentHumanDecision(prepared.intent, prepared.session);
+    expect(decision.sourceRefs).toEqual(prepared.intent.resolution.sourceSet!.sources.filter(source => source.origin === "STUDIO").map(source => source.ref));
+    expect(decision.sourceRefs.length).toBeLessThan(prepared.intent.resolution.sourceSet!.sources.filter(source => source.status === "PENDING").length);
+    expect(studioFinalizationQuestion(prepared.intent, prepared.session)).toBeNull();
+    const dependent = await setup("science", "unrelated-proposals"), required = await prepare(dependent, undefined, undefined, true);
+    expect(() => prepareStudioIntentHumanDecision(required.intent, required.session)).toThrow("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
+    expect(studioFinalizationQuestion(required.intent, required.session)?.whyNow).toBe("STUDIO_REQUIRED_SCIENTIFIC_DECISION");
+    const question = studioFinalizationQuestion(required.intent, required.session)!;
+    expect(validateFunctionalResetQueryNavigation(presentStudioFinalizationQuestion(required.session, question).queryNavigation!)).toBe(true);
+  });
+  it("G/H/I/J: scientific deletion + partial coverage cannot become approved editorial via WD; native question and real answer stay exactly bound and non-adopting", async () => {
+    // Sanitized real shape: saved paragraph truncated to a label, PROJECT_CHANGE
+    // with PARTIAL Project coverage, WD selects an atom with no covered target.
+    const run = await setup("deletion", "unrelated-proposals"), prepared = await prepare(run, undefined, undefined, false, true);
+    const rows = JSON.stringify(run.fixture.rows()), revision = JSON.stringify(run.revision);
+    expect(() => prepareStudioIntentHumanDecision(prepared.intent, prepared.session)).toThrow("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
+    const question = studioFinalizationQuestion(prepared.intent, prepared.session)!;
+    expect(question.whyNow).toBe("STUDIO_SCIENTIFIC_CHANGE_NOT_RESOLVED");
+    expect(question.intent).toContain("conservant les décisions scientifiques du projet");
+    expect(question.provenanceRefs).toContain(prepared.intent.finalizationIntentId);
+    expect(question.provenanceRefs).toContain(prepared.intent.resolution.sourceSet!.sourceSetDigest);
+    expect(question.provenanceRefs).toContain(`studio-save:${run.revision.saveSequence}:${run.revision.contentDigest}`);
+    const presented = presentStudioFinalizationQuestion(prepared.session, question);
+    expect(validateFunctionalResetQueryNavigation(presented.queryNavigation!)).toBe(true);
+    const turn = { turnId: "user:real-answer", role: "USER" as const, content: "Je valide tes propositions", createdAt: NOW };
+    const answered = bindStudioConversationAnswer(presented, turn), response = answered.queryNavigation!.memory.responses.at(-1)!;
+    expect(response.provenanceRefs).toContain(prepared.intent.finalizationIntentId);
+    expect(response.provenanceRefs).toContain(turn.turnId);
+    expect(validateQuestionResponseEnvelope(response, question).valid).toBe(true);
+    expect(validateQueryNavigationMemory(answered.queryNavigation!.memory).valid).toBe(true);
+    expect(answered.queryNavigation!.lastResponseRoute?.destination).toBe("SCIENTIFIC_INTERPRETATION");
+    expect(answered.project).toEqual(run.project2); expect(answered.runtimeTurns).toEqual(prepared.session.runtimeTurns);
+    expect(response).toMatchObject({ rawResponseIsProjectTruth: false, projectWriteAuthorized: false });
+    expect(JSON.stringify(response)).not.toMatch(/20[–-]89/u);
+    expect(prepared.intent.frozen).toEqual(run.frozen); expect(prepared.intent.resolution.humanDecision).toBeNull();
+    const request = prepareTerraConversationRequest(answered, [...answered.runtimeTurns, turn], turn, true, false);
+    expect(request.currentNavigation?.selected.targetRef).toBe(prepared.intent.finalizationIntentId);
+    expect(request.currentNavigation?.authorizedContent[0].text).toContain("décisions");
+    expect(JSON.stringify(run.fixture.rows())).toBe(rows); expect(JSON.stringify(run.revision)).toBe(revision);
+    expect(presentStudioFinalizationQuestion(presented, question)).toBe(presented);
+    expect(bindStudioConversationAnswer(answered, turn)).toBe(answered);
+    const later = { ...turn, turnId: "user:unrelated-later", content: "Une autre question scientifique." };
+    expect(bindStudioConversationAnswer(answered, later)).toBe(answered);
+    const advanced = { ...presented, project: run.project3 };
+    expect(bindStudioConversationAnswer(advanced, turn)).toBe(advanced);
+  });
+  it("real conversation coordinator associates acknowledgment with Studio QRY, not with Project confirmation", async () => {
+    const run = await setup("deletion"), prepared = await prepare(run, undefined, undefined, false, true);
+    const initial = presentStudioFinalizationQuestion(prepared.session, studioFinalizationQuestion(prepared.intent, prepared.session)!);
+    const bridge = vi.spyOn(bridgeClient, "requestProtocolDesignerBridge").mockRejectedValue(new Error("OFFLINE_CONVERSATION_INTERRUPTION"));
+    const confirm = vi.fn(async () => false as const);
+    const hook = renderHook(() => {
+      const [session, setSession] = useState(initial), latestSessionRef = useRef(session); latestSessionRef.current = session;
+      const commands = useConversationTurn({ session, latestSessionRef, setSession, busy: false, setBusy: vi.fn(),
+        setBusyMessage: vi.fn(), setDraft: vi.fn(), correctionMode: false, setCorrectionMode: vi.fn(), autonomousProjectBuild: true,
+        traceCaptureConfiguration: DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, setPostAdoptionContinuationJob: vi.fn(),
+        confirmContribution: confirm, rejectContribution: vi.fn(), dispatchProductDocumentAction: vi.fn(),
+        handleDocumentInstruction: vi.fn(), persistenceFailureMessage: () => null });
+      return { session, commands };
+    });
+    try {
+      await act(async () => { await hook.result.current.commands.submitTerraText("Je valide tes propositions", false,
+        undefined, readNaturalCandidateDecision("Je valide tes propositions")); });
+      const session = hook.result.current.session;
+      expect(session.queryNavigation!.memory.responses).toHaveLength(1);
+      expect(session.conversationConfirmationReceipts).toEqual(initial.conversationConfirmationReceipts);
+      expect(session.project).toEqual(run.project2); expect(confirm).not.toHaveBeenCalled();
+      expect(bridge).toHaveBeenCalledTimes(1); // Mocked conversation boundary only, never a real provider.
+      expect(bridge.mock.calls[0][0].currentNavigation?.selected.targetRef).toBe(prepared.intent.finalizationIntentId);
+    } finally { hook.unmount(); bridge.mockRestore(); }
+  });
+});
 
 describe("DOC durable frozen intent / native ST and human adoption / no generation", () => {
   it("Studio opening is strictly read-only at every recoverable phase, including failed assessment and PREPARING", async () => {

@@ -4,6 +4,7 @@ import type { ProductBridgeRequest } from "../product-bridge.js";
 import type { StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
 import type { WorkingDraftMetadata } from "./continuous-project-build.js";
 import type { ScientificDiscussionRetention } from "./contribution-discussion-retention.js";
+import { logicalDigest } from "../../knowledge-engine/canonical.js";
 
 export type ProjectPreparationCheckpoint = Readonly<{
   contract: "EXPLICIT_PROJECT_PREPARATION_V1";
@@ -27,3 +28,10 @@ export type WorkingDraftPreparation = Readonly<{
   recovery?: Readonly<{ sourceResponseRef: string; compositionResponseRef: string; sourceConversationDigest: string;
     baseProjectId: string; baseProjectVersion: string | null; baseProjectDigest: string | null }>;
 }>;
+
+/** Post-cutoff controls are evidence about continuation, not part of the
+ * immutable preparation receipt. All other fields remain exact. */
+export const preparationReceiptDigest = (preparation: WorkingDraftPreparation) => {
+  const { postCutoffBlocker: _control, ...receipt } = preparation;
+  return logicalDigest(receipt);
+};

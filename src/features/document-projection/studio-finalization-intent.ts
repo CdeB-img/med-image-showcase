@@ -8,6 +8,7 @@ import type { WorkingDraftPreparation, ProjectPreparationCheckpoint } from "../p
 import { workingDraftInputDigest } from "../protocol-designer/functional-reset/continuous-project-build.js";
 import type { StudioReconciliationPlan } from "./studio-reconciliation-contract.js";
 import { assertWorkingRevision, type DocumentWorkingRevision } from "./working-revision.js";
+import { sourceBackedStudyProposalScope, selectedStudyProposalAtoms } from "../protocol-designer/functional-reset/study-proposal-standard.js";
 
 export class StudioFinalizationIntentError extends Error {
   constructor(public readonly code: string, public readonly status = 409) { super(code); }
@@ -147,19 +148,55 @@ export const linkStudioIntentPreparation = (intent: StudioFinalizationIntent, pr
     : preparation.status === "PREPARING" ? "SCIENTIFIC_PREPARATION_REQUIRED" : "BLOCKED",
   { ...resolution, preparation, reason: ready ? null : preparation.code }, now);
 };
+/** The existing source-backed selector closes required dependencies. A source
+ * merely coexisting in the frozen set grants neither relevance nor assent. */
+export const studioIntentDecisionScope = (intent: StudioFinalizationIntent) => {
+  const result = intent.resolution.preparation?.result, set = intent.resolution.sourceSet;
+  if (!result || !set) fail("STUDIO_INTENT_HUMAN_DECISION_NOT_READY");
+  const scope = sourceBackedStudyProposalScope(result.composition, result.workingDraft.origins);
+  if ("clarification" in scope) return { clarification: scope.clarification };
+  const atomRefs = selectedStudyProposalAtoms(result.composition, scope.selectedOptionRefs, scope.selectedAtomRefs);
+  const bindings = result.composition.nativeSourceBindings;
+  if (!bindings) fail("STUDIO_INTENT_SOURCE_SCOPE_UNAVAILABLE");
+  const sources = set.sources.filter(source => source.status === "PENDING"
+    && bindings.some(binding => binding.sourceRef === source.ref && binding.atomRefs.some(ref => atomRefs.includes(ref))));
+  if (atomRefs.some(ref => !sources.some(source => bindings.some(binding => binding.sourceRef === source.ref && binding.atomRefs.includes(ref)))))
+    fail("STUDIO_INTENT_SOURCE_SCOPE_UNAVAILABLE");
+  const atoms = result.composition.proposal.atoms.filter(atom => atomRefs.includes(atom.ref));
+  return { atomRefs, atoms, sources };
+};
+
+/** Partial coverage cannot be certified away by a WD selecting an unrelated
+ * documentary atom. No text-length/word heuristic decides scientific impact. */
+export const studioIntentUnresolvedScientificEdits = (intent: StudioFinalizationIntent) => {
+  const result = intent.resolution.preparation?.result;
+  if (!result) return [];
+  const scope = studioIntentDecisionScope(intent);
+  if ("clarification" in scope) return [];
+  return intent.resolution.assessment?.nativePayload.edits.filter(edit => edit.classification === "PROJECT_CHANGE"
+    && edit.projectCoverage && edit.projectCoverage.coverage !== "COMPLETE"
+    && !scope.atoms.some(atom => result.composition.nativeSourceBindings?.some(binding => binding.sourceRef === edit.editRef
+      && binding.atomRefs.includes(atom.ref)) && atom.userChangeRefs?.some(ref => edit.projectCoverage!.projectVersionRefs.includes(ref)))) ?? [];
+};
+
 export const createStudioIntentHumanDecision = (intent: StudioFinalizationIntent, actorRef: string,
   contributionDigest = intent.resolution.preparation?.result?.workingDraft.readyReview?.contribution.identity.contributionDigest): StudioFinalizationHumanDecision => {
   assertStudioIntent(intent);
   const { preparation, assessment, sourceSet } = intent.resolution;
   if (intent.state !== "WAITING_FOR_HUMAN_DECISION" || !preparation?.result || preparation.status !== "READY_FOR_REVIEW"
     || preparation.decision !== "PENDING" || !assessment || !sourceSet || !actorRef.trim() || !contributionDigest) fail("STUDIO_INTENT_HUMAN_DECISION_NOT_READY");
-  const sources = sourceSet.sources.filter(source => source.status === "PENDING");
+  const scope = studioIntentDecisionScope(intent);
+  if ("clarification" in scope || studioIntentUnresolvedScientificEdits(intent).length)
+    fail("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
+  const sources = scope.sources;
   // A residual UNKNOWN or model proposal is not a user confirmation. The
   // existing QRY/human owner must obtain an additional scoped decision.
   if (sources.some(source => source.origin !== "STUDIO" && !(source.origin === "CONVERSATION"
     && "epistemicState" in source.native && source.native.epistemicState === "USER_STATED"
     && "polarity" in source.native && source.native.polarity === "AFFIRMED"
-    && "conditions" in source.native && source.native.conditions.length === 0))) fail("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
+    && "conditions" in source.native && source.native.conditions.length === 0))
+    || scope.atomRefs.some(ref => preparation.result!.workingDraft.origins[ref] !== "EXPLICIT_USER"))
+    fail("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
   const material = { contract: "STUDIO_FINALIZATION_HUMAN_DECISION_V1" as const, origin: "STUDIO_FINALIZATION" as const,
     actor: "HUMAN_USER" as const, actorRef, finalizationIntentId: intent.finalizationIntentId, intentDigest: intent.intentDigest,
     workingRevisionId: intent.frozen.workingRevisionId, saveSequence: intent.frozen.workingRevisionSaveSequence,

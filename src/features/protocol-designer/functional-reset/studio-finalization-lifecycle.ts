@@ -13,6 +13,9 @@ import { captureStudioProjectPreparation, preparationCheckpointValid } from "./p
 import { sourceBackedVersionSelection } from "./useVersionProduction";
 import { stageProjectConfirmation } from "./project-review-decision";
 import type { FunctionalResetSession } from "./session";
+import { preparationReceiptDigest } from "./project-preparation-contract";
+import { studioIntentPostCutoffControl } from "./studio-finalization-controls";
+export { studioIntentPostCutoffControl } from "./studio-finalization-controls";
 
 export const freezeStudioFinalizationWork = async (input: {
   session: FunctionalResetSession; revision: DocumentWorkingRevision;
@@ -57,9 +60,7 @@ export const restoreStudioIntentPreparation = (intent: StudioFinalizationIntent,
   if (!preparation?.checkpoint) return session;
   if (!preparationCheckpointValid(session, preparation.checkpoint)) throw new Error("STUDIO_INTENT_PREPARATION_STALE");
   const existing = session.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId);
-  if (existing && logicalDigest(existing) !== logicalDigest(preparation)) {
-    if (evidence === "COMPLETED" && logicalDigest(existing.checkpoint) === logicalDigest(preparation.checkpoint)
-      && existing.status === "READY_FOR_REVIEW" && existing.result && existing.decision === "PENDING") return session;
+  if (existing && preparationReceiptDigest(existing) !== preparationReceiptDigest(preparation)) {
     if (logicalDigest(existing.checkpoint) !== logicalDigest(preparation.checkpoint) || existing.result
       || existing.decision && existing.decision !== "PENDING"
       || !(evidence === "COMPLETED" && ["PREPARING", "FAILED", "UNKNOWN/INTERRUPTED"].includes(existing.status)
@@ -68,15 +69,19 @@ export const restoreStudioIntentPreparation = (intent: StudioFinalizationIntent,
       throw new Error("STUDIO_INTENT_PREPARATION_DIVERGENCE");
     // Restore only the exact pre-dispatch checkpoint after a proven admission
     // rejection, or for consumption of a durable result. Failure TRACE stays.
-    return { ...session, workingDraftPreparations: session.workingDraftPreparations!.map(p => p === existing ? preparation : p) };
+    return { ...session, workingDraftPreparations: session.workingDraftPreparations!.map(p => p === existing
+      ? { ...preparation, ...(existing.postCutoffBlocker ? { postCutoffBlocker: existing.postCutoffBlocker } : {}) } : p) };
   }
   return existing ? session : { ...session, workingDraftPreparations: [...session.workingDraftPreparations ?? [], preparation] };
 };
 export const prepareStudioIntentHumanDecision = (intent: StudioFinalizationIntent, session: FunctionalResetSession) => {
+  if (!["NONE", "UNRELATED"].includes(studioIntentPostCutoffControl(intent, session).disposition))
+    throw new Error("STUDIO_INTENT_POST_CUTOFF_CLARIFICATION_REQUIRED");
   const chosen = studioIntentAdoptionSelection(intent, session);
   if ("clarification" in chosen) throw new Error("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
   return createStudioIntentHumanDecision(intent, session.projectAuthority.actorRef, chosen.selection.contribution.identity.contributionDigest);
 };
+
 /** The caller supplies an explicit native human decision; assessment alone
  * cannot call this path. Persistence stays in persistAdoptedProjectSession. */
 export const stageStudioIntentAdoption = (input: {
@@ -84,6 +89,8 @@ export const stageStudioIntentAdoption = (input: {
   readCurrentSession(): FunctionalResetSession; now: string;
   administration: Parameters<typeof stageProjectConfirmation>[0]["administration"];
 }) => {
+  if (!["NONE", "UNRELATED"].includes(studioIntentPostCutoffControl(input.intent, input.session).disposition))
+    throw new Error("STUDIO_INTENT_POST_CUTOFF_CLARIFICATION_REQUIRED");
   const chosen = studioIntentAdoptionSelection(input.intent, input.session);
   if ("clarification" in chosen) throw new Error("STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED");
   return stageProjectConfirmation({ ...input, contributionId: chosen.selection.contribution.identity.contributionId,

@@ -17,6 +17,8 @@ import { freezeDocumentGeneration } from "../../document-projection/generation-e
 import { documentTextSha256 } from "../../document-projection/document-text-sha256";
 import { settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
 import { consumeProjectPreparation } from "./project-preparation-lifecycle";
+import { studioFinalizationQuestion } from "../../query-navigation/studio-finalization-navigation";
+import type { QuestionPresentationRequest } from "../../query-navigation/lifecycle-contracts";
 
 /** Publish only this native adoption, retaining contributions received while
  * its persistence was awaited, plus the owner's typed confirmation coverage. */
@@ -45,6 +47,7 @@ export const retainStudioAdoptionConcurrentWork = (adopted: FunctionalResetSessi
 export type StudioFinalizationStage = "ASSESSMENT" | "SCIENCE" | "DOCUMENTS" | "ARCHIVE";
 export type StudioFinalizationRuntime = {
   run(revision: DocumentWorkingRevision, progress: (stage: StudioFinalizationStage) => void, resumeOnly?: boolean): Promise<StudioFinalizationIntent | null>;
+  clarification?(intent: StudioFinalizationIntent): QuestionPresentationRequest | null;
 };
 type Ports = {
   session(): FunctionalResetSession;
@@ -52,7 +55,7 @@ type Ports = {
   client(session: FunctionalResetSession): DocumentArchiveClient;
   prepare(captured: WorkingDraftPreparation): Promise<void>;
   adopt(intent: StudioFinalizationIntent): Promise<void>;
-  clarify(intent: StudioFinalizationIntent): void;
+  clarify(intent: StudioFinalizationIntent, question: QuestionPresentationRequest | null): void;
   committed(intent: StudioFinalizationIntent): Promise<void>;
   assess?: typeof requestStudioScientificAssessment;
   generate?: typeof requestProtocolDesignerBridge;
@@ -60,6 +63,7 @@ type Ports = {
 /** Foreground continuation of a durable operation, not a closure-owned state
  * machine. Every awaited phase is recorded by its existing durable owner. */
 export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizationRuntime => ({
+  clarification: intent => studioFinalizationQuestion(intent, ports.session()),
   async run(revision, progress, resumeOnly = false) {
     let session = ports.session(), client = ports.client(session), owner = client.finalizationIntents;
     if (!owner || !session.project) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
@@ -126,8 +130,11 @@ export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizatio
       intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, ready);
     }
     if (intent.state === "WAITING_FOR_HUMAN_DECISION") {
-      if (!intent.resolution.preparation?.result) { ports.clarify(intent); return intent; }
-      session = restoreStudioIntentPreparation(intent, ports.session()); ports.publish(session);
+      if (intent.resolution.preparation?.result) {
+        session = restoreStudioIntentPreparation(intent, ports.session()); ports.publish(session);
+      }
+      const clarification = studioFinalizationQuestion(intent, ports.session());
+      if (clarification || !intent.resolution.preparation?.result) { ports.clarify(intent, clarification); return intent; }
       try {
         const decision = intent.resolution.humanDecision ?? prepareStudioIntentHumanDecision(intent, session);
         if (!intent.resolution.humanDecision) intent = await owner.recordHumanDecision(intent.finalizationIntentId, intent.sequence, decision);
@@ -135,12 +142,14 @@ export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizatio
         session = ports.session(); client = ports.client(session); owner = client.finalizationIntents!;
         intent = await owner.resolveAdoption(intent.finalizationIntentId, intent.sequence, decision);
       } catch (error) {
-        if (error instanceof Error && error.message === "STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED") { ports.clarify(intent); return intent; }
+        if (error instanceof Error && ["STUDIO_INTENT_ADDITIONAL_HUMAN_DECISION_REQUIRED", "STUDIO_INTENT_POST_CUTOFF_CLARIFICATION_REQUIRED"].includes(error.message)) {
+          ports.clarify(intent, studioFinalizationQuestion(intent, ports.session())); return intent;
+        }
         throw error;
       }
     }
     if (intent.state !== "READY_FOR_DOCUMENT_FINALIZATION" && !(intent.state === "BLOCKED"
-      && intent.resolution.reason === "DOCUMENTARY_RECONCILIATION_REQUIRED")) { ports.clarify(intent); return intent; }
+      && intent.resolution.reason === "DOCUMENTARY_RECONCILIATION_REQUIRED")) { ports.clarify(intent, studioFinalizationQuestion(intent, ports.session())); return intent; }
     progress("DOCUMENTS"); session = ports.session();
     if (!session.project) throw new StudioFinalizationIntentError("STUDIO_INTENT_PROJECT_INVALID");
     if (!intent.resolution.documentSource) {

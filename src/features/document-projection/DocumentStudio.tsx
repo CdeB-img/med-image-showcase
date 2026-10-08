@@ -10,18 +10,23 @@ import { editableArchivedDocument, type DocumentWorkingRevisionResult, type Edit
 import { hasProtectedTextBinding, studioBoundText, type DocumentStudioTarget } from "./studio-document";
 import type { StudioFinalizationRuntime, StudioFinalizationStage } from "../protocol-designer/functional-reset/studio-finalization-runtime";
 import type { StudioFinalizationIntent } from "./studio-finalization-intent";
+import type { QuestionPresentationRequest } from "../query-navigation/lifecycle-contracts";
+import { studioFinalizationQuestion } from "../query-navigation/studio-finalization-navigation";
 import { toast } from "@/hooks/use-toast";
 import { readStudioAssessmentFailureDiagnostic, type StudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
 const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
   SAVING: "Enregistrement…", SAVE_FAILED: "Échec de l’enregistrement", CONFLICT: "Conflit de sauvegarde" };
-const codeOf = (error: unknown) => error && typeof error === "object" && "code" in error ? error.code : null;
+const codeOf = (error: unknown) => {
+  const candidate = error && typeof error === "object" && "code" in error ? error.code : error instanceof Error ? error.message : null;
+  return typeof candidate === "string" && /^[A-Z][A-Z0-9_]{0,119}$/u.test(candidate) ? candidate : null;
+};
 
 /** Native text editing only. Buffers are screen-owned; confirmed saves, source
  * integrity, ACTIVE lookup and concurrency belong to the existing DOC owner. */
-export default function DocumentStudio({ client, target, finalization, onClose }: {
-  client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void;
+export default function DocumentStudio({ client, target, finalization, onClose, onConversation }: {
+  client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void; onConversation?: () => void;
 }) {
   const [loaded, setLoaded] = useState<{ result: DocumentWorkingRevisionResult; base: EditableDocumentContent; body: DocumentGenerationBody } | null>(null);
   const [buffer, setBuffer] = useState<EditableDocumentContent | null>(null);
@@ -38,6 +43,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   } | null>(null);
   const [completed, setCompleted] = useState(false);
   const [recoverableIntent, setRecoverableIntent] = useState(false);
+  const [clarification, setClarification] = useState<QuestionPresentationRequest | null>(null);
   const [saveFeedback, setSaveFeedback] = useState(false);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
@@ -56,7 +62,8 @@ export default function DocumentStudio({ client, target, finalization, onClose }
       ? readStudioAssessmentFailureDiagnostic(error.studioAssessmentFailureDiagnostic) : null;
     // Bounded internal details are retained separately, never rendered as
     // Standard feedback and never copied from scientific/provider prose.
-    setFinalizationFailure({ code: typeof code === "string" && /^[A-Z_]{1,120}$/u.test(code) ? code : null, diagnostic });
+    setFinalizationFailure({ code, diagnostic });
+    setClarification(null);
     setFinalizationMessage(null);
     toast({ variant: "destructive", title: "La création de la version n’a pas abouti.",
       description: "Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération." });
@@ -64,17 +71,23 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   const finish = (intent: StudioFinalizationIntent | null) => {
     if (!intent) return;
     setRecoverableIntent(intent.state !== "CLOSED");
+    const question = runtimeRef.current?.clarification?.(intent) ?? studioFinalizationQuestion(intent);
+    setClarification(question);
+    if (intent.state === "BLOCKED" && !question) setFinalizationFailure({
+      code: codeOf(new Error(intent.resolution.reason ?? "STUDIO_INTENT_BLOCKED")), diagnostic: null });
     if (intent.resolution.documentReceipt) {
       setFinalizationMessage(`✓ Version ${intent.resolution.documentReceipt.generation.displayVersion} créée`); setCompleted(true);
     } else if (intent.resolution.documentNoChange) setFinalizationMessage("Aucune modification à intégrer dans une nouvelle version.");
-    else setFinalizationMessage("Une précision est nécessaire dans la conversation. Le brouillon est conservé.");
+    else setFinalizationMessage(question ? "Une décision est nécessaire dans la conversation. Le brouillon est conservé."
+      : intent.state === "BLOCKED" ? "La création est bloquée. Le brouillon est conservé."
+        : "L’opération est récupérable. Reprenez explicitement la création.");
   };
   const generation = target.generation;
   useEffect(() => {
     const token = ++epoch.current; flight.current = false;
     setLoaded(null); setBuffer(null); setLoadFailed(false); setSaveState("CLEAN");
     setRecoverableIntent(false); setCompleted(false); setFinalizationMessage(null);
-    setFinalizationFailure(null); setSaveFeedback(false);
+    setFinalizationFailure(null); setSaveFeedback(false); setClarification(null);
     void (async () => {
       const archiveClient = clientRef.current;
       if (!archiveClient.workingRevisions) throw new Error("DOC_REVISION_UNAVAILABLE");
@@ -96,11 +109,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
         try {
           const intent = await runtimeRef.current.run(result.revision, setStage, true);
           if (epoch.current === token && intent) {
-            if (intent.state === "CLOSED") finish(intent);
-            else {
-              setRecoverableIntent(true);
-              setFinalizationMessage("Une création est en attente. Reprenez explicitement la création à partir du travail déjà confirmé.");
-            }
+            finish(intent);
           }
         }
         catch (error) { if (epoch.current === token) reportFinalizationFailure(error); }
@@ -139,7 +148,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   };
   const createNextVersion = async () => {
     if (!loaded || !buffer || !runtimeRef.current || flight.current || saveState === "CONFLICT" || completed) return;
-    const token = epoch.current; flight.current = true; setFinalizing(true); setFinalizationMessage(null); setFinalizationFailure(null);
+    const token = epoch.current; flight.current = true; setFinalizing(true); setFinalizationMessage(null); setFinalizationFailure(null); setClarification(null);
     let saved = loaded.result;
     try {
       if (dirty) {
@@ -216,12 +225,6 @@ export default function DocumentStudio({ client, target, finalization, onClose }
         <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>
       </div>}
     </header>
-    {finalizationMessage && <p role="status" className="px-5 py-3 text-sm">{finalizationMessage}</p>}
-    {finalizationFailure && <aside role="alert" className="m-5 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
-      <p className="font-semibold">La création de la version n’a pas abouti.</p>
-      <p className="mt-1">Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération.</p>
-    </aside>}
-    {stage && <p role="status" className="px-5 py-3 text-sm">{{ ASSESSMENT: "Préparation des modifications…", SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Préparation des documents…", ARCHIVE: "Enregistrement de la version…" }[stage]}</p>}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
       <p>{saveState === "CONFLICT" ? "Ce brouillon a été modifié ou abandonné ailleurs. Vos modifications locales sont conservées ; rechargez la dernière version avant de poursuivre."
@@ -251,12 +254,28 @@ export default function DocumentStudio({ client, target, finalization, onClose }
         <StudioProtectedContent body={loaded.body} documentRef={target.nativeDocumentRef} />
       </div>
     </main>}
-    {loaded && <footer className="flex flex-wrap items-center justify-between gap-3 border-t p-5 sm:px-6">
+    {loaded && <footer className="sticky bottom-0 z-10 border-t bg-background p-5 shadow-sm sm:px-6" data-testid="studio-action-area">
+      {finalization && <div className="mb-3 text-sm" data-testid="studio-finalization-status" aria-live="polite"
+        data-state={finalizing ? "RUNNING" : completed ? "COMPLETED" : finalizationFailure ? "FAILED"
+          : clarification ? "WAITING_FOR_CLARIFICATION" : recoverableIntent ? "READY_TO_RESUME" : "IDLE"}>
+        {finalizing ? <p role="status">Création de version en cours · {stage ? { ASSESSMENT: "Préparation des modifications…",
+          SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Préparation des documents…", ARCHIVE: "Enregistrement de la version…" }[stage]
+          : "Vérification de l’opération…"}</p>
+          : finalizationFailure ? <aside role="alert" className="rounded-lg border border-destructive/40 p-3 text-destructive">
+            <p>La création de la version n’a pas abouti.</p><p>Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération.</p>
+            {finalizationFailure.code && <details className="mt-2 text-xs"><summary>Détail technique</summary><code>{finalizationFailure.code}</code></details>}
+          </aside> : finalizationMessage && <p role="status">{finalizationMessage}</p>}
+        {!finalizing && clarification && <div className="mt-2 rounded-lg border bg-muted/30 p-3">
+          <p>{clarification.intent}</p>
+          <Button variant="outline" className="mt-3" onClick={onConversation ?? onClose}>Répondre dans la conversation</Button>
+        </div>}
+      </div>}
+      <div className="flex flex-wrap items-center justify-between gap-3">
       <p className="text-xs text-muted-foreground">Sauvegarde explicite uniquement · état {loaded.result.revision.saveSequence}</p>
       <div className="flex flex-wrap items-center gap-3">
       {saveFeedback && <span role="status" className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-semibold text-primary"><CheckCircle2 className="h-4 w-4" aria-hidden="true" />✓ Enregistré</span>}
       <Button variant="outline" onClick={() => void save()} disabled={busy || completed || saveState === "CONFLICT" || !dirty && saveState !== "SAVE_FAILED"}><Save />Enregistrer</Button>
-      {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>{recoverableIntent ? "Reprendre la création" : "Créer la version suivante"}</Button>}</div>
+      {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>{recoverableIntent ? "Reprendre la création" : "Créer la version suivante"}</Button>}</div></div>
     </footer>}
     <AlertDialog open={dialog !== null} onOpenChange={open => { if (!open) setDialog(null); }}>
       <AlertDialogContent>

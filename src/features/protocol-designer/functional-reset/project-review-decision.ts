@@ -3,6 +3,8 @@ import { deferResearchProjectContribution } from "@/features/research-project-co
 import { buildStudyProposalSelectionContribution } from "./study-proposal-standard";
 import { assertStudyProposalCurrent, sourceBackedStudyProposalScope } from "./study-proposal-standard";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { preparationReceiptDigest } from "./project-preparation-contract";
+import { studioIntentPostCutoffControl } from "./studio-finalization-controls";
 import { rejectResearchProjectContribution } from "@/features/research-project-construction";
 import { recordContributionRejectionTrace } from "./end-to-end-trace-adapter";
 import { adoptedProjectInteractionState } from "./project-adoption-effects";
@@ -147,6 +149,8 @@ export function stageProjectConfirmation(input: {
   const { session, readCurrentSession, contributionId, contribution, now, naturalDecision, proposalSelection, adoptionTrace, administration } = input;
   const studio = input.studioDecision;
   if (studio) {
+    if (!["NONE", "UNRELATED"].includes(studioIntentPostCutoffControl(studio.intent, session).disposition))
+      throw new Error("STUDIO_INTENT_POST_CUTOFF_CLARIFICATION_REQUIRED");
     if (naturalDecision) throw new Error("STUDIO_HUMAN_DECISION_SOURCE_INVALID");
     assertStudioIntentHumanDecision(studio.intent, studio.decision);
     if (studio.decision.actorRef !== session.projectAuthority.actorRef
@@ -176,7 +180,7 @@ export function stageProjectConfirmation(input: {
       if (set?.sourceSetDigest !== studio.decision.scientificSourceSetDigest
         || preparation.checkpoint.request.studioPreparationSource?.finalizationIntentId !== undefined
           && preparation.checkpoint.request.studioPreparationSource.finalizationIntentId !== studio.intent.finalizationIntentId
-        || logicalDigest(preparation) !== logicalDigest(studio.intent.resolution.preparation)
+        || preparationReceiptDigest(preparation) !== preparationReceiptDigest(studio.intent.resolution.preparation!)
         || selected.some(atom => preparation.result!.workingDraft.origins[atom] !== "EXPLICIT_USER"
           || !proposalSelection.composition.nativeSourceBindings?.some(binding => binding.atomRefs.includes(atom)
             && studio.decision.sourceRefs.includes(binding.sourceRef))))
