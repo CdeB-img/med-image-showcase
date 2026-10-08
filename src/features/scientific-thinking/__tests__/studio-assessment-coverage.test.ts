@@ -104,10 +104,11 @@ describe("Studio assessment producer / native coverage / real failure shape", ()
     const expected = [...new Set([...run.request.currentProject.objects, ...run.request.currentProject.relations,
       ...run.request.currentProject.temporalQualifications, ...run.request.currentProject.expectedVariableOccasions].map(item => item.versionRef))].sort();
     expect(contract.allowedProjectCoverageRefs).toEqual(expected);
-    expect(contract.version).toBe("1.1.0");
+    expect(contract.version).toBe("1.2.0");
     expect(context.sourceProject.sourceProjectVersion).toBe(run.project2.versionId);
     const schema = JSON.parse(JSON.stringify(packet.outputSchema));
-    expect(schema.properties.edits.items.properties.projectCoverage.anyOf[0].properties.projectVersionRefs.items.enum).toEqual(expected);
+    const scientificBranch = schema.properties.edits.items.anyOf.find((branch: { properties: { classification: { enum: string[] } } }) => branch.properties.classification.enum.includes("PROJECT_CHANGE"));
+    expect(scientificBranch.properties.projectCoverage.anyOf[0].properties.projectVersionRefs.items.enum).toEqual(expected);
     expect(buildOpenAITerraConversationPayload(packet).text!.format.schema).toEqual(packet.outputSchema);
     expect(expected).not.toContain(run.project2.versionId); expect(expected).not.toContain(run.g2.ref.generationId);
     expect(packet.instruction).toContain("NEVER a scientific object coverage reference");
