@@ -4,6 +4,7 @@ import type { StudioReconciliationRequest } from "../document-projection/studio-
 import { requireStudioScientificAssessment, type StudioScientificAssessment } from "../scientific-thinking/studio-contribution.js";
 import type { ProductBridgeRequest } from "./product-bridge.js";
 import { studioAssessmentOperationIdentity, readStudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime.js";
+import { studioPreparationTransport } from "./studio-preparation-transport.js";
 
 /** Existing HTTP / Project proof / durable guard corridor. No UI or auto-dispatch. */
 const nativeStudioRequest = async (sessionId: string, project: ResearchProjectOwnerProjection, body: Record<string, unknown>) => {
@@ -29,7 +30,8 @@ export const requestStudioScientificAssessment = async (sessionId: string, proje
 export const requestStudioScientificPreparation = async (request: ProductBridgeRequest) => {
   if (!request.studioPreparationSource || !request.prepareWorkingDraft || !request.currentProject
     || !request.observabilityContext?.sessionId) throw new ProductBridgeClientError("STUDIO_PREPARATION_SOURCE_REQUIRED", "Préparation native manquante.");
-  const value = await nativeStudioRequest(request.observabilityContext.sessionId, request.currentProject, request);
+  const value = await nativeStudioRequest(request.observabilityContext.sessionId, request.currentProject,
+    request.studioPreparationSource.finalizationIntentId ? studioPreparationTransport(request) : request);
   if (!value.workingDraftUpdate) throw new ProductBridgeClientError("STUDIO_PREPARATION_RESULT_INVALID", "Résultat scientifique manquant.");
   return value as Pick<import("./product-bridge.js").ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">
     & Partial<Pick<import("./product-bridge.js").ProductBridgeResponse, "observability">>;

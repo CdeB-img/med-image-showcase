@@ -16,6 +16,7 @@ import { prepareDrciDraftSource } from "../../document-projection/drci-draft-con
 import { freezeDocumentGeneration } from "../../document-projection/generation-exports";
 import { documentTextSha256 } from "../../document-projection/document-text-sha256";
 import { settleRetainedDiscussionAdoption } from "./contribution-discussion-retention";
+import { consumeProjectPreparation } from "./project-preparation-lifecycle";
 
 /** Publish only this native adoption, retaining contributions received while
  * its persistence was awaited, plus the owner's typed confirmation coverage. */
@@ -64,8 +65,10 @@ export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizatio
     if (!owner || !session.project) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
     let intent = await owner.recoverActive(revision.revisionId)
       ?? await owner.recoverForSave({ revisionId: revision.revisionId, saveSequence: revision.saveSequence, contentDigest: revision.contentDigest });
+    // Opening Studio is observation only, including a previously started intent.
+    // No assessment, checkpoint, adoption acknowledgement or archive commit here.
+    if (resumeOnly) return intent;
     if (!intent) {
-      if (resumeOnly) return null;
       const source = await client.body(revision.baseGenerationId);
       const projectionSource = source.body.native.family === "DRCI" ? await client.body(source.body.native.value.protocolProjectionId) : undefined;
       intent = await owner.create(await freezeStudioFinalizationWork({ session, revision, source, projectionSource }));
@@ -98,12 +101,27 @@ export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizatio
       const exact = await client.workingRevisions?.getSave?.({ revisionId: intent.frozen.workingRevisionId,
         saveSequence: intent.frozen.workingRevisionSaveSequence, contentDigest: intent.frozen.workingRevisionContentDigest });
       if (!exact) throw new StudioFinalizationIntentError("STUDIO_INTENT_SAVE_INVALID");
-      session = restoreStudioIntentPreparation(intent, ports.session()); ports.publish(session);
-      const captured = captureStudioIntentPreparation(intent, session, exact.revision);
-      if (!captured.preparation) throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_NOT_READY");
-      if (!intent.resolution.preparation) intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, captured.preparation);
-      if (captured.action !== "REUSE_VALID_PREPARATION") await ports.prepare(captured.preparation);
-      const ready = ports.session().workingDraftPreparations?.find(p => p.checkpoint?.preparationId === captured.preparation!.checkpoint?.preparationId);
+      let preparation = intent.resolution.preparation;
+      if (preparation?.checkpoint) {
+        const evidence = await owner.readPreparation(intent.finalizationIntentId);
+        if (evidence.state === "IN_PROGRESS") throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_IN_PROGRESS");
+        if (evidence.state === "UNKNOWN") throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_UNRESOLVED");
+        if (evidence.state === "FAILED") throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_PROVIDER_FAILED");
+        session = restoreStudioIntentPreparation(intent, ports.session(), evidence.state);
+        if (evidence.state === "COMPLETED") session = consumeProjectPreparation(session,
+          preparation.checkpoint.preparationId, evidence.response, "DURABLE_RECOVERY");
+        ports.publish(session);
+        // NOT_FOUND is not a provider retry. The same native request still goes
+        // through admission/idempotence before it can dispatch anything.
+        if (evidence.state === "NOT_FOUND") await ports.prepare(preparation);
+      } else {
+        const captured = captureStudioIntentPreparation(intent, ports.session(), exact.revision);
+        if (!captured.preparation) throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_NOT_READY");
+        preparation = captured.preparation;
+        intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, preparation);
+        if (captured.action !== "REUSE_VALID_PREPARATION") await ports.prepare(preparation);
+      }
+      const ready = ports.session().workingDraftPreparations?.find(p => p.checkpoint?.preparationId === preparation!.checkpoint?.preparationId);
       if (!ready || ready.status !== "READY_FOR_REVIEW") throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_PENDING");
       intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, ready);
     }

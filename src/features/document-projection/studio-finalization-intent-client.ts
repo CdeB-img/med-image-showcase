@@ -2,6 +2,7 @@ import { assertStudioIntent, StudioFinalizationIntentError, type StudioFinalizat
   type StudioFinalizationFrozenInput, type StudioFinalizationHumanDecision } from "./studio-finalization-intent.js";
 import type { StudioScientificAssessment } from "../scientific-thinking/studio-contribution.js";
 import type { WorkingDraftPreparation } from "../protocol-designer/functional-reset/project-preparation-contract.js";
+import type { StudioPreparationEvidence } from "../protocol-designer/studio-preparation-transport.js";
 
 export const createStudioFinalizationIntentClient = (operation: <T>(command: Record<string, unknown>) => Promise<T>, projectId: string) => {
   const execute = async (command: Record<string, unknown>) => {
@@ -13,6 +14,13 @@ export const createStudioFinalizationIntentClient = (operation: <T>(command: Rec
   return {
     create: (frozen: StudioFinalizationFrozenInput) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_CREATE", frozen }),
     get: (intentId: string) => execute({ operation: "DOC_ARCHIVE_STUDIO_INTENT_GET", intentId }),
+    readPreparation: async (intentId: string): Promise<StudioPreparationEvidence> => {
+      const evidence = await operation<StudioPreparationEvidence>({ operation: "DOC_ARCHIVE_STUDIO_INTENT_READ_PREPARATION", intentId });
+      if (!evidence || !["NOT_FOUND", "IN_PROGRESS", "UNKNOWN", "FAILED", "COMPLETED"].includes(evidence.state)
+        || evidence.state === "COMPLETED" && !evidence.response?.workingDraftUpdate)
+        throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_RESULT_INVALID", 503);
+      return evidence;
+    },
     recoverActive: async (revisionId: string) => {
       const intent = await operation<StudioFinalizationIntent | null>({ operation: "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_ACTIVE", revisionId });
       if (intent && (assertStudioIntent(intent).frozen.workingRevisionId !== revisionId || intent.frozen.sourceProject.projectId !== projectId))

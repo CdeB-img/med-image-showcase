@@ -7,11 +7,14 @@ import { createFunctionalResetSession, type FunctionalResetSession } from "../..
 import { freezeStudioFinalizationWork, captureStudioIntentPreparation, prepareStudioIntentHumanDecision,
   stageStudioIntentAdoption, restoreStudioIntentPreparation } from "../../protocol-designer/functional-reset/studio-finalization-lifecycle";
 import { addProjectPreparation, consumeProjectPreparation } from "../../protocol-designer/functional-reset/project-preparation-lifecycle";
+import type { StudioPreparationEvidence } from "../../protocol-designer/studio-preparation-transport";
 import { retainScientificDiscussionResult } from "../../protocol-designer/functional-reset/contribution-discussion-retention";
 import { controlledStudyProposal, DOMAINS } from "../../protocol-designer/functional-reset/__tests__/study-proposal-fixtures";
 import { executeProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
 import { executeDocumentArchiveOperation } from "../../../../server/protocol-designer-document-archive-http";
 import { verifySavedStudioScientificSource } from "../../../../server/protocol-designer-studio-scientific";
+import { resolveStudioPreparationTransport, studioIntentPreparationRequest } from "../../../../server/protocol-designer-studio-scientific";
+import { studioPreparationTransport, studioPreparationReference } from "../../protocol-designer/studio-preparation-transport";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/protocol-designer-durable-guard";
 import { createPostgresDocumentArchive, documentArchiveCapacity } from "../../../../server/protocol-designer-document-archive";
 import { createProductKnowledgeOwnerLedger } from "../../protocol-designer/product-knowledge-owner-runtime";
@@ -128,6 +131,7 @@ const readyDocuments = async (run: Awaited<ReturnType<typeof setup>>) => {
 const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed = false, editorialWithScience = false) => {
   const run = await setup(kind, mixed, editorialWithScience);
   let session = run.session, access = run.access2;
+  const preparationEvidence = vi.fn(async (): Promise<StudioPreparationEvidence> => ({ state: "NOT_FOUND" }));
   const client = (): DocumentArchiveClient => ({
     body: id => run.archive.body(access, id), history: before => run.archive.history(access, before, "DRCI"),
     receipt: id => run.archive.receipt(access, id), recover: vi.fn(),
@@ -142,6 +146,7 @@ const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editoria
       save: input => run.owner.save(access, input), abandon: input => run.owner.abandon(access, input),
     },
     finalizationIntents: {
+      readPreparation: preparationEvidence,
       create: frozen => run.intents.create(access, frozen), get: id => run.intents.get(access, id),
       recoverActive: id => run.intents.recoverActive(access, id), recoverForSave: save => run.intents.recoverForSave(access, save),
       recoverForBase: (base, document) => run.intents.recoverForBase(access, base, document),
@@ -173,14 +178,159 @@ const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editoria
     return { documentDraftPack: pack, observability: { calls: 0 } } as Awaited<ReturnType<typeof import("../../protocol-designer/product-bridge-client").requestProtocolDesignerBridge>>;
   });
   const clarify = vi.fn(), committed = vi.fn(async () => undefined);
+  const assessPort = vi.fn(async () => assessment(run, kind === "science" ? "PROJECT_CHANGE" : "DOCUMENT_ONLY"));
   const runtime = createStudioFinalizationRuntime({ session: () => session, publish: next => { session = next; },
     client, prepare: preparePort, adopt: adopted, clarify, committed, generate,
-    assess: vi.fn(async () => assessment(run, kind === "science" ? "PROJECT_CHANGE" : "DOCUMENT_ONLY")) });
+    assess: assessPort });
   return { ...run, client, runtime, preparePort, adopted, generate, clarify, committed, session: () => session,
-    setSession: (next: FunctionalResetSession) => { session = next; } };
+    setSession: (next: FunctionalResetSession) => { session = next; }, preparationEvidence, assessPort };
 };
 
 describe("DOC durable frozen intent / native ST and human adoption / no generation", () => {
+  it("Studio opening is strictly read-only at every recoverable phase, including failed assessment and PREPARING", async () => {
+    for (const phase of ["FROZEN", "WAITING_FOR_SCIENTIFIC_ASSESSMENT", "SCIENTIFIC_PREPARATION_REQUIRED", "PREPARING", "READY_FOR_DOCUMENT_FINALIZATION"] as const) {
+      const run = await finalizationHarness("science");
+      let intent = run.intent;
+      if (phase === "WAITING_FOR_SCIENTIFIC_ASSESSMENT") intent = await run.intents.waitForAssessment(run.access2, intent.finalizationIntentId, intent.sequence);
+      if (phase === "SCIENTIFIC_PREPARATION_REQUIRED" || phase === "PREPARING") intent = await assessed({ ...run, session: run.session() }, "PROJECT_CHANGE");
+      if (phase === "PREPARING") intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence,
+        captureStudioIntentPreparation(intent, run.session(), run.revision, NOW).preparation!);
+      if (phase === "READY_FOR_DOCUMENT_FINALIZATION") intent = await assessed({ ...run, session: run.session() });
+      const before = JSON.stringify({ intents: run.fixture.intents(), rows: run.fixture.rows(), saves: run.fixture.revisions(), session: run.session() });
+      const progress = vi.fn();
+      expect(await run.runtime.run(run.revision, progress, true)).toEqual(intent);
+      expect(JSON.stringify({ intents: run.fixture.intents(), rows: run.fixture.rows(), saves: run.fixture.revisions(), session: run.session() })).toBe(before);
+      for (const port of [run.assessPort, run.preparePort, run.generate, run.adopted, run.committed, run.clarify, run.preparationEvidence, progress]) expect(port).not.toHaveBeenCalled();
+    }
+  });
+  it("native preparation transport losslessly resolves all frozen mixed-source input; foreign/stale/injected references fail closed", async () => {
+    const run = await setup("science", true), intent = await assessed(run, "PROJECT_CHANGE");
+    const preparation = captureStudioIntentPreparation(intent, run.session, run.revision, NOW).preparation!;
+    const linked = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+    const request = preparation.checkpoint!.request;
+    const body = { ...studioPreparationTransport(request), apiVersion: "1.0.0", currentProject: run.project2 };
+    const reconstructed = await resolveStudioPreparationTransport(run.archive, run.access2, run.project2, body);
+    expect(JSON.stringify(reconstructed)).toBe(JSON.stringify(request));
+    expect(logicalDigest(reconstructed)).toBe(preparation.checkpoint!.requestDigest);
+    expect(studioIntentPreparationRequest(linked, run.access2)).toEqual(request);
+    expect(Buffer.byteLength(JSON.stringify({ ...body, currentProject: null, currentProjectRef: run.access2.project }), "utf8")).toBeLessThan(270_000);
+    expect(reconstructed.scientificPreparationSourceSet).toEqual(request.scientificPreparationSourceSet);
+    expect(reconstructed.workingDraftScientificSource).toEqual(request.workingDraftScientificSource);
+    await verifySavedStudioScientificSource(run.archive, run.access2, run.project2, reconstructed.studioPreparationSource!.request, linked.finalizationIntentId);
+    for (const change of [
+      { studioPreparationRef: { ...studioPreparationReference(request), requestDigest: "ke1-foreign" } },
+      { studioPreparationRef: { ...studioPreparationReference(request), preparationId: "working-draft:studio:foreign" } },
+      { studioPreparationRef: { ...studioPreparationReference(request), finalizationIntentId: "studio-finalization-intent:foreign" } },
+      { observabilityContext: { ...request.observabilityContext, sessionId: "foreign" } },
+      { conversation: request.conversation },
+    ]) await expect(resolveStudioPreparationTransport(run.archive, run.access2, run.project2, { ...body, ...change })).rejects.toThrow();
+    await expect(resolveStudioPreparationTransport(run.archive, run.access2, run.project3, body)).rejects.toThrow();
+    await expect(resolveStudioPreparationTransport(run.archive, { ...run.access2, proof: "Z".repeat(43) }, run.project2, body)).rejects.toThrow();
+    expect(run.fixture.rows()).toHaveLength(4); expect(run.session.project).toEqual(run.project2);
+  });
+  it("compact HTTP preparation resolves exact native input BEFORE normal durable admission and keeps the original 300000-byte gate", async () => {
+    const run = await setup("science", true), intent = await assessed(run, "PROJECT_CHANGE");
+    const preparation = captureStudioIntentPreparation(intent, run.session, run.revision, NOW).preparation!;
+    await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+    const request = preparation.checkpoint!.request;
+    const fetched = vi.fn<typeof fetch>(async () => { throw new Error("NO_PROVIDER_ALLOWED"); });
+    const admission = vi.fn(async () => ({ admitted: false as const, status: 503 as const, code: "OFFLINE_ADMISSION_CAPTURE", message: "OFFLINE" }));
+    const guard = { ...createMemoryProtocolDesignerGuardForTests(), prepareRequest: admission,
+      readNativeStudioResult: vi.fn(async () => ({ state: "COMPLETED" as const, response: { studioAssessment: intent.resolution.assessment } })) };
+    const invoke = async (body: unknown, proof = run.access2.proof) => {
+      let status = 0, output: unknown;
+      await handleProtocolDesignerBridge({ method: "POST", body, headers: { "content-type": "application/json",
+        origin: "https://noxia-imagerie.fr", host: "noxia-imagerie.fr", "x-forwarded-for": run.identity.clientAddress,
+        "x-noxia-project-snapshot-proof": proof } }, { setHeader() {}, status(n) { status = n; return this; }, json(value) { output = value; } },
+      { NODE_ENV: "production", OPENAI_PROVIDER: "azure", AZURE_OPENAI_PROJECT_ENDPOINT: "https://fixture.services.ai.azure.com/api/projects/fixture",
+        AZURE_OPENAI_API_KEY: "OFFLINE", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", VITE_AUTONOMOUS_PROJECT_BUILD: "ON" },
+      { fetchImpl: fetched, durableGuard: guard, documentArchive: run.archive, projectSnapshotStore: run.snapshots });
+      return { status, body: output };
+    };
+    const compact = { ...studioPreparationTransport(request), apiVersion: "1.0.0", currentProject: null, currentProjectRef: run.access2.project };
+    expect(await invoke(compact)).toMatchObject({ status: 503, body: { error: { code: "OFFLINE_ADMISSION_CAPTURE" } } });
+    expect(admission).toHaveBeenCalledOnce();
+    expect(admission.mock.calls[0]).toEqual([expect.objectContaining({ body: request })]);
+    expect(JSON.stringify((admission.mock.calls as unknown as [{ body: unknown }][])[0][0].body)).toBe(JSON.stringify(request));
+    admission.mockClear();
+    expect((await invoke(compact, "Z".repeat(43))).status).toBe(403); expect(admission).not.toHaveBeenCalled();
+    expect((await invoke({ ...compact, studioPreparationRef: { ...compact.studioPreparationRef, requestDigest: "ke1-stale" } })).status).toBe(422);
+    // Byte-only sanitized envelope of the real failure. No private scientific
+    // text is stored. Lossless scientific coverage is qualified above and in
+    // the actual in-memory durable-checkpoint replay, not by this byte double.
+    const bytePartition = { apiVersion: 7, evaluatePersistentDelta: 5, prepareWorkingDraft: 4, currentProject: 4,
+      studioPreparationSource: 184317, scientificPreparationSourceSet: 28382, scientificDiscussionContext: 15072,
+      workingDraftScientificSource: 171, conversation: 6767, workingDraftHistory: 2, studyProposalContext: 104572,
+      observabilityContext: 255, currentProjectRef: 238 };
+    const sanitized = Object.fromEntries(Object.entries(bytePartition).map(([key, bytes]) => [key,
+      bytes === 2 ? [] : bytes === 4 ? null : bytes === 5 ? false : "x".repeat(bytes - 2)]));
+    expect(Buffer.byteLength(JSON.stringify(sanitized), "utf8")).toBe(340111);
+    expect(await invoke(sanitized)).toMatchObject({ status: 413, body: { error: { code: "PAYLOAD_TOO_LARGE" } } });
+    expect(admission).not.toHaveBeenCalled(); expect(fetched).not.toHaveBeenCalled();
+  });
+  it("preparation recovery HTTP reads existing evidence only and distinguishes absence/active/result/terminal/unknown", async () => {
+    const run = await setup("science"), intent = await assessed(run, "PROJECT_CHANGE");
+    const preparation = captureStudioIntentPreparation(intent, run.session, run.revision, NOW).preparation!;
+    await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+    const before = JSON.stringify(run.fixture.intents());
+    const baseGuard = createMemoryProtocolDesignerGuardForTests();
+    const admission = vi.fn(baseGuard.prepareRequest), physical = vi.fn(baseGuard.createBudgetedFetch);
+    const cases = [{ state: "REJECTED" as const, status: 404 as const, code: "STUDIO_RESULT_NOT_FOUND" },
+      { state: "IN_PROGRESS" as const }, { state: "UNKNOWN" as const }, { state: "FAILED" as const, errorCode: "STUDIO_SCIENTIFIC_OPERATION_FAILED" },
+      { state: "COMPLETED" as const, response: { workingDraftUpdate: { requestType: "INSUFFICIENT" } } }];
+    for (const evidence of cases) {
+      const read = vi.fn(async () => evidence);
+      const result = await executeDocumentArchiveOperation({ body: { operation: "DOC_ARCHIVE_STUDIO_INTENT_READ_PREPARATION",
+        sessionId: run.sessionId, projectRef: run.access2.project, intentId: intent.finalizationIntentId }, proof: run.access2.proof,
+        clientAddress: run.identity.clientAddress, connection: null, environment: {}, archive: run.archive, snapshots: run.snapshots,
+        guard: { ...baseGuard, prepareRequest: admission, createBudgetedFetch: physical, readNativeStudioResult: read } });
+      expect(result.status).toBe(200);
+      expect((result.body as { result: { state: string } }).result.state).toBe(evidence.state === "REJECTED" ? "NOT_FOUND" : evidence.state);
+      expect(read).toHaveBeenCalledWith(expect.objectContaining({ sessionId: run.sessionId, clientRequestId: preparation.checkpoint!.preparationId }));
+    }
+    expect(admission).not.toHaveBeenCalled(); expect(physical).not.toHaveBeenCalled(); expect(JSON.stringify(run.fixture.intents())).toBe(before);
+  });
+  it("explicit resume of HTTP 413 uses the original frozen save/checkpoint and successful assessment once", async () => {
+    const run = await finalizationHarness("science", true);
+    let intent = await assessed({ ...run, session: run.session() }, "PROJECT_CHANGE");
+    const preparation = captureStudioIntentPreparation(intent, run.session(), run.revision, NOW).preparation!;
+    intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+    run.setSession({ ...run.session(), workingDraftPreparations: [{ ...preparation, status: "FAILED", code: "PAYLOAD_TOO_LARGE" }] });
+    const observed = await run.runtime.run(run.revision, () => undefined, true);
+    expect(observed).toEqual(intent); expect(run.preparePort).not.toHaveBeenCalled();
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    expect(finished!.finalizationIntentId).toBe(intent.finalizationIntentId);
+    expect(finished!.frozen).toEqual(intent.frozen); expect(finished!.resolution.assessment).toEqual(intent.resolution.assessment);
+    expect(run.assessPort).not.toHaveBeenCalled(); expect(run.preparePort).toHaveBeenCalledOnce();
+    expect(run.preparePort.mock.calls[0][0].checkpoint).toEqual(preparation.checkpoint);
+    expect(finished!.resolution.documentReceipt!.generation.displayVersion).toBe(3);
+  });
+  it("completed durable preparation is consumed after reload without new WD or assessment", async () => {
+    const run = await finalizationHarness("science");
+    let intent = await assessed({ ...run, session: run.session() }, "PROJECT_CHANGE");
+    const preparation = captureStudioIntentPreparation(intent, run.session(), run.revision, NOW).preparation!;
+    intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+    const prepared = await prepare({ ...run, session: run.session() }, intent, preparation);
+    run.setSession({ ...run.session(), workingDraftPreparations: [{ ...preparation, status: "UNKNOWN/INTERRUPTED", code: "CLIENT_RESPONSE_NOT_CONSUMED" }] });
+    run.preparationEvidence.mockResolvedValue({ state: "COMPLETED", response: prepared.response as Parameters<typeof consumeProjectPreparation>[2] });
+    const finished = await run.runtime.run(run.revision, () => undefined);
+    expect(finished!.state).toBe("CLOSED"); expect(run.preparePort).not.toHaveBeenCalled(); expect(run.assessPort).not.toHaveBeenCalled();
+    expect(finished!.resolution.preparation!.result).toEqual(prepared.session.workingDraftPreparations!.at(-1)!.result);
+  });
+  it("in-flight, unknown and terminal native evidence never start a competing WD", async () => {
+    for (const evidence of [{ state: "IN_PROGRESS" }, { state: "UNKNOWN" }, { state: "FAILED", errorCode: "STUDIO_SCIENTIFIC_OPERATION_FAILED" }] as StudioPreparationEvidence[]) {
+      const run = await finalizationHarness("science");
+      let intent = await assessed({ ...run, session: run.session() }, "PROJECT_CHANGE");
+      const preparation = captureStudioIntentPreparation(intent, run.session(), run.revision, NOW).preparation!;
+      intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+      run.preparationEvidence.mockResolvedValue(evidence);
+      const before = JSON.stringify(run.fixture.intents());
+      expect(await run.runtime.run(run.revision, () => undefined, true)).toEqual(intent);
+      await expect(run.runtime.run(run.revision, () => undefined)).rejects.toThrow(/STUDIO_INTENT_PREPARATION/u);
+      expect(run.preparePort).not.toHaveBeenCalled(); expect(run.assessPort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled();
+      expect(JSON.stringify(run.fixture.intents())).toBe(before);
+    }
+  });
   it("A/C: durable FROZEN and identical input idempotent, including concurrent creates", async () => {
     const run = await setup();
     expect(run.intent.state).toBe("FROZEN"); expect(run.fixture.intents()).toHaveLength(1);

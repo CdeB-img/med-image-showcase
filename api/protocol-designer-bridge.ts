@@ -2,7 +2,7 @@ import { prepareWorkingDraftRequest, acceptWorkingDraftUpdate, WorkingDraftArbit
 import { acceptStudioAssessment, prepareStudioAssessmentRequest, studioHasNoChanges, noChangeStudioAssessment,
   assertStudioScientificInput, studioAssessmentOperationIdentity, studioAssessmentResultRequestId,
   type StudioAssessmentFailureDiagnostic, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
-import { verifySavedStudioScientificSource } from "../server/protocol-designer-studio-scientific.js";
+import { verifySavedStudioScientificSource, resolveStudioPreparationTransport } from "../server/protocol-designer-studio-scientific.js";
 import { logicalDigest as studioDigest } from "../src/features/knowledge-engine/canonical.js";
 import { studioDocumentRequestId, studioProviderRequestId, studioDocumentAdmissionMaterial } from "../src/features/document-projection/studio-finalization-document.js";
 import { executeDocumentArchiveOperation, documentArchiveAccess, sharedDocumentArchive } from "../server/protocol-designer-document-archive-http.js";
@@ -1062,6 +1062,23 @@ export const handleProtocolDesignerBridge = async (
         observability: providerCallRequestObservability([]),
       });
     }
+  }
+  if (body && typeof body === "object" && "studioPreparationRef" in body) {
+    try {
+      const raw = body as Record<string, unknown>;
+      const project = raw.currentProject as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection;
+      const observation = raw.observabilityContext as { sessionId?: unknown };
+      if (!project || typeof observation?.sessionId !== "string") throw new Error("STUDIO_PREPARATION_REFERENCE_INVALID");
+      const access = documentArchiveAccess({ sessionId: observation.sessionId,
+        projectRef: { projectId: project.projectId, versionId: project.versionId, projectDigest: project.projectDigest } },
+        header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
+        header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous");
+      const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
+      const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
+      if (!archive) throw new Error("DOC_REVISION_UNAVAILABLE");
+      body = await resolveStudioPreparationTransport(archive, access, project, raw);
+    } catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "STUDIO_PREPARATION_REFERENCE_INVALID" }, observability: providerCallRequestObservability([]) }); }
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
   const studioBody = body as Partial<StudioScientificOperation> & Partial<import("../src/features/protocol-designer/product-bridge.js").ProductBridgeRequest>;

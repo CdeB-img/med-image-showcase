@@ -37,6 +37,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
     code: string | null; diagnostic: StudioAssessmentFailureDiagnostic | null;
   } | null>(null);
   const [completed, setCompleted] = useState(false);
+  const [recoverableIntent, setRecoverableIntent] = useState(false);
   const [saveFeedback, setSaveFeedback] = useState(false);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
@@ -45,6 +46,12 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   const busy = saveState === "SAVING" || finalizing;
   const reportFinalizationFailure = (error: unknown) => {
     const code = codeOf(error);
+    setRecoverableIntent(true);
+    if (code === "STUDIO_INTENT_PREPARATION_IN_PROGRESS") {
+      setFinalizationFailure(null);
+      setFinalizationMessage("La préparation est déjà en cours. Le brouillon est conservé ; aucun nouvel appel n’a été lancé.");
+      return;
+    }
     const diagnostic = error && typeof error === "object" && "studioAssessmentFailureDiagnostic" in error
       ? readStudioAssessmentFailureDiagnostic(error.studioAssessmentFailureDiagnostic) : null;
     // Bounded internal details are retained separately, never rendered as
@@ -56,6 +63,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   };
   const finish = (intent: StudioFinalizationIntent | null) => {
     if (!intent) return;
+    setRecoverableIntent(intent.state !== "CLOSED");
     if (intent.resolution.documentReceipt) {
       setFinalizationMessage(`✓ Version ${intent.resolution.documentReceipt.generation.displayVersion} créée`); setCompleted(true);
     } else if (intent.resolution.documentNoChange) setFinalizationMessage("Aucune modification à intégrer dans une nouvelle version.");
@@ -65,6 +73,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
   useEffect(() => {
     const token = ++epoch.current; flight.current = false;
     setLoaded(null); setBuffer(null); setLoadFailed(false); setSaveState("CLEAN");
+    setRecoverableIntent(false); setCompleted(false); setFinalizationMessage(null);
     setFinalizationFailure(null); setSaveFeedback(false);
     void (async () => {
       const archiveClient = clientRef.current;
@@ -84,7 +93,16 @@ export default function DocumentStudio({ client, target, finalization, onClose }
       setLoaded({ result, base: native.content, body: source.body }); setBuffer(structuredClone(result.revision.content));
       if (runtimeRef.current) {
         flight.current = true; setFinalizing(true);
-        try { const intent = await runtimeRef.current.run(result.revision, setStage, true); if (epoch.current === token) finish(intent); }
+        try {
+          const intent = await runtimeRef.current.run(result.revision, setStage, true);
+          if (epoch.current === token && intent) {
+            if (intent.state === "CLOSED") finish(intent);
+            else {
+              setRecoverableIntent(true);
+              setFinalizationMessage("Une création est en attente. Reprenez explicitement la création à partir du travail déjà confirmé.");
+            }
+          }
+        }
         catch (error) { if (epoch.current === token) reportFinalizationFailure(error); }
         finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
       }
@@ -238,7 +256,7 @@ export default function DocumentStudio({ client, target, finalization, onClose }
       <div className="flex flex-wrap items-center gap-3">
       {saveFeedback && <span role="status" className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-semibold text-primary"><CheckCircle2 className="h-4 w-4" aria-hidden="true" />✓ Enregistré</span>}
       <Button variant="outline" onClick={() => void save()} disabled={busy || completed || saveState === "CONFLICT" || !dirty && saveState !== "SAVE_FAILED"}><Save />Enregistrer</Button>
-      {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>Créer la version suivante</Button>}</div>
+      {finalization && <Button onClick={() => void createNextVersion()} disabled={busy || completed || saveState === "CONFLICT"}>{recoverableIntent ? "Reprendre la création" : "Créer la version suivante"}</Button>}</div>
     </footer>}
     <AlertDialog open={dialog !== null} onOpenChange={open => { if (!open) setDialog(null); }}>
       <AlertDialogContent>

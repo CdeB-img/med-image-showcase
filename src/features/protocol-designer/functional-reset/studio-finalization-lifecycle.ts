@@ -51,12 +51,25 @@ export const studioIntentAdoptionSelection = (intent: StudioFinalizationIntent, 
 };
 /** Reattach a durable, already qualified native checkpoint, never redispatch it.
  * Late scientific/session state is kept; only this checkpoint slot is restored. */
-export const restoreStudioIntentPreparation = (intent: StudioFinalizationIntent, session: FunctionalResetSession): FunctionalResetSession => {
+export const restoreStudioIntentPreparation = (intent: StudioFinalizationIntent, session: FunctionalResetSession,
+  evidence?: "COMPLETED" | "NOT_FOUND"): FunctionalResetSession => {
   const preparation = intent.resolution.preparation;
   if (!preparation?.checkpoint) return session;
   if (!preparationCheckpointValid(session, preparation.checkpoint)) throw new Error("STUDIO_INTENT_PREPARATION_STALE");
   const existing = session.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === preparation.checkpoint!.preparationId);
-  if (existing && logicalDigest(existing) !== logicalDigest(preparation)) throw new Error("STUDIO_INTENT_PREPARATION_DIVERGENCE");
+  if (existing && logicalDigest(existing) !== logicalDigest(preparation)) {
+    if (evidence === "COMPLETED" && logicalDigest(existing.checkpoint) === logicalDigest(preparation.checkpoint)
+      && existing.status === "READY_FOR_REVIEW" && existing.result && existing.decision === "PENDING") return session;
+    if (logicalDigest(existing.checkpoint) !== logicalDigest(preparation.checkpoint) || existing.result
+      || existing.decision && existing.decision !== "PENDING"
+      || !(evidence === "COMPLETED" && ["PREPARING", "FAILED", "UNKNOWN/INTERRUPTED"].includes(existing.status)
+        || evidence === "NOT_FOUND" && (["PREPARING", "UNKNOWN/INTERRUPTED"].includes(existing.status)
+          || existing.status === "FAILED" && existing.code === "PAYLOAD_TOO_LARGE")))
+      throw new Error("STUDIO_INTENT_PREPARATION_DIVERGENCE");
+    // Restore only the exact pre-dispatch checkpoint after a proven admission
+    // rejection, or for consumption of a durable result. Failure TRACE stays.
+    return { ...session, workingDraftPreparations: session.workingDraftPreparations!.map(p => p === existing ? preparation : p) };
+  }
   return existing ? session : { ...session, workingDraftPreparations: [...session.workingDraftPreparations ?? [], preparation] };
 };
 export const prepareStudioIntentHumanDecision = (intent: StudioFinalizationIntent, session: FunctionalResetSession) => {

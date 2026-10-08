@@ -47,7 +47,7 @@ const save = async () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
-  it("P/V: reload after archive commit and lost intent acknowledgement resolves consumed historical save, not a new draft", async () => {
+  it("P/V: reload observes lost archive acknowledgement; explicit resume resolves same intent and historical save", async () => {
     const run = await runtime(), source = await run.client.body(run.g2.ref.generationId);
     let { revision } = await run.client.workingRevisions!.open({ baseGenerationId: run.g2.ref.generationId,
       baseGenerationBodyDigest: run.g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
@@ -72,11 +72,15 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(run.revision().status).toBe("ABANDONED"); run.fixture.failIntentSave(false);
     const saveCount = run.fixture.revisions().length;
     const execute = vi.fn<StudioFinalizationRuntime["run"]>(async (saved, _stage, resumeOnly) => {
-      expect(resumeOnly).toBe(true); expect(saved).toEqual(revision);
+      expect(saved).toEqual(revision);
+      if (resumeOnly) return owner.get(run.access2, intent.finalizationIntentId);
       return owner.finalizeDocuments(run.access2, intent.finalizationIntentId);
     });
-    run.open({ run: execute }); await screen.findByText("✓ Version 3 créée");
-    expect(execute).toHaveBeenCalledOnce();
+    run.open({ run: execute });
+    fireEvent.click(await screen.findByRole("button", { name: "Reprendre la création" }));
+    await screen.findByText("✓ Version 3 créée");
+    expect(execute).toHaveBeenCalledTimes(2); expect(execute.mock.calls[0][2]).toBe(true);
+    expect(execute.mock.calls[1][2]).toBeUndefined();
     expect(run.fixture.revisions()).toHaveLength(saveCount);
     expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([3, 2, 1]);
   });
@@ -243,8 +247,8 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(screen.queryByText(/STUDIO_ASSESSMENT_PROJECT_COVERAGE_INVALID|Private provider prose/u)).not.toBeInTheDocument();
     expect(field).toHaveValue(saved.content.sections[0].blocks[0].text);
     expect(run.revision()).toEqual(saved); expect(run.fixture.rows()).toEqual(archived);
-    expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeEnabled();
-    fireEvent.click(screen.getByRole("button", { name: "Créer la version suivante" }));
+    expect(screen.getByRole("button", { name: "Reprendre la création" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Reprendre la création" }));
     await waitFor(() => expect(execute).toHaveBeenCalledTimes(3));
     view.unmount(); run.open({ run: execute }); expect(await run.ready()).toHaveValue(saved.content.sections[0].blocks[0].text);
     expect(run.revision()).toEqual(saved);

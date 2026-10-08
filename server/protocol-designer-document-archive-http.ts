@@ -15,6 +15,8 @@ import type { WorkingDraftPreparation } from "../src/features/protocol-designer/
 import { prepareContinuousWorkingDraft } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 import { studioProviderRequestId } from "../src/features/document-projection/studio-finalization-document.js";
 import type { DrciDraftSource } from "../src/features/document-projection/drci-draft-contract.js";
+import { studioIntentPreparationRequest } from "./protocol-designer-studio-scientific.js";
+import type { StudioPreparationEvidence } from "../src/features/protocol-designer/studio-preparation-transport.js";
 
 const stores = new Map<string, DocumentArchiveStore>();
 export const sharedDocumentArchive = (connection: string, env: Record<string, string | undefined>, snapshots: ProtocolDesignerProjectSnapshotStore) => {
@@ -49,6 +51,27 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_STUDIO_INTENT_READ_PREPARATION": {
+        if (keys !== "intentId,operation,projectRef,sessionId" || typeof body.intentId !== "string" || !archive.finalizationIntents)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        const intent = await archive.finalizationIntents.get(access, body.intentId);
+        const native = studioIntentPreparationRequest(intent, access);
+        const guard = input.guard ?? (input.connection ? sharedPostgresProtocolDesignerDurableGuard(input.connection,
+          durableGuardSessionRequestLimit(input.environment), durableGuardPublicBudget(input.environment)) : null);
+        const evidence = await guard?.readNativeStudioResult?.({ headers: { "x-forwarded-for": input.clientAddress },
+          sessionId: access.identity.sessionId, clientRequestId: native.observabilityContext!.clientRequestId! });
+        if (!evidence || evidence.state === "REJECTED" && evidence.status !== 404)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_UNRESOLVED", 503);
+        let recovery: StudioPreparationEvidence;
+        if (evidence.state === "REJECTED") recovery = { state: "NOT_FOUND" };
+        else if (evidence.state === "COMPLETED") {
+          const response = evidence.response as Partial<ProductBridgeResponse>;
+          if (!response?.workingDraftUpdate) throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_RESULT_INVALID", 422);
+          recovery = { state: "COMPLETED", response: { workingDraftUpdate: response.workingDraftUpdate,
+            workingStudyProposal: response.workingStudyProposal } };
+        } else recovery = evidence;
+        result = recovery; break;
+      }
       case "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_BASE": {
         if (keys !== "baseGenerationId,logicalDocumentRef,operation,projectRef,sessionId" || typeof body.baseGenerationId !== "string"
           || typeof body.logicalDocumentRef !== "string" || !archive.finalizationIntents)
