@@ -14,6 +14,7 @@ import { assertStudyProposalCurrent, buildStudyProposalSelectionContribution, co
 import type { ResearchProjectOwnerProjection } from "../../research-project-construction/contribution-owner-boundary.js";
 import { retainedDiscussionProposalBindingsSchema } from "./contribution-discussion-retention.js";
 import { studioPreparationProvenance } from "../../scientific-thinking/studio-runtime.js";
+import { assertScientificPreparationSourceSet, scientificPreparationSourceText } from "../../scientific-thinking/preparation-source-set.js";
 type WorkingDraftSession = { project: ResearchProjectOwnerProjection | null; projectId: string; conversationId: string;
   runtimeTurns: ScientificInterpretationTurn[]; updatedAt: string; studyProposal?: StudyProposalComposition | null; workingDraft?: WorkingDraftMetadata | null };
 
@@ -26,6 +27,8 @@ const responseSchema = z.object({
   proposal: contextualStudyProposalSchema.nullable(),
   explicitDecisions: z.array(z.object({ atomRef: z.string(), sourceTurnRef: z.string(), quote: z.string().min(1) }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   explicitStudioDecisions: z.array(z.object({ atomRef: z.string(), editRef: z.string(), quote: z.string().min(1) }).strict()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms).optional(),
+  sourceSetBindings: z.array(z.object({ sourceRef: z.string().min(1), atomRefs: z.array(z.string().min(1)).min(1),
+    coverage: z.enum(["COMPLETE", "PARTIAL", "UNKNOWN"]) }).strict()).optional(),
   inferredAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   rejectedAtomRefs: z.array(z.string()).max(STUDY_PROPOSAL_CAPACITY.maxAtoms),
   // Complete-snapshot metadata, not a delta. Optional on historical outputs.
@@ -225,7 +228,11 @@ export const validatePreparedWorkingReview = (session: WorkingDraftSession, allo
   } catch { return null; }
 };
 
-export const workingDraftInputDigest = (request: ProductBridgeRequest) => logicalDigest({
+export const workingDraftInputDigest = (request: ProductBridgeRequest) => logicalDigest(request.scientificPreparationSourceSet ? {
+  contract: "SCIENTIFIC_PREPARATION_SOURCE_SET_V1", sourceSetDigest: request.scientificPreparationSourceSet.sourceSetDigest,
+  project: studyProposalBinding(request.currentProject), previous: request.studyProposalContext?.digest ?? null,
+  rejected: request.workingDraftHistory ?? [],
+} : {
   turns: request.conversation.turns, project: studyProposalBinding(request.currentProject),
   scientificSource: request.workingDraftScientificSource ?? null,
   ...(request.studioPreparationSource ? { studioSource: request.studioPreparationSource } : {}),
@@ -237,7 +244,7 @@ export const workingDraftInputDigest = (request: ProductBridgeRequest) => logica
  * their optional fields and still use the unchanged native validation rules.
  */
 export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBridgeRequest["conversation"]["turns"] = [],
-  studioSource?: ProductBridgeRequest["studioPreparationSource"]) => {
+  studioSource?: ProductBridgeRequest["studioPreparationSource"], sourceSet?: ProductBridgeRequest["scientificPreparationSourceSet"]) => {
   // Constrain the existing quote/turn pair to immutable source spans. Strict
   // provider schemas reject layout controls in enum literals; project only
   // ASCII layout here. Native acceptance restores the unique exact raw span.
@@ -263,7 +270,9 @@ export const workingDraftProviderSchema = (inputDigest: string, turns: ProductBr
     : responseSchema.shape.explicitStudioDecisions.unwrap().element;
   const nativeResponse = studioSource ? responseSchema.extend({ explicitStudioDecisions: studioDecision.array()
     .max(studioBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0) }) : responseSchema.omit({ explicitStudioDecisions: true });
-  const wire = nativeResponse.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0), proposal: contextualStudyProposalSchema.extend({
+  const sourceResponse = sourceSet ? nativeResponse.extend({ sourceSetBindings: responseSchema.shape.sourceSetBindings.unwrap() })
+    : nativeResponse.omit({ sourceSetBindings: true });
+  const wire = sourceResponse.extend({ explicitDecisions: explicitDecision.array().max(sourceBindings.length && !sourceSet ? STUDY_PROPOSAL_CAPACITY.maxAtoms : 0), proposal: contextualStudyProposalSchema.extend({
     contextDigest: z.literal(inputDigest),
     atoms: contextualStudyProposalSchema.shape.atoms.element.extend({
       // This owner currently admits no qualified external evidence. USER
@@ -288,13 +297,18 @@ export const prepareWorkingDraftRequest = (request: ProductBridgeRequest) => {
   preflightStudyProposalCapacity(previous?.proposal, request.workingDraftHistory?.length ?? 0);
   if (previous) assertStudyProposalCurrent(previous, request.currentProject);
   const inputDigest = workingDraftInputDigest(request);
+  if (request.scientificPreparationSourceSet) assertScientificPreparationSourceSet(request.scientificPreparationSourceSet,
+    { project: request.currentProject!, studio: request.studioPreparationSource!, discussion: request.scientificDiscussionContext,
+      proposal: request.studyProposalContext });
   const base = request.studioPreparationSource ? { CURRENT_PROJECT: request.studioPreparationSource.request.currentProject,
     NATIVE_STUDIO_SOURCE: studioPreparationProvenance(request.studioPreparationSource, request.currentProject!,
-      request.studioPreparationSource.assessment.completedAt) } : JSON.parse(prepareTerraConversation(request).context);
+      request.studioPreparationSource.assessment.completedAt),
+    ...(request.scientificPreparationSourceSet ? { SCIENTIFIC_SOURCE_SET: request.scientificPreparationSourceSet } : {})
+  } : JSON.parse(prepareTerraConversation(request).context);
   const context = JSON.stringify({ ...base, contextDigest: inputDigest,
     // Keep the quote and the exact output-contract key on the same source object.
     // This is the existing transcript, not a second provenance store.
-    RECENT_CONVERSATION: request.conversation.turns.map(turn => ({
+    RECENT_CONVERSATION: (request.scientificPreparationSourceSet ? [] : request.conversation.turns).map(turn => ({
       ref: turn.turnId, ...(turn.role === "USER" ? { sourceTurnRef: turn.turnId } : {}),
       role: turn.role, content: turn.content,
     })),
@@ -323,7 +337,8 @@ GRAPHE DE PRÉREQUIS : dependsOn va de l'atome dépendant vers son prérequis ; 
 RÉDACTION BACKGROUND COMPACTE : conserve intégralement les décisions, distinctions scientifiques, liens, qualifications et arbitrages utiles. La concision porte sur leur explication, jamais sur leur suppression. Une justification ne répète pas le contenu : rationale d'atome ≤180 caractères, rationale de dépendance ≤100, rationale d'arbitrage ≤180 ; benefits/limits/consequences ≤140 chacun, understanding ≤150 chacun. proposal.reply ≤120 caractères car non affiché ; recruitmentNotice et participantQuestionnaireIntroduction ≤120 chacun, sans aperçu documentaire. N'ajoute pas de scénario chiffré pour remplir une rubrique. Les branches non affectées conservent leur contenu et leurs références ; ne les reformule pas pour le style. Ne tronque aucun texte ni lien pour respecter ces cibles ; garde une explication plus longue si elle est indispensable à son sens. Émets du JSON sans indentation ni commentaires.`;
   return { context, instruction: instruction + `\nRÉTENTION SCIENTIFIQUE : retainedDiscussionBindings relie uniquement les éléments retainedMeaning actifs fournis aux atomRefs qui en préservent TOUT le sens, négations, conditions et incertitudes comprises. Reprends elementRef et sourceTurnRef exacts. Pas de similarité approximative ni de correspondance partielle. Si un élément reste non représenté, ne crée pas de binding : il reste actif. Ce lien ne ferme rien avant confirmation humaine et matérialisation native du Project. Aucun appel supplémentaire.`,
     ...(request.studioPreparationSource ? { instruction: instruction + `\nNATIVE STUDIO SOURCE: NATIVE_STUDIO_SOURCE is user-authored saved documentary work, NOT conversation. Its edits carry exact editRef/afterText, anchors, revision/save and assessment provenance. Only these PROJECT_CHANGE edits require recomposition. Preserve the supplied governed current Project and unaffected proposals. Use explicitStudioDecisions:{atomRef,editRef,quote} for literal afterText, never explicitDecisions/sourceTurnRef for Studio. For a revision of an existing Project object, put its exact CURRENT_PROJECT stableId/versionRef in userChangeRefs; do not invent a target or replace another object. A beforeText is historical context, not a current user instruction. Editorial edits are excluded. A model inference is not user assent; all new candidates await native human decision. There is no visible reply required for this source. genuine RECENT_CONVERSATION remains a separate source when present.` } : {}),
-    inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns, request.studioPreparationSource) };
+    ...(request.scientificPreparationSourceSet ? { instruction: instruction + `\nONE FROZEN SCIENTIFIC_SOURCE_SET: assess ALL PENDING native sources together in ONE coherent composition. This typed source set replaces RECENT_CONVERSATION as scientific input; do not reconstruct a transcript or fabricate USER quotations. Conversation semantic receipts, governed preparation checkpoints and Studio edits retain distinct provenance. Their order grants no authority or priority. Preserve open/unknown meanings and explicit supersession/adoption bindings. Groups with EXACT_NATIVE_BINDING represent one contribution with all provenance links: bind every member to the SAME candidate atom(s). Do not infer other equivalence from text similarity. For STUDY_UPDATE, sourceSetBindings:{sourceRef,atomRefs,coverage} covers EVERY PENDING source exactly once, including native retained candidates, residual PARTIAL/UNKNOWN source meaning and prior preparation checkpoints. COMPLETE certifies full candidate coverage, never adoption; source refs or digests alone are insufficient. Preserve their entire scientific content, conditions, negations, uncertainty and bindings. PARTIAL/UNKNOWN cannot certify eviction or a complete Review. All references must resolve to the exact input and emitted atoms. retainedDiscussionBindings must cover every pending retained element's ENTIRE meaning, negations, conditions and uncertainty; copy exact elementRef/sourceTurnRef. A binding remains non-adopting. explicitStudioDecisions:{atomRef,editRef,quote} must cover every pending Studio edit, quoting its literal afterText; never put Studio in explicitDecisions. For an existing Project object revision use its exact CURRENT_PROJECT stableId/versionRef in userChangeRefs, never an invented target. beforeText is historical, not a new instruction; editorial edits and already-adopted meaning are not scientific changes. If complete semantic coverage cannot be demonstrated, or sources have materially incompatible interpretations not resolved by native human decisions, return TARGETED_QUESTION without proposal and with empty sourceSetBindings; the existing QRY/human path must arbitrate. An ordinary unknown is not a material conflict. Preserve unresolved meanings and unaffected branches; no lexical merge, source priority, automatic adoption or invented missing content.` } : {}),
+    inputDigest, outputSchema: workingDraftProviderSchema(inputDigest, request.conversation.turns, request.studioPreparationSource, request.scientificPreparationSourceSet) };
 };
 
 export const recommendedWorkingScope = (composition: StudyProposalComposition) => {
@@ -440,18 +455,47 @@ export const assertWorkingDraftSnapshotContinuity = (update: WorkingDraftUpdate,
 
 export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeRequest) => {
   const update = responseSchema.parse(raw);
-  const studio = request.studioPreparationSource ? studioPreparationProvenance(request.studioPreparationSource,
-    request.currentProject!, request.studioPreparationSource.assessment.completedAt) : undefined;
+  const studio = request.studioPreparationSource ? { ...studioPreparationProvenance(request.studioPreparationSource,
+    request.currentProject!, request.studioPreparationSource.assessment.completedAt),
+    ...(request.scientificPreparationSourceSet ? { scientificSourceSet: request.scientificPreparationSourceSet } : {}) } : undefined;
   if (!studio && update.explicitStudioDecisions?.length) throw new Error("WORKING_DRAFT_USER_PROVENANCE_INVALID");
+  if (!request.scientificPreparationSourceSet && update.sourceSetBindings?.length) throw new Error("WORKING_DRAFT_MIXED_SOURCE_COVERAGE_INVALID");
   if (update.retainedDiscussionBindings?.some(b => !request.scientificDiscussionContext?.retainedMeaning?.some(e =>
     e.ref === b.elementRef && e.sourceTurnRef === b.sourceTurnRef)
     || b.atomRefs.some(ref => !update.proposal?.atoms.some(a => a.ref === ref)))) throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID");
   if (update.requestType !== "STUDY_UPDATE") {
     if (update.proposal || update.explicitDecisions.length || update.explicitStudioDecisions?.length || update.inferredAtomRefs.length || update.rejectedAtomRefs.length
-      || update.supersededAtomRefs?.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");
+      || update.supersededAtomRefs?.length || update.sourceSetBindings?.length) throw new Error("WORKING_DRAFT_OUT_OF_SCOPE");
     return { update, composition: null };
   }
   if (!update.proposal) throw new Error("WORKING_DRAFT_PROPOSAL_REQUIRED");
+  if (request.scientificPreparationSourceSet) {
+    assertScientificPreparationSourceSet(request.scientificPreparationSourceSet, { project: request.currentProject!,
+      studio: request.studioPreparationSource!, discussion: request.scientificDiscussionContext, proposal: request.studyProposalContext });
+    const pending = request.scientificPreparationSourceSet.sources.filter(item => item.status === "PENDING");
+    if (update.explicitDecisions.length || update.sourceSetBindings?.length !== pending.length
+      || new Set(update.sourceSetBindings.map(binding => binding.sourceRef)).size !== pending.length
+      || update.sourceSetBindings.some(binding => binding.coverage !== "COMPLETE" || !pending.some(source => source.ref === binding.sourceRef)
+        || new Set(binding.atomRefs).size !== binding.atomRefs.length || binding.atomRefs.some(ref => !update.proposal!.atoms.some(atom => atom.ref === ref))))
+      throw new Error("WORKING_DRAFT_MIXED_SOURCE_COVERAGE_INVALID");
+    for (const source of request.scientificPreparationSourceSet.sources.filter(item => item.status === "PENDING")) {
+      if ("sourceTurnRef" in source.native && "conditions" in source.native
+        && !update.retainedDiscussionBindings?.some(binding => binding.elementRef === source.ref))
+        throw new Error("WORKING_DRAFT_MIXED_SOURCE_COVERAGE_INVALID");
+      if (source.origin === "STUDIO" && !update.explicitStudioDecisions?.some(binding => binding.editRef === source.ref))
+        throw new Error("WORKING_DRAFT_MIXED_SOURCE_COVERAGE_INVALID");
+    }
+    for (const group of request.scientificPreparationSourceSet.groups.filter(item => item.proof === "EXACT_NATIVE_BINDING")) {
+      const members = group.sourceRefs.map(ref => [...update.sourceSetBindings!.find(binding => binding.sourceRef === ref)!.atomRefs,
+        ...update.explicitStudioDecisions?.filter(binding => binding.editRef === ref).map(binding => binding.atomRef) ?? [],
+        ...update.retainedDiscussionBindings?.filter(binding => binding.elementRef === ref).flatMap(binding => binding.atomRefs) ?? []]);
+      if (members.some(refs => !refs.length || logicalDigest([...new Set(refs)].sort()) !== logicalDigest([...new Set(members[0])].sort())))
+        throw new Error("WORKING_DRAFT_MIXED_SOURCE_DUPLICATION_INVALID");
+    }
+    for (const binding of update.sourceSetBindings) if (update.explicitStudioDecisions?.some(item => item.editRef === binding.sourceRef && !binding.atomRefs.includes(item.atomRef))
+      || update.retainedDiscussionBindings?.some(item => item.elementRef === binding.sourceRef && item.atomRefs.some(ref => !binding.atomRefs.includes(ref))))
+      throw new Error("WORKING_DRAFT_MIXED_SOURCE_COVERAGE_INVALID");
+  }
   const ownerAreaNormalizations = normalizeUnambiguousOwnerAreas(update.proposal);
   const outcomeInputNormalizations = normalizeUnresolvedOutcomeInputDependencies(update.proposal);
   const quarantinedArbitrations = quarantineStructurallyInvalidOptionalArbitrations(update.proposal,
@@ -486,11 +530,14 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   // Native specialized inputs are prepared from a non-adopted contribution.
   // This temporary composition never escapes the owner qualification below.
   const sourceProject = studyProposalBinding(request.currentProject);
+  const nativeSourceBindings = request.scientificPreparationSourceSet ? update.sourceSetBindings!
+    .map(binding => ({ sourceRef: binding.sourceRef, atomRefs: [...binding.atomRefs].sort() })).sort((a, b) => a.sourceRef.localeCompare(b.sourceRef)) : undefined;
   const sourceTurnRef = studio?.requestId ?? user.turnId, sourceResponseRef = studio?.assessmentRef ?? reply!.turnId;
   const digest = logicalDigest({ proposal: update.proposal, sourceProject, sourceTurnRef, sourceResponseRef,
-    ...(studio ? { nativeStudioSource: studio } : {}) });
+    ...(studio ? { nativeStudioSource: studio } : {}), ...(nativeSourceBindings ? { nativeSourceBindings } : {}) });
   const provisional: StudyProposalComposition = { proposal: update.proposal, proposalRef: `scientific-study-proposal:${digest}`,
-    digest, sourceTurnRef, sourceResponseRef, ...(studio ? { nativeStudioSource: studio } : {}), sourceProject, originalSourceProject: sourceProject,
+    digest, sourceTurnRef, sourceResponseRef, ...(studio ? { nativeStudioSource: studio } : {}),
+    ...(nativeSourceBindings ? { nativeSourceBindings } : {}), sourceProject, originalSourceProject: sourceProject,
     revision: 1, adoptedAtomRefs: [], unavailableOptionRefs: [], state: "CURRENT", dimensioning: [], ownerReceipts: [] };
   // An option label cannot silently demote a current explicit decision. Reject
   // the producer's grouping; never select its alternative or weaken closure.
@@ -512,10 +559,12 @@ export const acceptWorkingDraftUpdate = (raw: unknown, request: ProductBridgeReq
   const accepted = acceptContextualStudyProposal(update.proposal, { contextDigest: workingDraftInputDigest(request),
     sourceTurnRef, sourceResponseRef, sourceProject: studyProposalBinding(request.currentProject),
     ...(studio ? { nativeStudioSource: studio } : {}),
+    ...(nativeSourceBindings ? { nativeSourceBindings } : {}),
     // Open/unselected branches remain working proposals. Only the native scope
     // receives specialized qualification, with exactly the handoffs built for it.
     scopedAtomRefs: contribution.scientificContent.candidateObjects.map(item => item.evidenceRefs!.find(ref => atoms.has(ref))!),
-    ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: studio
+    ownerContext: ownerContext?.request, applicableEvidenceRefs: [], sourceText: request.scientificPreparationSourceSet
+      ? [...request.studioPreparationSource!.request.currentProject.objects.map(object => object.content), scientificPreparationSourceText(request.scientificPreparationSourceSet)].join("\n") : studio
       ? [...request.studioPreparationSource!.request.currentProject.objects.map(object => object.content), ...studio.edits.map(edit => edit.afterText)].join("\n")
       : request.conversation.turns.filter(t => t.role === "USER").map(t => t.content).join("\n"),
   });

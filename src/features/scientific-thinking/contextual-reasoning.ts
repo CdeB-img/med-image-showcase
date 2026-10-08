@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { scientificPreparationSourceText } from "./preparation-source-set.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { measuredQuantitySurfaces } from "../query-navigation/governed-conversation-realization.js";
 import type { KnowledgeResult } from "../knowledge-engine/types.js";
@@ -77,12 +78,12 @@ export type ContextualReasoningReceipt = Readonly<{
 export const buildContextualReasoningRequest = (input: Omit<ContextualReasoningRequest, "owner" | "requestRef" | "contextDigest" | "studyDesign">): ContextualReasoningRequest => {
   const studio = input.nativeStudioSource;
   if (studio ? studio.origin !== "STUDIO" || studio.requestId !== input.sourceTurnRef
-    || studio.edits.map(edit => edit.afterText).join("\n") !== input.sourceText
+    || (studio.scientificSourceSet ? scientificPreparationSourceText(studio.scientificSourceSet) : studio.edits.map(edit => edit.afterText).join("\n")) !== input.sourceText
     || studio.currentProject.projectId !== input.project?.projectId || studio.currentProject.projectVersion !== input.project?.versionId
     || studio.currentProject.projectDigest !== input.project?.projectDigest
     : !input.turns.some(t => t.role === "USER" && t.turnId === input.sourceTurnRef && t.content === input.sourceText)) throw new Error("ST_REASONING_SOURCE_MISMATCH");
-  const studyDesign = buildContextualStudyDesignCompetence([...input.turns.filter(t => t.role === "USER").map(t => t.content),
-    ...studio?.edits.map(edit => edit.afterText) ?? []].join("\n"));
+  const studyDesign = buildContextualStudyDesignCompetence(studio?.scientificSourceSet ? scientificPreparationSourceText(studio.scientificSourceSet)
+    : [...input.turns.filter(t => t.role === "USER").map(t => t.content), ...studio?.edits.map(edit => edit.afterText) ?? []].join("\n"));
   const digest = logicalDigest({ ...input, studyDesign });
   return Object.freeze({ ...input, studyDesign, owner: "SCIENTIFIC_THINKING", requestRef: `ST-CONTEXTUAL:${digest}`, contextDigest: digest });
 };

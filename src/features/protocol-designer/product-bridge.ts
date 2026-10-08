@@ -972,6 +972,7 @@ export type ProductBridgeRequest = {
   prepareWorkingDraft?: boolean;
   /** Native Studio source, never a fabricated conversation turn. */
   studioPreparationSource?: import("../scientific-thinking/studio-runtime.js").StudioPreparationSource;
+  scientificPreparationSourceSet?: import("../scientific-thinking/preparation-source-set.js").ScientificPreparationSourceSet;
   /** Immutable Knowledge source for an explicit preparation; distinct from its latest conversation turn. */
   workingDraftScientificSource?:
     | Readonly<{ kind: "BOUND_USER_TURN"; sourceUserTurnId: string; sourceResponseTurnId: string; sourceDigest: string }>
@@ -1904,6 +1905,8 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
         && h.atom && typeof h.atom.ref === "string" && typeof h.atom.content === "string" && h.atom.content.length <= 600)))
     || (record.studioPreparationSource !== undefined && (!record.prepareWorkingDraft || !record.currentProject
       || !record.studioPreparationSource?.request || !record.studioPreparationSource.assessment))
+    || (record.scientificPreparationSourceSet !== undefined && (!record.prepareWorkingDraft || !record.studioPreparationSource
+      || record.scientificPreparationSourceSet?.contract !== "SCIENTIFIC_PREPARATION_SOURCE_SET_V1"))
     || (record.requestKind !== undefined && !["USER_TURN", "POST_ADOPTION_QRY_CONTINUATION"].includes(record.requestKind))
     || !record.conversation
     || typeof record.conversation.conversationId !== "string"

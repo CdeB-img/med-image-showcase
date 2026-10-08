@@ -19,6 +19,7 @@ export type StudioPreparationProvenance = Readonly<{
   baseProject: StudioReconciliationRequest["baseProject"];
   currentProject: StudioReconciliationRequest["baseProject"];
   edits: StudioReconciliationRequest["delta"]; capturedAt: string;
+  scientificSourceSet?: import("./preparation-source-set.js").ScientificPreparationSourceSet;
 }>;
 
 export const assertStudioScientificInput = (request: StudioReconciliationRequest, project: ResearchProjectOwnerProjection | null) => {
@@ -62,13 +63,12 @@ export const studioScientificRoute = (source: StudioPreparationSource, project: 
   const { payload } = requireStudioScientificAssessment(source.request, source.assessment);
   if (payload.scientificStateDisposition === "AMBIGUOUS" || payload.edits.some(edit => edit.classification === "AMBIGUOUS"))
     return { action: "EXISTING_QRY_PATH" as const, edits: [], workingDraftRequired: false };
-  if (payload.scientificStateDisposition === "PENDING_HUMAN_CONFIRMATION")
-    return { action: "MIXED_SOURCE_PREPARATION_GAP" as const, edits: [], workingDraftRequired: false };
   const refs = new Set(payload.edits.filter(edit => edit.classification === "PROJECT_CHANGE"
     && edit.projectCoverage?.coverage !== "COMPLETE").map(edit => edit.editRef));
   const edits = source.request.delta.filter(edit => refs.has(edit.editRef));
-  return { action: edits.length ? "EXISTING_SCIENTIFIC_PREPARATION_PATH" as const : "PROJECT_REUSE" as const,
-    edits, workingDraftRequired: edits.length > 0 };
+  const pendingScience = payload.scientificStateDisposition === "PENDING_HUMAN_CONFIRMATION";
+  return { action: edits.length || pendingScience ? "EXISTING_SCIENTIFIC_PREPARATION_PATH" as const : "PROJECT_REUSE" as const,
+    edits, workingDraftRequired: edits.length > 0 || pendingScience };
 };
 
 export const studioPreparationProvenance = (source: StudioPreparationSource, project: ResearchProjectOwnerProjection,

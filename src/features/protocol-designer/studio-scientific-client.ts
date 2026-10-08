@@ -28,5 +28,6 @@ export const requestStudioScientificPreparation = async (request: ProductBridgeR
     || !request.observabilityContext?.sessionId) throw new ProductBridgeClientError("STUDIO_PREPARATION_SOURCE_REQUIRED", "Préparation native manquante.");
   const value = await nativeStudioRequest(request.observabilityContext.sessionId, request.currentProject, request);
   if (!value.workingDraftUpdate) throw new ProductBridgeClientError("STUDIO_PREPARATION_RESULT_INVALID", "Résultat scientifique manquant.");
-  return value as Pick<import("./product-bridge.js").ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">;
+  return value as Pick<import("./product-bridge.js").ProductBridgeResponse, "workingDraftUpdate" | "workingStudyProposal">
+    & Partial<Pick<import("./product-bridge.js").ProductBridgeResponse, "observability">>;
 };

@@ -182,18 +182,18 @@ describe("native Studio → Scientific Thinking → existing governed preparatio
     expect(adopted.canonicalState!.objects.find(object => object.objectId === designTarget.stableId && object.actuality === "CURRENT")?.content).toBe(domain.design);
     expect(run.g2.ref.project.projectDigest).toBe(run.project2.projectDigest);
   });
-  it("I: mixed pending sources remain distinct and return the explicit bounded gap", async () => {
+  it("I: a pending reference without governed scientific content fails closed, never fabricates a transcript", async () => {
     const run = await setup("scientific", true), source = { request: run.request, assessment: assessmentFor(run) };
     const conversation = [{ turnId: "turn:real-pending", role: "USER" as const, content: "Ajouter un suivi de sécurité", createdAt: NOW }];
-    const routed = captureStudioProjectPreparation({ ...run.session, runtimeTurns: conversation }, source, run.revision);
-    expect(routed.action).toBe("MIXED_SOURCE_PREPARATION_GAP"); expect(routed.preparation).toBeNull();
+    expect(() => captureStudioProjectPreparation({ ...run.session, runtimeTurns: conversation }, source, run.revision))
+      .toThrow("SCIENTIFIC_PREPARATION_SOURCE_UNAVAILABLE");
     expect(source.request.origin).toBe("STUDIO"); expect(conversation[0].role).toBe("USER");
     const invalid = payloadFor(run); invalid.scientificStateDisposition = "NO_NET_CHANGE";
     expect(() => assessmentFor(run, invalid)).toThrow("STUDIO_PENDING_SCIENCE_NOT_ASSESSED");
     const noRefs = await setup("editorial"), pending = payloadFor(noRefs, "DOCUMENT_ONLY");
     pending.scientificStateDisposition = "PENDING_HUMAN_CONFIRMATION";
     expect(captureStudioProjectPreparation(noRefs.session, { request: noRefs.request,
-      assessment: assessmentFor(noRefs, pending) }, noRefs.revision).action).toBe("MIXED_SOURCE_PREPARATION_GAP");
+      assessment: assessmentFor(noRefs, pending) }, noRefs.revision).action).toBe("EXISTING_QRY_PATH");
   });
   it("mixed editorial/scientific edits keep only uncovered scientific edits in WD input and output bindings", async () => {
     const run = await setup("mixed"), payload = payloadFor(run);

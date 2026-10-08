@@ -8,6 +8,7 @@ import { activeProjectPreparation, addProjectPreparation, captureProjectPreparat
 import { appendFunctionalResetProviderCallRecords, saveFunctionalResetWorkspaceSession, type FunctionalResetSession, type SessionSave } from "./session";
 import { preflightWorkingDraftKnowledgeSource } from "../../scientific-thinking/contextual-reasoning-input";
 import { recordProjectPreparationTrace } from "./project-preparation-trace";
+import { requestStudioScientificPreparation } from "../studio-scientific-client";
 
 type Options = {
   enabled: boolean; session: FunctionalResetSession; latest: MutableRefObject<FunctionalResetSession>;
@@ -62,9 +63,11 @@ export function useProjectPreparation({ enabled, session, latest, setSession, sa
     const records: ProviderCallRecord[] = [];
     let bridgeResponseReceived = false;
     try {
-      const response = await requestProtocolDesignerBridge(preparation.checkpoint.request);
+      const response = preparation.checkpoint.request.studioPreparationSource
+        ? await requestStudioScientificPreparation(preparation.checkpoint.request)
+        : await requestProtocolDesignerBridge(preparation.checkpoint.request);
       bridgeResponseReceived = true;
-      records.push(...response.observability.providerCalls ?? []);
+      records.push(...response.observability?.providerCalls ?? []);
       update(source.sessionId, state => {
         let next = state;
         for (const record of records) next = recordProjectPreparationTrace(next, preparation.checkpoint!,

@@ -10,10 +10,12 @@ import { logicalDigest } from "../knowledge-engine/canonical.js";
 import { ensureCanonicalProjectState } from "../research-project-construction/canonical-project-backbone.js";
 import type { ProductBridgeRequest } from "../protocol-designer/product-bridge.js";
 import { studioScientificRoute } from "./studio-runtime.js";
+import { assertScientificPreparationSourceSet, scientificPreparationSourceText } from "./preparation-source-set.js";
+import { validateScientificDiscussionContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 
 /** Validate the Knowledge input already fixed by a Working Draft checkpoint, before a paid dispatch. */
 export const preflightWorkingDraftKnowledgeSource = (request: Pick<ProductBridgeRequest,
-  "conversation" | "currentProject" | "workingDraftScientificSource" | "studioPreparationSource">) => {
+  "conversation" | "currentProject" | "workingDraftScientificSource" | "studioPreparationSource" | "scientificPreparationSourceSet" | "scientificDiscussionContext" | "studyProposalContext">) => {
   const source = request.workingDraftScientificSource;
   const turns = request.conversation.turns;
   let content: string;
@@ -41,7 +43,15 @@ export const preflightWorkingDraftKnowledgeSource = (request: Pick<ProductBridge
       || source.assessmentRef !== studio.assessment.resultId) throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
     const route = studioScientificRoute(studio, request.currentProject);
     if (!route.workingDraftRequired) throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
-    content = route.edits.map(edit => edit.afterText).join("\n"); createdAt = studio.assessment.completedAt;
+    if (request.scientificPreparationSourceSet) assertScientificPreparationSourceSet(request.scientificPreparationSourceSet,
+      { project: request.currentProject, studio, discussion: request.scientificDiscussionContext, proposal: request.studyProposalContext });
+    if (request.scientificPreparationSourceSet && !validateScientificDiscussionContext(request.scientificDiscussionContext,
+      { conversationId: request.conversation.conversationId, runtimeTurns: turns, currentProject: request.currentProject }))
+      throw new Error("SCIENTIFIC_PREPARATION_SOURCE_INVALID");
+    if (!request.scientificPreparationSourceSet && (studio.request.scientificState.pendingTurnRef || studio.request.scientificState.pendingPreparationId))
+      throw new Error("WORKING_DRAFT_SCIENTIFIC_SOURCE_SET_REQUIRED");
+    content = request.scientificPreparationSourceSet ? scientificPreparationSourceText(request.scientificPreparationSourceSet)
+      : route.edits.map(edit => edit.afterText).join("\n"); createdAt = studio.assessment.completedAt;
   } else throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
   if (logicalDigest(content) !== source.sourceDigest) throw new Error("WORKING_DRAFT_KNOWLEDGE_SOURCE_INVALID");
   try {
@@ -73,8 +83,8 @@ export const prepareStandardContextualReasoningRequest = (input: {
   const latest = [...input.turns].reverse().find(t => t.role === "USER");
   if (!input.nativeStudioSource && (!latest || input.contribution.source.originalRequest !== latest.content)) throw new Error("ST_CONTEXT_INPUT_NOT_CURRENT");
   const { validatedIntent: intent, scientificSessionContext: context } = projection;
-  const visibleUsers = [...input.turns.filter(t => t.role === "USER").map(t => t.content),
-    ...input.nativeStudioSource?.edits.map(edit => edit.afterText) ?? []].join("\n");
+  const visibleUsers = input.nativeStudioSource?.scientificSourceSet ? scientificPreparationSourceText(input.nativeStudioSource.scientificSourceSet)
+    : [...input.turns.filter(t => t.role === "USER").map(t => t.content), ...input.nativeStudioSource?.edits.map(edit => edit.afterText) ?? []].join("\n");
   const knowledgeSource = input.workingDraftKnowledgeSource ?? { content: latest!.content, createdAt: latest!.createdAt };
   const knowledge = executeKnowledgeEngine({ originalQuestion: knowledgeSource.content,
     scientificObjectTerms: extractScientificObjectTerms(visibleUsers), createdAt: knowledgeSource.createdAt });
