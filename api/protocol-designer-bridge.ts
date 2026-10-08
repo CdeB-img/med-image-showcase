@@ -1067,7 +1067,8 @@ export const handleProtocolDesignerBridge = async (
       const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
       const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
       if (!archive) throw new Error("DOC_REVISION_UNAVAILABLE");
-      await verifySavedStudioScientificSource(archive, access, project, studioRequest);
+      await verifySavedStudioScientificSource(archive, access, project, studioRequest,
+        studioBody.finalizationIntentId ?? studioBody.studioPreparationSource?.finalizationIntentId);
       if (studioBody.studioPreparationSource) {
         const retained = await durableGuard.readNativeStudioResult?.({ headers: request.headers, remoteAddress: request.socket?.remoteAddress,
           sessionId: access.identity.sessionId, clientRequestId: `studio-assessment:${studioRequest.requestDigest}` });

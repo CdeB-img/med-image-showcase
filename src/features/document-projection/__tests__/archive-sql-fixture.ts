@@ -6,12 +6,14 @@ export const archiveSqlFixture = () => {
   let rows: Record<string, unknown>[] = [];
   let bodies: Record<string, unknown>[] = [];
   let revisions: Record<string, unknown>[] = [];
+  let intents: Record<string, unknown>[] = [];
   const snapshots: Record<string, unknown>[] = [];
   let tail: Promise<unknown> = Promise.resolve();
   const queries: string[] = [];
   const projectLockArguments: string[] = [];
   let failCommit = false;
   let failRevision = false;
+  let failIntent = false;
   const tag = async (parts: TemplateStringsArray, ...v: unknown[]): Promise<Record<string, unknown>[]> => {
     const query = parts.join("?").replace(/\s+/gu, " ").trim(); queries.push(query);
     if (query.startsWith("select pg_advisory")) {
@@ -31,8 +33,23 @@ export const archiveSqlFixture = () => {
       }
       return [...latest.values()].filter(r => r.status === "ACTIVE").slice(0, 2).map(r => ({ revision: structuredClone(r.revision) }));
     }
+    if (query.startsWith("select distinct intent_id from noxia_durable.doc_studio_finalization_intent")) return [...new Set(intents
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2] && r.save_sequence === v[3]
+        && JSON.parse(String(r.record_text)).frozen.workingRevisionContentDigest === v[4]).map(r => String(r.intent_id)))]
+      .slice(0, 2).map(intent_id => ({ intent_id }));
+    if (query.startsWith("select record_text, record_sha256 from noxia_durable.doc_studio_finalization_intent")) return intents
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.intent_id === v[2])
+      .sort((a, b) => Number(b.sequence) - Number(a.sequence)).slice(0, 1).map(r => structuredClone(r));
+    if (query.startsWith("insert into noxia_durable.doc_studio_finalization_intent")) {
+      if (failIntent) throw new Error("OFFLINE_INTENT_WRITE_FAILURE");
+      if (intents.some(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.intent_id === v[2] && r.sequence === v[3]))
+        throw new Error("DOC_INTENT_DUPLICATE_SEQUENCE");
+      intents.push({ session_key_hash: v[0], project_id: v[1], intent_id: v[2], sequence: v[3], revision_id: v[4],
+        save_sequence: v[5], intent_digest: v[6], record_text: v[7], record_sha256: v[8] }); return [];
+    }
     if (query.startsWith("select revision from noxia_durable.doc_working_revision")) return revisions
-      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2])
+      .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2]
+        && (!query.includes("and save_sequence =") || r.save_sequence === v[3]))
       .sort((a, b) => Number(b.save_sequence) - Number(a.save_sequence)).slice(0, 1).map(r => ({ revision: structuredClone(r.revision) }));
     if (query.startsWith("insert into noxia_durable.doc_working_revision")) {
       if (failRevision) throw new Error("OFFLINE_REVISION_WRITE_FAILURE");
@@ -96,14 +113,19 @@ export const archiveSqlFixture = () => {
         // Only row settlement mutates fields. Immutable TEXT/metadata are shared
         // safely; copying hundreds of frozen bodies would test the double's RAM,
         // not the archive. A failed transaction still restores all row changes.
-        const beforeRows = rows.map(row => ({ ...row })), beforeBodies = [...bodies], beforeRevisions = [...revisions];
-        try { return await callback(sql); } catch (error) { rows = beforeRows; bodies = beforeBodies; revisions = beforeRevisions; throw error; }
+        const beforeRows = rows.map(row => ({ ...row })), beforeBodies = [...bodies], beforeRevisions = [...revisions], beforeIntents = [...intents];
+        try { return await callback(sql); } catch (error) { rows = beforeRows; bodies = beforeBodies; revisions = beforeRevisions; intents = beforeIntents; throw error; }
       });
       tail = next.catch(() => {}); return next;
     },
   });
   return { sql: sql as unknown as Sql, queries, projectLockArguments, rows: () => structuredClone(rows), bodies: () => structuredClone(bodies),
     revisions: () => structuredClone(revisions), failRevisionSave: (fail: boolean) => { failRevision = fail; },
+    intents: () => structuredClone(intents), failIntentSave: (fail: boolean) => { failIntent = fail; },
+    corruptRevision: (id: string, sequence: number) => {
+      const row = revisions.find(r => r.revision_id === id && r.save_sequence === sequence)!;
+      (row.revision as { contentDigest: string }).contentDigest = "ke1-corrupt";
+    },
     corruptBody: (generationId: string) => {
       const row = rows.find(item => item.generation_id === generationId)!;
       const body = bodies.find(item => item.session_key_hash === row.session_key_hash && item.project_id === row.project_id && item.request_id === row.request_id)!;

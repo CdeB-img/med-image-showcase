@@ -3,8 +3,7 @@
  */
 import { logicalDigest } from "../../knowledge-engine/canonical.js";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "../product-bridge.js";
-import { recommendedWorkingScope, prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDraftInputDigest,
-  type WorkingDraftMetadata } from "./continuous-project-build.js";
+import { recommendedWorkingScope, prepareContinuousWorkingDraft, validatePreparedWorkingReview, workingDraftInputDigest } from "./continuous-project-build.js";
 import { createTurnId, readConversationConfirmationReceipts, workingDraftRecoveryIdentity, type FunctionalResetSession, type WorkingDraftPreparation,
   type ProjectReviewInvitation } from "./session.js";
 import { assertStudyProposalOptionBindings, type StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
@@ -21,36 +20,10 @@ import { assertStudioReconciliationCurrent } from "../../document-projection/stu
 import type { DocumentWorkingRevision } from "../../document-projection/working-revision.js";
 import { captureStudioScientificState } from "./studio-scientific-context.js";
 import { buildScientificPreparationSourceSet, assertScientificPreparationSourceSet, scientificPreparationSourceText } from "../../scientific-thinking/preparation-source-set.js";
+import { assertFrozenScientificSources, type FrozenScientificPreparationSources } from "../../scientific-thinking/preparation-source-set.js";
 
-export type ProjectPreparationCheckpoint = Readonly<{
-  contract: "EXPLICIT_PROJECT_PREPARATION_V1";
-  preparationId: string;
-  sessionId: string;
-  projectId: string;
-  cutoffTurnId: string;
-  conversationCutoffTurnId?: string;
-  preparationTrigger?: "EXPLICIT_PROJECT_PREPARATION_ACTION" | "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION";
-  /** Presentation policy only; the immutable scientific request is unchanged. */
-  presentation?: "INTERNAL_VERSION_PRODUCTION";
-  scientificSourceIdentity?: ProductBridgeRequest["workingDraftScientificSource"];
-  capturedAt: string;
-  requestDigest: string;
-  inputDigest: string;
-  previousDraftDigest: string;
-  /** One immutable technical input snapshot, not an alternative Project authority.
-   * The captured Project is required to replay native review owners after a base change.
-   * Network transport continues to use the existing verified Project snapshot resolver.
-   */
-  request: ProductBridgeRequest;
-  previousDraft: WorkingDraftMetadata | null;
-  priorDiscussionProposalBindings?: readonly { elementRef: string;
-    binding: NonNullable<FunctionalResetSession["scientificDiscussionRetention"]>["elements"][number]["proposalBinding"] }[];
-}>;
-export type ProjectPreparationResult = Readonly<{
-  composition: StudyProposalComposition;
-  workingDraft: WorkingDraftMetadata;
-}>;
-export type ProjectPreparationDecision = "PENDING" | "ADOPTED" | "REFUSED" | "ABANDONED";
+import type { ProjectPreparationCheckpoint, ProjectPreparationDecision } from "./project-preparation-contract.js";
+export type { ProjectPreparationCheckpoint, ProjectPreparationResult, ProjectPreparationDecision } from "./project-preparation-contract.js";
 
 const inputSession = (session: FunctionalResetSession, checkpoint: ProjectPreparationCheckpoint): FunctionalResetSession => ({
   ...session, projectId: checkpoint.projectId, project: checkpoint.request.currentProject,
@@ -70,7 +43,7 @@ export const preparationCheckpointValid = (session: FunctionalResetSession, chec
       { project: session.project, studio, discussion: checkpoint.request.scientificDiscussionContext, proposal: checkpoint.request.studyProposalContext });
   } catch { return false; }
   return checkpoint.contract === "EXPLICIT_PROJECT_PREPARATION_V1" && checkpoint.sessionId === session.sessionId
-    && checkpoint.projectId === session.projectId && (cutoff >= 0 || native && session.runtimeTurns.length === 0)
+    && checkpoint.projectId === session.projectId && (cutoff >= 0 || native && checkpoint.request.conversation.turns.length === 0)
     && logicalDigest(checkpoint.request) === checkpoint.requestDigest
     && (checkpoint.preparationTrigger === undefined || checkpoint.preparationTrigger === "EXPLICIT_PROJECT_PREPARATION_ACTION" || native)
     && (checkpoint.conversationCutoffTurnId === undefined || checkpoint.conversationCutoffTurnId === checkpoint.cutoffTurnId)
@@ -85,14 +58,16 @@ export const preparationCheckpointValid = (session: FunctionalResetSession, chec
  */
 export const captureStudioProjectPreparation = (session: FunctionalResetSession, source: StudioPreparationSource,
   savedRevision: DocumentWorkingRevision,
-  now = new Date().toISOString()) => {
+  now = new Date().toISOString(), frozen?: Readonly<{ sources: FrozenScientificPreparationSources;
+    previousDraft: ProjectPreparationCheckpoint["previousDraft"]; conversation: readonly { turnId: string; digest: string }[] }>) => {
   if (!session.project) throw new Error("STUDIO_PREPARATION_PROJECT_REQUIRED");
   assertStudioReconciliationCurrent(source.request, savedRevision, session.project, source.request.scientificState);
+  const sourceIdentity = (value: StudioPreparationSource | undefined) => logicalDigest(value ? { request: value.request, assessment: value.assessment } : null);
   const active = activeProjectPreparation(session);
-  if (active && logicalDigest(active.checkpoint?.request.studioPreparationSource ?? null) !== logicalDigest(source))
+  if (active && sourceIdentity(active.checkpoint?.request.studioPreparationSource) !== sourceIdentity(source))
     return { action: "EXISTING_PREPARATION_STATE" as const, preparation: active };
   const previous = [...session.workingDraftPreparations ?? []].reverse().find(p => p.checkpoint?.request.studioPreparationSource
-    && logicalDigest(p.checkpoint.request.studioPreparationSource) === logicalDigest(source)
+    && sourceIdentity(p.checkpoint.request.studioPreparationSource) === sourceIdentity(source)
     && p.decision !== "ABANDONED" && preparationCheckpointValid(session, p.checkpoint));
   // The exact preparation's own result is not a new external scientific source.
   // Keep later turns/retention/other preparations intact when checking staleness.
@@ -110,18 +85,24 @@ export const captureStudioProjectPreparation = (session: FunctionalResetSession,
         return { ...native, ...(old ? { proposalBinding: old } : {}) };
       }) } : session.scientificDiscussionRetention,
   } : session;
-  if (logicalDigest(captureStudioScientificState(externalState)) !== logicalDigest(source.request.scientificState))
+  if (frozen) {
+    assertFrozenScientificSources(frozen.sources, session.project);
+    if (!source.finalizationIntentId || logicalDigest(frozen.sources.request) !== logicalDigest(source.request)
+      || frozen.conversation.some((turn, index) => session.runtimeTurns[index]?.turnId !== turn.turnId
+        || logicalDigest(session.runtimeTurns[index]) !== turn.digest)) throw new Error("STUDIO_FROZEN_PREPARATION_INVALID");
+  }
+  if (!frozen && logicalDigest(captureStudioScientificState(externalState)) !== logicalDigest(source.request.scientificState))
     throw new Error("STUDIO_SCIENTIFIC_STATE_STALE");
   const route = studioScientificRoute(source, session.project);
   if (route.action === "EXISTING_QRY_PATH")
     return { action: route.action, preparation: null };
   if (!route.workingDraftRequired) return { action: route.action, preparation: null };
-  const mixed = Boolean(source.request.scientificState.pendingTurnRef || source.request.scientificState.pendingPreparationId);
-  const discussion = mixed ? buildScientificDiscussionContext({ retained: externalState.retainedContributionCandidates ?? [],
+  const mixed = Boolean(frozen || source.request.scientificState.pendingTurnRef || source.request.scientificState.pendingPreparationId);
+  const discussion = frozen ? frozen.sources.discussion : mixed ? buildScientificDiscussionContext({ retained: externalState.retainedContributionCandidates ?? [],
     retention: externalState.scientificDiscussionRetention, studyProposal: externalState.studyProposal, currentProject: session.project,
     conversationId: session.conversationId, runtimeTurns: session.runtimeTurns }) : undefined;
   const scientificSourceSet = mixed ? buildScientificPreparationSourceSet({ project: session.project, studio: source,
-    discussion, proposal: externalState.studyProposal }) : undefined;
+    discussion, proposal: frozen ? frozen.sources.proposal : externalState.studyProposal }) : undefined;
   if (scientificSourceSet && !scientificSourceSet.groups.length) return { action: "PROJECT_REUSE" as const, preparation: null };
   if (!mixed && !route.edits.length) return { action: "EXISTING_QRY_PATH" as const, preparation: null };
   if (previous?.result && previous.status === "READY_FOR_REVIEW") {
@@ -142,21 +123,23 @@ export const captureStudioProjectPreparation = (session: FunctionalResetSession,
     prepareWorkingDraft: true, currentProject: session.project, studioPreparationSource: structuredClone(source),
     ...(scientificSourceSet ? { scientificPreparationSourceSet: scientificSourceSet, scientificDiscussionContext: discussion } : {}),
     workingDraftScientificSource: scientificSourceIdentity,
-    conversation: { conversationId: session.conversationId, language: "fr", turns: structuredClone(session.runtimeTurns) },
-    workingDraftHistory: (session.workingDraft?.history ?? []).filter(item => item.status === "REJECTED"),
-    ...(session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}) };
+    conversation: { conversationId: session.conversationId, language: "fr", turns: structuredClone(frozen
+      ? session.runtimeTurns.slice(0, frozen.conversation.length) : session.runtimeTurns) },
+    workingDraftHistory: ((frozen ? frozen.previousDraft : session.workingDraft)?.history ?? []).filter(item => item.status === "REJECTED"),
+    ...((frozen ? frozen.sources.proposal : session.studyProposal)?.state === "CURRENT"
+      ? { studyProposalContext: frozen ? frozen.sources.proposal! : session.studyProposal! } : {}) };
   const inputDigest = workingDraftInputDigest(scientificRequest), preparationId = `working-draft:studio:${inputDigest}`;
   const request: ProductBridgeRequest = { ...scientificRequest, observabilityContext: { sessionId: session.sessionId,
     conversationId: session.conversationId, turnId: null, clientRequestId: preparationId, testSessionId: null } };
-  const cutoffTurnId = session.runtimeTurns.at(-1)?.turnId ?? source.request.requestId;
+  const cutoffTurnId = request.conversation.turns.at(-1)?.turnId ?? source.request.requestId;
   const preparation: WorkingDraftPreparation = { sourceTurnRef: source.request.requestId, status: "PREPARING", code: null,
     updatedAt: now, decision: "PENDING", checkpoint: { contract: "EXPLICIT_PROJECT_PREPARATION_V1", preparationId,
       sessionId: session.sessionId, projectId: session.projectId, cutoffTurnId, conversationCutoffTurnId: cutoffTurnId,
       preparationTrigger: "NATIVE_STUDIO_SCIENTIFIC_CONTRIBUTION", presentation: "INTERNAL_VERSION_PRODUCTION", scientificSourceIdentity, capturedAt: now,
-      inputDigest, requestDigest: logicalDigest(request), request, previousDraftDigest: logicalDigest(session.workingDraft ?? null),
+      inputDigest, requestDigest: logicalDigest(request), request, previousDraftDigest: logicalDigest(frozen ? frozen.previousDraft : session.workingDraft ?? null),
       ...(scientificSourceSet ? { priorDiscussionProposalBindings: session.scientificDiscussionRetention?.elements.map(element =>
         ({ elementRef: element.ref, binding: element.proposalBinding })) ?? [] } : {}),
-      previousDraft: structuredClone(session.workingDraft ?? null) } };
+      previousDraft: structuredClone(frozen ? frozen.previousDraft : session.workingDraft ?? null) } };
   return { action: "WORKING_DRAFT_REQUIRED" as const, preparation };
 };
 /** Selects only an already linked conversation response or the adopted canonical question. */

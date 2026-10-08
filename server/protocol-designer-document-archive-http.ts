@@ -8,6 +8,10 @@ import { isDrciDraftPackCurrent, drciDraftPackArtifacts } from "../src/features/
 import { freezeDocumentGeneration } from "../src/features/document-projection/generation-exports.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import type { ResearchProjectOwnerProjection } from "../src/features/research-project-construction/contribution-owner-boundary.js";
+import { StudioFinalizationIntentError, type StudioFinalizationFrozenInput, type StudioFinalizationHumanDecision } from "../src/features/document-projection/studio-finalization-intent.js";
+import type { StudioScientificAssessment } from "../src/features/scientific-thinking/studio-contribution.js";
+import type { WorkingDraftPreparation } from "../src/features/protocol-designer/functional-reset/project-preparation-contract.js";
+import { prepareContinuousWorkingDraft } from "../src/features/protocol-designer/functional-reset/continuous-project-build.js";
 
 const stores = new Map<string, DocumentArchiveStore>();
 export const sharedDocumentArchive = (connection: string, env: Record<string, string | undefined>, snapshots: ProtocolDesignerProjectSnapshotStore) => {
@@ -42,6 +46,79 @@ export const executeDocumentArchiveOperation = async (input: {
       return body.requestId;
     };
     switch (body.operation) {
+      case "DOC_ARCHIVE_STUDIO_INTENT_CREATE": {
+        if (keys !== "frozen,operation,projectRef,sessionId" || !body.frozen || typeof body.frozen !== "object")
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        if (!archive.finalizationIntents) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
+        result = await archive.finalizationIntents.create(access, body.frozen as StudioFinalizationFrozenInput); break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_RECOVER_SAVE": {
+        if (keys !== "contentDigest,operation,projectRef,revisionId,saveSequence,sessionId"
+          || typeof body.revisionId !== "string" || typeof body.saveSequence !== "number" || typeof body.contentDigest !== "string")
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        if (!archive.finalizationIntents) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
+        result = await archive.finalizationIntents.recoverForSave(access, { revisionId: body.revisionId,
+          saveSequence: body.saveSequence, contentDigest: body.contentDigest }); break;
+      }
+      case "DOC_ARCHIVE_STUDIO_INTENT_GET":
+      case "DOC_ARCHIVE_STUDIO_INTENT_WAIT":
+      case "DOC_ARCHIVE_STUDIO_INTENT_ASSESS":
+      case "DOC_ARCHIVE_STUDIO_INTENT_PREPARATION":
+      case "DOC_ARCHIVE_STUDIO_INTENT_ADOPTION": {
+        const owner = archive.finalizationIntents;
+        if (!owner) throw new StudioFinalizationIntentError("STUDIO_INTENT_UNAVAILABLE", 503);
+        if (typeof body.intentId !== "string") throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        if (body.operation === "DOC_ARCHIVE_STUDIO_INTENT_GET") {
+          if (keys !== "intentId,operation,projectRef,sessionId") throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+          result = await owner.get(access, body.intentId); break;
+        }
+        if (typeof body.expectedSequence !== "number") throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        const prefix = "expectedSequence,intentId,operation,projectRef,sessionId";
+        if (body.operation === "DOC_ARCHIVE_STUDIO_INTENT_WAIT") {
+          if (keys !== prefix) throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+          result = await owner.waitForAssessment(access, body.intentId, body.expectedSequence); break;
+        }
+        const intent = await owner.get(access, body.intentId);
+        if (body.operation === "DOC_ARCHIVE_STUDIO_INTENT_ADOPTION") {
+          if (keys !== "decision,expectedSequence,intentId,operation,projectRef,sessionId" || !body.decision)
+            throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+          // The owner resolves the persisted PRJ snapshot through the normal
+          // capability and verifies the exact native human adoption provenance.
+          result = await owner.resolveAdoption(access, body.intentId, body.expectedSequence, body.decision as StudioFinalizationHumanDecision); break;
+        }
+        const guard = input.guard ?? (input.connection ? sharedPostgresProtocolDesignerDurableGuard(input.connection,
+          durableGuardSessionRequestLimit(input.environment), durableGuardPublicBudget(input.environment)) : null);
+        if (body.operation === "DOC_ARCHIVE_STUDIO_INTENT_ASSESS") {
+          if (keys !== "assessment,expectedSequence,intentId,operation,projectRef,sessionId" || !body.assessment)
+            throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+          const evidence = await guard?.readNativeStudioResult?.({ headers: { "x-forwarded-for": input.clientAddress },
+            sessionId: access.identity.sessionId, clientRequestId: `studio-assessment:${intent.frozen.scientificSources.request.requestDigest}` });
+          const retained = evidence?.state === "COMPLETED" ? evidence.response as { studioAssessment?: unknown } : null;
+          if (!retained?.studioAssessment || logicalDigest(retained.studioAssessment) !== logicalDigest(body.assessment))
+            throw new StudioFinalizationIntentError("STUDIO_INTENT_ASSESSMENT_DURABLE_PROOF_REQUIRED", 422);
+          result = await owner.assess(access, body.intentId, body.expectedSequence, body.assessment as StudioScientificAssessment); break;
+        }
+        if (keys !== "expectedSequence,intentId,operation,preparation,projectRef,sessionId" || !body.preparation)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_REQUEST_INVALID", 400);
+        const preparation = body.preparation as WorkingDraftPreparation;
+        if (preparation.status === "READY_FOR_REVIEW") {
+          const evidence = await guard?.readNativeStudioResult?.({ headers: { "x-forwarded-for": input.clientAddress },
+            sessionId: access.identity.sessionId, clientRequestId: preparation.checkpoint?.preparationId ?? "" });
+          const retained = evidence?.state === "COMPLETED" ? evidence.response as Partial<ProductBridgeResponse> : null;
+          if (!retained?.workingStudyProposal || logicalDigest(retained.workingStudyProposal) !== logicalDigest(preparation.result?.composition))
+            throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_DURABLE_PROOF_REQUIRED", 422);
+          const cp = preparation.checkpoint;
+          if (!cp?.request.currentProject || !retained.workingDraftUpdate) throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_DURABLE_PROOF_REQUIRED", 422);
+          const native = prepareContinuousWorkingDraft({ project: cp.request.currentProject, projectId: cp.projectId,
+            conversationId: cp.request.conversation.conversationId, runtimeTurns: cp.request.conversation.turns,
+            updatedAt: cp.capturedAt, studyProposal: cp.request.studyProposalContext, workingDraft: cp.previousDraft },
+          retained.workingStudyProposal, retained.workingDraftUpdate, cp.inputDigest);
+          if (logicalDigest(native) !== logicalDigest(preparation.result?.workingDraft))
+            throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_DURABLE_PROOF_REQUIRED", 422);
+        } else if (preparation.status !== "PREPARING" && !intent.resolution.preparation)
+          throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_DURABLE_PROOF_REQUIRED", 422);
+        result = await owner.linkPreparation(access, body.intentId, body.expectedSequence, preparation); break;
+      }
       case "DOC_ARCHIVE_REVISION_OPEN": {
         if (keys !== "baseGenerationBodyDigest,baseGenerationId,nativeDocumentRef,operation,projectRef,sessionId"
           || typeof body.baseGenerationId !== "string" || typeof body.baseGenerationBodyDigest !== "string"
@@ -52,6 +129,7 @@ export const executeDocumentArchiveOperation = async (input: {
         break;
       }
       case "DOC_ARCHIVE_REVISION_CREATE":
+      case "DOC_ARCHIVE_REVISION_GET_SAVE":
       case "DOC_ARCHIVE_REVISION_GET":
       case "DOC_ARCHIVE_REVISION_SAVE":
       case "DOC_ARCHIVE_REVISION_ABANDON": {
@@ -64,6 +142,11 @@ export const executeDocumentArchiveOperation = async (input: {
             || typeof body.nativeDocumentRef !== "string") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
           result = await owner.create(access, { revisionId: body.revisionId, baseGenerationId: body.baseGenerationId,
             baseGenerationBodyDigest: body.baseGenerationBodyDigest, nativeDocumentRef: body.nativeDocumentRef });
+        } else if (body.operation === "DOC_ARCHIVE_REVISION_GET_SAVE") {
+          if (keys !== "contentDigest,operation,projectRef,revisionId,saveSequence,sessionId"
+            || typeof body.saveSequence !== "number" || typeof body.contentDigest !== "string")
+            throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+          result = await owner.getSave(access, { revisionId: body.revisionId, saveSequence: body.saveSequence, contentDigest: body.contentDigest });
         } else if (body.operation === "DOC_ARCHIVE_REVISION_GET") {
           if (keys !== "operation,projectRef,revisionId,sessionId") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
           result = await owner.get(access, body.revisionId);
@@ -150,7 +233,7 @@ export const executeDocumentArchiveOperation = async (input: {
     return { status: 200, body: { contract: "DOC_GENERATION_ARCHIVE_V1", result } };
   } catch (error) {
     if (error instanceof DurablePublicGuardError) return { status: error.status, body: { error: { code: error.code } } };
-    const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError || error instanceof DocumentWorkingRevisionError
+    const failure = error instanceof DocumentArchiveError || error instanceof ProjectSnapshotError || error instanceof DocumentWorkingRevisionError || error instanceof StudioFinalizationIntentError
       ? error : new DocumentArchiveError("DOC_ARCHIVE_UNAVAILABLE", 503);
     return { status: failure.status, body: { error: { code: failure.code } } };
   }

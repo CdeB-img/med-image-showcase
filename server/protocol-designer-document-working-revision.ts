@@ -10,9 +10,12 @@ import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, asser
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 
 export type DocumentWorkingRevisionStore = Readonly<{
+  /** Server-only shared DOC migration dependency, never exposed to the UI. */
+  ensureStorage(access: DocumentArchiveAccess): Promise<void>;
   open(access: DocumentArchiveAccess, input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(access: DocumentArchiveAccess, input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(access: DocumentArchiveAccess, revisionId: string): Promise<DocumentWorkingRevisionResult>;
+  getSave(access: DocumentArchiveAccess, input: { revisionId: string; saveSequence: number; contentDigest: string }): Promise<DocumentWorkingRevisionResult>;
   save(access: DocumentArchiveAccess, input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   abandon(access: DocumentArchiveAccess, input: AbandonWorkingRevision): Promise<DocumentWorkingRevisionResult>;
 }>;
@@ -125,6 +128,7 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     return { ...observedResult, revision };
   };
   return {
+    ensureStorage: async access => { await authorize(access); },
     async open(access, input) {
       // Exact native base + logical document, never a filename, browser cache or
       // G(n+1) guess. Serialize opens so concurrent tabs resume one ACTIVE draft.
@@ -184,6 +188,19 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       const current = await load(sql, sessionKey, projectId, revisionId);
       if (!current) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
       return resultFor(access, current);
+    },
+    async getSave(access, input) {
+      request(input.revisionId, input.saveSequence);
+      const { sessionKey, projectId } = await authorize(access);
+      const row = (await sql`select revision from noxia_durable.doc_working_revision
+        where session_key_hash = ${sessionKey} and project_id = ${projectId} and revision_id = ${input.revisionId}
+        and save_sequence = ${input.saveSequence}`)[0];
+      if (!row) throw new DocumentWorkingRevisionError("DOC_REVISION_SAVE_NOT_FOUND", 404);
+      const revision = assertWorkingRevision(row.revision);
+      if (revision.revisionId !== input.revisionId || revision.saveSequence !== input.saveSequence
+        || revision.contentDigest !== input.contentDigest)
+        throw new DocumentWorkingRevisionError("DOC_REVISION_SAVE_BINDING_INVALID", 403);
+      return resultFor(access, revision);
     },
     save: (access, input) => modify(access, input, false),
     abandon: (access, input) => modify(access, input, true),

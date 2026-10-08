@@ -11,6 +11,7 @@ import { prepareStudioScientificHandoff, requireStudioScientificAssessment,
 /** Native source variant of the existing scientific preparation, never a turn. */
 export type StudioPreparationSource = Readonly<{
   request: StudioReconciliationRequest; assessment: StudioScientificAssessment;
+  finalizationIntentId?: string;
 }>;
 export type StudioPreparationProvenance = Readonly<{
   origin: "STUDIO"; requestId: string; requestDigest: string; assessmentRef: string; assessmentDigest: string;
@@ -87,6 +88,7 @@ export const studioPreparationProvenance = (source: StudioPreparationSource, pro
 export type StudioScientificOperation = Readonly<{
   operation: "STUDIO_SCIENTIFIC_ASSESSMENT"; apiVersion: "1.0.0";
   studioRequest: StudioReconciliationRequest; currentProject: ResearchProjectOwnerProjection | null;
+  finalizationIntentId?: string;
   currentProjectRef?: { projectId: string; versionId: string; projectDigest: string };
   observabilityContext: import("../protocol-designer/provider-call-observability.js").ProviderCallObservationContext;
 }>;

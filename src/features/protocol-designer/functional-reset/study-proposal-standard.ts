@@ -467,7 +467,8 @@ export const propagateStudyProposalDecision = (composition: StudyProposalComposi
   next.digest = studyProposalRevisionDigest(next);
   next.dimensioning = activeStudyProposalDimensioning(next);
   return { ...next, qrySelection: selectStudyProposalArbitrations({ composition: next, navigation: buildCurrentTurnNavigation({
-    sourceTurnRef: sourceTurn?.turnId ?? composition.sourceTurnRef, sourceText: sourceTurn?.content ?? "", currentProject: project,
+    sourceTurnRef: sourceTurn?.turnId ?? composition.sourceTurnRef,
+    sourceText: sourceTurn?.content ?? composition.nativeStudioSource?.edits.map(edit => edit.afterText).join("\n") ?? "", currentProject: project,
     contribution: null, candidate: null, validation: null,
   }) }) };
 };

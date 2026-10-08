@@ -128,6 +128,7 @@ export type DocumentWorkingRevisionClient = Readonly<{
   open(input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(revisionId: string): Promise<DocumentWorkingRevisionResult>;
+  getSave?(input: { revisionId: string; saveSequence: number; contentDigest: string }): Promise<DocumentWorkingRevisionResult>;
   save(input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   abandon(input: AbandonWorkingRevision): Promise<DocumentWorkingRevisionResult>;
 }>;

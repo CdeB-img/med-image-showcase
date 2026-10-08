@@ -366,7 +366,7 @@ export const validateScientificDiscussionContext = (value: unknown, input: {
     const lastUser = [...input.runtimeTurns].reverse().find(t => t.role === "USER");
     const base = input.currentProject ? { projectId: input.currentProject.projectId, versionId: input.currentProject.versionId, projectDigest: input.currentProject.projectDigest } : null;
     if (c.contract !== "RETAINED_CONTRIBUTION_DISCUSSION_CONTEXT" || c.contractVersion !== "1.0.0" || c.owner !== "RETAINED_CONTRIBUTION_LIFECYCLE"
-      || c.conversationId !== input.conversationId || c.requestingTurnRef !== lastUser?.turnId || logicalDigest(c.baseProject) !== logicalDigest(base)
+      || c.conversationId !== input.conversationId || c.requestingTurnRef !== (lastUser?.turnId ?? "") || logicalDigest(c.baseProject) !== logicalDigest(base)
       || c.projectionOnly !== true || c.sourceOfTruth !== false || c.projectWriteAuthorized !== false || c.projectAdoptionAuthorized !== false
       || logicalDigest(unsigned) !== contextDigest
       || !["COMPLETE", "BOUND_EXCEEDED_CONTEXT_UNAVAILABLE"].includes(c.boundary)

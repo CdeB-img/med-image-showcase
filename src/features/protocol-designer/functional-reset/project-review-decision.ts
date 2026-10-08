@@ -29,6 +29,7 @@ import { ownerResultNativeDigest } from "@/features/protocol-designer/product-ow
 import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { retainOwnerReviewedCandidate } from "./contribution-lifecycle";
 import { type FunctionalResetSession } from "./session";
+import { assertStudioIntentHumanDecision, type StudioFinalizationIntent, type StudioFinalizationHumanDecision } from "../../document-projection/studio-finalization-intent";
 
 // Application retention delegates validation and lifecycle to their existing owners.
 export type NaturalContributionDecisionContext = Readonly<{
@@ -140,10 +141,21 @@ export function stageProjectConfirmation(input: {
   session: FunctionalResetSession; readCurrentSession: () => FunctionalResetSession;
   contributionId: string; contribution: ScientificInterpretationContributionEnvelope; now: string;
   naturalDecision?: NaturalContributionDecisionContext; proposalSelection?: ProjectProposalSelection; adoptionTrace?: ProjectAdoptionTrace;
+  studioDecision?: Readonly<{ intent: StudioFinalizationIntent; decision: StudioFinalizationHumanDecision }>;
   administration: Parameters<typeof refreshAdoptedProjectConsumers>[0]["administration"];
 }) {
   const { session, readCurrentSession, contributionId, contribution, now, naturalDecision, proposalSelection, adoptionTrace, administration } = input;
-  const materialization = naturalDecision?.materialization;
+  const studio = input.studioDecision;
+  if (studio) {
+    if (naturalDecision) throw new Error("STUDIO_HUMAN_DECISION_SOURCE_INVALID");
+    assertStudioIntentHumanDecision(studio.intent, studio.decision);
+    if (studio.decision.actorRef !== session.projectAuthority.actorRef
+      || studio.decision.contributionDigest !== contribution.identity.contributionDigest
+      || session.project?.projectDigest !== studio.intent.frozen.sourceProject.projectDigest)
+      throw new Error("STUDIO_HUMAN_DECISION_SCOPE_INVALID");
+  }
+  const materialization = naturalDecision?.materialization ?? (studio ? {
+    preparationId: studio.decision.preparationId, requestDigest: studio.decision.preparationRequestDigest } : undefined);
   if (materialization) {
     const preparation = session.workingDraftPreparations?.find(p => p.checkpoint?.preparationId === materialization.preparationId);
     if (!preparation?.checkpoint || !preparationCheckpointValid(session, preparation.checkpoint)
@@ -158,6 +170,18 @@ export function stageProjectConfirmation(input: {
     if ("clarification" in scope || logicalDigest(scope) !== logicalDigest({
       selectedAtomRefs: proposalSelection.selectedAtoms, selectedOptionRefs: proposalSelection.selectedOptions }))
       throw new Error("VERSION_MATERIALIZATION_NOT_SOURCE_BACKED");
+    if (studio) {
+      const set = preparation.checkpoint.request.scientificPreparationSourceSet;
+      const selected = selectedStudyProposalAtoms(proposalSelection.composition, proposalSelection.selectedOptions, proposalSelection.selectedAtoms);
+      if (set?.sourceSetDigest !== studio.decision.scientificSourceSetDigest
+        || preparation.checkpoint.request.studioPreparationSource?.finalizationIntentId !== undefined
+          && preparation.checkpoint.request.studioPreparationSource.finalizationIntentId !== studio.intent.finalizationIntentId
+        || logicalDigest(preparation) !== logicalDigest(studio.intent.resolution.preparation)
+        || selected.some(atom => preparation.result!.workingDraft.origins[atom] !== "EXPLICIT_USER"
+          || !proposalSelection.composition.nativeSourceBindings?.some(binding => binding.atomRefs.includes(atom)
+            && studio.decision.sourceRefs.includes(binding.sourceRef))))
+        throw new Error("STUDIO_ADDITIONAL_HUMAN_DECISION_REQUIRED");
+    }
   }
   const reviewEntry = proposalSelection ? { kind: "REVIEW" as const, candidate: proposalSelection.candidate, contribution,
     traceRunId: session.bridgeTraces.find(trace => trace.turnId === proposalSelection.composition.sourceTurnRef)?.traceRunId ?? null } : session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
@@ -171,14 +195,15 @@ export function stageProjectConfirmation(input: {
     projectId: session.projectId,
     authority: session.projectAuthority,
     confirmedAt: now,
-    confirmationReason: materialization
+    confirmationReason: studio ? "Décision humaine native Studio : changements utilisateur figés uniquement, sans adoption d’inférences supplémentaires." : materialization
       ? "Demande humaine explicite de générer une version depuis le checkpoint scientifique figé, sans prétendre à la présentation d’une revue."
       : naturalDecision
       ? naturalDecision.selectedChangeRefs
         ? `Décision partielle : changements confirmés ${naturalDecision.selectedChangeRefs.join(", ")} ; changements refusés ${(naturalDecision.refusedChangeRefs ?? []).join(", ")}.`
         : "L’utilisateur a explicitement confirmé la candidate courante dans son message."
       : undefined,
-    confirmationSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
+    confirmationSourceRefs: studio ? [studio.intent.finalizationIntentId, studio.decision.decisionRef, "STUDIO_FINALIZATION"]
+      : naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
     selectedChangeRefs: naturalDecision?.selectedChangeRefs,
     reviewedProjection: reviewEntry?.kind === "REVIEW"
       ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection

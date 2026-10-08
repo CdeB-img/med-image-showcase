@@ -11,6 +11,8 @@ export const createDocumentWorkingRevisionClient = (
     if (!parsed.success || command.operation !== "DOC_ARCHIVE_REVISION_OPEN" && parsed.data.revision.revisionId !== command.revisionId
       || parsed.data.revision.project.projectId !== projectId
       || parsed.data.revision.contentDigest !== workingRevisionContentDigest(parsed.data.revision.content)
+      || command.operation === "DOC_ARCHIVE_REVISION_GET_SAVE" && (parsed.data.revision.saveSequence !== command.saveSequence
+        || parsed.data.revision.contentDigest !== command.contentDigest)
       || parsed.data.baseState.stale !== (!parsed.data.baseState.projectCurrent || !parsed.data.baseState.generationCurrent)
       || ["DOC_ARCHIVE_REVISION_CREATE", "DOC_ARCHIVE_REVISION_OPEN"].includes(String(command.operation)) && (parsed.data.revision.baseGenerationId !== command.baseGenerationId
         || parsed.data.revision.baseGenerationBodyDigest !== command.baseGenerationBodyDigest
@@ -28,6 +30,7 @@ export const createDocumentWorkingRevisionClient = (
     open: input => execute({ operation: "DOC_ARCHIVE_REVISION_OPEN", ...input }),
     create: input => execute({ operation: "DOC_ARCHIVE_REVISION_CREATE", ...input }),
     get: revisionId => execute({ operation: "DOC_ARCHIVE_REVISION_GET", revisionId }),
+    getSave: input => execute({ operation: "DOC_ARCHIVE_REVISION_GET_SAVE", ...input }),
     save: input => execute({ operation: "DOC_ARCHIVE_REVISION_SAVE", ...input }),
     abandon: input => execute({ operation: "DOC_ARCHIVE_REVISION_ABANDON", ...input }),
   };

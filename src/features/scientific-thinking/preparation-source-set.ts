@@ -3,7 +3,7 @@ import { buildProjectContextSnapshot } from "../research-project-construction/ca
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import type { ScientificDiscussionContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 import type { StudyProposalComposition } from "./contextual-study-proposal.js";
-import { studioScientificRoute, type StudioPreparationSource } from "./studio-runtime.js";
+import { assertStudioScientificInput, studioScientificRoute, type StudioPreparationSource } from "./studio-runtime.js";
 
 /** One native ST input, not a store, transcript or second preparation lifecycle.
  * Content stays attached to its native source; source order grants no priority.
@@ -30,13 +30,37 @@ export type ScientificPreparationSourceSet = Readonly<{
 const ordered = <T extends { ref: string }>(items: readonly T[]) => [...items].sort((a, b) => a.ref.localeCompare(b.ref));
 const refs = (items: readonly string[]) => [...new Set(items)].sort();
 
-export const buildScientificPreparationSourceSet = (input: {
-  project: ResearchProjectOwnerProjection; studio: StudioPreparationSource;
+type GovernedSources = {
+  project: ResearchProjectOwnerProjection; request: StudioPreparationSource["request"];
   discussion?: ScientificDiscussionContext; proposal?: StudyProposalComposition | null;
-}): ScientificPreparationSourceSet => {
-  const route = studioScientificRoute(input.studio, input.project);
-  if (route.action === "EXISTING_QRY_PATH") throw new Error("SCIENTIFIC_PREPARATION_AMBIGUOUS");
-  const snapshot = buildProjectContextSnapshot({ project: input.project });
+};
+/** Capture precedes semantic assessment. It freezes native sources, not a fake
+ * assessment or a competing scientific source-set taxonomy. */
+export type FrozenScientificPreparationSources = Readonly<{
+  contract: "SCIENTIFIC_PREPARATION_SOURCE_CAPTURE_V1"; owner: "SCIENTIFIC_THINKING";
+  request: StudioPreparationSource["request"];
+  discussion?: ScientificDiscussionContext; proposal?: StudyProposalComposition | null;
+  captureDigest: string;
+}>;
+export const freezeScientificPreparationSources = (input: GovernedSources): FrozenScientificPreparationSources => {
+  assertStudioScientificInput(input.request, input.project);
+  collectGovernedSources(input);
+  const material = { contract: "SCIENTIFIC_PREPARATION_SOURCE_CAPTURE_V1" as const, owner: "SCIENTIFIC_THINKING" as const,
+    request: input.request, ...(input.discussion ? { discussion: input.discussion } : {}),
+    ...(input.proposal ? { proposal: input.proposal } : {}) };
+  return structuredClone({ ...material, captureDigest: logicalDigest(material) });
+};
+export const assertFrozenScientificSources = (capture: FrozenScientificPreparationSources, project: ResearchProjectOwnerProjection) => {
+  if (stableStringify(capture) !== stableStringify(freezeScientificPreparationSources({ ...capture, project })))
+    throw new Error("SCIENTIFIC_PREPARATION_CAPTURE_INVALID");
+};
+export const resolveFrozenScientificSources = (capture: FrozenScientificPreparationSources, project: ResearchProjectOwnerProjection,
+  studio: StudioPreparationSource) => {
+  assertFrozenScientificSources(capture, project);
+  if (logicalDigest(capture.request) !== logicalDigest(studio.request)) throw new Error("SCIENTIFIC_PREPARATION_CAPTURE_INVALID");
+  return buildScientificPreparationSourceSet({ ...capture, project, studio });
+};
+const collectGovernedSources = (input: GovernedSources) => {
   const project = { projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest };
   const discussion = input.discussion;
   if (discussion && (discussion.boundary !== "COMPLETE" || discussion.projectWriteAuthorized !== false
@@ -62,7 +86,7 @@ export const buildScientificPreparationSourceSet = (input: {
     add({ ref: `scientific-residual:${coverage.turnRef}`, origin: "CONVERSATION", status: "PENDING",
       contentDigest: logicalDigest(native), provenanceRefs: refs([source.ref, coverage.turnRef, coverage.sourceDigest]), native });
   }
-  const pendingProposal = input.studio.request.scientificState.pendingPreparationId ? input.proposal : null;
+  const pendingProposal = input.request.scientificState.pendingPreparationId ? input.proposal : null;
   if (pendingProposal) {
     const unavailable = new Set([...pendingProposal.adoptedAtomRefs, ...pendingProposal.dispositions?.flatMap(item => item.atomRefs) ?? []]);
     const pendingAtomRefs = refs(pendingProposal.proposal.atoms.filter(atom => !unavailable.has(atom.ref)).map(atom => atom.ref));
@@ -70,12 +94,23 @@ export const buildScientificPreparationSourceSet = (input: {
       contentDigest: logicalDigest(pendingProposal), provenanceRefs: refs([pendingProposal.digest, pendingProposal.sourceTurnRef,
         pendingProposal.sourceResponseRef, ...pendingAtomRefs]), native: { proposal: structuredClone(pendingProposal), pendingAtomRefs } });
   }
-  const pendingTurn = input.studio.request.scientificState.pendingTurnRef;
+  const pendingTurn = input.request.scientificState.pendingTurnRef;
   if (pendingTurn && !discussion?.sourceCoverage?.some(item => item.turnRef === pendingTurn)
     && !discussion?.sources.some(item => item.turnRef === pendingTurn)
     && pendingProposal?.sourceTurnRef !== pendingTurn) throw new Error("SCIENTIFIC_PREPARATION_SOURCE_UNAVAILABLE");
-  if (input.studio.request.scientificState.pendingPreparationId && !pendingProposal)
+  if (input.request.scientificState.pendingPreparationId && !pendingProposal)
     throw new Error("SCIENTIFIC_PREPARATION_SOURCE_UNAVAILABLE");
+  return { sources, add };
+};
+export const buildScientificPreparationSourceSet = (input: {
+  project: ResearchProjectOwnerProjection; studio: StudioPreparationSource;
+  discussion?: ScientificDiscussionContext; proposal?: StudyProposalComposition | null;
+}): ScientificPreparationSourceSet => {
+  const route = studioScientificRoute(input.studio, input.project);
+  if (route.action === "EXISTING_QRY_PATH") throw new Error("SCIENTIFIC_PREPARATION_AMBIGUOUS");
+  const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const project = { projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest };
+  const { sources, add } = collectGovernedSources({ ...input, request: input.studio.request });
   const classifications = input.studio.assessment.nativePayload.edits;
   for (const edit of input.studio.request.delta.filter(item => item.change !== "UNCHANGED")) {
     const assessment = classifications.find(item => item.editRef === edit.editRef)!;

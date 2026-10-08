@@ -2,6 +2,7 @@ import { ensureServerProjectSnapshot } from "../protocol-designer/product-bridge
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
 import { createDocumentWorkingRevisionClient } from "./working-revision-client.js";
 import type { DocumentWorkingRevisionClient } from "./working-revision.js";
+import { createStudioFinalizationIntentClient } from "./studio-finalization-intent-client.js";
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, isDocumentGenerationRef, documentNativeIdentity, documentNativeProject, documentFileManifest, type DocumentGenerationBody, type DocumentGenerationRef, type DocumentHistoryPage,
   type DocumentPersistenceReceipt, type DocumentRecoveryIdentity, type DocumentRecoveryResult } from "./generation-persistence.js";
 
@@ -15,6 +16,7 @@ export const documentTextSha256 = async (text: string) => {
 import { documentTextSha256 as hashNativeDocumentText } from "./document-text-sha256.js";
 export type DocumentArchiveClient = Readonly<{
   workingRevisions?: DocumentWorkingRevisionClient;
+  finalizationIntents?: ReturnType<typeof createStudioFinalizationIntentClient>;
   history(beforeOrdinal?: number): Promise<DocumentHistoryPage>;
   body(generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
   receipt(requestId: string): Promise<DocumentPersistenceReceipt | null>;
@@ -35,6 +37,7 @@ export const createDocumentArchiveClient = (sessionId: string, project: Research
   };
   return {
     workingRevisions: createDocumentWorkingRevisionClient(operation, project.projectId),
+    finalizationIntents: createStudioFinalizationIntentClient(operation, project.projectId),
     async recover(identity) {
       if (identity.project.projectId !== project.projectId || identity.project.projectVersion !== project.versionId
         || identity.project.projectDigest !== project.projectDigest) throw new DocumentArchiveClientError("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");

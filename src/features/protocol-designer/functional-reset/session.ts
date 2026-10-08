@@ -311,27 +311,8 @@ export type FunctionalResetSession = {
   conversationLanguageGateway: Readonly<ConversationLanguageGatewayState>;
 };
 
-export type WorkingDraftPreparationStatus = "PREPARING" | "READY_FOR_REVIEW" | "FAILED" | "SUPERSEDED" | "UNKNOWN/INTERRUPTED" | "NO_CHANGE";
-export type WorkingDraftPreparation = Readonly<{
-  checkpoint?: import("./project-preparation-lifecycle.js").ProjectPreparationCheckpoint;
-  result?: import("./project-preparation-lifecycle.js").ProjectPreparationResult;
-  decision?: import("./project-preparation-lifecycle.js").ProjectPreparationDecision;
-  /** Native PRJ contribution actually adopted, which may be a source-backed subset. */
-  adoptedContributionRef?: string;
-  postCutoffBlocker?: string;
-  sourceTurnRef: string;
-  status: WorkingDraftPreparationStatus;
-  code: string | null;
-  updatedAt: string;
-  recovery?: Readonly<{
-    sourceResponseRef: string;
-    compositionResponseRef: string;
-    sourceConversationDigest: string;
-    baseProjectId: string;
-    baseProjectVersion: string | null;
-    baseProjectDigest: string | null;
-  }>;
-}>;
+import type { WorkingDraftPreparation, WorkingDraftPreparationStatus } from "./project-preparation-contract.js";
+export type { WorkingDraftPreparation, WorkingDraftPreparationStatus } from "./project-preparation-contract.js";
 
 export type ConversationConfirmationReceipt = Readonly<{
   confirmationReceiptId: string;
