@@ -20,6 +20,19 @@ create table if not exists noxia_durable.doc_working_revision (
     and revision->>'baseGenerationBodyDigest' = base_body_sha256
     and revision->>'logicalDocumentRef' = logical_document_ref)
 );
+-- PostgreSQL CHECK accepts NULL. Missing native fields must fail closed, not
+-- bypass the identity binding. Additive validation; no historical body rewrite.
+alter table noxia_durable.doc_working_revision
+  drop constraint if exists doc_working_revision_native_binding_required;
+alter table noxia_durable.doc_working_revision
+  add constraint doc_working_revision_native_binding_required check (
+    jsonb_typeof(revision) = 'object' and coalesce(
+      revision->>'revisionId' = revision_id
+      and (revision->>'saveSequence')::bigint = save_sequence
+      and revision->>'status' = status
+      and revision->>'baseGenerationId' = base_generation_id
+      and revision->>'baseGenerationBodyDigest' = base_body_sha256
+      and revision->>'logicalDocumentRef' = logical_document_ref, false));
 create or replace function noxia_durable.reject_doc_working_revision_change()
 returns trigger language plpgsql as $$
 begin

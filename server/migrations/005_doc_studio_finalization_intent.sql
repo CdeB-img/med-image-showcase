@@ -17,6 +17,15 @@ create table if not exists noxia_durable.doc_studio_finalization_intent (
     and (record_text::jsonb)->>'intentDigest' = intent_digest
     and ((record_text::jsonb)->>'sequence')::bigint = sequence)
 );
+-- Reject absent identity fields instead of SQL's nullable CHECK acceptance.
+alter table noxia_durable.doc_studio_finalization_intent
+  drop constraint if exists doc_studio_intent_native_binding_required;
+alter table noxia_durable.doc_studio_finalization_intent
+  add constraint doc_studio_intent_native_binding_required check (
+    jsonb_typeof(record_text::jsonb) = 'object' and coalesce(
+      (record_text::jsonb)->>'finalizationIntentId' = intent_id
+      and (record_text::jsonb)->>'intentDigest' = intent_digest
+      and ((record_text::jsonb)->>'sequence')::bigint = sequence, false));
 create index if not exists doc_studio_intent_save_lookup
   on noxia_durable.doc_studio_finalization_intent (session_key_hash, project_id, revision_id, save_sequence, intent_id);
 create or replace function noxia_durable.reject_doc_studio_intent_change()
