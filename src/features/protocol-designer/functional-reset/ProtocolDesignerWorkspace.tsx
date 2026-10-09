@@ -738,7 +738,7 @@ export default function ProtocolDesignerWorkspace({
 
   return <main
     id="demo-main"
-    className="protocol-designer-workspace min-h-screen bg-muted/30 text-foreground"
+    className="protocol-designer-workspace min-h-screen bg-background text-foreground"
     data-testid="functional-reset-workspace"
     data-product-mode={projectionMode}
   >

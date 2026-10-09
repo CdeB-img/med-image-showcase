@@ -33,9 +33,10 @@
     margin-bottom: 0.75rem;
   }
 
-  .protocol-designer-workspace-grid {
+  .protocol-designer-viewport .protocol-designer-workspace-grid {
     flex: 1;
     align-items: stretch;
+    grid-template-rows: minmax(0, 1fr);
   }
 
   .protocol-designer-workspace [data-testid="project-document-navigation"] {
@@ -52,7 +53,7 @@
     grid-template-rows: minmax(0, 1fr);
   }
 
-  .protocol-designer-conversation {
+  .protocol-designer-viewport .protocol-designer-conversation {
     height: 100%;
     min-height: 0;
   }

@@ -31,6 +31,10 @@ describe("Protocol Designer viewport — structural contract (geometry verified 
     expect(css).toContain("grid-template-rows: auto minmax(0, 1fr)");
     expect(css).toContain("height: 100dvh");
     expect(css).toContain("min-height: 0");
+    // Must outrank the later Tailwind min-h-96/items-start utilities, not
+    // merely contain the right declarations in an ineffective cascade.
+    expect(css).toContain(".protocol-designer-viewport .protocol-designer-conversation");
+    expect(css).toContain(".protocol-designer-viewport .protocol-designer-workspace-grid");
     expect(css).toContain('data-testid="conversation-scroll-panel"');
     expect(css).toContain('data-testid="conversation-composer"');
     expect(css).toContain('data-testid="document-studio"');
