@@ -12,6 +12,8 @@ import type { DocumentGenerationBody, DocumentGenerationRef } from "@/features/d
 import type { StudyTemplateProjectionContext } from "@/features/document-projection/types";
 import { projectAdaptivePortfolio } from "@/features/document-projection/adaptive-portfolio";
 import AdaptiveDocumentPortfolio from "@/features/document-projection/AdaptiveDocumentPortfolio";
+import ProtocolWritingOutline from "@/features/document-projection/ProtocolWritingOutline";
+import type { composeProtocolWritingProfile } from "@/features/study-template/protocol-writing-profile";
 import DocumentArchiveHistory from "./DocumentArchiveHistory";
 import ProtocolPreview from "./ProtocolPreview";
 import type { DocumentProjection } from "@/features/document-projection";
@@ -35,6 +37,7 @@ type Props = {
   isArchivedProjectionCurrent?: (projection: DocumentProjection) => boolean;
   diagnosticProjectionId?: string | null;
   adaptiveContext?: StudyTemplateProjectionContext;
+  protocolWritingProfile?: ReturnType<typeof composeProtocolWritingProfile>;
   documentaryRequests?: readonly { content: string; sourceRef: string }[];
 };
 
@@ -47,7 +50,7 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, studioEditing, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId, adaptiveContext, documentaryRequests }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, studioEditing, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId, adaptiveContext, protocolWritingProfile, documentaryRequests }: Props) {
   const [history, setHistory] = useState<readonly DocumentGenerationRef[]>([]);
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
@@ -117,6 +120,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
 
     {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
     {adaptiveContext && <AdaptiveDocumentPortfolio items={projectAdaptivePortfolio(adaptiveContext, history, portfolio.projectRef.projectDigest, documentaryRequests)} onConversation={onStudioConversation} />}
+    {protocolWritingProfile && <ProtocolWritingOutline profile={protocolWritingProfile} />}
     {archiveClient && <DocumentArchiveHistory client={archiveClient} onHistory={setHistory} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
     {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">
       <p>Diagnostic interne · ces projections ne sont pas des générations documentaires.</p>

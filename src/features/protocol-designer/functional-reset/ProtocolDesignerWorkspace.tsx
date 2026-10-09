@@ -23,7 +23,8 @@ import type { ScientificInterpretationContributionEnvelope } from "@/features/sc
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVersion";
 import { DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, type ScientificTraceCaptureConfiguration } from "@/features/protocol-designer/scientific-execution-trace";
-import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
+import { prepareResearchProjectContributionCandidate, buildProjectContextSnapshot } from "@/features/research-project-construction";
+import { composeProtocolWritingProfile } from "@/features/study-template/protocol-writing-profile";
 import { buildStudyDeliverablePortfolio, functionalProtocolProjection } from "@/features/document-projection";
 import { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
@@ -662,6 +663,7 @@ export default function ProtocolDesignerWorkspace({
     return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
   }, [currentProtocolProjection, session.project, documentLifecycle]);
   const adaptiveContext = useMemo(() => session.project ? inspectFunctionalDocumentPortfolio(session.project) : undefined, [session.project]);
+  const protocolWritingProfile = useMemo(() => session.project ? composeProtocolWritingProfile(buildProjectContextSnapshot({ project: session.project })) : undefined, [session.project]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
@@ -845,6 +847,7 @@ export default function ProtocolDesignerWorkspace({
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
           adaptiveContext={adaptiveContext}
+          protocolWritingProfile={protocolWritingProfile}
           documentaryRequests={session.entries.flatMap(entry => entry.kind === "TEXT" && entry.role === "USER" ? [{ content: entry.content, sourceRef: entry.entryId }] : [])}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}
