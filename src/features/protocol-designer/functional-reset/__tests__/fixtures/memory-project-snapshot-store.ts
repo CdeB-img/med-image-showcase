@@ -33,8 +33,9 @@ export const memoryProjectSnapshotStore = (): ProtocolDesignerProjectSnapshotSto
       const rootKey = `${identity.sessionId}\u0000${ref.projectId}`;
       const root = roots.get(rootKey);
       if (!root) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_NOT_FOUND", 404);
-      if (purpose !== undefined && purpose !== "DOCUMENT_RECOVERY" || root.proof !== proof
-        || purpose !== "DOCUMENT_RECOVERY" && root.clientAddress !== identity.clientAddress)
+      const capabilityOnly = purpose === "DOCUMENT_RECOVERY" || purpose === "DOCUMENT_REVISION_SAVE";
+      if (purpose !== undefined && !capabilityOnly || root.proof !== proof
+        || !capabilityOnly && root.clientAddress !== identity.clientAddress)
         throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_MISMATCH", 403);
       const project = versions.get(`${rootKey}\u0000${ref.versionId}`);
       if (!project) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_VERSION_MISMATCH", 409);

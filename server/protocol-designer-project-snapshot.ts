@@ -16,8 +16,9 @@ export const PROJECT_SNAPSHOT_MAX_BYTES = 4_000_000;
 export type ProjectSnapshotRef = Readonly<{ projectId: string; versionId: string; projectDigest: string }>;
 export type ProjectSnapshotIdentity = Readonly<{ sessionId: string; clientAddress: string }>;
 /** Server-owned purpose, never accepted from a client request. Documentary
- * recovery uses the exact capability; provider and PRJ writes remain IP-bound. */
-export type ProjectSnapshotReadPurpose = "DOCUMENT_RECOVERY";
+ * recovery and saving an existing bound draft use the exact capability;
+ * provider operations, PRJ writes and generation mutations remain IP-bound. */
+export type ProjectSnapshotReadPurpose = "DOCUMENT_RECOVERY" | "DOCUMENT_REVISION_SAVE";
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
 const record = (value: unknown): value is Record<string, unknown> =>
@@ -108,9 +109,10 @@ export const createPostgresProjectSnapshotStore = (connectionString: string) => 
     }
   };
   const assertAccess = (row: Record<string, unknown>, clientKey: string, proof: string | null, purpose?: ProjectSnapshotReadPurpose) => {
-    if (purpose !== undefined && purpose !== "DOCUMENT_RECOVERY"
+    const capabilityOnly = purpose === "DOCUMENT_RECOVERY" || purpose === "DOCUMENT_REVISION_SAVE";
+    if (purpose !== undefined && !capabilityOnly
       || !proof || !sameHash(String(row.access_proof_hash), sha256(proof))
-      || purpose !== "DOCUMENT_RECOVERY" && row.client_key_hash !== clientKey) {
+      || !capabilityOnly && row.client_key_hash !== clientKey) {
       throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_MISMATCH", 403);
     }
   };

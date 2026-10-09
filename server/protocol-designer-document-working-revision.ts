@@ -113,8 +113,9 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       values (${sessionKey}, ${revision.project.projectId}, ${revision.revisionId}, ${revision.saveSequence}, ${revision.baseGenerationId},
         ${revision.baseGenerationBodyDigest}, ${revision.logicalDocumentRef}, ${revision.status}, ${sql.json(revision as unknown as JSONValue)})`;
   };
-  const locked = async <T>(access: DocumentArchiveAccess, revisionId: string, callback: (db: Sql, sessionKey: string) => Promise<T>) => {
-    const { sessionKey, projectId } = await authorize(access);
+  const locked = async <T>(access: DocumentArchiveAccess, revisionId: string, callback: (db: Sql, sessionKey: string) => Promise<T>,
+    purpose?: ProjectSnapshotReadPurpose) => {
+    const { sessionKey, projectId } = await authorize(access, purpose);
     return sql.begin(async tx => {
       await tx`select pg_advisory_xact_lock(hashtext(${ports.sha256(stableStringify(["noxia:doc-working-revision", sessionKey, projectId, revisionId]))}))`;
       return callback(tx as unknown as Sql, sessionKey);
@@ -124,7 +125,10 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     request(input.revisionId, input.expectedSaveSequence);
     // Verify the immutable base outside the write transaction: the archive's
     // existing reader uses the shared pool, never a nested connection under lock.
-    const scope = await authorize(access);
+    // Only a textual save of an existing, native-bound revision is mobile.
+    // Creation, abandonment and finalization retain their network authority.
+    const purpose = abandon ? undefined : "DOCUMENT_REVISION_SAVE";
+    const scope = await authorize(access, purpose);
     const observed = await load(sql, scope.sessionKey, scope.projectId, input.revisionId);
     if (!observed) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
     const observedResult = await resultFor(access, observed);
@@ -149,7 +153,7 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
           ...(finalizationRef ? { finalizationRef } : {}) } };
       await insert(db, sessionKey, next);
       return next;
-    });
+    }, purpose);
     return { ...observedResult, revision };
   };
   return {
