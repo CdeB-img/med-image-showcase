@@ -813,7 +813,7 @@ export default function ProtocolDesignerWorkspace({
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
       <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 rounded-t-3xl border bg-background px-5 py-3" data-testid="conversation-workspace-header">
-      <h2 className="text-lg font-semibold">Conversation</h2>
+      <h2 className="text-lg font-semibold">{deliverableWorkspaceOpen || openProjection ? "Documents" : "Conversation"}</h2>
       {projectionMode === "STANDARD" && <div data-testid="version-production-action">
         <button type="button" disabled={busy || documentGenerationPending || !versionProduction.available}
           onClick={() => void versionProduction.generate()}

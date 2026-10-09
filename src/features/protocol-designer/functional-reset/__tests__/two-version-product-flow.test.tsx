@@ -201,10 +201,13 @@ describe("Standard single-action two-version scientific flow", () => {
     fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     expect(screen.getByTestId("document-workspace-panel")).toBeVisible();
     expect(fixedHeader).toBeVisible();
+    expect(within(fixedHeader).getByRole("heading", { name: "Documents" })).toBeVisible();
+    expect(within(fixedHeader).queryByRole("heading", { name: "Conversation" })).toBeNull();
     expect(action).toBeVisible();
     expect(screen.getByTestId("project-document-navigation")).toHaveClass("sticky");
     expect(composer.isConnected).toBe(true); expect(composer).toHaveValue("Saisie locale non envoyée");
     fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    expect(within(fixedHeader).getByRole("heading", { name: "Conversation" })).toBeVisible();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBe(composer);
     expect(panel.scrollTop).toBe(480); expect(composer).toHaveValue("Saisie locale non envoyée");
     expect(h.requests).toHaveLength(calls);
