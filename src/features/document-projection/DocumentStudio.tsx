@@ -16,6 +16,9 @@ import { toast } from "@/hooks/use-toast";
 import { readStudioAssessmentFailureDiagnostic, type StudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime";
 import StudioEditAssistant from "./StudioEditAssistant";
 import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
+import type { ProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone";
+import { inspectDocumentImpact, type DocumentImpactReport } from "./document-impact";
+import DocumentImpactSummary from "./DocumentImpactSummary";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
 const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
@@ -27,10 +30,12 @@ const codeOf = (error: unknown) => {
 
 /** Native text editing only. Buffers are screen-owned; confirmed saves, source
  * integrity, ACTIVE lookup and concurrency belong to the existing DOC owner. */
-export default function DocumentStudio({ client, target, finalization, editing, onClose, onConversation, onNavigationLock }: {
+export default function DocumentStudio({ client, target, finalization, editing, currentProjectSnapshot, pendingScientificChange, onClose, onConversation, onNavigationLock }: {
   client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void; onConversation?: () => void;
   onNavigationLock?: (locked: boolean) => void;
   editing?: StudioEditRuntime;
+  currentProjectSnapshot?: Readonly<ProjectContextSnapshot>;
+  pendingScientificChange?: boolean;
 }) {
   const [loaded, setLoaded] = useState<{ result: DocumentWorkingRevisionResult | null; base: EditableDocumentContent; body: DocumentGenerationBody } | null>(null);
   const [buffer, setBuffer] = useState<EditableDocumentContent | null>(null);
@@ -50,11 +55,19 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const [recoverableIntent, setRecoverableIntent] = useState(false);
   const [clarification, setClarification] = useState<QuestionPresentationRequest | null>(null);
   const [saveFeedback, setSaveFeedback] = useState(false);
+  const [impact, setImpact] = useState<DocumentImpactReport | null>(null);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
   const epoch = useRef(0), flight = useRef(false);
   const dirty = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.result.revision.content));
   const busy = saveState === "SAVING" || finalizing;
+  const unassessedDraft = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.base));
+  useEffect(() => {
+    let active = true; setImpact(null);
+    if (loaded && currentProjectSnapshot) void inspectDocumentImpact({ source: { ref: target.generation, body: loaded.body }, currentProject: currentProjectSnapshot,
+      pendingScientificChange, unassessedDraft }).then(report => { if (active) setImpact(report); }).catch(() => { /* No readiness claim on incomplete evidence. */ });
+    return () => { active = false; };
+  }, [loaded, currentProjectSnapshot, target.generation, pendingScientificChange, unassessedDraft]);
   useEffect(() => { onNavigationLock?.(dirty || busy); return () => onNavigationLock?.(false); }, [dirty, busy, onNavigationLock]);
   const reportFinalizationFailure = (error: unknown) => {
     const code = codeOf(error);
@@ -236,6 +249,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
         {loaded.result && mode !== "READ" && <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>}
       </div>}
     </header>
+    {impact && currentProjectSnapshot?.sourceProjectDigest === impact.currentProjectDigest && <details className="border-b p-5 sm:px-6"><summary className="cursor-pointer text-sm font-medium">Cohérence, dépendances et impact sur les autres documents</summary><div className="mt-3"><DocumentImpactSummary report={impact} /></div></details>}
     {editing && loaded?.result && buffer && mode !== "READ" && !completed && <StudioEditAssistant runtime={editing} revision={loaded.result.revision}
       buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} onApply={content => {
         if (flight.current || completed) return;

@@ -25,6 +25,7 @@ import DeployedCommitVersion from "@/features/protocol-designer/DeployedCommitVe
 import { DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION, type ScientificTraceCaptureConfiguration } from "@/features/protocol-designer/scientific-execution-trace";
 import { prepareResearchProjectContributionCandidate, buildProjectContextSnapshot } from "@/features/research-project-construction";
 import { composeProtocolWritingProfile } from "@/features/study-template/protocol-writing-profile";
+import { captureStudioScientificState } from "./studio-scientific-context";
 import { buildStudyDeliverablePortfolio, functionalProtocolProjection } from "@/features/document-projection";
 import { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import StudyProposalReview from "./StudyProposalReview";
@@ -663,7 +664,9 @@ export default function ProtocolDesignerWorkspace({
     return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
   }, [currentProtocolProjection, session.project, documentLifecycle]);
   const adaptiveContext = useMemo(() => session.project ? inspectFunctionalDocumentPortfolio(session.project) : undefined, [session.project]);
-  const protocolWritingProfile = useMemo(() => session.project ? composeProtocolWritingProfile(buildProjectContextSnapshot({ project: session.project })) : undefined, [session.project]);
+  const currentProjectSnapshot = useMemo(() => session.project ? buildProjectContextSnapshot({ project: session.project }) : undefined, [session.project]);
+  const protocolWritingProfile = useMemo(() => currentProjectSnapshot ? composeProtocolWritingProfile(currentProjectSnapshot) : undefined, [currentProjectSnapshot]);
+  const pendingScientificChange = useMemo(() => { const state = captureStudioScientificState(session); return Boolean(state.pendingTurnRef || state.pendingPreparationId); }, [session]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
@@ -848,6 +851,8 @@ export default function ProtocolDesignerWorkspace({
           portfolio={deliverablePortfolio}
           adaptiveContext={adaptiveContext}
           protocolWritingProfile={protocolWritingProfile}
+          currentProjectSnapshot={currentProjectSnapshot}
+          pendingScientificChange={pendingScientificChange}
           documentaryRequests={session.entries.flatMap(entry => entry.kind === "TEXT" && entry.role === "USER" ? [{ content: entry.content, sourceRef: entry.entryId }] : [])}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}

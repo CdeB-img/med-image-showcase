@@ -5,15 +5,20 @@ import { downloadStudyDeliverableFile, downloadFrozenStudyFiles } from "@/featur
 import type { StudyDeliverableFile } from "@/features/document-projection/study-deliverable-contract";
 import { archivedStudioDocuments, studioDocuments, type DocumentStudioTarget } from "@/features/document-projection/studio-document";
 import type { ActiveWorkingRevision } from "@/features/document-projection/working-revision";
+import type { ProjectContextSnapshot } from "@/features/research-project-construction/canonical-project-backbone";
+import { inspectDocumentImpact, type DocumentImpactReport } from "@/features/document-projection/document-impact";
+import DocumentImpactSummary from "@/features/document-projection/DocumentImpactSummary";
 
 /** Screen state only. One selected body in RAM, never in session. */
-export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId }: {
+export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId, currentProjectSnapshot, pendingScientificChange }: {
   client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string, body: DocumentGenerationBody) => void;
   onDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   onStudio?: (target: DocumentStudioTarget) => void;
   onHistory?: (entries: readonly DocumentGenerationRef[]) => void;
   currentProjectDigest?: string;
   currentGenerationId?: string | null;
+  currentProjectSnapshot?: Readonly<ProjectContextSnapshot>;
+  pendingScientificChange?: boolean;
 }) {
   const [entries, setEntries] = useState<readonly DocumentGenerationRef[]>([]);
   const [cursor, setCursor] = useState<number | null>(null);
@@ -22,6 +27,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
   const [drafts, setDrafts] = useState<readonly ActiveWorkingRevision[]>([]);
   const [draftsFailed, setDraftsFailed] = useState(false);
   const [studioSelection, setStudioSelection] = useState<{ generationId: string; documents: ReturnType<typeof studioDocuments> } | null>(null);
+  const [impact, setImpact] = useState<DocumentImpactReport | null>(null);
   const selected = useRef<{ id: string; body: DocumentGenerationBody } | null>(null);
   const request = useRef(0);
   const lifetime = useRef(0);
@@ -29,7 +35,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
   useEffect(() => {
     const epoch = ++lifetime.current;
     selected.current = null; request.current++;
-    setEntries([]); setStatus("LOADING"); setError(false); setStudioSelection(null); setDrafts([]); setDraftsFailed(false);
+    setEntries([]); setStatus("LOADING"); setError(false); setStudioSelection(null); setDrafts([]); setDraftsFailed(false); setImpact(null);
     void client.history().then(page => {
       if (lifetime.current !== epoch) return;
       setEntries(page.entries); setCursor(page.nextBeforeOrdinal); setStatus("READY");
@@ -84,6 +90,17 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
       setStudioSelection({ generationId: ref.generationId, documents: studioDocuments(body) });
     } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
   };
+  const inspectImpact = async (ref: DocumentGenerationRef) => {
+    if (!currentProjectSnapshot) return;
+    const token = ++request.current, epoch = lifetime.current; setError(false); setImpact(null);
+    try {
+      const body = selected.current?.id === ref.generationId ? selected.current.body : (await client.body(ref.generationId)).body;
+      if (request.current !== token || lifetime.current !== epoch) return;
+      selected.current = { id: ref.generationId, body };
+      const report = await inspectDocumentImpact({ source: { ref, body }, currentProject: currentProjectSnapshot, pendingScientificChange });
+      if (request.current === token && lifetime.current === epoch) setImpact(report);
+    } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
+  };
   return <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires archivées" data-testid="durable-document-history">
     <h3 className="font-semibold">Versions documentaires archivées</h3>
     {(status === "NOT_LOADED" || status === "LOADING") && <p role="status" className="mt-2 text-sm">Historique en cours de chargement…</p>}
@@ -99,6 +116,9 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
       <details className="mt-1 text-xs text-muted-foreground"><summary className="cursor-pointer">Références de cette génération</summary>
         <dl className="mt-1 break-all"><dt>Génération</dt><dd>{ref.generationId}</dd><dt>Version Project</dt><dd>{ref.project.projectVersion}</dd><dt>Empreinte Project</dt><dd>{ref.project.projectDigest}</dd></dl>
       </details>
+      {currentProjectSnapshot && <button type="button" className="mt-2 min-h-11 rounded-lg border px-3 text-sm"
+        aria-label={`Vérifier l’impact sur Version ${ref.displayVersion}`} onClick={() => void inspectImpact(ref)}>Vérifier la cohérence avec le projet</button>}
+      {impact?.generationId === ref.generationId && impact.currentProjectDigest === currentProjectDigest && <div className="mt-3"><DocumentImpactSummary report={{ ...impact, pendingScientificChange: Boolean(pendingScientificChange) }} /></div>}
       {onStudio && client.workingRevisions && <div className="mt-3">
         {archivedStudioDocuments(ref).length === 0 && <button type="button" className="min-h-11 rounded-lg border px-3 text-sm focus-visible:ring-2 focus-visible:ring-ring" onClick={() => void selectStudioDocument(ref)}>Afficher les documents</button>}
         <ul className="space-y-2">{(studioSelection?.generationId === ref.generationId ? studioSelection.documents : archivedStudioDocuments(ref)).map(document => {

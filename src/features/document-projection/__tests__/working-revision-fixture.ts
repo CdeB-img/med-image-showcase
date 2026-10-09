@@ -11,17 +11,21 @@ import { archiveSqlFixture } from "./archive-sql-fixture";
 /** SYNTHETIC_CURRENT_CONTRACT. Native PRJ/DOC builders preserve meaningful
  * infarction/colchicine/placebo/IRM science. These tests qualify editorial
  * persistence and binding, not clinical acceptability or provider output. */
-export const workingRevisionFixture = async (options: { monocentric?: boolean } = {}) => {
+export const workingRevisionFixture = async (options: { monocentric?: boolean; population?: string } = {}) => {
   const sessionId = "protocol-designer-session:working-revision";
   const identity = { sessionId, clientAddress: "192.0.2.1" };
   const authority = { actorRef: "synthetic-owner", mandateRef: "PROJECT_OWNER" as const,
     authoritySource: "ACTIVE_RESEARCH_WORKSPACE_SESSION" as const, verification: "DEMO_SESSION_NOT_AUTHENTICATED" as const };
-  const initial = options.monocentric ? COLCHICINE_INITIAL.replace("multicentrique", "monocentrique") : COLCHICINE_INITIAL;
+  const design = options.monocentric ? COLCHICINE_INITIAL.replace("multicentrique", "monocentrique") : COLCHICINE_INITIAL;
+  const initial = options.population ? `${design} Population explicitement retenue : ${options.population}.` : design;
   const turns = [initial, COLCHICINE_MODIFICATION, COLCHICINE_LATER_MODIFICATION].map((content, index) => ({
     turnId: `source-${index}`, role: "USER" as const, content, createdAt: `2026-10-07T10:0${index}:00.000Z`,
   }));
   const contribution = (source: typeof turns) => {
     const result = makeFunctionalResetContribution(source);
+    if (options.population) result.scientificContent.candidateObjects.push({ ...result.scientificContent.candidateObjects[0],
+      itemId: "population:qualified", semanticIdentity: "population:qualified", proposedType: "POPULATION",
+      content: options.population, studyRole: "TARGET_POPULATION" });
     if (options.monocentric) for (const items of Object.values(result.scientificContent)) {
       if (Array.isArray(items)) for (const item of items) {
         if ("itemId" in item && item.itemId === "design:multicentric") item.content = "étude monocentrique";
