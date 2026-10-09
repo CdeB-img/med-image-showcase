@@ -15,6 +15,7 @@ import { prepareConversationalDimensioning } from "../data-analysis-planning/dim
 import { STUDY_PROPOSAL_MANDATE, contextualStudyProposalSchema } from "./contextual-study-proposal.js";
 import { compactStudyProposalConversationContext, projectStudyProposalConversationContext, rehydrateStudyProposal } from "../protocol-designer/functional-reset/study-proposal-standard.js";
 import { terraScientificResultJsonSchema, TERRA_RETENTION_INSTRUCTION } from "../protocol-designer/functional-reset/contribution-discussion-retention.js";
+import { buildConversationHumanIntentContext, CONVERSATION_HUMAN_INTENT_INSTRUCTION } from "./conversation-human-intent.js";
 
 // C2 collaborator mandate, with native text and a general epistemic discipline.
 // This Scientific Thinking capability has no Project mutation dependency.
@@ -318,6 +319,7 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
         && !workingProposalContext.dispositions.some(disposition => disposition.status === "REJECTED" && disposition.atomRefs.includes(atom.ref)))
         .map(atom => ({ source: "WORKING_DRAFT_NOT_ADOPTED", ref: atom.ref })) ?? []) ],
     RECENT_CONVERSATION: turns.map(t => ({ ref: t.turnId, role: t.role, content: t.content })),
+    ...(request.boundedReferentContext ? { HUMAN_DECISION_CONTEXT: buildConversationHumanIntentContext(request) } : {}),
     // Historical text is conversational evidence, never equally active Project truth.
     HISTORY_POLICY: "CURRENT_PROJECT is adopted truth. Later USER corrections are discussion until human review. Old proposals and refused options in the transcript are not current decisions.",
     QRY: compactQry,
@@ -400,5 +402,5 @@ QRY, lorsqu'il est fourni, sélectionne la navigation scientifique structurante,
 La réponse visible reply reste en français, en texte naturel, sans diagnostic ni ID interne.`;
   return { context, outputSchema: terraScientificResultJsonSchema(), outputSchemaName: "terra_scientific_contribution",
     instruction: (autonomousProjectBuild ? instruction + "\nCONSTRUCTION CONTINUE ACTIVE : utilise le brouillon non adopté et le conseil QRY pour faire avancer les branches concernées après avoir répondu. Prends une position argumentée lorsque des options raisonnables existent ; le chercheur arbitre. Ne lui renvoie pas une conception que tu peux proposer. Priorise un ou deux arbitrages matériels ; ne termine pas mécaniquement par une question. Les questions ciblées restent ciblées et une intention pauvre ne justifie aucune invention. Une préparation ultérieure ne constitue jamais une adoption. N’annonce aucun artefact préparé avant son reçu." : instruction)
-      + TERRA_RETENTION_INSTRUCTION, contextDigest: logicalDigest(packet) };
+      + TERRA_RETENTION_INSTRUCTION + CONVERSATION_HUMAN_INTENT_INSTRUCTION, contextDigest: logicalDigest(packet) };
 };

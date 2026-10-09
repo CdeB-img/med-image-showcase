@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 import { useRef, useState } from "react";
 import { useConversationTurn } from "../../protocol-designer/functional-reset/useConversationTurn";
-import { readNaturalCandidateDecision } from "../../protocol-designer/functional-reset/natural-conversation-policy";
 import * as bridgeClient from "../../protocol-designer/product-bridge-client";
 import { workingRevisionFixture } from "./working-revision-fixture";
 import { logicalDigest } from "../../knowledge-engine/canonical";
@@ -366,8 +365,7 @@ describe("real Studio coordination shape: immutable receipt, scoped decisions an
       return { session, commands };
     });
     try {
-      await act(async () => { await hook.result.current.commands.submitTerraText("Je valide tes propositions", false,
-        undefined, readNaturalCandidateDecision("Je valide tes propositions")); });
+      await act(async () => { await hook.result.current.commands.submitTerraText("Je valide tes propositions", false); });
       const session = hook.result.current.session;
       expect(session.queryNavigation!.memory.responses).toHaveLength(1);
       expect(session.conversationConfirmationReceipts).toEqual(initial.conversationConfirmationReceipts);

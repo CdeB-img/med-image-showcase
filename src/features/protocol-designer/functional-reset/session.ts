@@ -328,6 +328,7 @@ export type ConversationConfirmationReceipt = Readonly<{
   sourceConversationDigest: string;
   createdAt: string;
   preparationSourceTurnRef: string;
+  semanticInterpretation?: Readonly<{ inputDigest: string; resultDigest: string }>;
 }>;
 
 const conversationPrefixDigest = (conversationId: string, turns: readonly ScientificInterpretationTurn[]) =>
@@ -372,6 +373,7 @@ export const workingDraftRecoveryStillBound = (
 export const recordConversationConfirmationReceipt = (
   session: FunctionalResetSession, userTurn: ScientificInterpretationTurn,
   decision: Readonly<{ act: "CONFIRM" | "REFUSE"; qualified: boolean; separableContinuation: boolean }> | null,
+  semanticInterpretation?: Readonly<{ inputDigest: string; resultDigest: string }>,
 ): FunctionalResetSession => {
   // A mixed correction has no provable whole-proposal target. Keep its user
   // turn, but do not manufacture a bound agreement from its lexical prefix.
@@ -400,6 +402,7 @@ export const recordConversationConfirmationReceipt = (
     baseProjectVersion, baseProjectDigest,
     sourceConversationDigest: conversationPrefixDigest(session.conversationId, [...session.runtimeTurns, userTurn]),
     createdAt: userTurn.createdAt, preparationSourceTurnRef: sourceTurnRef!,
+    ...(semanticInterpretation ? { semanticInterpretation } : {}),
   };
   return { ...session, conversationConfirmationReceipts: [...session.conversationConfirmationReceipts ?? [], receipt] };
 };
@@ -432,6 +435,9 @@ export const readConversationConfirmationReceipts = (session: FunctionalResetSes
       || typeof receipt.userTurnId !== "string" || typeof receipt.targetAssistantTurnId !== "string"
       || typeof receipt.preparationSourceTurnRef !== "string" || typeof receipt.createdAt !== "string"
       || typeof receipt.sourceConversationDigest !== "string" || typeof receipt.baseProjectId !== "string"
+      || receipt.semanticInterpretation !== undefined && (!receipt.semanticInterpretation
+        || typeof receipt.semanticInterpretation.inputDigest !== "string" || !receipt.semanticInterpretation.inputDigest
+        || typeof receipt.semanticInterpretation.resultDigest !== "string" || !receipt.semanticInterpretation.resultDigest)
       || !(receipt.baseProjectVersion === null || typeof receipt.baseProjectVersion === "string")
       || !(receipt.baseProjectDigest === null || typeof receipt.baseProjectDigest === "string")) return false;
     const userIndex = session.runtimeTurns.findIndex(turn => turn.turnId === receipt.userTurnId && turn.role === "USER");

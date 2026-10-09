@@ -193,6 +193,8 @@ export const buildBoundedConversationReferentContext = (input: {
     decisionScope: Object.freeze({
       selectedReviewRef: record.candidateRef,
       presented: record.downstreamState === "PRESENTED" && Boolean(record.presentedAt),
+      presentationDigest: logicalDigest({ candidateRef: record.candidateRef, candidateDigest: record.candidateDigest,
+        presentedAt: record.presentedAt, projection: record.candidate.humanReviewProjection }),
       changedObjectRefs: Object.freeze(unique(record.candidate.canonicalChangeSet.objectChanges.map(change => change.objectId))),
       candidateTexts: Object.freeze(record.candidate.canonicalChangeSet.objectChanges
         .flatMap(change => change.candidate ? [change.candidate.content] : [])),

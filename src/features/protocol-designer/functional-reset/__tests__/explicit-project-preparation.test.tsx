@@ -10,6 +10,7 @@ import ProtocolDesignerWorkspace from "../ProtocolDesignerWorkspace";
 import { controlledStudyProposal, DOMAINS } from "./study-proposal-fixtures";
 import { terraResultFixture } from "./terra-result-fixture";
 import { projectPreparationProgress } from "../project-preparation-lifecycle";
+import type { ConversationHumanIntent } from "@/features/scientific-thinking/conversation-human-intent";
 const bridge = vi.hoisted(() => vi.fn());
 const read = vi.hoisted(() => vi.fn());
 vi.mock("../../product-bridge-client", async original => ({ ...await original<object>(),
@@ -23,9 +24,17 @@ const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT
   vi.stubEnv("VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME", "TERRA"); vi.stubEnv("VITE_AUTONOMOUS_PROJECT_BUILD", "ON");
   let saved = createFunctionalResetSession(); let release!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
+  // Explicit semantic witnesses, selected by the test, never a phrase recognizer.
+  let semanticActs: ConversationHumanIntent["acts"] = ["CONTINUE_OR_EXPLAIN"];
   const provider = vi.fn<typeof fetch>(async (_url, init) => {
     const payload = JSON.parse(String(init?.body));
-    if (!payload.instructions.includes("Tu prépares en arrière-plan")) return response("LOCAL_SYNTHETIC — réponse scientifique conservée.");
+    if (!payload.instructions.includes("Tu prépares en arrière-plan")) {
+      const context = JSON.parse(payload.input).HUMAN_DECISION_CONTEXT;
+      return response(JSON.stringify({ ...terraResultFixture("LOCAL_SYNTHETIC — réponse scientifique conservée."), humanIntent: context ? {
+        contractVersion: "1.0.0", inputDigest: context.inputDigest, acts: semanticActs, referentRef: context.presentation?.ref ?? null,
+        acceptedChangeRefs: [], rejectedChangeRefs: [], correctedChangeRefs: [], unresolved: false, clarification: null, documentAction: null,
+      } : null }));
+    }
     await held;
     if (outcome === "TIMEOUT") { const e = new Error("synthetic timeout"); e.name = "AbortError"; throw e; }
     if (outcome === "TRUNCATED") return new Response(JSON.stringify({ status: "incomplete", incomplete_details: {reason:"max_output_tokens"}, output:[], usage:{input_tokens:100,output_tokens:24000,total_tokens:24100} }));
@@ -49,7 +58,8 @@ const setup = (outcome: "VALID" | "NO_CHANGE" | "CYCLE" | "TRUNCATED" | "TIMEOUT
   });
   const view = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
     onSessionChange={explicitTestSave((next: FunctionalResetSession) => { saved = next; return true; })} /></HelmetProvider>);
-  return { view, state: () => saved, provider, release, wdCalls: () => bridge.mock.calls.filter(([request]) => request.prepareWorkingDraft) };
+  return { view, state: () => saved, provider, release, semanticActs: (acts: ConversationHumanIntent["acts"]) => { semanticActs = acts; },
+    wdCalls: () => bridge.mock.calls.filter(([request]) => request.prepareWorkingDraft) };
 };
 const initialChat = async () => { send(DOMAINS[0].text); await screen.findByText("LOCAL_SYNTHETIC — réponse scientifique conservée.");
   await waitFor(() => expect(screen.queryByText("NOXIA réfléchit…")).not.toBeInTheDocument()); };
@@ -148,9 +158,13 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
     persistFunctionalResetSession(localStorage,h.state());expect(loadFunctionalResetSession(localStorage).workingDraftPreparations?.at(-1)?.status).toBe(h.state().workingDraftPreparations?.at(-1)?.status);
     expect(h.wdCalls()).toHaveLength(1);
   });
-  it.each(["oui", "ça me convient", "oui je valide. ce sera en France"])("retains receipt, checkpoint and explicit review across early assent: %s",async text=>{
+  it.each([
+    { text: "oui", acts: ["ACCEPT"] }, { text: "ça me convient", acts: ["ACCEPT"] },
+    { text: "oui je valide. ce sera en France", acts: ["ACCEPT", "ADDITIONAL_INFORMATION"] },
+  ] satisfies { text: string; acts: ConversationHumanIntent["acts"] }[])("retains receipt, checkpoint and explicit review across early assent: $text",async ({ text, acts })=>{
     const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
     await waitFor(()=>expect(h.wdCalls()).toHaveLength(1));const before=JSON.stringify(h.state().workingDraftPreparations?.[0].checkpoint);
+    h.semanticActs(acts);
     send(text);await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
     expect(JSON.stringify(h.state().workingDraftPreparations?.[0].checkpoint)).toBe(before);
@@ -169,6 +183,7 @@ describe("explicit Project preparation — real bridge/owners, synthetic provide
   });
   it("keeps a refused checkpoint visible but cannot override the known refusal",async()=>{
     const h=setup();await initialChat();fireEvent.click(screen.getByRole("button",{name:"Préparer la mise à jour du projet"}));
+    h.semanticActs(["REJECT"]);
     send("non, je refuse cette proposition");await waitFor(()=>expect(h.state().runtimeTurns.filter(t=>t.role==="NOXIA")).toHaveLength(2));
     await act(async()=>h.release());await screen.findByTestId("project-finalization-card");
     expect(h.state().workingDraftPreparations?.[0].postCutoffBlocker).toContain("REFUSAL_OR_CORRECTION");

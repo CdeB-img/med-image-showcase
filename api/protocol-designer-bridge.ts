@@ -22,6 +22,8 @@ import { prepareScientificCollaboratorConversation, guardScientificCollaboratorL
 import { hasSufficientStudyIntent, acceptContextualStudyProposal, StudyProposalOptionBindingError } from "../src/features/scientific-thinking/contextual-study-proposal.js";
 import { STUDY_PROPOSAL_CAPACITY } from "../src/features/scientific-thinking/study-proposal-capacity.js";
 import { prepareTerraConversation } from "../src/features/scientific-thinking/scientific-collaborator-conversation.js";
+import { buildConversationHumanIntentContext } from "../src/features/scientific-thinking/conversation-human-intent.js";
+import { bindSemanticHumanDecision } from "../src/features/query-navigation/semantic-human-decision.js";
 import { terraScientificResultSchema, retainScientificDiscussionResult, scientificDiscussionRetentionFailureDiagnostic } from "../src/features/protocol-designer/functional-reset/contribution-discussion-retention.js";
 import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
@@ -472,6 +474,11 @@ export const executeProtocolDesignerBridge = async (input: {
           reasoningEffort: "medium", retryIndex: 0, retryReason: null, onRecord: observeProviderCall }, input.openAiTransport);
       try { retainedScientificResult = terraScientificResultSchema.parse(JSON.parse(terraConversation.value)); }
       catch { throw new Error("SCIENTIFIC_DISCUSSION_RETENTION_INVALID"); }
+      if (retainedScientificResult.humanIntent) {
+        const context = buildConversationHumanIntentContext(request);
+        if (!context) throw new Error("SEMANTIC_HUMAN_DECISION_BINDING_INVALID");
+        bindSemanticHumanDecision(context, retainedScientificResult.humanIntent);
+      }
       retainScientificDiscussionResult({ conversationId: request.conversation.conversationId,
         runtimeTurns: [...request.conversation.turns, { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply }],
         userTurn: latestUser, assistantTurn: { turnId: "response-validation", role: "NOXIA", content: retainedScientificResult.reply },

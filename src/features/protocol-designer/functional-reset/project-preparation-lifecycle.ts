@@ -145,10 +145,10 @@ export const captureStudioProjectPreparation = (session: FunctionalResetSession,
 /** Selects only an already linked conversation response or the adopted canonical question. */
 const scientificSourceForPreparation = (session: FunctionalResetSession,
   trigger: FunctionalResetSession["runtimeTurns"][number]): NonNullable<ProductBridgeRequest["workingDraftScientificSource"]> | null => {
-  const decision = readNaturalCandidateDecision(trigger.content);
-  const receipt = decision?.act === "CONFIRM"
-    ? readConversationConfirmationReceipts(session).find(item => item.userTurnId === trigger.turnId)
-    : null;
+  // A native receipt is authoritative source binding irrespective of wording.
+  // The legacy recognizer remains only for historical preparation compatibility.
+  const receipt = readConversationConfirmationReceipts(session).find(item => item.userTurnId === trigger.turnId) ?? null;
+  const decision = receipt ? { act: "CONFIRM" as const } : readNaturalCandidateDecision(trigger.content);
   let proposal = decision?.act === "CONFIRM" && session.studyProposal?.state === "CURRENT"
     ? session.studyProposal : null;
   if (proposal) try { assertStudyProposalCurrent(proposal, session.project); }

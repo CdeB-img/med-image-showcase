@@ -46,6 +46,8 @@ export type BoundedConversationReferentContext = Readonly<{
   decisionScope?: Readonly<{
     selectedReviewRef: string;
     presented: boolean;
+    /** Acknowledged native review payload and timestamp, not inferred prose. */
+    presentationDigest?: string;
     changedObjectRefs: readonly string[];
     candidateTexts: readonly string[];
     candidateKinds: readonly string[];

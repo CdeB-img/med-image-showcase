@@ -144,6 +144,9 @@ export function prepareTerraConversationRequest(session: FunctionalResetSession,
     conversation: { conversationId: session.conversationId, language: "fr", turns: requestTurns },
     ...(autonomousProjectBuild && session.studyProposal?.state === "CURRENT" ? { studyProposalContext: session.studyProposal } : {}),
     currentProject: session.project, evaluatePersistentDelta: prepareRecording,
+    boundedReferentContext: buildBoundedConversationReferentContext({ retained: session.retainedContributionCandidates ?? [],
+      currentProject: session.project, conversationId: session.conversationId, runtimeTurns: requestTurns,
+      selectedReviewRef: session.pendingContribution?.identity.contributionId ?? null, requestingTurnRef: userTurn.turnId }),
     scientificDiscussionContext: discussion,
     ...(session.project && session.queryNavigation ? {
       currentNavigation: currentGovernedNavigationInput({

@@ -350,7 +350,7 @@ export default function ProtocolDesignerWorkspace({
     setSession((current) => recordContributionReviewPresentationFailureTransition(current, entryId, failure, failedAt));
   };
 
-  const contributionHasAcknowledgedPresentation = (contributionId: string) => hasAcknowledgedContributionPresentation(session, contributionId);
+  const contributionHasAcknowledgedPresentation = (contributionId: string) => hasAcknowledgedContributionPresentation(latestSessionRef.current, contributionId);
 
   const confirmContribution = async (
     contributionId: string,
@@ -466,12 +466,13 @@ export default function ProtocolDesignerWorkspace({
     naturalDecision?: NaturalContributionDecisionContext,
   ) => {
     if (busy && !naturalDecision) return;
-    const contribution = session.pendingContribution;
+    const currentSession = latestSessionRef.current;
+    const contribution = currentSession.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     if (!contributionHasAcknowledgedPresentation(contributionId)) return;
     const now = new Date().toISOString();
     try {
-      setSession(stageProjectRejection(session, contribution, contributionId, now, naturalDecision));
+      setSession(stageProjectRejection(currentSession, contribution, contributionId, now, naturalDecision));
     } catch {
       setSession((current) => ({
         ...current,
@@ -524,10 +525,11 @@ export default function ProtocolDesignerWorkspace({
   }
 
   function dispatchProductDocumentAction(action: ProductDocumentAction, command: { content: string; createdAt: string }) {
-    const result = prepareProductDocumentAction(session, action);
+    const currentSession = latestSessionRef.current;
+    const result = prepareProductDocumentAction(currentSession, action);
     appendProductDocumentCommandResult({ command, ...result });
     if (result.clearProjection) setSession((current) => ({ ...current, openDocumentProjectionId: null }));
-    if (result.openDeliverables || result.projectionId && session.documentArchive?.storageMode === "DURABLE_ONLY") setDeliverableWorkspaceOpen(true);
+    if (result.openDeliverables || result.projectionId && currentSession.documentArchive?.storageMode === "DURABLE_ONLY") setDeliverableWorkspaceOpen(true);
   }
 
   function acquireSources() {

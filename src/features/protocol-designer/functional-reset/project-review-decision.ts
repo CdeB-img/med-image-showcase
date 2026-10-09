@@ -32,6 +32,7 @@ import { prepareResearchProjectContributionCandidate } from "@/features/research
 import { retainOwnerReviewedCandidate } from "./contribution-lifecycle";
 import { type FunctionalResetSession } from "./session";
 import { assertStudioIntentHumanDecision, type StudioFinalizationIntent, type StudioFinalizationHumanDecision } from "../../document-projection/studio-finalization-intent";
+import { validateCurrentSemanticConversationDecision, type SemanticConversationDecision } from "./semantic-conversation-decision";
 
 // Application retention delegates validation and lifecycle to their existing owners.
 export type NaturalContributionDecisionContext = Readonly<{
@@ -44,6 +45,7 @@ export type NaturalContributionDecisionContext = Readonly<{
   refusedChangeRefs?: readonly string[];
   correctionChangeRefs?: readonly string[];
   prepareRemainingTurn?: boolean;
+  semanticDecision?: SemanticConversationDecision;
   /** Explicit Generate action, not an acknowledgement of an unseen Review. */
   materialization?: Readonly<{ preparationId: string; requestDigest: string }>;
 }>;
@@ -147,6 +149,15 @@ export function stageProjectConfirmation(input: {
   administration: Parameters<typeof refreshAdoptedProjectConsumers>[0]["administration"];
 }) {
   const { session, readCurrentSession, contributionId, contribution, now, naturalDecision, proposalSelection, adoptionTrace, administration } = input;
+  if (naturalDecision?.semanticDecision) {
+    const bound = validateCurrentSemanticConversationDecision(readCurrentSession(), naturalDecision.userTurn, naturalDecision.semanticDecision);
+    if (bound.action !== "CONFIRM" || naturalDecision.materialization || proposalSelection
+      || naturalDecision.semanticDecision.context.presentation?.ref !== contributionId
+      || logicalDigest(bound.interaction?.selectedChangeRefs) !== logicalDigest(naturalDecision.selectedChangeRefs)
+      || logicalDigest(bound.interaction?.refusedChangeRefs) !== logicalDigest(naturalDecision.refusedChangeRefs)
+      || logicalDigest(bound.interaction?.correctionChangeRefs) !== logicalDigest(naturalDecision.correctionChangeRefs))
+      throw new Error("SEMANTIC_HUMAN_DECISION_AUTHORITY_INVALID");
+  }
   const studio = input.studioDecision;
   if (studio) {
     if (!["NONE", "UNRELATED"].includes(studioIntentPostCutoffControl(studio.intent, session).disposition))
@@ -349,6 +360,12 @@ export function stageProjectConfirmation(input: {
 }
 
 export function stageProjectRejection(session: FunctionalResetSession, contribution: ScientificInterpretationContributionEnvelope, contributionId: string, now: string, naturalDecision?: NaturalContributionDecisionContext) {
+  if (naturalDecision?.semanticDecision) {
+    const bound = validateCurrentSemanticConversationDecision(session, naturalDecision.userTurn, naturalDecision.semanticDecision);
+    if (bound.action !== "REFUSE" || naturalDecision.semanticDecision.context.presentation?.ref !== contributionId
+      || logicalDigest(bound.interaction?.selectedChangeRefs) !== logicalDigest(naturalDecision.selectedChangeRefs))
+      throw new Error("SEMANTIC_HUMAN_DECISION_AUTHORITY_INVALID");
+  }
   const decision = rejectResearchProjectContribution({
     contribution,
     current: session.project,
@@ -366,6 +383,8 @@ export function stageProjectRejection(session: FunctionalResetSession, contribut
   }) : null;
   const remainderEntryId = remainder ? createConversationEntryId() : null;
   return (current: FunctionalResetSession): FunctionalResetSession => {
+    if (naturalDecision?.semanticDecision)
+      validateCurrentSemanticConversationDecision(current, naturalDecision.userTurn, naturalDecision.semanticDecision);
     const reviewEntry = current.entries.find((entry) => entry.kind === "REVIEW"
       && entry.contribution.identity.contributionId === contributionId);
     const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
@@ -433,7 +452,8 @@ export function stageProjectRejection(session: FunctionalResetSession, contribut
       }
       : current.biostatisticsInteraction,
     runtimeTurns: naturalDecision
-      ? [...current.runtimeTurns, naturalDecision.userTurn, rejectionTurn]
+      ? [...current.runtimeTurns, ...(current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId)
+        ? [] : [naturalDecision.userTurn]), rejectionTurn]
       : current.runtimeTurns,
     entries: [
       ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
@@ -443,10 +463,11 @@ export function stageProjectRejection(session: FunctionalResetSession, contribut
         : entry),
       ...(remainder ? [{ entryId: remainderEntryId!, kind: "REVIEW" as const, role: "NOXIA" as const,
         contribution: remainder.contribution, candidate: remainder.candidate, status: "PENDING" as const, createdAt: now }] : []),
-      ...(naturalDecision ? [{
+      ...(naturalDecision && !current.runtimeTurns.some(turn => turn.turnId === naturalDecision.userTurn.turnId) ? [{
         entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const,
         content: naturalDecision.originalText, createdAt: naturalDecision.userTurn.createdAt,
-      }, {
+      }] : []),
+      ...(naturalDecision ? [{
         entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
         content: rejectionReply, createdAt: now,
       }] : []),

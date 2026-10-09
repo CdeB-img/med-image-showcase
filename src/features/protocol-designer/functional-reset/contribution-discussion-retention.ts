@@ -5,6 +5,7 @@ import type { ResearchProjectOwnerProjection } from "../../research-project-cons
 import { buildProjectContextSnapshot } from "../../research-project-construction/canonical-project-backbone.js";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle.js";
 import type { StudyProposalComposition } from "../../scientific-thinking/contextual-study-proposal.js";
+import { conversationHumanIntentSchema } from "../../scientific-thinking/conversation-human-intent.js";
 
 // Extension of RETAINED_CONTRIBUTION_LIFECYCLE, not a transcript/Project owner.
 // Semantic classification is returned WITH the ordinary Scientific Thinking
@@ -34,10 +35,13 @@ export const terraScientificResultSchema = z.object({
     explicitUserDirection: z.literal(true),
   }).strict()),
   candidateBindings: z.array(z.object({ elementRef: ref, candidateRef: ref, changeRef: ref }).strict()),
+  // Historical receipts remain readable, but absence grants no decision.
+  humanIntent: conversationHumanIntentSchema.nullable().optional(),
 }).strict();
 export type TerraScientificResult = z.infer<typeof terraScientificResultSchema>;
 export const terraScientificResultJsonSchema = () => {
   const { $schema: _dialect, ...schema } = z.toJSONSchema(terraScientificResultSchema);
+  schema.required = [...(schema.required ?? []), "humanIntent"];
   return schema;
 };
 type Turn = Pick<ScientificInterpretationTurn, "turnId" | "role" | "content">;
@@ -99,7 +103,9 @@ const rejectRetention = (field: string, valueClass: string, invariant: string, b
 // field names and anonymous array positions may enter a schema diagnostic.
 const receiptFieldNames = new Set(["reply", "userContribution", "assistantContribution", "coverage", "nonPersistentReason",
   "elements", "id", "content", "epistemicState", "polarity", "conditions", "linkedIds", "dispositions", "elementRef",
-  "status", "replacementId", "explicitUserDirection", "candidateBindings", "candidateRef", "changeRef"]);
+  "status", "replacementId", "explicitUserDirection", "candidateBindings", "candidateRef", "changeRef",
+  "humanIntent", "contractVersion", "inputDigest", "acts", "referentRef", "acceptedChangeRefs", "rejectedChangeRefs",
+  "correctedChangeRefs", "unresolved", "clarification", "documentAction"]);
 const sanitizedReceiptField = (path: readonly PropertyKey[]) => ("result" + path.slice(0, 10).map(part => typeof part === "number"
   ? "[]" : typeof part === "string" && receiptFieldNames.has(part) ? `.${part}` : ".unknownField").join("")).slice(0, 160);
 

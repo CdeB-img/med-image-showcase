@@ -12,7 +12,7 @@ import { buildCurrentProjectImpactProjection } from "@/features/query-navigation
 import { type RetainedContributionCandidate } from "./contribution-lifecycle";
 import { type StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
 import { executeProductUnderstandInteraction, recognizeProductDocumentAction, type ProductDocumentAction } from "./product-entry-routing";
-import { classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest, readNaturalCandidateDecision } from "./natural-conversation-policy";
+import { classifyNaturalConversationActs, detectConversationStylePreference, isProjectStateQuestion, isUserFeedbackOnAssistantOutput, isExternalEvidenceRequest, isExplicitProjectRecordingRequest } from "./natural-conversation-policy";
 import { appendFunctionalResetProviderCallRecords, createConversationEntryId, createTurnId, recordConversationConfirmationReceipt, type FunctionalResetSession } from "./session";
 import { resolveDocumentaryIntent } from "./documentary-conversation";
 import { prepareScientificThinkingInteraction } from "./scientific-thinking-standard";
@@ -26,6 +26,9 @@ import { projectEmptyBridgeTrace, appendBridgeTrace } from "./bridge-trace-proje
 import type { PostAdoptionContinuationJob } from "./post-adoption-continuation";
 import { prepareConversationTurnContext, prepareConfiguredConversationRequest, prepareTerraConversationRequest, assertConversationSubmissionContextCurrent } from "./conversation-request";
 import { deliverTerraConversationResult, prepareTerraRecordingResult, prepareConfiguredConversationReceipt, realizeConfiguredConversationReceipt, applyConfiguredConversationReceipt } from "./conversation-result-application";
+import { buildConversationHumanIntentContext } from "../../scientific-thinking/conversation-human-intent";
+import { retainSemanticCandidateCorrection, validateCurrentSemanticConversationDecision } from "./semantic-conversation-decision";
+import { logicalDigest } from "../../knowledge-engine/canonical";
 
 type ConversationTurnPorts = Readonly<{
   session: FunctionalResetSession;
@@ -139,8 +142,7 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
     return command.handled;
   };
 
-  const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn,
-    pendingConfirmation: ReturnType<typeof readNaturalCandidateDecision> = null) => {
+  const submitTerraText = async (content: string, prepareRecording = false, continuedTurn?: ScientificInterpretationTurn) => {
     if (foregroundInFlightRef.current) return;
     foregroundInFlightRef.current = true;
     const requestedSessionId = latestSessionRef.current.sessionId;
@@ -165,23 +167,16 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
     setDraft(""); setBusy(true); setBusyMessage("NOXIA réfléchit…");
     setSession(current => {
       const bound = bindStudioConversationAnswer(current, userTurn);
-      const withReceipt = pendingConfirmation?.act === "CONFIRM" && !studioAnswer && !retry && !continuedTurn
-        ? recordConversationConfirmationReceipt(bound, userTurn, pendingConfirmation) : bound;
-      // Existing structured refusal policy is evidence, never a new compatibility classifier.
-      const refusesScope = pendingConfirmation?.act === "REFUSE"
-        || pendingConfirmation?.qualified && !pendingConfirmation.separableContinuation;
-      const preparationState = refusesScope ? {
-        ...withReceipt, workingDraftPreparations: withReceipt.workingDraftPreparations?.map(p =>
-          p.checkpoint && p.decision === "PENDING" ? { ...p, postCutoffBlocker: `REFUSAL_OR_CORRECTION:${userTurn.turnId}` } : p)
-      } : withReceipt;
       return {
-        ...preparationState, pendingMixedUserTurnRef: null, runtimeTurns, entries: [...current.entries,
+        ...bound, pendingMixedUserTurnRef: null, runtimeTurns, entries: [...current.entries,
         ...(!retry && !continuedTurn ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content, createdAt: now }] : [])], updatedAt: now
       };
     });
     const records: ProviderCallRecord[] = [];
     try {
-      const response = await requestProtocolDesignerBridge(prepareTerraConversationRequest(session, requestTurns, userTurn, autonomousProjectBuild, prepareRecording));
+      const request = prepareTerraConversationRequest(session, requestTurns, userTurn, autonomousProjectBuild, prepareRecording);
+      const decisionContext = buildConversationHumanIntentContext(request);
+      const response = await requestProtocolDesignerBridge(request);
       records.push(...response.observability.providerCalls ?? []);
       const latest = latestSessionRef.current;
       const pureDiscussion = !prepareRecording && !response.persistentExtraction.contribution
@@ -194,6 +189,45 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
       latestSessionRef.current = delivered;
       setSession(delivered);
       if (response.conversationFailure) setDraft(current => current || content);
+      const interpretation = !response.conversationFailure ? response.scientificConversation?.retainedScientificResult?.humanIntent : null;
+      if (interpretation && decisionContext && !studioAnswer && !continuedTurn) {
+        const semanticDecision = { context: decisionContext, interpretation };
+        const bound = validateCurrentSemanticConversationDecision(delivered, userTurn, semanticDecision);
+        if (interpretation.acts.some(act => act === "REJECT" || act === "CORRECTION") || bound.action === "CLARIFY") {
+          const protectedSession = { ...delivered, workingDraftPreparations: delivered.workingDraftPreparations?.map(p =>
+            p.checkpoint && p.decision === "PENDING" ? { ...p, postCutoffBlocker: `${interpretation.acts.some(act => act === "REJECT" || act === "CORRECTION")
+              ? "REFUSAL_OR_CORRECTION" : "SEMANTIC_DECISION_UNRESOLVED"}:${userTurn.turnId}` } : p) };
+          latestSessionRef.current = protectedSession; setSession(protectedSession);
+        }
+        if ((bound.action === "CONFIRM" || bound.action === "REFUSE") && decisionContext.presentation?.kind === "NATIVE_CANDIDATE") {
+          const naturalDecision: NaturalContributionDecisionContext = { userTurn, originalText: content,
+            gatewayState: delivered.conversationLanguageGateway, stylePreference: null,
+            traceLedger: delivered.scientificExecutionTraceLedger, semanticDecision,
+            selectedChangeRefs: bound.interaction?.selectedChangeRefs,
+            ...(bound.action === "CONFIRM" ? { refusedChangeRefs: bound.interaction?.refusedChangeRefs,
+              correctionChangeRefs: bound.interaction?.correctionChangeRefs } : {}) };
+          if (bound.action === "CONFIRM") {
+            const adopted = await confirmContribution(decisionContext.presentation.ref, naturalDecision);
+            if (!adopted) throw new Error("SEMANTIC_HUMAN_DECISION_ADOPTION_NOT_COMMITTED");
+          } else rejectContribution(decisionContext.presentation.ref, naturalDecision);
+        } else if (bound.action === "CORRECT") {
+          const corrected = retainSemanticCandidateCorrection(latestSessionRef.current, userTurn, semanticDecision, receivedAt);
+          latestSessionRef.current = corrected; setSession(corrected);
+        } else if (bound.action === "NONE" && decisionContext.presentation?.kind !== "NATIVE_CANDIDATE"
+          && decisionContext.resolution === "NONE" && interpretation.acts.includes("ACCEPT")
+          && !interpretation.acts.some(act => ["REJECT", "CORRECTION", "PARTIAL_ACCEPT"].includes(act))) {
+          // This is assent to the exact displayed exchange, not PRJ authority.
+          const withReceipt = recordConversationConfirmationReceipt(session, userTurn,
+            { act: "CONFIRM", qualified: interpretation.acts.includes("ADDITIONAL_INFORMATION"),
+              separableContinuation: interpretation.acts.includes("ADDITIONAL_INFORMATION") },
+            { inputDigest: interpretation.inputDigest, resultDigest: logicalDigest(interpretation) });
+          setSession(current => ({ ...current, conversationConfirmationReceipts: withReceipt.conversationConfirmationReceipts }));
+        }
+        if (interpretation.documentAction && bound.action !== "CLARIFY"
+          && !interpretation.acts.some(act => ["CORRECTION", "ADDITIONAL_INFORMATION", "REJECT"].includes(act))) {
+          dispatchProductDocumentAction(interpretation.documentAction, { content, createdAt: now });
+        }
+      }
       setSession(prepareTerraRecordingResult({ session, response, prepareRecording, traceRunId, userTurn, receivedAt, content }));
     } catch (error) {
       if (error instanceof ProductBridgeClientError) records.push(...error.observability?.providerCalls ?? []);
@@ -202,7 +236,8 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
         ...current, entries: [...current.entries, {
           entryId: createConversationEntryId(), kind: "ERROR",
           role: "NOXIA", content: error instanceof Error ? error.message : "La réponse n'a pas abouti. Votre message et le projet sont conservés.",
-          turnId: userTurn.turnId, failureCode: error instanceof ProductBridgeClientError ? error.code : "CONVERSATION_CLIENT_FAILURE",
+          turnId: userTurn.turnId, failureCode: error instanceof ProductBridgeClientError ? error.code
+            : error instanceof Error && error.message.startsWith("SEMANTIC_HUMAN_DECISION_") ? error.message : "CONVERSATION_CLIENT_FAILURE",
           createdAt: new Date().toISOString()
         }]
       }));
@@ -223,7 +258,7 @@ export function useConversationTurn({ session, latestSessionRef, setSession, bus
         return;
       }
       await submitTerraText(content, autonomousProjectBuild ? false : isExplicitProjectRecordingRequest(content),
-        undefined, readNaturalCandidateDecision(content));
+        undefined);
       return;
     }
     const now = new Date().toISOString();
