@@ -74,6 +74,12 @@ describe("Native Studio writing proposal / no semantic owner transfer", () => {
     };
     expect((await invoke()).status).toBe(200); expect(fetchImpl).toHaveBeenCalledOnce();
     expect((await invoke()).status).toBe(200); expect(fetchImpl).toHaveBeenCalledOnce();
+    // The new corridor accepts only the existing durable reference transport,
+    // never caller-supplied Project truth under an unchanged identity/digest.
+    const { currentProjectRef: _ref, ...inline } = body;
+    const forgedProject = structuredClone(run.project2); forgedProject.sections.flatMap(section => section.elements)[0].content = "État non vérifié du client";
+    expect((await invoke({ ...inline, currentProject: forgedProject } as never)).status).not.toBe(200);
+    expect(fetchImpl).toHaveBeenCalledOnce();
     const forged = structuredClone(body); forged.editRequest.binding.beforeDigest = "foreign";
     expect((await invoke(forged)).status).toBe(422); expect(fetchImpl).toHaveBeenCalledOnce();
     expect((await invoke(body, "x".repeat(43))).status).not.toBe(200); expect(fetchImpl).toHaveBeenCalledOnce();
