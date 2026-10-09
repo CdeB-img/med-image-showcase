@@ -56,11 +56,14 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const [clarification, setClarification] = useState<QuestionPresentationRequest | null>(null);
   const [saveFeedback, setSaveFeedback] = useState(false);
   const [impact, setImpact] = useState<DocumentImpactReport | null>(null);
+  const [activeParagraph, setActiveParagraph] = useState<string | null>(null);
+  const [assistantTarget, setAssistantTarget] = useState<{ nodeId: string; request: number } | null>(null);
+  const [proposalBusy, setProposalBusy] = useState(false);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
   const epoch = useRef(0), flight = useRef(false);
   const dirty = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.result.revision.content));
-  const busy = saveState === "SAVING" || finalizing;
+  const busy = saveState === "SAVING" || finalizing || proposalBusy;
   const unassessedDraft = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.base));
   useEffect(() => {
     let active = true; setImpact(null);
@@ -215,18 +218,20 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   };
   const close = () => { if (dirty) setDialog("LEAVE"); else if (!busy) onClose(); };
   const display = (value: string) => loaded ? studioBoundText(value, loaded.body) : value;
-  const textField = (value: string, original: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false) =>
+  const contextualAction = (nodeId?: string) => editing && nodeId && activeParagraph === nodeId && !completed && mode !== "READ" &&
+    <Button size="sm" variant="outline" className="mt-2" disabled={busy} onClick={() => setAssistantTarget(previous => ({ nodeId, request: (previous?.request ?? 0) + 1 }))}>Améliorer ce paragraphe avec NOXIA</Button>;
+  const textField = (value: string, original: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false, nodeId?: string) =>
     mode === "READ" || hasProtectedTextBinding(original) ? <div className="rounded-lg bg-muted/40 p-3">
       <p className="whitespace-pre-wrap break-words leading-7">{display(value)}</p>
       {hasProtectedTextBinding(original) && <p className="mt-2 text-xs text-muted-foreground">Lecture seule · références natives protégées</p>}
-    </div> : <StudioText value={value} label={label} heading={heading} disabled={busy || completed} onChange={value => edit(content => change(content, value))} />;
-  const pair = (before: string, after: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false) => {
+    </div> : <><StudioText value={value} label={label} heading={heading} disabled={busy || completed} onContext={nodeId ? () => setActiveParagraph(nodeId) : undefined} onChange={value => edit(content => change(content, value))} />{contextualAction(nodeId)}</>;
+  const pair = (before: string, after: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false, nodeId?: string) => {
     const kind = before === after ? "Inchangé" : !before ? "Ajouté" : !after ? "Retiré" : "Modifié";
     return <article className="mb-4 rounded-xl border p-4" key={label}>
       <h4 className="mb-3 text-sm font-semibold">{label} · {kind}</h4>
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <div className="min-w-0" data-testid="studio-compare-base"><p className="mb-2 text-xs font-medium text-muted-foreground">Base · Version {generation.displayVersion} · lecture seule</p><p className="whitespace-pre-wrap break-words text-sm leading-7">{display(before) || "Texte vide"}</p></div>
-        <div className="min-w-0 border-l-2 border-primary/30 pl-4" data-testid="studio-compare-draft"><p className="mb-2 text-xs font-medium text-muted-foreground">Brouillon actuel · modifiable</p>{textField(after, before, label, change, heading)}</div>
+        <div className="min-w-0 border-l-2 border-primary/30 pl-4" data-testid="studio-compare-draft"><p className="mb-2 text-xs font-medium text-muted-foreground">Brouillon actuel · modifiable</p>{textField(after, before, label, change, heading, nodeId)}</div>
       </div>
     </article>;
   };
@@ -251,9 +256,9 @@ export default function DocumentStudio({ client, target, finalization, editing, 
     </header>
     {impact && currentProjectSnapshot?.sourceProjectDigest === impact.currentProjectDigest && <details className="border-b p-5 sm:px-6"><summary className="cursor-pointer text-sm font-medium">Cohérence, dépendances et impact sur les autres documents</summary><div className="mt-3"><DocumentImpactSummary report={impact} /></div></details>}
     {editing && loaded?.result && buffer && mode !== "READ" && !completed && <StudioEditAssistant runtime={editing} revision={loaded.result.revision}
-      buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} onApply={content => {
+      buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} requestedTarget={assistantTarget} onBusy={setProposalBusy} onApply={content => {
         if (flight.current || completed) return;
-        setBuffer(content); setSaveState("DIRTY"); setActionFailed(false);
+        setBuffer(content); setSaveState(stableStringify(content) === stableStringify(loaded.result!.revision.content) ? "CLEAN" : "DIRTY"); setActionFailed(false);
       }} />}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
@@ -269,14 +274,14 @@ export default function DocumentStudio({ client, target, finalization, editing, 
           {pair(loaded.base.title, buffer.title, "Titre du document", (content, value) => { content.title = value; }, true)}
           {buffer.sections.map((section, index) => <section key={section.nodeId}>
             {pair(loaded.base.sections[index].title, section.title, `Titre de la section ${index + 1}`, (content, value) => { content.sections[index].title = value; }, true)}
-            {section.blocks.map((block, blockIndex) => pair(loaded.base.sections[index].blocks[blockIndex].text, block.text, `Section ${index + 1} · paragraphe ${blockIndex + 1}`, (content, value) => { content.sections[index].blocks[blockIndex].text = value; }))}
+            {section.blocks.map((block, blockIndex) => pair(loaded.base.sections[index].blocks[blockIndex].text, block.text, `Section ${index + 1} · paragraphe ${blockIndex + 1}`, (content, value) => { content.sections[index].blocks[blockIndex].text = value; }, false, block.nodeId))}
           </section>)}
         </section> : <div className="space-y-8">
           {textField(buffer.title, loaded.base.title, "Titre du document", (content, value) => { content.title = value; }, true)}
           {buffer.sections.map((section, index) => <section key={section.nodeId} className="space-y-4" aria-label={`Section ${index + 1}`}>
             {textField(section.title, loaded.base.sections[index].title, `Titre de la section ${index + 1}`, (content, value) => { content.sections[index].title = value; }, true)}
             {section.blocks.map((block, blockIndex) => <div key={block.nodeId}>
-              {textField(block.text, loaded.base.sections[index].blocks[blockIndex].text, `Section ${index + 1} · paragraphe ${blockIndex + 1}`, (content, value) => { content.sections[index].blocks[blockIndex].text = value; })}
+              {textField(block.text, loaded.base.sections[index].blocks[blockIndex].text, `Section ${index + 1} · paragraphe ${blockIndex + 1}`, (content, value) => { content.sections[index].blocks[blockIndex].text = value; }, false, block.nodeId)}
             </div>)}
             {section.provenanceRefs.length > 0 && <details className="text-xs text-muted-foreground"><summary className="cursor-pointer">Références natives conservées (lecture seule)</summary><ul className="mt-2 space-y-1 break-all">{section.provenanceRefs.map(ref => <li key={ref}>{ref}</li>)}</ul></details>}
           </section>)}
@@ -321,11 +326,11 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   </section>;
 }
 
-function StudioText({ value, label, heading, disabled, onChange }: { value: string; label: string; heading?: boolean; disabled: boolean; onChange: (value: string) => void }) {
+function StudioText({ value, label, heading, disabled, onContext, onChange }: { value: string; label: string; heading?: boolean; disabled: boolean; onContext?: () => void; onChange: (value: string) => void }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   useEffect(() => { if (ref.current) { ref.current.style.height = "auto"; ref.current.style.height = `${ref.current.scrollHeight}px`; } }, [value]);
   return <textarea ref={ref} aria-label={label} value={value} rows={heading ? 1 : 3} disabled={disabled} spellCheck
-    onChange={event => onChange(event.target.value)}
+    onFocus={onContext} onSelect={onContext} onChange={event => onChange(event.target.value)}
     className={`block w-full min-w-0 resize-y rounded-md border border-transparent bg-transparent p-2 leading-7 hover:border-input focus-visible:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-70 ${heading ? "text-xl font-semibold" : "text-base"}`} />;
 }
 

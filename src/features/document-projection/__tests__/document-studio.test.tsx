@@ -60,7 +60,12 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     });
     const editing = { projectBinding: () => binding, propose };
     const view = run.open(undefined, undefined, editing); await run.ready(); expect(propose).not.toHaveBeenCalled();
-    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Rends ce paragraphe plus clair" } });
+    fireEvent.focus(await run.ready());
+    fireEvent.click(screen.getByRole("button", { name: "Améliorer ce paragraphe avec NOXIA" }));
+    fireEvent.click(screen.getByRole("button", { name: "Clarifier" }));
+    expect(propose).not.toHaveBeenCalled();
+    expect((screen.getByRole("textbox", { name: "Demande de modification" }) as HTMLTextAreaElement).value).toContain("sans changer les faits");
+    expect(screen.queryByRole("button", { name: /tableau|liste/u })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
     await screen.findByRole("region", { name: "Proposition de modification" });
     const original = (await run.ready()).getAttribute("value") ?? run.revision().content.sections[0].blocks[0].text;
@@ -69,9 +74,30 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" })); await screen.findByRole("region", { name: "Proposition de modification" });
     fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" }));
     expect(await run.ready()).toHaveValue("Correction proposée par la fixture, non évaluée scientifiquement.");
+    fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
+    expect(compareScope().getByRole("heading", { name: "Section 1 · paragraphe 1 · Modifié" })).toBeInTheDocument();
     expect(run.fixture.revisions()).toHaveLength(1); await save(); const id = run.revision().revisionId;
     view.unmount(); run.open(undefined, undefined, editing); expect(await run.ready()).toHaveValue("Correction proposée par la fixture, non évaluée scientifiquement.");
     expect(run.revision().revisionId).toBe(id); expect(run.fixture.bodies()).toEqual(archived); expect(propose).toHaveBeenCalledTimes(2);
+  });
+  it("an in-flight explicit proposal locks competing lifecycle actions and unchanged output stays clean", async () => {
+    const run = await runtime(), binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    let release!: () => void;
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    const propose = vi.fn<StudioEditRuntime["propose"]>(async (revision, node, instruction) => {
+      await gate; const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: revision.content.sections[0].blocks[0].text });
+    });
+    run.open({ run: vi.fn(async () => null) }, undefined, { projectBinding: () => binding, propose }); await run.ready();
+    fireEvent.focus(await run.ready()); fireEvent.click(screen.getByRole("button", { name: "Améliorer ce paragraphe avec NOXIA" }));
+    fireEvent.click(screen.getByRole("button", { name: "Raccourcir" })); expect(propose).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeDisabled());
+    expect(await run.ready()).toBeDisabled(); expect(screen.getByRole("button", { name: "Préparation de la proposition…" })).toBeDisabled();
+    release(); await screen.findByRole("region", { name: "Proposition de modification" });
+    fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" }));
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+    expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Enregistré"); expect(propose).toHaveBeenCalledTimes(1);
   });
   it("local concurrent edit invalidates a displayed proposal; dirty state cannot request a paid rewrite", async () => {
     const run = await runtime(), binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
 import type { DocumentWorkingRevision, EditableDocumentContent } from "./working-revision";
@@ -6,16 +6,24 @@ import { applyStudioEditProposal, type StudioEditProposal } from "./studio-edit-
 
 /** Ephemeral proposal UI only. Accepted text enters the single existing Studio
  * buffer; the existing explicit save/finalization owners remain unchanged. */
-export default function StudioEditAssistant({ runtime, revision, buffer, disabled, dirty, onApply }: {
+export default function StudioEditAssistant({ runtime, revision, buffer, disabled, dirty, requestedTarget, onBusy, onApply }: {
   runtime: StudioEditRuntime; revision: DocumentWorkingRevision; buffer: EditableDocumentContent;
   disabled: boolean; dirty: boolean; onApply: (content: EditableDocumentContent) => void;
+  requestedTarget?: { nodeId: string; request: number } | null; onBusy?: (busy: boolean) => void;
 }) {
   const blocks = revision.content.sections.flatMap((section, index) => section.blocks.flatMap((block, paragraph) =>
     /\[\[(?:FACT|CITE):/u.test(block.text) ? [] : [{ ...block, label: `${section.title || `Section ${index + 1}`} · paragraphe ${paragraph + 1}` }]));
   const [nodeId, setNodeId] = useState(blocks[0]?.nodeId ?? ""), [instruction, setInstruction] = useState("");
   const [proposal, setProposal] = useState<StudioEditProposal | null>(null), [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null), [applied, setApplied] = useState(false);
-  const flight = useRef(false);
+  const flight = useRef(false), panel = useRef<HTMLDetailsElement>(null), instructionInput = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => { onBusy?.(busy); return () => onBusy?.(false); }, [busy, onBusy]);
+  useEffect(() => {
+    if (!requestedTarget) return;
+    setNodeId(requestedTarget.nodeId); setProposal(null); setError(null); setApplied(false);
+    if (panel.current) { panel.current.open = true; panel.current.scrollIntoView?.({ block: "nearest" }); }
+    instructionInput.current?.focus();
+  }, [requestedTarget]);
   const propose = async () => {
     if (flight.current || disabled || dirty || !instruction.trim() || !nodeId) return;
     flight.current = true; setBusy(true); setProposal(null); setError(null); setApplied(false);
@@ -29,14 +37,21 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
     catch { setError("Le passage, la sauvegarde ou le projet a changé. Cette proposition ne peut plus être appliquée ; aucune modification n’a été effectuée."); }
   };
   return <aside className="border-b bg-primary/5 p-5 sm:px-6" aria-label="Édition avec NOXIA">
-    <details><summary className="cursor-pointer font-medium">Améliorer un passage avec NOXIA</summary>
+    <details ref={panel}><summary className="cursor-pointer font-medium">Améliorer un passage avec NOXIA</summary>
       <p className="mt-3 text-sm text-muted-foreground">Une demande explicite prépare une proposition. Elle ne sera ni appliquée ni adoptée automatiquement.</p>
       <div className="mt-3 flex flex-col gap-3">
         <label className="text-sm">Passage à modifier<select aria-label="Passage à modifier" className="mt-1 block w-full min-w-0 rounded-lg border bg-background p-2" value={nodeId} disabled={disabled || busy} onChange={event => { setNodeId(event.target.value); setProposal(null); setError(null); }}>
           {blocks.map(block => <option key={block.nodeId} value={block.nodeId}>{block.label}</option>)}</select></label>
-        <label className="text-sm">Votre demande<textarea aria-label="Demande de modification" className="mt-1 block w-full rounded-lg border bg-background p-3" rows={2} maxLength={2000}
+        <label className="text-sm">Votre demande<textarea ref={instructionInput} aria-label="Demande de modification" className="mt-1 block w-full rounded-lg border bg-background p-3" rows={2} maxLength={2000}
           placeholder="Raccourcis ce passage sans perdre les informations…" value={instruction} disabled={disabled || busy}
           onChange={event => { setInstruction(event.target.value); setProposal(null); setApplied(false); }} /></label>
+        <div role="group" aria-label="Demandes rédactionnelles" className="flex flex-wrap gap-2">{[
+          ["Clarifier", "Reformule ce paragraphe plus clairement, sans changer les faits, les réserves ni les inconnues."],
+          ["Raccourcir", "Raccourcis ce paragraphe sans perdre les informations, les réserves ni les inconnues."],
+          ["Développer la formulation", "Développe la formulation de ce paragraphe sans ajouter de faits, de décisions ni de méthodes non fournies."],
+        ].map(([label, text]) => <Button key={label} size="sm" variant="outline" disabled={disabled || busy}
+          onClick={() => { setInstruction(text); setProposal(null); setApplied(false); instructionInput.current?.focus(); }}>{label}</Button>)}</div>
+        <p className="text-xs text-muted-foreground">Ces raccourcis remplissent la demande uniquement. L’envoi reste explicite ; le passage traité est le paragraphe natif entier.</p>
         {dirty && <p role="status" className="text-sm">Enregistrez les modifications avant de demander une proposition sur cette sauvegarde.</p>}
         <Button className="self-start" onClick={() => void propose()} disabled={disabled || busy || dirty || !nodeId || !instruction.trim()}>{busy ? "Préparation de la proposition…" : "Proposer une modification"}</Button>
       </div>
