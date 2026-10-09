@@ -23,6 +23,23 @@ describe("explicit installation / read-only runtime schema compatibility", () =>
     await verification(fixture.sql)();
     expect(fixture.queries).toHaveLength(2);
   });
+  it("checks NOT NULL through column metadata, not PostgreSQL 18 duplicate constraint rows", async () => {
+    const fixture = archiveSqlFixture();
+    await verification(fixture.sql)();
+    expect(fixture.queries[0]).toContain("'notNull', a.attnotnull");
+    expect(fixture.queries[0]).toContain("k.contype <> 'n'");
+    expect(fixture.queries[0]).toContain("'validated', k.convalidated");
+    expect(fixture.queries[0]).toContain("not nn.convalidated");
+    expect(fixture.queries[0]).toContain("to_jsonb(nn)->>'conenforced'");
+    expect(fixture.queries[0]).toContain("k.convalidated and coalesce((to_jsonb(k)->>'conenforced')::boolean, true)");
+  });
+  it("a missing NOT NULL still fails closed independently of constraint representation", async () => {
+    const fixture = archiveSqlFixture(), changed = structuredClone(nativeCatalog);
+    changed.find(row => row.table_name === "public_project_snapshot")!.columns
+      .find(column => column.name === "access_proof_hash")!.notNull = false;
+    fixture.setSchemaCatalog(changed);
+    await expect(verification(fixture.sql)()).rejects.toMatchObject({ code: "DOC_ARCHIVE_SCHEMA_INCOMPATIBLE", status: 503 });
+  });
   it.each(tables)("missing %s fails closed, is bounded and does not self-install", async table => {
     const fixture = archiveSqlFixture();
     fixture.setSchemaCatalog(nativeCatalog.filter(row => row.table_name !== table));

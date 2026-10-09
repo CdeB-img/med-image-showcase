@@ -4,17 +4,24 @@ import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { runtimeSchemaFingerprints, type RuntimeSchemaTable } from "./protocol-designer-runtime-schema-contract.js";
 
 /** Structural catalog only: no row bodies, proofs, DDL, installation or repair.
- * FK identity is read from catalogs, not search_path-dependent SQL deparsing. */
+ * FK identity is read from catalogs, not search_path-dependent SQL deparsing.
+ * NOT NULL is checked through attnotnull above: PostgreSQL 18 also emits a
+ * contype=n row for it, unlike 17. Do not count the same invariant twice, but
+ * an unvalidated/unenforced native constraint must still fail compatibility. */
 export const readRuntimeSchemaCatalog = async (sql: Sql, tables: readonly RuntimeSchemaTable[]) => sql`
   select c.relname as table_name, c.relkind as table_kind,
     coalesce((select jsonb_agg(jsonb_build_object(
-      'name', a.attname, 'type', format_type(a.atttypid, a.atttypmod), 'notNull', a.attnotnull,
+      'name', a.attname, 'type', format_type(a.atttypid, a.atttypmod),
+      'notNull', a.attnotnull and not exists (select 1 from pg_catalog.pg_constraint nn
+        where nn.conrelid = a.attrelid and nn.contype = 'n' and a.attnum = any(nn.conkey)
+          and (not nn.convalidated or not coalesce((to_jsonb(nn)->>'conenforced')::boolean, true))),
       'default', pg_get_expr(d.adbin, d.adrelid), 'identity', a.attidentity, 'generated', a.attgenerated)
       order by a.attname collate "C") from pg_catalog.pg_attribute a
       left join pg_catalog.pg_attrdef d on d.adrelid = a.attrelid and d.adnum = a.attnum
       where a.attrelid = c.oid and a.attnum > 0 and not a.attisdropped), '[]'::jsonb) as columns,
     coalesce((select jsonb_agg(jsonb_build_object(
-      'name', k.conname, 'type', k.contype, 'validated', k.convalidated,
+      'name', k.conname, 'type', k.contype,
+      'validated', k.convalidated and coalesce((to_jsonb(k)->>'conenforced')::boolean, true),
       'deferrable', k.condeferrable, 'deferred', k.condeferred,
       'expression', pg_get_expr(k.conbin, k.conrelid),
       'keys', (select jsonb_agg(a.attname order by x.ordinality) from unnest(k.conkey) with ordinality x(num, ordinality)
@@ -24,7 +31,7 @@ export const readRuntimeSchemaCatalog = async (sql: Sql, tables: readonly Runtim
       'foreignKeys', (select jsonb_agg(a.attname order by x.ordinality) from unnest(k.confkey) with ordinality x(num, ordinality)
         join pg_catalog.pg_attribute a on a.attrelid = k.confrelid and a.attnum = x.num),
       'updateAction', k.confupdtype, 'deleteAction', k.confdeltype, 'matchType', k.confmatchtype)
-      order by k.conname collate "C") from pg_catalog.pg_constraint k where k.conrelid = c.oid), '[]'::jsonb) as constraints,
+      order by k.conname collate "C") from pg_catalog.pg_constraint k where k.conrelid = c.oid and k.contype <> 'n'), '[]'::jsonb) as constraints,
     coalesce((select jsonb_agg(jsonb_build_object(
       'name', t.tgname, 'enabled', t.tgenabled, 'type', t.tgtype, 'arguments', encode(t.tgargs, 'hex'),
       'function', n.nspname || '.' || p.proname, 'body', p.prosrc,
