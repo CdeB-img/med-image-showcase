@@ -8,6 +8,7 @@ import { refreshFunctionalResetDocumentPortfolio } from "@/features/document-pro
 import { rehydrateProjectSourceLibrary } from "@/features/knowledge-engine/project-source-library";
 import { validateDocumentEvidence } from "@/features/document-projection/scientific-document-revision";
 import { encodeSessionStorage } from "./session-storage-codec";
+import { readLegacyProjectSessions } from "./legacy-session-reader";
 
 export const PROJECT_SESSION_PREFIX = `${FUNCTIONAL_RESET_STORAGE_KEY}::project::`;
 export const ACTIVE_PROJECT_STORAGE_KEY = "noxia:protocol-designer:active-project";
@@ -16,7 +17,10 @@ export const RESEARCHER_PROFILE_STORAGE_KEY = "noxia:protocol-designer:local-pro
 export type SavedProjectSession = { key: string; raw: string | null; session: FunctionalResetSession };
 export const isProjectSessionKey = (key: string) => key === FUNCTIONAL_RESET_STORAGE_KEY || key.startsWith(PROJECT_SESSION_PREFIX);
 
-export const readProjectSessions = (storage: Storage) => {
+type ProjectSessionDiscovery = { projects: SavedProjectSession[]; unreadable: string[] };
+export function readProjectSessions(storage: Storage): ProjectSessionDiscovery;
+export function readProjectSessions(storage: Storage, includeLegacy: true): ProjectSessionDiscovery & ReturnType<typeof readLegacyProjectSessions>;
+export function readProjectSessions(storage: Storage, includeLegacy = false) {
   const projects: SavedProjectSession[] = [];
   const unreadable: string[] = [];
   for (let i = 0; i < storage.length; i++) {
@@ -45,8 +49,8 @@ export const readProjectSessions = (storage: Storage) => {
       projects.push({ key, raw, session });
     } catch { unreadable.push(key); }
   }
-  return { projects, unreadable };
-};
+  return includeLegacy ? { projects, unreadable, ...readLegacyProjectSessions(storage) } : { projects, unreadable };
+}
 
 export const createProjectSession = (storage: Storage, title: string): SavedProjectSession => {
   const session = createFunctionalResetSession();

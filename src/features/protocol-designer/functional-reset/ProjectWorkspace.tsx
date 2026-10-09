@@ -10,17 +10,18 @@ import {
   RESEARCHER_PROFILE_STORAGE_KEY, renameProjectSession, type SavedProjectSession,
 } from "./project-workspace-storage";
 import type { FunctionalResetSession, SessionPersistenceResult } from "./session";
+import type { LegacyConversationSnapshot } from "./legacy-session-reader";
 
 const buttonClass = "min-h-11 rounded-xl border bg-background px-4 text-sm font-medium";
 const projectTitle = (saved: SavedProjectSession) => saved.session.workspace?.title ?? "Projet sans titre";
 
 const initial = () => {
   const storage = window.localStorage;
-  const found = readProjectSessions(storage);
+  const found = readProjectSessions(storage, true);
   const activeKey = storage.getItem(ACTIVE_PROJECT_STORAGE_KEY);
-  const active = found.projects.find((project) => project.key === activeKey)
+  const active = found.legacy.some(project => project.key === activeKey) ? null : found.projects.find((project) => project.key === activeKey)
     ?? (activeKey === "LIST" ? null : found.projects[0])
-    ?? (found.unreadable.length || activeKey === "LIST" ? null : createProjectSession(storage, "Projet sans titre"));
+    ?? (found.unreadable.length || found.legacy.length || found.unreadableLegacy.length || activeKey === "LIST" ? null : createProjectSession(storage, "Projet sans titre"));
   let profile;
   let profileError = "";
   try { profile = readResearcherProfile(storage); }
@@ -67,7 +68,8 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
   const [navigationWarning, setNavigationWarning] = useState("");
   const [title, setTitle] = useState("");
   const [generation, setGeneration] = useState(0);
-  const [list, setList] = useState(() => ({ projects: boot.projects, unreadable: boot.unreadable }));
+  const [list, setList] = useState(() => ({ projects: boot.projects, unreadable: boot.unreadable, legacy: boot.legacy, unreadableLegacy: boot.unreadableLegacy }));
+  const [legacyOpen, setLegacyOpen] = useState<LegacyConversationSnapshot | null>(() => boot.legacy.find(saved => saved.key === window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)) ?? null);
   const [renameTarget, setRenameTarget] = useState<SavedProjectSession | null>(null);
   const [renameTitle, setRenameTitle] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<SavedProjectSession | null>(null);
@@ -80,7 +82,7 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
   }, [error]);
 
   const refreshList = () => {
-    const next = readProjectSessions(window.localStorage);
+    const next = readProjectSessions(window.localStorage, true);
     setList(next);
     return next;
   };
@@ -219,6 +221,15 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
               <p className="mt-3 max-w-2xl text-sm text-muted-foreground">Projets enregistrés dans ce navigateur.</p>
             </header>
             {list.unreadable.length > 0 && <p role="alert" className="rounded-xl border border-amber-400 p-4 text-sm">{list.unreadable.length} sauvegarde(s) illisible(s) sont conservées sans remplacement. Leur contenu nécessite une récupération avant réouverture.</p>}
+            {list.unreadableLegacy.length > 0 && <p role="alert">{list.unreadableLegacy.length} sauvegarde(s) historique(s) non interprétable(s), conservée(s) sans conversion.</p>}
+            {list.legacy.length > 0 && <section aria-label="Projets historiques" className="space-y-3">
+              <h2 className="text-lg font-semibold">Projets historiques · lecture seule</h2>
+              <p className="text-sm text-muted-foreground">Les sauvegardes antérieures sont conservées. Leur consultation ne les convertit pas et ne crée aucun projet.</p>
+              {list.legacy.map(saved => <article key={saved.key} className="rounded-xl border bg-background p-4">
+                <h3 className="font-medium">{saved.title}</h3>
+                <button type="button" className={`${buttonClass} mt-2`} onClick={() => setLegacyOpen(saved)}>Consulter la conversation historique</button>
+              </article>)}
+            </section>}
             {boot.profileError && <p role="alert">{boot.profileError}</p>}
             <form onSubmit={(event) => { event.preventDefault(); newProject(); }} className="rounded-2xl border bg-background p-5">
               <label htmlFor="new-project-title" className="font-medium">Nouveau projet</label>
@@ -246,6 +257,13 @@ export default function ProjectWorkspace({ traceCaptureConfiguration }: { traceC
           </div>}
       </main>}
 
+    {legacyOpen && <ModalFrame title={legacyOpen.title} onClose={() => setLegacyOpen(null)}>
+      <p className="mt-3 text-sm">Lecture seule · sauvegarde v3, contrat {legacyOpen.sourceContractVersion}. Aucune conversion ni adoption. Les documents et autres états historiques restent dans leur sauvegarde originale.</p>
+      <div className="mt-4 max-h-[60dvh] space-y-4 overflow-y-auto" aria-label="Conversation historique">
+        {legacyOpen.entries.map(entry => <article key={entry.id}><p className="text-xs font-semibold">{entry.role === "USER" ? "Vous" : "NOXIA"}</p><p className="whitespace-pre-wrap break-words text-sm">{entry.content}</p></article>)}
+      </div>
+      <button type="button" className={`${buttonClass} mt-4`} onClick={() => setLegacyOpen(null)}>Fermer</button>
+    </ModalFrame>}
     {renameTarget && <ModalFrame title={`Renommer « ${projectTitle(renameTarget)} »`} onClose={() => setRenameTarget(null)}>
       <form onSubmit={(event) => { event.preventDefault(); confirmRename(); }}>
         <label htmlFor="rename-project-title" className="mt-4 block text-sm font-medium">Nom du projet</label>
