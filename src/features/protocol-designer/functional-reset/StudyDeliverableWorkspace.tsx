@@ -8,7 +8,10 @@ import {
   type StudyDeliverableFile,
 } from "@/features/document-projection";
 import type { DocumentArchiveClient } from "@/features/document-projection/generation-archive-client";
-import type { DocumentGenerationBody } from "@/features/document-projection/generation-persistence";
+import type { DocumentGenerationBody, DocumentGenerationRef } from "@/features/document-projection/generation-persistence";
+import type { StudyTemplateProjectionContext } from "@/features/document-projection/types";
+import { projectAdaptivePortfolio } from "@/features/document-projection/adaptive-portfolio";
+import AdaptiveDocumentPortfolio from "@/features/document-projection/AdaptiveDocumentPortfolio";
 import DocumentArchiveHistory from "./DocumentArchiveHistory";
 import ProtocolPreview from "./ProtocolPreview";
 import type { DocumentProjection } from "@/features/document-projection";
@@ -29,6 +32,8 @@ type Props = {
   onArchivedFileDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   isArchivedProjectionCurrent?: (projection: DocumentProjection) => boolean;
   diagnosticProjectionId?: string | null;
+  adaptiveContext?: StudyTemplateProjectionContext;
+  documentaryRequests?: readonly { content: string; sourceRef: string }[];
 };
 
 const statusPresentation: Record<StudyDeliverableStatus, { label: string; className: string }> = {
@@ -40,7 +45,8 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId, adaptiveContext, documentaryRequests }: Props) {
+  const [history, setHistory] = useState<readonly DocumentGenerationRef[]>([]);
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
@@ -108,7 +114,8 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     </header>
 
     {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {archiveClient && <DocumentArchiveHistory client={archiveClient} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
+    {adaptiveContext && <AdaptiveDocumentPortfolio items={projectAdaptivePortfolio(adaptiveContext, history, portfolio.projectRef.projectDigest, documentaryRequests)} onConversation={onStudioConversation} />}
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} onHistory={setHistory} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest} onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
     {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">
       <p>Diagnostic interne · ces projections ne sont pas des générations documentaires.</p>
       <button type="button" className="mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(false)}>Ouvrir la projection technique</button>

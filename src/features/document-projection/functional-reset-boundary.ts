@@ -756,6 +756,11 @@ const requestFor = (
   return { request, definitions: resolveTemplateDocumentDefinitions(request) };
 };
 
+/** Read-only portfolio inspection reuses the exact TMP/REG composition used by
+ * DOC. No handoff authorization, body materialization or provider dispatch. */
+export const inspectFunctionalDocumentPortfolio = (project: Readonly<ResearchProjectOwnerProjection>) =>
+  requestFor(project, null, project.adoptedAt, null).request.templateContext;
+
 const dimensionForSection = (sectionId: string): FunctionalDocumentBlockerGroup["dimension"] => {
   if (/population/i.test(sectionId)) return "Population";
   if (/endpoint|variable|objective|hypoth/i.test(sectionId)) return "Critères";

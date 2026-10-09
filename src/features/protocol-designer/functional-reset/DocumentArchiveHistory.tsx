@@ -7,10 +7,11 @@ import { archivedStudioDocuments, studioDocuments, type DocumentStudioTarget } f
 import type { ActiveWorkingRevision } from "@/features/document-projection/working-revision";
 
 /** Screen state only. One selected body in RAM, never in session. */
-export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, currentProjectDigest, currentGenerationId }: {
+export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId }: {
   client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string, body: DocumentGenerationBody) => void;
   onDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   onStudio?: (target: DocumentStudioTarget) => void;
+  onHistory?: (entries: readonly DocumentGenerationRef[]) => void;
   currentProjectDigest?: string;
   currentGenerationId?: string | null;
 }) {
@@ -24,6 +25,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
   const selected = useRef<{ id: string; body: DocumentGenerationBody } | null>(null);
   const request = useRef(0);
   const lifetime = useRef(0);
+  const historyObserver = useRef(onHistory); historyObserver.current = onHistory;
   useEffect(() => {
     const epoch = ++lifetime.current;
     selected.current = null; request.current++;
@@ -31,6 +33,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
     void client.history().then(page => {
       if (lifetime.current !== epoch) return;
       setEntries(page.entries); setCursor(page.nextBeforeOrdinal); setStatus("READY");
+      historyObserver.current?.(page.entries);
     }).catch(() => { if (lifetime.current === epoch) setStatus("FAILED"); });
     void client.workingRevisions?.active?.().then(items => {
       if (lifetime.current === epoch) setDrafts(items);
@@ -44,7 +47,8 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
     try {
       const page = await client.history(cursor);
       if (lifetime.current !== epoch) return;
-      setEntries(current => [...current, ...page.entries]); setCursor(page.nextBeforeOrdinal); setStatus("READY");
+      const next = [...entries, ...page.entries];
+      setEntries(next); historyObserver.current?.(next); setCursor(page.nextBeforeOrdinal); setStatus("READY");
     } catch { if (lifetime.current === epoch) setStatus("FAILED"); }
   };
   const file = async (ref: DocumentGenerationRef, index: number, download: boolean) => {

@@ -11,7 +11,7 @@ import ProjectFinalizationCard from "./ProjectFinalizationCard";
 import { persistAdoptedProjectSession } from "./project-adoption-effects";
 import { projectDrciDraftPackPortfolio } from "@/features/document-projection/drci-draft-pack";
 import { projectDocumentLifecycle } from "@/features/document-projection/history";
-import { isFunctionalDocumentProjectionCurrent } from "@/features/document-projection/functional-reset-boundary";
+import { isFunctionalDocumentProjectionCurrent, inspectFunctionalDocumentPortfolio } from "@/features/document-projection/functional-reset-boundary";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
@@ -659,6 +659,7 @@ export default function ProtocolDesignerWorkspace({
     const pack = documentLifecycle?.currentPack;
     return pack ? projectDrciDraftPackPortfolio(portfolio, pack, session.project) : portfolio;
   }, [currentProtocolProjection, session.project, documentLifecycle]);
+  const adaptiveContext = useMemo(() => session.project ? inspectFunctionalDocumentPortfolio(session.project) : undefined, [session.project]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
@@ -841,6 +842,8 @@ export default function ProtocolDesignerWorkspace({
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
           portfolio={deliverablePortfolio}
+          adaptiveContext={adaptiveContext}
+          documentaryRequests={session.entries.flatMap(entry => entry.kind === "TEXT" && entry.role === "USER" ? [{ content: entry.content, sourceRef: entry.entryId }] : [])}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}
           onStudioNavigationLock={setStudioNavigationLocked}

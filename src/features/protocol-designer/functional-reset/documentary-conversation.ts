@@ -12,8 +12,10 @@ import { invokeKnowledgeForProject } from "../product-knowledge-owner-runtime";
 import { readProductOwnerResult } from "../product-owner-result-ledger";
 import type { FunctionalResetSession } from "./session";
 import type { DocumentaryTransformation } from "@/features/document-projection/scientific-document-revision";
+import { additionalDocumentRequest } from "@/features/document-projection/adaptive-portfolio";
 
 export type DocumentaryIntent =
+  | { kind: "DOCUMENT_REQUEST" }
   | { kind: "PROJECT_CHANGE" }
   | { kind: "DOCUMENT_REVISION"; transformation: DocumentaryTransformation; sourceRequired: boolean }
   | { kind: "DIFF" | "RESTORE" | "COMPARE_SOURCES" | "EXPLAIN_SOURCE" | "PREPARE_EVIDENCE" | "CLARIFY" }
@@ -21,6 +23,7 @@ export type DocumentaryIntent =
 const normalize = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
 /** A bounded DOC command adapter. Anything outside the supported editorial scope remains with native QRY/PRJ. */
 export const resolveDocumentaryIntent = (text: string, documentContext = false): DocumentaryIntent => {
+  if (additionalDocumentRequest(text)) return { kind: "DOCUMENT_REQUEST" };
   const normalized = normalize(text);
   const sourceAction = /(?:ajoute|retire|supprime)\s+(?:aussi\s+)?(?:cette?\s+|une?\s+|la\s+|le\s+)?(?:source|reference|publication|article|revue)\b/.test(normalized);
   const changesScience = (/(?:devien|devient|exclu|incluons|remplac|changeons|retenons|considerons|sera|seront|elarg|reduis)/.test(normalized)
@@ -93,6 +96,7 @@ export function prepareDocumentInstruction(session: FunctionalResetSession, admi
     message: "Cette instruction modifie la science du projet. Elle passe dans la conversation scientifique et exige votre revue avant adoption.",
     update: {}, forwardToScience: true,
   };
+  if (intent.kind === "DOCUMENT_REQUEST") return { message: "Votre demande documentaire est conservée dans la conversation et apparaît dans le portefeuille. Ce type de document doit encore être qualifié avant production ; aucun document ni décision scientifique n’a été créé.", update: {} };
   if (intent.kind === "CLARIFY" || intent.kind === "NOT_DOCUMENTARY") {
     reply("Précisez la section et la transformation demandées. La révision disponible porte sur l’introduction et ses références : développer, raccourcir, réorienter vers une source identifiée, ajouter ou retirer une référence. Aucune autre section n’a été modifiée.");
     return result;
