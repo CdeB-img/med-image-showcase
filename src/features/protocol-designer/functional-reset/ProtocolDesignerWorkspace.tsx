@@ -738,7 +738,7 @@ export default function ProtocolDesignerWorkspace({
 
   return <main
     id="demo-main"
-    className="min-h-screen bg-muted/30 text-foreground"
+    className="protocol-designer-workspace min-h-screen bg-muted/30 text-foreground"
     data-testid="functional-reset-workspace"
     data-product-mode={projectionMode}
   >
@@ -750,7 +750,7 @@ export default function ProtocolDesignerWorkspace({
 
     {sessionSaveWarning && !session.drciDraftPacks?.length && !onSessionChange
       && <p role="alert" className="m-4 rounded-xl border p-4 text-sm">{sessionSaveWarning}</p>}
-    <div className="mx-auto max-w-[1480px] px-4 pb-5 sm:px-6 lg:px-8">
+    <div className="protocol-designer-workspace-frame mx-auto max-w-[1480px] px-4 pb-5 sm:px-6 lg:px-8">
       <header className="sticky top-16 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
         <div className="mx-auto flex max-w-[1480px] flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0">
@@ -795,16 +795,18 @@ export default function ProtocolDesignerWorkspace({
           </div>
         </div>
       </header>
-      <div className="grid min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
+      <div className="protocol-designer-workspace-grid grid min-h-0 min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
       <ProjectContinuum documentsAvailable={Boolean(session.project || preparedFinalization)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
         disabled={studioNavigationLocked || Boolean(postAdoptionContinuationJob)}
         onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
         onDocuments={() => { setSourceLibraryOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); setDeliverableWorkspaceOpen(true); }} />
 
-      <div className="min-w-0">
+      <div className="protocol-designer-workspace-content min-h-0 min-w-0">
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
-      {projectionMode === "STANDARD" && <div className="mb-3" data-testid="version-production-action">
+      <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 rounded-t-3xl border bg-background px-5 py-3" data-testid="conversation-workspace-header">
+      <h2 className="text-lg font-semibold">Conversation</h2>
+      {projectionMode === "STANDARD" && <div data-testid="version-production-action">
         <button type="button" disabled={busy || documentGenerationPending || !versionProduction.available}
           onClick={() => void versionProduction.generate()}
           className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-40">
@@ -813,7 +815,8 @@ export default function ProtocolDesignerWorkspace({
         {versionProduction.pending && <p role="status" className="mt-2 text-xs text-muted-foreground">Production de la version en cours… Vous pouvez poursuivre la conversation.</p>}
         {versionProduction.error && <p role="alert" className="mt-2 text-sm text-destructive">{versionProduction.error}</p>}
       </div>}
-      <div className={`relative grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] ${projectionMode === "EXPERT" ? "lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]" : ""}`}>
+      </header>
+      <div className={`protocol-designer-workspace-panels relative grid min-h-0 min-w-0 gap-5 ${projectionMode === "EXPERT" ? "lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]" : ""}`}>
         {projectionMode === "EXPERT" && <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>}
 
         {(sourceLibraryOpen || deliverableWorkspaceOpen || openProjection) && <div className="absolute inset-0 z-10 min-w-0 overflow-y-auto rounded-3xl bg-background lg:overscroll-contain" data-testid="document-workspace-panel">
@@ -872,10 +875,7 @@ export default function ProtocolDesignerWorkspace({
         /> : <p className="p-5 text-sm text-muted-foreground">Les documents seront disponibles après la création d’une version.</p>}
         </div>}
         <section aria-label="Conversation" aria-hidden={sourceLibraryOpen || deliverableWorkspaceOpen || Boolean(openProjection)}
-          className={`flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm lg:h-full lg:min-h-0 ${sourceLibraryOpen || deliverableWorkspaceOpen || openProjection ? "invisible pointer-events-none" : ""}`}>
-          <div className="border-b px-5 py-4">
-            <h2 className="font-semibold">Conversation</h2>
-          </div>
+          className={`protocol-designer-conversation flex min-h-96 min-w-0 flex-col rounded-b-3xl border bg-background shadow-sm ${sourceLibraryOpen || deliverableWorkspaceOpen || openProjection ? "invisible pointer-events-none" : ""}`}>
 
           <div ref={conversationScrollRef} onScroll={event => setConversationScrolled(event.currentTarget.scrollTop > 320)}
             className="min-h-0 flex-1 space-y-5 px-4 py-5 sm:px-6 lg:overflow-y-auto lg:overscroll-contain"

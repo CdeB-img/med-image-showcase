@@ -1,0 +1,75 @@
+/* Route-scoped application shell. Grid measures the real site header; no
+   header offsets, body scroll lock or overflow clipping on public pages.
+   Short/narrow (including zoomed) viewports retain normal page scrolling. */
+@media (min-width: 1024px) and (min-height: 480px) {
+  .protocol-designer-viewport {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100dvh;
+  }
+
+  .protocol-designer-route {
+    min-height: 0;
+    /* List/profile screens retain access to their complete content. In the
+       active workspace its constrained children fit without outer scrolling. */
+    overflow-y: auto;
+  }
+
+  .protocol-designer-viewport .protocol-designer-workspace,
+  .protocol-designer-workspace-frame {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .protocol-designer-workspace-frame {
+    width: 100%;
+  }
+
+  .protocol-designer-workspace [data-testid="project-top-navigation"] {
+    position: static;
+    flex-shrink: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .protocol-designer-workspace-grid {
+    flex: 1;
+    align-items: stretch;
+  }
+
+  .protocol-designer-workspace [data-testid="project-document-navigation"] {
+    position: static;
+  }
+
+  .protocol-designer-workspace-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .protocol-designer-workspace-panels {
+    flex: 1;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .protocol-designer-conversation {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .protocol-designer-workspace [data-testid="conversation-scroll-panel"] {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .protocol-designer-workspace [data-testid="conversation-composer"] {
+    position: static;
+    flex-shrink: 0;
+  }
+
+  .protocol-designer-workspace [data-testid="document-studio"] {
+    /* Its footer sticks to the actual document scroll owner, not to a
+       non-scrolling overflow:hidden ancestor. Native content is unchanged. */
+    overflow: visible;
+  }
+}

@@ -1,0 +1,41 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { Link, MemoryRouter } from "react-router-dom";
+import { SiteViewport } from "@/App";
+
+vi.mock("@/components/Header", () => ({ default: () => <header data-testid="site-header">En-tête de hauteur naturelle</header> }));
+afterEach(cleanup);
+
+describe("Protocol Designer viewport — structural contract (geometry verified in Chrome)", () => {
+  it("constrains only the demo route and releases the shell on public navigation", () => {
+    render(<MemoryRouter initialEntries={["/protocol-designer/demo"]}>
+      <SiteViewport><Link to="/expertise">Site public</Link><p>Contenu</p></SiteViewport>
+    </MemoryRouter>);
+    const header = screen.getByTestId("site-header");
+    expect(header.parentElement).toHaveClass("protocol-designer-viewport");
+    expect(screen.getByText("Contenu").parentElement).toHaveClass("protocol-designer-route");
+    fireEvent.click(screen.getByRole("link", { name: "Site public" }));
+    expect(header.parentElement).not.toHaveClass("protocol-designer-viewport");
+    expect(screen.getByText("Contenu").parentElement).not.toHaveClass("protocol-designer-route");
+  });
+
+  it("does not constrain the public Protocol Designer introduction", () => {
+    render(<MemoryRouter initialEntries={["/protocol-designer"]}><SiteViewport><p>Introduction</p></SiteViewport></MemoryRouter>);
+    expect(screen.getByTestId("site-header").parentElement).not.toHaveClass("protocol-designer-viewport");
+  });
+
+  it("uses natural header sizing, shrinkable children and internal scrolling without clipping", () => {
+    const css = readFileSync(resolve(process.cwd(), "src/features/protocol-designer/functional-reset/workspace-layout.css"), "utf8");
+    expect(css).toContain("grid-template-rows: auto minmax(0, 1fr)");
+    expect(css).toContain("height: 100dvh");
+    expect(css).toContain("min-height: 0");
+    expect(css).toContain('data-testid="conversation-scroll-panel"');
+    expect(css).toContain('data-testid="conversation-composer"');
+    expect(css).toContain('data-testid="document-studio"');
+    expect(css).not.toMatch(/overflow(?:-y)?:\s*(?:hidden|clip)\s*;/u);
+    expect(css).not.toMatch(/calc\(|\bbody\s*\{|\bhtml\s*\{/u);
+    expect(css).toContain("(min-width: 1024px) and (min-height: 480px)");
+  });
+});

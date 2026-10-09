@@ -3,7 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense, type PropsWithChildren } from "react";
+import "@/features/protocol-designer/functional-reset/workspace-layout.css";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
 import ProtocolDesignerErrorBoundary from "@/features/protocol-designer/ProtocolDesignerErrorBoundary";
@@ -65,6 +66,15 @@ const RouteFallback = () => (
   </div>
 );
 
+export function SiteViewport({ children }: PropsWithChildren) {
+  const { pathname } = useLocation();
+  const workspaceRoute = pathname === "/protocol-designer/demo";
+  return <div className={workspaceRoute ? "protocol-designer-viewport" : undefined}>
+    <Header />
+    <div className={workspaceRoute ? "protocol-designer-route" : undefined}>{children}</div>
+  </div>;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -74,9 +84,9 @@ const App = () => (
       <BrowserRouter basename="/">
         <ScrollToTop />
 
-        <Header />
         <GlobalEntitySchema />
 
+        <SiteViewport>
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -137,6 +147,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </SiteViewport>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
