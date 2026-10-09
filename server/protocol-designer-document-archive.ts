@@ -7,7 +7,7 @@ import { logicalDigest, stableStringify } from "../src/features/knowledge-engine
 import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, documentFileManifest, documentNativeGeneratedAt, documentNativeIdentity,
   documentNativePredecessor, documentNativeProject, type DocumentGenerationBody, type DocumentGenerationRef,
   type DocumentHistoryPage, type DocumentPersistenceReceipt, type DocumentNativeGeneration } from "../src/features/document-projection/generation-persistence.js";
-import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
+import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProjectSnapshotReadPurpose, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 import { createDocumentWorkingRevisions, type DocumentWorkingRevisionStore } from "./protocol-designer-document-working-revision.js";
 import { createStudioFinalizationIntents, type StudioFinalizationIntentStore } from "./protocol-designer-studio-finalization-intent.js";
 import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
@@ -101,10 +101,11 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
   const sql = suppliedSql ?? postgres(connection, { max: 2, idle_timeout: 20, connect_timeout: 15, prepare: false });
   const ready = createRuntimeSchemaVerification(sql, ["doc_generation", "doc_generation_body"],
     "DOC_ARCHIVE", code => new DocumentArchiveError(code, 503));
-  const authorize = async (access: DocumentArchiveAccess) => {
-    // Reuse PRJ's exact capability, version/digest, session and network checks.
+  const authorize = async (access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose) => {
+    // PRJ owns capability/session/version/digest validation. Only server-selected
+    // recovery reads tolerate mobility; mutations retain the network binding.
     // DOC does not infer any authority from provider/economic evidence.
-    await snapshots.resolve(access.identity, access.project, access.proof);
+    await snapshots.resolve(access.identity, access.project, access.proof, purpose);
     await ready();
     return { sessionKey: docSha256(access.identity.sessionId), projectId: access.project.projectId };
   };
@@ -201,12 +202,12 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       });
     },
     async receipt(access, requestId) {
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       const row = (await sql`select request_id, state, metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
       return row ? receiptFor(row) : null;
     },
     async history(access, beforeOrdinal, family) {
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       if (beforeOrdinal !== undefined && (!Number.isSafeInteger(beforeOrdinal) || beforeOrdinal < 1)) throw new DocumentArchiveError("DOC_ARCHIVE_CURSOR_INVALID", 400);
       // Filter before pagination. Technical projections remain durable/internal;
       // their physical archive cursor never becomes a user generation ordinal.
@@ -218,7 +219,7 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       return { entries, nextBeforeOrdinal: rows.length > DOC_HISTORY_PAGE_SIZE ? entries.at(-1)!.ordinal : null };
     },
     async body(access, generationId) {
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       const row = (await sql`select g.metadata, b.native_body_text, b.body_sha256 from noxia_durable.doc_generation g
         join noxia_durable.doc_generation_body b using (session_key_hash, project_id, request_id)
         where g.session_key_hash = ${sessionKey} and g.project_id = ${projectId} and g.generation_id = ${generationId} and g.state = 'COMMITTED'`)[0];
@@ -247,6 +248,6 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
   return { ...archive, workingRevisions, finalizationIntents: createStudioFinalizationIntents({
     sql, sha256: docSha256, authorize, revisions: workingRevisions, body: archive.body, archive,
     maxBodyBytes: capacity.maxBodyBytesPerGeneration,
-    readProject: async access => await snapshots.resolve(access.identity, access.project, access.proof) as unknown as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection,
+    readProject: async access => await snapshots.resolve(access.identity, access.project, access.proof, "DOCUMENT_RECOVERY") as unknown as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection,
   }) };
 };

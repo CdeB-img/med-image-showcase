@@ -5,7 +5,7 @@ import { executeProtocolDesignerBridge } from "../../../../../api/protocol-desig
 import { buildProjectContextSnapshot } from "@/features/research-project-construction";
 import { prepareTerraConversation } from "@/features/scientific-thinking/scientific-collaborator-conversation";
 import { DRCI_DOCUMENT_KINDS, materializeDrciDraftPack, prepareDrciDraftPack } from "@/features/document-projection/drci-draft-pack";
-import { offlineArchiveClient, offlineDocReceipt, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
+import { offlineArchiveClient, offlineArchiveRuntime, offlineDocReceipt, resetOfflineArchiveClients } from "@/features/document-projection/__tests__/offline-archive-client";
 import type { ProductBridgeRequest } from "../../product-bridge";
 import { ProductBridgeClientError } from "../../product-bridge-client";
 import { acceptWorkingDraftUpdate, prepareWorkingDraftRequest, type WorkingDraftUpdate } from "../continuous-project-build";
@@ -211,6 +211,20 @@ describe("Standard single-action two-version scientific flow", () => {
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBe(composer);
     expect(panel.scrollTop).toBe(480); expect(composer).toHaveValue("Saisie locale non envoyée");
     expect(h.requests).toHaveLength(calls);
+  });
+  it("does not claim accessible up-to-date archives after history authorization fails", async () => {
+    const h = setup(); send(initial); await screen.findByText(semantic(initial).reply);
+    generate(); await screen.findByText("Version 1");
+    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    const { store } = await offlineArchiveRuntime(h.state().sessionId, h.state().project!);
+    const failure = vi.spyOn(store, "history").mockRejectedValue(new Error("PROJECT_SNAPSHOT_SESSION_MISMATCH"));
+    const calls = h.requests.length, project = JSON.stringify(h.state().project);
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
+    await screen.findByText("Historique non chargé. Les versions archivées restent conservées.");
+    expect(screen.getByRole("button", { name: "Accès aux versions indisponible" })).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Version archivée à jour" })).toBeNull();
+    expect(h.requests).toHaveLength(calls); expect(JSON.stringify(h.state().project)).toBe(project);
+    failure.mockRestore();
   });
   it("creates V1/G1 then an explicit MRI-to-biopsy V2/G2, preserving immutable history and reload", async () => {
     const h = setup(); expectNoInternals(); send(initial); await screen.findByText(semantic(initial).reply);

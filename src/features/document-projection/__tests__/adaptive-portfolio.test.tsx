@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/react";
 import { composeStudyTemplateInstance } from "../../study-template/composition";
 import { CLINICAL_STUDY_TEMPLATE } from "../../study-template/definitions";
 import { makeNativeTemplateInput } from "../../study-template/__tests__/fixtures";
@@ -12,12 +12,31 @@ import { createFunctionalResetSession } from "../../protocol-designer/functional
 import StudyDeliverableWorkspace from "../../protocol-designer/functional-reset/StudyDeliverableWorkspace";
 import { buildStudyDeliverablePortfolio } from "../study-deliverable-portfolio";
 import type { DocumentWorkflowTraceSink } from "../../protocol-designer/functional-reset/document-workflow-trace";
+import type { DocumentArchiveClient } from "../generation-archive-client";
 
 const context = (imaging = false) => {
   const input = makeNativeTemplateInput({ imaging });
   return { definition: CLINICAL_STUDY_TEMPLATE, instance: composeStudyTemplateInstance(input) };
 };
 describe("Adaptive document portfolio / existing TMP REG DOC owners", () => {
+  it("does not project unavailable archive evidence as NOT_GENERATED needs, then restores native delivery after recovery", async () => {
+    const run = await workingRevisionFixture(), source = inspectFunctionalDocumentPortfolio(run.project2);
+    const portfolio = buildStudyDeliverablePortfolio({ project: run.project2, protocolProjection: run.g2.projection, generatedAt: run.project2.adoptedAt });
+    const state = vi.fn(), trace = vi.fn<DocumentWorkflowTraceSink>();
+    const unavailable = { history: vi.fn(async () => { throw new Error("PROJECT_SNAPSHOT_SESSION_MISMATCH"); }) } as unknown as DocumentArchiveClient;
+    const view = render(<StudyDeliverableWorkspace portfolio={portfolio} archiveClient={unavailable} adaptiveContext={source}
+      onArchiveLoadState={state} trace={trace} onClose={vi.fn()} />);
+    await screen.findByText("Historique non chargé. Les versions archivées restent conservées.");
+    expect(state).toHaveBeenLastCalledWith("FAILED");
+    expect(trace.mock.calls.some(([event]) => event.component === "projectAdaptivePortfolio")).toBe(false);
+    const restored = { history: vi.fn(async () => ({ entries: [run.g2.ref, run.g1.ref], nextBeforeOrdinal: null })) } as unknown as DocumentArchiveClient;
+    view.rerender(<StudyDeliverableWorkspace portfolio={portfolio} archiveClient={restored} adaptiveContext={source}
+      onArchiveLoadState={state} trace={trace} onClose={vi.fn()} />);
+    await waitFor(() => expect(state).toHaveBeenLastCalledWith("READY"));
+    expect(screen.getByText("Version 2")).toBeVisible(); expect(screen.getByText("Version 1")).toBeVisible();
+    expect(trace.mock.calls.some(([event]) => event.component === "projectAdaptivePortfolio")).toBe(true);
+    cleanup();
+  });
   it("traces the actual visible DOC projection and native TMP/REG bindings without mutating applicability", async () => {
     const run = await workingRevisionFixture(), source = inspectFunctionalDocumentPortfolio(run.project2), trace = vi.fn<DocumentWorkflowTraceSink>();
     const before = JSON.stringify(source);

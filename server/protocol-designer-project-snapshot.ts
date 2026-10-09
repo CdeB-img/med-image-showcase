@@ -15,6 +15,9 @@ export type VerifiedProjectSnapshot = Record<string, unknown> & Readonly<{
 export const PROJECT_SNAPSHOT_MAX_BYTES = 4_000_000;
 export type ProjectSnapshotRef = Readonly<{ projectId: string; versionId: string; projectDigest: string }>;
 export type ProjectSnapshotIdentity = Readonly<{ sessionId: string; clientAddress: string }>;
+/** Server-owned purpose, never accepted from a client request. Documentary
+ * recovery uses the exact capability; provider and PRJ writes remain IP-bound. */
+export type ProjectSnapshotReadPurpose = "DOCUMENT_RECOVERY";
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
 const record = (value: unknown): value is Record<string, unknown> =>
@@ -104,8 +107,10 @@ export const createPostgresProjectSnapshotStore = (connectionString: string) => 
       throw new ProjectSnapshotError("PROJECT_SNAPSHOT_VERSION_MISMATCH", 409);
     }
   };
-  const assertAccess = (row: Record<string, unknown>, clientKey: string, proof: string | null) => {
-    if (row.client_key_hash !== clientKey || !proof || !sameHash(String(row.access_proof_hash), sha256(proof))) {
+  const assertAccess = (row: Record<string, unknown>, clientKey: string, proof: string | null, purpose?: ProjectSnapshotReadPurpose) => {
+    if (purpose !== undefined && purpose !== "DOCUMENT_RECOVERY"
+      || !proof || !sameHash(String(row.access_proof_hash), sha256(proof))
+      || purpose !== "DOCUMENT_RECOVERY" && row.client_key_hash !== clientKey) {
       throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_MISMATCH", 403);
     }
   };
@@ -152,7 +157,8 @@ export const createPostgresProjectSnapshotStore = (connectionString: string) => 
         return { ref, proof: issuedProof };
       });
     },
-    async resolve(identity: ProjectSnapshotIdentity, ref: ProjectSnapshotRef, proof: string | null): Promise<VerifiedProjectSnapshot> {
+    async resolve(identity: ProjectSnapshotIdentity, ref: ProjectSnapshotRef, proof: string | null,
+      purpose?: ProjectSnapshotReadPurpose): Promise<VerifiedProjectSnapshot> {
       assertBound(identity, ref);
       const { sessionKey, clientKey } = keys(identity);
       await ready();
@@ -169,7 +175,7 @@ export const createPostgresProjectSnapshotStore = (connectionString: string) => 
         throw new ProjectSnapshotError(root[0] ? "PROJECT_SNAPSHOT_VERSION_MISMATCH" : "PROJECT_SNAPSHOT_NOT_FOUND", root[0] ? 409 : 404);
       }
       const row = rows[0];
-      assertAccess(row, clientKey, proof);
+      assertAccess(row, clientKey, proof, purpose);
       if (row.project_digest !== ref.projectDigest) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_DIGEST_MISMATCH", 409);
       const project = parseVerifiedProjectSnapshot(row.canonical_payload, identity.sessionId);
       if (sha256(stableStringify(project)) !== row.payload_sha256 || project.projectDigest !== row.project_digest) {

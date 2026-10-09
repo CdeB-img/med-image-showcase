@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Sql } from "postgres";
 import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
+import type { ProjectSnapshotReadPurpose } from "./protocol-designer-project-snapshot.js";
 import { logicalDigest, stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { createStudioReconciliationRequest, buildStudioReconciliationPlan } from "../src/features/document-projection/studio-reconciliation.js";
 import { StudioFinalizationIntentError, assertStudioIntent, assertStudioIntentSave, createStudioFinalizationIntent,
@@ -35,7 +36,7 @@ export type StudioFinalizationIntentStore = Readonly<{
 }>;
 type Ports = {
   sql: Sql; sha256(text: string): string; maxBodyBytes: number;
-  authorize(access: DocumentArchiveAccess): Promise<{ sessionKey: string; projectId: string }>;
+  authorize(access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose): Promise<{ sessionKey: string; projectId: string }>;
   readProject(access: DocumentArchiveAccess): Promise<ResearchProjectOwnerProjection>;
   revisions: DocumentWorkingRevisionStore; body: DocumentArchiveStore["body"];
   archive: Pick<DocumentArchiveStore, "admit" | "commit" | "receipt" | "history">;
@@ -51,9 +52,9 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
   const { sql } = ports;
   const ready = createRuntimeSchemaVerification(sql, ["doc_studio_finalization_intent"],
     "STUDIO_INTENT", code => new StudioFinalizationIntentError(code, 503));
-  const authorize = async (access: DocumentArchiveAccess) => {
-    const scope = await ports.authorize(access);
-    await ports.revisions.ensureStorage(access);
+  const authorize = async (access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose) => {
+    const scope = await ports.authorize(access, purpose);
+    await ports.revisions.ensureStorage(access, purpose);
     await ready();
     return scope;
   };
@@ -89,8 +90,8 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
       await tx`select pg_advisory_xact_lock(hashtext(${ports.sha256(stableStringify(["noxia:doc-studio-intent", scope.sessionKey, scope.projectId, intentId]))}))`;
       return operation(tx as unknown as Sql);
     });
-  const required = async (access: DocumentArchiveAccess, intentId: string) => {
-    const scope = await authorize(access), intent = await load(sql, scope, intentId);
+  const required = async (access: DocumentArchiveAccess, intentId: string, purpose?: ProjectSnapshotReadPurpose) => {
+    const scope = await authorize(access, purpose), intent = await load(sql, scope, intentId);
     if (!intent) throw new StudioFinalizationIntentError("STUDIO_INTENT_NOT_FOUND", 404);
     await historicalSave(access, intent);
     return { scope, intent };
@@ -149,7 +150,7 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
       });
     },
     async get(access, intentId) {
-      const { intent } = await required(access, intentId);
+      const { intent } = await required(access, intentId, "DOCUMENT_RECOVERY");
       // A read exposes stale state without rewriting immutable stored evidence.
       return resumeStudioIntent(intent, await currentProject(access), intent.updatedAt);
     },
@@ -157,7 +158,7 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
       // Recovery must not depend on a lost React/local intent handle. Resolve
       // the exact native save, never the latest save or an arbitrary intent.
       await ports.revisions.getSave(access, save);
-      const scope = await authorize(access);
+      const scope = await authorize(access, "DOCUMENT_RECOVERY");
       const rows = await sql`select distinct intent_id from noxia_durable.doc_studio_finalization_intent
         where session_key_hash = ${scope.sessionKey} and project_id = ${scope.projectId}
           and revision_id = ${save.revisionId} and save_sequence = ${save.saveSequence}
@@ -165,12 +166,12 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
         limit 2`;
       if (rows.length > 1) throw new StudioFinalizationIntentError("STUDIO_INTENT_RECOVERY_AMBIGUOUS");
       if (!rows[0]) return null;
-      const { intent } = await required(access, String(rows[0].intent_id));
+      const { intent } = await required(access, String(rows[0].intent_id), "DOCUMENT_RECOVERY");
       return resumeStudioIntent(intent, await currentProject(access), intent.updatedAt);
     },
     async recoverActive(access, revisionId) {
       await ports.revisions.get(access, revisionId);
-      const scope = await authorize(access);
+      const scope = await authorize(access, "DOCUMENT_RECOVERY");
       const rows = await sql`select intent_id from (
         select distinct on (intent_id) intent_id, record_text from noxia_durable.doc_studio_finalization_intent
         where session_key_hash = ${scope.sessionKey} and project_id = ${scope.projectId} and revision_id = ${revisionId}
@@ -178,14 +179,14 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
       ) latest where record_text::jsonb->>'state' <> 'CLOSED' limit 2`;
       if (rows.length > 1) throw new StudioFinalizationIntentError("STUDIO_INTENT_RECOVERY_AMBIGUOUS");
       if (!rows[0]) return null;
-      const { intent } = await required(access, String(rows[0].intent_id));
+      const { intent } = await required(access, String(rows[0].intent_id), "DOCUMENT_RECOVERY");
       return resumeStudioIntent(intent, await currentProject(access), intent.updatedAt);
     },
     async recoverForBase(access, baseGenerationId, logicalDocumentRef) {
       // A commit may consume the save before CLOSED is acknowledged. Discover
       // that unfinished intent BEFORE OPEN would create an unrelated new draft.
       await ports.body(access, baseGenerationId);
-      const scope = await authorize(access);
+      const scope = await authorize(access, "DOCUMENT_RECOVERY");
       const rows = await sql`select intent_id from (
         select distinct on (intent_id) intent_id, record_text from noxia_durable.doc_studio_finalization_intent
         where session_key_hash = ${scope.sessionKey} and project_id = ${scope.projectId}
@@ -195,7 +196,7 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
       ) latest where record_text::jsonb->>'state' <> 'CLOSED' limit 2`;
       if (rows.length > 1) throw new StudioFinalizationIntentError("STUDIO_INTENT_RECOVERY_AMBIGUOUS");
       if (!rows[0]) return null;
-      const { intent } = await required(access, String(rows[0].intent_id));
+      const { intent } = await required(access, String(rows[0].intent_id), "DOCUMENT_RECOVERY");
       return resumeStudioIntent(intent, await currentProject(access), intent.updatedAt);
     },
     waitForAssessment: (access, id, sequence) => mutate(access, id, sequence, (intent, project) => {

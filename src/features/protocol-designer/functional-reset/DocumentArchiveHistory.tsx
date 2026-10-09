@@ -8,15 +8,17 @@ import type { ActiveWorkingRevision } from "@/features/document-projection/worki
 import type { ProjectContextSnapshot } from "@/features/research-project-construction/canonical-project-backbone";
 import { inspectDocumentImpact, type DocumentImpactReport } from "@/features/document-projection/document-impact";
 import DocumentImpactSummary from "@/features/document-projection/DocumentImpactSummary";
+export type DocumentHistoryLoadState = "NOT_LOADED" | "LOADING" | "READY" | "FAILED";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { observeDocumentWorkflow, type DocumentWorkflowTraceSink } from "./document-workflow-trace";
 
 /** Screen state only. One selected body in RAM, never in session. */
-export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId, currentProjectSnapshot, pendingScientificChange, trace }: {
+export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, onLoadState, currentProjectDigest, currentGenerationId, currentProjectSnapshot, pendingScientificChange, trace }: {
   client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string, body: DocumentGenerationBody) => void;
   onDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   onStudio?: (target: DocumentStudioTarget) => void;
   onHistory?: (entries: readonly DocumentGenerationRef[]) => void;
+  onLoadState?: (state: DocumentHistoryLoadState) => void;
   currentProjectDigest?: string;
   currentGenerationId?: string | null;
   currentProjectSnapshot?: Readonly<ProjectContextSnapshot>;
@@ -25,7 +27,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
 }) {
   const [entries, setEntries] = useState<readonly DocumentGenerationRef[]>([]);
   const [cursor, setCursor] = useState<number | null>(null);
-  const [status, setStatus] = useState<"NOT_LOADED" | "LOADING" | "READY" | "FAILED">("NOT_LOADED");
+  const [status, setStatus] = useState<DocumentHistoryLoadState>("NOT_LOADED");
   const [error, setError] = useState(false);
   const [drafts, setDrafts] = useState<readonly ActiveWorkingRevision[]>([]);
   const [draftsFailed, setDraftsFailed] = useState(false);
@@ -35,6 +37,8 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
   const request = useRef(0);
   const lifetime = useRef(0);
   const historyObserver = useRef(onHistory); historyObserver.current = onHistory;
+  const stateObserver = useRef(onLoadState); stateObserver.current = onLoadState;
+  useEffect(() => { stateObserver.current?.(status); }, [status]);
   useEffect(() => {
     const epoch = ++lifetime.current;
     selected.current = null; request.current++;

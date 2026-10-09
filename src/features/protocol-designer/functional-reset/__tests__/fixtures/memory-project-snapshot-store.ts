@@ -29,11 +29,12 @@ export const memoryProjectSnapshotStore = (): ProtocolDesignerProjectSnapshotSto
       return { ref: { projectId: project.projectId, versionId: project.versionId,
         projectDigest: project.projectDigest }, proof: issued.proof };
     },
-    async resolve(identity, ref, proof) {
+    async resolve(identity, ref, proof, purpose) {
       const rootKey = `${identity.sessionId}\u0000${ref.projectId}`;
       const root = roots.get(rootKey);
       if (!root) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_NOT_FOUND", 404);
-      if (root.clientAddress !== identity.clientAddress || root.proof !== proof)
+      if (purpose !== undefined && purpose !== "DOCUMENT_RECOVERY" || root.proof !== proof
+        || purpose !== "DOCUMENT_RECOVERY" && root.clientAddress !== identity.clientAddress)
         throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_MISMATCH", 403);
       const project = versions.get(`${rootKey}\u0000${ref.versionId}`);
       if (!project) throw new ProjectSnapshotError("PROJECT_SNAPSHOT_VERSION_MISMATCH", 409);

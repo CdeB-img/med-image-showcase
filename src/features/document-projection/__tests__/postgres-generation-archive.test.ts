@@ -220,15 +220,21 @@ describe("transactional DOC-owned Postgres archive (offline SQL boundary)", () =
     expect(fixture.rows()).toHaveLength(1);
     await expect(store.admit(access, { requestId: "oversize", requestSha256: docSha256("x"), generatedAt: "2026-10-05T10:00:00.000Z", reservedBytes: 4_000_001 })).rejects.toThrow("DOC_ARCHIVE_CAPACITY_EXCEEDED");
   });
-  it("rejects cross-session, cross-project, invalid proof and changed network on every read", async () => {
+  it("rejects cross-session, cross-project and invalid proof on every read; network mobility permits exact recovery only", async () => {
     const { store, access, bodyFor, admit } = await setup();
     await admit(1); const receipt = await store.commit(access, "request-1", bodyFor(1));
     for (const forbidden of [{ ...access, proof: "wrong" }, { ...access, identity: { ...access.identity, sessionId: "another" } },
-      { ...access, identity: { ...access.identity, clientAddress: "192.0.2.2" } }, { ...access, project: { ...access.project, projectId: "another-project" } }]) {
+      { ...access, project: { ...access.project, projectId: "another-project" } }]) {
       await expect(store.history(forbidden)).rejects.toThrow();
       await expect(store.body(forbidden, receipt.generation.generationId)).rejects.toThrow();
       await expect(store.receipt(forbidden, "request-1")).rejects.toThrow();
     }
+    const moved = { ...access, identity: { ...access.identity, clientAddress: "192.0.2.2" } };
+    expect((await store.history(moved)).entries[0]).toEqual(receipt.generation);
+    expect((await store.body(moved, receipt.generation.generationId)).body).toEqual(bodyFor(1));
+    expect(await store.receipt(moved, "request-1")).toEqual(receipt);
+    await expect(store.commit(moved, "request-1", bodyFor(1))).rejects.toThrow("PROJECT_SNAPSHOT_SESSION_MISMATCH");
+    await expect(store.reject(moved, "request-1")).rejects.toThrow("PROJECT_SNAPSHOT_SESSION_MISMATCH");
   });
   it("defines immutable tables, history index, TEXT body and no pruning/cascade", () => {
     const migration = readFileSync("server/migrations/002_doc_generation_archive.sql", "utf8");

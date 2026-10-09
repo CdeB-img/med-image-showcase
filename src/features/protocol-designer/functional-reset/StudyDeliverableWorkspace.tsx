@@ -16,7 +16,7 @@ import { projectAdaptivePortfolio } from "@/features/document-projection/adaptiv
 import AdaptiveDocumentPortfolio from "@/features/document-projection/AdaptiveDocumentPortfolio";
 import ProtocolWritingOutline from "@/features/document-projection/ProtocolWritingOutline";
 import type { composeProtocolWritingProfile } from "@/features/study-template/protocol-writing-profile";
-import DocumentArchiveHistory from "./DocumentArchiveHistory";
+import DocumentArchiveHistory, { type DocumentHistoryLoadState } from "./DocumentArchiveHistory";
 import ProtocolPreview from "./ProtocolPreview";
 import type { DocumentProjection } from "@/features/document-projection";
 import DocumentStudio from "@/features/document-projection/DocumentStudio";
@@ -31,6 +31,7 @@ type Props = {
   onClose: () => void;
   saveWarning?: string | null;
   archiveClient?: DocumentArchiveClient;
+  onArchiveLoadState?: (state: DocumentHistoryLoadState) => void;
   studioFinalization?: StudioFinalizationRuntime;
   studioEditing?: StudioEditRuntime;
   onStudioConversation?: () => void;
@@ -56,8 +57,9 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, studioEditing, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId, adaptiveContext, protocolWritingProfile, currentProjectSnapshot, pendingScientificChange, documentaryRequests, trace }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, onArchiveLoadState, studioFinalization, studioEditing, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId, adaptiveContext, protocolWritingProfile, currentProjectSnapshot, pendingScientificChange, documentaryRequests, trace }: Props) {
   const [history, setHistory] = useState<readonly DocumentGenerationRef[]>([]);
+  const [historyState, setHistoryState] = useState<DocumentHistoryLoadState>("NOT_LOADED");
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
@@ -66,8 +68,10 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
   const diagnosticRequest = useRef(0);
   const diagnosticLifetime = useRef(0);
   const portfolioVisible = !studioTarget && !(diagnosticProjectionId && selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html");
-  const adaptive = useMemo(() => portfolioVisible && adaptiveContext ? projectAdaptivePortfolio(adaptiveContext, history, portfolio.projectRef.projectDigest, documentaryRequests) : null,
-    [portfolioVisible, adaptiveContext, history, portfolio.projectRef.projectDigest, documentaryRequests]);
+  // An unavailable history is not evidence of NOT_GENERATED documents. Native
+  // applicability/ranking stay unchanged; wait for the real delivery evidence.
+  const adaptive = useMemo(() => portfolioVisible && adaptiveContext && (!archiveClient || historyState === "READY") ? projectAdaptivePortfolio(adaptiveContext, history, portfolio.projectRef.projectDigest, documentaryRequests) : null,
+    [portfolioVisible, adaptiveContext, archiveClient, historyState, history, portfolio.projectRef.projectDigest, documentaryRequests]);
   useEffect(() => {
     if (!adaptive || !adaptiveContext) return;
     emitDocumentWorkflowTrace(trace, { operationRef: adaptiveContext.instance.instanceId, component: "projectAdaptivePortfolio",
@@ -141,7 +145,8 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
     {adaptive && <AdaptiveDocumentPortfolio items={adaptive} onConversation={onStudioConversation} />}
     {protocolWritingProfile && <ProtocolWritingOutline profile={protocolWritingProfile} />}
-    {archiveClient && <DocumentArchiveHistory client={archiveClient} onHistory={setHistory} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest}
+    {archiveClient && <DocumentArchiveHistory client={archiveClient} onHistory={setHistory}
+      onLoadState={state => { setHistoryState(state); onArchiveLoadState?.(state); }} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest}
       trace={trace} currentProjectSnapshot={currentProjectSnapshot} pendingScientificChange={pendingScientificChange}
       onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
     {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">

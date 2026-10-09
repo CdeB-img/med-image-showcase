@@ -9,10 +9,11 @@ import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, asser
   type ActiveWorkingRevision, type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
+import type { ProjectSnapshotReadPurpose } from "./protocol-designer-project-snapshot.js";
 
 export type DocumentWorkingRevisionStore = Readonly<{
   /** Server-only DOC compatibility check; never installs or repairs storage. */
-  ensureStorage(access: DocumentArchiveAccess): Promise<void>;
+  ensureStorage(access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose): Promise<void>;
   active(access: DocumentArchiveAccess): Promise<readonly ActiveWorkingRevision[]>;
   open(access: DocumentArchiveAccess, input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(access: DocumentArchiveAccess, input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
@@ -25,7 +26,7 @@ export type DocumentWorkingRevisionStore = Readonly<{
 }>;
 type Ports = {
   sql: Sql; sha256(text: string): string; maxBodyBytes: number;
-  authorize(access: DocumentArchiveAccess): Promise<{ sessionKey: string; projectId: string }>;
+  authorize(access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose): Promise<{ sessionKey: string; projectId: string }>;
   readSource: DocumentArchiveStore["body"];
 };
 const validRef = (value: unknown): value is string => typeof value === "string" && value.length > 0 && value.length <= 600 && !value.includes("\u0000");
@@ -44,8 +45,8 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
   const { sql } = ports;
   const ready = createRuntimeSchemaVerification(sql, ["doc_working_revision"],
     "DOC_REVISION", code => new DocumentWorkingRevisionError(code, 503));
-  const authorize = async (access: DocumentArchiveAccess) => {
-    const scope = await ports.authorize(access);
+  const authorize = async (access: DocumentArchiveAccess, purpose?: ProjectSnapshotReadPurpose) => {
+    const scope = await ports.authorize(access, purpose);
     await ready();
     return scope;
   };
@@ -65,6 +66,17 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       where session_key_hash = ${sessionKey} and project_id = ${projectId} and revision_id = ${revisionId}
       order by save_sequence desc limit 1`)[0];
     return row ? assertWorkingRevision(row.revision) : null;
+  };
+  const activeForBase = async (db: Sql, sessionKey: string, projectId: string, baseGenerationId: string, logicalDocumentRef: string) => {
+    const active = await db`select revision from (
+      select distinct on (revision_id) revision_id, save_sequence, status, revision
+      from noxia_durable.doc_working_revision
+      where session_key_hash = ${sessionKey} and project_id = ${projectId}
+      and base_generation_id = ${baseGenerationId} and logical_document_ref = ${logicalDocumentRef}
+      order by revision_id, save_sequence desc
+    ) latest where status = 'ACTIVE' limit 2`;
+    if (active.length > 1) throw new DocumentWorkingRevisionError("DOC_REVISION_ACTIVE_CONFLICT", 409);
+    return active[0] ? assertWorkingRevision(active[0].revision) : null;
   };
   const verify = async (access: DocumentArchiveAccess, revision: DocumentWorkingRevision) => {
     const base = await sourceFor(access, { ...revision, nativeDocumentRef: revision.identitySource.nativeDocumentRef });
@@ -141,9 +153,9 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     return { ...observedResult, revision };
   };
   return {
-    ensureStorage: async access => { await authorize(access); },
+    ensureStorage: async (access, purpose) => { await authorize(access, purpose); },
     async active(access) {
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       // Latest save per revision first: an abandoned draft must never reappear.
       const rows = await sql`select revision from (
         select distinct on (revision_id) revision_id, save_sequence, status, revision
@@ -162,16 +174,14 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       // Exact native base + logical document, never a filename, browser cache or
       // G(n+1) guess. Serialize opens so concurrent tabs resume one ACTIVE draft.
       const { document } = await sourceFor(access, input);
+      const scope = await authorize(access, "DOCUMENT_RECOVERY");
+      const existing = await activeForBase(sql, scope.sessionKey, scope.projectId, input.baseGenerationId, document.logicalDocumentRef);
+      // Opening an existing saved draft is recovery, not a write or IP rebinding.
+      // Creation still uses the original network-bound mutation authorization.
+      if (existing) return resultFor(access, existing);
       const revision = await locked(access, `base:${input.baseGenerationId}:${document.logicalDocumentRef}`, async (db, sessionKey) => {
-        const active = await db`select revision from (
-          select distinct on (revision_id) revision_id, save_sequence, status, revision
-          from noxia_durable.doc_working_revision
-          where session_key_hash = ${sessionKey} and project_id = ${access.project.projectId}
-          and base_generation_id = ${input.baseGenerationId} and logical_document_ref = ${document.logicalDocumentRef}
-          order by revision_id, save_sequence desc
-        ) latest where status = 'ACTIVE' limit 2`;
-        if (active.length > 1) throw new DocumentWorkingRevisionError("DOC_REVISION_ACTIVE_CONFLICT", 409);
-        if (active[0]) return assertWorkingRevision(active[0].revision);
+        const active = await activeForBase(db, sessionKey, access.project.projectId, input.baseGenerationId, document.logicalDocumentRef);
+        if (active) return active;
         const now = new Date().toISOString();
         const created: DocumentWorkingRevision = { contract: DOCUMENT_WORKING_REVISION_CONTRACT,
           revisionId: `document-working-revision:${randomUUID()}`, ...document,
@@ -213,14 +223,14 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
     },
     async get(access, revisionId) {
       request(revisionId);
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       const current = await load(sql, sessionKey, projectId, revisionId);
       if (!current) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
       return resultFor(access, current);
     },
     async getSave(access, input) {
       request(input.revisionId, input.saveSequence);
-      const { sessionKey, projectId } = await authorize(access);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       const row = (await sql`select revision from noxia_durable.doc_working_revision
         where session_key_hash = ${sessionKey} and project_id = ${projectId} and revision_id = ${input.revisionId}
         and save_sequence = ${input.saveSequence}`)[0];

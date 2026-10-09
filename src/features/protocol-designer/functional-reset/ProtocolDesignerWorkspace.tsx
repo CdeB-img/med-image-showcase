@@ -108,6 +108,8 @@ export default function ProtocolDesignerWorkspace({
   const autonomousProjectBuild = import.meta.env.VITE_AUTONOMOUS_PROJECT_BUILD === "ON";
   const [workingProjectOpen, setWorkingProjectOpen] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
+  const [archiveAccessFailed, setArchiveAccessFailed] = useState(false);
+  useEffect(() => { setArchiveAccessFailed(false); }, [session.sessionId, session.project?.projectDigest]);
   const latestSessionRef = useRef(session);
   useEffect(() => { latestSessionRef.current = session; }, [session]);
   const traceConfigurationRef = useRef(traceCaptureConfiguration); traceConfigurationRef.current = traceCaptureConfiguration;
@@ -839,7 +841,7 @@ export default function ProtocolDesignerWorkspace({
         <button type="button" disabled={busy || documentGenerationPending || !versionProduction.available}
           onClick={() => void versionProduction.generate()}
           className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-40">
-          {versionProduction.label}
+          {archiveAccessFailed && versionProduction.label === "Version archivée à jour" ? "Accès aux versions indisponible" : versionProduction.label}
         </button>
         {versionProduction.pending && <p role="status" className="mt-2 text-xs text-muted-foreground">Production de la version en cours… Vous pouvez poursuivre la conversation.</p>}
         {versionProduction.error && <p role="alert" className="mt-2 text-sm text-destructive">{versionProduction.error}</p>}
@@ -877,6 +879,7 @@ export default function ProtocolDesignerWorkspace({
           pendingScientificChange={pendingScientificChange}
           documentaryRequests={session.entries.flatMap(entry => entry.kind === "TEXT" && entry.role === "USER" ? [{ content: entry.content, sourceRef: entry.entryId }] : [])}
           archiveClient={archiveClient}
+          onArchiveLoadState={state => setArchiveAccessFailed(state === "FAILED")}
           studioFinalization={studioFinalization}
           studioEditing={studioEditing}
           onStudioNavigationLock={setStudioNavigationLocked}
