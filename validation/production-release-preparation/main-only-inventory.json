@@ -1,0 +1,144 @@
+[
+  {
+    "sha": "81b8fd8e447efd881eeee3f22163d1f0e711f667",
+    "subject": "fix(protocol-designer): raise public session ceiling and clarify limit",
+    "files": [
+      "api/protocol-designer-bridge.ts",
+      "server/protocol-designer-canary-policy.ts",
+      "server/protocol-designer-public-guard.ts",
+      "src/features/protocol-designer/__tests__/durable-public-handler.test.ts",
+      "src/features/protocol-designer/__tests__/v1-public-conversation-activation-01.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/public-workspace-integration.test.tsx"
+    ],
+    "disposition": "HUMAN_DECISION_REQUIRED",
+    "purpose": "Augmenter le plafond public à 512, clarifier le refus et relever la politique soft-stop par défaut.",
+    "comparison": "512 admissions / soft-stop 3 USD / hard 6 USD sont déjà configurables et testés. Le défaut candidat reste 8 / 1 USD; main passe à 512 / 6 USD et élargit la validation soft-stop à 10. Le message PUBLIC_SESSION_LIMITED est repris sans changer les politiques.",
+    "tests": [
+      "src/features/protocol-designer/__tests__/durable-public-handler.test.ts",
+      "src/features/protocol-designer/__tests__/release-main-retained-behavior.test.ts"
+    ]
+  },
+  {
+    "sha": "bedeef1a3a3b34c7d9f6beac964192708e365b1d",
+    "subject": "fix(protocol-designer): explain stale working review after adoption",
+    "files": [
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx",
+      "src/features/protocol-designer/functional-reset/continuous-project-build.ts"
+    ],
+    "disposition": "POTENTIALLY_SUPERSEDED",
+    "purpose": "Ne pas présenter une ancienne Review comme reconfirmable après adoption; expliquer les préconditions manquantes.",
+    "comparison": "Le candidat préserve PRJ et invalide les scopes obsolètes via les checkpoints/preparation/human receipts. Le texte/helper historique n'existe pas tel quel. L'ancienne UI Review est remplacée par Generate Version et Working Draft lazy suivant les décisions utilisateur; aucune équivalence textuelle exhaustive n'est déclarée.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/project-preparation-lifecycle.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx"
+    ]
+  },
+  {
+    "sha": "9e14e598182642890ae52a211c884448202c4491",
+    "subject": "chore(protocol-designer): capture safe working draft count failures",
+    "files": [
+      "server/protocol-designer-durable-guard.ts",
+      "validation/noxia-exact-cost-admission-async-background-qualification-01/exact-count-shared-store.test.ts",
+      "validation/noxia-working-draft-precount-http400-01/REPORT.md"
+    ],
+    "disposition": "KEEP",
+    "purpose": "Diagnostiquer un HTTP 400 de precount WD sans reproduire texte scientifique/schema enum privé.",
+    "comparison": "Absent sous cette forme dans le candidat. Port minimal au guard actuel, même whitelist/digests et régression anti-fuite; Azure garde son admission locale sans precount externe.",
+    "tests": [
+      "src/features/protocol-designer/__tests__/release-main-retained-behavior.test.ts"
+    ]
+  },
+  {
+    "sha": "5f3b108b056b57aaae759dddda3c5ff4e2e02c13",
+    "subject": "Improve long conversation navigation and composer sizing",
+    "files": [
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/v1-researcher-ux-refinement-01.test.tsx"
+    ],
+    "disposition": "POTENTIALLY_SUPERSEDED",
+    "purpose": "Navigation longue conversation et textarea adaptatif/redimensionnable.",
+    "comparison": "Navigation persistante et scroll interne sont présents dans la correction viewport validée par l'utilisateur et le RC précédent. Le main auto-fit 3–15 lignes / 38% viewport et resize md n'est pas identique au candidat 28/35dvh et resize lg. Ne pas réintroduire le scroll de page desktop; choix UX résiduel à confirmer.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/v1-researcher-ux-refinement-01.test.tsx"
+    ]
+  },
+  {
+    "sha": "b1803c43f72529e0a702840e56629d5178bc73c7",
+    "subject": "fix(protocol-designer): settle truncated working drafts safely",
+    "files": [
+      "api/protocol-designer-bridge.ts",
+      "api/protocol-designer-openai-extraction-provider.ts",
+      "server/protocol-designer-canary-policy.ts",
+      "server/protocol-designer-durable-guard.ts",
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/working-draft-provider-contract.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/working-draft-source-binding.test.ts",
+      "src/features/protocol-designer/functional-reset/continuous-project-build.ts",
+      "validation/noxia-exact-cost-admission-async-background-qualification-01/exact-count-shared-store.test.ts",
+      "validation/noxia-working-draft-max-output-safe-recovery-01/REPORT.md",
+      "validation/noxia-working-draft-max-output-safe-recovery-01/qualification-12000.json",
+      "validation/noxia-working-draft-max-output-safe-recovery-01/qualification-16000.json",
+      "validation/noxia-working-draft-max-output-safe-recovery-01/shared-store-cleanup-qualification.json",
+      "validation/noxia-working-draft-max-output-safe-recovery-01/shared-store-tests-qualification.json"
+    ],
+    "disposition": "POTENTIALLY_SUPERSEDED",
+    "purpose": "Comptabiliser une troncature WD connue sans l'adopter ni fermer indûment la session; porter sortie WD à 16000, normaliser les quotes multilignes.",
+    "comparison": "L'accounting connu incomplete et les quotes normalisées/restaurées sont présents. La capacité WD actuelle est 64000 tokens (pas 16000), validée séparément sous les mêmes guards financiers. Ce n'est pas une identité de contrat/coût; la politique scientifique/admission reste à approuver pour release.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/working-draft-source-binding.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/working-draft-snapshot-capacity.test.ts",
+      "src/features/protocol-designer/__tests__/terra-demo-financial-boundary.test.ts"
+    ]
+  },
+  {
+    "sha": "964786a5ad47f777cfe64bd0f17affa5f418467d",
+    "subject": "fix(protocol-designer): adopt natural conversation confirmations",
+    "files": [
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx",
+      "src/features/protocol-designer/functional-reset/continuous-project-build.ts",
+      "src/features/protocol-designer/functional-reset/natural-conversation-policy.ts",
+      "src/features/protocol-designer/functional-reset/study-proposal-standard.ts"
+    ],
+    "disposition": "HUMAN_DECISION_REQUIRED",
+    "purpose": "Faire adopter une Review préparée par confirmation naturelle et reconnaître une adoption précédente d'atome lors d'une recomposition.",
+    "comparison": "Le candidat a une décision conversationnelle liée à un scope présenté exact et des receipts/checkpoints. main ajoute adoption directe de la Review recommandée et fallback suffixe :atom:ref. Ce fallback n'est pas équivalent à une identité canonique exacte; ne pas l'injecter mécaniquement.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/pending-natural-confirmation.test.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/conversation-confirmation-receipt.test.ts"
+    ]
+  },
+  {
+    "sha": "3f643c4bef61c4092c9d345dfdbf7d35242959d4",
+    "subject": "fix(protocol-designer): route natural validation acts",
+    "files": [
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx",
+      "src/features/protocol-designer/functional-reset/natural-conversation-policy.ts",
+      "src/features/scientific-thinking/scientific-collaborator-conversation.ts"
+    ],
+    "disposition": "HUMAN_DECISION_REQUIRED",
+    "purpose": "Élargir les actes naturels de validation et empêcher le modèle de nier les capacités d'écriture du produit.",
+    "comparison": "Le candidat reconnaît déjà plusieurs validations mais la grammaire et le routage diffèrent; wording instructions différent, pas d'équivalence sémantique automatique. Confirmer le comportement souhaité avant reprise sélective; ni faux USER ni adoption élargie ajoutée ici.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/natural-decision-confirmation-repair-01.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/pending-natural-confirmation.test.tsx"
+    ]
+  },
+  {
+    "sha": "91a8ee880cfd1dd128b6f45f9b72ee8408816dad",
+    "subject": "fix(protocol-designer): preserve incremental working draft state",
+    "files": [
+      "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx"
+    ],
+    "disposition": "POTENTIALLY_SUPERSEDED",
+    "purpose": "Afficher l'indicateur WD uniquement si compositionDigest correspond au proposal courant, sans casser l'incrément.",
+    "comparison": "L'indicateur technique est absent du Standard actuel; WD demeure lazy/invisible par décision utilisateur explicite. Les owners natifs gardent checkpoints et pending turns. Supersession recommandée du seul affichage, non déduction chronologique ni élimination de provenance.",
+    "tests": [
+      "src/features/protocol-designer/functional-reset/__tests__/project-preparation-lifecycle.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/two-version-product-flow.test.tsx"
+    ]
+  }
+]
