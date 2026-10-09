@@ -11,6 +11,8 @@
       "src/features/protocol-designer/functional-reset/__tests__/public-workspace-integration.test.tsx"
     ],
     "disposition": "HUMAN_DECISION_REQUIRED",
+    "phase2Disposition": "RETAIN_CANDIDATE_FINANCIAL_DEFAULTS",
+    "phase2Decision": "Décision utilisateur explicite : défauts 8 / 1 / 6, configuration Production explicite 512 / 3 / 6 prise en charge. Aucun import des défauts main 512 / 6 / 6.",
     "purpose": "Augmenter le plafond public à 512, clarifier le refus et relever la politique soft-stop par défaut.",
     "comparison": "512 admissions / soft-stop 3 USD / hard 6 USD sont déjà configurables et testés. Le défaut candidat reste 8 / 1 USD; main passe à 512 / 6 USD et élargit la validation soft-stop à 10. Le message PUBLIC_SESSION_LIMITED est repris sans changer les politiques.",
     "tests": [
@@ -27,6 +29,8 @@
       "src/features/protocol-designer/functional-reset/continuous-project-build.ts"
     ],
     "disposition": "POTENTIALLY_SUPERSEDED",
+    "phase2Disposition": "OLD_REVIEW_UI_SUPERSEDED_CURRENT_LIFECYCLE_RETAINED",
+    "phase2Decision": "La décision produit Generate Version et Working Draft lazy/invisible supersède l'ancienne UI Review. Checkpoints, fraîcheur et règlement après adoption conservés; aucune équivalence des anciens messages n'est affirmée.",
     "purpose": "Ne pas présenter une ancienne Review comme reconfirmable après adoption; expliquer les préconditions manquantes.",
     "comparison": "Le candidat préserve PRJ et invalide les scopes obsolètes via les checkpoints/preparation/human receipts. Le texte/helper historique n'existe pas tel quel. L'ancienne UI Review est remplacée par Generate Version et Working Draft lazy suivant les décisions utilisateur; aucune équivalence textuelle exhaustive n'est déclarée.",
     "tests": [
@@ -43,6 +47,8 @@
       "validation/noxia-working-draft-precount-http400-01/REPORT.md"
     ],
     "disposition": "KEEP",
+    "phase2Disposition": "KEEP_QUALIFIED_DIAGNOSTIC_PORT",
+    "phase2Decision": "Port existant d04be391 conservé au guard actuel, avec tests de confidentialité. Aucune reprise de l'ancien owner.",
     "purpose": "Diagnostiquer un HTTP 400 de precount WD sans reproduire texte scientifique/schema enum privé.",
     "comparison": "Absent sous cette forme dans le candidat. Port minimal au guard actuel, même whitelist/digests et régression anti-fuite; Azure garde son admission locale sans precount externe.",
     "tests": [
@@ -57,6 +63,8 @@
       "src/features/protocol-designer/functional-reset/__tests__/v1-researcher-ux-refinement-01.test.tsx"
     ],
     "disposition": "POTENTIALLY_SUPERSEDED",
+    "phase2Disposition": "KEEP_USER_APPROVED_VIEWPORT",
+    "phase2Decision": "Layout viewport et navigation persistante approuvés conservés. L'algorithme d'auto-fit historique n'est pas déclaré identique; le scroll de page desktop n'est pas réintroduit.",
     "purpose": "Navigation longue conversation et textarea adaptatif/redimensionnable.",
     "comparison": "Navigation persistante et scroll interne sont présents dans la correction viewport validée par l'utilisateur et le RC précédent. Le main auto-fit 3–15 lignes / 38% viewport et resize md n'est pas identique au candidat 28/35dvh et resize lg. Ne pas réintroduire le scroll de page desktop; choix UX résiduel à confirmer.",
     "tests": [
@@ -84,6 +92,8 @@
       "validation/noxia-working-draft-max-output-safe-recovery-01/shared-store-tests-qualification.json"
     ],
     "disposition": "POTENTIALLY_SUPERSEDED",
+    "phase2Disposition": "KEEP_CURRENT_TERMINAL_ACCOUNTING_AND_QUOTE_BINDINGS",
+    "phase2Decision": "Accounting incomplete généralisé et quotes exactes normalisées/restaurées conservés. Capacité WD actuelle 64000, distincte de l'ancienne limite 16000, sous les guards existants; aucun changement de politique financière.",
     "purpose": "Comptabiliser une troncature WD connue sans l'adopter ni fermer indûment la session; porter sortie WD à 16000, normaliser les quotes multilignes.",
     "comparison": "L'accounting connu incomplete et les quotes normalisées/restaurées sont présents. La capacité WD actuelle est 64000 tokens (pas 16000), validée séparément sous les mêmes guards financiers. Ce n'est pas une identité de contrat/coût; la politique scientifique/admission reste à approuver pour release.",
     "tests": [
@@ -103,6 +113,8 @@
       "src/features/protocol-designer/functional-reset/study-proposal-standard.ts"
     ],
     "disposition": "HUMAN_DECISION_REQUIRED",
+    "phase2Disposition": "KEEP_EXACT_CANONICAL_SCOPE_NO_SUFFIX_FALLBACK",
+    "phase2Decision": "Décision utilisateur explicite : périmètre présenté et références canoniques exacts. Le fallback suffixe :atom:ref est exclu; adoption PRJ et reçus natifs conservés.",
     "purpose": "Faire adopter une Review préparée par confirmation naturelle et reconnaître une adoption précédente d'atome lors d'une recomposition.",
     "comparison": "Le candidat a une décision conversationnelle liée à un scope présenté exact et des receipts/checkpoints. main ajoute adoption directe de la Review recommandée et fallback suffixe :atom:ref. Ce fallback n'est pas équivalent à une identité canonique exacte; ne pas l'injecter mécaniquement.",
     "tests": [
@@ -119,6 +131,8 @@
       "src/features/scientific-thinking/scientific-collaborator-conversation.ts"
     ],
     "disposition": "HUMAN_DECISION_REQUIRED",
+    "phase2Disposition": "LEXICAL_PORT_REJECTED_SEMANTIC_CONTRACT_GAP_IDENTIFIED",
+    "phase2Decision": "La rectification utilisateur supersède le choix d'élargissement lexical. Les ajouts non committés ont été retirés. Cible : interprétation LLM dans l'appel conversationnel existant, puis validation native QRY/PRJ; le résultat décisionnel lié manque encore. Voir natural-decision-semantic-audit.md.",
     "purpose": "Élargir les actes naturels de validation et empêcher le modèle de nier les capacités d'écriture du produit.",
     "comparison": "Le candidat reconnaît déjà plusieurs validations mais la grammaire et le routage diffèrent; wording instructions différent, pas d'équivalence sémantique automatique. Confirmer le comportement souhaité avant reprise sélective; ni faux USER ni adoption élargie ajoutée ici.",
     "tests": [
@@ -134,6 +148,8 @@
       "src/features/protocol-designer/functional-reset/__tests__/continuous-project-build.test.tsx"
     ],
     "disposition": "POTENTIALLY_SUPERSEDED",
+    "phase2Disposition": "VISIBLE_WORKING_DRAFT_INDICATOR_SUPERSEDED",
+    "phase2Decision": "Décision produit explicite : WD Standard interne, invisible, lazy. Les checkpoints et tours ultérieurs restent gouvernés. Ce choix ne prouve ni ne crée un WD incrémental.",
     "purpose": "Afficher l'indicateur WD uniquement si compositionDigest correspond au proposal courant, sans casser l'incrément.",
     "comparison": "L'indicateur technique est absent du Standard actuel; WD demeure lazy/invisible par décision utilisateur explicite. Les owners natifs gardent checkpoints et pending turns. Supersession recommandée du seul affichage, non déduction chronologique ni élimination de provenance.",
     "tests": [
