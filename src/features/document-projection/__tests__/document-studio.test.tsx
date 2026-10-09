@@ -49,6 +49,59 @@ const save = async () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("READ is read-only and creates no draft/intent; explicit Edit opens one native revision", async () => {
+    const run = await runtime(), execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => null);
+    render(<DocumentStudio client={run.client} target={{ ...run.target, initialMode: "READ" }} finalization={{ run: execute }} onClose={run.close} />);
+    await screen.findByText("Version archivée · lecture seule");
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(run.fixture.revisions()).toHaveLength(0); expect(execute).not.toHaveBeenCalled();
+    expect(screen.queryByRole("button", { name: "Créer la version suivante" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Modifier" })); await run.ready();
+    expect(run.fixture.revisions()).toHaveLength(1);
+    await waitFor(() => expect(execute).toHaveBeenCalledOnce());
+    expect(execute.mock.calls[0][2]).toBe(true); // read-only intent recovery, never finalization
+  });
+  it("READ resumes an existing saved draft without writing or launching finalization", async () => {
+    const run = await runtime(), initial = await run.owner.create(run.access2, run.createInput);
+    const content = structuredClone(initial.revision.content); content.sections[0].blocks[0].text = "Texte humain déjà enregistré";
+    const saved = await run.owner.save(run.access2, { revisionId: initial.revision.revisionId, expectedSaveSequence: 1, content });
+    const before = run.fixture.revisions();
+    render(<DocumentStudio client={run.client} target={{ ...run.target, initialMode: "READ", activeRevisionId: saved.revision.revisionId }} onClose={run.close} />);
+    await screen.findByText(content.sections[0].blocks[0].text);
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument(); expect(run.fixture.revisions()).toEqual(before);
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+  });
+  it("COMPARE edits/saves the single native buffer, updates diff and survives mode switches/reload; base remains immutable", async () => {
+    const run = await runtime(), view = run.open(), archived = run.fixture.bodies(), execute = vi.fn();
+    await run.ready(); const id = run.revision().revisionId, original = run.revision().content.sections[0].blocks[0].text;
+    fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
+    for (const base of screen.getAllByTestId("studio-compare-base")) expect(within(base).queryByRole("textbox")).not.toBeInTheDocument();
+    const field = compareScope().getByRole("textbox", { name: "Section 1 · paragraphe 1" });
+    const calls = run.transport.mock.calls.length;
+    fireEvent.change(field, { target: { value: "Correction éditoriale de qualification" } });
+    expect(compareScope().getByText(original)).toBeInTheDocument();
+    expect(compareScope().getByText("Section 1 · paragraphe 1 · Modifié")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Lire" }));
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(screen.getByText("Correction éditoriale de qualification")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Modifier" }));
+    expect(await run.ready()).toHaveValue("Correction éditoriale de qualification");
+    fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
+    expect(run.transport).toHaveBeenCalledTimes(calls); expect(run.revision().revisionId).toBe(id);
+    expect(run.fixture.revisions()).toHaveLength(1); expect(execute).not.toHaveBeenCalled();
+    await save(); expect(run.revision().content.sections[0].blocks[0].text).toBe("Correction éditoriale de qualification");
+    expect(run.fixture.bodies()).toEqual(archived);
+    view.unmount(); run.open(); expect(await run.ready()).toHaveValue("Correction éditoriale de qualification");
+    expect(run.revision().revisionId).toBe(id); expect(run.fixture.revisions()).toHaveLength(2);
+  });
+  it("navigation cannot discard a dirty buffer outside the native leave confirmation", async () => {
+    const run = await runtime(), lock = vi.fn();
+    render(<DocumentStudio client={run.client} target={run.target} onClose={run.close} onNavigationLock={lock} />);
+    fireEvent.change(await run.ready(), { target: { value: "Travail local conservé" } });
+    await waitFor(() => expect(lock).toHaveBeenLastCalledWith(true));
+    await save(); await waitFor(() => expect(lock).toHaveBeenLastCalledWith(false));
+  });
   it("N: plain Error code is preserved next to the initiating action; private/error prose is not rendered", async () => {
     const run = await runtime();
     const execute = vi.fn<StudioFinalizationRuntime["run"]>(async (_revision, _progress, opening) => {
@@ -249,8 +302,8 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     const item = await screen.findByTestId(`archived-generation-${run.g2.ref.ordinal}`);
     expect(run.fixture.revisions()).toHaveLength(0);
     expect(run.transport.mock.calls.some(([, init]) => JSON.parse(String(init?.body)).operation === "DOC_ARCHIVE_BODY")).toBe(false);
-    fireEvent.click(within(item).getByRole("button", { name: "Choisir un document pour Studio" }));
-    fireEvent.click(await within(item).findByRole("button", { name: /Ouvrir dans Studio Version 2 · .*PROTOCOL_FULL/u }));
+    fireEvent.click(within(item).getByRole("button", { name: "Afficher les documents" }));
+    fireEvent.click(await within(item).findByRole("button", { name: /Modifier dans Studio Version 2 · .*PROTOCOL_FULL/u }));
     await run.ready();
     expect(screen.getByText("Basé sur la Version 2")).toBeInTheDocument();
     expect(run.revision().baseGenerationId).toBe(run.g2.ref.generationId);
@@ -354,13 +407,13 @@ describe("Document Studio V1 / native archive vertical slice", () => {
   it("H: compares native immutable base and current text by blocks, including modification/removal", async () => {
     const run = await runtime(); run.open(); const field = await run.ready(), original = run.revision().content.sections[0].blocks[0].text;
     fireEvent.change(field, { target: { value: "Texte modifié dans le brouillon" } });
-    fireEvent.click(screen.getByRole("button", { name: "Comparer à la base" }));
+    fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
     expect(compareScope().getByText(original)).toBeInTheDocument();
-    expect(compareScope().getByText("Texte modifié dans le brouillon")).toBeInTheDocument();
+    expect(compareScope().getByRole("textbox", { name: "Section 1 · paragraphe 1" })).toHaveValue("Texte modifié dans le brouillon");
     expect(compareScope().getByText("Section 1 · paragraphe 1 · Modifié")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Revenir à l’édition" }));
+    fireEvent.click(screen.getByRole("button", { name: "Modifier" }));
     fireEvent.change(screen.getByRole("textbox", { name: "Section 1 · paragraphe 1" }), { target: { value: "" } });
-    fireEvent.click(screen.getByRole("button", { name: "Comparer à la base" }));
+    fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
     expect(compareScope().getByText("Section 1 · paragraphe 1 · Retiré")).toBeInTheDocument();
     expect((await run.archive.body(run.access2, run.g2.ref.generationId)).body).toEqual(run.g2.body);
   });

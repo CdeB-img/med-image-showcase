@@ -1,6 +1,23 @@
 import type { DocumentGenerationBody, DocumentGenerationRef } from "./generation-persistence";
+import { DRCI_DOCUMENT_KINDS } from "./drci-draft-contract";
+import { logicalDigest } from "../knowledge-engine/canonical";
 
-export type DocumentStudioTarget = { generation: DocumentGenerationRef; nativeDocumentRef: string };
+export type DocumentStudioTarget = { generation: DocumentGenerationRef; nativeDocumentRef: string;
+  initialMode?: "READ" | "EDIT"; activeRevisionId?: string };
+
+/** Current DRCI adapter, using the archive's existing native artifact identity.
+ * This is display routing, not a new portfolio registry or filename identity. */
+export const archivedStudioDocuments = (generation: DocumentGenerationRef) => {
+  if (generation.family !== "DRCI") return [];
+  const packDigest = generation.generationId.split(":document-generation:")[1];
+  if (!packDigest) return [];
+  const titles = { PROTOCOL_FULL: "Protocole complet", PROTOCOL_SYNOPSIS: "Synopsis", CRF: "CRF", RECRUITMENT: "Recrutement" };
+  return DRCI_DOCUMENT_KINDS.flatMap(kind => {
+    const artifactId = `drci-document:${logicalDigest([packDigest, kind])}`;
+    return generation.files.some(file => file.artifactId === artifactId)
+      ? [{ nativeDocumentRef: kind, title: titles[kind] }] : [];
+  });
+};
 
 /** Select actual native documents, not rendered files or a new kind registry. */
 export const studioDocuments = (body: DocumentGenerationBody) => body.native.family === "DRCI"

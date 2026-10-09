@@ -581,7 +581,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.bridgeTraces.map(trace => ({ turnId: trace.turnId, traceRunId: trace.traceRunId }))).toContainEqual({
       turnId: accepted.composition!.sourceTurnRef, traceRunId: createProductTraceRunId(saved.sessionId, "u1"),
     });
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(saved.project?.confirmationDecision.reason).toBe(canonicalReason);
@@ -616,7 +616,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved}
       onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Valider ces choix" }));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
@@ -1417,8 +1417,8 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockRejectedValue(new TypeError("LOCAL_SYNTHETIC_LOST_RESPONSE"));
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(state => { saved = state; return true; })} /></HelmetProvider>);
 
-    expect(screen.getByRole("button", { name: "Protocole / documents" })).toBeEnabled();
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    expect(screen.getByRole("button", { name: "Documents" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Documents du projet" })).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: "Valider ces choix" })).toHaveLength(1);
@@ -1477,7 +1477,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
       }
       saved=next; return true;
     })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     expect(screen.getByTestId("project-document-finalization-workspace")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
@@ -1539,7 +1539,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const projectV1Owner = saved.project!, projectV1 = JSON.stringify(projectV1Owner);
     expect(bridge).not.toHaveBeenCalled();
     expect((await offlineArchiveClient(saved.sessionId, saved.project!).history()).entries).toEqual([]);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
     // CURRENT_STRUCTURAL_INVARIANT: the archived technical projection is
@@ -1570,7 +1570,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     let client = offlineArchiveClient(saved.sessionId, saved.project!);
     expect((await client.history()).entries).toEqual([g1]);
     expect(g1.project.projectVersion).toContain(":version:1");
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
     expect(within(screen.getByTestId(`archived-generation-${g1.ordinal}`)).getByText(/Historique/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
@@ -1591,7 +1591,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     await waitFor(() => expect(saved.project?.revision).toBe(3));
     expect(JSON.stringify(projectV1Owner)).toBe(projectV1); expect(JSON.stringify(projectV2Owner)).toBe(projectV2);
     client = offlineArchiveClient(saved.sessionId, saved.project!);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("Version 3");
     const generations = (await client.history()).entries;
@@ -1613,7 +1613,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const { store, access, fixture } = await (await import("../../../document-projection/__tests__/offline-archive-client")).offlineArchiveRuntime(saved.sessionId, saved.project!);
     expect((await store.history(access)).entries).toHaveLength(6); // Three technical + three real generations.
     const queryCount = fixture.queries.length;
-    view = mount(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    view = mount(); fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("Version 3");
     expect(fixture.queries.slice(queryCount).join(" ")).not.toContain("doc_generation_body");
     expect(bridge).toHaveBeenCalledTimes(3);
@@ -1647,7 +1647,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     });
     const mountRetry = () => render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next=>{saved=next;return true;})} /></HelmetProvider>);
     const retryView = mountRetry();
-    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Documents"}));
     expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Choix enregistrés dans le projet · version 1");
     expect(screen.getByRole("button",{name:"Générer les documents"})).toBeEnabled();
     const adoptedVersion=project.versionId;
@@ -1662,7 +1662,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     const laterChat = { turnId: "later-chat-during-doc-failure", role: "USER" as const,
       content: "Je poursuis la discussion sans modifier les choix adoptés.", createdAt: new Date(Date.now() + 1000).toISOString() };
     saved = { ...saved, runtimeTurns: [...saved.runtimeTurns, laterChat] };
-    mountRetry(); fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    mountRetry(); fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     const generate = screen.getByRole("button",{name:"Générer les documents"});
     expect(generate).toBeEnabled();
     for (let i = 0; i < 10; i++) fireEvent.click(generate);
@@ -1699,7 +1699,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     bridge.mockImplementation(async (req: ProductBridgeRequest) => req.documentDraftRequest ? pendingDocument
       : (await call({ ...req, apiVersion: "1.0.0" }, vi.fn<typeof fetch>().mockResolvedValue(response("LOCAL_SYNTHETIC — Chat pendant DOC.")), false)).body);
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await screen.findByTestId("document-generation-progress");
     expect(screen.queryByRole("progressbar", { name: "Progression estimée des documents" })).toBeNull();
@@ -1716,7 +1716,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     expect(saved.project?.versionId).toBe(project.versionId);
     expect(saved.entries.some(entry => entry.kind === "TEXT" && entry.role === "NOXIA" && entry.content === "LOCAL_SYNTHETIC — Chat pendant DOC.")).toBe(true);
     expect(screen.queryByTestId("document-generation-progress")).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     expect(screen.getByTestId("document-generation-recovery")).toHaveTextContent("Votre projet et les versions précédentes sont conservés.");
   });
 
@@ -1760,7 +1760,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
     expect(bridge).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Documents"}));
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await screen.findByTestId("document-generation-recovery");
     expect(saved.project?.confirmationDecision.status).toBe("ADOPTED");
@@ -1778,7 +1778,7 @@ describe("continuous working composition — synthetic mechanics, no scientific 
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={explicitTestSave(next => { saved = next; return true; })} /></HelmetProvider>);
     fireEvent.click(screen.getByRole("button",{name:"Valider ces choix"}));
     await waitFor(() => expect(saved.project?.revision).toBe(1));
-    fireEvent.click(screen.getByRole("button",{name:"Protocole / documents"}));
+    fireEvent.click(screen.getByRole("button",{name:"Documents"}));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toBeInTheDocument());
     fireEvent.click(screen.getByTestId("adopted-project-document-generation").querySelector("button")!);
     await screen.findByTestId("document-generation-recovery");

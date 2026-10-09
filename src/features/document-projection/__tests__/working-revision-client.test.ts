@@ -28,6 +28,32 @@ const runtime = async () => {
 };
 
 describe("bounded DOC revision API/client, existing capability and transport", () => {
+  it("lists only latest ACTIVE draft metadata under the existing Project capability, without bodies or writes", async () => {
+    const run = await runtime();
+    expect(await run.client.active!()).toEqual([]);
+    expect(run.fixture.revisions()).toHaveLength(0);
+    const initial = await run.client.create(run.createInput), content = structuredClone(initial.revision.content);
+    content.title = "Texte privé du brouillon";
+    const saved = await run.client.save({ revisionId: initial.revision.revisionId, expectedSaveSequence: 1, content });
+    const before = run.fixture.revisions(), archive = run.fixture.bodies();
+    expect(await run.client.active!()).toEqual([{ revisionId: saved.revision.revisionId, logicalDocumentRef: saved.revision.logicalDocumentRef,
+      baseGenerationId: saved.revision.baseGenerationId, baseGenerationBodyDigest: saved.revision.baseGenerationBodyDigest,
+      nativeDocumentRef: "PROTOCOL_FULL", saveSequence: 2, updatedAt: saved.revision.updatedAt }]);
+    expect(JSON.stringify(await run.client.active!())).not.toContain(content.title);
+    expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_ACTIVE", {}), "0".repeat(43))).status).toBe(403);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_ACTIVE", { revisionId: "other" }))).status).toBe(400);
+    await run.client.abandon({ revisionId: initial.revision.revisionId, expectedSaveSequence: 2 });
+    expect(await run.client.active!()).toEqual([]);
+  });
+  it("rejects active metadata with body leakage, corrupt identity or duplicate revision", async () => {
+    const run = await runtime(); await run.client.create(run.createInput);
+    run.mutate.response = value => {
+      const response = value as { result: Record<string, unknown>[] };
+      response.result[0].content = "Private text"; return response;
+    };
+    await expect(run.client.active!()).rejects.toThrow("DOC_REVISION_RESPONSE_INVALID");
+  });
   it("opens/resumes by exact native base and rejects extra fields or substituted source responses", async () => {
     const run = await runtime(), { revisionId: _id, ...input } = run.createInput;
     const first = await run.client.open(input);

@@ -8,6 +8,7 @@ import { docSha256 } from "../../../../server/protocol-designer-document-archive
 import { logicalDigest } from "../../knowledge-engine/canonical";
 import { documentFileManifest, documentNativeIdentity, DOC_ARCHIVE_CONTRACT, type DocumentGenerationRef } from "../generation-persistence";
 import type { DocumentArchiveClient } from "../generation-archive-client";
+import type { DocumentWorkingRevisionClient } from "../working-revision";
 import { downloadStudyDeliverableFile, downloadFrozenStudyFiles } from "../study-deliverable-portfolio";
 
 vi.mock("../study-deliverable-portfolio", async original => ({ ...await original<object>(), downloadStudyDeliverableFile: vi.fn(), downloadFrozenStudyFiles: vi.fn() }));
@@ -36,6 +37,24 @@ const setup = async () => {
   return { client, entries, bodies };
 };
 describe("DOC metadata-only history and one selected immutable body", () => {
+  it("exposes native document Edit/Read actions and saved drafts immediately, without loading bodies or opening a revision", async () => {
+    const source = await setup(), entries = source.entries, onStudio = vi.fn(), first = entries[0];
+    const revision = { revisionId: "document-working-revision:existing", logicalDocumentRef: "native-logical-reference",
+      baseGenerationId: first.generationId, baseGenerationBodyDigest: first.bodySha256, nativeDocumentRef: "PROTOCOL_FULL", saveSequence: 2,
+      updatedAt: "2026-10-09T00:00:00.000Z" };
+    const client = { ...source.client, workingRevisions: { active: vi.fn(async () => [revision]), open: vi.fn(), create: vi.fn(), get: vi.fn(), save: vi.fn(), abandon: vi.fn() } as DocumentWorkingRevisionClient };
+    render(<DocumentArchiveHistory client={client} onOpen={vi.fn()} onStudio={onStudio} currentGenerationId={first.generationId} currentProjectDigest={first.project.projectDigest} />);
+    const row = within(await screen.findByTestId(`archived-generation-${first.ordinal}`));
+    expect(row.getByRole("button", { name: "Modifier dans Studio Version 130 · Protocole complet" })).toBeVisible();
+    await row.findByText("Brouillon enregistré · non intégré à une version");
+    expect(row.getByText("Version actuelle")).toBeInTheDocument();
+    expect(client.body).not.toHaveBeenCalled(); expect(client.workingRevisions.open).not.toHaveBeenCalled();
+    fireEvent.click(row.getByRole("button", { name: "Consulter Version 130 · Protocole complet" }));
+    expect(onStudio).toHaveBeenLastCalledWith({ generation: first, nativeDocumentRef: "PROTOCOL_FULL", initialMode: "READ", activeRevisionId: revision.revisionId });
+    fireEvent.click(row.getByRole("button", { name: "Modifier dans Studio Version 130 · Protocole complet" }));
+    expect(onStudio).toHaveBeenLastCalledWith({ generation: first, nativeDocumentRef: "PROTOCOL_FULL", initialMode: "EDIT", activeRevisionId: revision.revisionId });
+    expect(client.body).not.toHaveBeenCalled();
+  });
   it("loads 25 metadata entries, then only G7; download reuses the one verified RAM body", async () => {
     const { client, entries, bodies } = await setup(); const onOpen = vi.fn();
     render(<DocumentArchiveHistory client={client} onOpen={onOpen} />);
@@ -44,6 +63,7 @@ describe("DOC metadata-only history and one selected immutable body", () => {
     expect(client.body).not.toHaveBeenCalled();
     const ref = entries.find(ref => ref.ordinal === 7)!;
     const row = within(screen.getByTestId("archived-generation-7"));
+    fireEvent.click(row.getByText("Télécharger ou consulter les fichiers archivés"));
     expect(row.getByText(/Version 107/)).toBeTruthy();
     const manifest = ref.files[0];
     fireEvent.click(row.getByRole("button", { name: `Ouvrir ${manifest.fileName}` }));
@@ -53,7 +73,7 @@ describe("DOC metadata-only history and one selected immutable body", () => {
     fireEvent.click(row.getByRole("button", { name: `Télécharger Version 107 ${manifest.fileName}` }));
     await waitFor(() => expect(downloadStudyDeliverableFile).toHaveBeenCalledOnce());
     expect(downloadStudyDeliverableFile).toHaveBeenCalledWith(bodies.get(ref.generationId)!.files[0]);
-    fireEvent.click(row.getByRole("button", { name: "Exporter la génération (.zip)" }));
+    fireEvent.click(row.getByRole("button", { name: "Exporter la version (.zip)" }));
     await waitFor(() => expect(downloadFrozenStudyFiles).toHaveBeenCalledExactlyOnceWith(bodies.get(ref.generationId)!.files, ref.generatedAt, 107));
     expect(client.body).toHaveBeenCalledOnce();
     fireEvent.click(screen.getByRole("button", { name: "Versions précédentes" }));
@@ -66,6 +86,7 @@ describe("DOC metadata-only history and one selected immutable body", () => {
     vi.mocked(client.body).mockImplementation(async id => { await new Promise<void>(resolve => { release = resolve; }); return original(id); });
     const rendered = render(<DocumentArchiveHistory client={client} onOpen={onOpen} />);
     await waitFor(() => expect(screen.getByTestId("archived-generation-7")).toBeTruthy());
+    fireEvent.click(within(screen.getByTestId("archived-generation-7")).getByText("Télécharger ou consulter les fichiers archivés"));
     fireEvent.click(within(screen.getByTestId("archived-generation-7")).getAllByRole("button")[0]);
     rendered.unmount(); release();
     await new Promise(resolve => setTimeout(resolve, 0));

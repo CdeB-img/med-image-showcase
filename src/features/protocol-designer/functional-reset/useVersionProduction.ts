@@ -116,6 +116,6 @@ export function useVersionProduction(input: {
       if (mounted.current) setError("La production de cette version n’a pas abouti. La conversation, le projet et les documents déjà archivés sont conservés.");
     } finally { inFlight.current = false; if (mounted.current) setPending(false); }
   };
-  return { generate, pending, error, available, label: current ? "Documents à jour"
+  return { generate, pending, error, available, label: current ? "Version archivée à jour"
     : input.session.documentArchive?.currentGenerationId ? "Générer une nouvelle version" : "Générer la version" };
 }

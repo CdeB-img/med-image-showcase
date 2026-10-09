@@ -181,6 +181,25 @@ describe("Standard single-action two-version scientific flow", () => {
     expect(new TextEncoder().encode(h.packets.at(-1)!).length).toBeLessThan(80000);
     expectNoInternals();
   });
+  it("preserves the conversation DOM, unsent buffer and scroll while the Documents panel opens/closes", async () => {
+    const h = setup(); send(initial); await screen.findByText(semantic(initial).reply);
+    const composer = screen.getByRole("textbox", { name: "Votre message" });
+    generate(); await screen.findByText("Version 1");
+    expect(composer.isConnected).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    const panel = screen.getByTestId("conversation-scroll-panel");
+    panel.scrollTop = 480; fireEvent.scroll(panel);
+    fireEvent.change(composer, { target: { value: "Saisie locale non envoyée" } });
+    const calls = h.requests.length;
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
+    expect(screen.getByTestId("document-workspace-panel")).toBeVisible();
+    expect(screen.getByTestId("project-document-navigation")).toHaveClass("sticky");
+    expect(composer.isConnected).toBe(true); expect(composer).toHaveValue("Saisie locale non envoyée");
+    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    expect(screen.getByRole("textbox", { name: "Votre message" })).toBe(composer);
+    expect(panel.scrollTop).toBe(480); expect(composer).toHaveValue("Saisie locale non envoyée");
+    expect(h.requests).toHaveLength(calls);
+  });
   it("creates V1/G1 then an explicit MRI-to-biopsy V2/G2, preserving immutable history and reload", async () => {
     const h = setup(); expectNoInternals(); send(initial); await screen.findByText(semantic(initial).reply);
     expect(h.requests).toHaveLength(1); expect(h.state().project).toBeNull();
@@ -189,7 +208,7 @@ describe("Standard single-action two-version scientific flow", () => {
     expect(h.state().project?.revision, String(h.failure())).toBe(1);
     const v1 = JSON.stringify(h.state().project), client = offlineArchiveClient(h.state().sessionId, h.state().project!);
     const g1 = (await client.history()).entries[0], body1 = JSON.stringify((await client.body(g1.generationId)).body);
-    expect(screen.getByRole("button", { name: "Documents à jour" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Version archivée à jour" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Conception" })); send(revision); await screen.findByText(semantic(revision).reply);
     expect(JSON.stringify(h.state().project)).toBe(v1); expectNoInternals();
     generate("Générer une nouvelle version");
@@ -210,15 +229,15 @@ describe("Standard single-action two-version scientific flow", () => {
     fireEvent.click(screen.getByRole("button", { name: "Conception" }));
     send("Récapitulons sans modifier les choix."); await screen.findByText(semantic("Récapitulons sans modifier les choix.").reply);
     generate("Générer une nouvelle version");
-    await waitFor(() => expect(screen.getByRole("button", { name: "Documents à jour" })).toBeDisabled());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Version archivée à jour" })).toBeDisabled());
     expect(h.state().project?.revision).toBe(2); expect(h.requests.filter(r => r.documentDraftRequest)).toHaveLength(2);
     expect((await client.history()).entries).toHaveLength(2);
     const frozen = loadFunctionalResetSession(localStorage); expect(frozen.project?.projectDigest).toBe(h.state().project?.projectDigest);
     h.view.unmount(); const reload = render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={frozen} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     await within(screen.getByTestId("durable-document-history")).findByText("Version 2");
     expect(screen.getByText("Version 1")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Documents à jour" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Version archivée à jour" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Conception" })); send("Quelles limites restent à discuter ?");
     await screen.findByText(semantic("Quelles limites restent à discuter ?").reply);
     expect(new TextEncoder().encode(h.packets.at(-1)!).length).toBeLessThan(80_000);

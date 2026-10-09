@@ -115,6 +115,7 @@ export default function ProtocolDesignerWorkspace({
   const [busyMessage, setBusyMessage] = useState("NOXIA vous répond…");
   const [correctionMode, setCorrectionMode] = useState(false);
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
+  const [studioNavigationLocked, setStudioNavigationLocked] = useState(false);
   const [documentSaveWarning, setDocumentSaveWarning] = useState<string | null>(null);
   const [sessionSaveWarning, setSessionSaveWarning] = useState<string | null>(null);
   const saveWarningRef = useRef({ session: sessionSaveWarning, document: documentSaveWarning });
@@ -794,11 +795,13 @@ export default function ProtocolDesignerWorkspace({
           </div>
         </div>
       </header>
+      <div className="grid min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
       <ProjectContinuum documentsAvailable={Boolean(session.project || preparedFinalization)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
-        disabled={busy || Boolean(postAdoptionContinuationJob)}
+        disabled={studioNavigationLocked || Boolean(postAdoptionContinuationJob)}
         onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
         onDocuments={() => { setSourceLibraryOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); setDeliverableWorkspaceOpen(true); }} />
 
+      <div className="min-w-0">
       {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
       {projectionMode === "STANDARD" && <div className="mb-3" data-testid="version-production-action">
@@ -810,9 +813,10 @@ export default function ProtocolDesignerWorkspace({
         {versionProduction.pending && <p role="status" className="mt-2 text-xs text-muted-foreground">Production de la version en cours… Vous pouvez poursuivre la conversation.</p>}
         {versionProduction.error && <p role="alert" className="mt-2 text-sm text-destructive">{versionProduction.error}</p>}
       </div>}
-      <div className={`grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] ${projectionMode === "EXPERT" ? "lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]" : ""}`}>
+      <div className={`relative grid min-w-0 gap-5 lg:h-[calc(100dvh-13rem)] lg:min-h-[30rem] ${projectionMode === "EXPERT" ? "lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]" : ""}`}>
         {projectionMode === "EXPERT" && <div className="hidden min-h-0 min-w-0 lg:block lg:overflow-y-auto lg:overscroll-contain" data-testid="project-scroll-panel">{projectPanel}</div>}
 
+        {(sourceLibraryOpen || deliverableWorkspaceOpen || openProjection) && <div className="absolute inset-0 z-10 min-w-0 overflow-y-auto rounded-3xl bg-background lg:overscroll-contain" data-testid="document-workspace-panel">
         {sourceLibraryOpen ? <ProjectSourceLibraryView library={session.sourceLibrary} documents={session.documents.projections} onAcquire={acquireSources} onInstruction={handleDocumentInstruction} onClose={() => setSourceLibraryOpen(false)} message={documentMessage} /> : deliverableWorkspaceOpen && !session.project && projectFinalizationCard ? <section
           aria-labelledby="project-documents-title"
           className="min-w-0 rounded-3xl border bg-background shadow-sm"
@@ -836,6 +840,7 @@ export default function ProtocolDesignerWorkspace({
           portfolio={deliverablePortfolio}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}
+          onStudioNavigationLock={setStudioNavigationLocked}
           onStudioConversation={() => { setDeliverableWorkspaceOpen(false); requestAnimationFrame(() => composerRef.current?.focus()); }}
           currentGenerationId={session.documentArchive?.currentGenerationId}
           archiveOnly={Boolean(archiveClient)}
@@ -864,7 +869,10 @@ export default function ProtocolDesignerWorkspace({
           onRegenerate={() => requestProtocolProjection()}
           history={session.documents.projections}
           onOpenVersion={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
-        /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm lg:h-full lg:min-h-0">
+        /> : <p className="p-5 text-sm text-muted-foreground">Les documents seront disponibles après la création d’une version.</p>}
+        </div>}
+        <section aria-label="Conversation" aria-hidden={sourceLibraryOpen || deliverableWorkspaceOpen || Boolean(openProjection)}
+          className={`flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm lg:h-full lg:min-h-0 ${sourceLibraryOpen || deliverableWorkspaceOpen || openProjection ? "invisible pointer-events-none" : ""}`}>
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
           </div>
@@ -1113,8 +1121,9 @@ export default function ProtocolDesignerWorkspace({
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
             </div>
           </form>
-        </section>}
+        </section>
       </div>
+      </div></div>
     </div>
     {(documentGenerationPending || documentGenerationComplete) && <aside role="status" aria-label="Progression de la génération documentaire"
       className="fixed bottom-24 right-4 z-50 w-[min(21rem,calc(100vw-2rem))] rounded-2xl border bg-background p-3 shadow-xl lg:bottom-28"

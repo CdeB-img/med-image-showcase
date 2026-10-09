@@ -75,7 +75,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
       render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
         saved = next; return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
       }} /></HelmetProvider>);
-      fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+      fireEvent.click(screen.getByRole("button", { name: "Documents" }));
       await within(screen.getByTestId("durable-document-history")).findByText("Version 1");
       const observed: string[] = [];
       const observer = new MutationObserver(() => {
@@ -112,7 +112,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
       saved = next; return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
     }} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Documents à jour."));
     expect(saved.documentArchive?.currentGenerationId).toBe(g2.generation.generationId);
@@ -141,7 +141,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
       if (next.documentArchive?.currentGeneration?.displayVersion === 2) throw new Error("OFFLINE_LOCAL_POINTER_FAILURE");
       return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
     }} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(screen.getByTestId("adopted-project-document-generation")).toHaveTextContent("Documents à jour."));
     expect(screen.getByTestId("document-generation-progress")).toHaveTextContent("Version 2 disponible");
@@ -163,7 +163,7 @@ describe("durable DOC commit is authoritative over client generation state", () 
     render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={saved} onSessionChange={next => {
       saved = next; return { scientificPersisted: true, navigationPointer: "NOT_APPLICABLE" };
     }} /></HelmetProvider>);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await screen.findByTestId("document-generation-recovery");
     expect(saved.documentArchive?.currentGenerationId).toBe(run.g1.generation.generationId);

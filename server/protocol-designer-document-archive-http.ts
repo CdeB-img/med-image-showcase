@@ -201,6 +201,11 @@ export const executeDocumentArchiveOperation = async (input: {
           throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_DURABLE_PROOF_REQUIRED", 422);
         result = await owner.linkPreparation(access, body.intentId, body.expectedSequence, preparation); break;
       }
+      case "DOC_ARCHIVE_REVISION_ACTIVE": {
+        if (keys !== "operation,projectRef,sessionId") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+        if (!archive.workingRevisions) throw new DocumentWorkingRevisionError("DOC_REVISION_UNAVAILABLE", 503);
+        result = await archive.workingRevisions.active(access); break;
+      }
       case "DOC_ARCHIVE_REVISION_OPEN": {
         if (keys !== "baseGenerationBodyDigest,baseGenerationId,nativeDocumentRef,operation,projectRef,sessionId"
           || typeof body.baseGenerationId !== "string" || typeof body.baseGenerationBodyDigest !== "string"

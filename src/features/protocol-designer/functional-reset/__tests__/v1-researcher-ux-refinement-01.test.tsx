@@ -122,15 +122,15 @@ describe("PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01", () => {
     expect(screen.getByTestId("conversation-composer")).toHaveClass("sticky", "bottom-0");
   });
 
-  it("FUTURE_STEPS_VISIBLE_DISABLED", async () => {
+  it("CURRENT_DOCUMENT_NAVIGATION_ONLY_NO_FUTURE_CAPABILITY_CLAIM", async () => {
     const saved = await save("Myocardite");
     localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key);
     renderDemo();
     const continuum = screen.getByRole("navigation", { name: "Parcours longitudinal du projet" });
-    for (const name of ["Revues À venir", "Interprétation des résultats À venir", "Publication À venir"]) {
-      expect(within(continuum).getByRole("button", { name })).toBeDisabled();
-    }
-    expect(continuum).not.toHaveTextContent("suite envisagée");
+    expect(within(continuum).getAllByRole("button")).toHaveLength(2);
+    expect(within(continuum).getByRole("button", { name: "Conception" })).toBeEnabled();
+    expect(within(continuum).getByRole("button", { name: "Documents" })).toBeInTheDocument();
+    expect(continuum).not.toHaveTextContent(/Revues|Interprétation|Publication|suite envisagée/u);
   });
 
   it("PROFILE_TOP_NAVIGATION returns to projects and to the current project", async () => {

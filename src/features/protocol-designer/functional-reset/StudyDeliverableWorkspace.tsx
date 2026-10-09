@@ -23,6 +23,7 @@ type Props = {
   archiveClient?: DocumentArchiveClient;
   studioFinalization?: StudioFinalizationRuntime;
   onStudioConversation?: () => void;
+  onStudioNavigationLock?: (locked: boolean) => void;
   currentGenerationId?: string | null;
   archiveOnly?: boolean;
   onArchivedFileDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
@@ -39,7 +40,7 @@ const statusPresentation: Record<StudyDeliverableStatus, { label: string; classN
   PROFILE_REQUIRED: { label: "Profil requis", className: "bg-sky-100 text-sky-900" },
 };
 
-export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, onStudioConversation, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
+export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarning, archiveClient, studioFinalization, onStudioConversation, onStudioNavigationLock, currentGenerationId, archiveOnly = false, onArchivedFileDownloaded, isArchivedProjectionCurrent, diagnosticProjectionId }: Props) {
   const [openFile, setOpenFile] = useState<StudyDeliverableFile | null>(null);
   const [openTitle, setOpenTitle] = useState("");
   const [selectedBody, setSelectedBody] = useState<DocumentGenerationBody | null>(null);
@@ -69,7 +70,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
   };
   const availableCount = portfolio.artifacts.filter((artifact) => artifact.files.length > 0).length;
   if (studioTarget && archiveClient) return <DocumentStudio key={`${studioTarget.generation.generationId}:${studioTarget.nativeDocumentRef}`}
-    client={archiveClient} target={studioTarget} finalization={studioFinalization} onConversation={onStudioConversation} onClose={() => setStudioTarget(null)} />;
+    client={archiveClient} target={studioTarget} finalization={studioFinalization} onConversation={onStudioConversation} onNavigationLock={onStudioNavigationLock} onClose={() => setStudioTarget(null)} />;
   if (diagnosticProjectionId && selectedBody?.native.family === "TEMPLATE" && openFile?.fileName === "protocol-complet.html") return <section>
     <p className="mb-2 text-xs text-muted-foreground">Diagnostic interne · projection technique, pas une génération documentaire.</p><ProtocolPreview
     projection={selectedBody.native.value}
@@ -92,7 +93,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
           <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {archiveOnly ? "Historique durable : choisissez une génération pour ouvrir ou télécharger ses fichiers figés." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""} depuis le projet version ${portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
+            {archiveOnly ? "Consultez une version archivée ou modifiez un document dans Studio. Enregistrer un brouillon ne crée pas de nouvelle version." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
           </p>
         </div>
         {!archiveOnly && <button

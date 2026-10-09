@@ -6,12 +6,13 @@ import type { JSONValue, Sql } from "postgres";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, assertWorkingRevision, editableArchivedDocument,
   validateWorkingRevisionContent, workingRevisionContentDigest, type AbandonWorkingRevision, type CreateWorkingRevision,
-  type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
+  type ActiveWorkingRevision, type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 
 export type DocumentWorkingRevisionStore = Readonly<{
   /** Server-only shared DOC migration dependency, never exposed to the UI. */
   ensureStorage(access: DocumentArchiveAccess): Promise<void>;
+  active(access: DocumentArchiveAccess): Promise<readonly ActiveWorkingRevision[]>;
   open(access: DocumentArchiveAccess, input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   create(access: DocumentArchiveAccess, input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(access: DocumentArchiveAccess, revisionId: string): Promise<DocumentWorkingRevisionResult>;
@@ -135,6 +136,22 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
   };
   return {
     ensureStorage: async access => { await authorize(access); },
+    async active(access) {
+      const { sessionKey, projectId } = await authorize(access);
+      // Latest save per revision first: an abandoned draft must never reappear.
+      const rows = await sql`select revision from (
+        select distinct on (revision_id) revision_id, save_sequence, status, revision
+        from noxia_durable.doc_working_revision
+        where session_key_hash = ${sessionKey} and project_id = ${projectId}
+        order by revision_id, save_sequence desc
+      ) active_drafts where status = 'ACTIVE' order by revision->>'updatedAt' desc limit 100`;
+      return rows.map(row => {
+        const revision = assertWorkingRevision(row.revision);
+        return { revisionId: revision.revisionId, logicalDocumentRef: revision.logicalDocumentRef,
+          baseGenerationId: revision.baseGenerationId, baseGenerationBodyDigest: revision.baseGenerationBodyDigest,
+          nativeDocumentRef: revision.identitySource.nativeDocumentRef, saveSequence: revision.saveSequence, updatedAt: revision.updatedAt };
+      });
+    },
     async open(access, input) {
       // Exact native base + logical document, never a filename, browser cache or
       // G(n+1) guess. Serialize opens so concurrent tabs resume one ACTIVE draft.

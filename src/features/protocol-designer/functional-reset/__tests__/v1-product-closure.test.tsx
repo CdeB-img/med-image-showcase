@@ -213,17 +213,17 @@ describe("V1 documentary administration, current sources and traceability", () =
   });
 });
 
-it("FUTURE_CONTINUUM_VISIBLE / NO_FALSE_CAPABILITY_CLAIM: disabled WIP modules have no action", () => {
+it("COMPACT_DOCUMENT_NAVIGATION: only current capabilities are visible and navigation is persistent", () => {
   const conversation = vi.fn(), documents = vi.fn();
   render(<ProjectContinuum disabled={false} documentsAvailable documentsOpen={false} onConversation={conversation} onDocuments={documents} />);
   const nav = screen.getByRole("navigation", { name: "Parcours longitudinal du projet" });
-  for (const name of ["Revues", "Interprétation des résultats", "Publication"]) {
-    const button = within(nav).getByRole("button", { name: `${name} À venir` });
-    expect(button).toBeDisabled(); expect(button).toHaveAttribute("data-capability-status", "WORK_IN_PROGRESS");
-    fireEvent.click(button);
-  }
-  expect(conversation).not.toHaveBeenCalled(); expect(documents).not.toHaveBeenCalled();
-  expect(nav).not.toHaveTextContent("Elles ne sont pas disponibles dans cette version");
+  expect(within(nav).getAllByRole("button")).toHaveLength(2);
+  expect(nav).toHaveClass("sticky");
+  expect(within(nav).getByRole("list")).toHaveClass("flex-col");
+  expect(within(nav).getByRole("button", { name: "Conception" })).toHaveAttribute("aria-current", "step");
+  fireEvent.click(within(nav).getByRole("button", { name: "Documents" }));
+  expect(documents).toHaveBeenCalledTimes(1); expect(conversation).not.toHaveBeenCalled();
+  expect(nav).not.toHaveTextContent(/Revues|Interprétation|Publication/u);
 });
 
 

@@ -214,7 +214,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(Boolean(oldRecovery && /^noxia-turn:[a-f\d-]{36}$/iu.test(oldRecovery.sourceResponseRef))).toBe(false);
     expect(screen.queryByTestId("project-finalization-card")).toBeNull();
     expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeEnabled();
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(requests.filter(r => r.documentDraftRequest)).toHaveLength(1));
     fireEvent.click(screen.getByRole("button", { name: "Conception" }));
@@ -228,7 +228,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
       expect(packets.at(-1)).not.toContain(`"${privateDocKey}"`);
     expect(requests.filter(r => r.prepareWorkingDraft)).toHaveLength(1); // no eager preparation
     await act(async () => releaseDocuments());
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("Version 1"));
     const client1 = offlineArchiveClient(saved.sessionId, saved.project!);
     const g1 = (await client1.history()).entries[0];
@@ -245,7 +245,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
     expect(projectPreparationProgress(saved).latestPendingScientificTurnRef).toBeNull();
     expect(screen.getByRole("button", { name: "Préparer la mise à jour du projet" })).toBeDisabled();
     expect(requests.filter(r => r.documentDraftRequest)).toHaveLength(1);
-    fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
     fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
     await waitFor(() => expect(screen.getByTestId("durable-document-history")).toHaveTextContent("Version 2"));
     const client2 = offlineArchiveClient(saved.sessionId, saved.project!);
@@ -350,7 +350,7 @@ describe("product lifecycle stability — meaningful controlled science, native 
         .every(e => e.status === "NOT_ADOPTED")).toBe(true);
       const client = offlineArchiveClient(saved.sessionId, project);
       expect((await client.history()).entries).toEqual([...generations].reverse());
-      fireEvent.click(screen.getByRole("button", { name: "Protocole / documents" }));
+      fireEvent.click(screen.getByRole("button", { name: "Documents" }));
       fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
       // Ten rapid clicks still represent one explicit command.
       for (let click = 0; click < 10; click++) fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
