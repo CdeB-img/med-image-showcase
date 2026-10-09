@@ -2,6 +2,7 @@ import { useConversationTurn } from "./useConversationTurn";
 import { useProjectPreparation } from "./useProjectPreparation";
 import { useVersionProduction } from "./useVersionProduction";
 import { createStudioFinalizationRuntime, retainStudioAdoptionConcurrentWork } from "./studio-finalization-runtime";
+import { createStudioEditRuntime } from "../studio-edit-client";
 import { stageStudioIntentAdoption } from "./studio-finalization-lifecycle";
 import { presentStudioFinalizationQuestion } from "../../query-navigation/studio-finalization-navigation";
 import { publishArchivedGeneration, readCurrentArchivedGeneration } from "@/features/document-projection/generation-session";
@@ -143,6 +144,7 @@ export default function ProtocolDesignerWorkspace({
     prepare: preparationController.start, generateDocuments: requestProtocolProjection, administration });
   const studioPorts = useRef({ preparationController, administration, onSessionChange });
   studioPorts.current = { preparationController, administration, onSessionChange };
+  const studioEditing = useMemo(() => createStudioEditRuntime(() => latestSessionRef.current), []);
   const studioFinalization = useMemo(() => createStudioFinalizationRuntime({
     session: () => latestSessionRef.current,
     publish: next => { latestSessionRef.current = next; setSession(next); },
@@ -846,6 +848,7 @@ export default function ProtocolDesignerWorkspace({
           documentaryRequests={session.entries.flatMap(entry => entry.kind === "TEXT" && entry.role === "USER" ? [{ content: entry.content, sourceRef: entry.entryId }] : [])}
           archiveClient={archiveClient}
           studioFinalization={studioFinalization}
+          studioEditing={studioEditing}
           onStudioNavigationLock={setStudioNavigationLocked}
           onStudioConversation={() => { setDeliverableWorkspaceOpen(false); requestAnimationFrame(() => composerRef.current?.focus()); }}
           currentGenerationId={session.documentArchive?.currentGenerationId}

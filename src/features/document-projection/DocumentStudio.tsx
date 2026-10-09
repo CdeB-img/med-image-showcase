@@ -14,6 +14,8 @@ import type { QuestionPresentationRequest } from "../query-navigation/lifecycle-
 import { studioFinalizationQuestion } from "../query-navigation/studio-finalization-navigation";
 import { toast } from "@/hooks/use-toast";
 import { readStudioAssessmentFailureDiagnostic, type StudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime";
+import StudioEditAssistant from "./StudioEditAssistant";
+import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
 const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
@@ -25,9 +27,10 @@ const codeOf = (error: unknown) => {
 
 /** Native text editing only. Buffers are screen-owned; confirmed saves, source
  * integrity, ACTIVE lookup and concurrency belong to the existing DOC owner. */
-export default function DocumentStudio({ client, target, finalization, onClose, onConversation, onNavigationLock }: {
+export default function DocumentStudio({ client, target, finalization, editing, onClose, onConversation, onNavigationLock }: {
   client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void; onConversation?: () => void;
   onNavigationLock?: (locked: boolean) => void;
+  editing?: StudioEditRuntime;
 }) {
   const [loaded, setLoaded] = useState<{ result: DocumentWorkingRevisionResult | null; base: EditableDocumentContent; body: DocumentGenerationBody } | null>(null);
   const [buffer, setBuffer] = useState<EditableDocumentContent | null>(null);
@@ -233,6 +236,11 @@ export default function DocumentStudio({ client, target, finalization, onClose, 
         {loaded.result && mode !== "READ" && <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>}
       </div>}
     </header>
+    {editing && loaded?.result && buffer && mode !== "READ" && !completed && <StudioEditAssistant runtime={editing} revision={loaded.result.revision}
+      buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} onApply={content => {
+        if (flight.current || completed) return;
+        setBuffer(content); setSaveState("DIRTY"); setActionFailed(false);
+      }} />}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
       <p>{saveState === "CONFLICT" ? "Ce brouillon a été modifié ou abandonné ailleurs. Vos modifications locales sont conservées ; rechargez la dernière version avant de poursuivre."

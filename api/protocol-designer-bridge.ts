@@ -3,6 +3,9 @@ import { acceptStudioAssessment, prepareStudioAssessmentRequest, studioHasNoChan
   assertStudioScientificInput, studioAssessmentOperationIdentity, studioAssessmentResultRequestId,
   type StudioAssessmentFailureDiagnostic, type StudioScientificOperation } from "../src/features/scientific-thinking/studio-runtime.js";
 import { verifySavedStudioScientificSource, resolveStudioPreparationTransport } from "../server/protocol-designer-studio-scientific.js";
+import { resolveSavedStudioEditSource } from "../server/protocol-designer-studio-edit.js";
+import { prepareStudioEditPacket, acceptStudioEditProposal, studioEditOperationId, studioEditRequestSchema } from "../src/features/document-projection/studio-edit-proposal.js";
+import type { DocumentWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import { logicalDigest as studioDigest } from "../src/features/knowledge-engine/canonical.js";
 import { studioDocumentRequestId, studioProviderRequestId, studioDocumentAdmissionMaterial } from "../src/features/document-projection/studio-finalization-document.js";
 import { executeDocumentArchiveOperation, documentArchiveAccess, sharedDocumentArchive } from "../server/protocol-designer-document-archive-http.js";
@@ -171,6 +174,8 @@ export const executeProtocolDesignerBridge = async (input: {
   readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
   readReusableDocumentScope?: import("./protocol-designer-openai-extraction-provider.js").ReadReusableDrciScope;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
+  /** Verified by the current DOC archive owner before public provider admission. */
+  studioEditRevision?: DocumentWorkingRevision;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
   const providerCalls: ProviderCallRecord[] = [];
   const observeProviderCall = (record: ProviderCallRecord) => providerCalls.push(record);
@@ -273,6 +278,29 @@ export const executeProtocolDesignerBridge = async (input: {
         error: { code: "LANGUAGE_PROJECTION_CONTRACT_FAILED", message: "La projection linguistique n’a pas conservé les invariants requis." },
         observability: providerCallRequestObservability(providerCalls),
       } };
+    }
+  }
+  if (input.body && typeof input.body === "object" && "operation" in input.body && input.body.operation === "STUDIO_EDIT_PROPOSAL") {
+    try {
+      const body = input.body as { apiVersion?: string; editRequest?: unknown; currentProject?: import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection;
+        observabilityContext?: ProviderCallObservationContext };
+      const edit = studioEditRequestSchema.parse(body.editRequest);
+      if (body.apiVersion !== PRODUCT_BRIDGE_API_VERSION || !input.studioEditRevision || !body.currentProject
+        || !body.observabilityContext?.sessionId || body.observabilityContext.turnId !== null
+        || body.observabilityContext.clientRequestId !== studioEditOperationId(edit)) throw new Error("STUDIO_EDIT_SOURCE_INVALID");
+      const packet = prepareStudioEditPacket(edit, input.studioEditRevision, body.currentProject);
+      if (detectSensitiveData(edit.instruction).length || detectSensitiveData(packet.context).length) throw new Error("LOCAL_SAFETY_BLOCKED");
+      if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA" || !input.openAiApiKey?.trim()) throw new Error("STUDIO_EDIT_RUNTIME_UNAVAILABLE");
+      const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
+        { context: body.observabilityContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null,
+          onRecord: observeProviderCall }, input.openAiTransport);
+      const proposal = acceptStudioEditProposal(edit, input.studioEditRevision, JSON.parse(generated.value));
+      return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        editProposal: { requestDigest: edit.requestDigest, proposedText: proposal.proposedText },
+        observability: { calls: 1, projectWrites: 0, ...providerCallRequestObservability(providerCalls) } } };
+    } catch (error) {
+      const code = error instanceof Error && /^(?:STUDIO_EDIT|DOC_REVISION|LOCAL_SAFETY)_[A-Z_]+$/u.test(error.message) ? error.message : "STUDIO_EDIT_FAILED";
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code }, observability: providerCallRequestObservability(providerCalls) } };
     }
   }
   const native = input.body as Partial<StudioScientificOperation> | null;
@@ -1081,6 +1109,25 @@ export const handleProtocolDesignerBridge = async (
       error: { code: "STUDIO_PREPARATION_REFERENCE_INVALID" }, observability: providerCallRequestObservability([]) }); }
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
+  let studioEditRevision: DocumentWorkingRevision | undefined;
+  if (body && typeof body === "object" && "operation" in body && body.operation === "STUDIO_EDIT_PROPOSAL") {
+    try {
+      const raw = body as Record<string, unknown>, project = raw.currentProject as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection;
+      const observation = raw.observabilityContext as ProviderCallObservationContext;
+      if (!project || !observation?.sessionId) throw new Error("STUDIO_EDIT_SOURCE_INVALID");
+      const edit = studioEditRequestSchema.parse(raw.editRequest);
+      if (observation.turnId !== null || observation.clientRequestId !== studioEditOperationId(edit)) throw new Error("STUDIO_EDIT_SOURCE_INVALID");
+      const access = documentArchiveAccess({ sessionId: observation.sessionId,
+        projectRef: { projectId: project.projectId, versionId: project.versionId, projectDigest: project.projectDigest } },
+        header(request.headers, "x-noxia-project-snapshot-proof") ?? null,
+        header(request.headers, "x-forwarded-for")?.split(",")[0]?.trim() || request.socket?.remoteAddress?.trim() || "anonymous");
+      const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
+      const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
+      if (!archive) throw new Error("DOC_REVISION_UNAVAILABLE");
+      studioEditRevision = await resolveSavedStudioEditSource(archive, access, project, edit);
+    } catch { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "STUDIO_EDIT_SOURCE_INVALID" }, observability: providerCallRequestObservability([]) }); }
+  }
   const studioBody = body as Partial<StudioScientificOperation> & Partial<import("../src/features/protocol-designer/product-bridge.js").ProductBridgeRequest>;
   const studioRequest = studioBody?.operation === "STUDIO_SCIENTIFIC_ASSESSMENT"
     ? studioBody.studioRequest : studioBody?.studioPreparationSource?.request;
@@ -1215,6 +1262,7 @@ export const handleProtocolDesignerBridge = async (
       readReusableDocumentScope: doc && durableGuard.readReusableDocumentScope
         ? scope => durableGuard.readReusableDocumentScope!({ context: publicAdmission, body, ...scope }) : undefined,
       providerAttemptPolicy: dependencies.providerAttemptPolicy,
+      studioEditRevision,
     });
     let archived: { status: number; body: unknown };
     if (doc && !workingDraftRequest?.documentFinalizationIntentId && result.status !== 200 && !JSON.stringify(result.body).includes("UNKNOWN_AFTER_DISPATCH")) {

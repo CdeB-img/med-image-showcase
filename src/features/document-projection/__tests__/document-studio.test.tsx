@@ -18,6 +18,8 @@ import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 import * as feedback from "@/hooks/use-toast";
 import { studioFinalizationQuestion } from "../../query-navigation/studio-finalization-navigation";
 import { transitionStudioIntent } from "../studio-finalization-intent";
+import { createStudioEditRequest, acceptStudioEditProposal } from "../studio-edit-proposal";
+import type { StudioEditRuntime } from "../../protocol-designer/studio-edit-client";
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 /** SYNTHETIC_CURRENT_CONTRACT: actual PRJ/DOC owners and scientific native
@@ -37,7 +39,7 @@ const runtime = async () => {
   const client = createDocumentArchiveClient(run.sessionId, run.project2);
   const target = { generation: run.g2.ref, nativeDocumentRef: "PROTOCOL_FULL" };
   const close = vi.fn();
-  const open = (finalization?: StudioFinalizationRuntime, onConversation?: () => void) => render(<DocumentStudio client={client} target={target} finalization={finalization} onClose={close} onConversation={onConversation} />);
+  const open = (finalization?: StudioFinalizationRuntime, onConversation?: () => void, editing?: StudioEditRuntime) => render(<DocumentStudio client={client} target={target} finalization={finalization} editing={editing} onClose={close} onConversation={onConversation} />);
   const ready = () => screen.findByRole("textbox", { name: "Section 1 · paragraphe 1" });
   const revision = () => run.fixture.revisions().at(-1)!.revision as DocumentWorkingRevisionResult["revision"];
   return { ...run, client, target, transport, close, open, ready, revision };
@@ -49,6 +51,42 @@ const save = async () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("conversational proposal preview/cancel/apply/save/reload uses one draft and makes no implicit version or Project", async () => {
+    const run = await runtime(), archived = run.fixture.bodies();
+    const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    const propose = vi.fn<StudioEditRuntime["propose"]>(async (revision, node, instruction) => {
+      const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "Correction proposée par la fixture, non évaluée scientifiquement." });
+    });
+    const editing = { projectBinding: () => binding, propose };
+    const view = run.open(undefined, undefined, editing); await run.ready(); expect(propose).not.toHaveBeenCalled();
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Rends ce paragraphe plus clair" } });
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    await screen.findByRole("region", { name: "Proposition de modification" });
+    const original = (await run.ready()).getAttribute("value") ?? run.revision().content.sections[0].blocks[0].text;
+    expect(await run.ready()).toHaveValue(original);
+    fireEvent.click(screen.getByRole("button", { name: "Annuler la proposition" })); expect(await run.ready()).toHaveValue(original);
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" })); await screen.findByRole("region", { name: "Proposition de modification" });
+    fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" }));
+    expect(await run.ready()).toHaveValue("Correction proposée par la fixture, non évaluée scientifiquement.");
+    expect(run.fixture.revisions()).toHaveLength(1); await save(); const id = run.revision().revisionId;
+    view.unmount(); run.open(undefined, undefined, editing); expect(await run.ready()).toHaveValue("Correction proposée par la fixture, non évaluée scientifiquement.");
+    expect(run.revision().revisionId).toBe(id); expect(run.fixture.bodies()).toEqual(archived); expect(propose).toHaveBeenCalledTimes(2);
+  });
+  it("local concurrent edit invalidates a displayed proposal; dirty state cannot request a paid rewrite", async () => {
+    const run = await runtime(), binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    const editing: StudioEditRuntime = { projectBinding: () => binding, propose: vi.fn(async (revision, node, instruction) => {
+      const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "Proposition" });
+    }) };
+    run.open(undefined, undefined, editing); await run.ready();
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Clarifie" } });
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" })); await screen.findByRole("region", { name: "Proposition de modification" });
+    fireEvent.change(await run.ready(), { target: { value: "Correction concurrente conservée" } });
+    expect(screen.getByRole("button", { name: "Proposer une modification" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" })); await screen.findByRole("alert");
+    expect(await run.ready()).toHaveValue("Correction concurrente conservée");
+  });
   it("READ is read-only and creates no draft/intent; explicit Edit opens one native revision", async () => {
     const run = await runtime(), execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => null);
     render(<DocumentStudio client={run.client} target={{ ...run.target, initialMode: "READ" }} finalization={{ run: execute }} onClose={run.close} />);
