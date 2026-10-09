@@ -94,6 +94,14 @@ export const resolveOpenAIProviderRuntimeConfiguration = (
     || selected !== "azure" || candidateModel !== "gpt-6.1-sol")) {
     throw new Error("PREVIEW_TERRA_MODEL_CONFIGURATION_INVALID");
   }
+  // Explicit environment-neutral opt-in. The Preview-only selector retains
+  // its existing restriction; defaults and budgets are unchanged. Activating
+  // this setting in Production is a separate deployment/qualification decision.
+  const configuredModel = environment.NOXIA_TERRA_MODEL;
+  if (configuredModel !== undefined && (selected !== "azure" || configuredModel !== "gpt-6.1-sol"
+    || candidateModel !== undefined && candidateModel !== configuredModel)) {
+    throw new Error("TERRA_MODEL_CONFIGURATION_INVALID");
+  }
   if (selected === "openai") return { apiKey: environment.OPENAI_API_KEY?.trim() || null };
   if (selected !== "azure") throw new Error("OPENAI_PROVIDER_INVALID");
   const projectEndpoint = environment.AZURE_OPENAI_PROJECT_ENDPOINT?.trim();
@@ -101,7 +109,7 @@ export const resolveOpenAIProviderRuntimeConfiguration = (
   return {
     apiKey: environment.AZURE_OPENAI_API_KEY?.trim() || null,
     transport: Object.freeze({ destination: "azure", responsesEndpoint: azureOpenAIResponsesEndpoint(projectEndpoint),
-      ...(candidateModel ? { terraRequestedModel: candidateModel as "gpt-6.1-sol" } : {}) }),
+      ...(configuredModel || candidateModel ? { terraRequestedModel: (configuredModel || candidateModel) as "gpt-6.1-sol" } : {}) }),
   };
 };
 import { providerModelDeclaration } from "../src/features/protocol-designer/provider-model-contract.js";
