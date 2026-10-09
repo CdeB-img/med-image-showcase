@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { ProjectContextSnapshot } from "@/features/research-project-construction";
 import {
   appendScientificExecutionTraceEvent,
@@ -133,6 +133,36 @@ class MemoryStorage implements Storage {
 }
 
 describe("W1-TRACE-01 — passive scientific execution trace", () => {
+  it("reuses full validation only for exact deeply immutable ledger identities", () => {
+    const ledger = appendOwnerCompleted().recorder.getLedger();
+    const copies = vi.spyOn(globalThis, "structuredClone");
+    try {
+      const validated = rehydrateScientificExecutionTraceLedger(ledger);
+      for (let read = 0; read < 50; read++) expect(rehydrateScientificExecutionTraceLedger(ledger)).toBe(validated);
+      expect(rehydrateScientificExecutionTraceLedger(validated)).toBe(validated);
+      expect(copies).toHaveBeenCalledTimes(1);
+      expect(validated).toEqual(ledger);
+      expect(validated.ledgerDigest).toBe(ledger.ledgerDigest);
+      expect(Object.isFrozen(validated.events[0].technicalMetadata)).toBe(true);
+    } finally { copies.mockRestore(); }
+  });
+
+  it.each([false, true])("revalidates mutable children even with a shallow frozen header=%s", shallowFreeze => {
+    const source = structuredClone(appendOwnerCompleted().recorder.getLedger());
+    const ledger = { ...source, events: source.events.map(event => ({ ...event })) };
+    if (shallowFreeze) Object.freeze(ledger);
+    const validated = rehydrateScientificExecutionTraceLedger(ledger);
+    expect(rehydrateScientificExecutionTraceLedger(ledger)).not.toBe(validated);
+    ledger.events[1].status = "FAILED";
+    expect(() => rehydrateScientificExecutionTraceLedger(ledger)).toThrow("SCIENTIFIC_TRACE_EVENT_DIGEST_INVALID");
+    expect(validated.events[1].status).toBe("COMPLETED");
+  });
+
+  it("does not trust a frozen forged ledger before validating its digest", () => {
+    const ledger = Object.freeze({ ...createScientificExecutionTraceLedger("session:forged"), ledgerDigest: "ke1-forged" });
+    expect(() => rehydrateScientificExecutionTraceLedger(ledger)).toThrow("SCIENTIFIC_EXECUTION_TRACE_LEDGER_DIGEST_INVALID");
+  });
+
   it("W1TRACE01-01 creates a dedicated empty append-only ledger", () => {
     const ledger = createScientificExecutionTraceLedger("session:trace");
     expect(ledger).toMatchObject({

@@ -13,7 +13,8 @@ import { persistAdoptedProjectSession } from "./project-adoption-effects";
 import { projectDrciDraftPackPortfolio } from "@/features/document-projection/drci-draft-pack";
 import { projectDocumentLifecycle } from "@/features/document-projection/history";
 import { isFunctionalDocumentProjectionCurrent, inspectFunctionalDocumentPortfolio } from "@/features/document-projection/functional-reset-boundary";
-import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { recordDocumentWorkflowTrace, traceDocumentArchiveClient, type DocumentWorkflowTraceSink } from "./document-workflow-trace";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
 import VoiceDictationControl from "@/features/protocol-designer/voice/VoiceDictationControl";
@@ -109,6 +110,23 @@ export default function ProtocolDesignerWorkspace({
   const [reviewError, setReviewError] = useState<string | null>(null);
   const latestSessionRef = useRef(session);
   useEffect(() => { latestSessionRef.current = session; }, [session]);
+  const traceConfigurationRef = useRef(traceCaptureConfiguration); traceConfigurationRef.current = traceCaptureConfiguration;
+  const documentTrace = useCallback<DocumentWorkflowTraceSink>(observation => {
+    const configuration = traceConfigurationRef.current, timestamp = new Date().toISOString();
+    const observed = latestSessionRef.current;
+    const projected = recordDocumentWorkflowTrace(observed, observation, configuration, timestamp);
+    // A skipped CORE stage or identical pure projection must not schedule a
+    // React update (and another persistence/projection cycle) at all.
+    if (projected === observed) return;
+    // Observe the authoritative queued state, never replace a pending business
+    // transition with a session captured before that transition was applied.
+    setSession(current => {
+      try {
+        return current === observed ? projected : recordDocumentWorkflowTrace(current, observation, configuration, timestamp);
+      }
+      catch { return current; } // React may apply this updater after the sink returns.
+    });
+  }, []);
   const preparationController = useProjectPreparation({ enabled: true, session,
     latest: latestSessionRef, setSession, save: onSessionChange, captureConfiguration: traceCaptureConfiguration });
   const workingDraftBusy = preparationController.busy;
@@ -139,20 +157,21 @@ export default function ProtocolDesignerWorkspace({
   const [conversationScrolled, setConversationScrolled] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const latestReplyRef = useRef<HTMLElement>(null);
-  const { requestProtocolProjection, documentRecoveryRef } = useDocumentGeneration({ latestSessionRef, setSession, administration, projectionMode, onSessionChange,
+  const { requestProtocolProjection, documentRecoveryRef } = useDocumentGeneration({ latestSessionRef, setSession, administration, projectionMode, onSessionChange, trace: documentTrace,
     setDocumentSaveWarning, setDeliverableWorkspaceOpen, setDocumentGenerationVersion, setDocumentGenerationStartedAt, setDocumentGenerationElapsed, setDocumentGenerationComplete, setDocumentGenerationPending, setDocumentGenerationStage });
   const confirmationInFlightRef = useRef<string | null>(null);
   const versionProduction = useVersionProduction({ session, latest: latestSessionRef, setSession, save: onSessionChange,
     prepare: preparationController.start, generateDocuments: requestProtocolProjection, administration });
   const studioPorts = useRef({ preparationController, administration, onSessionChange });
   studioPorts.current = { preparationController, administration, onSessionChange };
-  const studioEditing = useMemo(() => createStudioEditRuntime(() => latestSessionRef.current), []);
+  const studioEditing = useMemo(() => createStudioEditRuntime(() => latestSessionRef.current, documentTrace), [documentTrace]);
   const studioFinalization = useMemo(() => createStudioFinalizationRuntime({
+    trace: documentTrace,
     session: () => latestSessionRef.current,
     publish: next => { latestSessionRef.current = next; setSession(next); },
     client: current => {
       if (!current.project) throw new Error("STUDIO_INTENT_PROJECT_INVALID");
-      return createDocumentArchiveClient(current.sessionId, current.project);
+      return traceDocumentArchiveClient(createDocumentArchiveClient(current.sessionId, current.project), current.project.projectId, documentTrace);
     },
     prepare: captured => studioPorts.current.preparationController.start(captured, true),
     adopt: async intent => {
@@ -183,7 +202,7 @@ export default function ProtocolDesignerWorkspace({
       if (!source.project || source.project.projectId !== generation.project.projectId) throw new Error("STUDIO_INTENT_PROJECT_INVALID");
       // Exact intent receipt proves this completion. Metadata reconciliation may
       // select a newer proven commit, never an older same-Project false success.
-      const archived = await readCurrentArchivedGeneration(source, createDocumentArchiveClient(source.sessionId, source.project)).catch(() => null);
+      const archived = await readCurrentArchivedGeneration(source, traceDocumentArchiveClient(createDocumentArchiveClient(source.sessionId, source.project), source.project.projectId, documentTrace)).catch(() => null);
       if (archived && archived.displayVersion >= generation.displayVersion) generation = archived;
       const current = latestSessionRef.current;
       if (current.sessionId !== source.sessionId || current.project?.projectId !== generation.project.projectId)
@@ -198,7 +217,7 @@ export default function ProtocolDesignerWorkspace({
       // Archive is authoritative even if this auxiliary browser save fails.
       await saveFunctionalResetWorkspaceSession(window.localStorage, next, studioPorts.current.onSessionChange).catch(() => undefined);
     },
-  }), []);
+  }), [documentTrace]);
 
   useEffect(() => {
     if (documentGenerationStartedAt === null || !documentGenerationPending) return;
@@ -526,7 +545,7 @@ export default function ProtocolDesignerWorkspace({
     const timestamp = new Date().toISOString();
     const source = latestSessionRef.current;
     if (!source.project) return;
-    const client = createDocumentArchiveClient(source.sessionId, source.project);
+    const client = traceDocumentArchiveClient(createDocumentArchiveClient(source.sessionId, source.project), source.project.projectId, documentTrace);
     try {
     const loaded = await hydrateDocumentCommandSession(source, client, true);
     const result = prepareDocumentInstruction(loaded, administration, instruction, sourceTurnRef, timestamp);
@@ -655,7 +674,7 @@ export default function ProtocolDesignerWorkspace({
       && isFunctionalDocumentProjectionCurrent(projection, session.project!, administration)) ?? null
     : null;
   const archiveClient = useMemo(() => session.project
-    ? createDocumentArchiveClient(session.sessionId, session.project) : undefined, [session.sessionId, session.project]);
+    ? traceDocumentArchiveClient(createDocumentArchiveClient(session.sessionId, session.project), session.project.projectId, documentTrace) : undefined, [session.sessionId, session.project, documentTrace]);
   const deliverablePortfolio = useMemo(() => {
     if (!session.project) return null;
     const portfolio = buildStudyDeliverablePortfolio({ project: session.project, protocolProjection: currentProtocolProjection,
@@ -848,6 +867,7 @@ export default function ProtocolDesignerWorkspace({
           {adoptedProjectDocumentAction}
           {documentGenerationRecovery}
           <StudyDeliverableWorkspace
+          trace={documentTrace}
           portfolio={deliverablePortfolio}
           adaptiveContext={adaptiveContext}
           protocolWritingProfile={protocolWritingProfile}

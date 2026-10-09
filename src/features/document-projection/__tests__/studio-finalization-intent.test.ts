@@ -24,7 +24,8 @@ import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/pr
 import { createPostgresDocumentArchive, documentArchiveCapacity } from "../../../../server/protocol-designer-document-archive";
 import { createProductKnowledgeOwnerLedger } from "../../protocol-designer/product-knowledge-owner-runtime";
 import { createProductValidationRunLedger } from "../../protocol-designer/product-validation-run-ledger";
-import { createScientificExecutionTraceLedger, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION } from "../../protocol-designer/scientific-execution-trace";
+import { createScientificExecutionTraceLedger, DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
+  createScientificTraceCaptureConfiguration, rehydrateScientificExecutionTraceLedger } from "../../protocol-designer/scientific-execution-trace";
 import { assertStudioIntentHumanDecision, studioIntentDecisionScope } from "../studio-finalization-intent";
 import { studioIntentPostCutoffControl } from "../../protocol-designer/functional-reset/studio-finalization-lifecycle";
 import { studioFinalizationQuestion, presentStudioFinalizationQuestion, bindStudioConversationAnswer } from "../../query-navigation/studio-finalization-navigation";
@@ -36,6 +37,7 @@ import { documentAdministrationFrom, emptyProjectAdministration } from "../../pr
 import { buildCanonicalCrfPackage } from "../study-deliverable-portfolio";
 import { prepareDrciDraftSource, materializeDrciDraftPack, prepareDrciDraftPack } from "../drci-draft-pack";
 import { createStudioFinalizationRuntime, retainStudioAdoptionConcurrentWork } from "../../protocol-designer/functional-reset/studio-finalization-runtime";
+import { recordDocumentWorkflowTrace, traceDocumentArchiveClient, type DocumentWorkflowTraceSink } from "../../protocol-designer/functional-reset/document-workflow-trace";
 import type { DocumentArchiveClient } from "../generation-archive-client";
 import { studioDocumentRequestId, studioProviderRequestId, composeStudioFinalizationPack } from "../studio-finalization-document";
 import { documentNativeGeneratedAt } from "../generation-persistence";
@@ -161,7 +163,7 @@ const readyDocuments = async (run: Awaited<ReturnType<typeof setup>>) => {
   const intent = await assessed(run);
   return run.intents.prepareDocuments(run.access2, intent.finalizationIntentId, intent.sequence, documentSource(run));
 };
-const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed: Parameters<typeof setup>[1] = false, editorialWithScience = false) => {
+const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editorial", mixed: Parameters<typeof setup>[1] = false, editorialWithScience = false, trace?: DocumentWorkflowTraceSink) => {
   const run = await setup(kind, mixed, editorialWithScience);
   let session = run.session, access = run.access2;
   const preparationEvidence = vi.fn(async (): Promise<StudioPreparationEvidence> => ({ state: "NOT_FOUND" }));
@@ -195,7 +197,9 @@ const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editoria
   });
   const preparePort = vi.fn(async (captured: Parameters<typeof addProjectPreparation>[1]) => {
     const intent = await run.intents.get(access, run.intent.finalizationIntentId);
-    const result = await prepare(run, intent, captured); session = result.session;
+    // Like the actual preparation port, consume the current session, not the
+    // setup snapshot (which predates passive assessment observations).
+    const result = await prepare({ ...run, session }, intent, captured); session = result.session;
   });
   const adopted = vi.fn(async (intent: Awaited<ReturnType<typeof assessed>>) => {
     const staged = stageStudioIntentAdoption({ intent, decision: intent.resolution.humanDecision!, session,
@@ -212,8 +216,8 @@ const finalizationHarness = async (kind: Parameters<typeof setup>[0] = "editoria
   });
   const clarify = vi.fn(), committed = vi.fn(async () => undefined);
   const assessPort = vi.fn(async () => assessment(run, kind === "science" ? "PROJECT_CHANGE" : "DOCUMENT_ONLY"));
-  const runtime = createStudioFinalizationRuntime({ session: () => session, publish: next => { session = next; },
-    client, prepare: preparePort, adopt: adopted, clarify, committed, generate,
+  const runtime = createStudioFinalizationRuntime({ session: () => session, publish: next => { session = next; }, trace,
+    client: () => traceDocumentArchiveClient(client(), session.project!.projectId, trace), prepare: preparePort, adopt: adopted, clarify, committed, generate,
     assess: assessPort });
   return { ...run, client, runtime, preparePort, adopted, generate, clarify, committed, session: () => session,
     setSession: (next: FunctionalResetSession) => { session = next; }, preparationEvidence, assessPort };
@@ -371,6 +375,70 @@ describe("real Studio coordination shape: immutable receipt, scoped decisions an
       expect(bridge).toHaveBeenCalledTimes(1); // Mocked conversation boundary only, never a real provider.
       expect(bridge.mock.calls[0][0].currentNavigation?.selected.targetRef).toBe(prepared.intent.finalizationIntentId);
     } finally { hook.unmount(); bridge.mockRestore(); }
+  });
+});
+
+describe("TRACE V2 observes the actual finalization coordinator without additional execution", () => {
+  it("persists mixed-source ST/preparation/adoption/DOC lineage through Project advancement and reload", async () => {
+    const configuration = createScientificTraceCaptureConfiguration({ captureLevel: "LEVEL_2_DIAGNOSTIC", captureReason: "MANUAL_DIAGNOSTIC" });
+    const trace: DocumentWorkflowTraceSink = event => run.setSession(recordDocumentWorkflowTrace(run.session(), event, configuration, NOW));
+    const run = await finalizationHarness("science", true, true, trace);
+    const priorUserTurns = run.session().runtimeTurns.filter(turn => turn.role === "USER");
+    const completed = await run.runtime.run(run.revision, vi.fn());
+    expect(completed?.state).toBe("CLOSED");
+    expect(run.preparePort).toHaveBeenCalledOnce(); expect(run.adopted).toHaveBeenCalledOnce(); expect(run.generate).toHaveBeenCalledOnce();
+    const ledger = run.session().scientificExecutionTraceLedger;
+    const events = ledger.events.filter(event => event.technicalMetadata.finalizationIntentId === completed!.finalizationIntentId);
+    expect(events.map(event => event.engine)).toEqual(expect.arrayContaining([
+      "requestStudioScientificAssessment", "StudioFinalization.prepare", "StudioFinalization.adopt", "requestProtocolDesignerBridge.STUDIO_DOC",
+    ]));
+    expect(events.some(event => event.technicalMetadata.displayVersion === 3)).toBe(true);
+    expect(events.filter(event => event.technicalMetadata.workingRevisionId).every(event =>
+      event.technicalMetadata.saveSequence === completed!.frozen.workingRevisionSaveSequence)).toBe(true);
+    expect(rehydrateScientificExecutionTraceLedger(JSON.parse(JSON.stringify(ledger)))).toEqual(ledger);
+    // The existing scientific-preparation producer has its own TRACE taxonomy;
+    // Studio must not add fabricated conversational USER contributions.
+    expect(run.session().runtimeTurns.filter(turn => turn.role === "USER")).toEqual(priorUserTurns);
+  });
+  it("a later save does not replace the frozen save identity in scientific/intent trace events", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await finalizationHarness("editorial", false, false, trace);
+    const content = structuredClone(run.revision.content); content.title += " travail ultérieur conservé";
+    const latest = await run.owner.save(run.access2, { revisionId: run.revision.revisionId, expectedSaveSequence: run.revision.saveSequence, content });
+    await run.runtime.run(latest.revision, vi.fn());
+    const event = trace.mock.calls.find(([event]) => event.component === "requestStudioScientificAssessment" && event.status === "COMPLETED")![0];
+    expect(event.identity?.saveSequence).toBe(run.intent.frozen.workingRevisionSaveSequence);
+    expect(event.identity?.contentDigest).toBe(run.intent.frozen.workingRevisionContentDigest);
+    expect(event.identity?.saveSequence).not.toBe(latest.revision.saveSequence);
+  });
+  it("traces native assessment, DOC commit and exact reload recovery with the same intent", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await finalizationHarness("editorial", false, false, trace);
+    const before = JSON.stringify(run.g2);
+    const completed = await run.runtime.run(run.revision, vi.fn());
+    expect(completed?.state).toBe("CLOSED");
+    expect(run.assessPort).toHaveBeenCalledOnce(); expect(run.preparePort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled();
+    const events = trace.mock.calls.map(([event]) => event);
+    expect(events.some(event => event.operationRef === completed!.finalizationIntentId && event.identity?.assessmentRef)).toBe(true);
+    expect(events.some(event => event.operationRef === completed!.finalizationIntentId && event.identity?.displayVersion === 3)).toBe(true);
+    expect(JSON.stringify(run.g2)).toBe(before);
+    await run.runtime.run(run.revision, vi.fn(), true);
+    expect(run.assessPort).toHaveBeenCalledOnce(); expect(run.generate).not.toHaveBeenCalled();
+    expect(trace.mock.calls.at(-1)![0].identity?.finalizationIntentId).toBe(completed!.finalizationIntentId);
+  });
+  it("invalid assessment producer diagnostic is recorded before the outer coordination failure", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await finalizationHarness("editorial", false, false, trace);
+    const failure = Object.assign(new Error("Private response"), { studioAssessmentFailureDiagnostic: { contract: "STUDIO_ASSESSMENT_FAILURE_V1",
+      owner: "SCIENTIFIC_THINKING", function: "acceptStudioAssessment", code: "STUDIO_ASSESSMENT_COVERAGE_INVALID" } });
+    run.assessPort.mockRejectedValueOnce(failure);
+    await expect(run.runtime.run(run.revision, vi.fn())).rejects.toBe(failure);
+    expect(trace.mock.calls.find(([event]) => event.status === "FAILED")![0]).toMatchObject({
+      component: "requestStudioScientificAssessment", owner: "SCIENTIFIC_THINKING", error: failure });
+    expect(run.generate).not.toHaveBeenCalled(); expect(run.adopted).not.toHaveBeenCalled();
+  });
+  it("a broken trace sink cannot reject a real native success or add provider/preparation work", async () => {
+    const run = await finalizationHarness("editorial", false, false, () => { throw new Error("TRACE_UNAVAILABLE"); });
+    const completed = await run.runtime.run(run.revision, vi.fn());
+    expect(completed?.resolution.documentReceipt?.generation.displayVersion).toBe(3);
+    expect(run.assessPort).toHaveBeenCalledOnce(); expect(run.preparePort).not.toHaveBeenCalled(); expect(run.generate).not.toHaveBeenCalled();
   });
 });
 

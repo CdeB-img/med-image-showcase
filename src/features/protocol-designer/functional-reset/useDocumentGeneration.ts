@@ -14,6 +14,7 @@ import { buildCanonicalCrfPackage, markFunctionalResetDocumentFailure, refreshFu
 import { recordDocumentProjectionTrace, recordProductErrorBoundary } from "./end-to-end-trace-adapter";
 import { appendFunctionalResetProviderCallRecords, createTurnId, saveFunctionalResetWorkspaceSession, type SessionSave, type FunctionalResetSession } from "./session";
 import { acquireDocumentKnowledge } from "./documentary-conversation";
+import { traceDocumentArchiveClient, type DocumentWorkflowTraceSink } from "./document-workflow-trace";
 
 export type DocumentGenerationStage = "PREPARING" | "WRITING" | "VERIFYING_ARCHIVE";
 
@@ -21,6 +22,7 @@ export function useDocumentGeneration(input: {
   latestSessionRef: MutableRefObject<FunctionalResetSession>; setSession: Dispatch<SetStateAction<FunctionalResetSession>>;
   administration: Parameters<typeof refreshFunctionalResetDocumentPortfolio>[0]["administration"]; projectionMode: "STANDARD" | "EXPERT";
   onSessionChange?: SessionSave;
+  trace?: DocumentWorkflowTraceSink;
   setDocumentSaveWarning: (message: string | null) => void; setDeliverableWorkspaceOpen: (open: boolean) => void;
   setDocumentGenerationVersion: (version: number | null) => void; setDocumentGenerationStartedAt: (at: number | null) => void;
   setDocumentGenerationElapsed: (seconds: number) => void; setDocumentGenerationComplete: (complete: boolean) => void;
@@ -56,7 +58,7 @@ export function useDocumentGeneration(input: {
       if (!identity || !source.project || identity.requestId !== source.documentArchive.pendingRequestId
         || identity.project.projectId !== source.project.projectId || identity.project.projectVersion !== source.project.versionId
         || identity.project.projectDigest !== source.project.projectDigest) throw new Error("DOC_ARCHIVE_RECOVERY_BINDING_INVALID");
-      const recovered = await createDocumentArchiveClient(source.sessionId, source.project).recover(identity);
+      const recovered = await traceDocumentArchiveClient(createDocumentArchiveClient(source.sessionId, source.project), source.project.projectId, input.trace).recover(identity);
       if (!isMounted() || !matches(latestSessionRef.current)) return "DONE";
       if (recovered.state === "IN_PROGRESS") { inProgress = true; return "IN_PROGRESS"; }
       if (recovered.state === "UNKNOWN") throw new Error("DOC_ARCHIVE_RECOVERY_UNKNOWN");
@@ -130,7 +132,7 @@ export function useDocumentGeneration(input: {
     setDocumentGenerationElapsed(0);
     setDocumentGenerationComplete(false);
     const now = new Date().toISOString();
-    const client = createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project);
+    const client = traceDocumentArchiveClient(createDocumentArchiveClient(sourceSession.sessionId, sourceSession.project), sourceSession.project.projectId, input.trace);
     let committedGeneration: DocumentGenerationRef | null = null;
     let currentProjectionId = sourceSession.documentArchive?.currentProjectionId ?? null;
     let preparedDocuments: FunctionalResetSession["documents"] | null = null;

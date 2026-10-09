@@ -450,6 +450,9 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     const sessionBeforeInspector = JSON.stringify(stored);
     cleanup();
     render(<TraceInspector ledger={qualifiedLedger} />);
+    // Recovery reads now have their own native DOC lineage. Select the exact
+    // scientific corridor under qualification, not whichever run is newest.
+    fireEvent.change(screen.getByRole("combobox", { name: "Run" }), { target: { value: traceRunId } });
     expect(screen.getByTestId("trace-inspector-summary-view")).toHaveTextContent("STALE_MARKED");
     fireEvent.click(screen.getByTestId("trace-event-STALE_MARKED").querySelector("summary")!);
     expect(screen.getByTestId("trace-event-STALE_MARKED")).toHaveTextContent("SOURCE_PROJECT_VERSION_CHANGED");

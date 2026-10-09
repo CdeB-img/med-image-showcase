@@ -20,11 +20,14 @@ import { studioFinalizationQuestion } from "../../query-navigation/studio-finali
 import { transitionStudioIntent } from "../studio-finalization-intent";
 import { createStudioEditRequest, acceptStudioEditProposal } from "../studio-edit-proposal";
 import type { StudioEditRuntime } from "../../protocol-designer/studio-edit-client";
+import { traceDocumentArchiveClient, type DocumentWorkflowTraceSink } from "../../protocol-designer/functional-reset/document-workflow-trace";
+import { buildProjectContextSnapshot } from "../../research-project-construction/canonical-project-backbone";
+import { inspectDocumentImpact } from "../document-impact";
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 /** SYNTHETIC_CURRENT_CONTRACT: actual PRJ/DOC owners and scientific native
  * fixture. Only PostgreSQL/HTTP are offline doubles; never a provider request. */
-const runtime = async () => {
+const runtime = async (trace?: DocumentWorkflowTraceSink) => {
   const run = await workingRevisionFixture();
   vi.spyOn(bridge, "ensureServerProjectSnapshot").mockResolvedValue({ ref: run.access2.project, proof: run.access2.proof! });
   const transport = vi.fn(async (_url: RequestInfo | URL, init?: RequestInit) => {
@@ -36,10 +39,10 @@ const runtime = async () => {
     return new Response(JSON.stringify(result.body), { status: result.status });
   });
   vi.stubGlobal("fetch", transport);
-  const client = createDocumentArchiveClient(run.sessionId, run.project2);
+  const client = traceDocumentArchiveClient(createDocumentArchiveClient(run.sessionId, run.project2), run.project2.projectId, trace);
   const target = { generation: run.g2.ref, nativeDocumentRef: "PROTOCOL_FULL" };
   const close = vi.fn();
-  const open = (finalization?: StudioFinalizationRuntime, onConversation?: () => void, editing?: StudioEditRuntime) => render(<DocumentStudio client={client} target={target} finalization={finalization} editing={editing} onClose={close} onConversation={onConversation} />);
+  const open = (finalization?: StudioFinalizationRuntime, onConversation?: () => void, editing?: StudioEditRuntime) => render(<DocumentStudio trace={trace} client={client} target={target} finalization={finalization} editing={editing} onClose={close} onConversation={onConversation} />);
   const ready = () => screen.findByRole("textbox", { name: "Section 1 · paragraphe 1" });
   const revision = () => run.fixture.revisions().at(-1)!.revision as DocumentWorkingRevisionResult["revision"];
   return { ...run, client, target, transport, close, open, ready, revision };
@@ -48,6 +51,53 @@ const save = async () => {
   fireEvent.click(screen.getByRole("button", { name: "Enregistrer" }));
   await waitFor(() => expect(screen.getByTestId("studio-save-status")).toHaveTextContent(/^Enregistré$/u));
 };
+
+describe("TRACE V2: actual offline Studio UI actions", () => {
+  it("traces saved content identity and native reload, never paragraph text", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await runtime(trace);
+    const immutable = JSON.stringify(run.fixture.bodies());
+    const view = run.open(); const textbox = await run.ready();
+    const privateText = `${(textbox as HTMLTextAreaElement).value} PRIVATE_TEXT_NEVER_IN_TRACE`;
+    fireEvent.change(textbox, { target: { value: privateText } }); await save();
+    view.unmount(); run.open();
+    expect((await run.ready() as HTMLTextAreaElement).value).toBe(privateText);
+    expect(trace.mock.calls.some(([event]) => event.component === "DocumentWorkingRevision.save" && event.identity?.saveSequence === 2)).toBe(true);
+    expect(trace.mock.calls.some(([event]) => event.component === "DocumentWorkingRevision.open" && event.identity?.saveSequence === 2)).toBe(true);
+    expect(JSON.stringify(trace.mock.calls)).not.toContain(privateText);
+    expect(JSON.stringify(run.fixture.bodies())).toBe(immutable);
+  });
+  it("explicit proposal acceptance/rejection is correlated to its native request and same revision", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await runtime(trace);
+    const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    const editing: StudioEditRuntime = { projectBinding: () => binding, propose: vi.fn(async (revision, node, instruction) => {
+      const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "PRIVATE_PROPOSAL_TEXT" });
+    }) };
+    run.open(undefined, undefined, editing); await run.ready();
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Clarifier sans changer les faits" } });
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Annuler la proposition" }));
+    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Appliquer au brouillon" }));
+    const decisions = trace.mock.calls.map(([event]) => event).filter(event => ["ACCEPTED", "REJECTED"].includes(event.status));
+    expect(decisions.map(event => event.status)).toEqual(["REJECTED", "ACCEPTED"]);
+    expect(decisions.every(event => event.identity?.workingRevisionId === run.revision().revisionId && event.identity.assessmentClassification === "UNASSESSED")).toBe(true);
+    expect(decisions[0].operationRef).toBe(decisions[1].operationRef);
+    expect(JSON.stringify(decisions)).not.toContain("PRIVATE_PROPOSAL_TEXT");
+    expect(run.fixture.revisions()).toHaveLength(1); expect(run.revision().saveSequence).toBe(1);
+  });
+  it("native dependency impact visibility is traced without claiming paragraph-level scientific certification", async () => {
+    const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await runtime(trace);
+    render(<DocumentStudio trace={trace} client={run.client} target={run.target} onClose={run.close}
+      currentProjectSnapshot={buildProjectContextSnapshot({ project: run.project3 })} />);
+    await run.ready();
+    await waitFor(() => expect(trace.mock.calls.some(([event]) => event.component === "inspectDocumentImpact" && event.status === "COMPLETED")).toBe(true));
+    const event = trace.mock.calls.find(([event]) => event.component === "inspectDocumentImpact" && event.status === "COMPLETED")![0];
+    expect(event.identity?.coverage).toBe("READ_ONLY_DEPENDENCY_IMPACT_NOT_SEMANTIC_CERTIFICATION");
+    const native = await inspectDocumentImpact({ source: run.g2, currentProject: buildProjectContextSnapshot({ project: run.project3 }) });
+    expect(event.identity?.affectedCount).toBe(native.knownAffectedCount);
+  });
+});
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {

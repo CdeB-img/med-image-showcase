@@ -8,9 +8,11 @@ import type { ActiveWorkingRevision } from "@/features/document-projection/worki
 import type { ProjectContextSnapshot } from "@/features/research-project-construction/canonical-project-backbone";
 import { inspectDocumentImpact, type DocumentImpactReport } from "@/features/document-projection/document-impact";
 import DocumentImpactSummary from "@/features/document-projection/DocumentImpactSummary";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { observeDocumentWorkflow, type DocumentWorkflowTraceSink } from "./document-workflow-trace";
 
 /** Screen state only. One selected body in RAM, never in session. */
-export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId, currentProjectSnapshot, pendingScientificChange }: {
+export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, onStudio, onHistory, currentProjectDigest, currentGenerationId, currentProjectSnapshot, pendingScientificChange, trace }: {
   client: DocumentArchiveClient; onOpen: (file: StudyDeliverableFile, title: string, body: DocumentGenerationBody) => void;
   onDownloaded?: (body: DocumentGenerationBody, file: StudyDeliverableFile) => void;
   onStudio?: (target: DocumentStudioTarget) => void;
@@ -19,6 +21,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
   currentGenerationId?: string | null;
   currentProjectSnapshot?: Readonly<ProjectContextSnapshot>;
   pendingScientificChange?: boolean;
+  trace?: DocumentWorkflowTraceSink;
 }) {
   const [entries, setEntries] = useState<readonly DocumentGenerationRef[]>([]);
   const [cursor, setCursor] = useState<number | null>(null);
@@ -97,7 +100,10 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
       const body = selected.current?.id === ref.generationId ? selected.current.body : (await client.body(ref.generationId)).body;
       if (request.current !== token || lifetime.current !== epoch) return;
       selected.current = { id: ref.generationId, body };
-      const report = await inspectDocumentImpact({ source: { ref, body }, currentProject: currentProjectSnapshot, pendingScientificChange });
+      const report = await observeDocumentWorkflow(trace, { operationRef: ref.generationId, component: "inspectDocumentImpact", owner: "DOC",
+        stage: "UI_PROJECTION", identity: { generationId: ref.generationId } },
+        () => inspectDocumentImpact({ source: { ref, body }, currentProject: currentProjectSnapshot, pendingScientificChange }),
+        report => ({ coverage: report.boundary, itemCount: report.documents.length, affectedCount: report.knownAffectedCount, projectionDigest: logicalDigest(report) }));
       if (request.current === token && lifetime.current === epoch) setImpact(report);
     } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
   };

@@ -9,12 +9,27 @@ import { inspectFunctionalDocumentPortfolio } from "../functional-reset-boundary
 import { workingRevisionFixture } from "./working-revision-fixture";
 import { prepareDocumentInstruction } from "../../protocol-designer/functional-reset/documentary-conversation";
 import { createFunctionalResetSession } from "../../protocol-designer/functional-reset/session";
+import StudyDeliverableWorkspace from "../../protocol-designer/functional-reset/StudyDeliverableWorkspace";
+import { buildStudyDeliverablePortfolio } from "../study-deliverable-portfolio";
+import type { DocumentWorkflowTraceSink } from "../../protocol-designer/functional-reset/document-workflow-trace";
 
 const context = (imaging = false) => {
   const input = makeNativeTemplateInput({ imaging });
   return { definition: CLINICAL_STUDY_TEMPLATE, instance: composeStudyTemplateInstance(input) };
 };
 describe("Adaptive document portfolio / existing TMP REG DOC owners", () => {
+  it("traces the actual visible DOC projection and native TMP/REG bindings without mutating applicability", async () => {
+    const run = await workingRevisionFixture(), source = inspectFunctionalDocumentPortfolio(run.project2), trace = vi.fn<DocumentWorkflowTraceSink>();
+    const before = JSON.stringify(source);
+    const portfolio = buildStudyDeliverablePortfolio({ project: run.project2, protocolProjection: run.g2.projection, generatedAt: run.project2.adoptedAt });
+    const view = render(<StudyDeliverableWorkspace portfolio={portfolio} adaptiveContext={source} trace={trace} onClose={vi.fn()} />);
+    const event = trace.mock.calls.find(([event]) => event.component === "projectAdaptivePortfolio")![0];
+    expect(event.operationRef).toBe(source.instance.instanceId);
+    expect(event.identity).toMatchObject({ templateInstanceRef: source.instance.instanceId, regulatoryResolutionRef: source.instance.inputRefs.regulatoryResolutionId,
+      itemCount: projectAdaptivePortfolio(source, [], run.project2.projectDigest).length });
+    view.rerender(<StudyDeliverableWorkspace portfolio={portfolio} adaptiveContext={source} onClose={vi.fn()} />);
+    expect(JSON.stringify(source)).toBe(before); cleanup();
+  });
   it.each([false, true])("projects native applicability without mutation (imaging=%s)", imaging => {
     const source = context(imaging), before = JSON.stringify(source);
     const items = projectAdaptivePortfolio(source, [], source.instance.inputRefs.researchProjectDigest);

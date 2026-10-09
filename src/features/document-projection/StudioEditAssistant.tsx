@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
 import type { DocumentWorkingRevision, EditableDocumentContent } from "./working-revision";
-import { applyStudioEditProposal, type StudioEditProposal } from "./studio-edit-proposal";
+import { applyStudioEditProposal, studioEditOperationId, type StudioEditProposal } from "./studio-edit-proposal";
+import { emitDocumentWorkflowTrace, type DocumentWorkflowTraceSink } from "../protocol-designer/functional-reset/document-workflow-trace";
 
 /** Ephemeral proposal UI only. Accepted text enters the single existing Studio
  * buffer; the existing explicit save/finalization owners remain unchanged. */
-export default function StudioEditAssistant({ runtime, revision, buffer, disabled, dirty, requestedTarget, onBusy, onApply }: {
+export default function StudioEditAssistant({ runtime, revision, buffer, disabled, dirty, requestedTarget, onBusy, onApply, trace }: {
   runtime: StudioEditRuntime; revision: DocumentWorkingRevision; buffer: EditableDocumentContent;
   disabled: boolean; dirty: boolean; onApply: (content: EditableDocumentContent) => void;
   requestedTarget?: { nodeId: string; request: number } | null; onBusy?: (busy: boolean) => void;
+  trace?: DocumentWorkflowTraceSink;
 }) {
   const blocks = revision.content.sections.flatMap((section, index) => section.blocks.flatMap((block, paragraph) =>
     /\[\[(?:FACT|CITE):/u.test(block.text) ? [] : [{ ...block, label: `${section.title || `Section ${index + 1}`} · paragraphe ${paragraph + 1}` }]));
@@ -33,8 +35,18 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
   };
   const apply = () => {
     if (!proposal || disabled || busy) return;
-    try { onApply(applyStudioEditProposal(proposal, revision, buffer, runtime.projectBinding())); setProposal(null); setApplied(true); setError(null); }
-    catch { setError("Le passage, la sauvegarde ou le projet a changé. Cette proposition ne peut plus être appliquée ; aucune modification n’a été effectuée."); }
+    try { onApply(applyStudioEditProposal(proposal, revision, buffer, runtime.projectBinding())); observeDecision("ACCEPTED"); setProposal(null); setApplied(true); setError(null); }
+    catch (error) { observeDecision("FAILED", error); setError("Le passage, la sauvegarde ou le projet a changé. Cette proposition ne peut plus être appliquée ; aucune modification n’a été effectuée."); }
+  };
+  const observeDecision = (status: "ACCEPTED" | "REJECTED" | "FAILED", error?: unknown) => {
+    if (!proposal) return;
+    try {
+    emitDocumentWorkflowTrace(trace, { operationRef: studioEditOperationId(proposal.request), component: "applyStudioEditProposal",
+      owner: "UI", stage: "UI_PROJECTION", status, error, identity: { proposalId: proposal.proposalId, requestDigest: proposal.request.requestDigest,
+        workingRevisionId: revision.revisionId, saveSequence: revision.saveSequence, contentDigest: revision.contentDigest,
+        logicalDocumentRef: revision.logicalDocumentRef, generationId: revision.baseGenerationId, nodeId,
+        assessmentClassification: "UNASSESSED" } });
+    } catch { /* Identity projection is passive, including before sink delivery. */ }
   };
   return <aside className="border-b bg-primary/5 p-5 sm:px-6" aria-label="Édition avec NOXIA">
     <details ref={panel}><summary className="cursor-pointer font-medium">Améliorer un passage avec NOXIA</summary>
@@ -61,7 +73,7 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
         <div className="grid min-w-0 gap-4 md:grid-cols-2"><div><h4 className="text-sm font-medium">Avant</h4><p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7">{proposal.beforeText}</p></div>
           <div><h4 className="text-sm font-medium">Proposition · non appliquée</h4><p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7">{proposal.proposedText}</p></div></div>
         <p className="mt-3 text-xs text-muted-foreground">Impact scientifique non évalué. Appliquer modifie uniquement le brouillon ; toute modification scientifique suit le parcours de validation existant à la création de version.</p>
-        <div className="mt-3 flex flex-wrap gap-2"><Button onClick={apply} disabled={disabled || busy}>Appliquer au brouillon</Button><Button variant="outline" onClick={() => { setProposal(null); setError(null); }}>Annuler la proposition</Button></div>
+        <div className="mt-3 flex flex-wrap gap-2"><Button onClick={apply} disabled={disabled || busy}>Appliquer au brouillon</Button><Button variant="outline" onClick={() => { observeDecision("REJECTED"); setProposal(null); setError(null); }}>Annuler la proposition</Button></div>
       </section>}
     </details>
   </aside>;

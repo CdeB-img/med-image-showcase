@@ -3,7 +3,7 @@ import { ArrowLeft, CheckCircle2, Save, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
   AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
-import { stableStringify } from "../knowledge-engine/canonical";
+import { logicalDigest, stableStringify } from "../knowledge-engine/canonical";
 import type { DocumentArchiveClient } from "./generation-archive-client";
 import type { DocumentGenerationBody } from "./generation-persistence";
 import { editableArchivedDocument, type DocumentWorkingRevisionResult, type EditableDocumentContent } from "./working-revision";
@@ -15,6 +15,7 @@ import { studioFinalizationQuestion } from "../query-navigation/studio-finalizat
 import { toast } from "@/hooks/use-toast";
 import { readStudioAssessmentFailureDiagnostic, type StudioAssessmentFailureDiagnostic } from "../scientific-thinking/studio-runtime";
 import StudioEditAssistant from "./StudioEditAssistant";
+import { emitDocumentWorkflowTrace, observeDocumentWorkflow, type DocumentWorkflowTraceSink } from "../protocol-designer/functional-reset/document-workflow-trace";
 import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
 import type { ProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone";
 import { inspectDocumentImpact, type DocumentImpactReport } from "./document-impact";
@@ -30,12 +31,13 @@ const codeOf = (error: unknown) => {
 
 /** Native text editing only. Buffers are screen-owned; confirmed saves, source
  * integrity, ACTIVE lookup and concurrency belong to the existing DOC owner. */
-export default function DocumentStudio({ client, target, finalization, editing, currentProjectSnapshot, pendingScientificChange, onClose, onConversation, onNavigationLock }: {
+export default function DocumentStudio({ client, target, finalization, editing, currentProjectSnapshot, pendingScientificChange, onClose, onConversation, onNavigationLock, trace }: {
   client: DocumentArchiveClient; target: DocumentStudioTarget; finalization?: StudioFinalizationRuntime; onClose: () => void; onConversation?: () => void;
   onNavigationLock?: (locked: boolean) => void;
   editing?: StudioEditRuntime;
   currentProjectSnapshot?: Readonly<ProjectContextSnapshot>;
   pendingScientificChange?: boolean;
+  trace?: DocumentWorkflowTraceSink;
 }) {
   const [loaded, setLoaded] = useState<{ result: DocumentWorkingRevisionResult | null; base: EditableDocumentContent; body: DocumentGenerationBody } | null>(null);
   const [buffer, setBuffer] = useState<EditableDocumentContent | null>(null);
@@ -62,15 +64,20 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
   const epoch = useRef(0), flight = useRef(false);
+  const traceRef = useRef(trace); traceRef.current = trace;
   const dirty = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.result.revision.content));
   const busy = saveState === "SAVING" || finalizing || proposalBusy;
   const unassessedDraft = Boolean(loaded?.result && buffer && stableStringify(buffer) !== stableStringify(loaded.base));
   useEffect(() => {
     let active = true; setImpact(null);
-    if (loaded && currentProjectSnapshot) void inspectDocumentImpact({ source: { ref: target.generation, body: loaded.body }, currentProject: currentProjectSnapshot,
-      pendingScientificChange, unassessedDraft }).then(report => { if (active) setImpact(report); }).catch(() => { /* No readiness claim on incomplete evidence. */ });
+    if (loaded && currentProjectSnapshot) void observeDocumentWorkflow(trace, { operationRef: target.generation.generationId,
+      component: "inspectDocumentImpact", owner: "DOC", stage: "UI_PROJECTION", deduplicate: true,
+      identity: { generationId: target.generation.generationId } }, () => inspectDocumentImpact({ source: { ref: target.generation, body: loaded.body }, currentProject: currentProjectSnapshot,
+        pendingScientificChange, unassessedDraft }), report => ({ coverage: report.boundary, itemCount: report.documents.length,
+        affectedCount: report.knownAffectedCount, projectionDigest: logicalDigest(report) }))
+      .then(report => { if (active) setImpact(report); }).catch(() => { /* No readiness claim on incomplete evidence. */ });
     return () => { active = false; };
-  }, [loaded, currentProjectSnapshot, target.generation, pendingScientificChange, unassessedDraft]);
+  }, [loaded, currentProjectSnapshot, target.generation, pendingScientificChange, unassessedDraft, trace]);
   useEffect(() => { onNavigationLock?.(dirty || busy); return () => onNavigationLock?.(false); }, [dirty, busy, onNavigationLock]);
   const reportFinalizationFailure = (error: unknown) => {
     const code = codeOf(error);
@@ -140,7 +147,12 @@ export default function DocumentStudio({ client, target, finalization, editing, 
         catch (error) { if (epoch.current === token) reportFinalizationFailure(error); }
         finally { if (epoch.current === token) { flight.current = false; setFinalizing(false); setStage(null); } }
       }
-    })().catch(() => { if (epoch.current === token) setLoadFailed(true); });
+    })().catch(error => {
+      emitDocumentWorkflowTrace(traceRef.current, { operationRef: generation.generationId, component: "DocumentStudio.open", owner: "DOC",
+        stage: "DURABLE_RECOVERY_COMPLETED", status: "FAILED", error, identity: { generationId: generation.generationId,
+          baseGenerationBodyDigest: generation.bodySha256, workingRevisionId: target.activeRevisionId } });
+      if (epoch.current === token) setLoadFailed(true);
+    });
     return () => { epoch.current = token + 1; };
   // PRJ adoption may change the archive capability/client object. It must not
   // reset this buffer or detach the durable intent while finalization runs.
@@ -256,7 +268,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
     </header>
     {impact && currentProjectSnapshot?.sourceProjectDigest === impact.currentProjectDigest && <details className="border-b p-5 sm:px-6"><summary className="cursor-pointer text-sm font-medium">Cohérence, dépendances et impact sur les autres documents</summary><div className="mt-3"><DocumentImpactSummary report={impact} /></div></details>}
     {editing && loaded?.result && buffer && mode !== "READ" && !completed && <StudioEditAssistant runtime={editing} revision={loaded.result.revision}
-      buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} requestedTarget={assistantTarget} onBusy={setProposalBusy} onApply={content => {
+      trace={trace} buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} requestedTarget={assistantTarget} onBusy={setProposalBusy} onApply={content => {
         if (flight.current || completed) return;
         setBuffer(content); setSaveState(stableStringify(content) === stableStringify(loaded.result!.revision.content) ? "CLEAN" : "DIRTY"); setActionFailed(false);
       }} />}

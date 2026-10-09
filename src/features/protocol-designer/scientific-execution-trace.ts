@@ -828,6 +828,15 @@ const ALLOWED_NON_SECRET_TOKEN_COUNT_FIELDS = new Set([
 const FORBIDDEN_VALUE = /(-----BEGIN [A-Z ]*PRIVATE KEY-----|\bBearer\s+[A-Za-z0-9._~+/=-]+|\bsk-[A-Za-z0-9_-]{8,}|\bAIza[A-Za-z0-9_-]{12,}|\b(?:authorization|proxy-authorization|cookie|set-cookie)\s*:)/i;
 const DIAGNOSTIC_CODE = /^[A-Z0-9][A-Z0-9_.:@/-]{1,255}$/;
 const TECHNICAL_METADATA_KEYS = new Set([
+  "recoveryState",
+  "operationRef", "observationStatus", "workingRevisionId", "saveSequence", "contentDigest", "logicalDocumentRef",
+  "generationId", "displayVersion", "baseGenerationBodyDigest", "finalizationIntentId", "intentSequence", "intentStatus",
+  "requestDigest", "proposalId", "nodeId", "assessmentRef", "assessmentClassification", "providerOperationId",
+  "coverage", "itemCount", "affectedCount",
+  "generationProjectVersion", "generationProjectDigest", "templateInstanceRef", "templateDefinitionRef", "projectionDigest",
+  "assessmentRequestRef",
+  "regulatoryResolutionRef", "regulatoryCorpusDigest",
+  "frozenProjectVersion", "frozenProjectDigest", "resolvedProjectVersion", "resolvedProjectDigest",
   ...CONVERSATION_CONTEXT_PACKET_NUMERIC_FIELDS,
   "largestSingleTurnRole",
   "boundedStatus",
@@ -1543,7 +1552,27 @@ const validateTraceProfile = (value: unknown) => {
       && value.capturePolicyId === TRACE_CAPTURE_POLICIES.LEVEL_1_CORE.capturePolicyId;
 };
 
+// Repeated passive reads may reuse a completed validation only for the exact
+// deeply immutable plain-data object. Mutable/reloaded inputs always traverse
+// every native shape, privacy, chain and digest check below. No durable cache.
+const validatedImmutableLedgers = new WeakMap<object, Readonly<ScientificExecutionTraceLedger>>();
+const isDeeplyFrozenPlainData = (value: unknown, seen = new WeakSet<object>()): boolean => {
+  if (value === null || typeof value !== "object") return true;
+  if (!Object.isFrozen(value) || (!Array.isArray(value) && Object.getPrototypeOf(value) !== Object.prototype)) return false;
+  if (seen.has(value)) return true;
+  seen.add(value);
+  return Reflect.ownKeys(value).every(key => {
+    if (typeof key !== "string") return false;
+    const descriptor = Object.getOwnPropertyDescriptor(value, key)!;
+    return "value" in descriptor && isDeeplyFrozenPlainData(descriptor.value, seen);
+  });
+};
+
 export const rehydrateScientificExecutionTraceLedger = (value: unknown): Readonly<ScientificExecutionTraceLedger> => {
+  if (value && typeof value === "object") {
+    const validated = validatedImmutableLedgers.get(value);
+    if (validated) return validated;
+  }
   if (!isRecord(value)
     || value.contract !== SCIENTIFIC_EXECUTION_TRACE_LEDGER_CONTRACT
     || value.contractVersion !== SCIENTIFIC_EXECUTION_TRACE_LEDGER_VERSION
@@ -1625,7 +1654,12 @@ export const rehydrateScientificExecutionTraceLedger = (value: unknown): Readonl
   }
   const { ledgerDigest, ...material } = detached;
   if (logicalDigest(ledgerMaterial(material)) !== ledgerDigest) throw new Error("SCIENTIFIC_EXECUTION_TRACE_LEDGER_DIGEST_INVALID");
-  return deepFreeze(detached);
+  const validated = deepFreeze(detached);
+  if (isDeeplyFrozenPlainData(validated)) {
+    validatedImmutableLedgers.set(validated, validated);
+    if (isDeeplyFrozenPlainData(value)) validatedImmutableLedgers.set(value, validated);
+  }
+  return validated;
 };
 
 export type ScientificTraceEventCrosswalkEntry = {

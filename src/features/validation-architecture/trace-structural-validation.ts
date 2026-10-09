@@ -2,6 +2,7 @@ import {
   getScientificRun,
   listEndToEndTraceEvents,
   listScientificRunEvents,
+  SCIENTIFIC_TRACE_EVENT_CROSSWALK,
   type ScientificExecutionTraceLedger,
   type ScientificProductTraceCommonEnvelope,
   type ScientificProductTraceStage,
@@ -389,7 +390,8 @@ export const buildTraceInspectorRunProjection = (input: {
     && finding.evidenceEventIds.includes(event.eventId))) ?? null;
   const failed = events.find((event) => event.status === "FAILED") ?? null;
   const firstFailure = failed ? Object.freeze({
-    stage: failed.stage,
+    stage: SCIENTIFIC_TRACE_EVENT_CROSSWALK.some(entry => entry.targetStage === failed.technicalMetadata.firstFailedStage)
+      ? failed.technicalMetadata.firstFailedStage as ScientificProductTraceStage : failed.stage,
     owner: failed.responsibilityOwner,
     function: String(failed.technicalMetadata.failureFunction ?? "UNKNOWN"),
     invariant: String(failed.technicalMetadata.failureInvariant ?? "UNKNOWN"),

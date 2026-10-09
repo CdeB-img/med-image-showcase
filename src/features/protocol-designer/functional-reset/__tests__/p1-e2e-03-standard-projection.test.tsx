@@ -171,8 +171,14 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     const historicalPreview = await openArchivedProtocolPreview(1);
     expect(within(historicalPreview).getByRole("status")).toHaveTextContent("Le projet ou ses informations administratives ont changé depuis cette version du protocole");
     expect(within(historicalPreview).getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
-    expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);
     const afterHistoricalOpen = storedSession();
+    // A native historical read now adds passive TRACE evidence, not governed
+    // state. Preserve an exact comparison of every non-TRACE session field.
+    const { scientificExecutionTraceLedger: beforeTrace, ...beforeBusiness } = v2WithDocuments;
+    const { scientificExecutionTraceLedger: afterTrace, ...afterBusiness } = afterHistoricalOpen;
+    expect(afterBusiness).toEqual(beforeBusiness);
+    expect(afterTrace.events.length).toBeGreaterThan(beforeTrace.events.length);
+    expect(runtime.request).toHaveBeenCalledTimes(providerRequestsBeforeSwitch);
     expect(afterHistoricalOpen.project).toEqual(v2WithDocuments.project);
     expect(afterHistoricalOpen.documents.projections).toEqual(v2WithDocuments.documents.projections);
     expect(createObjectURL).toHaveBeenCalledTimes(2);
