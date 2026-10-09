@@ -8,9 +8,10 @@ import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, asser
   validateWorkingRevisionContent, workingRevisionContentDigest, type AbandonWorkingRevision, type CreateWorkingRevision,
   type ActiveWorkingRevision, type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
+import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
 
 export type DocumentWorkingRevisionStore = Readonly<{
-  /** Server-only shared DOC migration dependency, never exposed to the UI. */
+  /** Server-only DOC compatibility check; never installs or repairs storage. */
   ensureStorage(access: DocumentArchiveAccess): Promise<void>;
   active(access: DocumentArchiveAccess): Promise<readonly ActiveWorkingRevision[]>;
   open(access: DocumentArchiveAccess, input: OpenWorkingRevision): Promise<DocumentWorkingRevisionResult>;
@@ -34,13 +35,18 @@ const request = (revisionId: unknown, expected?: unknown) => {
 };
 /** Uses the archive's connection, capability and native body reader. No second
  * storage subsystem, generation writer or scientific propagation port exists. */
+export const migrateDocumentWorkingRevisions = async (sql: Sql) => {
+  await sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)),
+    "migrations", "004_doc_working_revision.sql"), "utf8"));
+};
+
 export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRevisionStore => {
   const { sql } = ports;
-  let migration: Promise<unknown> | null = null;
+  const ready = createRuntimeSchemaVerification(sql, ["doc_working_revision"],
+    "DOC_REVISION", code => new DocumentWorkingRevisionError(code, 503));
   const authorize = async (access: DocumentArchiveAccess) => {
     const scope = await ports.authorize(access);
-    await (migration ??= sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)),
-      "migrations", "004_doc_working_revision.sql"), "utf8")).catch(error => { migration = null; throw error; }));
+    await ready();
     return scope;
   };
   const sourceFor = async (access: DocumentArchiveAccess, input: Pick<CreateWorkingRevision, "baseGenerationId" | "baseGenerationBodyDigest" | "nativeDocumentRef">) => {

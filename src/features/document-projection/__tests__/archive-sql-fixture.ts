@@ -1,4 +1,5 @@
 import type { Sql } from "postgres";
+import nativeSchemaCatalog from "./runtime-schema-catalog.json";
 
 /** CURRENT_STRUCTURAL_INVARIANT: SQL boundary double, not a scientific fixture.
  * Atomic rollback and serialization exercise the actual archive implementation. */
@@ -14,8 +15,11 @@ export const archiveSqlFixture = () => {
   let failCommit = false;
   let failRevision = false;
   let failIntent = false;
+  let schemaCatalog: Record<string, unknown>[] = structuredClone(nativeSchemaCatalog);
   const tag = async (parts: TemplateStringsArray, ...v: unknown[]): Promise<Record<string, unknown>[]> => {
     const query = parts.join("?").replace(/\s+/gu, " ").trim(); queries.push(query);
+    if (query.startsWith("select c.relname as table_name")) return structuredClone(schemaCatalog
+      .filter(row => (v[0] as string[]).includes(String(row.table_name))));
     if (query.startsWith("select pg_advisory")) {
       if (v.length) {
         const argument = v[0];
@@ -117,7 +121,7 @@ export const archiveSqlFixture = () => {
     throw new Error(`UNEXPECTED_ARCHIVE_SQL:${query}`);
   };
   const sql = Object.assign(tag, {
-    unsafe: async (statement: string) => { queries.push(statement); return []; }, json: (value: unknown) => value,
+    unsafe: async (statement: string) => { queries.push(statement); throw new Error("OFFLINE_RUNTIME_DDL_FORBIDDEN"); }, json: (value: unknown) => value,
     begin: <T>(callback: (transaction: typeof sql) => Promise<T>) => {
       const next = tail.then(async () => {
         // Only row settlement mutates fields. Immutable TEXT/metadata are shared
@@ -130,6 +134,7 @@ export const archiveSqlFixture = () => {
     },
   });
   return { sql: sql as unknown as Sql, queries, projectLockArguments, rows: () => structuredClone(rows), bodies: () => structuredClone(bodies),
+    setSchemaCatalog: (catalog: Record<string, unknown>[]) => { schemaCatalog = structuredClone(catalog); },
     revisions: () => structuredClone(revisions), failRevisionSave: (fail: boolean) => { failRevision = fail; },
     intents: () => structuredClone(intents), failIntentSave: (fail: boolean) => { failIntent = fail; },
     corruptRevision: (id: string, sequence: number) => {

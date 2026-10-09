@@ -1,5 +1,6 @@
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import postgres, { type Sql } from "postgres";
+import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { humanDecisionEnvelopeSchema } from "../src/features/protocol-designer/human-decision.js";
 import { researchProjectOwnerDigest } from "../src/features/research-project-construction/project-owner-digest.js";
@@ -87,14 +88,8 @@ export const migrateProtocolDesignerProjectSnapshots = async (sql: Sql) => {
 
 export const createPostgresProjectSnapshotStore = (connectionString: string) => {
   const sql = postgres(connectionString, { max: 2, idle_timeout: 20, connect_timeout: 15, prepare: false });
-  let schemaReady: Promise<void> | null = null;
-  const ready = () => {
-    schemaReady ??= migrateProtocolDesignerProjectSnapshots(sql).catch((error) => {
-      schemaReady = null;
-      throw error;
-    });
-    return schemaReady;
-  };
+  const ready = createRuntimeSchemaVerification(sql, ["public_project_snapshot"],
+    "PROJECT_SNAPSHOT", code => new ProjectSnapshotError(code, 503));
   const keys = (identity: ProjectSnapshotIdentity) => {
     if (!nonempty(identity.sessionId, 240) || !nonempty(identity.clientAddress, 240)) {
       throw new ProjectSnapshotError("PROJECT_SNAPSHOT_SESSION_REQUIRED", 400);

@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Sql } from "postgres";
+import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
 import { logicalDigest, stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { createStudioReconciliationRequest, buildStudioReconciliationPlan } from "../src/features/document-projection/studio-reconciliation.js";
 import { StudioFinalizationIntentError, assertStudioIntent, assertStudioIntentSave, createStudioFinalizationIntent,
@@ -41,14 +42,19 @@ type Ports = {
 };
 /** Shared DOC pool/capability. All mutations append evidence, never update the
  * frozen input, archived generation, Project, or latest Working Revision. */
+export const migrateStudioFinalizationIntents = async (sql: Sql) => {
+  await sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)),
+    "migrations", "005_doc_studio_finalization_intent.sql"), "utf8"));
+};
+
 export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizationIntentStore => {
   const { sql } = ports;
-  let migration: Promise<unknown> | null = null;
+  const ready = createRuntimeSchemaVerification(sql, ["doc_studio_finalization_intent"],
+    "STUDIO_INTENT", code => new StudioFinalizationIntentError(code, 503));
   const authorize = async (access: DocumentArchiveAccess) => {
     const scope = await ports.authorize(access);
     await ports.revisions.ensureStorage(access);
-    await (migration ??= sql.unsafe(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "migrations", "005_doc_studio_finalization_intent.sql"), "utf8"))
-      .catch(error => { migration = null; throw error; }));
+    await ready();
     return scope;
   };
   const load = async (db: Sql, scope: { sessionKey: string; projectId: string }, intentId: string) => {

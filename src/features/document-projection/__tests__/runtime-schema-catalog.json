@@ -1,0 +1,1022 @@
+[
+  {
+    "table_name": "doc_generation",
+    "table_kind": "r",
+    "columns": [
+      {
+        "name": "body_bytes",
+        "type": "bigint",
+        "default": null,
+        "notNull": false,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "body_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": false,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "generated_at",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "generation_id",
+        "type": "text",
+        "default": null,
+        "notNull": false,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "metadata",
+        "type": "jsonb",
+        "default": null,
+        "notNull": false,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "ordinal",
+        "type": "bigint",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "request_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "request_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "reserved_bytes",
+        "type": "bigint",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "session_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "state",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      }
+    ],
+    "constraints": [
+      {
+        "keys": [
+          "state",
+          "metadata",
+          "generation_id",
+          "body_sha256",
+          "body_bytes"
+        ],
+        "name": "doc_generation_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(((state = ANY (ARRAY['RESERVED'::text, 'REJECTED'::text])) AND (metadata IS NULL) AND (generation_id IS NULL)) OR ((state = 'COMMITTED'::text) AND (metadata IS NOT NULL) AND (generation_id IS NOT NULL) AND (body_sha256 IS NOT NULL) AND (body_bytes > 0)))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "ordinal"
+        ],
+        "name": "doc_generation_ordinal_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(ordinal > 0)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "name": "doc_generation_pkey",
+        "type": "p",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "reserved_bytes"
+        ],
+        "name": "doc_generation_reserved_bytes_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(reserved_bytes > 0)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "generation_id"
+        ],
+        "name": "doc_generation_session_key_hash_project_id_generation_id_key",
+        "type": "u",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "ordinal"
+        ],
+        "name": "doc_generation_session_key_hash_project_id_ordinal_key",
+        "type": "u",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "state"
+        ],
+        "name": "doc_generation_state_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(state = ANY (ARRAY['RESERVED'::text, 'COMMITTED'::text, 'REJECTED'::text]))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      }
+    ],
+    "triggers": [
+      {
+        "body": "\nbegin\n  if old.state = 'COMMITTED' then raise exception 'DOC_ARCHIVE_IMMUTABLE'; end if;\n  return new;\nend;\n",
+        "name": "doc_archive_metadata_immutable",
+        "type": 27,
+        "enabled": "O",
+        "function": "noxia_durable.reject_doc_archive_metadata_change",
+        "language": "plpgsql",
+        "arguments": "",
+        "configuration": null,
+        "securityDefiner": false
+      }
+    ],
+    "indexes": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "ordinal"
+        ],
+        "name": "doc_generation_history_idx",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": false,
+        "options": "0 0 3",
+        "primary": false,
+        "predicate": "(state = 'COMMITTED'::text)"
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "name": "doc_generation_pkey",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0",
+        "primary": true,
+        "predicate": null
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "generation_id"
+        ],
+        "name": "doc_generation_session_key_hash_project_id_generation_id_key",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0",
+        "primary": false,
+        "predicate": null
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "ordinal"
+        ],
+        "name": "doc_generation_session_key_hash_project_id_ordinal_key",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0",
+        "primary": false,
+        "predicate": null
+      }
+    ]
+  },
+  {
+    "table_name": "doc_generation_body",
+    "table_kind": "r",
+    "columns": [
+      {
+        "name": "body_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "native_body_text",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "request_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "session_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      }
+    ],
+    "constraints": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "name": "doc_generation_body_pkey",
+        "type": "p",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "name": "doc_generation_body_session_key_hash_project_id_request_id_fkey",
+        "type": "f",
+        "deferred": false,
+        "matchType": "s",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "deleteAction": "a",
+        "foreignTable": "noxia_durable.doc_generation",
+        "updateAction": "a"
+      }
+    ],
+    "triggers": [
+      {
+        "body": "\nbegin\n  raise exception 'DOC_ARCHIVE_IMMUTABLE';\nend;\n",
+        "name": "doc_archive_body_immutable",
+        "type": 27,
+        "enabled": "O",
+        "function": "noxia_durable.reject_doc_archive_body_change",
+        "language": "plpgsql",
+        "arguments": "",
+        "configuration": null,
+        "securityDefiner": false
+      }
+    ],
+    "indexes": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "request_id"
+        ],
+        "name": "doc_generation_body_pkey",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0",
+        "primary": true,
+        "predicate": null
+      }
+    ]
+  },
+  {
+    "table_name": "doc_studio_finalization_intent",
+    "table_kind": "r",
+    "columns": [
+      {
+        "name": "intent_digest",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "intent_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "record_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "record_text",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "revision_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "save_sequence",
+        "type": "bigint",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "sequence",
+        "type": "bigint",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "session_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      }
+    ],
+    "constraints": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "revision_id",
+          "save_sequence"
+        ],
+        "name": "doc_studio_finalization_inten_session_key_hash_project_id__fkey",
+        "type": "f",
+        "deferred": false,
+        "matchType": "s",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": [
+          "session_key_hash",
+          "project_id",
+          "revision_id",
+          "save_sequence"
+        ],
+        "deleteAction": "a",
+        "foreignTable": "noxia_durable.doc_working_revision",
+        "updateAction": "a"
+      },
+      {
+        "keys": [
+          "record_text",
+          "intent_id",
+          "intent_digest",
+          "sequence"
+        ],
+        "name": "doc_studio_finalization_intent_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "((((record_text)::jsonb ->> 'finalizationIntentId'::text) = intent_id) AND (((record_text)::jsonb ->> 'intentDigest'::text) = intent_digest) AND ((((record_text)::jsonb ->> 'sequence'::text))::bigint = sequence))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "intent_id",
+          "sequence"
+        ],
+        "name": "doc_studio_finalization_intent_pkey",
+        "type": "p",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "record_sha256"
+        ],
+        "name": "doc_studio_finalization_intent_record_sha256_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(record_sha256 ~ '^[a-f0-9]{64}$'::text)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "sequence"
+        ],
+        "name": "doc_studio_finalization_intent_sequence_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(sequence > 0)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "record_text",
+          "intent_id",
+          "intent_digest",
+          "sequence"
+        ],
+        "name": "doc_studio_intent_native_binding_required",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "((jsonb_typeof((record_text)::jsonb) = 'object'::text) AND COALESCE(((((record_text)::jsonb ->> 'finalizationIntentId'::text) = intent_id) AND (((record_text)::jsonb ->> 'intentDigest'::text) = intent_digest) AND ((((record_text)::jsonb ->> 'sequence'::text))::bigint = sequence)), false))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      }
+    ],
+    "triggers": [
+      {
+        "body": "\nbegin\n  raise exception 'DOC_STUDIO_INTENT_EVIDENCE_IMMUTABLE';\nend;\n",
+        "name": "doc_studio_intent_immutable",
+        "type": 27,
+        "enabled": "O",
+        "function": "noxia_durable.reject_doc_studio_intent_change",
+        "language": "plpgsql",
+        "arguments": "",
+        "configuration": null,
+        "securityDefiner": false
+      }
+    ],
+    "indexes": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "intent_id",
+          "sequence"
+        ],
+        "name": "doc_studio_finalization_intent_pkey",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0 0",
+        "primary": true,
+        "predicate": null
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "revision_id",
+          "save_sequence",
+          "intent_id"
+        ],
+        "name": "doc_studio_intent_save_lookup",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": false,
+        "options": "0 0 0 0 0",
+        "primary": false,
+        "predicate": null
+      }
+    ]
+  },
+  {
+    "table_name": "doc_working_revision",
+    "table_kind": "r",
+    "columns": [
+      {
+        "name": "base_body_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "base_generation_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "logical_document_ref",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "revision",
+        "type": "jsonb",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "revision_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "save_sequence",
+        "type": "bigint",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "session_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      }
+    ],
+    "constraints": [
+      {
+        "keys": [
+          "base_body_sha256"
+        ],
+        "name": "doc_working_revision_base_body_sha256_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(base_body_sha256 ~ '^[a-f0-9]{64}$'::text)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "revision",
+          "revision_id",
+          "save_sequence",
+          "status",
+          "base_generation_id",
+          "base_body_sha256",
+          "logical_document_ref"
+        ],
+        "name": "doc_working_revision_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(((revision ->> 'revisionId'::text) = revision_id) AND (((revision ->> 'saveSequence'::text))::bigint = save_sequence) AND ((revision ->> 'status'::text) = status) AND ((revision ->> 'baseGenerationId'::text) = base_generation_id) AND ((revision ->> 'baseGenerationBodyDigest'::text) = base_body_sha256) AND ((revision ->> 'logicalDocumentRef'::text) = logical_document_ref))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "revision",
+          "revision_id",
+          "save_sequence",
+          "status",
+          "base_generation_id",
+          "base_body_sha256",
+          "logical_document_ref"
+        ],
+        "name": "doc_working_revision_native_binding_required",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "((jsonb_typeof(revision) = 'object'::text) AND COALESCE((((revision ->> 'revisionId'::text) = revision_id) AND (((revision ->> 'saveSequence'::text))::bigint = save_sequence) AND ((revision ->> 'status'::text) = status) AND ((revision ->> 'baseGenerationId'::text) = base_generation_id) AND ((revision ->> 'baseGenerationBodyDigest'::text) = base_body_sha256) AND ((revision ->> 'logicalDocumentRef'::text) = logical_document_ref)), false))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "revision_id",
+          "save_sequence"
+        ],
+        "name": "doc_working_revision_pkey",
+        "type": "p",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "save_sequence"
+        ],
+        "name": "doc_working_revision_save_sequence_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(save_sequence > 0)",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      },
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "base_generation_id"
+        ],
+        "name": "doc_working_revision_session_key_hash_project_id_base_gene_fkey",
+        "type": "f",
+        "deferred": false,
+        "matchType": "s",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": [
+          "session_key_hash",
+          "project_id",
+          "generation_id"
+        ],
+        "deleteAction": "a",
+        "foreignTable": "noxia_durable.doc_generation",
+        "updateAction": "a"
+      },
+      {
+        "keys": [
+          "status"
+        ],
+        "name": "doc_working_revision_status_check",
+        "type": "c",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": "(status = ANY (ARRAY['ACTIVE'::text, 'ABANDONED'::text]))",
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      }
+    ],
+    "triggers": [
+      {
+        "body": "\nbegin\n  raise exception 'DOC_REVISION_SAVE_IMMUTABLE';\nend;\n",
+        "name": "doc_working_revision_immutable",
+        "type": 27,
+        "enabled": "O",
+        "function": "noxia_durable.reject_doc_working_revision_change",
+        "language": "plpgsql",
+        "arguments": "",
+        "configuration": null,
+        "securityDefiner": false
+      }
+    ],
+    "indexes": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "revision_id",
+          "save_sequence"
+        ],
+        "name": "doc_working_revision_pkey",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0 0",
+        "primary": true,
+        "predicate": null
+      }
+    ]
+  },
+  {
+    "table_name": "public_project_snapshot",
+    "table_kind": "r",
+    "columns": [
+      {
+        "name": "access_proof_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "canonical_payload",
+        "type": "jsonb",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "client_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "payload_sha256",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_digest",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "project_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "session_key_hash",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      },
+      {
+        "name": "version_id",
+        "type": "text",
+        "default": null,
+        "notNull": true,
+        "identity": "",
+        "generated": ""
+      }
+    ],
+    "constraints": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "version_id"
+        ],
+        "name": "public_project_snapshot_pkey",
+        "type": "p",
+        "deferred": false,
+        "matchType": " ",
+        "validated": true,
+        "deferrable": false,
+        "expression": null,
+        "foreignKeys": null,
+        "deleteAction": " ",
+        "foreignTable": null,
+        "updateAction": " "
+      }
+    ],
+    "triggers": [],
+    "indexes": [
+      {
+        "keys": [
+          "session_key_hash",
+          "project_id",
+          "version_id"
+        ],
+        "name": "public_project_snapshot_pkey",
+        "ready": true,
+        "valid": true,
+        "method": "btree",
+        "unique": true,
+        "options": "0 0 0",
+        "primary": true,
+        "predicate": null
+      }
+    ]
+  }
+]

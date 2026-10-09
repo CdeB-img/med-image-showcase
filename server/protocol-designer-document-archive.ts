@@ -10,6 +10,7 @@ import { DOC_ARCHIVE_CONTRACT, DOC_HISTORY_PAGE_SIZE, documentFileManifest, docu
 import type { ProjectSnapshotIdentity, ProjectSnapshotRef, ProtocolDesignerProjectSnapshotStore } from "./protocol-designer-project-snapshot.js";
 import { createDocumentWorkingRevisions, type DocumentWorkingRevisionStore } from "./protocol-designer-document-working-revision.js";
 import { createStudioFinalizationIntents, type StudioFinalizationIntentStore } from "./protocol-designer-studio-finalization-intent.js";
+import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
 
 export const docSha256 = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
 /** Project-scoped transaction identity: request IDs belong to idempotence,
@@ -98,8 +99,8 @@ export const migrateDocumentArchive = async (sql: Sql) => {
 export const createPostgresDocumentArchive = (connection: string, snapshots: Pick<ProtocolDesignerProjectSnapshotStore, "resolve">,
   capacity: DocumentArchiveCapacity, suppliedSql?: Sql): DocumentArchiveStore => {
   const sql = suppliedSql ?? postgres(connection, { max: 2, idle_timeout: 20, connect_timeout: 15, prepare: false });
-  let schemaReady: Promise<void> | null = null;
-  const ready = () => schemaReady ??= migrateDocumentArchive(sql).catch(error => { schemaReady = null; throw error; });
+  const ready = createRuntimeSchemaVerification(sql, ["doc_generation", "doc_generation_body"],
+    "DOC_ARCHIVE", code => new DocumentArchiveError(code, 503));
   const authorize = async (access: DocumentArchiveAccess) => {
     // Reuse PRJ's exact capability, version/digest, session and network checks.
     // DOC does not infer any authority from provider/economic evidence.
