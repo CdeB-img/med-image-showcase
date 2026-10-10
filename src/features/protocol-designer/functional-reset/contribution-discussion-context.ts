@@ -431,3 +431,17 @@ export const scientificDiscussionProviderContext = (context: ScientificDiscussio
     authority: "Le Project adopté demeure la seule vérité adoptée. Les éléments discutés et corrigés ne sont pas adoptés. Les refs discussion/nativeRef ne sont pas des identifiants Project utilisables pour REPLACE/REMOVE. Les sources antérieures sont des référents, jamais des ancrages du dernier message. Conserver les rôles et relations explicites ; une correction locale ne transforme pas une comparaison secondaire ou une référence en modèle central. OPEN_UNKNOWN et deferred ne constituent pas un nouvel ordre de relance." };
   return { ...projection, contextDigest: logicalDigest(projection) };
 };
+
+/** Lossless provider wire view only. The retained owner, source identities,
+ * adoption bindings and scientific values remain untouched. A column table
+ * avoids repeating labels on a large active set, never removes an element or
+ * replaces its meaning with a digest. Small packets keep their existing shape. */
+export const compactRetainedMeaningProviderContext = (elements: NonNullable<ScientificDiscussionContext["retainedMeaning"]>) => {
+  const fields: readonly (keyof typeof elements[number])[] = ["ref", "content", "epistemicState", "polarity",
+    "conditions", "linkedRefs", "sourceTurnRef", "sourceDigest", "status"];
+  const original = { retainedMeaning: elements };
+  const table = { retainedMeaningTable: { fields, rows: elements.map(element => fields.map(field => element[field])) },
+    retainedMeaningReferenceBasis: "retainedMeaningTable.rows in fields order; all native values and references are preserved" };
+  const bytes = (value: unknown) => new TextEncoder().encode(JSON.stringify(value)).length;
+  return bytes(original) - bytes(table) > 1_500 ? table : original;
+};

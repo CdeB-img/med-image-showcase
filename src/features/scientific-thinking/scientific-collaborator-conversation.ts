@@ -5,7 +5,7 @@ import { executeKnowledgeEngine } from "../knowledge-engine/engine.js";
 import { extractScientificObjectTerms } from "../knowledge-engine/concept-resolver.js";
 import { isApplicable } from "../knowledge-engine/applicability.js";
 import { buildProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone.js";
-import { scientificDiscussionProviderContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
+import { compactRetainedMeaningProviderContext, scientificDiscussionProviderContext } from "../protocol-designer/functional-reset/contribution-discussion-context.js";
 import type { ProductBridgeRequest } from "../protocol-designer/product-bridge.js";
 import { RECENT_NATURAL_TURN_LIMIT, recentNaturalConversationEntries } from "../protocol-designer/functional-reset/natural-conversation-policy.js";
 import type { ContextualReasoningRequest } from "./contextual-reasoning.js";
@@ -304,7 +304,7 @@ export const prepareTerraConversation = (request: ProductBridgeRequest, autonomo
       openIssues: snapshot.openIssues,
     } : null,
     CURRENT_DISCUSSION: providerDiscussion ? { status: discussion!.boundary,
-      retainedMeaning: providerDiscussion.retainedMeaning ?? [],
+      ...compactRetainedMeaningProviderContext(providerDiscussion.retainedMeaning ?? []),
       candidateBindingTargets: providerDiscussion.candidateBindingTargets ?? [],
       active: providerDiscussion.active, visibleProposals: providerDiscussion.visibleOptions,
       resolvedReferences: providerDiscussion.resolvedReferences, historicalReferences: providerDiscussion.historicalReferences,
