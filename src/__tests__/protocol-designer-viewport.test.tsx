@@ -4,11 +4,29 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { Link, MemoryRouter } from "react-router-dom";
 import { SiteViewport } from "@/App";
+import ProjectContinuum from "@/features/protocol-designer/functional-reset/ProjectContinuum";
 
 vi.mock("@/components/Header", () => ({ default: () => <header data-testid="site-header">En-tête de hauteur naturelle</header> }));
 afterEach(cleanup);
 
 describe("Protocol Designer viewport — structural contract (geometry verified in Chrome)", () => {
+  it("keeps narrow-screen navigation above the content instead of overflowing a thin rail", () => {
+    const workspace = readFileSync(resolve(process.cwd(), "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx"), "utf8");
+    expect(workspace).toContain("grid-cols-1 items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)]");
+    expect(workspace).not.toContain("grid-cols-[5.5rem_minmax(0,1fr)]");
+    const conversation = vi.fn();
+    const documents = vi.fn();
+    render(<ProjectContinuum documentsAvailable documentsOpen={false} disabled={false}
+      onConversation={conversation} onDocuments={documents} />);
+    const navigation = screen.getByRole("navigation", { name: "Parcours longitudinal du projet" });
+    expect(navigation).toHaveClass("self-stretch", "sm:self-start", "sticky");
+    expect(screen.getByRole("list")).toHaveClass("flex-row", "sm:flex-col");
+    fireEvent.click(screen.getByRole("button", { name: "Documents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Conception" }));
+    expect(documents).toHaveBeenCalledOnce();
+    expect(conversation).toHaveBeenCalledOnce();
+  });
+
   it("constrains only the demo route and releases the shell on public navigation", () => {
     render(<MemoryRouter initialEntries={["/protocol-designer/demo"]}>
       <SiteViewport><Link to="/expertise">Site public</Link><p>Contenu</p></SiteViewport>

@@ -219,7 +219,7 @@ it("COMPACT_DOCUMENT_NAVIGATION: only current capabilities are visible and navig
   const nav = screen.getByRole("navigation", { name: "Parcours longitudinal du projet" });
   expect(within(nav).getAllByRole("button")).toHaveLength(2);
   expect(nav).toHaveClass("sticky");
-  expect(within(nav).getByRole("list")).toHaveClass("flex-col");
+  expect(within(nav).getByRole("list")).toHaveClass("flex-row", "sm:flex-col");
   expect(within(nav).getByRole("button", { name: "Conception" })).toHaveAttribute("aria-current", "step");
   fireEvent.click(within(nav).getByRole("button", { name: "Documents" }));
   expect(documents).toHaveBeenCalledTimes(1); expect(conversation).not.toHaveBeenCalled();

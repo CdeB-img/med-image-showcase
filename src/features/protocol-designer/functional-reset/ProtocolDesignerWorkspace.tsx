@@ -826,7 +826,7 @@ export default function ProtocolDesignerWorkspace({
           </div>
         </div>
       </header>
-      <div className="protocol-designer-workspace-grid grid min-h-0 min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
+      <div className="protocol-designer-workspace-grid grid min-h-0 min-w-0 grid-cols-1 items-start gap-2 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
       <ProjectContinuum documentsAvailable={Boolean(session.project || preparedFinalization)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
         disabled={studioNavigationLocked || Boolean(postAdoptionContinuationJob)}
         onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
