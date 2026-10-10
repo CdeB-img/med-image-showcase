@@ -40,7 +40,7 @@ import {
   type ProductBridgeResponse,
 } from "../src/features/protocol-designer/product-bridge.js";
 import { ProductBridgeProviderError, executeNaturalConversation } from "./protocol-designer-bridge-provider.js";
-import { SINGLE_ATTEMPT_FAIL_CLOSED, type ProviderAttemptPolicy } from "../server/protocol-designer-canary-policy.js";
+import { resolveCanaryExecution, SINGLE_ATTEMPT_FAIL_CLOSED, type CanaryExecution, type ProviderAttemptPolicy } from "../server/protocol-designer-canary-policy.js";
 import {
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
@@ -170,7 +170,7 @@ export const executeProtocolDesignerBridge = async (input: {
   /** Stable DOC intent time; does not alter Conversation/Working Draft timestamps. */
   documentGeneratedAt?: string;
   /** Enabled only by the native server admission that supports independent reservations. */
-  documentScopeExecution?: "CONCURRENT";
+  documentScopeExecution?: "SEQUENTIAL" | "CONCURRENT";
   providerAttemptPolicy?: ProviderAttemptPolicy;
   /** Server-owned retained provider evidence; never supplied by browser JSON. */
   readRetainedDocumentProtocol?: (packet: ReturnType<typeof prepareDrciDraftPack>, context: ProviderCallObservationContext) => Promise<RetainedDrciProtocol | null>;
@@ -1124,6 +1124,16 @@ export const handleProtocolDesignerBridge = async (
       error: { code: "STUDIO_PREPARATION_REFERENCE_INVALID" }, observability: providerCallRequestObservability([]) }); }
   }
   const workingDraftRequest = parseProductBridgeRequest(body);
+  // The remote DOC corridor must honor the same server-owned qualification
+  // policy as the local harness. Never accept a browser execution override.
+  // Studio editing and ordinary unconfigured runtime retain their contracts.
+  let documentCanary: CanaryExecution | null = null;
+  if (workingDraftRequest?.documentDraftRequest) {
+    try { documentCanary = resolveCanaryExecution(environment); }
+    catch { return response.status(503).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: { code: "CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK" },
+      observability: providerCallRequestObservability([]) }); }
+  }
   let studioEditRevision: DocumentWorkingRevision | undefined;
   if (body && typeof body === "object" && "operation" in body && body.operation === "STUDIO_EDIT_PROPOSAL") {
     let sourceFunction: StudioEditFailureDiagnostic["function"] = "handleProtocolDesignerBridge";
@@ -1275,10 +1285,11 @@ export const handleProtocolDesignerBridge = async (
       fetchImpl: providerFetch,
       now: dependencies.now,
       documentGeneratedAt: doc?.generatedAt,
-      documentScopeExecution: durableGuard.concurrentProviderOperations ? "CONCURRENT" : undefined,
+      documentScopeExecution: documentCanary || dependencies.providerAttemptPolicy === SINGLE_ATTEMPT_FAIL_CLOSED
+        ? "SEQUENTIAL" : durableGuard.concurrentProviderOperations ? "CONCURRENT" : undefined,
       readReusableDocumentScope: doc && durableGuard.readReusableDocumentScope
         ? scope => durableGuard.readReusableDocumentScope!({ context: publicAdmission, body, ...scope }) : undefined,
-      providerAttemptPolicy: dependencies.providerAttemptPolicy,
+      providerAttemptPolicy: documentCanary?.attemptPolicy ?? dependencies.providerAttemptPolicy,
       studioEditRevision,
     });
     let archived: { status: number; body: unknown };

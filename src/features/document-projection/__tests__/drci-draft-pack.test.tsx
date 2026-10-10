@@ -56,6 +56,22 @@ const scopeResponse = (init: RequestInit | undefined) => {
 afterEach(() => { vi.useRealTimers(); cleanup(); localStorage.clear(); });
 
 describe("DRCI DOC/DM projections: source, review, stale and actual reading mechanics", () => {
+  it("executes native qualification scopes sequentially with one physical attempt per scope", async () => {
+    let active = 0, maximum = 0;
+    const scopes: string[] = [];
+    const provider = vi.fn<typeof fetch>(async (_url, init) => {
+      active += 1; maximum = Math.max(maximum, active);
+      scopes.push(JSON.parse(JSON.parse(String(init?.body)).input).DOCUMENT_SCOPE.join("+"));
+      await Promise.resolve(); active -= 1;
+      return scopeResponse(init);
+    });
+    const result = await executeOpenAIDrciDraft(packet(), "OFFLINE_ONLY", provider, undefined, null, undefined, "SEQUENTIAL");
+    expect(maximum).toBe(1);
+    expect(scopes).toEqual(["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS+CRF+RECRUITMENT"]);
+    expect(provider).toHaveBeenCalledTimes(2);
+    expect(result.calls).toBe(2);
+    expect(result.value.documents.map(document => document.kind)).toEqual(["PROTOCOL_FULL", "PROTOCOL_SYNOPSIS", "CRF", "RECRUITMENT"]);
+  });
   it("dispatches independent native DOC scopes concurrently, retains their identities and assembles in canonical order", async () => {
     vi.useFakeTimers();
     const finishes = new Map<string, () => void>(); const records: ProviderCallRecord[] = [];

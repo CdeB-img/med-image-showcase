@@ -55,15 +55,19 @@ const runtime = async (limits = {}, withV2 = false) => {
   const body = { apiVersion: "1.0.0", requestKind: "USER_TURN", conversation: { conversationId: "conversation", language: "fr", turns: [turn] }, currentProject: project,
     evaluatePersistentDelta: false, documentDraftRequest: source, observabilityContext: { sessionId, conversationId: "conversation", turnId: turn.turnId, clientRequestId: requestId, testSessionId: null } };
   let now = Date.parse(at);
-  const invoke = async (options: { ledgerFailure?: boolean; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean; clientAddress?: string; proof?: string } = {}) => {
+  const invoke = async (options: { ledgerFailure?: boolean; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean; clientAddress?: string; proof?: string;
+    environment?: Record<string, string>; concurrentProviderOperations?: true; singleAttempt?: true } = {}) => {
     let status = 0, returned: unknown;
     const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(result) {
       if (options.lostResponse) throw new TypeError("OFFLINE_LOST_HTTP_RESPONSE"); returned = result;
     } };
     await handleProtocolDesignerBridge({ method: "POST", headers: { "content-type": "application/json", host: "noxia.test", origin: "https://noxia.test", "x-forwarded-for": options.clientAddress ?? identity.clientAddress,
       "x-noxia-project-snapshot-proof": options.proof ?? registration.proof }, body: options.payload ?? body }, response,
-    options.noProviderConfig ? {} : { VERCEL_ENV: "preview", OPENAI_API_KEY: "OFFLINE_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA" },
-    { projectSnapshotStore: snapshots, documentArchive: archive, durableGuard: options.ledgerFailure ? { ...guard, completeRequest: async () => { throw new Error("OFFLINE_LEDGER_FAILURE"); } } : guard,
+    options.noProviderConfig ? {} : { VERCEL_ENV: "preview", OPENAI_API_KEY: "OFFLINE_SYNTHETIC", VITE_PROTOCOL_DESIGNER_CHAT_RUNTIME: "TERRA", ...options.environment },
+    { projectSnapshotStore: snapshots, documentArchive: archive,
+      ...(options.singleAttempt ? { providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" as const } : {}),
+      durableGuard: { ...guard, ...(options.concurrentProviderOperations ? { concurrentProviderOperations: true as const } : {}),
+        ...(options.ledgerFailure ? { completeRequest: async () => { throw new Error("OFFLINE_LEDGER_FAILURE"); } } : {}) },
       now: () => now, fetchImpl: vi.fn(async () => { throw new Error("NETWORK_FORBIDDEN"); }) });
     return { status, body: returned as ProductBridgeResponse & { error?: { code: string } } };
   };
@@ -240,6 +244,43 @@ describe("same DOC admission survives archive failure + browser reload", () => {
 });
 
 describe("DOC generation publication / recovery transaction — no real provider", () => {
+  it("honors native server canary serialization despite concurrent durable capability and never redispatches a committed result", async () => {
+    const run = await runtime();
+    const options = { concurrentProviderOperations: true as const, environment: {
+      PROTOCOL_DESIGNER_LIVE_CANARY: "SINGLE_ATTEMPT_FAIL_CLOSED", PROTOCOL_DESIGNER_CANARY_ID: "remote-doc-e2e" } };
+    const first = await run.invoke(options);
+    expect(first.status).toBe(200);
+    expect(run.executed.mock.calls[0][6]).toBe("SEQUENTIAL");
+    const second = await run.invoke(options);
+    expect(second.status).toBe(200);
+    expect(second.body.documentPersistenceReceipt).toEqual(first.body.documentPersistenceReceipt);
+    expect(run.executed).toHaveBeenCalledOnce();
+    expect(run.sql.rows()).toHaveLength(1);
+    expect(run.sql.bodies()).toHaveLength(1);
+  });
+  it("also serializes the existing injected single-attempt harness policy", async () => {
+    const run = await runtime();
+    expect((await run.invoke({ concurrentProviderOperations: true, singleAttempt: true })).status).toBe(200);
+    expect(run.executed.mock.calls[0][6]).toBe("SEQUENTIAL");
+  });
+  it("preserves unconfigured native concurrent execution outside the qualification profile", async () => {
+    const run = await runtime();
+    expect((await run.invoke({ concurrentProviderOperations: true })).status).toBe(200);
+    expect(run.executed.mock.calls[0][6]).toBe("CONCURRENT");
+  });
+  it.each([
+    { PROTOCOL_DESIGNER_LIVE_CANARY: "typo" },
+    { PROTOCOL_DESIGNER_CANARY_ID: "orphan" },
+    { PROTOCOL_DESIGNER_CAMPAIGN_POLICY: "{}" },
+  ])("denies malformed native DOC policy before admission or provider execution: %j", async environment => {
+    const run = await runtime();
+    const result = await run.invoke({ concurrentProviderOperations: true, environment });
+    expect(result.status).toBe(503);
+    expect(result.body.error?.code).toBe("CANARY_CONFIGURATION_INVALID_NO_NORMAL_FALLBACK");
+    expect(run.executed).not.toHaveBeenCalled();
+    expect(run.sql.rows()).toHaveLength(0);
+    expect(run.sql.bodies()).toHaveLength(0);
+  });
   it("rejects a full archive write envelope before provider admission or dispatch", async () => {
     const run = await runtime({ maxConcurrentDocWrites: 1 });
     await run.archive.admit(run.access, { requestId: "existing-protected-write", requestSha256: docSha256("existing"), generatedAt: "2026-10-05T10:00:00.000Z", reservedBytes: 4_000_000 });
