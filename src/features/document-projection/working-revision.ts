@@ -132,6 +132,10 @@ export type CreateWorkingRevision = { revisionId: string; baseGenerationId: stri
 export type OpenWorkingRevision = Omit<CreateWorkingRevision, "revisionId">;
 export type SaveWorkingRevision = { revisionId: string; expectedSaveSequence: number; content: EditableDocumentContent };
 export type AbandonWorkingRevision = { revisionId: string; expectedSaveSequence: number };
+/** Bounded navigation over existing append-only saves; never another body store. */
+export const workingRevisionSaveRefSchema = workingRevisionSchema.pick({ revisionId: true, saveSequence: true,
+  contentDigest: true, updatedAt: true, status: true });
+export type WorkingRevisionSaveRef = z.infer<typeof workingRevisionSaveRefSchema>;
 /** Navigation metadata only; no document body or scientific assessment. */
 export const activeWorkingRevisionSchema = workingRevisionSchema.pick({ revisionId: true, logicalDocumentRef: true,
   baseGenerationId: true, baseGenerationBodyDigest: true, saveSequence: true, updatedAt: true })
@@ -143,6 +147,7 @@ export type DocumentWorkingRevisionClient = Readonly<{
   create(input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(revisionId: string): Promise<DocumentWorkingRevisionResult>;
   getSave?(input: { revisionId: string; saveSequence: number; contentDigest: string }): Promise<DocumentWorkingRevisionResult>;
+  history?(revisionId: string): Promise<readonly WorkingRevisionSaveRef[]>;
   save(input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   abandon(input: AbandonWorkingRevision): Promise<DocumentWorkingRevisionResult>;
 }>;

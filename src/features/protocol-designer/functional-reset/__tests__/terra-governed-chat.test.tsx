@@ -84,7 +84,7 @@ describe("Terra native conversation: mechanics only, no competence claim", () =>
         content: `TRANSCRIPT_SENTINEL_${i} ${"x".repeat(3000)}` }));
       render(<HelmetProvider><ProtocolDesignerWorkspace initialSession={session} onSessionChange={explicitTestSave(() => true)} /></HelmetProvider>);
       fireEvent.click(screen.getByRole("button", { name: "Générer les documents" }));
-      await screen.findByRole("heading", { name: "Portefeuille documentaire" });
+      await screen.findByRole("heading", { name: "Vos documents" });
       expect(requests).toHaveLength(1); expect(requests[0].conversation.turns).toHaveLength(1);
       expect(requests[0].evaluatePersistentDelta).toBe(false); expect(requests[0].currentProject).toEqual(project);
       expect(provider).toHaveBeenCalledTimes(2); expect(JSON.stringify(project)).toBe(before);

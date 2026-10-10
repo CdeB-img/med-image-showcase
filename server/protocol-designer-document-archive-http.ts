@@ -223,6 +223,7 @@ export const executeDocumentArchiveOperation = async (input: {
       }
       case "DOC_ARCHIVE_REVISION_CREATE":
       case "DOC_ARCHIVE_REVISION_GET_SAVE":
+      case "DOC_ARCHIVE_REVISION_HISTORY":
       case "DOC_ARCHIVE_REVISION_GET":
       case "DOC_ARCHIVE_REVISION_SAVE":
       case "DOC_ARCHIVE_REVISION_ABANDON": {
@@ -240,6 +241,9 @@ export const executeDocumentArchiveOperation = async (input: {
             || typeof body.saveSequence !== "number" || typeof body.contentDigest !== "string")
             throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
           result = await owner.getSave(access, { revisionId: body.revisionId, saveSequence: body.saveSequence, contentDigest: body.contentDigest });
+        } else if (body.operation === "DOC_ARCHIVE_REVISION_HISTORY") {
+          if (keys !== "operation,projectRef,revisionId,sessionId") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
+          result = await owner.history(access, body.revisionId);
         } else if (body.operation === "DOC_ARCHIVE_REVISION_GET") {
           if (keys !== "operation,projectRef,revisionId,sessionId") throw new DocumentWorkingRevisionError("DOC_REVISION_REQUEST_INVALID", 400);
           result = await owner.get(access, body.revisionId);

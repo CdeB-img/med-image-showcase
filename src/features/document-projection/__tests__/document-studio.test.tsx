@@ -74,10 +74,11 @@ describe("TRACE V2: actual offline Studio UI actions", () => {
       return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "PRIVATE_PROPOSAL_TEXT" });
     }) };
     run.open(undefined, undefined, editing); await run.ready();
+    fireEvent.focus(await run.ready()); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
     fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Clarifier sans changer les faits" } });
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
     fireEvent.click(await screen.findByRole("button", { name: "Annuler la proposition" }));
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
     fireEvent.click(await screen.findByRole("button", { name: "Appliquer au brouillon" }));
     const decisions = trace.mock.calls.map(([event]) => event).filter(event => ["ACCEPTED", "REJECTED"].includes(event.status));
     expect(decisions.map(event => event.status)).toEqual(["REJECTED", "ACCEPTED"]);
@@ -101,6 +102,53 @@ describe("TRACE V2: actual offline Studio UI actions", () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("UX: manual and accepted AI edits have exact local undo/redo without save, adoption or archive mutation", async () => {
+    const run = await runtime(), archive = run.fixture.bodies();
+    const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    const editing: StudioEditRuntime = { projectBinding: () => binding, propose: vi.fn(async (revision, node, instruction) => {
+      const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "Texte proposé, avec toutes les réserves." });
+    }) };
+    run.open(undefined, undefined, editing); const field = await run.ready();
+    const original = (field as HTMLTextAreaElement).value;
+    expect(screen.queryByRole("textbox", { name: "Demande de modification" })).not.toBeInTheDocument();
+    fireEvent.change(field, { target: { value: "Nuance humaine à préserver exactement." } });
+    fireEvent.keyDown(field, { key: "z", ctrlKey: true }); expect(field).toHaveValue(original);
+    fireEvent.keyDown(field, { key: "z", ctrlKey: true, shiftKey: true }); expect(field).toHaveValue("Nuance humaine à préserver exactement.");
+    fireEvent.click(screen.getByRole("button", { name: "Annuler la dernière modification" }));
+    fireEvent.focus(field); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Améliore la rédaction seulement." } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Appliquer au brouillon" }));
+    expect(field).toHaveValue("Texte proposé, avec toutes les réserves.");
+    fireEvent.click(screen.getByRole("button", { name: "Annuler la dernière modification" })); expect(field).toHaveValue(original);
+    expect(run.fixture.revisions()).toHaveLength(1); expect(run.fixture.bodies()).toEqual(archive);
+  });
+  it("UX: confirmed historical save can be recovered after reload, previewed, explicitly restored and appended without overwriting history", async () => {
+    const run = await runtime(), archive = run.fixture.bodies();
+    const view = run.open(); const field = await run.ready(); const original = (field as HTMLTextAreaElement).value;
+    fireEvent.change(field, { target: { value: "Nuances de la deuxième sauvegarde." } }); await save();
+    const id = run.revision().revisionId, savedDigest = run.revision().contentDigest;
+    view.unmount(); run.open(); const reloadedField = await run.ready(); expect(reloadedField).toHaveValue("Nuances de la deuxième sauvegarde.");
+    fireEvent.click(screen.getByRole("button", { name: "Historique des sauvegardes" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Restaurer la sauvegarde 1" }));
+    await screen.findByRole("alertdialog"); expect(reloadedField).toHaveValue("Nuances de la deuxième sauvegarde.");
+    fireEvent.click(screen.getByRole("button", { name: "Restaurer dans le document" })); expect(await run.ready()).toHaveValue(original);
+    expect(run.revision().saveSequence).toBe(2); await save();
+    expect(run.revision().revisionId).toBe(id); expect(run.revision().saveSequence).toBe(3);
+    expect((await run.owner.getSave(run.access2, { revisionId: id, saveSequence: 2,
+      contentDigest: savedDigest })).revision.content.sections[0].blocks[0].text).toBe("Nuances de la deuxième sauvegarde.");
+    expect(run.fixture.bodies()).toEqual(archive);
+  });
+  it("UX: restoring archived prose is explicit, reversible and never itself a save or generation", async () => {
+    const run = await runtime(); run.open(); const field = await run.ready(), original = (field as HTMLTextAreaElement).value;
+    fireEvent.change(field, { target: { value: "Travail humain non enregistré." } });
+    fireEvent.click(screen.getByRole("button", { name: "Restaurer le texte archivé" }));
+    expect(field).toHaveValue("Travail humain non enregistré.");
+    fireEvent.click(screen.getByRole("button", { name: "Restaurer dans le document" })); expect(field).toHaveValue(original);
+    fireEvent.click(screen.getByRole("button", { name: "Annuler la dernière modification" })); expect(field).toHaveValue("Travail humain non enregistré.");
+    expect(run.fixture.revisions()).toHaveLength(1);
+  });
   it("conversational proposal preview/cancel/apply/save/reload uses one draft and makes no implicit version or Project", async () => {
     const run = await runtime(), archived = run.fixture.bodies();
     const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
@@ -111,17 +159,17 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     const editing = { projectBinding: () => binding, propose };
     const view = run.open(undefined, undefined, editing); await run.ready(); expect(propose).not.toHaveBeenCalled();
     fireEvent.focus(await run.ready());
-    fireEvent.click(screen.getByRole("button", { name: "Améliorer ce paragraphe avec NOXIA" }));
-    fireEvent.click(screen.getByRole("button", { name: "Clarifier" }));
+    fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Reformule sans changer les faits" } });
     expect(propose).not.toHaveBeenCalled();
     expect((screen.getByRole("textbox", { name: "Demande de modification" }) as HTMLTextAreaElement).value).toContain("sans changer les faits");
     expect(screen.queryByRole("button", { name: /tableau|liste/u })).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
     await screen.findByRole("region", { name: "Proposition de modification" });
     const original = (await run.ready()).getAttribute("value") ?? run.revision().content.sections[0].blocks[0].text;
     expect(await run.ready()).toHaveValue(original);
     fireEvent.click(screen.getByRole("button", { name: "Annuler la proposition" })); expect(await run.ready()).toHaveValue(original);
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" })); await screen.findByRole("region", { name: "Proposition de modification" });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" })); await screen.findByRole("region", { name: "Proposition de modification" });
     fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" }));
     expect(await run.ready()).toHaveValue("Correction proposée par la fixture, non évaluée scientifiquement.");
     fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
@@ -139,9 +187,9 @@ describe("Document Studio V1 / native archive vertical slice", () => {
       return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: revision.content.sections[0].blocks[0].text });
     });
     run.open({ run: vi.fn(async () => null) }, undefined, { projectBinding: () => binding, propose }); await run.ready();
-    fireEvent.focus(await run.ready()); fireEvent.click(screen.getByRole("button", { name: "Améliorer ce paragraphe avec NOXIA" }));
-    fireEvent.click(screen.getByRole("button", { name: "Raccourcir" })); expect(propose).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" }));
+    fireEvent.focus(await run.ready()); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Raccourcis sans perdre les réserves" } }); expect(propose).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
     await waitFor(() => expect(screen.getByRole("button", { name: "Créer la version suivante" })).toBeDisabled());
     expect(await run.ready()).toBeDisabled(); expect(screen.getByRole("button", { name: "Préparation de la proposition…" })).toBeDisabled();
     release(); await screen.findByRole("region", { name: "Proposition de modification" });
@@ -156,10 +204,11 @@ describe("Document Studio V1 / native archive vertical slice", () => {
       return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, proposedText: "Proposition" });
     }) };
     run.open(undefined, undefined, editing); await run.ready();
+    fireEvent.focus(await run.ready()); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
     fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Clarifie" } });
-    fireEvent.click(screen.getByRole("button", { name: "Proposer une modification" })); await screen.findByRole("region", { name: "Proposition de modification" });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" })); await screen.findByRole("region", { name: "Proposition de modification" });
     fireEvent.change(await run.ready(), { target: { value: "Correction concurrente conservée" } });
-    expect(screen.getByRole("button", { name: "Proposer une modification" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Envoyer à NOXIA" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Appliquer au brouillon" })); await screen.findByRole("alert");
     expect(await run.ready()).toHaveValue("Correction concurrente conservée");
   });
@@ -419,7 +468,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     fireEvent.click(within(item).getByRole("button", { name: "Afficher les documents" }));
     fireEvent.click(await within(item).findByRole("button", { name: /Modifier dans Studio Version 2 · .*PROTOCOL_FULL/u }));
     await run.ready();
-    expect(screen.getByText("Basé sur la Version 2")).toBeInTheDocument();
+    expect(screen.getByText("Document en cours d’édition · basé sur Version 2")).toBeInTheDocument();
     expect(run.revision().baseGenerationId).toBe(run.g2.ref.generationId);
     expect(run.revision().content.sections[0].blocks[0].text).toContain("colchicine");
     expect(run.fixture.rows()).toEqual(rows); expect(run.fixture.bodies()).toEqual(bodies);
@@ -436,7 +485,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     run.open();
     const field = await run.ready(), text = "L’étude devient multicentrique. Modification humaine non évaluée.";
     fireEvent.change(field, { target: { value: text } });
-    expect(screen.getByTestId("studio-save-status")).toHaveTextContent("Modifications non enregistrées");
+    expect(screen.getByTestId("studio-save-status")).toHaveTextContent("En cours de modification");
     expect(screen.getByRole("button", { name: "Enregistrer" })).toBeEnabled();
     expect(run.fixture.revisions()).toHaveLength(1); // no autosave
     await save();
@@ -525,7 +574,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(compareScope().getByText(original)).toBeInTheDocument();
     expect(compareScope().getByRole("textbox", { name: "Section 1 · paragraphe 1" })).toHaveValue("Texte modifié dans le brouillon");
     expect(compareScope().getByText("Section 1 · paragraphe 1 · Modifié")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Modifier" }));
+    fireEvent.click(screen.getByRole("button", { name: "Revenir au document" }));
     fireEvent.change(screen.getByRole("textbox", { name: "Section 1 · paragraphe 1" }), { target: { value: "" } });
     fireEvent.click(screen.getByRole("button", { name: "Comparer" }));
     expect(compareScope().getByText("Section 1 · paragraphe 1 · Retiré")).toBeInTheDocument();
@@ -548,7 +597,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     const run = await runtime(), initial = await run.owner.open(run.access2, run.createInput);
     const access3 = await run.register(run.project3, run.access2.proof); await run.generation(run.project3, access3);
     run.open(); await run.ready();
-    expect(screen.getByText(/Ce brouillon est basé sur une génération ou un état du projet antérieur/u)).toBeInTheDocument();
+    expect(screen.getByText(/Une version ou un état scientifique plus récent existe/u)).toBeInTheDocument();
     expect(run.revision()).toEqual(initial.revision);
     expect(run.revision().baseGenerationId).toBe(run.g2.ref.generationId);
   });
@@ -561,7 +610,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(old.logicalDocumentRef).toBe(current.logicalDocumentRef);
     expect(old.baseGenerationId).toBe(run.g1.ref.generationId);
     expect(current.baseGenerationId).toBe(run.g2.ref.generationId);
-    expect(screen.getByText("Basé sur la Version 1")).toBeInTheDocument();
+    expect(screen.getByText("Document en cours d’édition · basé sur Version 1")).toBeInTheDocument();
   });
   it("L: the existing RECRUITMENT native document uses the same Studio routing, without filenames", async () => {
     const run = await runtime();

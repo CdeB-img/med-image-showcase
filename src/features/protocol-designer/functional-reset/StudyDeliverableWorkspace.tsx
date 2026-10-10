@@ -126,7 +126,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
-          <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
+          <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Vos documents</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
             {archiveOnly ? "Consultez une version archivée ou modifiez un document dans Studio. Enregistrer un brouillon ne crée pas de nouvelle version." : `${availableCount} livrable${availableCount > 1 ? "s" : ""} téléchargeable${availableCount > 1 ? "s" : ""}. Les éléments ouverts restent signalés et ne sont pas inventés.`}
           </p>
@@ -143,18 +143,19 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose, saveWarn
     </header>
 
     {!archiveOnly && portfolio.artifacts.some(artifact => artifact.status === "STALE") && <p role="status" className="m-5 rounded-xl border bg-amber-50 p-3 text-sm text-amber-900">Le projet a changé. Les documents rédigés ci-dessous sont des versions antérieures à actualiser.</p>}
-    {adaptive && <AdaptiveDocumentPortfolio items={adaptive} onConversation={onStudioConversation} />}
-    {protocolWritingProfile && <ProtocolWritingOutline profile={protocolWritingProfile} />}
     {archiveClient && <DocumentArchiveHistory client={archiveClient} onHistory={setHistory}
       onLoadState={state => { setHistoryState(state); onArchiveLoadState?.(state); }} currentGenerationId={currentGenerationId} currentProjectDigest={portfolio.projectRef.projectDigest}
       trace={trace} currentProjectSnapshot={currentProjectSnapshot} pendingScientificChange={pendingScientificChange}
       onStudio={setStudioTarget} onDownloaded={onArchivedFileDownloaded} onOpen={(file, title, body) => { setOpenTitle(title); setOpenFile(file); setSelectedBody(body); }} />}
-    {diagnosticProjectionId && <aside className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne">
+    {adaptive && <details className="border-b" data-testid="additional-document-needs"><summary className="cursor-pointer px-5 py-4 text-sm font-medium sm:px-6">Autres besoins documentaires · pertinence et disponibilité</summary>
+      <AdaptiveDocumentPortfolio items={adaptive} onConversation={onStudioConversation} /></details>}
+    {protocolWritingProfile && <ProtocolWritingOutline profile={protocolWritingProfile} />}
+    {diagnosticProjectionId && <details className="m-4 rounded-xl border p-3 text-xs text-muted-foreground" aria-label="Projection technique interne"><summary className="cursor-pointer">Diagnostic documentaire</summary>
       <p>Diagnostic interne · ces projections ne sont pas des générations documentaires.</p>
       <button type="button" className="mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(false)}>Ouvrir la projection technique</button>
       <button type="button" className="ml-2 mt-2 min-h-10 rounded-lg border px-3" onClick={() => void openTechnicalProjection(true)}>Ouvrir la projection technique précédente</button>
       {diagnosticError && <p role="alert">Projection technique indisponible.</p>}
-    </aside>}
+    </details>}
     {openFile && selectedBody?.native.family !== "TEMPLATE" && <section className="m-4 rounded-2xl border p-4" aria-label="Document ouvert">
       <div className="mb-3 flex items-center justify-between gap-3"><h3 className="font-semibold">{openTitle}</h3>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-sm" onClick={() => setOpenFile(null)}>Fermer le document</button></div>

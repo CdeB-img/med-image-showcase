@@ -28,6 +28,40 @@ const runtime = async () => {
 };
 
 describe("bounded DOC revision API/client, existing capability and transport", () => {
+  it("reads verified append-only save history as metadata, then resolves one exact save without writes", async () => {
+    const run = await runtime(), original = await run.client.create(run.createInput);
+    const content = structuredClone(original.revision.content); content.title = "Sauvegarde humaine privée";
+    const saved = await run.client.save({ revisionId: original.revision.revisionId, expectedSaveSequence: 1, content });
+    const before = run.fixture.revisions(), archive = run.fixture.bodies(), project = structuredClone(run.project2);
+    const history = await run.client.history!(original.revision.revisionId);
+    expect(history).toEqual([saved.revision, original.revision].map(value => ({ revisionId: value.revisionId,
+      saveSequence: value.saveSequence, contentDigest: value.contentDigest, updatedAt: value.updatedAt, status: value.status })));
+    expect(JSON.stringify(history)).not.toContain(content.title);
+    expect(await run.client.getSave!({ revisionId: history[1].revisionId, saveSequence: history[1].saveSequence,
+      contentDigest: history[1].contentDigest })).toEqual(original);
+    expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive); expect(run.project2).toEqual(project);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_HISTORY", { revisionId: original.revision.revisionId }), "0".repeat(43))).status).toBe(403);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_HISTORY", { revisionId: original.revision.revisionId, content }))).status).toBe(400);
+    expect((await run.http(run.command("DOC_ARCHIVE_REVISION_HISTORY", { revisionId: "missing" }))).status).toBe(404);
+  });
+  it.each(["body", "identity", "order", "empty"])("rejects %s corruption in historical-save navigation", async field => {
+    const run = await runtime(), original = await run.client.create(run.createInput);
+    run.mutate.response = value => {
+      const response = value as { result: Record<string, unknown>[] };
+      if (field === "body") response.result[0].content = "must not leak";
+      if (field === "identity") response.result[0].revisionId = "foreign";
+      if (field === "order") response.result.push({ ...response.result[0] });
+      if (field === "empty") response.result = [];
+      return response;
+    };
+    await expect(run.client.history!(original.revision.revisionId)).rejects.toThrow("DOC_REVISION_RESPONSE_INVALID");
+  });
+  it("historical navigation fails closed when the immutable native base is corrupt", async () => {
+    const run = await runtime(); await run.client.create(run.createInput);
+    const before = run.fixture.revisions(); run.fixture.corruptBody(run.g2.ref.generationId);
+    await expect(run.client.history!(run.createInput.revisionId)).rejects.toThrow("DOC_ARCHIVE_BODY_CORRUPT");
+    expect(run.fixture.revisions()).toEqual(before);
+  });
   it("lists only latest ACTIVE draft metadata under the existing Project capability, without bodies or writes", async () => {
     const run = await runtime();
     expect(await run.client.active!()).toEqual([]);

@@ -64,7 +64,7 @@ export const archiveSqlFixture = () => {
     if (query.startsWith("select revision from noxia_durable.doc_working_revision")) return revisions
       .filter(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2]
         && (!query.includes("and save_sequence =") || r.save_sequence === v[3]))
-      .sort((a, b) => Number(b.save_sequence) - Number(a.save_sequence)).slice(0, 1).map(r => ({ revision: structuredClone(r.revision) }));
+      .sort((a, b) => Number(b.save_sequence) - Number(a.save_sequence)).slice(0, query.includes("limit 50") ? 50 : 1).map(r => ({ revision: structuredClone(r.revision) }));
     if (query.startsWith("insert into noxia_durable.doc_working_revision")) {
       if (failRevision) throw new Error("OFFLINE_REVISION_WRITE_FAILURE");
       if (revisions.some(r => r.session_key_hash === v[0] && r.project_id === v[1] && r.revision_id === v[2] && r.save_sequence === v[3]))

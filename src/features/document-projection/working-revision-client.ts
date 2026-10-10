@@ -1,4 +1,4 @@
-import { activeWorkingRevisionSchema, DocumentWorkingRevisionError, workingRevisionResultSchema, workingRevisionContentDigest,
+import { activeWorkingRevisionSchema, workingRevisionSaveRefSchema, DocumentWorkingRevisionError, workingRevisionResultSchema, workingRevisionContentDigest,
   type DocumentWorkingRevisionClient, type DocumentWorkingRevisionResult } from "./working-revision.js";
 
 /** Transport is the existing archive capability boundary, not a second fetch/auth path. */
@@ -37,6 +37,12 @@ export const createDocumentWorkingRevisionClient = (
     open: input => execute({ operation: "DOC_ARCHIVE_REVISION_OPEN", ...input }),
     create: input => execute({ operation: "DOC_ARCHIVE_REVISION_CREATE", ...input }),
     get: revisionId => execute({ operation: "DOC_ARCHIVE_REVISION_GET", revisionId }),
+    history: async revisionId => {
+      const parsed = workingRevisionSaveRefSchema.array().min(1).max(50).safeParse(await operation<unknown>({ operation: "DOC_ARCHIVE_REVISION_HISTORY", revisionId }));
+      if (!parsed.success || parsed.data.some((item, index) => item.revisionId !== revisionId
+        || index > 0 && item.saveSequence >= parsed.data[index - 1].saveSequence)) throw new DocumentWorkingRevisionError("DOC_REVISION_RESPONSE_INVALID", 503);
+      return parsed.data;
+    },
     getSave: input => execute({ operation: "DOC_ARCHIVE_REVISION_GET_SAVE", ...input }),
     save: input => execute({ operation: "DOC_ARCHIVE_REVISION_SAVE", ...input }),
     abandon: input => execute({ operation: "DOC_ARCHIVE_REVISION_ABANDON", ...input }),

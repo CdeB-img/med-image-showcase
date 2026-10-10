@@ -6,7 +6,7 @@ import type { JSONValue, Sql } from "postgres";
 import { stableStringify } from "../src/features/knowledge-engine/canonical.js";
 import { DOCUMENT_WORKING_REVISION_CONTRACT, DocumentWorkingRevisionError, assertWorkingRevision, editableArchivedDocument,
   validateWorkingRevisionContent, workingRevisionContentDigest, type AbandonWorkingRevision, type CreateWorkingRevision,
-  type ActiveWorkingRevision, type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
+  type ActiveWorkingRevision, type WorkingRevisionSaveRef, type DocumentWorkingRevision, type DocumentWorkingRevisionResult, type OpenWorkingRevision, type SaveWorkingRevision } from "../src/features/document-projection/working-revision.js";
 import type { DocumentArchiveAccess, DocumentArchiveStore } from "./protocol-designer-document-archive.js";
 import { createRuntimeSchemaVerification } from "./protocol-designer-schema-compatibility.js";
 import type { ProjectSnapshotReadPurpose } from "./protocol-designer-project-snapshot.js";
@@ -19,6 +19,7 @@ export type DocumentWorkingRevisionStore = Readonly<{
   create(access: DocumentArchiveAccess, input: CreateWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   get(access: DocumentArchiveAccess, revisionId: string): Promise<DocumentWorkingRevisionResult>;
   getSave(access: DocumentArchiveAccess, input: { revisionId: string; saveSequence: number; contentDigest: string }): Promise<DocumentWorkingRevisionResult>;
+  history(access: DocumentArchiveAccess, revisionId: string): Promise<readonly WorkingRevisionSaveRef[]>;
   save(access: DocumentArchiveAccess, input: SaveWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   abandon(access: DocumentArchiveAccess, input: AbandonWorkingRevision): Promise<DocumentWorkingRevisionResult>;
   /** DOC-internal, after proven commit. Later saves are never consumed. */
@@ -231,6 +232,23 @@ export const createDocumentWorkingRevisions = (ports: Ports): DocumentWorkingRev
       const current = await load(sql, sessionKey, projectId, revisionId);
       if (!current) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
       return resultFor(access, current);
+    },
+    async history(access, revisionId) {
+      request(revisionId);
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
+      const current = await load(sql, sessionKey, projectId, revisionId);
+      if (!current) throw new DocumentWorkingRevisionError("DOC_REVISION_NOT_FOUND", 404);
+      await verify(access, current);
+      const rows = await sql`select revision from noxia_durable.doc_working_revision
+        where session_key_hash = ${sessionKey} and project_id = ${projectId} and revision_id = ${revisionId}
+        order by save_sequence desc limit 50`;
+      return rows.map(row => {
+        const revision = assertWorkingRevision(row.revision);
+        if (revision.baseGenerationId !== current.baseGenerationId || revision.baseGenerationBodyDigest !== current.baseGenerationBodyDigest
+          || revision.logicalDocumentRef !== current.logicalDocumentRef || stableStringify(revision.project) !== stableStringify(current.project)
+          || revision.provenance.sessionRef !== access.identity.sessionId) throw new DocumentWorkingRevisionError("DOC_REVISION_SOURCE_BINDING_INVALID", 403);
+        return { revisionId, saveSequence: revision.saveSequence, contentDigest: revision.contentDigest, updatedAt: revision.updatedAt, status: revision.status };
+      });
     },
     async getSave(access, input) {
       request(input.revisionId, input.saveSequence);

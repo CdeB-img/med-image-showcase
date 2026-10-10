@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, CheckCircle2, Save, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Save, Trash2, Undo2, Redo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
   AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
@@ -20,9 +20,10 @@ import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client"
 import type { ProjectContextSnapshot } from "../research-project-construction/canonical-project-backbone";
 import { inspectDocumentImpact, type DocumentImpactReport } from "./document-impact";
 import DocumentImpactSummary from "./DocumentImpactSummary";
+import StudioSaveHistory from "./StudioSaveHistory";
 
 type SaveState = "CLEAN" | "DIRTY" | "SAVING" | "SAVE_FAILED" | "CONFLICT";
-const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "Modifications non enregistrées",
+const labels: Record<SaveState, string> = { CLEAN: "Enregistré", DIRTY: "En cours de modification",
   SAVING: "Enregistrement…", SAVE_FAILED: "Échec de l’enregistrement", CONFLICT: "Conflit de sauvegarde" };
 const codeOf = (error: unknown) => {
   const candidate = error && typeof error === "object" && "code" in error ? error.code : error instanceof Error ? error.message : null;
@@ -45,7 +46,8 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const [loadFailed, setLoadFailed] = useState(false);
   const [mode, setMode] = useState<"READ" | "EDIT" | "COMPARE">(target.initialMode === "READ" ? "READ" : "EDIT");
   const [editingRequested, setEditingRequested] = useState(target.initialMode !== "READ");
-  const [dialog, setDialog] = useState<"LEAVE" | "ABANDON" | "RELOAD" | null>(null);
+  const [dialog, setDialog] = useState<"LEAVE" | "ABANDON" | "RELOAD" | "RESTORE_BASE" | "RESTORE_SAVE" | null>(null);
+  const [restoreSave, setRestoreSave] = useState<{ sequence: number; content: EditableDocumentContent } | null>(null);
   const [actionFailed, setActionFailed] = useState(false);
   const [finalizing, setFinalizing] = useState(false);
   const [stage, setStage] = useState<StudioFinalizationStage | null>(null);
@@ -61,6 +63,10 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const [activeParagraph, setActiveParagraph] = useState<string | null>(null);
   const [assistantTarget, setAssistantTarget] = useState<{ nodeId: string; request: number } | null>(null);
   const [proposalBusy, setProposalBusy] = useState(false);
+  // Screen-local undo is deliberately not durable recovery. Confirmed saves
+  // remain append-only in DOC; restoring the immutable base creates an edit.
+  const [undo, setUndo] = useState<EditableDocumentContent[]>([]);
+  const [redo, setRedo] = useState<EditableDocumentContent[]>([]);
   const runtimeRef = useRef(finalization); runtimeRef.current = finalization;
   const clientRef = useRef(client); clientRef.current = client;
   const epoch = useRef(0), flight = useRef(false);
@@ -117,6 +123,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
     setLoaded(null); setBuffer(null); setLoadFailed(false); setSaveState("CLEAN");
     setRecoverableIntent(false); setCompleted(false); setFinalizationMessage(null);
     setFinalizationFailure(null); setSaveFeedback(false); setClarification(null);
+    setUndo([]); setRedo([]); setAssistantTarget(null); setActiveParagraph(null);
     void (async () => {
       const archiveClient = clientRef.current;
       if (!archiveClient.workingRevisions) throw new Error("DOC_REVISION_UNAVAILABLE");
@@ -164,10 +171,24 @@ export default function DocumentStudio({ client, target, finalization, editing, 
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty, busy]);
+  const replaceBuffer = (next: EditableDocumentContent, remember = true) => {
+    if (!buffer || !loaded?.result || flight.current || completed) return;
+    if (stableStringify(next) === stableStringify(buffer)) return;
+    if (remember) { setUndo(previous => [...previous.slice(-79), structuredClone(buffer)]); setRedo([]); }
+    setBuffer(structuredClone(next)); setActionFailed(false);
+    if (saveState !== "CONFLICT" && saveState !== "SAVE_FAILED") setSaveState(stableStringify(next) === stableStringify(loaded.result.revision.content) ? "CLEAN" : "DIRTY");
+  };
+  const travel = (direction: "UNDO" | "REDO") => {
+    if (!buffer || busy || completed || mode === "READ") return;
+    const stack = direction === "UNDO" ? undo : redo, next = stack.at(-1);
+    if (!next) return;
+    if (direction === "UNDO") { setUndo(stack.slice(0, -1)); setRedo(previous => [...previous, structuredClone(buffer)]); }
+    else { setRedo(stack.slice(0, -1)); setUndo(previous => [...previous, structuredClone(buffer)]); }
+    replaceBuffer(next, false);
+  };
   const edit = (change: (content: EditableDocumentContent) => void) => {
     if (!buffer || !loaded?.result || mode === "READ" || flight.current || completed) return;
-    const next = structuredClone(buffer); change(next); setBuffer(next); setActionFailed(false);
-    if (saveState !== "CONFLICT" && saveState !== "SAVE_FAILED") setSaveState(stableStringify(next) === stableStringify(loaded.result.revision.content) ? "CLEAN" : "DIRTY");
+    const next = structuredClone(buffer); change(next); replaceBuffer(next);
   };
   const save = async () => {
     if (!loaded?.result || !buffer || mode === "READ" || !client.workingRevisions || flight.current || saveState === "CONFLICT"
@@ -208,6 +229,8 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const confirmAction = async () => {
     const action = dialog; setDialog(null);
     if (action === "LEAVE") { onClose(); return; }
+    if (action === "RESTORE_BASE") { if (loaded && !busy) replaceBuffer(loaded.base); return; }
+    if (action === "RESTORE_SAVE") { if (restoreSave && !busy) replaceBuffer(restoreSave.content); setRestoreSave(null); return; }
     if (!loaded?.result || !client.workingRevisions || flight.current) return;
     const token = epoch.current; flight.current = true; setActionFailed(false); setSaveState("SAVING");
     try {
@@ -219,7 +242,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
         const result = await client.workingRevisions.get(revision.revisionId);
         if (epoch.current !== token) return;
         if (result.revision.status === "ABANDONED") { onClose(); return; }
-        setLoaded({ ...loaded, result }); setBuffer(structuredClone(result.revision.content)); setSaveState("CLEAN");
+        setLoaded({ ...loaded, result }); setBuffer(structuredClone(result.revision.content)); setSaveState("CLEAN"); setUndo([]); setRedo([]);
       }
     } catch (error) {
       if (epoch.current === token) {
@@ -231,12 +254,16 @@ export default function DocumentStudio({ client, target, finalization, editing, 
   const close = () => { if (dirty) setDialog("LEAVE"); else if (!busy) onClose(); };
   const display = (value: string) => loaded ? studioBoundText(value, loaded.body) : value;
   const contextualAction = (nodeId?: string) => editing && nodeId && activeParagraph === nodeId && !completed && mode !== "READ" &&
-    <Button size="sm" variant="outline" className="mt-2" disabled={busy} onClick={() => setAssistantTarget(previous => ({ nodeId, request: (previous?.request ?? 0) + 1 }))}>Améliorer ce paragraphe avec NOXIA</Button>;
+    <Button size="sm" variant="ghost" className="mt-1 min-h-11 text-foreground" disabled={busy} onClick={() => setAssistantTarget(previous => ({ nodeId, request: (previous?.request ?? 0) + 1 }))}>Demander à NOXIA pour ce passage</Button>;
+  const assistantFor = (nodeId?: string) => nodeId && assistantTarget?.nodeId === nodeId && editing && loaded?.result && buffer && mode !== "READ" && !completed
+    ? <StudioEditAssistant runtime={editing} revision={loaded.result.revision} trace={trace} buffer={buffer}
+        disabled={busy || saveState === "CONFLICT"} dirty={dirty} requestedTarget={assistantTarget} onBusy={setProposalBusy}
+        onDismiss={() => setAssistantTarget(null)} onApply={content => replaceBuffer(content)} /> : null;
   const textField = (value: string, original: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false, nodeId?: string) =>
-    mode === "READ" || hasProtectedTextBinding(original) ? <div className="rounded-lg bg-muted/40 p-3">
-      <p className="whitespace-pre-wrap break-words leading-7">{display(value)}</p>
+    mode === "READ" || hasProtectedTextBinding(original) ? <div className="px-2 py-1">
+      <p className={`whitespace-pre-wrap break-words leading-8 ${heading ? "text-xl font-semibold" : "text-base"}`}>{display(value)}</p>
       {hasProtectedTextBinding(original) && <p className="mt-2 text-xs text-muted-foreground">Lecture seule · références natives protégées</p>}
-    </div> : <><StudioText value={value} label={label} heading={heading} disabled={busy || completed} onContext={nodeId ? () => setActiveParagraph(nodeId) : undefined} onChange={value => edit(content => change(content, value))} />{contextualAction(nodeId)}</>;
+    </div> : <><StudioText value={value} label={label} heading={heading} disabled={busy || completed} onContext={nodeId ? () => setActiveParagraph(nodeId) : undefined} onChange={value => edit(content => change(content, value))} />{contextualAction(nodeId)}{assistantFor(nodeId)}</>;
   const pair = (before: string, after: string, label: string, change: (content: EditableDocumentContent, value: string) => void, heading = false, nodeId?: string) => {
     const kind = before === after ? "Inchangé" : !before ? "Ajouté" : !after ? "Retiré" : "Modifié";
     return <article className="mb-4 rounded-xl border p-4" key={label}>
@@ -247,31 +274,41 @@ export default function DocumentStudio({ client, target, finalization, editing, 
       </div>
     </article>;
   };
-  return <section className="min-w-0 overflow-hidden rounded-2xl border bg-background shadow-sm" aria-label="Document Studio" data-testid="document-studio">
-    <header className="border-b p-5 sm:p-6">
+  return <section className="min-w-0 rounded-2xl border bg-background shadow-sm" aria-label="Document Studio" data-testid="document-studio" onKeyDown={event => {
+    if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === "z" && mode !== "READ" && loaded?.result
+      && (!(event.target instanceof HTMLTextAreaElement) || event.target.dataset.studioText === "true")) {
+      event.preventDefault(); travel(event.shiftKey ? "REDO" : "UNDO");
+    }
+  }}>
+    <header className="border-b p-4 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Button variant="ghost" onClick={close} disabled={busy}><ArrowLeft />Retour aux documents</Button>
         <span role="status" aria-live="polite" data-testid="studio-save-status" className="text-sm">{loaded ? loaded.result ? labels[saveState] : "Version archivée · lecture seule" : loadFailed ? "Studio indisponible" : "Ouverture du document…"}</span>
       </div>
-      <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-primary">Document Studio{loaded?.result ? " · brouillon" : " · consultation"}</p>
-      <h2 className="mt-2 break-words text-xl font-semibold">{loaded?.base.title ?? "Document archivé"}</h2>
-      <p className="mt-1 text-sm text-muted-foreground">Basé sur la Version {generation.displayVersion}</p>
-      <details className="mt-2 text-xs text-muted-foreground"><summary>Provenance technique</summary><p>Projet {generation.project.projectVersion} · {generation.generationId}</p></details>
-      {loaded?.result && <p className="mt-3 max-w-3xl text-sm text-muted-foreground">Brouillon non intégré à une version. Les modifications ne sont pas évaluées scientifiquement. Enregistrer ne modifie ni le projet ni les versions archivées.</p>}
-      {loaded?.result?.baseState.stale && <p role="status" className="mt-3 rounded-lg border bg-amber-50 p-3 text-sm text-amber-950">Ce brouillon est basé sur une génération ou un état du projet antérieur. Sa source reste inchangée ; aucun rebasage automatique.</p>}
+      <p className="mt-3 text-sm font-medium">{loaded?.result ? `Document en cours d’édition · basé sur Version ${generation.displayVersion}` : `Version ${generation.displayVersion} · lecture seule`}</p>
+      {loaded?.result && <p className="mt-1 text-sm text-muted-foreground">Enregistrer conserve votre travail. Créer la version suivante l’intègre à une nouvelle version archivée après vérification.</p>}
+      {loaded?.result?.baseState.stale && <p role="status" className="mt-3 rounded-lg border bg-amber-50 p-3 text-sm text-amber-950">Une version ou un état scientifique plus récent existe. Ce document reste lié à sa source initiale ; aucune mise à jour automatique.</p>}
       {loaded && !completed && <div className="mt-4 flex flex-wrap gap-2">
-        <div role="group" aria-label="Modes du document" className="flex gap-2">{(["READ", "EDIT", "COMPARE"] as const).map(view => <Button key={view}
-          variant={mode === view ? "secondary" : "outline"} aria-pressed={mode === view} disabled={busy}
-          onClick={() => { setMode(view); if (view !== "READ") setEditingRequested(true); }}>{({ READ: "Lire", EDIT: "Modifier", COMPARE: "Comparer" })[view]}</Button>)}</div>
-        {loaded.result && mode !== "READ" && <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>}
+        {mode === "READ" && <Button className="bg-foreground text-background hover:bg-foreground/90" disabled={busy} onClick={() => { setMode("EDIT"); setEditingRequested(true); }}>Modifier</Button>}
+        <Button variant="outline" aria-pressed={mode === "COMPARE"} disabled={busy} onClick={() => { setMode(mode === "COMPARE" ? "EDIT" : "COMPARE"); setEditingRequested(true); }}>{mode === "COMPARE" ? "Revenir au document" : "Comparer"}</Button>
+        {loaded.result && mode !== "READ" && <>
+          <Button variant="ghost" aria-label="Annuler la dernière modification" disabled={busy || !undo.length} onClick={() => travel("UNDO")}><Undo2 className="h-4 w-4" />Annuler</Button>
+          <Button variant="ghost" aria-label="Rétablir la modification" disabled={busy || !redo.length} onClick={() => travel("REDO")}><Redo2 className="h-4 w-4" />Rétablir</Button>
+        </>}
+        <details className="relative text-sm"><summary className="cursor-pointer rounded-md px-3 py-3 font-medium">Options du document</summary><div className="mt-2 flex flex-col items-start gap-2 rounded-lg border bg-background p-3">
+          {loaded.result && <>
+            <Button variant="ghost" disabled={busy} onClick={() => setMode("READ")}>Lire</Button>
+            <Button variant="ghost" disabled={busy || mode === "READ"} onClick={() => setDialog("RESTORE_BASE")}>Restaurer le texte archivé</Button>
+            {client.workingRevisions && <StudioSaveHistory client={client.workingRevisions} revision={loaded.result.revision} disabled={busy || mode === "READ"}
+              onRestore={save => { setRestoreSave(save); setDialog("RESTORE_SAVE"); }} />}
+            <Button variant="ghost" onClick={() => setDialog("ABANDON")} disabled={busy}><Trash2 />Abandonner le brouillon</Button>
+            <p className="max-w-lg text-xs text-muted-foreground">Annuler/Rétablir s’applique aux dernières modifications de cette ouverture seulement. L’historique des sauvegardes permet une récupération après rechargement. Les ajouts, suppressions et déplacements de paragraphes ne sont pas encore pris en charge.</p>
+          </>}
+          <details className="text-xs text-muted-foreground"><summary>Provenance technique</summary><p>Projet {generation.project.projectVersion} · {generation.generationId}</p></details>
+        </div></details>
       </div>}
     </header>
-    {impact && currentProjectSnapshot?.sourceProjectDigest === impact.currentProjectDigest && <details className="border-b p-5 sm:px-6"><summary className="cursor-pointer text-sm font-medium">Cohérence, dépendances et impact sur les autres documents</summary><div className="mt-3"><DocumentImpactSummary report={impact} /></div></details>}
-    {editing && loaded?.result && buffer && mode !== "READ" && !completed && <StudioEditAssistant runtime={editing} revision={loaded.result.revision}
-      trace={trace} buffer={buffer} disabled={busy || saveState === "CONFLICT"} dirty={dirty} requestedTarget={assistantTarget} onBusy={setProposalBusy} onApply={content => {
-        if (flight.current || completed) return;
-        setBuffer(content); setSaveState(stableStringify(content) === stableStringify(loaded.result!.revision.content) ? "CLEAN" : "DIRTY"); setActionFailed(false);
-      }} />}
+    {impact && currentProjectSnapshot?.sourceProjectDigest === impact.currentProjectDigest && <details className="border-b px-5 py-3 sm:px-6"><summary className="cursor-pointer text-sm font-medium">Points à revoir{impact.knownAffectedCount > 0 ? ` · ${impact.knownAffectedCount} document(s) potentiellement affecté(s)` : " · dépendances connues"}</summary><div className="mt-3"><DocumentImpactSummary report={impact} /></div></details>}
     {loadFailed && <p role="alert" className="p-6">Le document ou son brouillon n’a pas pu être vérifié. Les versions archivées sont conservées. Revenez aux documents pour réessayer.</p>}
     {(saveState === "SAVE_FAILED" || saveState === "CONFLICT") && <aside role="alert" className="m-5 rounded-xl border bg-amber-50 p-4 text-sm text-amber-950">
       <p>{saveState === "CONFLICT" ? "Ce brouillon a été modifié ou abandonné ailleurs. Vos modifications locales sont conservées ; rechargez la dernière version avant de poursuivre."
@@ -279,8 +316,8 @@ export default function DocumentStudio({ client, target, finalization, editing, 
           : "La sauvegarde n’a pas pu être confirmée. Vos modifications locales sont conservées."}</p>
       <Button variant="outline" className="mt-3" onClick={() => setDialog("RELOAD")}>Recharger la version enregistrée</Button>
     </aside>}
-    {loaded && buffer && <main className="bg-muted/20 p-4 sm:p-8">
-      <div className={`mx-auto min-w-0 rounded-xl border bg-background p-5 shadow-sm sm:p-8 ${mode === "COMPARE" ? "max-w-6xl" : "max-w-4xl"}`}>
+    {loaded && buffer && <main className="p-3 sm:p-6">
+      <div className={`mx-auto min-w-0 bg-background p-2 sm:p-6 ${mode === "COMPARE" ? "max-w-6xl" : "max-w-[78ch]"}`}>
         {mode === "COMPARE" ? <section aria-label="Comparaison du brouillon avec sa base">
           <h3 className="mb-5 text-lg font-semibold">Comparaison · Version {generation.displayVersion} / brouillon</h3>
           {pair(loaded.base.title, buffer.title, "Titre du document", (content, value) => { content.title = value; }, true)}
@@ -306,7 +343,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
         data-state={finalizing ? "RUNNING" : completed ? "COMPLETED" : finalizationFailure ? "FAILED"
           : clarification ? "WAITING_FOR_CLARIFICATION" : recoverableIntent ? "READY_TO_RESUME" : "IDLE"}>
         {finalizing ? <p role="status">Création de version en cours · {stage ? { ASSESSMENT: "Préparation des modifications…",
-          SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Préparation des documents…", ARCHIVE: "Enregistrement de la version…" }[stage]
+          SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Création des documents…", ARCHIVE: "Archivage…" }[stage]
           : "Vérification de l’opération…"}</p>
           : finalizationFailure ? <aside role="alert" className="rounded-lg border border-destructive/40 p-3 text-destructive">
             <p>La création de la version n’a pas abouti.</p><p>Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération.</p>
@@ -322,16 +359,17 @@ export default function DocumentStudio({ client, target, finalization, editing, 
       <div className="flex flex-wrap items-center gap-3">
       {saveFeedback && <span role="status" className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-semibold text-primary"><CheckCircle2 className="h-4 w-4" aria-hidden="true" />✓ Enregistré</span>}
       <Button variant="outline" onClick={() => void save()} disabled={mode === "READ" || busy || completed || saveState === "CONFLICT" || !dirty && saveState !== "SAVE_FAILED"}><Save />Enregistrer</Button>
-      {finalization && <Button onClick={() => void createNextVersion()} disabled={mode === "READ" || busy || completed || saveState === "CONFLICT"}>{recoverableIntent ? "Reprendre la création" : "Créer la version suivante"}</Button>}</div></div>
+      {finalization && <Button className="bg-foreground text-background hover:bg-foreground/90" onClick={() => void createNextVersion()} disabled={mode === "READ" || busy || completed || saveState === "CONFLICT"}>{recoverableIntent ? "Reprendre la création" : "Créer la version suivante"}</Button>}</div></div>
     </footer>}
     <AlertDialog open={dialog !== null} onOpenChange={open => { if (!open) setDialog(null); }}>
       <AlertDialogContent>
-        <AlertDialogTitle>{dialog === "ABANDON" ? "Abandonner ce brouillon ?" : dialog === "RELOAD" ? "Recharger la version enregistrée ?" : "Quitter sans enregistrer ?"}</AlertDialogTitle>
+        <AlertDialogTitle>{dialog === "ABANDON" ? "Abandonner ce brouillon ?" : dialog === "RESTORE_SAVE" ? `Restaurer la sauvegarde ${restoreSave?.sequence} ?` : dialog === "RESTORE_BASE" ? "Restaurer le texte archivé ?" : dialog === "RELOAD" ? "Recharger la version enregistrée ?" : "Quitter sans enregistrer ?"}</AlertDialogTitle>
         <AlertDialogDescription>{dialog === "ABANDON" ? "Le brouillon sera abandonné, sans effacer son historique. Le projet et les générations archivées restent intacts."
+          : dialog === "RESTORE_BASE" || dialog === "RESTORE_SAVE" ? "Ce texte sera replacé dans votre document en cours. Vous pourrez annuler cette action avant de quitter, puis enregistrer explicitement. Les sauvegardes précédentes et l’archive restent conservées."
           : dialog === "RELOAD" ? "Le texte local sera remplacé par la dernière sauvegarde confirmée. Aucune fusion automatique."
             : "Les modifications locales non enregistrées seront perdues. La dernière sauvegarde et les documents archivés restent conservés."}</AlertDialogDescription>
         <AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={() => void confirmAction()}>
-          {dialog === "ABANDON" ? "Confirmer l’abandon" : dialog === "RELOAD" ? "Confirmer le rechargement" : "Quitter sans enregistrer"}
+          {dialog === "ABANDON" ? "Confirmer l’abandon" : dialog === "RESTORE_BASE" || dialog === "RESTORE_SAVE" ? "Restaurer dans le document" : dialog === "RELOAD" ? "Confirmer le rechargement" : "Quitter sans enregistrer"}
         </AlertDialogAction></AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -341,7 +379,7 @@ export default function DocumentStudio({ client, target, finalization, editing, 
 function StudioText({ value, label, heading, disabled, onContext, onChange }: { value: string; label: string; heading?: boolean; disabled: boolean; onContext?: () => void; onChange: (value: string) => void }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   useEffect(() => { if (ref.current) { ref.current.style.height = "auto"; ref.current.style.height = `${ref.current.scrollHeight}px`; } }, [value]);
-  return <textarea ref={ref} aria-label={label} value={value} rows={heading ? 1 : 3} disabled={disabled} spellCheck
+  return <textarea ref={ref} aria-label={label} data-studio-text="true" value={value} rows={heading ? 1 : 3} disabled={disabled} spellCheck
     onFocus={onContext} onSelect={onContext} onChange={event => onChange(event.target.value)}
     className={`block w-full min-w-0 resize-y rounded-md border border-transparent bg-transparent p-2 leading-7 hover:border-input focus-visible:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-70 ${heading ? "text-xl font-semibold" : "text-base"}`} />;
 }

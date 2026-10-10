@@ -112,22 +112,23 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
     } catch { if (request.current === token && lifetime.current === epoch) setError(true); }
   };
   return <section className="border-b px-5 py-4 sm:px-6" aria-label="Versions documentaires archivées" data-testid="durable-document-history">
-    <h3 className="font-semibold">Versions documentaires archivées</h3>
+    <h3 className="font-semibold">Documents et versions enregistrées</h3>
     {(status === "NOT_LOADED" || status === "LOADING") && <p role="status" className="mt-2 text-sm">Historique en cours de chargement…</p>}
     {status === "FAILED" && <p role="alert" className="mt-2 text-sm">Historique non chargé. Les versions archivées restent conservées.</p>}
     {status === "READY" && entries.length === 0 && <p className="mt-2 text-sm">Aucune génération documentaire archivée.</p>}
     {error && <p role="alert" className="mt-2 text-sm">La version sélectionnée n’a pas pu être vérifiée. Aucun fichier n’a été remplacé.</p>}
     {draftsFailed && <p role="status" className="mt-2 text-sm">La liste des brouillons n’a pas pu être chargée. Les brouillons enregistrés restent conservés ; Modifier dans Studio permet de les retrouver.</p>}
-    <ul className="mt-3 space-y-3">{entries.map(ref => <li key={ref.generationId} className="rounded-xl border p-3" data-testid={`archived-generation-${ref.ordinal}`}>
-      <p className="text-sm font-medium">Version {ref.displayVersion}</p>
+    <ul className="mt-3 space-y-3">{entries.map((ref, index) => <li key={ref.generationId} className="rounded-xl border p-3" data-testid={`archived-generation-${ref.ordinal}`}>
+      <details open={index === 0}>
+      <summary className="cursor-pointer py-2 text-sm font-semibold"><span>Version {ref.displayVersion}</span><span className="font-normal">{index === 0 ? " · dernière version enregistrée" : " · version précédente"}</span></summary>
       {currentProjectDigest && ref.project.projectDigest !== currentProjectDigest && <p className="mt-1 text-xs text-muted-foreground">Historique · le projet a changé depuis cette génération.</p>}
       {ref.project.projectDigest === currentProjectDigest && currentGenerationId && <p className="mt-1 text-xs text-muted-foreground">{ref.generationId === currentGenerationId ? "Version actuelle" : "Historique · une version plus récente est disponible."}</p>}
       <p className="mt-1 text-xs text-muted-foreground"><time dateTime={ref.generatedAt}>{new Date(ref.generatedAt).toLocaleString("fr-FR")}</time></p>
       <details className="mt-1 text-xs text-muted-foreground"><summary className="cursor-pointer">Références de cette génération</summary>
         <dl className="mt-1 break-all"><dt>Génération</dt><dd>{ref.generationId}</dd><dt>Version Project</dt><dd>{ref.project.projectVersion}</dd><dt>Empreinte Project</dt><dd>{ref.project.projectDigest}</dd></dl>
       </details>
-      {currentProjectSnapshot && <button type="button" className="mt-2 min-h-11 rounded-lg border px-3 text-sm"
-        aria-label={`Vérifier l’impact sur Version ${ref.displayVersion}`} onClick={() => void inspectImpact(ref)}>Vérifier la cohérence avec le projet</button>}
+      {currentProjectSnapshot && <details className="mt-2 text-sm"><summary className="cursor-pointer py-2">Points à revoir avec le projet</summary><button type="button" className="min-h-11 rounded-lg border px-3 text-sm"
+        aria-label={`Vérifier l’impact sur Version ${ref.displayVersion}`} onClick={() => void inspectImpact(ref)}>Examiner les dépendances connues</button></details>}
       {impact?.generationId === ref.generationId && impact.currentProjectDigest === currentProjectDigest && <div className="mt-3"><DocumentImpactSummary report={{ ...impact, pendingScientificChange: Boolean(pendingScientificChange) }} /></div>}
       {onStudio && client.workingRevisions && <div className="mt-3">
         {archivedStudioDocuments(ref).length === 0 && <button type="button" className="min-h-11 rounded-lg border px-3 text-sm focus-visible:ring-2 focus-visible:ring-ring" onClick={() => void selectStudioDocument(ref)}>Afficher les documents</button>}
@@ -138,12 +139,12 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
             <div className="min-w-0"><h4 className="break-words text-sm font-medium">{document.title}</h4>
               {draft && <p className="mt-1 text-xs text-muted-foreground">Brouillon enregistré · non intégré à une version</p>}</div>
             <div className="flex flex-wrap gap-2">
-              <button type="button" className="min-h-11 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              <button type="button" className="min-h-11 rounded-lg border bg-background px-3 text-sm font-medium focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={`Modifier dans Studio Version ${ref.displayVersion} · ${document.title}`}
                 onClick={() => onStudio({ ...target, initialMode: "EDIT" })}>Modifier dans Studio</button>
-              <button type="button" className="min-h-11 rounded-lg border bg-background px-3 text-sm focus-visible:ring-2 focus-visible:ring-ring"
+              <button type="button" className="min-h-11 rounded-lg bg-foreground px-3 text-sm font-semibold text-background focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={`Consulter Version ${ref.displayVersion} · ${document.title}`}
-                onClick={() => onStudio({ ...target, initialMode: "READ" })}>Consulter</button>
+                onClick={() => onStudio({ ...target, initialMode: "READ" })}>Ouvrir le document</button>
             </div>
           </li>;
         })}</ul>
@@ -154,6 +155,7 @@ export default function DocumentArchiveHistory({ client, onOpen, onDownloaded, o
         <button type="button" className="min-h-10 rounded-lg border px-3 text-xs" onClick={() => void file(ref, index, false)}>Ouvrir {manifest.fileName}</button>
         <button type="button" className="min-h-10 rounded-lg border px-3 text-xs" aria-label={`Télécharger Version ${ref.displayVersion} ${manifest.fileName}`} onClick={() => void file(ref, index, true)}>Télécharger</button>
       </span>)}</div></details>
+      </details>
     </li>)}</ul>
     {cursor !== null && <button type="button" className="mt-3 min-h-10 rounded-lg border px-3 text-sm" disabled={status !== "READY"} onClick={() => void more()}>Versions précédentes</button>}
   </section>;

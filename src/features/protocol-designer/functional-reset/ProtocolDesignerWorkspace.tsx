@@ -843,6 +843,8 @@ export default function ProtocolDesignerWorkspace({
           className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-40">
           {archiveAccessFailed && versionProduction.label === "Version archivée à jour" ? "Accès aux versions indisponible" : versionProduction.label}
         </button>
+        {(deliverableWorkspaceOpen || openProjection) && versionProduction.label === "Version archivée à jour" && !archiveAccessFailed
+          && <p className="mt-1 max-w-sm text-xs text-muted-foreground">Archive liée au projet courant. Les modifications du document en cours n’y sont pas encore intégrées.</p>}
         {versionProduction.pending && <p role="status" className="mt-2 text-xs text-muted-foreground">Production de la version en cours… Vous pouvez poursuivre la conversation.</p>}
         {versionProduction.error && <p role="alert" className="mt-2 text-sm text-destructive">{versionProduction.error}</p>}
       </div>}

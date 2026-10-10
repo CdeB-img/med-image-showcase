@@ -20,11 +20,13 @@ export const requestTechnicalProjection = async () => {
  * No scientific fixture is substituted; native content comes from each suite. */
 export const openArchivedProtocolPreview = async (ordinal?: number) => {
   await screen.findByTestId("durable-document-history");
-  if (!screen.queryByRole("button", { name: "Ouvrir la projection technique" })) {
+  if (!screen.queryByLabelText("Projection technique interne")) {
     fireEvent.click(screen.getByLabelText("Plus d’options"));
     fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
   }
-  const scope = within(screen.getByRole("complementary", { name: "Projection technique interne" }));
+  const panel = screen.getByLabelText("Projection technique interne") as HTMLDetailsElement;
+  if (!panel.open) fireEvent.click(within(panel).getByText("Diagnostic documentaire"));
+  const scope = within(panel);
   fireEvent.click(scope.getByRole("button", { name: ordinal ? "Ouvrir la projection technique précédente" : "Ouvrir la projection technique" }));
   return screen.findByTestId("functional-protocol-preview");
 };
