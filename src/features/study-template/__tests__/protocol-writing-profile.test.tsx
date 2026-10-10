@@ -38,6 +38,45 @@ describe("Original TMP protocol writing profiles / structure is not truth", () =
     expect(profile.boundary).toBe("ORIGINAL_STRUCTURE_ONLY_NOT_SCIENTIFIC_OR_REGULATORY_AUTHORITY");
     expect("regulatoryClassification" in profile).toBe(false);
   });
+  it("retains the real Working Draft ASSUMED boundary while using exact adopted decisions for structure", async () => {
+    const run = await workingRevisionFixture(), source = buildProjectContextSnapshot({ project: run.project2 });
+    const adopted = updated(source, next => {
+      next.objects.forEach(object => { object.epistemicState = "ASSUMED"; });
+      next.objects.find(object => object.type === "STUDY_DESIGN")!.content = "Étude observationnelle prospective monocentrique";
+    });
+    const before = JSON.stringify(adopted), profile = composeProtocolWritingProfile(adopted);
+    expect(profile.profiles).toEqual(["COMMON_CORE", "OBSERVATIONAL", "IMAGING"]);
+    expect(profile.basisRefs).toContain(adopted.objects.find(object => object.type === "STUDY_DESIGN")!.versionRef);
+    expect(profile.project.projectDigest).toBe(run.project2.projectDigest);
+    expect(JSON.stringify(adopted)).toBe(before);
+    expect(adopted.objects.every(object => object.epistemicState === "ASSUMED")).toBe(true);
+    expect(composeProtocolWritingProfile(adopted)).toEqual(profile);
+  });
+  it("does not activate an assumed design without its exact native adoption binding", async () => {
+    const run = await workingRevisionFixture(), source = buildProjectContextSnapshot({ project: run.project2 });
+    for (const mode of ["MISSING_REF", "FOREIGN_REF", "OTHER_OBJECT"] as const) {
+      const unbound = updated(source, next => {
+        next.objects.forEach(object => { object.epistemicState = "ASSUMED"; });
+        const design = next.objects.find(object => object.type === "STUDY_DESIGN")!;
+        design.content = "Étude observationnelle prospective";
+        next.objects = [design];
+        if (mode === "MISSING_REF") design.decisionRefs = [];
+        else if (mode === "FOREIGN_REF") design.decisionRefs = ["foreign-human-decision"];
+        else next.decisionLedger.forEach(decision => { decision.objectRefs = decision.objectRefs.filter(ref => ref !== design.stableId); });
+      });
+      expect(composeProtocolWritingProfile(unbound).profiles).toEqual(["COMMON_CORE"]);
+    }
+  });
+  it("does not promote adopted unknown or withheld content into a structural requirement", async () => {
+    const run = await workingRevisionFixture(), source = buildProjectContextSnapshot({ project: run.project2 });
+    for (const state of ["UNKNOWN", "WITHHELD"] as const) {
+      const unresolved = updated(source, next => {
+        next.objects.forEach(object => { object.epistemicState = state; });
+        next.objects.find(object => object.type === "STUDY_DESIGN")!.content = "Étude observationnelle prospective";
+      });
+      expect(composeProtocolWritingProfile(unresolved).profiles).toEqual(["COMMON_CORE"]);
+    }
+  });
   it("unknown/withheld/negated science does not activate a conditional profile", async () => {
     const run = await workingRevisionFixture(), source = buildProjectContextSnapshot({ project: run.project2 });
     const none = updated(source, next => {

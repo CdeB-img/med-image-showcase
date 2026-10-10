@@ -71,10 +71,16 @@ export const composeProtocolWritingProfile = (project: Readonly<ProjectContextSn
   const { snapshotDigest, ...materialSnapshot } = project;
   if (project.owner !== "RESEARCH_PROJECT" || !project.readOnly || logicalDigest(materialSnapshot) !== snapshotDigest)
     throw new Error("TMP_PROTOCOL_PROFILE_BINDING_MISMATCH");
-  const known = project.objects.filter(object => object.epistemicState === "KNOWN" && (!object.polarity || object.polarity === "AFFIRMED"));
-  const designs = known.filter(object => object.type === "STUDY_DESIGN");
+  // Epistemic qualification and Project adoption are independent axes. An
+  // explicitly adopted assumption may guide structure without becoming KNOWN.
+  // Unbound assumptions, unknowns and withheld/negated inputs cannot activate it.
+  const eligible = project.objects.filter(object => (!object.polarity || object.polarity === "AFFIRMED") &&
+    (object.epistemicState === "KNOWN" || object.epistemicState === "ASSUMED" &&
+      project.decisionLedger.some(decision => object.decisionRefs.includes(decision.humanDecisionRef) &&
+        decision.objectRefs.includes(object.stableId))));
+  const designs = eligible.filter(object => object.type === "STUDY_DESIGN");
   const texts = designs.flatMap(object => [object.content, object.scientificRole ?? ""]);
-  const imaging = known.filter(object => ["IMAGING_MODALITY", "ACQUISITION"].includes(object.type));
+  const imaging = eligible.filter(object => ["IMAGING_MODALITY", "ACQUISITION"].includes(object.type));
   // Reuse TMP's token normalizer on explicit adopted design objects only. This
   // chooses writing sections, not a new design or a regulatory qualification.
   const selected = [
