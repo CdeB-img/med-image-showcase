@@ -321,7 +321,7 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     expect(screen.queryByText(/Private scientific text/u)).not.toBeInTheDocument();
     expect(screen.queryByText("Détail technique")).not.toBeInTheDocument();
   });
-  it("proven native blocking state is FAILED with its bounded reason, not falsely READY_TO_RESUME", async () => {
+  it.each(["STUDIO_INTENT_PROJECT_STALE", "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED"])("proven native blocking state %s is FAILED with its bounded reason, not falsely READY_TO_RESUME", async reason => {
     const run = await runtime(), source = await run.client.body(run.g2.ref.generationId);
     const { revision } = await run.client.workingRevisions!.open({ baseGenerationId: run.g2.ref.generationId,
       baseGenerationBodyDigest: run.g2.ref.bodySha256, nativeDocumentRef: "PROTOCOL_FULL" });
@@ -330,11 +330,16 @@ describe("Document Studio V1 / native archive vertical slice", () => {
     const frozen = await freezeStudioFinalizationWork({ session, revision, source,
       projectionSource: await run.client.body(run.g2.projection.projectionId) });
     const initial = await run.archive.finalizationIntents!.create(run.access2, frozen);
-    const blocked = transitionStudioIntent(initial, "BLOCKED", { ...initial.resolution, reason: "STUDIO_INTENT_PROJECT_STALE" }, at);
+    const blocked = transitionStudioIntent(initial, "BLOCKED", { ...initial.resolution, reason }, at);
     const execute = vi.fn<StudioFinalizationRuntime["run"]>(async () => blocked);
     run.open({ run: execute }); await run.ready();
     await waitFor(() => expect(screen.getByTestId("studio-finalization-status")).toHaveAttribute("data-state", "FAILED"));
-    expect(within(screen.getByTestId("studio-action-area")).getByText("STUDIO_INTENT_PROJECT_STALE")).toBeInTheDocument();
+    expect(within(screen.getByTestId("studio-action-area")).getByText(reason)).toBeInTheDocument();
+    if (reason === "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED") {
+      expect(screen.getByText(/n’a pas fourni de question exploitable/u)).toBeInTheDocument();
+      expect(screen.getByText(/reprendre ne relancera pas la préparation/u)).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: "Répondre dans la conversation" })).not.toBeInTheDocument();
+    }
     expect(execute).toHaveBeenCalledOnce(); expect(execute.mock.calls[0][2]).toBe(true);
   });
   it("O: true progress remains in the persistent sticky action area at the bottom of the long document", async () => {

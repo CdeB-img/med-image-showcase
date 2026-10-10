@@ -1,0 +1,48 @@
+{
+  "baseCommit": "04421cfa8c4fa2ea84c44dcfe8ed6d252a58ce17",
+  "evidenceLevel": "PASS_OFFLINE_ONLY_FOR_FIX",
+  "syntheticRealReproduction": {
+    "sessionId": "protocol-designer-session:309e4f4e-2c60-4e0c-bca4-223c4d422039",
+    "intentId": "studio-finalization-intent:ke1-e86876f31427de67",
+    "frozenSave": 4,
+    "contentDigest": "ke1-42522e14055ec6a8",
+    "nativeResult": "TARGETED_QUESTION",
+    "nativeQuestionPresent": false,
+    "consumerCode": "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED",
+    "oldCoordinationError": "STUDIO_INTENT_PREPARATION_PENDING",
+    "newDurableState": "BLOCKED_WITH_NATIVE_CAUSE",
+    "providerOperations": 3,
+    "measuredCostUsd": 0.070263,
+    "automaticRetries": 0,
+    "newGeneratedDocumentVersions": 0,
+    "seededSyntheticArchiveRows": 4
+  },
+  "fix": {
+    "owner": "DOC_FINALIZATION_COORDINATION",
+    "exactCompletedReceiptRecovered": true,
+    "terminalCausePersisted": true,
+    "questionInvented": false,
+    "terminalPreparationRedispatched": false,
+    "projectAndArchivedBodiesMutated": false,
+    "semanticAssessmentOverblocking": "SEPARATE_PRODUCER_DEFECT_UNDER_INVESTIGATION",
+    "nativeTargetedQuestionProducerGap": "OPEN_NOT_FIXED"
+  },
+  "qualification": {
+    "targeted": { "pass": 234, "fail": 0 },
+    "full": { "pass": 6247, "fail": 0, "skipped": 13, "todo": 1 },
+    "stability": { "pass": 169, "fail": 0 },
+    "sentinels": { "pass": 309, "fail": 0 },
+    "typecheck": "PASS",
+    "lint": { "status": "PASS", "preexistingWarnings": 7 },
+    "build": "PASS",
+    "diffCheck": "PASS"
+  },
+  "protectedPrivateRowsUnchanged": true,
+  "schemaMigration": "NONE",
+  "stableAliasPromoted": false,
+  "mainChanged": false,
+  "productionChanged": false,
+  "realFixRetest": "DEFERRED_CUA_NATIVE_MAC_LOCKED_ERROR",
+  "userAcceptanceTestReady": false,
+  "evidenceDirectory": "/private/tmp/noxia-studio-ux.Sxqjtp"
+}

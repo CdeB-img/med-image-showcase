@@ -63,7 +63,8 @@ export const restoreStudioIntentPreparation = (intent: StudioFinalizationIntent,
   if (existing && preparationReceiptDigest(existing) !== preparationReceiptDigest(preparation)) {
     if (logicalDigest(existing.checkpoint) !== logicalDigest(preparation.checkpoint) || existing.result
       || existing.decision && existing.decision !== "PENDING"
-      || !(evidence === "COMPLETED" && ["PREPARING", "FAILED", "UNKNOWN/INTERRUPTED"].includes(existing.status)
+      || !(evidence === "COMPLETED" && (["PREPARING", "FAILED", "UNKNOWN/INTERRUPTED"].includes(existing.status)
+          || existing.status === "NO_CHANGE" && existing.code === "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED")
         || evidence === "NOT_FOUND" && (["PREPARING", "UNKNOWN/INTERRUPTED"].includes(existing.status)
           || existing.status === "FAILED" && existing.code === "PAYLOAD_TOO_LARGE")))
       throw new Error("STUDIO_INTENT_PREPARATION_DIVERGENCE");

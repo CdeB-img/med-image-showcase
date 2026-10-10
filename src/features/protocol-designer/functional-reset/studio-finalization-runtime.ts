@@ -153,6 +153,17 @@ export const createStudioFinalizationRuntime = (ports: Ports): StudioFinalizatio
         if (captured.action !== "REUSE_VALID_PREPARATION") await observeDocumentWorkflow(ports.trace, { operationRef, component: "StudioFinalization.prepare", stage, owner: responsibility, identity }, () => ports.prepare(preparation!));
       }
       const ready = ports.session().workingDraftPreparations?.find(p => p.checkpoint?.preparationId === preparation!.checkpoint?.preparationId);
+      // TARGETED_QUESTION is a terminal scientific result, not an in-flight
+      // preparation. Retain its exact checkpoint/cause in the durable intent.
+      // The historical producer supplies no question; DOC must not invent one
+      // or rerun the same paid preparation to manufacture a different result.
+      if (ready?.status === "NO_CHANGE" && ready.code === "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED") {
+        intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, ready);
+        emitDocumentWorkflowTrace(ports.trace, { operationRef, component: "consumeProjectPreparation",
+          stage: "WORKING_DRAFT_VALIDATION", owner: "SCIENTIFIC_THINKING", status: "FAILED", identity,
+          error: new StudioFinalizationIntentError(ready.code) });
+        ports.clarify(intent, null); return intent;
+      }
       if (!ready || ready.status !== "READY_FOR_REVIEW") throw new StudioFinalizationIntentError("STUDIO_INTENT_PREPARATION_PENDING");
       intent = await owner.linkPreparation(intent.finalizationIntentId, intent.sequence, ready);
     }

@@ -346,7 +346,9 @@ export default function DocumentStudio({ client, target, finalization, editing, 
           SCIENCE: "Mise à jour scientifique…", DOCUMENTS: "Création des documents…", ARCHIVE: "Archivage…" }[stage]
           : "Vérification de l’opération…"}</p>
           : finalizationFailure ? <aside role="alert" className="rounded-lg border border-destructive/40 p-3 text-destructive">
-            <p>La création de la version n’a pas abouti.</p><p>Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération.</p>
+            <p>La création de la version n’a pas abouti.</p><p>{finalizationFailure.code === "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED"
+              ? "Une clarification scientifique est nécessaire, mais cette opération n’a pas fourni de question exploitable. Votre brouillon et les versions précédentes sont conservés ; reprendre ne relancera pas la préparation."
+              : "Votre brouillon et les versions précédentes sont conservés. Vous pouvez reprendre cette opération."}</p>
             {finalizationFailure.code && <details className="mt-2 text-xs"><summary>Détail technique</summary><code>{finalizationFailure.code}</code></details>}
           </aside> : finalizationMessage && <p role="status">{finalizationMessage}</p>}
         {!finalizing && clarification && <div className="mt-2 rounded-lg border bg-muted/30 p-3">

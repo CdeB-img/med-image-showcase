@@ -571,6 +571,41 @@ describe("DOC durable frozen intent / native ST and human adoption / no generati
     expect(finished!.state).toBe("CLOSED"); expect(run.preparePort).not.toHaveBeenCalled(); expect(run.assessPort).not.toHaveBeenCalled();
     expect(finished!.resolution.preparation!.result).toEqual(prepared.session.workingDraftPreparations!.at(-1)!.result);
   });
+  it("real TARGETED_QUESTION receipt is retained as a durable causal block, never pending or fabricated QRY", async () => {
+    const response = { workingDraftUpdate: { requestType: "TARGETED_QUESTION" as const, proposal: null,
+      inferredAtomRefs: [], rejectedAtomRefs: [], explicitDecisions: [], sourceSetBindings: [],
+      supersededAtomRefs: [], explicitStudioDecisions: [], retainedDiscussionBindings: [] } };
+    for (const recovered of [false, true]) {
+      const trace = vi.fn<DocumentWorkflowTraceSink>(), run = await finalizationHarness("science", false, false, trace);
+      const beforeProject = run.session().project, beforeArchive = JSON.stringify(run.fixture.rows());
+      if (recovered) {
+        let intent = await assessed({ ...run, session: run.session() }, "PROJECT_CHANGE");
+        const preparation = captureStudioIntentPreparation(intent, run.session(), run.revision, NOW).preparation!;
+        intent = await run.intents.linkPreparation(run.access2, intent.finalizationIntentId, intent.sequence, preparation);
+        run.setSession(consumeProjectPreparation(addProjectPreparation(run.session(), preparation), preparation.checkpoint!.preparationId, response));
+        run.preparationEvidence.mockResolvedValue({ state: "COMPLETED", response });
+      } else run.preparePort.mockImplementationOnce(async preparation => {
+        run.setSession(consumeProjectPreparation(addProjectPreparation(run.session(), preparation), preparation.checkpoint!.preparationId, response));
+      });
+      const finished = await run.runtime.run(run.revision, vi.fn());
+      expect(finished!.state).toBe("BLOCKED");
+      expect(finished!.resolution.reason).toBe("MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED");
+      expect(finished!.resolution.preparation!.status).toBe("NO_CHANGE");
+      expect(finished!.resolution.preparation!.result).toBeUndefined();
+      expect(run.clarify).toHaveBeenLastCalledWith(finished, null);
+      expect(trace.mock.calls.some(([event]) => event.component === "consumeProjectPreparation"
+        && event.error instanceof Error && event.error.message === "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED")).toBe(true);
+      const calls = run.preparePort.mock.calls.length, sequences = run.fixture.intents().length;
+      const observed = await run.runtime.run(run.revision, vi.fn(), true);
+      expect(observed).toEqual(finished);
+      expect(await run.runtime.run(run.revision, vi.fn())).toEqual(finished);
+      expect(run.preparePort).toHaveBeenCalledTimes(calls);
+      expect(run.fixture.intents()).toHaveLength(sequences);
+      expect(run.generate).not.toHaveBeenCalled(); expect(run.adopted).not.toHaveBeenCalled();
+      expect(run.session().project).toEqual(beforeProject); expect(JSON.stringify(run.fixture.rows())).toBe(beforeArchive);
+      expect((await run.owner.get(run.access2, run.revision.revisionId)).revision.status).toBe("ACTIVE");
+    }
+  });
   it("in-flight, unknown and terminal native evidence never start a competing WD", async () => {
     for (const evidence of [{ state: "IN_PROGRESS" }, { state: "UNKNOWN" }, { state: "FAILED", errorCode: "STUDIO_SCIENTIFIC_OPERATION_FAILED" }] as StudioPreparationEvidence[]) {
       const run = await finalizationHarness("science");
