@@ -286,7 +286,17 @@ export const executeDocumentArchiveOperation = async (input: {
         if (!guard?.readDocumentGenerationResult) throw new DocumentArchiveError("DOC_ARCHIVE_RECOVERY_UNAVAILABLE", 503);
         const evidence = await guard.readDocumentGenerationResult({ headers: { "x-forwarded-for": input.clientAddress },
           sessionId: access.identity.sessionId, clientRequestId: requestId() });
-        if (evidence.state === "REJECTED") throw new DocumentArchiveError(evidence.code, evidence.status);
+        if (evidence.state === "REJECTED") {
+          // A financial denial can precede provider admission. Only DOC's own
+          // exact terminal rejection proves failure in that absence; RESERVED,
+          // missing or unknown work must remain blocked. Keep ledger errors
+          // whenever retained evidence exists, including native failure codes.
+          if (evidence.code === "DOC_ARCHIVE_RECOVERY_NOT_FOUND" && evidence.status === 404
+            && await archive.isRejected?.(access, requestId())) {
+            result = { state: "FAILED", errorCode: "DOC_ARCHIVE_INTENT_REJECTED" }; break;
+          }
+          throw new DocumentArchiveError(evidence.code, evidence.status);
+        }
         if (evidence.state !== "COMPLETED") {
           result = evidence; break;
         }

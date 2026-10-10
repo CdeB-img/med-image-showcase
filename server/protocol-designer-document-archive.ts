@@ -50,6 +50,8 @@ export type DocumentArchiveStore = Readonly<{
   admit(access: DocumentArchiveAccess, intent: DocumentArchiveIntent): Promise<AdmittedDocumentIntent>;
   commit(access: DocumentArchiveAccess, requestId: string, body: DocumentGenerationBody): Promise<DocumentPersistenceReceipt>;
   receipt(access: DocumentArchiveAccess, requestId: string): Promise<DocumentPersistenceReceipt | null>;
+  /** Terminal rejection recorded by DOC, never inferred from absent provider evidence. */
+  isRejected?(access: DocumentArchiveAccess, requestId: string): Promise<boolean>;
   history(access: DocumentArchiveAccess, beforeOrdinal?: number, family?: DocumentNativeGeneration["family"]): Promise<DocumentHistoryPage>;
   body(access: DocumentArchiveAccess, generationId: string): Promise<{ ref: DocumentGenerationRef; body: DocumentGenerationBody }>;
   reject(access: DocumentArchiveAccess, requestId: string): Promise<void>;
@@ -205,6 +207,11 @@ export const createPostgresDocumentArchive = (connection: string, snapshots: Pic
       const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
       const row = (await sql`select request_id, state, metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
       return row ? receiptFor(row) : null;
+    },
+    async isRejected(access, requestId) {
+      const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");
+      const row = (await sql`select request_id, state, metadata from noxia_durable.doc_generation where session_key_hash = ${sessionKey} and project_id = ${projectId} and request_id = ${requestId}`)[0];
+      return row?.state === "REJECTED";
     },
     async history(access, beforeOrdinal, family) {
       const { sessionKey, projectId } = await authorize(access, "DOCUMENT_RECOVERY");

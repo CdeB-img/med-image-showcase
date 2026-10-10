@@ -1308,6 +1308,14 @@ export const handleProtocolDesignerBridge = async (
     try { await durableGuard.completeRequest(publicAdmission, archived.status, archived.body); }
     catch (error) {
       if (!doc) throw error;
+      // A pre-dispatch budget denial closes the financial gate before any
+      // admission exists. Completing that failed request must not replace its
+      // native cause with an archive/ledger error. Successful archive commits
+      // still require the existing exact recovery after ledger failure.
+      if (archived.status >= 400 && error instanceof DurablePublicGuardError
+        && error.code === "PUBLIC_SESSION_BUDGET_CLOSED") {
+        return response.status(archived.status).json(archived.body);
+      }
       return response.status(503).json({ error: { code: "DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED" } });
     }
     return response.status(archived.status).json(archived.body);

@@ -1,7 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
 import * as provider from "../../../../api/protocol-designer-openai-extraction-provider";
-import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/protocol-designer-durable-guard";
+import { createMemoryProtocolDesignerGuardForTests, DurablePublicGuardError } from "../../../../server/protocol-designer-durable-guard";
+import { ProductBridgeProviderError } from "../../../../api/protocol-designer-bridge-provider";
 import { createPostgresDocumentArchive, documentArchiveCapacity, docSha256 } from "../../../../server/protocol-designer-document-archive";
 import { memoryProjectSnapshotStore } from "../../protocol-designer/functional-reset/__tests__/fixtures/memory-project-snapshot-store";
 import { makeFunctionalResetContribution, COLCHICINE_INITIAL } from "../../protocol-designer/functional-reset/__tests__/functional-reset-fixtures";
@@ -50,12 +51,13 @@ const runtime = async (limits = {}, withV2 = false) => {
   const identity = { sessionId, clientAddress: `192.0.2.${clientIndex}` }, registration = await snapshots.persist(identity, project, null);
   const access = { identity, project: registration.ref, proof: registration.proof };
   const archive = createPostgresDocumentArchive("postgres://offline", snapshots, { ...documentArchiveCapacity({}), ...limits }, sql.sql);
-  const guard = createMemoryProtocolDesignerGuardForTests();
+  const nativeGuard = createMemoryProtocolDesignerGuardForTests();
+  const guard = { ...nativeGuard, readDocumentGenerationResult: vi.fn(nativeGuard.readDocumentGenerationResult!) };
   const requestId = `drci-draft:${project.projectDigest}:doc-intent-1`;
   const body = { apiVersion: "1.0.0", requestKind: "USER_TURN", conversation: { conversationId: "conversation", language: "fr", turns: [turn] }, currentProject: project,
     evaluatePersistentDelta: false, documentDraftRequest: source, observabilityContext: { sessionId, conversationId: "conversation", turnId: turn.turnId, clientRequestId: requestId, testSessionId: null } };
   let now = Date.parse(at);
-  const invoke = async (options: { ledgerFailure?: boolean; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean; clientAddress?: string; proof?: string;
+  const invoke = async (options: { ledgerFailure?: boolean; ledgerGuardCode?: string; lostResponse?: boolean; payload?: unknown; noProviderConfig?: boolean; clientAddress?: string; proof?: string;
     environment?: Record<string, string>; concurrentProviderOperations?: true; singleAttempt?: true } = {}) => {
     let status = 0, returned: unknown;
     const response: ApiResponse = { setHeader() {}, status(code) { status = code; return this; }, json(result) {
@@ -67,7 +69,8 @@ const runtime = async (limits = {}, withV2 = false) => {
     { projectSnapshotStore: snapshots, documentArchive: archive,
       ...(options.singleAttempt ? { providerAttemptPolicy: "SINGLE_ATTEMPT_FAIL_CLOSED" as const } : {}),
       durableGuard: { ...guard, ...(options.concurrentProviderOperations ? { concurrentProviderOperations: true as const } : {}),
-        ...(options.ledgerFailure ? { completeRequest: async () => { throw new Error("OFFLINE_LEDGER_FAILURE"); } } : {}) },
+        ...(options.ledgerFailure ? { completeRequest: async () => { throw new Error("OFFLINE_LEDGER_FAILURE"); } } : {}),
+        ...(options.ledgerGuardCode ? { completeRequest: async () => { throw new DurablePublicGuardError(options.ledgerGuardCode!); } } : {}) },
       now: () => now, fetchImpl: vi.fn(async () => { throw new Error("NETWORK_FORBIDDEN"); }) });
     return { status, body: returned as ProductBridgeResponse & { error?: { code: string } } };
   };
@@ -140,6 +143,45 @@ const reloadRuntime = async () => {
 };
 
 describe("same DOC admission survives archive failure + browser reload", () => {
+  it("recovers an exact native rejection when financial denial preceded provider admission, without dispatch or writes", async () => {
+    const run = await reloadRuntime(), first = run.mount();
+    await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const pending = run.reload(), identity = pending.documentArchive!.pendingRecovery!;
+    await run.archive.reject(run.access, identity.requestId);
+    run.guard.readDocumentGenerationResult.mockResolvedValue({ state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" });
+    const before = JSON.stringify({ rows: run.sql.rows(), bodies: run.sql.bodies() });
+    expect(await run.client.recover(identity)).toEqual({ state: "FAILED", errorCode: "DOC_ARCHIVE_INTENT_REJECTED" });
+    run.mount(pending);
+    await waitFor(() => expect(run.latest().documentArchive!.pendingRequestId).toBeNull());
+    expect(run.latest().documents.lastFailure?.message).toContain("DOC_ARCHIVE_INTENT_REJECTED");
+    expect(run.latest().documentArchive!.currentGeneration?.displayVersion).toBe(1);
+    expect(run.latest().project).toEqual(run.project);
+    expect(JSON.stringify({ rows: run.sql.rows(), bodies: run.sql.bodies() })).toBe(before);
+    expect((await run.client.body(run.g1.generation.generationId)).body).toEqual(run.g1Body);
+    expect(run.dispatch).toHaveBeenCalledOnce(); expect(run.executed).toHaveBeenCalledOnce();
+  });
+
+  it("does not infer terminal failure from absent provider evidence for a reserved archive request", async () => {
+    const run = await reloadRuntime(), first = run.mount();
+    await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const identity = run.reload().documentArchive!.pendingRecovery!;
+    run.guard.readDocumentGenerationResult.mockResolvedValue({ state: "REJECTED", status: 404, code: "DOC_ARCHIVE_RECOVERY_NOT_FOUND" });
+    const before = JSON.stringify(run.sql.rows());
+    await expect(run.client.recover(identity)).rejects.toThrow("DOC_ARCHIVE_RECOVERY_NOT_FOUND");
+    expect(JSON.stringify(run.sql.rows())).toBe(before);
+    expect(run.executed).toHaveBeenCalledOnce();
+  });
+
+  it("retains provider uncertainty despite an archive rejection rather than authorizing redispatch", async () => {
+    const run = await reloadRuntime(), first = run.mount();
+    await act(() => first.result.current.requestProtocolProjection()); first.unmount();
+    const identity = run.reload().documentArchive!.pendingRecovery!;
+    await run.archive.reject(run.access, identity.requestId);
+    run.guard.readDocumentGenerationResult.mockResolvedValue({ state: "UNKNOWN" });
+    expect(await run.client.recover(identity)).toEqual({ state: "UNKNOWN" });
+    expect(run.executed).toHaveBeenCalledOnce();
+  });
+
   it("persists R1 before dispatch, then recovers exactly one G2 without a provider call or second reservation", async () => {
     const run = await reloadRuntime(), beforeProject = JSON.stringify(run.project);
     const first = run.mount(); await act(() => first.result.current.requestProtocolProjection());
@@ -367,6 +409,30 @@ describe("DOC generation publication / recovery transaction — no real provider
     expect(receipt?.generation.persistenceState).toBe("COMMITTED");
     expect((await run.archive.body(run.access, receipt!.generation.generationId)).body.native.family).toBe("DRCI");
     expect((await run.invoke()).status).toBe(200); expect(run.executed).toHaveBeenCalledTimes(1);
+  });
+  it("preserves the first pre-dispatch financial denial when the closed gate rejects ledger completion", async () => {
+    const run = await runtime();
+    run.executed.mockRejectedValueOnce(new ProductBridgeProviderError("DOCUMENT_PROJECTION", null,
+      "PUBLIC_PROVIDER_DENIED_SOFT_STOP", "Provider request failed.", null, "OPENAI", null));
+    const failed = await run.invoke({ ledgerGuardCode: "PUBLIC_SESSION_BUDGET_CLOSED" });
+    expect(failed.status).toBe(422);
+    expect(failed.body.error?.code).toBe("DRCI_DRAFT_NOT_GENERATED");
+    expect((failed.body.error as unknown as { details: string[] }).details).toEqual(["PUBLIC_PROVIDER_DENIED_SOFT_STOP"]);
+    expect(run.sql.rows()[0].state).toBe("REJECTED");
+    expect(run.sql.bodies()).toHaveLength(0);
+    expect(failed.body.observability?.providerCalls).toEqual([]);
+  });
+  it("does not turn a committed pack into success when financial-gate ledger completion fails", async () => {
+    const run = await runtime(), failed = await run.invoke({ ledgerGuardCode: "PUBLIC_SESSION_BUDGET_CLOSED" });
+    expect(failed.status).toBe(503);
+    expect(failed.body.error?.code).toBe("DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED");
+    expect((await run.archive.receipt(run.access, run.requestId))?.generation.persistenceState).toBe("COMMITTED");
+  });
+  it("does not suppress an unrelated ledger failure after a native DOC failure", async () => {
+    const run = await runtime();run.executed.mockRejectedValueOnce(new Error("OFFLINE_KNOWN_DOC_FAILURE"));
+    const failed = await run.invoke({ ledgerGuardCode: "PUBLIC_DURABLE_STORE_UNAVAILABLE" });
+    expect(failed.status).toBe(503);expect(failed.body.error?.code).toBe("DOC_ARCHIVE_LEDGER_FINALIZATION_FAILED");
+    expect(run.sql.bodies()).toHaveLength(0);
   });
   it("recovers committed DOC after a lost HTTP response", async () => {
     const run = await runtime(); await expect(run.invoke({ lostResponse: true })).rejects.toThrow("OFFLINE_LOST_HTTP_RESPONSE");
