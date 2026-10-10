@@ -57,6 +57,27 @@ const strictWireFor = (update: WorkingDraftUpdate) => ({ ...structuredClone(upda
 });
 
 describe("Working Draft full-snapshot capacity — offline only", () => {
+  it("instructs the producer to close every option in its emitted snapshot, including unrecommended alternatives", () => {
+    const packet = prepareWorkingDraftRequest(requestFor());
+    expect(packet.instruction).toContain("FERMETURE NATIVE DES OPTIONS");
+    expect(packet.instruction).toContain("MÊME snapshot");
+    expect(packet.instruction).toContain("même non recommandée");
+    expect(packet.instruction).toContain("sans compléter le snapshot ni relancer le fournisseur");
+  });
+  it("keeps the real all-dangling sole imaging arbitration fail-closed without fabricating atoms", () => {
+    const request = requestFor(), update = updateFor(request), proposal = update.proposal!;
+    const template = proposal.arbitrations[0];
+    // Real rejected operation 52ec67e7: only identifiers/structure are retained.
+    // Scientific prose and atoms use the existing sanitized fixture.
+    proposal.arbitrations = [{ ...template, ref: "arb-imaging-method", recommendedRefs: [], options: [
+      { ...template.options[0], ref: "opt-imaging-manual", atomRefs: ["a-imaging-manual-option"] },
+      { ...template.options[0], ref: "opt-imaging-assisted", atomRefs: ["a-imaging-assisted-option"] },
+    ] }];
+    const before = JSON.stringify(update);
+    expect(() => acceptWorkingDraftUpdate(update, request)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+    expect(JSON.stringify(update)).toBe(before);
+    expect(() => assertStudyProposalOptionBindings(proposal)).toThrow("STUDY_PROPOSAL_OPTION_BINDING_INVALID");
+  });
   it("preflights realistic and near-limit FULL SNAPSHOT inputs without trimming", () => {
     const { previous, request } = previousFor();
     expect(preflightStudyProposalCapacity(previous.proposal, 0).minimumSnapshotAtoms).toBe(53);
