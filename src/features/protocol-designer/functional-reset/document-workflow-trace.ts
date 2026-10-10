@@ -3,6 +3,7 @@ import { buildProjectContextSnapshot } from "../../research-project-construction
 import { appendProductTraceStage, createProductTraceRunId, startScientificRun,
   type ScientificProductTraceStage, type ScientificTraceCaptureConfiguration, type ScientificTraceOwner } from "../scientific-execution-trace";
 import { readStudioAssessmentFailureDiagnostic } from "../../scientific-thinking/studio-runtime";
+import { readStudioEditFailureDiagnostic } from "../../document-projection/studio-edit-proposal";
 import type { FunctionalResetSession } from "./session";
 import type { DocumentArchiveClient } from "../../document-projection/generation-archive-client";
 import { readDurableProviderFailureDiagnostic } from "../provider-call-observability";
@@ -50,13 +51,15 @@ const object = (value: unknown): Record<string, unknown> => value && typeof valu
 export const documentWorkflowFailure = (error: unknown, owner: ScientificTraceOwner, component: string) => {
   try {
   const value = object(error);
-  const diagnostic = readStudioAssessmentFailureDiagnostic(value.studioAssessmentFailureDiagnostic);
+  const diagnostic = readStudioAssessmentFailureDiagnostic(value.studioAssessmentFailureDiagnostic)
+    ?? readStudioEditFailureDiagnostic(value.studioEditFailureDiagnostic);
   const calls = object(value.observability).providerCalls;
   const durable = readDurableProviderFailureDiagnostic(error) ?? (Array.isArray(calls)
     ? calls.map(readDurableProviderFailureDiagnostic).find(item => item !== null) ?? null : null);
-  const nativeCode = diagnostic?.code ?? durable?.structuredErrorCode ?? code(value.preparationFailureCode ?? value.code ?? nativeMessageCode(error));
+  const nativeCode = (diagnostic?.code !== "STUDIO_EDIT_FAILED" ? diagnostic?.code : null)
+    ?? durable?.structuredErrorCode ?? code(value.preparationFailureCode ?? value.code ?? nativeMessageCode(error));
   return { owner: diagnostic?.owner ?? owner, function: diagnostic?.function ?? component,
-    code: code(nativeCode), attribution: diagnostic ? "ROOT_CAUSE_PROVEN" : "OBSERVED_BOUNDARY_ONLY", durable };
+    code: code(nativeCode), attribution: diagnostic && diagnostic.code !== "STUDIO_EDIT_FAILED" ? "ROOT_CAUSE_PROVEN" : "OBSERVED_BOUNDARY_ONLY", durable };
   } catch {
     // Even malformed diagnostic accessors cannot replace the native exception.
     return { owner, function: component, code: "UNKNOWN", attribution: "OBSERVED_BOUNDARY_ONLY", durable: null };

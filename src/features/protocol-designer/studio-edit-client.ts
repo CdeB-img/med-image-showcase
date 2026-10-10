@@ -1,6 +1,7 @@
 import { ensureServerProjectSnapshot, ProductBridgeClientError } from "./product-bridge-client.js";
 import type { ResearchProjectOwnerProjection } from "../research-project-construction/contribution-owner-boundary.js";
-import { createStudioEditRequest, studioEditOperationId, acceptStudioEditProposal, type StudioEditProposal } from "../document-projection/studio-edit-proposal.js";
+import { createStudioEditRequest, studioEditOperationId, acceptStudioEditProposal, readStudioEditFailureDiagnostic, type StudioEditProposal } from "../document-projection/studio-edit-proposal.js";
+import { readDurableProviderFailureDiagnostic } from "./provider-call-observability.js";
 import type { DocumentWorkingRevision } from "../document-projection/working-revision.js";
 import { observeDocumentWorkflow, type DocumentWorkflowTraceSink } from "./functional-reset/document-workflow-trace";
 
@@ -29,7 +30,14 @@ export const createStudioEditRuntime = (session: () => { sessionId: string; proj
         observabilityContext: { sessionId: current.sessionId, conversationId: null, turnId: null,
           clientRequestId: studioEditOperationId(editRequest), testSessionId: null } }) });
     const value = await response.json().catch(() => null);
-    if (!response.ok || value?.apiVersion !== "1.0.0") throw new ProductBridgeClientError(value?.error?.code ?? "STUDIO_EDIT_FAILED", "La proposition n’a pas abouti. Votre brouillon est conservé.");
+    if (!response.ok || value?.apiVersion !== "1.0.0") {
+      const failure = Array.isArray(value?.observability?.providerCalls)
+        ? value.observability.providerCalls.map(readDurableProviderFailureDiagnostic).find(item => item !== null) ?? null : null;
+      throw Object.assign(new ProductBridgeClientError(value?.error?.code ?? "STUDIO_EDIT_FAILED",
+        "La proposition n’a pas abouti. Votre brouillon est conservé.", null, null,
+        null, null, null, null, readStudioEditFailureDiagnostic(value?.error?.diagnostic)),
+      { providerFailureDiagnostic: failure });
+    }
     return acceptStudioEditProposal(editRequest, revision, value.editProposal);
     }, proposal => ({ proposalId: proposal.proposalId, assessmentClassification: "UNASSESSED" }));
   },

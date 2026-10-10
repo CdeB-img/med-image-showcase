@@ -56,6 +56,7 @@ export class ProductBridgeClientError extends Error {
     readonly preparationFailureDiagnostic: Readonly<{ explicitDecisionId: string; arbitrationId: string; atomBindingStatus: "UNSELECTED_OPTION" | "HARD_DEPENDENCY_NOT_SATISFIED" }> | null = null,
     readonly optionBindingFailureDiagnostic: WorkingDraftOptionBindingDiagnostic | null = null,
     readonly studioAssessmentFailureDiagnostic: import("../scientific-thinking/studio-runtime.js").StudioAssessmentFailureDiagnostic | null = null,
+    readonly studioEditFailureDiagnostic: import("../document-projection/studio-edit-proposal.js").StudioEditFailureDiagnostic | null = null,
   ) { super(message); }
 }
 

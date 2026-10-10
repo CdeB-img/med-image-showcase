@@ -204,4 +204,38 @@ describe("existing TRACE V2: passive native DOC/Studio observation", () => {
     expect(JSON.stringify(session.scientificExecutionTraceLedger)).not.toContain(instruction);
     expect(JSON.stringify(session.scientificExecutionTraceLedger)).not.toContain(on.proposedText);
   });
+  it("Studio edit transport preserves exact native first failure and sanitized durable evidence, never redispatches or captures private diagnostics", async () => {
+    const run = await workingRevisionFixture(), revision = (await run.owner.create(run.access2, run.createInput)).revision;
+    vi.spyOn(bridge, "ensureServerProjectSnapshot").mockResolvedValue({ ref: run.access2.project, proof: run.access2.proof! });
+    const transport = vi.fn(async () => new Response(JSON.stringify({ apiVersion: "1.0.0", error: {
+      code: "STUDIO_EDIT_SOURCE_INVALID", diagnostic: { contract: "STUDIO_EDIT_FAILURE_V1", owner: "DOC",
+        function: "resolveSavedStudioEditSource", code: "DOC_REVISION_SOURCE_DIGEST_MISMATCH", privateBody: "PRIVATE_BODY" } },
+      observability: { providerCalls: [{ durableFailure: { contract: "DURABLE_PROVIDER_TERMINAL_FAILURE", operationKey: "a".repeat(64),
+        structuredErrorCode: "PROVIDER_HTTP_FAILED", dispatchAttempted: true, providerHttpStatus: 500,
+        providerResponseStatus: "failed", lastConfirmedDurableState: "PROVIDER_HTTP_FAILED", rawResponse: "PRIVATE_PROVIDER_BODY" },
+        privateBody: "PRIVATE_CALL_BODY" }] } }), { status: 422 }));
+    vi.stubGlobal("fetch", transport);
+    const request = createStudioEditRequest(revision, { projectId: run.project2.projectId, projectVersion: run.project2.versionId,
+      projectDigest: run.project2.projectDigest }, revision.content.sections[0].blocks[0].nodeId, "PRIVATE_INSTRUCTION");
+    const before = run.fixture.revisions(), archive = run.fixture.bodies();
+    const error = await createStudioEditRuntime(() => ({ sessionId: run.sessionId, project: run.project2 }), sink)
+      .propose(revision, request.binding.nodeId, request.instruction).catch(error => error);
+    expect(transport).toHaveBeenCalledOnce();
+    expect(error.code).toBe("STUDIO_EDIT_SOURCE_INVALID");
+    const trace = buildTraceInspectorRunProjection({ ledger: session.scientificExecutionTraceLedger,
+      traceRunId: createProductTraceRunId(run.sessionId, studioEditOperationId(request)) });
+    expect(trace.firstFailure).toMatchObject({ owner: "DOC", function: "resolveSavedStudioEditSource",
+      internalCode: "DOC_REVISION_SOURCE_DIGEST_MISMATCH", attribution: "ROOT_CAUSE_PROVEN" });
+    expect(trace.events.at(-1)!.technicalMetadata.providerOperationId).toBe("a".repeat(64));
+    for (const secret of ["PRIVATE_BODY", "PRIVATE_PROVIDER_BODY", "PRIVATE_CALL_BODY", "PRIVATE_INSTRUCTION"])
+      expect(JSON.stringify({ error, trace })).not.toContain(secret);
+    expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
+  });
+  it("unknown Studio edit provider failure stays an observed boundary, while durable native failure code is retained", () => {
+    sink({ ...observation, status: "FAILED", error: { code: "STUDIO_EDIT_FAILED", studioEditFailureDiagnostic: {
+      contract: "STUDIO_EDIT_FAILURE_V1", owner: "DOC", function: "executeOpenAITerraConversation", code: "STUDIO_EDIT_FAILED" },
+      providerFailureDiagnostic: { contract: "DURABLE_PROVIDER_TERMINAL_FAILURE", structuredErrorCode: "PROVIDER_HTTP_FAILED" } } });
+    expect(projection().firstFailure).toMatchObject({ owner: "DOC", function: "executeOpenAITerraConversation",
+      internalCode: "PROVIDER_HTTP_FAILED", attribution: "SYMPTOM_ONLY" });
+  });
 });

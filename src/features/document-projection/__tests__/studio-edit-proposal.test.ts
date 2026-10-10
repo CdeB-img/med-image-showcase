@@ -3,7 +3,7 @@ import { workingRevisionFixture } from "./working-revision-fixture";
 import { createStudioEditRequest, requireStudioEditSource, acceptStudioEditProposal, applyStudioEditProposal,
   prepareStudioEditPacket, studioEditOperationId } from "../studio-edit-proposal";
 import { resolveSavedStudioEditSource } from "../../../../server/protocol-designer-studio-edit";
-import { handleProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
+import { handleProtocolDesignerBridge, executeProtocolDesignerBridge } from "../../../../api/protocol-designer-bridge";
 import { createMemoryProtocolDesignerGuardForTests } from "../../../../server/protocol-designer-durable-guard";
 
 const setup = async () => {
@@ -14,6 +14,33 @@ const setup = async () => {
   return { ...run, revision, binding, request };
 };
 describe("Native Studio writing proposal / no semantic owner transfer", () => {
+  it("explanation is exactly bound, read-only and cannot be applied even through a forged UI action", async () => {
+    const run = await setup(), before = run.fixture.revisions(), archive = run.fixture.bodies(), project = structuredClone(run.project2);
+    const raw = { requestDigest: run.request.requestDigest, resultKind: "EXPLANATION", proposedText: null,
+      explanation: "Cette limite doit être clarifiée ; elle ne prouve pas une contradiction scientifique." };
+    const result = acceptStudioEditProposal(run.request, run.revision, raw, { allowLegacy: false });
+    expect(acceptStudioEditProposal(run.request, run.revision, raw)).toEqual(result);
+    expect(result.proposedText).toBe(result.beforeText); expect(result.semanticImpact).toBe("UNASSESSED");
+    expect(() => applyStudioEditProposal(result, run.revision, run.revision.content, run.binding)).toThrow("STUDIO_EDIT_EXPLANATION_NOT_APPLICABLE");
+    expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive); expect(run.project2).toEqual(project);
+  });
+  it.each([
+    { resultKind: "EXPLANATION", proposedText: "Un remplacement non autorisé", explanation: "Analyse" },
+    { resultKind: "EXPLANATION", proposedText: null, explanation: null },
+    { resultKind: "REPLACEMENT", proposedText: null, explanation: "Analyse" },
+  ])("rejects inconsistent assistance result $resultKind without changing the draft", async fields => {
+    const run = await setup();
+    expect(() => acceptStudioEditProposal(run.request, run.revision, { requestDigest: run.request.requestDigest, ...fields }))
+      .toThrow("STUDIO_EDIT_RESPONSE_KIND_INVALID");
+    expect(run.fixture.revisions()).toHaveLength(1);
+  });
+  it("versioned producer is distinct from historical operations and rejects legacy wire responses, while preserving native historical readability", async () => {
+    const run = await setup(), old = { requestDigest: run.request.requestDigest, proposedText: "Proposition ancienne" };
+    expect(studioEditOperationId(run.request)).toBe(`studio-edit:${run.request.requestDigest}:1.1.0`);
+    expect(acceptStudioEditProposal(run.request, run.revision, old).resultKind).toBe("REPLACEMENT");
+    expect(() => acceptStudioEditProposal(run.request, run.revision, old, { allowLegacy: false })).toThrow();
+    expect(JSON.parse(prepareStudioEditPacket(run.request, run.revision, run.project2).context).producerContractVersion).toBe("1.1.0");
+  });
   it("exact request/proposal replay, accept into same buffer, save and reload without archive/Project mutation", async () => {
     const run = await setup(), generations = run.fixture.bodies(), project = JSON.stringify(run.project2);
     const raw = { requestDigest: run.request.requestDigest, proposedText: "Formulation proposée par la fixture, non évaluée scientifiquement." };
@@ -53,12 +80,30 @@ describe("Native Studio writing proposal / no semantic owner transfer", () => {
     await expect(resolveSavedStudioEditSource(run.archive, run.access2, run.project2, run.request)).rejects.toThrow("STUDIO_EDIT_STALE_TARGET");
     await expect(run.owner.save(run.access2, { revisionId: run.revision.revisionId, expectedSaveSequence: 1, content: run.revision.content })).rejects.toThrow("DOC_REVISION_SAVE_CONFLICT");
   });
+  it("producer retains the actual native validator failure, without provider retry or private response leakage", async () => {
+    const run = await setup(), before = run.fixture.revisions(), archive = run.fixture.bodies();
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ id: "OFFLINE_INVALID_STUDIO_EDIT", status: "completed",
+      output: [{ content: [{ type: "output_text", text: JSON.stringify({ requestDigest: "foreign", resultKind: "REPLACEMENT",
+        proposedText: "PRIVATE_PROVIDER_TEXT", explanation: null }) }] }] })));
+    const result = await executeProtocolDesignerBridge({ body: { operation: "STUDIO_EDIT_PROPOSAL", apiVersion: "1.0.0",
+      currentProject: run.project2, editRequest: run.request, observabilityContext: { sessionId: run.sessionId,
+        conversationId: null, turnId: null, clientRequestId: studioEditOperationId(run.request), testSessionId: null } },
+      apiKey: null, openAiApiKey: "OFFLINE", autonomousProjectBuild: true, chatRuntime: "TERRA",
+      studioEditRevision: run.revision, fetchImpl });
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({ error: { code: "STUDIO_EDIT_RESPONSE_BINDING_INVALID", diagnostic: {
+      contract: "STUDIO_EDIT_FAILURE_V1", owner: "DOC", function: "acceptStudioEditProposal", code: "STUDIO_EDIT_RESPONSE_BINDING_INVALID" } } });
+    expect(JSON.stringify(result.body)).not.toContain("PRIVATE_PROVIDER_TEXT");
+    expect(fetchImpl).toHaveBeenCalledOnce(); expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
+  });
   it("uses strict Structured Outputs on the existing guarded producer, explicit request idempotence and no provider retry", async () => {
     const run = await setup(), guard = createMemoryProtocolDesignerGuardForTests();
     const packet = prepareStudioEditPacket(run.request, run.revision, run.project2);
-    expect(packet.outputSchema).toMatchObject({ type: "object", additionalProperties: false, required: ["requestDigest", "proposedText"] });
+    expect(packet.outputSchema).toMatchObject({ type: "object", additionalProperties: false,
+      required: ["requestDigest", "resultKind", "proposedText", "explanation"] });
     const fetchImpl = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ id: "OFFLINE_STUDIO_EDIT", model: "gpt-6-sol", status: "completed",
-      output: [{ content: [{ type: "output_text", text: JSON.stringify({ requestDigest: run.request.requestDigest, proposedText: "Texte proposé, UNASSESSED." }) }] }],
+      output: [{ content: [{ type: "output_text", text: JSON.stringify({ requestDigest: run.request.requestDigest,
+        resultKind: "REPLACEMENT", proposedText: "Texte proposé, UNASSESSED.", explanation: null }) }] }],
       usage: { input_tokens: 100, output_tokens: 30, total_tokens: 130 } })));
     const body = { operation: "STUDIO_EDIT_PROPOSAL", apiVersion: "1.0.0", currentProject: null, currentProjectRef: run.access2.project, editRequest: run.request,
       observabilityContext: { sessionId: run.sessionId, conversationId: null, turnId: null, clientRequestId: studioEditOperationId(run.request), testSessionId: null } };
@@ -81,7 +126,10 @@ describe("Native Studio writing proposal / no semantic owner transfer", () => {
     expect((await invoke({ ...inline, currentProject: forgedProject } as never)).status).not.toBe(200);
     expect(fetchImpl).toHaveBeenCalledOnce();
     const forged = structuredClone(body); forged.editRequest.binding.beforeDigest = "foreign";
-    expect((await invoke(forged)).status).toBe(422); expect(fetchImpl).toHaveBeenCalledOnce();
+    const invalidSource = await invoke(forged);
+    expect(invalidSource.status).toBe(422); expect(fetchImpl).toHaveBeenCalledOnce();
+    expect(invalidSource.result).toMatchObject({ error: { code: "STUDIO_EDIT_SOURCE_INVALID", diagnostic: {
+      contract: "STUDIO_EDIT_FAILURE_V1", owner: "DOC", function: "resolveSavedStudioEditSource", code: "STUDIO_EDIT_STALE_TARGET" } } });
     expect((await invoke(body, "x".repeat(43))).status).not.toBe(200); expect(fetchImpl).toHaveBeenCalledOnce();
     expect(() => requireStudioEditSource(forged.editRequest, run.revision, run.binding)).toThrow();
   });

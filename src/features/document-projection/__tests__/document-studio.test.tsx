@@ -102,6 +102,39 @@ describe("TRACE V2: actual offline Studio UI actions", () => {
 const compareScope = () => within(screen.getByRole("region", { name: "Comparaison du brouillon avec sa base" }));
 
 describe("Document Studio V1 / native archive vertical slice", () => {
+  it("UX: contextual explanation has no apply action, save, Project change or document replacement", async () => {
+    const run = await runtime(), archive = run.fixture.bodies();
+    const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };
+    const editing: StudioEditRuntime = { projectBinding: () => binding, propose: vi.fn(async (revision, node, instruction) => {
+      const request = createStudioEditRequest(revision, binding, node, instruction);
+      return acceptStudioEditProposal(request, revision, { requestDigest: request.requestDigest, resultKind: "EXPLANATION",
+        proposedText: null, explanation: "Les dépendances connues ne prouvent pas une incohérence scientifique." });
+    }) };
+    run.open(undefined, undefined, editing); const field = await run.ready(), original = (field as HTMLTextAreaElement).value;
+    fireEvent.focus(field); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Explique les limites de ce paragraphe sans le modifier." } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
+    expect(await screen.findByRole("region", { name: "Explication de NOXIA" })).toHaveTextContent("Les dépendances connues");
+    expect(screen.queryByRole("button", { name: "Appliquer au brouillon" })).not.toBeInTheDocument();
+    expect(field).toHaveValue(original); expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Fermer l’explication" }));
+    expect(run.fixture.revisions()).toHaveLength(1); expect(run.fixture.bodies()).toEqual(archive);
+  });
+  it("UX: failed contextual proposal exposes a bounded diagnostic secondarily and never edits or retries", async () => {
+    const run = await runtime(), archive = run.fixture.bodies();
+    const editing: StudioEditRuntime = { projectBinding: () => ({ projectId: run.project2.projectId,
+      projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest }),
+      propose: vi.fn(async () => { throw Object.assign(new Error("PRIVATE_PROVIDER_MESSAGE"), { code: "STUDIO_EDIT_RESPONSE_BINDING_INVALID" }); }) };
+    run.open(undefined, undefined, editing); const field = await run.ready(), original = (field as HTMLTextAreaElement).value;
+    fireEvent.focus(field); fireEvent.click(screen.getByRole("button", { name: "Demander à NOXIA pour ce passage" }));
+    fireEvent.change(screen.getByRole("textbox", { name: "Demande de modification" }), { target: { value: "Corrige ce passage" } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer à NOXIA" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Le texte du brouillon est inchangé");
+    expect(screen.getByText("STUDIO_EDIT_RESPONSE_BINDING_INVALID")).toBeInTheDocument();
+    expect(screen.queryByText("PRIVATE_PROVIDER_MESSAGE")).not.toBeInTheDocument();
+    expect(field).toHaveValue(original); expect(editing.propose).toHaveBeenCalledOnce();
+    expect(run.fixture.revisions()).toHaveLength(1); expect(run.fixture.bodies()).toEqual(archive);
+  });
   it("UX: manual and accepted AI edits have exact local undo/redo without save, adoption or archive mutation", async () => {
     const run = await runtime(), archive = run.fixture.bodies();
     const binding = { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest };

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import type { StudioEditRuntime } from "../protocol-designer/studio-edit-client";
 import type { DocumentWorkingRevision, EditableDocumentContent } from "./working-revision";
 import { applyStudioEditProposal, studioEditOperationId, type StudioEditProposal } from "./studio-edit-proposal";
-import { emitDocumentWorkflowTrace, type DocumentWorkflowTraceSink } from "../protocol-designer/functional-reset/document-workflow-trace";
+import { documentWorkflowFailure, emitDocumentWorkflowTrace, type DocumentWorkflowTraceSink } from "../protocol-designer/functional-reset/document-workflow-trace";
 
 /** Ephemeral proposal UI only. Accepted text enters the single existing Studio
  * buffer; the existing explicit save/finalization owners remain unchanged. */
@@ -19,6 +19,7 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
   const [nodeId, setNodeId] = useState(blocks[0]?.nodeId ?? ""), [instruction, setInstruction] = useState("");
   const [proposal, setProposal] = useState<StudioEditProposal | null>(null), [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null), [applied, setApplied] = useState(false);
+  const [errorCode, setErrorCode] = useState<string | null>(null);
   const flight = useRef(false), panel = useRef<HTMLElement>(null), instructionInput = useRef<HTMLTextAreaElement>(null);
   useEffect(() => { onBusy?.(busy); return () => onBusy?.(false); }, [busy, onBusy]);
   useEffect(() => {
@@ -29,9 +30,11 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
   }, [requestedTarget]);
   const propose = async () => {
     if (flight.current || disabled || dirty || !instruction.trim() || !nodeId) return;
-    flight.current = true; setBusy(true); setProposal(null); setError(null); setApplied(false);
+    flight.current = true; setBusy(true); setProposal(null); setError(null); setErrorCode(null); setApplied(false);
     try { setProposal(await runtime.propose(revision, nodeId, instruction)); }
-    catch { setError("La proposition n’a pas abouti. Le texte du brouillon est inchangé. Aucune relance automatique."); }
+    catch (error) { const failure = documentWorkflowFailure(error, "DOC", "createStudioEditRuntime.propose");
+      setErrorCode(failure.code === "UNKNOWN" ? null : failure.code);
+      setError("La proposition n’a pas abouti. Le texte du brouillon est inchangé. Aucune relance automatique."); }
     finally { flight.current = false; setBusy(false); }
   };
   const apply = () => {
@@ -61,10 +64,18 @@ export default function StudioEditAssistant({ runtime, revision, buffer, disable
         <Button className="self-start bg-foreground text-background hover:bg-foreground/90" onClick={() => void propose()} disabled={disabled || busy || dirty || !nodeId || !instruction.trim()}>{busy ? "Préparation de la proposition…" : "Envoyer à NOXIA"}</Button>
       </div>
       {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
+      {error && errorCode && <details className="mt-2 text-xs text-muted-foreground"><summary className="cursor-pointer">Référence de l’erreur</summary><code>{errorCode}</code></details>}
       {applied && <p role="status" className="mt-3 text-sm font-medium">Proposition appliquée au brouillon · à enregistrer.</p>}
-      {proposal && <section className="mt-4 rounded-xl border bg-background p-4" aria-label="Proposition de modification">
+      {proposal?.resultKind === "EXPLANATION" && <section className="mt-4 rounded-xl border bg-background p-4" aria-label="Explication de NOXIA">
+        <h4 className="text-sm font-medium">Explication · document inchangé</h4>
+        <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7">{proposal.explanation}</p>
+        <p className="mt-3 text-xs text-muted-foreground">Cette aide ne constitue ni une décision scientifique ni une validation du document.</p>
+        <Button variant="outline" className="mt-3" onClick={() => { observeDecision("REJECTED"); setProposal(null); }}>Fermer l’explication</Button>
+      </section>}
+      {proposal?.resultKind === "REPLACEMENT" && <section className="mt-4 rounded-xl border bg-background p-4" aria-label="Proposition de modification">
         <div className="grid min-w-0 gap-4 md:grid-cols-2"><div><h4 className="text-sm font-medium">Avant</h4><p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7">{proposal.beforeText}</p></div>
           <div><h4 className="text-sm font-medium">Proposition · non appliquée</h4><p className="mt-2 whitespace-pre-wrap break-words text-sm leading-7">{proposal.proposedText}</p></div></div>
+        {proposal.explanation && <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7">{proposal.explanation}</p>}
         <p className="mt-3 text-xs text-muted-foreground">Impact scientifique non évalué. Appliquer modifie uniquement le brouillon ; toute modification scientifique suit le parcours de validation existant à la création de version.</p>
         <div className="mt-3 flex flex-wrap gap-2"><Button onClick={apply} disabled={disabled || busy}>Appliquer au brouillon</Button><Button variant="outline" onClick={() => { observeDecision("REJECTED"); setProposal(null); setError(null); }}>Annuler la proposition</Button></div>
       </section>}
