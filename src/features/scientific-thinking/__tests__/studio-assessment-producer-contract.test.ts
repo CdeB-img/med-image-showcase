@@ -71,7 +71,7 @@ const validateWire = (run: Run, raw: unknown) => new Ajv({ allErrors: true }).co
 const coverageFor = (run: Run, coverage: "COMPLETE" | "PARTIAL" | "UNKNOWN") => ({ coverage,
   projectVersionRefs: [run.request.currentProject.objects.find(o => o.epistemicState === "KNOWN" && o.decisionRefs.length)!.versionRef] });
 
-describe("producer 1.2 / native classification-coverage invariant / matrix A–H", () => {
+describe("producer 1.3 / native classification-coverage invariant / matrix A–H", () => {
   it.each([
     ["DOCUMENT_ONLY", null, true], ["DOCUMENT_ONLY", "PARTIAL", false], ["DOCUMENT_ONLY", "COMPLETE", false], ["DOCUMENT_ONLY", "UNKNOWN", false],
     ["AMBIGUOUS", null, true], ["AMBIGUOUS", "PARTIAL", false], ["AMBIGUOUS", "COMPLETE", false], ["AMBIGUOUS", "UNKNOWN", false],
@@ -132,6 +132,24 @@ describe("producer 1.2 / native classification-coverage invariant / matrix A–H
     const ambiguous = acceptStudioAssessment(run.request, run.project, payloadFor(run, "AMBIGUOUS"), NOW);
     expect(studioScientificRoute({ request: run.request, assessment: ambiguous }, run.project)).toMatchObject({ action: "EXISTING_QRY_PATH", workingDraftRequired: false });
     expect(stableStringify(run.project)).toBe(before);
+  });
+  it("real overblocking shape: unchanged legacy timing does not require full Project recertification of an editorial delta", async () => {
+    const run = await setup(), packet = prepareStudioAssessmentRequest(run.request, run.project);
+    const context = JSON.parse(packet.context);
+    expect(context.assessmentContract.version).toBe("1.3.0");
+    expect(context.assessmentContract.instructionDigest).toBe(logicalDigest(packet.instruction));
+    expect(packet.instruction).toContain("DELTA IMPACT, NOT BASE RECERTIFICATION");
+    expect(packet.instruction).toContain("An unchanged unknown, legacy temporal reference or missing canonical mapping does not by itself");
+    expect(packet.instruction).toContain("Never force DOCUMENT_ONLY merely because the user requested editorial rewriting");
+    const raw = payloadFor(run);
+    raw.edits.forEach(edit => { edit.reason = "The entire edited meaning is unchanged; existing legacy timing limitations remain unchanged and are not certified."; });
+    expect(validateWire(run, raw)).toBe(true);
+    const editorial = acceptStudioAssessment(run.request, run.project, raw, NOW);
+    expect(studioScientificRoute({ request: run.request, assessment: editorial }, run.project)).toMatchObject({ action: "PROJECT_REUSE", workingDraftRequired: false });
+    // This is a mocked semantic receipt, NOT evidence that the real model now
+    // classifies correctly. Uncertain impact still takes the scientific path.
+    const uncertain = acceptStudioAssessment(run.request, run.project, payloadFor(run, "PROJECT_CHANGE", coverageFor(run, "PARTIAL")), NOW);
+    expect(studioScientificRoute({ request: run.request, assessment: uncertain }, run.project).workingDraftRequired).toBe(true);
   });
 });
 
