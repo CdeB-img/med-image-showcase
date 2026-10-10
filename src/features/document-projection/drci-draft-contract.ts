@@ -471,7 +471,14 @@ export const materializeDrciDraftPack = (value: unknown, input: {
       ...(ancestor ? { humanRevision: { parentPack: ancestor, record: parentPack.humanRevision!,
         ancestorPacks: input.humanRevision.ancestorPacks?.filter(pack => pack.packDigest !== ancestor.packDigest) } } : {}),
     });
-    if (admittedParent.packDigest !== parentPack.packDigest
+    // Re-admission validates native content, not a new physical preparation.
+    // JSONB may reorder an otherwise identical source context. Preserve the
+    // immutable parent's original preparation provenance; every other rebuilt
+    // field must still produce its exact archived pack digest.
+    const { packDigest: _readmittedDigest, ...admittedParentMaterial } = admittedParent;
+    const admittedHistoricalDigest = logicalDigest({ ...admittedParentMaterial,
+      preparationBinding: parentPack.preparationBinding });
+    if (admittedHistoricalDigest !== parentPack.packDigest
       || logicalDigest(applyDrciHumanRevisionEntries(parentPack, record.entries)) !== logicalDigest(generated))
       throw new Error("DRCI_HUMAN_REVISION_SCOPE_MISMATCH");
   }

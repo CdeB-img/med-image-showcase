@@ -90,6 +90,24 @@ const packet=prepareDrciDraftPack(project,fixture.source);
 const admit=(value={documents:revised.documents,crfRows:revised.crfRows},record=revised.humanRevision!)=>materializeDrciDraftPack(value,{project,packet,generatedAt:revised.generatedAt,
  reusedProtocolEvidenceRef:parent.reusedProtocolEvidenceRef,humanRevision:{parentPack:parent,record}});
 describe('Current human-revised pack: native admission, ancestry and persistence',()=>{
+ it('preserves archived parent preparation provenance through JSONB property reordering',()=>{
+  const reorder=(value:unknown):unknown=>Array.isArray(value)?value.map(reorder):value&&typeof value==='object'
+   ?Object.fromEntries(Object.entries(value).reverse().map(([key,child])=>[key,reorder(child)])):value;
+  const reorderedSource=reorder(fixture.source) as typeof fixture.source;
+  const reorderedPacket=prepareDrciDraftPack(project,reorderedSource);
+  expect(JSON.parse(reorderedPacket.context)).toEqual(JSON.parse(packet.context));
+  expect(reorderedPacket.context).not.toBe(packet.context);
+  const originalParent=JSON.stringify(parent);
+  const result=materializeDrciDraftPack({documents:revised.documents,crfRows:revised.crfRows},{project,
+   packet:reorderedPacket,generatedAt:revised.generatedAt,reusedProtocolEvidenceRef:parent.reusedProtocolEvidenceRef,
+   humanRevision:{parentPack:parent,record:revised.humanRevision!}});
+  expect(result.documents).toEqual(revised.documents);expect(result.crfRows).toEqual(parent.crfRows);
+  expect(result.humanRevision).toEqual(revised.humanRevision);expect(JSON.stringify(parent)).toBe(originalParent);
+  const tampered={...structuredClone(parent),preparationBinding:parent.preparationBinding+':foreign'};
+  expect(()=>materializeDrciDraftPack({documents:revised.documents,crfRows:revised.crfRows},{project,
+   packet:reorderedPacket,generatedAt:revised.generatedAt,reusedProtocolEvidenceRef:parent.reusedProtocolEvidenceRef,
+   humanRevision:{parentPack:tampered,record:revised.humanRevision!}})).toThrow('DRCI_HUMAN_REVISION_PROVENANCE_MISMATCH');
+ });
  it('admits the complete pack with exact parent, Project, evidence and historical provider-revision provenance',()=>{
   expect(admit()).toEqual(revised);expect(revised.project).toEqual(parent.project);expect(revised.evidenceContent).toEqual(parent.evidenceContent);
   expect(revised.humanRevision!.priorSynopsisRevision).toEqual(parent.synopsisRevision);expect(revised.synopsisRevision).toBeUndefined();

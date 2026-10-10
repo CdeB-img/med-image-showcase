@@ -1,0 +1,68 @@
+{
+  "baseCommit": "89931bac8870154d081cdaec6bcf5c2f8de40200",
+  "owner": "DOC",
+  "firstFailedFunction": "materializeDrciDraftPack",
+  "internalCode": "DRCI_HUMAN_REVISION_SCOPE_MISMATCH",
+  "publicCodeBefore": "DOC_ARCHIVE_UNAVAILABLE",
+  "realEvidence": {
+    "syntheticSession": "protocol-designer-session:1c2779ef-cbdb-4cc4-ae3a-ec76beb7f409",
+    "intent": "studio-finalization-intent:ke1-5dabfc604f3b9dc4",
+    "frozenSave": 2,
+    "assessment": "DOCUMENT_ONLY",
+    "workingDraftCalls": 0,
+    "projectUnchanged": true,
+    "providerOperation": "d2ed96a809b9bf5035fcbb1b08f59ac021d7aa58d53ac6f11b22c663667a0b98",
+    "originalContextByteSha256": "34ceafcf330508c73c4b20498c1260e770ba2ace4f338f8e30fc6cd0ab8cec4e",
+    "durableContextByteSha256": "766f874cb23114140d7d74eb6f36fca64b320722be8641d860fa2a521e1179b2",
+    "bothContextSemanticDigest": "ke1-066f6430626b7b84",
+    "instructionIdentical": true,
+    "firstDifferingPackField": "preparationBinding",
+    "appliedEditEqualsValidatedGeneratedContent": true
+  },
+  "repair": {
+    "archivedPhysicalPreparationProvenancePreserved": true,
+    "parentSelfDigestRequired": true,
+    "everyOtherRebuiltFieldMustMatchArchivedDigest": true,
+    "nativeContentAndProjectValidationUnchanged": true,
+    "providerIdentityOrLedgerMatchingChanged": false,
+    "nativeDocErrorCodesPreservedAtTransport": true,
+    "arbitraryErrorTextExposed": false,
+    "originalArchivedBodiesMutated": false
+  },
+  "qualification": {
+    "evidenceLevel": "PASS_OFFLINE_ONLY",
+    "targeted": "134/134 PASS",
+    "full": "6250 PASS / 0 FAIL / 0 COLLECTION ERRORS",
+    "stability": "169/169 PASS",
+    "golden": "PASS_OFFLINE 9/9 INCLUDED IN STABILITY",
+    "sentinels": "309/309 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS / 7 PREEXISTING WARNINGS",
+    "build": "PASS",
+    "diffCheck": "PASS",
+    "skipped": 13,
+    "todo": 1,
+    "simultaneousRunFailuresPreserved": true,
+    "timeoutsOrAssertionsChanged": false,
+    "realRetestAfterRepair": "NOT_RUN"
+  },
+  "priorRecoveryRealRetest": {
+    "sameOriginalIntent": "studio-finalization-intent:ke1-e86876f31427de67",
+    "state": "BLOCKED",
+    "reason": "MIXED_SCIENTIFIC_CLARIFICATION_REQUIRED",
+    "providerRedispatches": 0,
+    "oldAssessmentAndTerminalResponsePreserved": true
+  },
+  "campaign": {
+    "operations": 4,
+    "measuredCostUsd": 0.0897965,
+    "committedUpperBoundUsd": 0.089802501,
+    "operationMaximum": 10,
+    "costMaximumUsd": 10,
+    "automaticRetries": 0
+  },
+  "stableAliasPromoted": false,
+  "mainChanged": false,
+  "productionChanged": false,
+  "evidenceDirectory": "/private/tmp/noxia-studio-retest.KhXcXY"
+}

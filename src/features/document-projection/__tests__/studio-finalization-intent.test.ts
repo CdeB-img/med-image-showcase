@@ -804,6 +804,28 @@ describe("DOC durable frozen intent / native ST and human adoption / no generati
 });
 
 describe("Create next version / native runtime → complete pack → exact archive", () => {
+  it("preserves the first native DOC validation code and the draft without a generation", async () => {
+    const base = await setup("none");
+    let { revision } = await base.owner.create(base.access2, { ...base.createInput,
+      revisionId: "document-working-revision:short-synopsis", nativeDocumentRef: "PROTOCOL_SYNOPSIS" });
+    const content = structuredClone(revision.content);
+    content.sections[0].blocks[0].text = "Résumé éditorial court.";
+    revision = (await base.owner.save(base.access2, { revisionId: revision.revisionId,
+      expectedSaveSequence: revision.saveSequence, content })).revision;
+    const frozen = await freezeStudioFinalizationWork({ session: base.session, revision,
+      source: base.source, projectionSource: base.projectionSource });
+    const intent = await base.intents.create(base.access2, frozen);
+    const run = { ...base, revision, frozen, intent };
+    const ready = await readyDocuments(run);
+    const outcome = await executeDocumentArchiveOperation({ body: { operation: "DOC_ARCHIVE_STUDIO_INTENT_FINALIZE",
+      sessionId: run.sessionId, projectRef: run.access2.project, intentId: ready.finalizationIntentId },
+      proof: run.access2.proof, clientAddress: run.identity.clientAddress, connection: null,
+      environment: {}, archive: run.archive, snapshots: run.snapshots });
+    expect(outcome).toEqual({ status: 422, body: { error: { code: "DRCI_SYNOPSIS_WORD_BOUND_EXCEEDED" } } });
+    expect((await run.owner.get(run.access2, revision.revisionId)).revision).toEqual(revision);
+    expect((await run.intents.get(run.access2, intent.finalizationIntentId)).state).toBe("READY_FOR_DOCUMENT_FINALIZATION");
+    expect((await run.archive.history(run.access2, undefined, "DRCI")).entries.map(ref => ref.displayVersion)).toEqual([2, 1]);
+  });
   it("G/H/N: real HTTP DOC boundary resolves exact Studio intent and commits once, without fabricated conversation", async () => {
     const run = await finalizationHarness("science", true), guard = createMemoryProtocolDesignerGuardForTests();
     const executed = vi.spyOn(documentProvider, "executeOpenAIDrciDraft");

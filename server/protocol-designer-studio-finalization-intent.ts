@@ -288,7 +288,15 @@ export const createStudioFinalizationIntents = (ports: Ports): StudioFinalizatio
           throw new StudioFinalizationIntentError("STUDIO_DOCUMENT_ANCESTOR_MISSING");
         ancestors.push(archived.body.native.value); previous = archived.body.native.value.humanRevision?.parentPackDigest;
       }
-      const pack = composeStudioFinalizationPack({ intent, project, target, source: intent.resolution.documentSource, ancestorPacks: ancestors });
+      let pack: ReturnType<typeof composeStudioFinalizationPack>;
+      try { pack = composeStudioFinalizationPack({ intent, project, target, source: intent.resolution.documentSource, ancestorPacks: ancestors }); }
+      catch (error) {
+        // Preserve only native DOC validation codes, never arbitrary exception
+        // text or document prose at the transport/TRACE boundary.
+        if (error instanceof Error && /^DRCI_[A-Z0-9_]{1,120}$/u.test(error.message))
+          throw new StudioFinalizationIntentError(error.message, 422);
+        throw error;
+      }
       if (!pack) return close(null);
       const body = await freezeDocumentGeneration({ native: { family: "DRCI", value: pack }, artifacts: drciDraftPackArtifacts(pack, project),
         sha256: ports.sha256, renderOrigin: "GENERATION_TIME" });
