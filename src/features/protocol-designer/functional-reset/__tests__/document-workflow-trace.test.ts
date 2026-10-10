@@ -194,7 +194,8 @@ describe("existing TRACE V2: passive native DOC/Studio observation", () => {
     const nodeId = revision.content.sections[0].blocks[0].nodeId, instruction = "PRIVATE_USER_INSTRUCTION";
     vi.spyOn(bridge, "ensureServerProjectSnapshot").mockResolvedValue({ ref: run.access2.project, proof: run.access2.proof! });
     const request = createStudioEditRequest(revision, { projectId: run.project2.projectId, projectVersion: run.project2.versionId, projectDigest: run.project2.projectDigest }, nodeId, instruction);
-    const transport = vi.fn(async () => new Response(JSON.stringify({ apiVersion: "1.0.0", editProposal: { requestDigest: request.requestDigest, proposedText: "PRIVATE_PROPOSED_TEXT" } })));
+    const transport = vi.fn(async () => new Response(JSON.stringify({ apiVersion: "1.0.0", editProposal: { requestDigest: request.requestDigest,
+      resultKind: "REPLACEMENT", proposedText: "PRIVATE_PROPOSED_TEXT", explanation: null } })));
     vi.stubGlobal("fetch", transport);
     const source = () => ({ sessionId: run.sessionId, project: run.project2 });
     const off = await createStudioEditRuntime(source).propose(revision, nodeId, instruction);
@@ -230,6 +231,21 @@ describe("existing TRACE V2: passive native DOC/Studio observation", () => {
     for (const secret of ["PRIVATE_BODY", "PRIVATE_PROVIDER_BODY", "PRIVATE_CALL_BODY", "PRIVATE_INSTRUCTION"])
       expect(JSON.stringify({ error, trace })).not.toContain(secret);
     expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
+  });
+  it("current Studio runtime rejects a legacy producer response without disabling native historical readability", async () => {
+    const run = await workingRevisionFixture(), revision = (await run.owner.create(run.access2, run.createInput)).revision;
+    vi.spyOn(bridge, "ensureServerProjectSnapshot").mockResolvedValue({ ref: run.access2.project, proof: run.access2.proof! });
+    const instruction = "Rends ce passage plus clair", nodeId = revision.content.sections[0].blocks[0].nodeId;
+    const request = createStudioEditRequest(revision, { projectId: run.project2.projectId, projectVersion: run.project2.versionId,
+      projectDigest: run.project2.projectDigest }, nodeId, instruction);
+    const transport = vi.fn(async () => new Response(JSON.stringify({ apiVersion: "1.0.0",
+      editProposal: { requestDigest: request.requestDigest, proposedText: "PRIVATE_LEGACY_TEXT" } })));
+    vi.stubGlobal("fetch", transport);
+    const before = run.fixture.revisions(), archive = run.fixture.bodies();
+    await expect(createStudioEditRuntime(() => ({ sessionId: run.sessionId, project: run.project2 }), sink)
+      .propose(revision, nodeId, instruction)).rejects.toThrow();
+    expect(transport).toHaveBeenCalledOnce(); expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
+    expect(JSON.stringify(session.scientificExecutionTraceLedger)).not.toContain("PRIVATE_LEGACY_TEXT");
   });
   it("unknown Studio edit provider failure stays an observed boundary, while durable native failure code is retained", () => {
     sink({ ...observation, status: "FAILED", error: { code: "STUDIO_EDIT_FAILED", studioEditFailureDiagnostic: {

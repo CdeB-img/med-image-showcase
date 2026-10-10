@@ -38,7 +38,7 @@ export const createStudioEditRuntime = (session: () => { sessionId: string; proj
         null, null, null, null, readStudioEditFailureDiagnostic(value?.error?.diagnostic)),
       { providerFailureDiagnostic: failure });
     }
-    return acceptStudioEditProposal(editRequest, revision, value.editProposal);
+    return acceptStudioEditProposal(editRequest, revision, value.editProposal, { allowLegacy: false });
     }, proposal => ({ proposalId: proposal.proposalId, assessmentClassification: "UNASSESSED" }));
   },
 });

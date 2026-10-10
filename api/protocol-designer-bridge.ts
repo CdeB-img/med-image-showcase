@@ -283,7 +283,7 @@ export const executeProtocolDesignerBridge = async (input: {
     }
   }
   if (input.body && typeof input.body === "object" && "operation" in input.body && input.body.operation === "STUDIO_EDIT_PROPOSAL") {
-    let failedFunction: StudioEditFailureDiagnostic["function"] = "prepareStudioEditPacket";
+    let failedFunction: StudioEditFailureDiagnostic["function"] = "executeProtocolDesignerBridge";
     try {
       const body = input.body as { apiVersion?: string; editRequest?: unknown; currentProject?: import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection;
         observabilityContext?: ProviderCallObservationContext };
@@ -291,15 +291,19 @@ export const executeProtocolDesignerBridge = async (input: {
       if (body.apiVersion !== PRODUCT_BRIDGE_API_VERSION || !input.studioEditRevision || !body.currentProject
         || !body.observabilityContext?.sessionId || body.observabilityContext.turnId !== null
         || body.observabilityContext.clientRequestId !== studioEditOperationId(edit)) throw new Error("STUDIO_EDIT_SOURCE_INVALID");
+      failedFunction = "prepareStudioEditPacket";
       const packet = prepareStudioEditPacket(edit, input.studioEditRevision, body.currentProject);
+      failedFunction = "executeProtocolDesignerBridge";
       if (detectSensitiveData(edit.instruction).length || detectSensitiveData(packet.context).length) throw new Error("LOCAL_SAFETY_BLOCKED");
       if (!input.autonomousProjectBuild || input.chatRuntime !== "TERRA" || !input.openAiApiKey?.trim()) throw new Error("STUDIO_EDIT_RUNTIME_UNAVAILABLE");
       failedFunction = "executeOpenAITerraConversation";
       const generated = await executeOpenAITerraConversation(packet, input.openAiApiKey, input.fetchImpl,
         { context: body.observabilityContext, purpose: "DOCUMENT_PROJECTION", reasoningEffort: "medium", retryIndex: 0, retryReason: null,
           onRecord: observeProviderCall }, input.openAiTransport);
+      failedFunction = "executeProtocolDesignerBridge";
+      const rawProposal: unknown = JSON.parse(generated.value);
       failedFunction = "acceptStudioEditProposal";
-      const proposal = acceptStudioEditProposal(edit, input.studioEditRevision, JSON.parse(generated.value), { allowLegacy: false });
+      const proposal = acceptStudioEditProposal(edit, input.studioEditRevision, rawProposal, { allowLegacy: false });
       return { status: 200, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION,
         editProposal: { requestDigest: edit.requestDigest, resultKind: proposal.resultKind,
           proposedText: proposal.resultKind === "EXPLANATION" ? null : proposal.proposedText, explanation: proposal.explanation },
@@ -1122,6 +1126,7 @@ export const handleProtocolDesignerBridge = async (
   const workingDraftRequest = parseProductBridgeRequest(body);
   let studioEditRevision: DocumentWorkingRevision | undefined;
   if (body && typeof body === "object" && "operation" in body && body.operation === "STUDIO_EDIT_PROPOSAL") {
+    let sourceFunction: StudioEditFailureDiagnostic["function"] = "handleProtocolDesignerBridge";
     try {
       const raw = body as Record<string, unknown>, project = raw.currentProject as import("../src/features/research-project-construction/contribution-owner-boundary.js").ResearchProjectOwnerProjection;
       const observation = raw.observabilityContext as ProviderCallObservationContext;
@@ -1135,9 +1140,10 @@ export const handleProtocolDesignerBridge = async (
       const snapshots = dependencies.projectSnapshotStore ?? (connectionString ? sharedPostgresProjectSnapshotStore(connectionString) : null);
       const archive = dependencies.documentArchive ?? (connectionString && snapshots ? sharedDocumentArchive(connectionString, environment, snapshots) : null);
       if (!archive) throw new Error("DOC_REVISION_UNAVAILABLE");
+      sourceFunction = "resolveSavedStudioEditSource";
       studioEditRevision = await resolveSavedStudioEditSource(archive, access, project, edit);
     } catch (error) { return response.status(422).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      error: { code: "STUDIO_EDIT_SOURCE_INVALID", diagnostic: studioEditFailureDiagnostic(error, "resolveSavedStudioEditSource") }, observability: providerCallRequestObservability([]) }); }
+      error: { code: "STUDIO_EDIT_SOURCE_INVALID", diagnostic: studioEditFailureDiagnostic(error, sourceFunction) }, observability: providerCallRequestObservability([]) }); }
   }
   const studioBody = body as Partial<StudioScientificOperation> & Partial<import("../src/features/protocol-designer/product-bridge.js").ProductBridgeRequest>;
   const studioRequest = studioBody?.operation === "STUDIO_SCIENTIFIC_ASSESSMENT"

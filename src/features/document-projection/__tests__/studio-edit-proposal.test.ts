@@ -96,6 +96,16 @@ describe("Native Studio writing proposal / no semantic owner transfer", () => {
     expect(JSON.stringify(result.body)).not.toContain("PRIVATE_PROVIDER_TEXT");
     expect(fetchImpl).toHaveBeenCalledOnce(); expect(run.fixture.revisions()).toEqual(before); expect(run.fixture.bodies()).toEqual(archive);
   });
+  it("does not attribute a pre-packet admission failure to a function that was never entered", async () => {
+    const run = await setup(), fetchImpl = vi.fn<typeof fetch>();
+    const result = await executeProtocolDesignerBridge({ body: { operation: "STUDIO_EDIT_PROPOSAL", apiVersion: "1.0.0",
+      currentProject: run.project2, editRequest: run.request, observabilityContext: { sessionId: run.sessionId,
+        conversationId: null, turnId: null, clientRequestId: "foreign", testSessionId: null } },
+      apiKey: null, openAiApiKey: "OFFLINE", autonomousProjectBuild: true, chatRuntime: "TERRA",
+      studioEditRevision: run.revision, fetchImpl });
+    expect(result.body).toMatchObject({ error: { diagnostic: { function: "executeProtocolDesignerBridge", code: "STUDIO_EDIT_SOURCE_INVALID" } } });
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
   it("uses strict Structured Outputs on the existing guarded producer, explicit request idempotence and no provider retry", async () => {
     const run = await setup(), guard = createMemoryProtocolDesignerGuardForTests();
     const packet = prepareStudioEditPacket(run.request, run.revision, run.project2);

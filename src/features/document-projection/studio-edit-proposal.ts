@@ -23,7 +23,8 @@ export class StudioEditError extends Error { constructor(readonly code: string) 
 /** References/codes only: never forward exception prose or provider content. */
 export type StudioEditFailureDiagnostic = Readonly<{
   contract: "STUDIO_EDIT_FAILURE_V1"; owner: "DOC";
-  function: "resolveSavedStudioEditSource" | "prepareStudioEditPacket" | "executeOpenAITerraConversation" | "acceptStudioEditProposal";
+  function: "handleProtocolDesignerBridge" | "executeProtocolDesignerBridge" | "resolveSavedStudioEditSource"
+    | "prepareStudioEditPacket" | "executeOpenAITerraConversation" | "acceptStudioEditProposal";
   code: string;
 }>;
 const failureCode = (value: unknown) => typeof value === "string"
@@ -32,7 +33,8 @@ export const readStudioEditFailureDiagnostic = (value: unknown): StudioEditFailu
   if (!value || typeof value !== "object") return null;
   const item = value as Record<string, unknown>, code = failureCode(item.code);
   if (item.contract !== "STUDIO_EDIT_FAILURE_V1" || item.owner !== "DOC" || !code
-    || !["resolveSavedStudioEditSource", "prepareStudioEditPacket", "executeOpenAITerraConversation", "acceptStudioEditProposal"].includes(String(item.function))) return null;
+    || !["handleProtocolDesignerBridge", "executeProtocolDesignerBridge", "resolveSavedStudioEditSource",
+      "prepareStudioEditPacket", "executeOpenAITerraConversation", "acceptStudioEditProposal"].includes(String(item.function))) return null;
   return { contract: "STUDIO_EDIT_FAILURE_V1", owner: "DOC", function: item.function as StudioEditFailureDiagnostic["function"], code };
 };
 export const studioEditFailureDiagnostic = (error: unknown, failedFunction: StudioEditFailureDiagnostic["function"]): StudioEditFailureDiagnostic => {

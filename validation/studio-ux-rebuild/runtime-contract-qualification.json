@@ -1,0 +1,33 @@
+{
+  "evidenceLevel": "PASS_OFFLINE_ONLY",
+  "parentCheckpointCommit": "93d8eaebcb36a9f08cfda38cde3c2752f83695a6",
+  "milestone": "CURRENT_RUNTIME_CONTRACT_CONSISTENCY",
+  "currentClientRequiresProducer110": true,
+  "historicalNativeProposalReadabilityPreserved": true,
+  "failureFunctionSetOnlyAtActuallyEnteredBoundary": true,
+  "privateProviderTextAbsentFromTrace": true,
+  "newProviderCorridor": false,
+  "qualification": {
+    "targeted": {"pass": 620, "fail": 0},
+    "full": {"pass": 6245, "fail": 0, "skipped": 13, "todo": 1},
+    "stability": {"pass": 169, "fail": 0},
+    "sentinels": {"pass": 309, "fail": 0},
+    "twoVersionCorridor": {"status": "PASS_OFFLINE", "pass": 9, "fail": 0},
+    "typecheck": "PASS",
+    "lint": {"status": "PASS", "errors": 0, "preexistingWarnings": 7},
+    "build": "PASS",
+    "diffCheck": "PASS"
+  },
+  "realBrowserQualification": "BLOCKED: CUA reports macOS locked",
+  "currentRealP0RootCauses": "UNKNOWN: exact failed operations not recovered",
+  "providerOperations": 0,
+  "providerRetries": 0,
+  "providerCostUsd": 0,
+  "databaseWrites": 0,
+  "newDocumentGenerations": 0,
+  "mainChanged": false,
+  "productionChanged": false,
+  "stableAliasPromoted": false,
+  "userAcceptanceTestReady": false,
+  "evidenceDirectory": "/private/tmp/noxia-studio-ux.Sxqjtp"
+}
